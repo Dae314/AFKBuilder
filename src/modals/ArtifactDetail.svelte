@@ -1,0 +1,129 @@
+<script>
+	import Artifacts from '../stores/Artifacts.js';
+
+	export let artifactID = "";
+	let artifact = $Artifacts[artifactID];
+</script>
+
+<div class="container">
+	<section class="headerSection">
+		<h3 class="name">{artifact.name}</h3>
+		<div class="imgContainer">
+			<img class="artifactImg" src={artifact.image} alt={artifact.name}>
+		</div>
+	</section>
+	<section class="attributes">
+		<div class="classContainer">
+			{#if artifact.class === 'Any'}
+				<span class="allCircle">All</span>
+			{:else}
+				<img class="classImg" src="./img/classes/{artifact.class.toLowerCase()}.png" alt={artifact.class}>
+			{/if}
+		</div>
+		<div class="attrContainer">
+			{#each artifact.attributes as attr}
+				<div class="attrBox">
+					<span>{attr}</span>
+				</div>
+			{/each}
+		</div>
+	</section>
+	<section class="descContainer">
+		{#each artifact.upgrades as upgrade}
+			<div class="descArea">
+				<h4>Unlocked at {upgrade.unlock}:</h4>
+				<div class="descText">{@html upgrade.desc}</div>
+			</div>
+		{/each}
+	</section>
+</div>
+
+<style>
+	.container {
+		height: 100%;
+		position: relative;
+		width: 100%;
+	}
+	.headerSection h3 {
+		background-color: var(--appColorPrimary);
+		color: white;
+		font-family: 'Roboto' sans-serif;
+		font-size: 2.0rem;
+		font-weight: bold;
+		letter-spacing: 1px;
+		margin: 0;
+		margin-bottom: 10px;
+		text-align: center;
+		text-transform: uppercase;
+		width: 100%;
+	}
+	.imgContainer {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+	}
+	.artifactImg {
+		border-radius: 50%;
+		max-width: 100px;
+	}
+	.attributes {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		padding: 10px;
+		width: 100%;
+	}
+	.classImg {
+		margin-right: 10px;
+		max-width: 50px;
+	}
+	.allCircle {
+		align-items: center;
+		border: 2px solid var(--appColorPrimary);
+		border-radius: 50%;
+		color: var(--appColorPrimary);
+		display: flex;
+		flex-grow: 0;
+		flex-shrink: 0;
+		font-weight: bold;
+		height: 50px;
+		justify-content: center;
+		margin-right: 10px;
+		width: 50px;
+	}
+	.attrContainer {
+		display: flex;
+		flex-direction: row;
+	}
+	.attrBox {
+		background-color: var(--appColorPrimary);
+		border: 2px solid var(--appColorPrimary);
+		border-radius: 10px;
+		color: white;
+		font-size: 1rem;
+		font-weight: bold;
+		margin: 5px;
+		padding: 10px;
+	}
+	.descContainer {
+		padding: 10px;
+		padding-bottom: 20px;
+		padding-top: 0px;
+	}
+	.descArea h4 {
+		font-size: 1rem;
+		margin: 0;
+		margin-bottom: 5px;
+		margin-top: 10px;
+	}
+	.descText {
+		margin-left: 20px;
+	}
+	.descText :global(em) {
+		color: var(--appColorPrimary);
+		font-style: normal;
+		font-weight: bold;
+	}
+</style>
