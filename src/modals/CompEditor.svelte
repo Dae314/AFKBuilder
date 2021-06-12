@@ -173,7 +173,7 @@
 				</div>
 				<div class="lineEditBody">
 					{#if openLine === null}
-						<span>Select a line to edit.</span>
+						<span class="noLine">Select a line to edit.</span>
 					{:else}
 						<input type="text" class="lineNameInput" bind:value={comp.lines[openLine].name} placeholder="Line Name">
 						<div class="lineDisplay">
@@ -399,6 +399,11 @@
 		flex-direction: column;
 		padding: 5px;
 		width: 100%;
+	}
+	.noLine {
+		-ms-user-select: none;
+		user-select: none;
+		-webkit-user-select: none;
 	}
 	.lineNameInput {
 		text-align: center;

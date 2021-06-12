@@ -458,9 +458,12 @@
 		font-size: 3rem;
 		font-weight: bold;
 		left: 0;
+		-ms-user-select: none;
 		position: absolute;
 		text-align: center;
+		-webkit-user-select: none;
 		width: 100%;
+		user-select: none;
 	}
 	.compCard {
 		background-color: var(--appBGColor);
@@ -1047,10 +1050,13 @@
 			border-radius: 6px;
 			color: white;
 			font-size: 0.8rem;
+			-ms-user-select: none;
 			padding: 4px;
 			position: absolute;
 			text-align: center;
+			user-select: none;
 			visibility: hidden;
+			-webkit-user-select: none;
 			z-index: 1;
 		}
 		.compScroller {

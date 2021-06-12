@@ -124,4 +124,9 @@
 		padding-top: 0px;
 		width: 100%;
 	}
+	.infoText {
+		-ms-user-select: none;
+		user-select: none;
+		-webkit-user-select: none;
+	}
 </style>

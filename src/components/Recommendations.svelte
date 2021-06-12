@@ -311,7 +311,10 @@
 		display: flex;
 		height: 100%;
 		justify-content: center;
+		-ms-user-select: none;
+		-webkit-user-select: none;
 		width: 100%;
+		user-select: none;
 	}
 	.noRec span {
 		color: rgba(100, 100, 100, 0.3);

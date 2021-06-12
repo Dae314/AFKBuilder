@@ -61,7 +61,10 @@
 	}
 	.num {
 		margin: 0;
+		-ms-user-select: none;
 		padding: 0;
+		user-select: none;
+		-webkit-user-select: none;
 	}
 	/* .si.lv-0 {
 		border-color: #9F6F50;

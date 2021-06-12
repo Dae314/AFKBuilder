@@ -24,7 +24,7 @@
 </script>
 
 <div class="ascendBox ascLv-{ascendLv}">
-	{getHeroAscendText(ascendLv)}
+	<span>{getHeroAscendText(ascendLv)}</span>
 </div>
 
 <style>
@@ -34,6 +34,11 @@
 		font-weight: bold;
 		padding: 5px 10px;
 		width: fit-content;
+	}
+	.ascendBox span {
+		-ms-user-select: none;
+		user-select: none;
+		-webkit-user-select: none;
 	}
 	.ascLv-0 {
 		background-color: var(--eliteColor);

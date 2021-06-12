@@ -417,9 +417,12 @@
 		font-size: 4rem;
 		font-weight: bold;
 		height: 100%;
+		-ms-user-select: none;
 		padding-top: 50px;
 		text-align: center;
+		-webkit-user-select: none;
 		width: 100%;
+		user-select: none;
 	}
 	.copyConfirm {
 		background-color: rgba(50, 50, 50, 0.7);
