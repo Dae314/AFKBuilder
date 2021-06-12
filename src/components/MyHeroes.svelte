@@ -203,6 +203,7 @@
 		open(ImportData, 
 		{ dataHandler: handleMyHeroesInput,
 			saveAppData: () => dispatch('saveData'),
+			title: 'Paste My Hero Data:',
 		},
 		{ closeButton: ModalCloseButton,
 			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},

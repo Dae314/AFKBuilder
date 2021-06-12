@@ -4,6 +4,7 @@
 	import AppData from '../stores/AppData.js';
 	export let dataHandler = () => {};
 	export let saveAppData = () => {};
+	export let title = "Paste Data:";
 
 	const { close } = getContext('simple-modal');
 
@@ -43,7 +44,7 @@
 		</TutorialBox>
 	{/if}
 	<div class="titleContainer">
-		<h3 class="title">Paste My Hero Data:</h3>
+		<h3 class="title">{title}</h3>
 	</div>
 	<textarea class="dataInput" bind:value={data}></textarea>
 	<div class="footer">

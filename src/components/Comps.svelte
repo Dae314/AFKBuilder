@@ -99,6 +99,7 @@
 		open(ImportData, 
 		{ dataHandler: handleCompImport,
 			saveAppData: () => dispatch('saveData'),
+			title: 'Paste Composition:',
 		},
 		{ closeButton: ModalCloseButton,
 			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
