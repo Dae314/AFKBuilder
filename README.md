@@ -21,14 +21,26 @@ To compile, you must have NodeJS >=14.16.1 installed.
 	1. `npm install`
 1. Start up a development environment using npm
 	1. `npm run dev`
+1. RECOMMENDED: track all branches
+	1. `git checkout gh-pages`
+	1. `git checkout dev`
 
 ## Deployment
 
 1. Enter the project directory
 	1. `cd /project/directory`
+1. Merge changes from the dev branch into main
+	1. `git checkout dev`
+	1. `git pull origin dev`
+	1. `git checkout main`
+	1. `git merge --no-ff dev`
+	1. Recommend performing local testing here.
+	1. `git push origin main`
 1. Run the deployment script
 	1. `npm run deploy`
 	1. App should be available at http://dae314.github.io/AFKBuilder/
+1. OPTIONAL: switch back to dev branch for continued development
+	1. `git checkout dev`
 
 ## Built With
 
