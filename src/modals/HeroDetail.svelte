@@ -180,9 +180,6 @@
 		transition: all 0.2s;
 		width: 100%;
 	}
-	.portrait:hover {
-		border: 3px solid var(--appColorPrimary);
-	}
 	.portrait:active {
 		transform: scale(0.9);
 	}
@@ -224,9 +221,6 @@
 		margin: 5px 10px;
 		max-width: 70px;
 		transition: all 0.2s;
-	}
-	.skillPicker img:hover {
-		border: 2px solid var(--appColorPrimary);
 	}
 	.skillPicker img:active {
 		transform: scale(0.9);
@@ -336,8 +330,14 @@
 		max-height: 1000px;
 	}
 	@media only screen and (min-width: 767px) {
+		.portrait:hover {
+			border: 3px solid var(--appColorPrimary);
+		}
 		.attrImg {
 			max-width: 70px;
+		}
+		.skillPicker img:hover {
+			border: 2px solid var(--appColorPrimary);
 		}
 	}
 </style>

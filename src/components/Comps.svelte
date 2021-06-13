@@ -565,13 +565,7 @@
 	.star.active, .star.active:before, .star.active:after {
 		border-bottom-color: #F7BC19;
 	}
-	.star:hover, .star:hover:before, .star:hover:after {
-		border-bottom-color: #E0920B;
-	}
 	.star:active, .star:active:before, .star:active:after {
-		border-bottom-color: #F7BC19;
-	}
-	.star.active:hover, .star.active:hover:before, .star.active:hover:after {
 		border-bottom-color: #F7BC19;
 	}
 	.compImgs {
@@ -613,18 +607,11 @@
 		flex-direction: column;
 		justify-content: center;
 	}
-	.newCompButton:hover {
-		background-color: var(--appColorPrimary);
-		color: white;
-	}
 	.plusIcon {
 		display: block;
 		font-size: 2.5rem;
 		font-weight: bold;
 		transition: transform 0.7s;
-	}
-	.newCompButton:hover .plusIcon {
-		transform: rotateZ(180deg);
 	}
 	.newCompText {
 		font-size: 1.1rem;
@@ -648,9 +635,6 @@
 		cursor: pointer;
 		font-size: 1.1rem;
 		width: 100%;
-	}
-	.newCompOptionButton:hover {
-		background-color: var(--appColorPriAccent);
 	}
 	.newCompOptionButton:first-child {
 		border-right: 3px solid var(--appColorPriAccent);
@@ -711,13 +695,6 @@
 	.left {
 		transform: rotate(135deg);
 	}
-	.closeDetailButton:hover {
-		background-color: var(--appColorPrimary);
-		color: white;
-	}
-	.closeDetailButton:hover .arrow {
-		border-color: white;
-	}
 	.titleContainer {
 		align-items: center;
 		display: flex;
@@ -761,9 +738,6 @@
 	.deleteButton {
 		background-color: var(--appDelColor);
 		border: 3px solid var(--appDelColor);
-	}
-	.editDelButton:hover {
-		box-shadow: 2px 2px 5px #aaa;
 	}
 	.editDelButton:active {
 		box-shadow: none;
@@ -1096,14 +1070,33 @@
 			margin-right: 8px;
 			max-width: 15px;
 		}
+		.editDelButton:hover {
+			box-shadow: 2px 2px 5px #aaa;
+		}
 		.deleteButton img {
 			max-width: 12px;
+		}
+		.star:hover, .star:hover:before, .star:hover:after {
+			border-bottom-color: #E0920B;
+		}
+		.star.active:hover, .star.active:hover:before, .star.active:hover:after {
+			border-bottom-color: #F7BC19;
 		}
 		.addButtonArea {
 			width: 21%;
 		}
 		.newCompButton {
 			border-right: 3px solid var(--appColorPrimary);
+		}
+		.newCompButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
+		}
+		.newCompButton:hover .plusIcon {
+			transform: rotateZ(180deg);
+		}
+		.newCompOptionButton:hover {
+			background-color: var(--appColorPriAccent);
 		}
 		.bodyArea1, .bodyArea2 {
 			display: flex;
@@ -1118,6 +1111,13 @@
 			user-select: none;
 			visibility: visible;
 			-webkit-user-select: none;
+		}
+		.closeDetailButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
+		}
+		.closeDetailButton:hover .arrow {
+			border-color: white;
 		}
 		.lastUpdate {
 			padding-bottom: 0px;

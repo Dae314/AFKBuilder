@@ -228,10 +228,6 @@
 		outline: none;
 		padding: 10px;
 	}
-	.clearButton:hover {
-		background-color: var(--appDelColor);
-		color: white;
-	}
 	.tutorialButton {
 		background-color: transparent;
 		border: 3px solid var(--appColorPrimary);
@@ -242,10 +238,6 @@
 		font-weight: bold;
 		outline: none;
 		padding: 10px;
-	}
-	.tutorialButton:hover {
-		background-color: var(--appColorPrimary);
-		color: white;
 	}
 	@media only screen and (min-width: 767px) {
 		.generalDesc {
@@ -269,6 +261,14 @@
 		}
 		.config {
 			justify-content: flex-start;
+		}
+		.clearButton:hover {
+			background-color: var(--appDelColor);
+			color: white;
+		}
+		.tutorialButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
 		}
 	}
 </style>

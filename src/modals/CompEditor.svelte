@@ -545,16 +545,8 @@
 		cursor: pointer;
 		font-size: 1.05rem;
 	}
-	.footerButton:hover {
-		background-color: var(--appColorPrimary);
-		color: white;
-	}
 	.saveButton {
 		margin-right: 10px;
-	}
-	.cancelButton:hover {
-		background-color: var(--appColorPriAccent);
-		color: white;
 	}
 	.subRemoveButton {
 		background-color: #aaa;
@@ -597,6 +589,14 @@
 			justify-content: space-evenly;
 			overflow: hidden;
 			padding: 0;
+		}
+		.footerButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
+		}
+		.cancelButton:hover {
+			background-color: var(--appColorPriAccent);
+			color: white;
 		}
 	}
 </style>

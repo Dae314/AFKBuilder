@@ -518,10 +518,6 @@
 		transition: all .3s;
 		width: 33px;
 	}
-	.filterMasterButton:hover {
-		background-color: var(--appColorPrimary);
-		color: rgba(255, 255, 255, 0.9);
-	}
 	.filterMasterButton:active {
 		background-color: var(--appColorPriDark);
 		border-color: var(--appColorPriDark);
@@ -530,10 +526,6 @@
 	.filterMasterDisabled {
 		border-color: #888;
 		color: #888;
-	}
-	.filterMasterDisabled:hover {
-		background-color: #888;
-		color: rgba(255, 255, 255, 0.9);
 	}
 	.filterMasterDisabled:active {
 		background-color: #666;
@@ -765,6 +757,14 @@
 			position: absolute;
 			text-align: center;
 			visibility: hidden;
+		}
+		.filterMasterButton:hover {
+			background-color: var(--appColorPrimary);
+			color: rgba(255, 255, 255, 0.9);
+		}
+		.filterMasterDisabled:hover {
+			background-color: #888;
+			color: rgba(255, 255, 255, 0.9);
 		}
 		.filtersButton:hover+.tooltip .tooltipText {
 			visibility: visible;

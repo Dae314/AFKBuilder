@@ -562,10 +562,6 @@
 		transition: all .3s;
 		width: 33px;
 	}
-	.filterMasterButton:hover {
-		background-color: var(--appColorPrimary);
-		color: rgba(255, 255, 255, 0.9);
-	}
 	.filterMasterButton:active {
 		background-color: var(--appColorPriDark);
 		border-color: var(--appColorPriDark);
@@ -574,10 +570,6 @@
 	.filterMasterDisabled {
 		border-color: #888;
 		color: #888;
-	}
-	.filterMasterDisabled:hover {
-		background-color: #888;
-		color: rgba(255, 255, 255, 0.9);
 	}
 	.filterMasterDisabled:active {
 		background-color: #666;
@@ -657,11 +649,6 @@
 		padding: 2px;
 		position: absolute;
 	}
-	.backButton:hover {
-		background-color: var(--appColorPrimary);
-		box-shadow: 2px 2px 5px #aaa;
-		color: white;
-	}
 	.backButton:active {
 		box-shadow: none;
 	}
@@ -675,9 +662,6 @@
 		padding: 2px;
 		position: absolute;
 		right: 5px;
-	}
-	.saveButton:hover {
-		box-shadow: 2px 2px 5px #aaa;
 	}
 	.saveButton:active {
 		box-shadow: none;
@@ -808,6 +792,22 @@
 		}
 		.heroFinderContainer {
 			width: 50%;
+		}
+		.filterMasterButton:hover {
+			background-color: var(--appColorPrimary);
+			color: rgba(255, 255, 255, 0.9);
+		}
+		.filterMasterDisabled:hover {
+			background-color: #888;
+			color: rgba(255, 255, 255, 0.9);
+		}
+		.backButton:hover {
+			background-color: var(--appColorPrimary);
+			box-shadow: 2px 2px 5px #aaa;
+			color: white;
+		}
+		.saveButton:hover {
+			box-shadow: 2px 2px 5px #aaa;
 		}
 	}
 </style>

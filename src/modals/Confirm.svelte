@@ -59,12 +59,14 @@
 		border: 3px solid var(--appDelColor);
 		color: var(--appDelColor);
 	}
-	.confirmButton:hover {
-		background-color: var(--appDelColor);
-		color: white;
-	}
-	.cancelButton:hover {
-		background-color: var(--appColorPriAccent);
-		color: white;
+	@media only screen and (min-width: 767px) {
+		.confirmButton:hover {
+			background-color: var(--appDelColor);
+			color: white;
+		}
+		.cancelButton:hover {
+			background-color: var(--appColorPriAccent);
+			color: white;
+		}
 	}
 </style>

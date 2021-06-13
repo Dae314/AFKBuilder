@@ -36,9 +36,6 @@
 		text-decoration: none;
 		transition: all .3s;
 	}
-	.flipButton:hover {
-		box-shadow: 1px 3px 5px #aaa;
-	}
 	.flipButton:active {
 		box-shadow: none;
 	}
@@ -50,6 +47,11 @@
 	.playAni {
 		animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
 		display: inline-block;
+	}
+	@media only screen and (min-width: 767px) {
+		.flipButton:hover {
+			box-shadow: 1px 3px 5px #aaa;
+		}
 	}
 	@keyframes MoveUpInitial {
 		to {

@@ -406,10 +406,6 @@
 		transition: all .3s;
 		width: 33px;
 	}
-	.filterMasterButton:hover {
-		background-color: var(--appColorPrimary);
-		color: rgba(255, 255, 255, 0.9);
-	}
 	.filterMasterButton:active {
 		background-color: var(--appColorPriDark);
 		border-color: var(--appColorPriDark);
@@ -418,10 +414,6 @@
 	.filterMasterDisabled {
 		border-color: #888;
 		color: #888;
-	}
-	.filterMasterDisabled:hover {
-		background-color: #888;
-		color: rgba(255, 255, 255, 0.9);
 	}
 	.filterMasterDisabled:active {
 		background-color: #666;
@@ -487,15 +479,9 @@
 	.sortHeader {
 		cursor: pointer;
 	}
-	.sortHeader:hover {
-		background-color: var(--appColorPriAccent);
-	}
 	.hiddenMobile {
 		display: none;
 		visibility: hidden;
-	}
-	.heroRow:hover {
-		background-color: var(--appColorQuaternary);
 	}
 	.heroRow td {
 		border-bottom: 1px solid #bbb;
@@ -612,6 +598,14 @@
 			margin: 0 auto;
 			margin-bottom: 10px;
 		}
+		.filterMasterButton:hover {
+			background-color: var(--appColorPrimary);
+			color: rgba(255, 255, 255, 0.9);
+		}
+		.filterMasterDisabled:hover {
+			background-color: #888;
+			color: rgba(255, 255, 255, 0.9);
+		}
 		.filterButton {
 			margin: 0 auto;
 			margin-bottom: 10px;
@@ -622,6 +616,12 @@
 		}
 		table {
 			width: 90%;
+		}
+		.sortHeader:hover {
+			background-color: var(--appColorPriAccent);
+		}
+		.heroRow:hover {
+			background-color: var(--appColorQuaternary);
 		}
 		.tooltip {
 			display: inline-block;

@@ -117,11 +117,13 @@
 		transition: transform 0.2s;
 		width: 100px;
 	}
-	.submitButton:hover {
-		background-color: var(--appColorPrimary);
-		color: white;
-	}
 	.submitButton:active {
 		transform: scale(0.9);
+	}
+	@media only screen and (min-width: 767px) {
+		.submitButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
+		}
 	}
 </style>
