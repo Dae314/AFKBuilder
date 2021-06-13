@@ -1,4 +1,3 @@
-import { isValidEntityCode } from 'markdown-it/lib/common/utils';
 import { get, writable } from 'svelte/store';
 import HeroData from './HeroData.js';
 import TestComps from './TestComps.js'
@@ -209,7 +208,7 @@ function buildMyHeroData(data) {
 
 	// make sure that data is an object (and nothing else)
 	// https://javascript.plainenglish.io/javascript-check-if-a-variable-is-an-object-and-nothing-else-not-an-array-a-set-etc-a3987ea08fd7
-	if(Object.prototype.toString.call(data) !== '[object Object]') return { retCode: 1, message: 'My Hero List data must be a plain Javascript object.'};
+	if(!isObject(data)) throw new Error('My Hero List data must be a plain Javascript object.');
 
 	// data must be an object at this point, so make sure it's consistent with the format we expect
 	for(let i = 0; i < herodata.length; i++) {
@@ -235,7 +234,7 @@ function buildMyHeroData(data) {
 	}
 
 	// everything should be good now, return the clean MH.List object
-	return {retCode: 0, message: data};
+	return data;
 }
 
 // utility function returns true iff data is an object (and nothing else)
@@ -302,7 +301,8 @@ if(window.localStorage.getItem('appData') !== null) {
 	appdata = JSON.parse(window.localStorage.getItem('appData'))
 	appdata.HL.SearchStr = '';
 	appdata.MH.SearchStr = '';
-	buildMyHeroData(appdata.MH.List); // rebuild MH.List - adds new heroes from HeroData
+	// rebuild MH.List - adds new heroes from HeroData
+	appdata.MH.List = buildMyHeroData(appdata.MH.List);
 	// JSON doesn't parse date objects correctly, so need to re-initialize them
 	for(let comp of appdata.Comps) {
 		comp.lastUpdate = new Date(comp.lastUpdate);
