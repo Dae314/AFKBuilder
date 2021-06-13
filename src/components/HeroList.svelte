@@ -4,9 +4,7 @@
 	import HeroData from '../stores/HeroData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
-	import FlipButton from '../shared/FlipButton.svelte';
 	import SIFurnBox from '../shared/SIFurnBox.svelte';
-	import TutorialBox from '../shared/TutorialBox.svelte';
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
@@ -184,11 +182,6 @@
 				throw new Error(`Invalid category given to handleFilterMasterButtonClick(): ${category}`);
 		}
 		displayList = sortDisplayList($AppData.HL.Sort, $AppData.HL.Order, makeDisplayList());
-		dispatch('saveData');
-	}
-
-	function handlePortraitClick(heroID) {
-		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed
 		dispatch('saveData');
 	}
 </script>

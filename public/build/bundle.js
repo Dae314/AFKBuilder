@@ -38143,11 +38143,11 @@ test2
 
     function get_each_context$3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[38] = list[i];
+    	child_ctx[37] = list[i];
     	return child_ctx;
     }
 
-    // (275:4) {#each displayList as hero}
+    // (268:4) {#each displayList as hero}
     function create_each_block$3(ctx) {
     	let tr;
     	let td0;
@@ -38156,7 +38156,7 @@ test2
     	let img0_alt_value;
     	let t0;
     	let p;
-    	let t1_value = /*hero*/ ctx[38].name + "";
+    	let t1_value = /*hero*/ ctx[37].name + "";
     	let t1;
     	let t2;
     	let td1;
@@ -38167,7 +38167,7 @@ test2
     	let t3;
     	let div0;
     	let span0;
-    	let t4_value = /*hero*/ ctx[38].faction + "";
+    	let t4_value = /*hero*/ ctx[37].faction + "";
     	let t4;
     	let t5;
     	let div4;
@@ -38177,7 +38177,7 @@ test2
     	let t6;
     	let div2;
     	let span1;
-    	let t7_value = /*hero*/ ctx[38].type + "";
+    	let t7_value = /*hero*/ ctx[37].type + "";
     	let t7;
     	let t8;
     	let img3;
@@ -38186,7 +38186,7 @@ test2
     	let t9;
     	let div3;
     	let span2;
-    	let t10_value = /*hero*/ ctx[38].class + "";
+    	let t10_value = /*hero*/ ctx[37].class + "";
     	let t10;
     	let t11;
     	let td2;
@@ -38202,7 +38202,7 @@ test2
     	sifurnbox0 = new SIFurnBox({
     			props: {
     				type: "si",
-    				num: /*hero*/ ctx[38].si_benchmark,
+    				num: /*hero*/ ctx[37].si_benchmark,
     				maxWidth: "58px"
     			},
     			$$inline: true
@@ -38211,14 +38211,14 @@ test2
     	sifurnbox1 = new SIFurnBox({
     			props: {
     				type: "furn",
-    				num: /*hero*/ ctx[38].furn_benchmark,
+    				num: /*hero*/ ctx[37].furn_benchmark,
     				maxWidth: "58px"
     			},
     			$$inline: true
     		});
 
     	function click_handler_20() {
-    		return /*click_handler_20*/ ctx[32](/*hero*/ ctx[38]);
+    		return /*click_handler_20*/ ctx[32](/*hero*/ ctx[37]);
     	}
 
     	const block = {
@@ -38258,50 +38258,50 @@ test2
     			create_component(sifurnbox1.$$.fragment);
     			t13 = space();
     			attr_dev(img0, "class", "portrait svelte-cnhw94");
-    			if (img0.src !== (img0_src_value = /*hero*/ ctx[38].portrait)) attr_dev(img0, "src", img0_src_value);
-    			attr_dev(img0, "alt", img0_alt_value = /*hero*/ ctx[38].name);
-    			toggle_class(img0, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[38].id].claimed);
-    			add_location(img0, file$4, 287, 6, 12688);
+    			if (img0.src !== (img0_src_value = /*hero*/ ctx[37].portrait)) attr_dev(img0, "src", img0_src_value);
+    			attr_dev(img0, "alt", img0_alt_value = /*hero*/ ctx[37].name);
+    			toggle_class(img0, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[37].id].claimed);
+    			add_location(img0, file$4, 280, 6, 12430);
     			attr_dev(p, "class", "heroName svelte-cnhw94");
-    			add_location(p, file$4, 288, 6, 12802);
+    			add_location(p, file$4, 281, 6, 12544);
     			attr_dev(td0, "class", "svelte-cnhw94");
-    			add_location(td0, file$4, 276, 5, 12057);
+    			add_location(td0, file$4, 269, 5, 11799);
     			attr_dev(img1, "class", "attrImage factionImg svelte-cnhw94");
-    			if (img1.src !== (img1_src_value = "./img/factions/" + /*hero*/ ctx[38].faction.toLowerCase() + ".png")) attr_dev(img1, "src", img1_src_value);
-    			attr_dev(img1, "alt", img1_alt_value = /*hero*/ ctx[38].faction);
-    			add_location(img1, file$4, 292, 7, 12919);
+    			if (img1.src !== (img1_src_value = "./img/factions/" + /*hero*/ ctx[37].faction.toLowerCase() + ".png")) attr_dev(img1, "src", img1_src_value);
+    			attr_dev(img1, "alt", img1_alt_value = /*hero*/ ctx[37].faction);
+    			add_location(img1, file$4, 285, 7, 12661);
     			attr_dev(span0, "class", "tooltipText svelte-cnhw94");
-    			add_location(span0, file$4, 293, 40, 13070);
+    			add_location(span0, file$4, 286, 40, 12812);
     			attr_dev(div0, "class", "tooltip tooltip-top svelte-cnhw94");
-    			add_location(div0, file$4, 293, 7, 13037);
+    			add_location(div0, file$4, 286, 7, 12779);
     			attr_dev(div1, "class", "factionArea svelte-cnhw94");
-    			add_location(div1, file$4, 291, 6, 12885);
+    			add_location(div1, file$4, 284, 6, 12627);
     			attr_dev(img2, "class", "attrImage svelte-cnhw94");
-    			if (img2.src !== (img2_src_value = "./img/types/" + /*hero*/ ctx[38].type.toLowerCase() + ".png")) attr_dev(img2, "src", img2_src_value);
-    			attr_dev(img2, "alt", img2_alt_value = /*hero*/ ctx[38].type);
-    			add_location(img2, file$4, 296, 7, 13181);
+    			if (img2.src !== (img2_src_value = "./img/types/" + /*hero*/ ctx[37].type.toLowerCase() + ".png")) attr_dev(img2, "src", img2_src_value);
+    			attr_dev(img2, "alt", img2_alt_value = /*hero*/ ctx[37].type);
+    			add_location(img2, file$4, 289, 7, 12923);
     			attr_dev(span1, "class", "tooltipText svelte-cnhw94");
-    			add_location(span1, file$4, 297, 40, 13310);
+    			add_location(span1, file$4, 290, 40, 13052);
     			attr_dev(div2, "class", "tooltip tooltip-bot svelte-cnhw94");
-    			add_location(div2, file$4, 297, 7, 13277);
+    			add_location(div2, file$4, 290, 7, 13019);
     			attr_dev(img3, "class", "attrImage svelte-cnhw94");
-    			if (img3.src !== (img3_src_value = "./img/classes/" + /*hero*/ ctx[38].class.toLowerCase() + ".png")) attr_dev(img3, "src", img3_src_value);
-    			attr_dev(img3, "alt", img3_alt_value = /*hero*/ ctx[38].class);
-    			add_location(img3, file$4, 298, 7, 13369);
+    			if (img3.src !== (img3_src_value = "./img/classes/" + /*hero*/ ctx[37].class.toLowerCase() + ".png")) attr_dev(img3, "src", img3_src_value);
+    			attr_dev(img3, "alt", img3_alt_value = /*hero*/ ctx[37].class);
+    			add_location(img3, file$4, 291, 7, 13111);
     			attr_dev(span2, "class", "tooltipText svelte-cnhw94");
-    			add_location(span2, file$4, 299, 40, 13502);
+    			add_location(span2, file$4, 292, 40, 13244);
     			attr_dev(div3, "class", "tooltip tooltip-bot svelte-cnhw94");
-    			add_location(div3, file$4, 299, 7, 13469);
+    			add_location(div3, file$4, 292, 7, 13211);
     			attr_dev(div4, "class", "typeClassArea svelte-cnhw94");
-    			add_location(div4, file$4, 295, 6, 13145);
+    			add_location(div4, file$4, 288, 6, 12887);
     			attr_dev(td1, "class", "attrArea svelte-cnhw94");
-    			add_location(td1, file$4, 290, 5, 12856);
+    			add_location(td1, file$4, 283, 5, 12598);
     			attr_dev(td2, "class", "svelte-cnhw94");
-    			add_location(td2, file$4, 302, 5, 13586);
+    			add_location(td2, file$4, 295, 5, 13328);
     			attr_dev(td3, "class", "svelte-cnhw94");
-    			add_location(td3, file$4, 305, 5, 13680);
+    			add_location(td3, file$4, 298, 5, 13422);
     			attr_dev(tr, "class", "heroRow svelte-cnhw94");
-    			add_location(tr, file$4, 275, 4, 11988);
+    			add_location(tr, file$4, 268, 4, 11730);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -38348,54 +38348,54 @@ test2
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (!current || dirty[0] & /*displayList*/ 2 && img0.src !== (img0_src_value = /*hero*/ ctx[38].portrait)) {
+    			if (!current || dirty[0] & /*displayList*/ 2 && img0.src !== (img0_src_value = /*hero*/ ctx[37].portrait)) {
     				attr_dev(img0, "src", img0_src_value);
     			}
 
-    			if (!current || dirty[0] & /*displayList*/ 2 && img0_alt_value !== (img0_alt_value = /*hero*/ ctx[38].name)) {
+    			if (!current || dirty[0] & /*displayList*/ 2 && img0_alt_value !== (img0_alt_value = /*hero*/ ctx[37].name)) {
     				attr_dev(img0, "alt", img0_alt_value);
     			}
 
     			if (dirty[0] & /*$AppData, displayList*/ 3) {
-    				toggle_class(img0, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[38].id].claimed);
+    				toggle_class(img0, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[37].id].claimed);
     			}
 
-    			if ((!current || dirty[0] & /*displayList*/ 2) && t1_value !== (t1_value = /*hero*/ ctx[38].name + "")) set_data_dev(t1, t1_value);
+    			if ((!current || dirty[0] & /*displayList*/ 2) && t1_value !== (t1_value = /*hero*/ ctx[37].name + "")) set_data_dev(t1, t1_value);
 
-    			if (!current || dirty[0] & /*displayList*/ 2 && img1.src !== (img1_src_value = "./img/factions/" + /*hero*/ ctx[38].faction.toLowerCase() + ".png")) {
+    			if (!current || dirty[0] & /*displayList*/ 2 && img1.src !== (img1_src_value = "./img/factions/" + /*hero*/ ctx[37].faction.toLowerCase() + ".png")) {
     				attr_dev(img1, "src", img1_src_value);
     			}
 
-    			if (!current || dirty[0] & /*displayList*/ 2 && img1_alt_value !== (img1_alt_value = /*hero*/ ctx[38].faction)) {
+    			if (!current || dirty[0] & /*displayList*/ 2 && img1_alt_value !== (img1_alt_value = /*hero*/ ctx[37].faction)) {
     				attr_dev(img1, "alt", img1_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*displayList*/ 2) && t4_value !== (t4_value = /*hero*/ ctx[38].faction + "")) set_data_dev(t4, t4_value);
+    			if ((!current || dirty[0] & /*displayList*/ 2) && t4_value !== (t4_value = /*hero*/ ctx[37].faction + "")) set_data_dev(t4, t4_value);
 
-    			if (!current || dirty[0] & /*displayList*/ 2 && img2.src !== (img2_src_value = "./img/types/" + /*hero*/ ctx[38].type.toLowerCase() + ".png")) {
+    			if (!current || dirty[0] & /*displayList*/ 2 && img2.src !== (img2_src_value = "./img/types/" + /*hero*/ ctx[37].type.toLowerCase() + ".png")) {
     				attr_dev(img2, "src", img2_src_value);
     			}
 
-    			if (!current || dirty[0] & /*displayList*/ 2 && img2_alt_value !== (img2_alt_value = /*hero*/ ctx[38].type)) {
+    			if (!current || dirty[0] & /*displayList*/ 2 && img2_alt_value !== (img2_alt_value = /*hero*/ ctx[37].type)) {
     				attr_dev(img2, "alt", img2_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*displayList*/ 2) && t7_value !== (t7_value = /*hero*/ ctx[38].type + "")) set_data_dev(t7, t7_value);
+    			if ((!current || dirty[0] & /*displayList*/ 2) && t7_value !== (t7_value = /*hero*/ ctx[37].type + "")) set_data_dev(t7, t7_value);
 
-    			if (!current || dirty[0] & /*displayList*/ 2 && img3.src !== (img3_src_value = "./img/classes/" + /*hero*/ ctx[38].class.toLowerCase() + ".png")) {
+    			if (!current || dirty[0] & /*displayList*/ 2 && img3.src !== (img3_src_value = "./img/classes/" + /*hero*/ ctx[37].class.toLowerCase() + ".png")) {
     				attr_dev(img3, "src", img3_src_value);
     			}
 
-    			if (!current || dirty[0] & /*displayList*/ 2 && img3_alt_value !== (img3_alt_value = /*hero*/ ctx[38].class)) {
+    			if (!current || dirty[0] & /*displayList*/ 2 && img3_alt_value !== (img3_alt_value = /*hero*/ ctx[37].class)) {
     				attr_dev(img3, "alt", img3_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*displayList*/ 2) && t10_value !== (t10_value = /*hero*/ ctx[38].class + "")) set_data_dev(t10, t10_value);
+    			if ((!current || dirty[0] & /*displayList*/ 2) && t10_value !== (t10_value = /*hero*/ ctx[37].class + "")) set_data_dev(t10, t10_value);
     			const sifurnbox0_changes = {};
-    			if (dirty[0] & /*displayList*/ 2) sifurnbox0_changes.num = /*hero*/ ctx[38].si_benchmark;
+    			if (dirty[0] & /*displayList*/ 2) sifurnbox0_changes.num = /*hero*/ ctx[37].si_benchmark;
     			sifurnbox0.$set(sifurnbox0_changes);
     			const sifurnbox1_changes = {};
-    			if (dirty[0] & /*displayList*/ 2) sifurnbox1_changes.num = /*hero*/ ctx[38].furn_benchmark;
+    			if (dirty[0] & /*displayList*/ 2) sifurnbox1_changes.num = /*hero*/ ctx[37].furn_benchmark;
     			sifurnbox1.$set(sifurnbox1_changes);
     		},
     		i: function intro(local) {
@@ -38422,7 +38422,7 @@ test2
     		block,
     		id: create_each_block$3.name,
     		type: "each",
-    		source: "(275:4) {#each displayList as hero}",
+    		source: "(268:4) {#each displayList as hero}",
     		ctx
     	});
 
@@ -38674,156 +38674,156 @@ test2
     			attr_dev(input, "type", "search");
     			attr_dev(input, "placeholder", "Search");
     			attr_dev(input, "class", "svelte-cnhw94");
-    			add_location(input, file$4, 200, 5, 7146);
+    			add_location(input, file$4, 193, 5, 6888);
     			attr_dev(div0, "class", "search svelte-cnhw94");
-    			add_location(div0, file$4, 199, 4, 7119);
+    			add_location(div0, file$4, 192, 4, 6861);
     			attr_dev(div1, "class", "searchContainer svelte-cnhw94");
-    			add_location(div1, file$4, 198, 3, 7084);
+    			add_location(div1, file$4, 191, 3, 6826);
 
     			attr_dev(button0, "class", button0_class_value = "filterMasterButton " + (/*allFactionsEnabled*/ ctx[3]
     			? ""
     			: "filterMasterDisabled") + " svelte-cnhw94");
 
-    			add_location(button0, file$4, 205, 5, 7361);
+    			add_location(button0, file$4, 198, 5, 7103);
     			attr_dev(img0, "class", img0_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowLB ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img0.src !== (img0_src_value = "./img/factions/lightbearer.png")) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", "Lightbearer");
-    			add_location(img0, file$4, 207, 6, 7604);
+    			add_location(img0, file$4, 200, 6, 7346);
     			attr_dev(button1, "class", "filterButton svelte-cnhw94");
-    			add_location(button1, file$4, 206, 5, 7526);
+    			add_location(button1, file$4, 199, 5, 7268);
     			attr_dev(img1, "class", img1_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowM ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img1.src !== (img1_src_value = "./img/factions/mauler.png")) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", "Mauler");
-    			add_location(img1, file$4, 210, 6, 7827);
+    			add_location(img1, file$4, 203, 6, 7569);
     			attr_dev(button2, "class", "filterButton svelte-cnhw94");
-    			add_location(button2, file$4, 209, 5, 7750);
+    			add_location(button2, file$4, 202, 5, 7492);
     			attr_dev(img2, "class", img2_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowW ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img2.src !== (img2_src_value = "./img/factions/wilder.png")) attr_dev(img2, "src", img2_src_value);
     			attr_dev(img2, "alt", "wilder");
-    			add_location(img2, file$4, 213, 6, 8039);
+    			add_location(img2, file$4, 206, 6, 7781);
     			attr_dev(button3, "class", "filterButton svelte-cnhw94");
-    			add_location(button3, file$4, 212, 5, 7962);
+    			add_location(button3, file$4, 205, 5, 7704);
     			attr_dev(img3, "class", img3_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowGB ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img3.src !== (img3_src_value = "./img/factions/graveborn.png")) attr_dev(img3, "src", img3_src_value);
     			attr_dev(img3, "alt", "Graveborn");
-    			add_location(img3, file$4, 216, 6, 8252);
+    			add_location(img3, file$4, 209, 6, 7994);
     			attr_dev(button4, "class", "filterButton svelte-cnhw94");
-    			add_location(button4, file$4, 215, 5, 8174);
+    			add_location(button4, file$4, 208, 5, 7916);
     			attr_dev(img4, "class", img4_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowC ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img4.src !== (img4_src_value = "./img/factions/celestial.png")) attr_dev(img4, "src", img4_src_value);
     			attr_dev(img4, "alt", "Celestial");
-    			add_location(img4, file$4, 219, 6, 8471);
+    			add_location(img4, file$4, 212, 6, 8213);
     			attr_dev(button5, "class", "filterButton svelte-cnhw94");
-    			add_location(button5, file$4, 218, 5, 8394);
+    			add_location(button5, file$4, 211, 5, 8136);
     			attr_dev(img5, "class", img5_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowH ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img5.src !== (img5_src_value = "./img/factions/hypogean.png")) attr_dev(img5, "src", img5_src_value);
     			attr_dev(img5, "alt", "Hypogean");
-    			add_location(img5, file$4, 222, 6, 8689);
+    			add_location(img5, file$4, 215, 6, 8431);
     			attr_dev(button6, "class", "filterButton svelte-cnhw94");
-    			add_location(button6, file$4, 221, 5, 8612);
+    			add_location(button6, file$4, 214, 5, 8354);
     			attr_dev(img6, "class", img6_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowD ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img6.src !== (img6_src_value = "./img/factions/dimensional.png")) attr_dev(img6, "src", img6_src_value);
     			attr_dev(img6, "alt", "Dimensional");
-    			add_location(img6, file$4, 225, 6, 8905);
+    			add_location(img6, file$4, 218, 6, 8647);
     			attr_dev(button7, "class", "filterButton svelte-cnhw94");
-    			add_location(button7, file$4, 224, 5, 8828);
+    			add_location(button7, file$4, 217, 5, 8570);
     			attr_dev(div2, "class", "filterSection svelte-cnhw94");
-    			add_location(div2, file$4, 204, 4, 7327);
+    			add_location(div2, file$4, 197, 4, 7069);
     			attr_dev(button8, "class", button8_class_value = "filterMasterButton " + (/*allTypesEnabled*/ ctx[4] ? "" : "filterMasterDisabled") + " svelte-cnhw94");
-    			add_location(button8, file$4, 229, 5, 9095);
+    			add_location(button8, file$4, 222, 5, 8837);
     			attr_dev(img7, "class", img7_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowInt ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img7.src !== (img7_src_value = "./img/types/intelligence.png")) attr_dev(img7, "src", img7_src_value);
     			attr_dev(img7, "alt", "Intelligence");
-    			add_location(img7, file$4, 231, 6, 9333);
+    			add_location(img7, file$4, 224, 6, 9075);
     			attr_dev(button9, "class", "filterButton svelte-cnhw94");
-    			add_location(button9, file$4, 230, 5, 9254);
+    			add_location(button9, file$4, 223, 5, 8996);
     			attr_dev(img8, "class", img8_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowAgi ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img8.src !== (img8_src_value = "./img/types/agility.png")) attr_dev(img8, "src", img8_src_value);
     			attr_dev(img8, "alt", "Agility");
-    			add_location(img8, file$4, 234, 6, 9558);
+    			add_location(img8, file$4, 227, 6, 9300);
     			attr_dev(button10, "class", "filterButton svelte-cnhw94");
-    			add_location(button10, file$4, 233, 5, 9479);
+    			add_location(button10, file$4, 226, 5, 9221);
     			attr_dev(img9, "class", img9_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowStr ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img9.src !== (img9_src_value = "./img/types/strength.png")) attr_dev(img9, "src", img9_src_value);
     			attr_dev(img9, "alt", "Strength");
-    			add_location(img9, file$4, 237, 6, 9773);
+    			add_location(img9, file$4, 230, 6, 9515);
     			attr_dev(button11, "class", "filterButton svelte-cnhw94");
-    			add_location(button11, file$4, 236, 5, 9694);
+    			add_location(button11, file$4, 229, 5, 9436);
     			attr_dev(div3, "class", "filterSection svelte-cnhw94");
-    			add_location(div3, file$4, 228, 4, 9061);
+    			add_location(div3, file$4, 221, 4, 8803);
     			attr_dev(button12, "class", button12_class_value = "filterMasterButton " + (/*allClassEnabled*/ ctx[5] ? "" : "filterMasterDisabled") + " svelte-cnhw94");
-    			add_location(button12, file$4, 241, 5, 9956);
+    			add_location(button12, file$4, 234, 5, 9698);
     			attr_dev(img10, "class", img10_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowMage ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img10.src !== (img10_src_value = "./img/classes/mage.png")) attr_dev(img10, "src", img10_src_value);
     			attr_dev(img10, "alt", "Mage");
-    			add_location(img10, file$4, 243, 6, 10196);
+    			add_location(img10, file$4, 236, 6, 9938);
     			attr_dev(button13, "class", "filterButton svelte-cnhw94");
-    			add_location(button13, file$4, 242, 5, 10116);
+    			add_location(button13, file$4, 235, 5, 9858);
     			attr_dev(img11, "class", img11_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowWar ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img11.src !== (img11_src_value = "./img/classes/warrior.png")) attr_dev(img11, "src", img11_src_value);
     			attr_dev(img11, "alt", "Warrior");
-    			add_location(img11, file$4, 246, 6, 10408);
+    			add_location(img11, file$4, 239, 6, 10150);
     			attr_dev(button14, "class", "filterButton svelte-cnhw94");
-    			add_location(button14, file$4, 245, 5, 10329);
+    			add_location(button14, file$4, 238, 5, 10071);
     			attr_dev(img12, "class", img12_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowTank ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img12.src !== (img12_src_value = "./img/classes/tank.png")) attr_dev(img12, "src", img12_src_value);
     			attr_dev(img12, "alt", "Tank");
-    			add_location(img12, file$4, 249, 6, 10626);
+    			add_location(img12, file$4, 242, 6, 10368);
     			attr_dev(button15, "class", "filterButton svelte-cnhw94");
-    			add_location(button15, file$4, 248, 5, 10546);
+    			add_location(button15, file$4, 241, 5, 10288);
     			attr_dev(img13, "class", img13_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowSup ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img13.src !== (img13_src_value = "./img/classes/support.png")) attr_dev(img13, "src", img13_src_value);
     			attr_dev(img13, "alt", "Support");
-    			add_location(img13, file$4, 252, 6, 10838);
+    			add_location(img13, file$4, 245, 6, 10580);
     			attr_dev(button16, "class", "filterButton svelte-cnhw94");
-    			add_location(button16, file$4, 251, 5, 10759);
+    			add_location(button16, file$4, 244, 5, 10501);
     			attr_dev(img14, "class", img14_class_value = "filterImg " + (/*$AppData*/ ctx[0].HL.ShowRan ? "" : "filterInactive") + " svelte-cnhw94");
     			if (img14.src !== (img14_src_value = "./img/classes/ranger.png")) attr_dev(img14, "src", img14_src_value);
     			attr_dev(img14, "alt", "Ranger");
-    			add_location(img14, file$4, 255, 6, 11055);
+    			add_location(img14, file$4, 248, 6, 10797);
     			attr_dev(button17, "class", "filterButton svelte-cnhw94");
-    			add_location(button17, file$4, 254, 5, 10976);
+    			add_location(button17, file$4, 247, 5, 10718);
     			attr_dev(div4, "class", "filterSection svelte-cnhw94");
-    			add_location(div4, file$4, 240, 4, 9922);
+    			add_location(div4, file$4, 233, 4, 9664);
     			attr_dev(div5, "class", "filters svelte-cnhw94");
-    			add_location(div5, file$4, 203, 3, 7300);
+    			add_location(div5, file$4, 196, 3, 7042);
     			attr_dev(div6, "class", div6_class_value = "mobileExpander " + (/*openFilters*/ ctx[2] ? "filterOpen" : "") + " svelte-cnhw94");
-    			add_location(div6, file$4, 197, 2, 7017);
+    			add_location(div6, file$4, 190, 2, 6759);
     			attr_dev(i, "class", i_class_value = "arrow " + (/*openFilters*/ ctx[2] ? "open" : "right") + " svelte-cnhw94");
-    			add_location(i, file$4, 261, 77, 11333);
+    			add_location(i, file$4, 254, 77, 11075);
     			attr_dev(span0, "class", "svelte-cnhw94");
-    			add_location(span0, file$4, 261, 132, 11388);
+    			add_location(span0, file$4, 254, 132, 11130);
     			attr_dev(button18, "class", "filtersButton svelte-cnhw94");
-    			add_location(button18, file$4, 261, 3, 11259);
+    			add_location(button18, file$4, 254, 3, 11001);
     			attr_dev(span1, "class", "tooltipText svelte-cnhw94");
-    			add_location(span1, file$4, 262, 41, 11471);
+    			add_location(span1, file$4, 255, 41, 11213);
     			attr_dev(div7, "class", "tooltip tooltip-expander svelte-cnhw94");
-    			add_location(div7, file$4, 262, 3, 11433);
+    			add_location(div7, file$4, 255, 3, 11175);
     			attr_dev(div8, "class", "mobileExpanderTitle svelte-cnhw94");
-    			add_location(div8, file$4, 260, 2, 11221);
+    			add_location(div8, file$4, 253, 2, 10963);
     			attr_dev(section0, "class", "sect1 svelte-cnhw94");
-    			add_location(section0, file$4, 196, 1, 6990);
+    			add_location(section0, file$4, 189, 1, 6732);
     			attr_dev(th0, "class", "sortHeader svelte-cnhw94");
-    			add_location(th0, file$4, 269, 5, 11645);
+    			add_location(th0, file$4, 262, 5, 11387);
     			attr_dev(th1, "class", "nonSortHeader svelte-cnhw94");
-    			add_location(th1, file$4, 270, 5, 11727);
+    			add_location(th1, file$4, 263, 5, 11469);
     			attr_dev(span2, "class", "hiddenMobile svelte-cnhw94");
-    			add_location(span2, file$4, 271, 34, 11804);
+    			add_location(span2, file$4, 264, 34, 11546);
     			attr_dev(th2, "class", "nonSortHeader svelte-cnhw94");
-    			add_location(th2, file$4, 271, 5, 11775);
+    			add_location(th2, file$4, 264, 5, 11517);
     			attr_dev(span3, "class", "hiddenMobile svelte-cnhw94");
-    			add_location(span3, file$4, 272, 36, 11890);
+    			add_location(span3, file$4, 265, 36, 11632);
     			attr_dev(th3, "class", "nonSortHeader svelte-cnhw94");
-    			add_location(th3, file$4, 272, 5, 11859);
-    			add_location(tr, file$4, 268, 4, 11634);
+    			add_location(th3, file$4, 265, 5, 11601);
+    			add_location(tr, file$4, 261, 4, 11376);
     			attr_dev(table, "class", "heroTable svelte-cnhw94");
-    			add_location(table, file$4, 267, 3, 11603);
+    			add_location(table, file$4, 260, 3, 11345);
     			attr_dev(div9, "class", "tableContainer svelte-cnhw94");
-    			add_location(div9, file$4, 266, 2, 11570);
+    			add_location(div9, file$4, 259, 2, 11312);
     			attr_dev(section1, "class", "sect2 svelte-cnhw94");
-    			add_location(section1, file$4, 265, 1, 11543);
+    			add_location(section1, file$4, 258, 1, 11285);
     			attr_dev(div10, "class", "HLContainer svelte-cnhw94");
-    			add_location(div10, file$4, 195, 0, 6962);
+    			add_location(div10, file$4, 188, 0, 6704);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$2("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -39303,11 +39303,6 @@ test2
     		dispatch("saveData");
     	}
 
-    	function handlePortraitClick(heroID) {
-    		set_store_value(AppData$1, $AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed, $AppData);
-    		dispatch("saveData");
-    	}
-
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -39349,9 +39344,7 @@ test2
     		HeroData,
     		ModalCloseButton,
     		HeroDetail,
-    		FlipButton,
     		SIFurnBox,
-    		TutorialBox,
     		open,
     		dispatch,
     		displayList,
@@ -39364,7 +39357,6 @@ test2
     		handleHeroClick,
     		handleHeaderClick,
     		handleFilterMasterButtonClick,
-    		handlePortraitClick,
     		allFactionsEnabled,
     		$AppData,
     		allTypesEnabled,
