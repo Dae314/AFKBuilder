@@ -25,6 +25,7 @@
 	let openLine = null;
 	let statusMessage = '';
 	let showStatusMessage = false;
+	let statusError = false;
 	let heroFinderOpen = false;
 	let hfConfig = {};
 
@@ -95,10 +96,12 @@
 			// validation error occurred
 			statusMessage = `Validation error: ${returnObj.message}`;
 			showStatusMessage = true;
+			statusError = true;
 			setTimeout(() => {
 				statusMessage = '';
 				showStatusMessage = false;
-			}, 10000);
+				statusError = false;
+			}, 8000);
 		} else {
 			// message should contain a clean comp data object now
 			comp = returnObj.message;
@@ -173,7 +176,7 @@
 				</div>
 				<div class="lineEditBody">
 					{#if openLine === null}
-						<span>Select a line to edit.</span>
+						<span class="noLine">Select a line to edit.</span>
 					{:else}
 						<input type="text" class="lineNameInput" bind:value={comp.lines[openLine].name} placeholder="Line Name">
 						<div class="lineDisplay">
@@ -273,7 +276,7 @@
 		{/if}
 	</section>
 	<section class="sect3">
-		<div class="statusMessage" class:visible={showStatusMessage}>{statusMessage}</div>
+		<div class="statusMessage" class:visible={showStatusMessage} class:error={statusError}>{statusMessage}</div>
 	</section>
 </div>
 
@@ -316,6 +319,9 @@
 		display: block;
 		opacity: 1;
 		visibility: visible;
+	}
+	.statusMessage.error {
+		background-color: var(--appDelColorOpaque)
 	}
 	h4 {
 		margin: 0;
@@ -399,6 +405,11 @@
 		flex-direction: column;
 		padding: 5px;
 		width: 100%;
+	}
+	.noLine {
+		-ms-user-select: none;
+		user-select: none;
+		-webkit-user-select: none;
 	}
 	.lineNameInput {
 		text-align: center;

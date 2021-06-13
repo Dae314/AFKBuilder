@@ -311,7 +311,10 @@
 		display: flex;
 		height: 100%;
 		justify-content: center;
+		-ms-user-select: none;
+		-webkit-user-select: none;
 		width: 100%;
+		user-select: none;
 	}
 	.noRec span {
 		color: rgba(100, 100, 100, 0.3);
@@ -400,8 +403,11 @@
 	.compArea h5 {
 		font-size: 1rem;
 		margin: 0;
+		-ms-user-select: none;
 		text-align: center;
+		-webkit-user-select: none;
 		width: 100%;
+		user-select: none;
 	}
 	.compArea ul {
 		align-items: center;

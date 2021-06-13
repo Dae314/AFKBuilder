@@ -379,7 +379,7 @@
 		{:else if section === 2}
 			<div class="section2">
 				<div class="heroEditHead">
-					<button class="backButton" on:click={() => section = 1}><span>&lt; Back</span></button>
+					<button class="backButton" on:click={() => section = 1}><span>&lt; Heroes</span></button>
 					<div class="heroName">{$HeroData.find(e => e.id === selectedHero.id).name}</div>
 					<button class="saveButton" on:click={() => saveHero()}><span>Save</span></button>
 				</div>

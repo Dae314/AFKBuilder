@@ -503,7 +503,6 @@
 	}
 	.portrait {
 		border-radius: 50%;
-		cursor: pointer;
 		max-width: 70px;
 		transition: transform 0.2s;
 	}

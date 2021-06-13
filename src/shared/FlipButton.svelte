@@ -42,6 +42,11 @@
 	.flipButton:active {
 		box-shadow: none;
 	}
+	.flipButton span {
+		-ms-user-select: none;
+		user-select: none;
+		-webkit-user-select: none;
+	}
 	.playAni {
 		animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
 		display: inline-block;

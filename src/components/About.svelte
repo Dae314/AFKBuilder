@@ -1,7 +1,6 @@
 <script>
 	import { getContext, createEventDispatcher } from 'svelte';
 	import Confirm from '../modals/Confirm.svelte';
-import AppData from '../stores/AppData';
 
 	export let version = '';
 
