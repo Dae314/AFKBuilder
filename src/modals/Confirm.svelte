@@ -47,7 +47,7 @@
 	.optionButton {
 		background: transparent;
 		border: 3px solid var(--appColorPrimary);
-		border-radius: 5px;
+		border-radius: 10px;
 		color: var(--appColorPrimary);
 		font-size: 1rem;
 	}
@@ -64,7 +64,7 @@
 		color: white;
 	}
 	.cancelButton:hover {
-		background-color: var(--appColorPrimary);
+		background-color: var(--appColorPriAccent);
 		color: white;
 	}
 </style>
