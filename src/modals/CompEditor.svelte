@@ -25,6 +25,7 @@
 	let openLine = null;
 	let statusMessage = '';
 	let showStatusMessage = false;
+	let statusError = false;
 	let heroFinderOpen = false;
 	let hfConfig = {};
 
@@ -95,10 +96,12 @@
 			// validation error occurred
 			statusMessage = `Validation error: ${returnObj.message}`;
 			showStatusMessage = true;
+			statusError = true;
 			setTimeout(() => {
 				statusMessage = '';
 				showStatusMessage = false;
-			}, 10000);
+				statusError = false;
+			}, 8000);
 		} else {
 			// message should contain a clean comp data object now
 			comp = returnObj.message;
@@ -273,7 +276,7 @@
 		{/if}
 	</section>
 	<section class="sect3">
-		<div class="statusMessage" class:visible={showStatusMessage}>{statusMessage}</div>
+		<div class="statusMessage" class:visible={showStatusMessage} class:error={statusError}>{statusMessage}</div>
 	</section>
 </div>
 
@@ -316,6 +319,9 @@
 		display: block;
 		opacity: 1;
 		visibility: visible;
+	}
+	.statusMessage.error {
+		background-color: var(--appDelColorOpaque)
 	}
 	h4 {
 		margin: 0;
