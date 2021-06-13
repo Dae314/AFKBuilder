@@ -43368,24 +43368,24 @@ test2
     			span1 = element("span");
     			t5 = text$1(t5_value);
     			t6 = space();
-    			attr_dev(img, "class", "avatar svelte-sky15x");
+    			attr_dev(img, "class", "avatar svelte-8uxwer");
     			if (img.src !== (img_src_value = /*person*/ ctx[7].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*person*/ ctx[7].name);
-    			add_location(img, file$1, 97, 6, 4092);
-    			add_location(span0, file$1, 98, 24, 4179);
-    			attr_dev(div0, "class", "name svelte-sky15x");
-    			add_location(div0, file$1, 98, 6, 4161);
-    			attr_dev(div1, "class", "left svelte-sky15x");
-    			add_location(div1, file$1, 96, 5, 4066);
-    			attr_dev(h3, "class", "svelte-sky15x");
-    			add_location(h3, file$1, 101, 6, 4258);
-    			add_location(span1, file$1, 102, 27, 4310);
+    			add_location(img, file$1, 97, 6, 4097);
+    			add_location(span0, file$1, 98, 24, 4184);
+    			attr_dev(div0, "class", "name svelte-8uxwer");
+    			add_location(div0, file$1, 98, 6, 4166);
+    			attr_dev(div1, "class", "left svelte-8uxwer");
+    			add_location(div1, file$1, 96, 5, 4071);
+    			attr_dev(h3, "class", "svelte-8uxwer");
+    			add_location(h3, file$1, 101, 6, 4263);
+    			add_location(span1, file$1, 102, 27, 4315);
     			attr_dev(div2, "class", "message");
-    			add_location(div2, file$1, 102, 6, 4289);
-    			attr_dev(div3, "class", "right svelte-sky15x");
-    			add_location(div3, file$1, 100, 5, 4231);
-    			attr_dev(div4, "class", "contributorCard svelte-sky15x");
-    			add_location(div4, file$1, 95, 4, 4030);
+    			add_location(div2, file$1, 102, 6, 4294);
+    			attr_dev(div3, "class", "right svelte-8uxwer");
+    			add_location(div3, file$1, 100, 5, 4236);
+    			attr_dev(div4, "class", "contributorCard svelte-8uxwer");
+    			add_location(div4, file$1, 95, 4, 4035);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div4, anchor);
@@ -43424,9 +43424,9 @@ test2
 
     // (82:4) {#if person.website !== ''}
     function create_if_block$1(ctx) {
-    	let a;
     	let div4;
     	let div1;
+    	let a;
     	let img;
     	let img_src_value;
     	let t0;
@@ -43448,9 +43448,9 @@ test2
 
     	const block = {
     		c: function create() {
-    			a = element("a");
     			div4 = element("div");
     			div1 = element("div");
+    			a = element("a");
     			img = element("img");
     			t0 = space();
     			div0 = element("div");
@@ -43465,37 +43465,37 @@ test2
     			span1 = element("span");
     			t5 = text$1(t5_value);
     			t6 = space();
-    			attr_dev(img, "class", "avatar svelte-sky15x");
+    			attr_dev(img, "class", "avatar svelte-8uxwer");
     			if (img.src !== (img_src_value = /*person*/ ctx[7].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*person*/ ctx[7].name);
-    			add_location(img, file$1, 85, 7, 3716);
-    			add_location(span0, file$1, 86, 25, 3804);
-    			attr_dev(div0, "class", "name svelte-sky15x");
-    			add_location(div0, file$1, 86, 7, 3786);
-    			attr_dev(div1, "class", "left svelte-sky15x");
-    			add_location(div1, file$1, 84, 6, 3689);
-    			attr_dev(h3, "class", "svelte-sky15x");
-    			add_location(h3, file$1, 89, 7, 3886);
-    			add_location(span1, file$1, 90, 28, 3939);
-    			attr_dev(div2, "class", "message");
-    			add_location(div2, file$1, 90, 7, 3918);
-    			attr_dev(div3, "class", "right svelte-sky15x");
-    			add_location(div3, file$1, 88, 6, 3858);
-    			attr_dev(div4, "class", "contributorCard svelte-sky15x");
-    			add_location(div4, file$1, 83, 5, 3652);
+    			add_location(img, file$1, 85, 7, 3725);
+    			add_location(span0, file$1, 86, 25, 3813);
+    			attr_dev(div0, "class", "name svelte-8uxwer");
+    			add_location(div0, file$1, 86, 7, 3795);
     			attr_dev(a, "href", /*person*/ ctx[7].website);
     			attr_dev(a, "target", "_blank");
     			attr_dev(a, "rel", "noreferrer noopener");
-    			attr_dev(a, "class", "svelte-sky15x");
-    			add_location(a, file$1, 82, 4, 3578);
+    			attr_dev(a, "class", "svelte-8uxwer");
+    			add_location(a, file$1, 84, 6, 3649);
+    			attr_dev(div1, "class", "left svelte-8uxwer");
+    			add_location(div1, file$1, 83, 5, 3623);
+    			attr_dev(h3, "class", "svelte-8uxwer");
+    			add_location(h3, file$1, 90, 6, 3904);
+    			add_location(span1, file$1, 91, 27, 3956);
+    			attr_dev(div2, "class", "message");
+    			add_location(div2, file$1, 91, 6, 3935);
+    			attr_dev(div3, "class", "right svelte-8uxwer");
+    			add_location(div3, file$1, 89, 5, 3877);
+    			attr_dev(div4, "class", "contributorCard svelte-8uxwer");
+    			add_location(div4, file$1, 82, 4, 3587);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, a, anchor);
-    			append_dev(a, div4);
+    			insert_dev(target, div4, anchor);
     			append_dev(div4, div1);
-    			append_dev(div1, img);
-    			append_dev(div1, t0);
-    			append_dev(div1, div0);
+    			append_dev(div1, a);
+    			append_dev(a, img);
+    			append_dev(a, t0);
+    			append_dev(a, div0);
     			append_dev(div0, span0);
     			append_dev(span0, t1);
     			append_dev(div4, t2);
@@ -43506,11 +43506,11 @@ test2
     			append_dev(div3, div2);
     			append_dev(div2, span1);
     			append_dev(span1, t5);
-    			append_dev(a, t6);
+    			append_dev(div4, t6);
     		},
     		p: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(a);
+    			if (detaching) detach_dev(div4);
     		}
     	};
 
@@ -43712,76 +43712,76 @@ test2
     			button1 = element("button");
     			span3 = element("span");
     			span3.textContent = "Reset Tutorial";
-    			add_location(span0, file$1, 46, 2, 1189);
-    			attr_dev(div0, "class", "versionContainer svelte-sky15x");
-    			add_location(div0, file$1, 45, 1, 1155);
-    			attr_dev(h1, "class", "svelte-sky15x");
-    			add_location(h1, file$1, 49, 2, 1264);
-    			attr_dev(div1, "class", "titleContainer svelte-sky15x");
-    			add_location(div1, file$1, 48, 1, 1232);
-    			add_location(br0, file$1, 54, 3, 1474);
-    			add_location(br1, file$1, 55, 3, 1484);
-    			attr_dev(div2, "class", "generalDesc svelte-sky15x");
-    			add_location(div2, file$1, 52, 2, 1325);
-    			attr_dev(h20, "class", "svelte-sky15x");
-    			add_location(h20, file$1, 60, 4, 1807);
-    			attr_dev(div3, "class", "text svelte-sky15x");
-    			add_location(div3, file$1, 61, 4, 1827);
+    			add_location(span0, file$1, 46, 2, 1198);
+    			attr_dev(div0, "class", "versionContainer svelte-8uxwer");
+    			add_location(div0, file$1, 45, 1, 1164);
+    			attr_dev(h1, "class", "svelte-8uxwer");
+    			add_location(h1, file$1, 49, 2, 1273);
+    			attr_dev(div1, "class", "titleContainer svelte-8uxwer");
+    			add_location(div1, file$1, 48, 1, 1241);
+    			add_location(br0, file$1, 54, 3, 1483);
+    			add_location(br1, file$1, 55, 3, 1493);
+    			attr_dev(div2, "class", "generalDesc svelte-8uxwer");
+    			add_location(div2, file$1, 52, 2, 1334);
+    			attr_dev(h20, "class", "svelte-8uxwer");
+    			add_location(h20, file$1, 60, 4, 1816);
+    			attr_dev(div3, "class", "text svelte-8uxwer");
+    			add_location(div3, file$1, 61, 4, 1836);
     			attr_dev(div4, "class", "compDesc");
-    			add_location(div4, file$1, 59, 3, 1779);
-    			attr_dev(h21, "class", "svelte-sky15x");
-    			add_location(h21, file$1, 64, 4, 2245);
-    			attr_dev(div5, "class", "text svelte-sky15x");
-    			add_location(div5, file$1, 65, 4, 2269);
+    			add_location(div4, file$1, 59, 3, 1788);
+    			attr_dev(h21, "class", "svelte-8uxwer");
+    			add_location(h21, file$1, 64, 4, 2254);
+    			attr_dev(div5, "class", "text svelte-8uxwer");
+    			add_location(div5, file$1, 65, 4, 2278);
     			attr_dev(div6, "class", "heroListDesc");
-    			add_location(div6, file$1, 63, 3, 2213);
-    			attr_dev(h22, "class", "svelte-sky15x");
-    			add_location(h22, file$1, 68, 4, 2714);
-    			attr_dev(div7, "class", "text svelte-sky15x");
-    			add_location(div7, file$1, 69, 4, 2738);
+    			add_location(div6, file$1, 63, 3, 2222);
+    			attr_dev(h22, "class", "svelte-8uxwer");
+    			add_location(h22, file$1, 68, 4, 2723);
+    			attr_dev(div7, "class", "text svelte-8uxwer");
+    			add_location(div7, file$1, 69, 4, 2747);
     			attr_dev(div8, "class", "myHeroesDesc");
-    			add_location(div8, file$1, 67, 3, 2682);
-    			attr_dev(h23, "class", "svelte-sky15x");
-    			add_location(h23, file$1, 72, 4, 3040);
-    			attr_dev(div9, "class", "text svelte-sky15x");
-    			add_location(div9, file$1, 73, 4, 3070);
+    			add_location(div8, file$1, 67, 3, 2691);
+    			attr_dev(h23, "class", "svelte-8uxwer");
+    			add_location(h23, file$1, 72, 4, 3049);
+    			attr_dev(div9, "class", "text svelte-8uxwer");
+    			add_location(div9, file$1, 73, 4, 3079);
     			attr_dev(div10, "class", "recommendationsDesc");
-    			add_location(div10, file$1, 71, 3, 3001);
-    			attr_dev(div11, "class", "areaDesc svelte-sky15x");
-    			add_location(div11, file$1, 58, 2, 1752);
+    			add_location(div10, file$1, 71, 3, 3010);
+    			attr_dev(div11, "class", "areaDesc svelte-8uxwer");
+    			add_location(div11, file$1, 58, 2, 1761);
     			attr_dev(section0, "class", "aboutApp");
-    			add_location(section0, file$1, 51, 1, 1295);
-    			attr_dev(h24, "class", "svelte-sky15x");
-    			add_location(h24, file$1, 78, 2, 3450);
-    			attr_dev(div12, "class", "contributorGrid svelte-sky15x");
-    			add_location(div12, file$1, 79, 2, 3475);
-    			attr_dev(section1, "class", "contributors svelte-sky15x");
-    			add_location(section1, file$1, 77, 1, 3416);
+    			add_location(section0, file$1, 51, 1, 1304);
+    			attr_dev(h24, "class", "svelte-8uxwer");
+    			add_location(h24, file$1, 78, 2, 3459);
+    			attr_dev(div12, "class", "contributorGrid svelte-8uxwer");
+    			add_location(div12, file$1, 79, 2, 3484);
+    			attr_dev(section1, "class", "contributors svelte-8uxwer");
+    			add_location(section1, file$1, 77, 1, 3425);
     			attr_dev(a0, "href", "https://www.lilithgames.com/");
     			attr_dev(a0, "target", "_blank");
     			attr_dev(a0, "rel", "noreferrer noopener");
-    			attr_dev(a0, "class", "svelte-sky15x");
-    			add_location(a0, file$1, 111, 44, 4520);
+    			attr_dev(a0, "class", "svelte-8uxwer");
+    			add_location(a0, file$1, 111, 44, 4525);
     			attr_dev(a1, "href", "https://www.afkarena.com/");
     			attr_dev(a1, "target", "_blank");
     			attr_dev(a1, "rel", "noreferrer noopener");
-    			attr_dev(a1, "class", "svelte-sky15x");
-    			add_location(a1, file$1, 111, 145, 4621);
-    			add_location(span1, file$1, 111, 3, 4479);
-    			attr_dev(div13, "class", "disclaimer svelte-sky15x");
-    			add_location(div13, file$1, 110, 2, 4450);
-    			attr_dev(section2, "class", "affiliate svelte-sky15x");
-    			add_location(section2, file$1, 109, 1, 4419);
-    			add_location(span2, file$1, 115, 68, 4840);
-    			attr_dev(button0, "class", "clearButton svelte-sky15x");
-    			add_location(button0, file$1, 115, 2, 4774);
-    			add_location(span3, file$1, 116, 70, 4944);
-    			attr_dev(button1, "class", "tutorialButton svelte-sky15x");
-    			add_location(button1, file$1, 116, 2, 4876);
-    			attr_dev(section3, "class", "config svelte-sky15x");
-    			add_location(section3, file$1, 114, 1, 4746);
-    			attr_dev(div14, "class", "aboutContainer svelte-sky15x");
-    			add_location(div14, file$1, 44, 0, 1124);
+    			attr_dev(a1, "class", "svelte-8uxwer");
+    			add_location(a1, file$1, 111, 145, 4626);
+    			add_location(span1, file$1, 111, 3, 4484);
+    			attr_dev(div13, "class", "disclaimer svelte-8uxwer");
+    			add_location(div13, file$1, 110, 2, 4455);
+    			attr_dev(section2, "class", "affiliate svelte-8uxwer");
+    			add_location(section2, file$1, 109, 1, 4424);
+    			add_location(span2, file$1, 115, 68, 4845);
+    			attr_dev(button0, "class", "clearButton svelte-8uxwer");
+    			add_location(button0, file$1, 115, 2, 4779);
+    			add_location(span3, file$1, 116, 70, 4949);
+    			attr_dev(button1, "class", "tutorialButton svelte-8uxwer");
+    			add_location(button1, file$1, 116, 2, 4881);
+    			attr_dev(section3, "class", "config svelte-8uxwer");
+    			add_location(section3, file$1, 114, 1, 4751);
+    			attr_dev(div14, "class", "aboutContainer svelte-8uxwer");
+    			add_location(div14, file$1, 44, 0, 1133);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -43925,7 +43925,7 @@ test2
     		{
     			name: "Wyatt Rice",
     			image: "./img/contributors/wyatt.jpg",
-    			title: "Designer",
+    			title: "Design Consultant",
     			message: "Open for commissions!",
     			website: "https://www.twitter.com/wyattjrice"
     		}
