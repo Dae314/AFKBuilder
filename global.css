@@ -18,6 +18,7 @@ html {
 	--appBGColor: #F0F0F2;
 	--appBGColorDark: #e2e2e2;
 	--appDelColor: #F26B6B;
+	--appDelColorOpaque: rgba(242, 107, 107, 0.90);
 	/* --appColorSecondary: #9B91D9; */
 	--appColorSecondary: #8AA7FF;
 	/* --appColorTertiary: #4C2CBF; */
