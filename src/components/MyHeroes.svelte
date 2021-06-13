@@ -396,7 +396,7 @@
 		z-index: 1;
 	}
 	.sect2 {
-		min-height: 100vh;
+		min-height: 100%;
 		padding: 10px;
 		width: 100%;
 	}
