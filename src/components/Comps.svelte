@@ -874,7 +874,7 @@
 		scroll-snap-align: center;
 	}
 	.selectedHero {
-		border: 3px solid var(--appColorPrimary);
+		border: 2px solid var(--appColorPrimary);
 		border-radius: 10px;
 		display: flex;
 		flex-direction: column;
@@ -1145,6 +1145,9 @@
 		}
 		.mobileExpander {
 			max-height: 5000px;
+			padding: 0;
+		}
+		.mobileExpander.open {
 			padding: 0;
 		}
 		.mobileExpander.descSection {
