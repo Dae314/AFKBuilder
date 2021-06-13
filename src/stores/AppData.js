@@ -1,3 +1,4 @@
+import { isValidEntityCode } from 'markdown-it/lib/common/utils';
 import { get, writable } from 'svelte/store';
 import HeroData from './HeroData.js';
 import TestComps from './TestComps.js'
@@ -9,6 +10,198 @@ const mastercomps = get(TestComps); // data from TestComps store
 
 // validation function for MH.List
 window.validateMyHeroData = async function(data) {
+	const expectedProps = [
+		{name: 'claimed', type: 'boolean', },
+		{name: 'ascendLv', type: 'number', },
+		{name: 'furn', type: 'number', },
+		{name: 'si', type: 'number', },
+	];
+
+	// make sure that data is an object (and nothing else)
+	if(!isObject(data)) return { retCode: 1, message: 'My Hero List data must be a plain Javascript object.'};
+
+	// data must be an object at this point, so make sure it's consistent with the format we expect
+	for(const key in data) {
+		// error if any keys aren't an id in heroData
+		if(!herodata.some(e => e.id === key)) {
+			return {retCode: 1, message: `Unexpected key found in hero list: ${key}`};
+		}
+		for(const prop in data[key]) {
+			// error if there are extra props
+			if(!expectedProps.some(e => e.name === prop)) {
+				return {retCode: 1, message: `Unexpected prop found for ${key} key: ${prop}`};
+			}
+			// error if props are the wrong type
+			let expectedPropType = expectedProps.find(e => e.name === prop).type;
+			if(!compareType(data[key][prop], expectedPropType)) {
+				return {retCode: 1, message: `Incorrect type for prop ${prop} in key ${key}, expected ${expectedPropType}`};
+			}
+		}
+	}
+
+	// everything should be good now, return the validated MH.List object
+	return {retCode: 0, message: data};
+}
+
+// validation function for Comps
+window.validateComp = async function(data) {
+	const expectedProps = [
+		{name: 'name', type: 'string'},
+		{name: 'uuid', type: 'string'},
+		{name: 'desc', type: 'string'},
+		{name: 'starred', type: 'boolean'},
+		{name: 'author', type: 'string'},
+		{name: 'lastUpdate', type: 'date'},
+		{name: 'heroes', type: 'object'},
+		{name: 'lines', type: 'array'},
+		{name: 'subs', type: 'array'},
+	];
+	const expectedHeroProps = [
+		{name: 'ascendLv', type: 'number'},
+		{name: 'si', type: 'number'},
+		{name: 'furn', type: 'number'},
+		{name: 'artifact', type: 'array'},
+		{name: 'core', type: 'boolean'},
+	];
+	const expectedSubProps = [
+		{name: 'name', type: 'string'},
+		{name: 'heroes', type: 'array'},
+	];
+	const expectedLineProps = [
+		{name: 'name', type: 'string'},
+		{name: 'heroes', type: 'array'},
+	];
+	let expectedPropType = '';
+
+	// make sure that data is an object (and nothing else)
+	if(!isObject(data)) return { retCode: 1, message: 'Comp data must be a plain Javascript object.'};
+
+	// data must be an object at this point, so make sure it's consistent with the format we expect
+	// make sure all properties are there
+	for(const prop of expectedProps) {
+		if(!(prop.name in data)) {
+			return {retCode: 1, message: `Data is missing property: ${prop.name}`}
+		}
+	}
+	// make sure there are no unexpected keys and all keys are the right type
+	for(const key in data) {
+		if(!expectedProps.some(e => e.name === key)) {
+			return {retCode: 1, message: `Unexpected key found in comp: ${key}`};
+		}
+		expectedPropType = expectedProps.find(e => e.name === key).type
+		if(!compareType(data[key], expectedPropType)) {
+			return {retCode: 1, message: `Incorrect type for key ${key}, expected ${expectedPropType}`};
+		}
+	}
+	// there should always be at least 1 line in lines
+	if(data.lines.length < 1) {
+		return {retCode: 1, message: 'Comps must have at least 1 line'}
+	}
+	// line validation
+	for(let line of data.lines) {
+		// each line should be an object
+		if(!isObject(line)) {
+			return {retCode: 1, message: `Unexpected line object type detected. All lines should be objects.`};
+		}
+		// make sure all properties are there
+		for(const prop of expectedLineProps) {
+			if(!(prop.name in line)) {
+				return {retCode: 1, message: `Line named ${line.name} is missing expected property ${prop.name}`};
+			}
+		}
+		// make sure there are no unexpected keys and all keys are the right type
+		for(const key in line) {
+			if(!expectedLineProps.some(e => e.name === key)) {
+				return {retCode: 1, message: `Unexpected key found in line named ${line.name}: ${key}`};
+			}
+			expectedPropType = expectedLineProps.find(e => e.name === key).type;
+			if(!compareType(line[key], expectedPropType)) {
+				return {retCode: 1, message: `Incorrect type for key ${key} in line named ${line.name}, expected ${expectedPropType}`};
+			}
+		}
+		// make sure every hero in a line is also in heroes
+		for(const hero of line.heroes) {
+			if(!(hero in data.heroes)) {
+				return {retCode: 1, message: `Hero ${hero} in line named ${line.name} is not in heroes`};
+			}
+		}
+	}
+	// sub validation
+	for(let sub of data.subs) {
+		// each sub line should be an object
+		if(!isObject(sub)) {
+			return {retCode: 1, message: `Unexpected sub object type detected. All subs should be objects.`};
+		}
+		// make sure each sub category object has the right props
+		for(const prop of expectedSubProps) {
+			if(!(prop.name in sub)) {
+				return {retCode: 1, message: `Sub line named ${sub.name} is missing expected property ${prop.name}`};
+			}
+		}
+		// make sure there are no unexpected keys and all keys are the right type
+		for(const key in sub) {
+			if(!expectedSubProps.some(e => e.name === key)) {
+				return {retCode: 1, message: `Unexpected key found in sub line named ${sub.name}: ${key}`};
+			}
+			expectedPropType = expectedSubProps.find(e => e.name === key).type;
+			if(!compareType(sub[key], expectedPropType)) {
+				return {retCode: 1, message: `Incorrect type for key ${key} in sub line named ${sub.name}, expected ${expectedPropType}`};
+			}
+		}
+		// make sure every hero in a sub line is also in heroes
+		for(const hero of sub.heroes) {
+			if(!(hero in data.heroes)) {
+				return {retCode: 1, message: `Hero ${hero} in sub line named ${sub.name} is not in heroes`};
+			}
+		}
+	}
+	// heroes validation
+	for(const hero in data.heroes) {
+		// make sure all heroes are in HeroData
+		if(!(herodata.some(e => e.id === hero))) {
+			return {retCode: 1, message: `Hero ${hero} is not an ID in HeroData`};
+		}
+		// each hero should be an object
+		if(!isObject(data.heroes[hero])) {
+			return {retCode: 1, message: `Unexpected hero object type detected. All heroes should be objects.`};
+		}
+		// make sure heroes have the right props
+		for(const prop of expectedHeroProps) {
+			if(!(prop.name in data.heroes[hero])) {
+				return {retCode: 1, message: `Hero named ${hero} is missing expected property ${prop.name}`};
+			}
+		}
+		// make sure there are no unexpected keys and all keys are the right type
+		for(const key in data.heroes[hero]) {
+			if(!expectedHeroProps.some(e => e.name === key)) {
+				return {retCode: 1, message: `Unexpected key found in hero named ${hero}: ${key}`};
+			}
+			expectedPropType = expectedHeroProps.find(e => e.name === key).type;
+			if(!compareType(data.heroes[hero][key], expectedPropType)) {
+				return {retCode: 1, message: `Incorrect type for key ${key} in hero named ${hero}, expected ${expectedPropType}`};
+			}
+		}
+	}
+
+	// everything should be good now, return the clean Comp object
+	return {retCode: 0, message: data};
+}
+
+// update test comps if necessary
+function updateTestComps(appdata) {
+	let i;
+	for(const mcomp of mastercomps) {
+		if(appdata.Comps.some(e => e.uuid === mcomp.uuid)) {
+			i = appdata.Comps.findIndex(e => e.uuid === mcomp.uuid);
+			if(mcomp.lastUpdate > appdata.Comps[i].lastUpdate) {
+				appdata.Comps[i] = mcomp;
+			}
+		}
+	}
+}
+
+// function to build or add in new heroes from HeroData into MH.List
+function buildMyHeroData(data) {
 	const expectedProps = [
 		{name: 'claimed', default: false},
 		{name: 'ascendLv', default: 0},
@@ -47,109 +240,35 @@ window.validateMyHeroData = async function(data) {
 	return {retCode: 0, message: data};
 }
 
-// validation function for Comps
-window.validateComp = async function(data) {
-	const expectedProps = [
-		{name: 'name', default: ''},
-		{name: 'uuid', default: ''},
-		{name: 'desc', default: ''},
-		{name: 'starred', default: false},
-		{name: 'author', default: ''},
-		{name: 'lastUpdate', default: new Date()},
-		{name: 'heroes', default: {}},
-		{name: 'lines', default: []},
-		{name: 'subs', default: []},
-	];
-	const expectedHeroProps = [
-		{name: 'ascendLv', default: 0},
-		{name: 'si', default: 0},
-		{name: 'furn', default: 0},
-		{name: 'artifact', default: []},
-		{name: 'core', default: false},
-	];
-	const expectedSubProps = [
-		{name: 'name', default: ''},
-		{name: 'heroes', default: []},
-	];
-	const expectedLineProps = [
-		{name: 'name', default: ''},
-		{name: 'heroes', default: []},
-	];
-
-	// make sure that data is an object (and nothing else)
+// utility function returns true iff data is an object (and nothing else)
+function isObject(data) {
 	// https://javascript.plainenglish.io/javascript-check-if-a-variable-is-an-object-and-nothing-else-not-an-array-a-set-etc-a3987ea08fd7
-	if(Object.prototype.toString.call(data) !== '[object Object]') return { retCode: 1, message: 'Comp data must be a plain Javascript object.'};
-
-	// data must be an object at this point, so make sure it's consistent with the format we expect
-	for(const prop of expectedProps) {
-		if(!(prop.name in data)) {
-			// add property to data if it's missing
-			data[prop.name] = prop.default;
-		}
-	}
-	for(const key in data) {
-		// delete any keys in data that aren't expected
-		if(!expectedProps.some(e => e.name === key)) delete data[key];
-	}
-	// there should always be at least 1 line in lines
-	if(data.lines.length < 1) data.lines.push({name: 'Optimal', heroes: []});
-	for(let line of data.lines) {
-		// each line should be an object
-		if(Object.prototype.toString.call(line) !== '[object Object]') line = {name: 'Optimal', heroes: []};
-		for(const prop of expectedLineProps) {
-			if(!(prop.name in line)) {
-				// add property to line if it's missing
-				line[prop.name] = prop.default;
-			}
-		}
-		for(const key in line) {
-			// delete any keys in line that aren't expected
-			if(!expectedLineProps.some(e => e.name === key)) delete line[key];
-		}
-		for(const hero of line.heroes) {
-			// make sure every hero in a line is also in heroes
-			if(!(hero in data.heroes)) data.heroes[hero] = {};
-		}
-	}
-	for(let subCat of data.subs) {
-		for(const prop of expectedSubProps) {
-			// make sure each sub category object has the right props
-			if(!(prop.name in subCat)) subCat[prop.name] = prop.default;
-		}
-		for(const key in subCat) {
-			// make sure there are no extra props on sub categories
-			if(!expectedSubProps.some(e => e.name === key)) delete subCat[key];
-		}
-		for(const hero of subCat.heroes) {
-			// make sure every hero in a sub category is also in heroes
-			if(!(hero in data.heroes)) data.heroes[hero] = {};
-		}
-	}
-	for(const hero in data.heroes) {
-		for(const prop of expectedHeroProps) {
-			// make sure heroes have the right props
-			if(!(prop.name in data.heroes[hero])) data.heroes[hero][prop.name] = prop.default;
-		}
-		for(const key in data.heroes[hero]) {
-			// make sure there are no extra props on heroes
-			if(!expectedHeroProps.some(e => e.name === key)) delete data.heroes[hero][key];
-		}
-	}
-
-	// everything should be good now, return the clean MH.List object
-	return {retCode: 0, message: data};
+	return Object.prototype.toString.call(data) === '[object Object]';
 }
 
-// update master comps if necessary
-function updateTestComps(appdata) {
-	let i;
-	for(const mcomp of mastercomps) {
-		if(appdata.Comps.some(e => e.uuid === mcomp.uuid)) {
-			i = appdata.Comps.findIndex(e => e.uuid === mcomp.uuid);
-			if(mcomp.lastUpdate > appdata.Comps[i].lastUpdate) {
-				appdata.Comps[i] = mcomp;
-			}
-		}
+// utility function returns true iff data is a date object
+function isDate(data) {
+	return Object.prototype.toString.call(data) === '[object Date]';
+}
+
+// utility function returns true iff type of data matches type
+function compareType(data, type) {
+	switch(type) {
+		case 'object':
+			return isObject(data);
+		case 'array':
+			return Array.isArray(data);
+		case 'date':
+			return isDate(data);
+		case 'boolean':
+		case 'number':
+		case 'string':
+		case 'undefined':
+		case 'bigint':
+		case 'symbol':
+			return (typeof data === type);
+		default:
+			throw new Error(`Invalid type specified: ${type}. Must be object, array, boolean, number, string, undefined, bigint, or symbol.`);
 	}
 }
 
@@ -185,6 +304,7 @@ if(window.localStorage.getItem('appData') !== null) {
 	appdata = JSON.parse(window.localStorage.getItem('appData'))
 	appdata.HL.SearchStr = '';
 	appdata.MH.SearchStr = '';
+	buildMyHeroData(appdata.MH.List); // rebuild MH.List - adds new heroes from HeroData
 	// JSON doesn't parse date objects correctly, so need to re-initialize them
 	for(let comp of appdata.Comps) {
 		comp.lastUpdate = new Date(comp.lastUpdate);
@@ -235,7 +355,7 @@ if(window.localStorage.getItem('appData') !== null) {
 			ShowTank: true,
 			ShowSup: true,
 			ShowRan: true,
-			List: {},
+			List: buildMyHeroData({}), // build a new MH.List by sending the builder a blank object
 		},
 		REC: {
 			openSection: 0,
