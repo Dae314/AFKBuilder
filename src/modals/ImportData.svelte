@@ -110,7 +110,7 @@
 	}
 	.submitButton {
 		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
+		border: 3px solid var(--appColorPrimary);
 		border-radius: 10px;
 		color: var(--appColorPrimary);
 		padding: 5px;
