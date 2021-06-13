@@ -22,7 +22,6 @@ To compile, you must have NodeJS >=14.16.1 installed.
 1. Start up a development environment using npm
 	1. `npm run dev`
 1. RECOMMENDED: track all branches
-	1. `git checkout gh-pages`
 	1. `git checkout dev`
 
 ## Deployment
