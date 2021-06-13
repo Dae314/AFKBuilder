@@ -14855,10 +14855,8 @@ test2
     			return {retCode: 1, message: `Incorrect type for key ${key}, expected ${expectedPropType}`};
     		}
     	}
-    	// there should always be at least 1 line in lines
-    	if(data.lines.length < 1) {
-    		return {retCode: 1, message: 'Comps must have at least 1 line'}
-    	}
+    	if(data.lines.length < 1) return {retCode: 1, message: 'Comps must have at least 1 line'};
+    	if(data.name === '') return {retcode: 1, message: 'Comp title cannot be blank'};
     	// line validation
     	for(let line of data.lines) {
     		// each line should be an object
