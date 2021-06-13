@@ -394,10 +394,13 @@
 					</div>
 				</div>
 			{:else}
-				<div class="noComp">
-					<TutorialBox noMargin={true}>
+				<div class="noSelectedComp">
+					<div class="noSelectedCompText">
+						<span>&#8678; Select a Comp</span>
+					</div>
+					<!-- <TutorialBox noMargin={true}>
 						<span>Select a comp to view details.</span>
-					</TutorialBox>
+					</TutorialBox> -->
 				</div>
 			{/if}
 		</div>
@@ -654,6 +657,10 @@
 	}
 	.newCompOptionButton:last-child {
 		border-left: 3px solid var(--appColorPriAccent);
+	}
+	.noSelectedComp {
+		display: none;
+		visibility: hidden;
 	}
 	.compDetails {
 		background-color: var(--appBGColor);
@@ -1100,6 +1107,17 @@
 		}
 		.bodyArea1, .bodyArea2 {
 			display: flex;
+		}
+		.noSelectedComp {
+			color: rgba(100, 100, 100, 0.3);
+			display: block;
+			font-size: 5rem;
+			font-weight: bold;
+			height: 100%;
+			-ms-user-select: none;
+			user-select: none;
+			visibility: visible;
+			-webkit-user-select: none;
 		}
 		.lastUpdate {
 			padding-bottom: 0px;
