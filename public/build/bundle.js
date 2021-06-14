@@ -29020,7 +29020,7 @@ test2
 
     			attr_dev(img, "class", img_class_value = "" + (null_to_empty(/*skillShown*/ ctx[3] === /*i*/ ctx[23]
     			? "activeSkill"
-    			: "") + " svelte-pjw4p6"));
+    			: "") + " svelte-1vivqb"));
 
     			if (img.src !== (img_src_value = /*skill*/ ctx[21].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*skill*/ ctx[21].name);
@@ -29039,7 +29039,7 @@ test2
 
     			if (dirty & /*skillShown*/ 8 && img_class_value !== (img_class_value = "" + (null_to_empty(/*skillShown*/ ctx[3] === /*i*/ ctx[23]
     			? "activeSkill"
-    			: "") + " svelte-pjw4p6"))) {
+    			: "") + " svelte-1vivqb"))) {
     				attr_dev(img, "class", img_class_value);
     			}
     		},
@@ -29080,9 +29080,9 @@ test2
     			t2 = text$1(":");
     			t3 = space();
     			p1 = element("p");
-    			attr_dev(p0, "class", "skillUnlock svelte-pjw4p6");
+    			attr_dev(p0, "class", "skillUnlock svelte-1vivqb");
     			add_location(p0, file$c, 75, 7, 2929);
-    			attr_dev(p1, "class", "skillDesc svelte-pjw4p6");
+    			attr_dev(p1, "class", "skillDesc svelte-1vivqb");
     			add_location(p1, file$c, 76, 7, 2985);
     		},
     		m: function mount(target, anchor) {
@@ -29158,16 +29158,16 @@ test2
     			}
 
     			t7 = space();
-    			attr_dev(h5, "class", "skillName svelte-pjw4p6");
+    			attr_dev(h5, "class", "skillName svelte-1vivqb");
     			add_location(h5, file$c, 71, 6, 2736);
-    			attr_dev(p0, "class", "skillUnlock svelte-pjw4p6");
+    			attr_dev(p0, "class", "skillUnlock svelte-1vivqb");
     			add_location(p0, file$c, 72, 6, 2783);
-    			attr_dev(p1, "class", "skillDesc svelte-pjw4p6");
+    			attr_dev(p1, "class", "skillDesc svelte-1vivqb");
     			add_location(p1, file$c, 73, 6, 2836);
 
     			attr_dev(div, "class", div_class_value = "skill " + (/*skillShown*/ ctx[3] === /*i*/ ctx[23]
     			? "skillVisible"
-    			: "") + " svelte-pjw4p6");
+    			: "") + " svelte-1vivqb");
 
     			add_location(div, file$c, 70, 5, 2667);
     		},
@@ -29218,7 +29218,7 @@ test2
 
     			if (dirty & /*skillShown*/ 8 && div_class_value !== (div_class_value = "skill " + (/*skillShown*/ ctx[3] === /*i*/ ctx[23]
     			? "skillVisible"
-    			: "") + " svelte-pjw4p6")) {
+    			: "") + " svelte-1vivqb")) {
     				attr_dev(div, "class", div_class_value);
     			}
     		},
@@ -29258,9 +29258,9 @@ test2
     			t2 = text$1(":");
     			t3 = space();
     			p1 = element("p");
-    			attr_dev(p0, "class", "siFurnUnlock svelte-pjw4p6");
+    			attr_dev(p0, "class", "siFurnUnlock svelte-1vivqb");
     			add_location(p0, file$c, 98, 6, 3786);
-    			attr_dev(p1, "class", "siFurnDesc svelte-pjw4p6");
+    			attr_dev(p1, "class", "siFurnDesc svelte-1vivqb");
     			add_location(p1, file$c, 99, 6, 3852);
     		},
     		m: function mount(target, anchor) {
@@ -29310,9 +29310,9 @@ test2
     			t2 = text$1(":");
     			t3 = space();
     			p1 = element("p");
-    			attr_dev(p0, "class", "siFurnUnlock svelte-pjw4p6");
+    			attr_dev(p0, "class", "siFurnUnlock svelte-1vivqb");
     			add_location(p0, file$c, 117, 6, 4534);
-    			attr_dev(p1, "class", "siFurnDesc svelte-pjw4p6");
+    			attr_dev(p1, "class", "siFurnDesc svelte-1vivqb");
     			add_location(p1, file$c, 118, 6, 4599);
     		},
     		m: function mount(target, anchor) {
@@ -29604,23 +29604,23 @@ test2
     				each_blocks[i].c();
     			}
 
-    			attr_dev(h3, "class", "heroName svelte-pjw4p6");
+    			attr_dev(h3, "class", "heroName svelte-1vivqb");
     			add_location(h3, file$c, 24, 2, 641);
-    			attr_dev(img0, "class", "attrImg svelte-pjw4p6");
+    			attr_dev(img0, "class", "attrImg svelte-1vivqb");
     			if (img0.src !== (img0_src_value = "./img/factions/" + /*hero*/ ctx[5].faction.toLowerCase() + ".png")) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", /*hero*/ ctx[5].faction);
     			add_location(img0, file$c, 27, 4, 751);
-    			attr_dev(div0, "class", "factionContainer svelte-pjw4p6");
+    			attr_dev(div0, "class", "factionContainer svelte-1vivqb");
     			add_location(div0, file$c, 26, 3, 715);
 
     			attr_dev(img1, "class", img1_class_value = "portrait " + (/*$AppData*/ ctx[4].MH.List[/*hero*/ ctx[5].id].claimed
     			? "owned"
-    			: "") + " svelte-pjw4p6");
+    			: "") + " svelte-1vivqb");
 
     			if (img1.src !== (img1_src_value = /*hero*/ ctx[5].portrait)) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", /*hero*/ ctx[5].name);
     			add_location(img1, file$c, 33, 7, 1000);
-    			attr_dev(div1, "class", "flipCardFront svelte-pjw4p6");
+    			attr_dev(div1, "class", "flipCardFront svelte-1vivqb");
     			add_location(div1, file$c, 32, 6, 964);
 
     			attr_dev(button0, "class", button0_class_value = "claimButton " + (/*$AppData*/ ctx[4].MH.List[/*hero*/ ctx[5].id].claimed
@@ -29628,103 +29628,103 @@ test2
     			: ""));
 
     			add_location(button0, file$c, 36, 7, 1214);
-    			attr_dev(div2, "class", "flipCardBack svelte-pjw4p6");
+    			attr_dev(div2, "class", "flipCardBack svelte-1vivqb");
     			add_location(div2, file$c, 35, 6, 1179);
     			attr_dev(div3, "class", "flipCardInner");
     			add_location(div3, file$c, 31, 5, 929);
-    			attr_dev(div4, "class", "flipCard svelte-pjw4p6");
+    			attr_dev(div4, "class", "flipCard svelte-1vivqb");
     			add_location(div4, file$c, 30, 4, 900);
-    			attr_dev(div5, "class", "portraitContainer svelte-pjw4p6");
+    			attr_dev(div5, "class", "portraitContainer svelte-1vivqb");
     			add_location(div5, file$c, 29, 3, 863);
-    			attr_dev(img2, "class", "attrImg svelte-pjw4p6");
+    			attr_dev(img2, "class", "attrImg svelte-1vivqb");
     			if (img2.src !== (img2_src_value = "./img/types/" + /*hero*/ ctx[5].type.toLowerCase() + ".png")) attr_dev(img2, "src", img2_src_value);
     			attr_dev(img2, "alt", /*hero*/ ctx[5].type);
     			add_location(img2, file$c, 42, 4, 1500);
-    			attr_dev(img3, "class", "attrImg svelte-pjw4p6");
+    			attr_dev(img3, "class", "attrImg svelte-1vivqb");
     			if (img3.src !== (img3_src_value = "./img/classes/" + /*hero*/ ctx[5].class.toLowerCase() + ".png")) attr_dev(img3, "src", img3_src_value);
     			attr_dev(img3, "alt", /*hero*/ ctx[5].class);
     			add_location(img3, file$c, 43, 4, 1593);
-    			attr_dev(div6, "class", "typeClassContainer svelte-pjw4p6");
+    			attr_dev(div6, "class", "typeClassContainer svelte-1vivqb");
     			add_location(div6, file$c, 41, 3, 1462);
-    			attr_dev(div7, "class", "imageContainer svelte-pjw4p6");
+    			attr_dev(div7, "class", "imageContainer svelte-1vivqb");
     			add_location(div7, file$c, 25, 2, 682);
     			attr_dev(section0, "class", "headerSection");
     			add_location(section0, file$c, 23, 1, 606);
-    			attr_dev(h40, "class", "svelte-pjw4p6");
+    			attr_dev(h40, "class", "svelte-1vivqb");
     			add_location(h40, file$c, 49, 3, 1791);
-    			attr_dev(div8, "class", "benchmarkSection svelte-pjw4p6");
+    			attr_dev(div8, "class", "benchmarkSection svelte-1vivqb");
     			add_location(div8, file$c, 48, 2, 1756);
-    			attr_dev(h41, "class", "svelte-pjw4p6");
+    			attr_dev(h41, "class", "svelte-1vivqb");
     			add_location(h41, file$c, 53, 3, 1929);
-    			attr_dev(div9, "class", "benchmarkSection svelte-pjw4p6");
+    			attr_dev(div9, "class", "benchmarkSection svelte-1vivqb");
     			add_location(div9, file$c, 52, 2, 1894);
-    			attr_dev(section1, "class", "siFurnSection svelte-pjw4p6");
+    			attr_dev(section1, "class", "siFurnSection svelte-1vivqb");
     			add_location(section1, file$c, 47, 1, 1721);
-    			attr_dev(i0, "class", i0_class_value = "arrow " + (/*openSkills*/ ctx[0] ? "down" : "right") + " svelte-pjw4p6");
+    			attr_dev(i0, "class", i0_class_value = "arrow " + (/*openSkills*/ ctx[0] ? "down" : "right") + " svelte-1vivqb");
     			add_location(i0, file$c, 59, 76, 2196);
-    			attr_dev(button1, "class", "expanderButton svelte-pjw4p6");
+    			attr_dev(button1, "class", "expanderButton svelte-1vivqb");
     			add_location(button1, file$c, 59, 3, 2123);
     			attr_dev(div10, "class", "mobileExpanderTitle");
     			add_location(div10, file$c, 58, 2, 2085);
-    			attr_dev(div11, "class", "skillPicker svelte-pjw4p6");
+    			attr_dev(div11, "class", "skillPicker svelte-1vivqb");
     			add_location(div11, file$c, 63, 4, 2374);
     			attr_dev(div12, "class", "skillDetails");
     			add_location(div12, file$c, 68, 4, 2596);
     			attr_dev(div13, "class", "skillDisplay");
     			add_location(div13, file$c, 62, 3, 2342);
-    			attr_dev(div14, "class", div14_class_value = "mobileExpander " + (/*openSkills*/ ctx[0] ? "isOpen" : "") + " svelte-pjw4p6");
+    			attr_dev(div14, "class", div14_class_value = "mobileExpander " + (/*openSkills*/ ctx[0] ? "isOpen" : "") + " svelte-1vivqb");
     			add_location(div14, file$c, 61, 2, 2279);
-    			attr_dev(section2, "class", "skillsSection svelte-pjw4p6");
+    			attr_dev(section2, "class", "skillsSection svelte-1vivqb");
     			add_location(section2, file$c, 57, 1, 2050);
-    			attr_dev(i1, "class", i1_class_value = "arrow " + (/*openSI*/ ctx[1] ? "down" : "right") + " svelte-pjw4p6");
+    			attr_dev(i1, "class", i1_class_value = "arrow " + (/*openSI*/ ctx[1] ? "down" : "right") + " svelte-1vivqb");
     			add_location(i1, file$c, 86, 68, 3260);
-    			attr_dev(button2, "class", "expanderButton svelte-pjw4p6");
+    			attr_dev(button2, "class", "expanderButton svelte-1vivqb");
     			add_location(button2, file$c, 86, 3, 3195);
     			attr_dev(div15, "class", "mobileExpanderTitle");
     			add_location(div15, file$c, 85, 2, 3157);
     			if (img4.src !== (img4_src_value = /*hero*/ ctx[5].sig_item.image)) attr_dev(img4, "src", img4_src_value);
     			attr_dev(img4, "alt", /*hero*/ ctx[5].sig_item.name);
-    			attr_dev(img4, "class", "svelte-pjw4p6");
+    			attr_dev(img4, "class", "svelte-1vivqb");
     			add_location(img4, file$c, 91, 5, 3466);
-    			attr_dev(h50, "class", "siFurnName svelte-pjw4p6");
+    			attr_dev(h50, "class", "siFurnName svelte-1vivqb");
     			add_location(h50, file$c, 92, 5, 3529);
-    			attr_dev(div16, "class", "imageArea svelte-pjw4p6");
+    			attr_dev(div16, "class", "imageArea svelte-1vivqb");
     			add_location(div16, file$c, 90, 4, 3436);
-    			attr_dev(p0, "class", "siFurnUnlock svelte-pjw4p6");
+    			attr_dev(p0, "class", "siFurnUnlock svelte-1vivqb");
     			add_location(p0, file$c, 94, 4, 3595);
-    			attr_dev(p1, "class", "siFurnDesc svelte-pjw4p6");
+    			attr_dev(p1, "class", "siFurnDesc svelte-1vivqb");
     			add_location(p1, file$c, 95, 4, 3644);
     			attr_dev(div17, "class", "siFurnUpgrades");
     			add_location(div17, file$c, 96, 4, 3702);
-    			attr_dev(div18, "class", "siFurnArea svelte-pjw4p6");
+    			attr_dev(div18, "class", "siFurnArea svelte-1vivqb");
     			add_location(div18, file$c, 89, 3, 3406);
-    			attr_dev(div19, "class", div19_class_value = "mobileExpander " + (/*openSI*/ ctx[1] ? "isOpen" : "") + " svelte-pjw4p6");
+    			attr_dev(div19, "class", div19_class_value = "mobileExpander " + (/*openSI*/ ctx[1] ? "isOpen" : "") + " svelte-1vivqb");
     			add_location(div19, file$c, 88, 2, 3347);
     			attr_dev(section3, "class", "sigItemSection");
     			add_location(section3, file$c, 84, 1, 3121);
-    			attr_dev(i2, "class", i2_class_value = "arrow " + (/*openFurn*/ ctx[2] ? "down" : "right") + " svelte-pjw4p6");
+    			attr_dev(i2, "class", i2_class_value = "arrow " + (/*openFurn*/ ctx[2] ? "down" : "right") + " svelte-1vivqb");
     			add_location(i2, file$c, 107, 72, 4106);
-    			attr_dev(button3, "class", "expanderButton svelte-pjw4p6");
+    			attr_dev(button3, "class", "expanderButton svelte-1vivqb");
     			add_location(button3, file$c, 107, 3, 4037);
     			attr_dev(div20, "class", "mobileExpanderTitle");
     			add_location(div20, file$c, 106, 2, 3999);
     			if (img5.src !== (img5_src_value = /*hero*/ ctx[5].furniture.image)) attr_dev(img5, "src", img5_src_value);
     			attr_dev(img5, "alt", /*hero*/ ctx[5].furniture.name);
-    			attr_dev(img5, "class", "svelte-pjw4p6");
+    			attr_dev(img5, "class", "svelte-1vivqb");
     			add_location(img5, file$c, 112, 5, 4311);
-    			attr_dev(h51, "class", "siFurnName svelte-pjw4p6");
+    			attr_dev(h51, "class", "siFurnName svelte-1vivqb");
     			add_location(h51, file$c, 113, 5, 4376);
-    			attr_dev(div21, "class", "imageArea svelte-pjw4p6");
+    			attr_dev(div21, "class", "imageArea svelte-1vivqb");
     			add_location(div21, file$c, 111, 4, 4281);
     			attr_dev(div22, "class", "siFurnUpgrades");
     			add_location(div22, file$c, 115, 4, 4449);
-    			attr_dev(div23, "class", "siFurnArea svelte-pjw4p6");
+    			attr_dev(div23, "class", "siFurnArea svelte-1vivqb");
     			add_location(div23, file$c, 110, 3, 4251);
-    			attr_dev(div24, "class", div24_class_value = "mobileExpander " + (/*openFurn*/ ctx[2] ? "isOpen" : "") + " svelte-pjw4p6");
+    			attr_dev(div24, "class", div24_class_value = "mobileExpander " + (/*openFurn*/ ctx[2] ? "isOpen" : "") + " svelte-1vivqb");
     			add_location(div24, file$c, 109, 2, 4190);
     			attr_dev(section4, "class", "furnitureSection");
     			add_location(section4, file$c, 105, 1, 3961);
-    			attr_dev(div25, "class", "container svelte-pjw4p6");
+    			attr_dev(div25, "class", "container svelte-1vivqb");
     			add_location(div25, file$c, 22, 0, 580);
     		},
     		l: function claim(nodes) {
@@ -29849,7 +29849,7 @@ test2
     		p: function update(ctx, [dirty]) {
     			if (!current || dirty & /*$AppData*/ 16 && img1_class_value !== (img1_class_value = "portrait " + (/*$AppData*/ ctx[4].MH.List[/*hero*/ ctx[5].id].claimed
     			? "owned"
-    			: "") + " svelte-pjw4p6")) {
+    			: "") + " svelte-1vivqb")) {
     				attr_dev(img1, "class", img1_class_value);
     			}
 
@@ -29863,7 +29863,7 @@ test2
     				attr_dev(button0, "class", button0_class_value);
     			}
 
-    			if (!current || dirty & /*openSkills*/ 1 && i0_class_value !== (i0_class_value = "arrow " + (/*openSkills*/ ctx[0] ? "down" : "right") + " svelte-pjw4p6")) {
+    			if (!current || dirty & /*openSkills*/ 1 && i0_class_value !== (i0_class_value = "arrow " + (/*openSkills*/ ctx[0] ? "down" : "right") + " svelte-1vivqb")) {
     				attr_dev(i0, "class", i0_class_value);
     			}
 
@@ -29915,11 +29915,11 @@ test2
     				each_blocks_2.length = each_value_2.length;
     			}
 
-    			if (!current || dirty & /*openSkills*/ 1 && div14_class_value !== (div14_class_value = "mobileExpander " + (/*openSkills*/ ctx[0] ? "isOpen" : "") + " svelte-pjw4p6")) {
+    			if (!current || dirty & /*openSkills*/ 1 && div14_class_value !== (div14_class_value = "mobileExpander " + (/*openSkills*/ ctx[0] ? "isOpen" : "") + " svelte-1vivqb")) {
     				attr_dev(div14, "class", div14_class_value);
     			}
 
-    			if (!current || dirty & /*openSI*/ 2 && i1_class_value !== (i1_class_value = "arrow " + (/*openSI*/ ctx[1] ? "down" : "right") + " svelte-pjw4p6")) {
+    			if (!current || dirty & /*openSI*/ 2 && i1_class_value !== (i1_class_value = "arrow " + (/*openSI*/ ctx[1] ? "down" : "right") + " svelte-1vivqb")) {
     				attr_dev(i1, "class", i1_class_value);
     			}
 
@@ -29947,11 +29947,11 @@ test2
     				each_blocks_1.length = each_value_1.length;
     			}
 
-    			if (!current || dirty & /*openSI*/ 2 && div19_class_value !== (div19_class_value = "mobileExpander " + (/*openSI*/ ctx[1] ? "isOpen" : "") + " svelte-pjw4p6")) {
+    			if (!current || dirty & /*openSI*/ 2 && div19_class_value !== (div19_class_value = "mobileExpander " + (/*openSI*/ ctx[1] ? "isOpen" : "") + " svelte-1vivqb")) {
     				attr_dev(div19, "class", div19_class_value);
     			}
 
-    			if (!current || dirty & /*openFurn*/ 4 && i2_class_value !== (i2_class_value = "arrow " + (/*openFurn*/ ctx[2] ? "down" : "right") + " svelte-pjw4p6")) {
+    			if (!current || dirty & /*openFurn*/ 4 && i2_class_value !== (i2_class_value = "arrow " + (/*openFurn*/ ctx[2] ? "down" : "right") + " svelte-1vivqb")) {
     				attr_dev(i2, "class", i2_class_value);
     			}
 
@@ -29979,7 +29979,7 @@ test2
     				each_blocks.length = each_value.length;
     			}
 
-    			if (!current || dirty & /*openFurn*/ 4 && div24_class_value !== (div24_class_value = "mobileExpander " + (/*openFurn*/ ctx[2] ? "isOpen" : "") + " svelte-pjw4p6")) {
+    			if (!current || dirty & /*openFurn*/ 4 && div24_class_value !== (div24_class_value = "mobileExpander " + (/*openFurn*/ ctx[2] ? "isOpen" : "") + " svelte-1vivqb")) {
     				attr_dev(div24, "class", div24_class_value);
     			}
     		},

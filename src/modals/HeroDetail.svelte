@@ -330,9 +330,6 @@
 		max-height: 1000px;
 	}
 	@media only screen and (min-width: 767px) {
-		.portrait:hover {
-			border: 3px solid var(--appColorPrimary);
-		}
 		.attrImg {
 			max-width: 70px;
 		}
