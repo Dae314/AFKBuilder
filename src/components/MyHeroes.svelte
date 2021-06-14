@@ -690,6 +690,24 @@
 	.inOutButton img {
 		max-width: 20px;
 	}
+	.tooltip-inOutButton1, .tooltip-inOutButton2 {
+		bottom: 45px;
+		display: inline-block;
+		position: relative;
+		right: 70px;
+		width: 100%;
+	}
+	.tooltip-inOutButton2 {
+		bottom: 38px;
+	}
+	.tooltip-inOutButton1 .tooltipText, .tooltip-inOutButton2 .tooltipText {
+		background-color: var(--appColorPrimary);
+		border-radius: 6px;
+		color: white;
+		padding: 5px;
+		position: absolute;
+		text-align: center;
+	}
 	@media only screen and (min-width: 767px) {
 		.MHContainer {
 			display: flex;
@@ -728,15 +746,14 @@
 			bottom: 105px;
 			left: 5px;
 		}
-		.tooltip-inOutButton1 {
+		.tooltip-inOutButton1, .tooltip-inOutButton2 {
 			bottom: 45px;
 			position: relative;
 			right: 130px;
+			width: fit-content;
 		}
 		.tooltip-inOutButton2 {
 			bottom: 38px;
-			position: relative;
-			right: 130px;
 		}
 		.tooltip-faction {
 			bottom: -4px;
