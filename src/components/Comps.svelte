@@ -53,13 +53,14 @@
 	}
 
 	function sortByStars(a, b) {
-		if(a.starred && !b.starred) {
-			return -1;
-		} else if(!a.starred && b.starred) {
-			return 1;
-		} else {
-			return 0;
-		}
+		// if(a.starred && !b.starred) {
+		// 	return -1;
+		// } else if(!a.starred && b.starred) {
+		// 	return 1;
+		// } else {
+		// 	return 0;
+		// }
+		return 0;
 	}
 
 	function handleCompCardClick(compIdx) {
