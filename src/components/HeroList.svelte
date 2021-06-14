@@ -5,6 +5,7 @@
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
 	import SIFurnBox from '../shared/SIFurnBox.svelte';
+import { stop_propagation } from 'svelte/internal';
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
@@ -184,6 +185,10 @@
 		displayList = sortDisplayList($AppData.HL.Sort, $AppData.HL.Order, makeDisplayList());
 		dispatch('saveData');
 	}
+
+	function handlePortraitClick(heroID) {
+		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed;
+	}
 </script>
 
 <div class="HLContainer">
@@ -268,17 +273,7 @@
 				{#each displayList as hero}
 				<tr class="heroRow" on:click={() => handleHeroClick(hero.id)}>
 					<td>
-						<!-- <div class="flipCard" on:click={(e) => e.stopPropagation()}>
-							<div class="flipCardInner">
-								<div class="flipCardFront">
-									<img on:click="{() => handlePortraitClick(hero.id)}" class="portrait {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}" src={hero.portrait} alt={hero.name}>
-								</div>
-								<div class="flipCardBack">
-									<button on:click="{() => handlePortraitClick(hero.id)}" class="claimButton {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}">{$AppData.MH.List[hero.id].claimed ? 'Unclaim' : 'Claim'}</button>
-								</div>
-							</div>
-						</div> -->
-						<img class="portrait" class:owned={$AppData.MH.List[hero.id].claimed} src={hero.portrait} alt={hero.name}>
+						<img on:click={(e) => { handlePortraitClick(hero.id); e.stopPropagation();} } class="portrait" class:owned={$AppData.MH.List[hero.id].claimed} src={hero.portrait} alt={hero.name}>
 						<p class="heroName">{hero.name}</p>
 					</td>
 					<td class="attrArea">
@@ -482,8 +477,12 @@
 	}
 	.portrait {
 		border-radius: 50%;
+		cursor: pointer;
 		max-width: 70px;
-		transition: transform 0.2s;
+		transition: all 0.2s;
+	}
+	.portrait:active {
+		transform: scale(0.9);
 	}
 	.portrait.owned {
 		border: 5px solid var(--appColorPrimary);
