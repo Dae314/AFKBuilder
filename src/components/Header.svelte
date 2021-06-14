@@ -2,7 +2,7 @@
 	import { onMount, createEventDispatcher } from 'svelte';
 	import AppData from '../stores/AppData.js'
 
-	const menu = [ 'Comps', 'Recommendations', 'My Heroes', 'Hero List', 'About' ];
+	export let menu = [];
 	const dispatch = createEventDispatcher();
 	let showMobileMenu = false;
 
@@ -46,7 +46,7 @@
 			<div class="middle-line"></div>
 		</div>
 		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
-			<li class="logoContainer" on:click={() => handleMenuChange('comps')}>
+			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].toLowerCase())}>
 				<button class="logo"><img src="./img/app/afkbuilder_logo.png" alt="AFKBuilder"></button>
 			</li>
 			{#each menu as item}

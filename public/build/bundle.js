@@ -11097,13 +11097,13 @@ test2
     			t0 = text$1(t0_value);
     			t1 = space();
 
-    			attr_dev(button, "class", button_class_value = "" + (null_to_empty(/*$AppData*/ ctx[1].activeView === /*item*/ ctx[10].toLowerCase()
+    			attr_dev(button, "class", button_class_value = "" + (null_to_empty(/*$AppData*/ ctx[2].activeView === /*item*/ ctx[10].toLowerCase()
     			? "selected"
     			: "") + " svelte-gxfisd"));
 
-    			add_location(button, file$h, 53, 5, 1703);
+    			add_location(button, file$h, 53, 5, 1659);
     			attr_dev(li, "class", "svelte-gxfisd");
-    			add_location(li, file$h, 52, 4, 1638);
+    			add_location(li, file$h, 52, 4, 1594);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -11118,8 +11118,9 @@ test2
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
+    			if (dirty & /*menu*/ 1 && t0_value !== (t0_value = /*item*/ ctx[10] + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty & /*$AppData*/ 2 && button_class_value !== (button_class_value = "" + (null_to_empty(/*$AppData*/ ctx[1].activeView === /*item*/ ctx[10].toLowerCase()
+    			if (dirty & /*$AppData, menu*/ 5 && button_class_value !== (button_class_value = "" + (null_to_empty(/*$AppData*/ ctx[2].activeView === /*item*/ ctx[10].toLowerCase()
     			? "selected"
     			: "") + " svelte-gxfisd"))) {
     				attr_dev(button, "class", button_class_value);
@@ -11159,7 +11160,7 @@ test2
     	let ul_class_value;
     	let mounted;
     	let dispose;
-    	let each_value = /*menu*/ ctx[2];
+    	let each_value = /*menu*/ ctx[0];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -11185,23 +11186,23 @@ test2
     			}
 
     			attr_dev(div0, "class", "middle-line svelte-gxfisd");
-    			add_location(div0, file$h, 45, 3, 1327);
-    			attr_dev(div1, "class", div1_class_value = "mobile-icon " + (/*showMobileMenu*/ ctx[0] ? "active" : "") + " svelte-gxfisd");
-    			add_location(div1, file$h, 44, 2, 1223);
+    			add_location(div0, file$h, 45, 3, 1269);
+    			attr_dev(div1, "class", div1_class_value = "mobile-icon " + (/*showMobileMenu*/ ctx[1] ? "active" : "") + " svelte-gxfisd");
+    			add_location(div1, file$h, 44, 2, 1165);
     			if (img.src !== (img_src_value = "./img/app/afkbuilder_logo.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "AFKBuilder");
     			attr_dev(img, "class", "svelte-gxfisd");
-    			add_location(img, file$h, 49, 25, 1530);
+    			add_location(img, file$h, 49, 25, 1486);
     			attr_dev(button, "class", "logo svelte-gxfisd");
-    			add_location(button, file$h, 49, 4, 1509);
+    			add_location(button, file$h, 49, 4, 1465);
     			attr_dev(li, "class", "logoContainer svelte-gxfisd");
-    			add_location(li, file$h, 48, 3, 1434);
-    			attr_dev(ul, "class", ul_class_value = "navbar-list " + (/*showMobileMenu*/ ctx[0] ? "mobile" : "") + " svelte-gxfisd");
-    			add_location(ul, file$h, 47, 2, 1372);
+    			add_location(li, file$h, 48, 3, 1376);
+    			attr_dev(ul, "class", ul_class_value = "navbar-list " + (/*showMobileMenu*/ ctx[1] ? "mobile" : "") + " svelte-gxfisd");
+    			add_location(ul, file$h, 47, 2, 1314);
     			attr_dev(div2, "class", "inner svelte-gxfisd");
-    			add_location(div2, file$h, 43, 1, 1200);
+    			add_location(div2, file$h, 43, 1, 1142);
     			attr_dev(nav, "class", "svelte-gxfisd");
-    			add_location(nav, file$h, 42, 0, 1192);
+    			add_location(nav, file$h, 42, 0, 1134);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -11232,12 +11233,12 @@ test2
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*showMobileMenu*/ 1 && div1_class_value !== (div1_class_value = "mobile-icon " + (/*showMobileMenu*/ ctx[0] ? "active" : "") + " svelte-gxfisd")) {
+    			if (dirty & /*showMobileMenu*/ 2 && div1_class_value !== (div1_class_value = "mobile-icon " + (/*showMobileMenu*/ ctx[1] ? "active" : "") + " svelte-gxfisd")) {
     				attr_dev(div1, "class", div1_class_value);
     			}
 
-    			if (dirty & /*handleMenuChange, menu, $AppData*/ 14) {
-    				each_value = /*menu*/ ctx[2];
+    			if (dirty & /*handleMenuChange, menu, $AppData*/ 13) {
+    				each_value = /*menu*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
 
@@ -11260,7 +11261,7 @@ test2
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty & /*showMobileMenu*/ 1 && ul_class_value !== (ul_class_value = "navbar-list " + (/*showMobileMenu*/ ctx[0] ? "mobile" : "") + " svelte-gxfisd")) {
+    			if (dirty & /*showMobileMenu*/ 2 && ul_class_value !== (ul_class_value = "navbar-list " + (/*showMobileMenu*/ ctx[1] ? "mobile" : "") + " svelte-gxfisd")) {
     				attr_dev(ul, "class", ul_class_value);
     			}
     		},
@@ -11288,10 +11289,10 @@ test2
     function instance$h($$self, $$props, $$invalidate) {
     	let $AppData;
     	validate_store(AppData$1, "AppData");
-    	component_subscribe($$self, AppData$1, $$value => $$invalidate(1, $AppData = $$value));
+    	component_subscribe($$self, AppData$1, $$value => $$invalidate(2, $AppData = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Header", slots, []);
-    	const menu = ["Comps", "Recommendations", "My Heroes", "Hero List", "About"];
+    	let { menu = [] } = $$props;
     	const dispatch = createEventDispatcher();
     	let showMobileMenu = false;
 
@@ -11311,17 +11312,17 @@ test2
 
     		set_store_value(AppData$1, $AppData.activeView = item, $AppData);
     		dispatch("saveData");
-    		$$invalidate(0, showMobileMenu = false);
+    		$$invalidate(1, showMobileMenu = false);
     	}
 
     	function handleMobileIconClick() {
-    		$$invalidate(0, showMobileMenu = !showMobileMenu);
+    		$$invalidate(1, showMobileMenu = !showMobileMenu);
     	}
 
     	function mediaQueryHandler(e) {
     		// Reset mobile state
     		if (!e.matches) {
-    			$$invalidate(0, showMobileMenu = false);
+    			$$invalidate(1, showMobileMenu = false);
     		}
     	}
 
@@ -11330,15 +11331,19 @@ test2
     		mediaListener.addListener(mediaQueryHandler);
     	});
 
-    	const writable_props = [];
+    	const writable_props = ["menu"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Header> was created with unknown prop '${key}'`);
     	});
 
     	const click_handler = () => handleMobileIconClick();
-    	const click_handler_1 = () => handleMenuChange("comps");
+    	const click_handler_1 = () => handleMenuChange(menu[0].toLowerCase());
     	const click_handler_2 = item => handleMenuChange(item.toLowerCase());
+
+    	$$self.$$set = $$props => {
+    		if ("menu" in $$props) $$invalidate(0, menu = $$props.menu);
+    	};
 
     	$$self.$capture_state = () => ({
     		onMount,
@@ -11354,7 +11359,8 @@ test2
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("showMobileMenu" in $$props) $$invalidate(0, showMobileMenu = $$props.showMobileMenu);
+    		if ("menu" in $$props) $$invalidate(0, menu = $$props.menu);
+    		if ("showMobileMenu" in $$props) $$invalidate(1, showMobileMenu = $$props.showMobileMenu);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -11362,9 +11368,9 @@ test2
     	}
 
     	return [
+    		menu,
     		showMobileMenu,
     		$AppData,
-    		menu,
     		handleMenuChange,
     		handleMobileIconClick,
     		click_handler,
@@ -11376,7 +11382,7 @@ test2
     class Header extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$h, create_fragment$h, safe_not_equal, {});
+    		init(this, options, instance$h, create_fragment$h, safe_not_equal, { menu: 0 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -11384,6 +11390,14 @@ test2
     			options,
     			id: create_fragment$h.name
     		});
+    	}
+
+    	get menu() {
+    		throw new Error("<Header>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set menu(value) {
+    		throw new Error("<Header>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -44125,7 +44139,7 @@ test2
     const { window: window_1 } = globals;
     const file = "src\\App.svelte";
 
-    // (90:5) {:else}
+    // (97:5) {:else}
     function create_else_block(ctx) {
     	let h2;
 
@@ -44133,7 +44147,7 @@ test2
     		c: function create() {
     			h2 = element("h2");
     			h2.textContent = "you shouldn't be able to get here";
-    			add_location(h2, file, 90, 6, 2902);
+    			add_location(h2, file, 97, 6, 3228);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h2, anchor);
@@ -44150,14 +44164,14 @@ test2
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(90:5) {:else}",
+    		source: "(97:5) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (88:48) 
+    // (95:48) 
     function create_if_block_4(ctx) {
     	let about;
     	let current;
@@ -44168,7 +44182,7 @@ test2
     		});
 
     	about.$on("clearData", clearAppData);
-    	about.$on("resetTutorial", /*resetTutorial*/ ctx[3]);
+    	about.$on("resetTutorial", /*resetTutorial*/ ctx[4]);
 
     	const block = {
     		c: function create() {
@@ -44201,19 +44215,19 @@ test2
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(88:48) ",
+    		source: "(95:48) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (86:52) 
+    // (93:52) 
     function create_if_block_3(ctx) {
     	let herolist;
     	let current;
     	herolist = new HeroList({ $$inline: true });
-    	herolist.$on("saveData", /*saveAppData*/ ctx[2]);
+    	herolist.$on("saveData", /*saveAppData*/ ctx[3]);
 
     	const block = {
     		c: function create() {
@@ -44242,19 +44256,19 @@ test2
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(86:52) ",
+    		source: "(93:52) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (84:51) 
+    // (91:51) 
     function create_if_block_2(ctx) {
     	let myheroes;
     	let current;
     	myheroes = new MyHeroes({ $$inline: true });
-    	myheroes.$on("saveData", /*saveAppData*/ ctx[2]);
+    	myheroes.$on("saveData", /*saveAppData*/ ctx[3]);
 
     	const block = {
     		c: function create() {
@@ -44283,14 +44297,14 @@ test2
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(84:51) ",
+    		source: "(91:51) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (82:57) 
+    // (89:57) 
     function create_if_block_1(ctx) {
     	let recommendations;
     	let current;
@@ -44323,19 +44337,19 @@ test2
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(82:57) ",
+    		source: "(89:57) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (80:5) {#if $AppData.activeView === 'comps'}
+    // (87:5) {#if $AppData.activeView === 'comps'}
     function create_if_block(ctx) {
     	let comps;
     	let current;
     	comps = new Comps({ $$inline: true });
-    	comps.$on("saveData", /*saveAppData*/ ctx[2]);
+    	comps.$on("saveData", /*saveAppData*/ ctx[3]);
 
     	const block = {
     		c: function create() {
@@ -44364,14 +44378,14 @@ test2
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(80:5) {#if $AppData.activeView === 'comps'}",
+    		source: "(87:5) {#if $AppData.activeView === 'comps'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (74:0) <Modal on:closed={handleModalClosed}>
+    // (81:0) <Modal on:closed={handleModalClosed}>
     function create_default_slot(ctx) {
     	let div2;
     	let header;
@@ -44382,8 +44396,13 @@ test2
     	let current_block_type_index;
     	let if_block;
     	let current;
-    	header = new Header({ $$inline: true });
-    	header.$on("saveData", /*saveAppData*/ ctx[2]);
+
+    	header = new Header({
+    			props: { menu: /*menuItems*/ ctx[2] },
+    			$$inline: true
+    		});
+
+    	header.$on("saveData", /*saveAppData*/ ctx[3]);
 
     	const if_block_creators = [
     		create_if_block,
@@ -44418,13 +44437,13 @@ test2
     			div0 = element("div");
     			if_block.c();
     			attr_dev(div0, "id", "currentDisplay");
-    			add_location(div0, file, 78, 4, 2337);
+    			add_location(div0, file, 85, 4, 2663);
     			attr_dev(div1, "class", "MainWindow svelte-m1sucb");
-    			add_location(div1, file, 77, 3, 2307);
+    			add_location(div1, file, 84, 3, 2633);
     			attr_dev(main, "class", "svelte-m1sucb");
-    			add_location(main, file, 76, 2, 2296);
+    			add_location(main, file, 83, 2, 2622);
     			attr_dev(div2, "class", "AppContainer svelte-m1sucb");
-    			add_location(div2, file, 74, 1, 2226);
+    			add_location(div2, file, 81, 1, 2535);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -44485,7 +44504,7 @@ test2
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(74:0) <Modal on:closed={handleModalClosed}>",
+    		source: "(81:0) <Modal on:closed={handleModalClosed}>",
     		ctx
     	});
 
@@ -44509,7 +44528,7 @@ test2
     			$$inline: true
     		});
 
-    	modal.$on("closed", /*handleModalClosed*/ ctx[5]);
+    	modal.$on("closed", /*handleModalClosed*/ ctx[6]);
 
     	const block = {
     		c: function create() {
@@ -44520,10 +44539,10 @@ test2
     			document.title = "AFKBuilder";
     			attr_dev(link0, "rel", "preconnect");
     			attr_dev(link0, "href", "https://fonts.gstatic.com");
-    			add_location(link0, file, 67, 1, 1957);
+    			add_location(link0, file, 74, 1, 2266);
     			attr_dev(link1, "href", "https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap");
     			attr_dev(link1, "rel", "stylesheet");
-    			add_location(link1, file, 68, 1, 2016);
+    			add_location(link1, file, 75, 1, 2325);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -44536,14 +44555,14 @@ test2
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(window_1, "popstate", /*handlePopState*/ ctx[4], false, false, false);
+    				dispose = listen_dev(window_1, "popstate", /*handlePopState*/ ctx[5], false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
     			const modal_changes = {};
 
-    			if (dirty & /*$$scope, $AppData, version*/ 67) {
+    			if (dirty & /*$$scope, $AppData, version*/ 131) {
     				modal_changes.$$scope = { dirty, ctx };
     			}
 
@@ -44579,6 +44598,8 @@ test2
     	return block;
     }
 
+    const defaultView = "comps";
+
     function clearAppData() {
     	window.localStorage.removeItem("appData");
     	location.reload();
@@ -44591,15 +44612,22 @@ test2
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("App", slots, []);
     	let { version = "" } = $$props;
+    	const menuItems = ["Comps", "Recommendations", "My Heroes", "Hero List", "About"];
 
     	onMount(async () => {
     		const queryString = window.location.search;
     		const urlParams = new URLSearchParams(queryString);
 
     		if (urlParams.has("view")) {
-    			set_store_value(AppData$1, $AppData.activeView = urlParams.get("view"), $AppData);
+    			const menuItemsLower = menuItems.map(e => e.toLowerCase());
+
+    			if (menuItemsLower.includes(urlParams.get("view"))) {
+    				set_store_value(AppData$1, $AppData.activeView = urlParams.get("view"), $AppData);
+    			} else {
+    				set_store_value(AppData$1, $AppData.activeView = defaultView, $AppData);
+    			}
     		} else {
-    			set_store_value(AppData$1, $AppData.activeView = "comps", $AppData);
+    			set_store_value(AppData$1, $AppData.activeView = defaultView, $AppData);
     		}
 
     		history.replaceState({ view: $AppData.activeView, modal: false }, $AppData.activeView, `?view=${$AppData.activeView}`);
@@ -44626,7 +44654,7 @@ test2
     				set_store_value(AppData$1, $AppData.activeView = state.view, $AppData);
     			}
     		} else {
-    			set_store_value(AppData$1, $AppData.activeView = "comps", $AppData);
+    			set_store_value(AppData$1, $AppData.activeView = defaultView, $AppData);
     		}
 
     		saveAppData();
@@ -44664,6 +44692,8 @@ test2
     		Recommendations,
     		About,
     		version,
+    		menuItems,
+    		defaultView,
     		saveAppData,
     		clearAppData,
     		resetTutorial,
@@ -44683,6 +44713,7 @@ test2
     	return [
     		version,
     		$AppData,
+    		menuItems,
     		saveAppData,
     		resetTutorial,
     		handlePopState,
