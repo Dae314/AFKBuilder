@@ -77,10 +77,16 @@
 	main {
 		display: flex;
 		height: 100%;
+		padding-top: 45px;
 		width: 100%;
 	}
 	.MainWindow {
 		width: 100%;
 		height: 100%;
+	}
+	@media only screen and (min-width: 767px) {
+		main {
+			padding: 0;
+		}
 	}
 </style>

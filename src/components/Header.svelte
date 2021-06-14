@@ -51,7 +51,10 @@
 		height: 45px;
 		min-height: 45px;
 		padding: 5px;
+		position: fixed;
+		top: 0;
 		width: 100%;
+		z-index: 10;
 	}
 	.inner {
 		align-items: center;
@@ -126,7 +129,6 @@
 		height: calc(100% - 45px);
 		left: 0;
 		position: fixed;
-		z-index: 10;
 	}
 	.navbar-list li {
 		cursor: pointer;
@@ -171,6 +173,7 @@
 		}
 		nav {
 			padding: 0;
+			position: static;
 		}
 		.inner {
 			max-width: 75%;

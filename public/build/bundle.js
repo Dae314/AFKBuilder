@@ -11092,10 +11092,10 @@ test2
 
     			attr_dev(button, "class", button_class_value = "" + (null_to_empty(/*$AppData*/ ctx[1].activeView === /*item*/ ctx[9].toLowerCase()
     			? "selected"
-    			: "") + " svelte-twr5fx"));
+    			: "") + " svelte-v3do0w"));
 
     			add_location(button, file$h, 39, 5, 1088);
-    			attr_dev(li, "class", "svelte-twr5fx");
+    			attr_dev(li, "class", "svelte-v3do0w");
     			add_location(li, file$h, 38, 4, 1023);
     		},
     		m: function mount(target, anchor) {
@@ -11114,7 +11114,7 @@ test2
 
     			if (dirty & /*$AppData*/ 2 && button_class_value !== (button_class_value = "" + (null_to_empty(/*$AppData*/ ctx[1].activeView === /*item*/ ctx[9].toLowerCase()
     			? "selected"
-    			: "") + " svelte-twr5fx"))) {
+    			: "") + " svelte-v3do0w"))) {
     				attr_dev(button, "class", button_class_value);
     			}
     		},
@@ -11168,15 +11168,15 @@ test2
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div0, "class", "middle-line svelte-twr5fx");
+    			attr_dev(div0, "class", "middle-line svelte-v3do0w");
     			add_location(div0, file$h, 34, 3, 890);
-    			attr_dev(div1, "class", div1_class_value = "mobile-icon " + (/*showMobileMenu*/ ctx[0] ? "active" : "") + " svelte-twr5fx");
+    			attr_dev(div1, "class", div1_class_value = "mobile-icon " + (/*showMobileMenu*/ ctx[0] ? "active" : "") + " svelte-v3do0w");
     			add_location(div1, file$h, 33, 2, 786);
-    			attr_dev(ul, "class", ul_class_value = "navbar-list " + (/*showMobileMenu*/ ctx[0] ? "mobile" : "") + " svelte-twr5fx");
+    			attr_dev(ul, "class", ul_class_value = "navbar-list " + (/*showMobileMenu*/ ctx[0] ? "mobile" : "") + " svelte-v3do0w");
     			add_location(ul, file$h, 36, 2, 935);
-    			attr_dev(div2, "class", "inner svelte-twr5fx");
+    			attr_dev(div2, "class", "inner svelte-v3do0w");
     			add_location(div2, file$h, 32, 1, 763);
-    			attr_dev(nav, "class", "svelte-twr5fx");
+    			attr_dev(nav, "class", "svelte-v3do0w");
     			add_location(nav, file$h, 31, 0, 755);
     		},
     		l: function claim(nodes) {
@@ -11200,7 +11200,7 @@ test2
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*showMobileMenu*/ 1 && div1_class_value !== (div1_class_value = "mobile-icon " + (/*showMobileMenu*/ ctx[0] ? "active" : "") + " svelte-twr5fx")) {
+    			if (dirty & /*showMobileMenu*/ 1 && div1_class_value !== (div1_class_value = "mobile-icon " + (/*showMobileMenu*/ ctx[0] ? "active" : "") + " svelte-v3do0w")) {
     				attr_dev(div1, "class", div1_class_value);
     			}
 
@@ -11228,7 +11228,7 @@ test2
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty & /*showMobileMenu*/ 1 && ul_class_value !== (ul_class_value = "navbar-list " + (/*showMobileMenu*/ ctx[0] ? "mobile" : "") + " svelte-twr5fx")) {
+    			if (dirty & /*showMobileMenu*/ 1 && ul_class_value !== (ul_class_value = "navbar-list " + (/*showMobileMenu*/ ctx[0] ? "mobile" : "") + " svelte-v3do0w")) {
     				attr_dev(ul, "class", ul_class_value);
     			}
     		},
@@ -44230,11 +44230,11 @@ test2
     			if_block.c();
     			attr_dev(div0, "id", "currentDisplay");
     			add_location(div0, file, 45, 4, 1216);
-    			attr_dev(div1, "class", "MainWindow svelte-in1fnp");
+    			attr_dev(div1, "class", "MainWindow svelte-m1sucb");
     			add_location(div1, file, 44, 3, 1186);
-    			attr_dev(main, "class", "svelte-in1fnp");
+    			attr_dev(main, "class", "svelte-m1sucb");
     			add_location(main, file, 43, 2, 1175);
-    			attr_dev(div2, "class", "AppContainer svelte-in1fnp");
+    			attr_dev(div2, "class", "AppContainer svelte-m1sucb");
     			add_location(div2, file, 41, 1, 1105);
     		},
     		m: function mount(target, anchor) {
