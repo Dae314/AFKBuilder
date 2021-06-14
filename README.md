@@ -40,7 +40,6 @@ To compile, you must have NodeJS >=14.16.1 installed.
 1. Run the deployment script
 	1. `npm run deploy`
 	1. App should be available at http://dae314.github.io/AFKBuilder/
-	1. Make a commit for the 
 1. Cleanup the repo after deployment
 	1. `git commit -a -m "Deploy to gh-pages"`
 	1. `git tag <version>`
