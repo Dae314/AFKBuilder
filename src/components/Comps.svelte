@@ -222,7 +222,7 @@
 				</div>
 			{:else}
 				{#each sortedCompList as comp, i}
-					<div id="comp{i}" class="compCard" class:highlight={highlightComp !== null && highlightComp === i} on:click={() => handleCompCardClick(i) }>
+					<div id="comp{i}" class="compCard" class:highlight={highlightComp !== null && highlightComp === i} class:active={i === $AppData.selectedComp} on:click={() => handleCompCardClick(i) }>
 						<div class="compCardHead">
 							<div class="titleAuthorContainer">
 								<div class="compCardTitleContainer">
@@ -1042,6 +1042,10 @@
 		}
 		.noComps {
 			font-size: 2.5rem;
+		}
+		.compCard.active {
+			border: 5px solid var(--appColorPrimary);
+			transform: scale(1.03);
 		}
 		.compCard:hover {
 			box-shadow: 3px 3px 10px #bbb;
