@@ -52,6 +52,10 @@
 		}
 		saveAppData();
 	}
+
+	function handleModalClosed() {
+		history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
+	}
 </script>
 
 <svelte:head>
@@ -62,7 +66,7 @@
 
 <svelte:window on:popstate={handlePopState} />
 
-<Modal>
+<Modal on:closed={handleModalClosed}>
 	<div class="AppContainer">
 		<Header on:saveData={saveAppData} />
 		<main>
