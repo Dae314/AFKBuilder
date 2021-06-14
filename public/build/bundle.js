@@ -44125,7 +44125,7 @@ test2
     const { window: window_1 } = globals;
     const file = "src\\App.svelte";
 
-    // (85:5) {:else}
+    // (90:5) {:else}
     function create_else_block(ctx) {
     	let h2;
 
@@ -44133,7 +44133,7 @@ test2
     		c: function create() {
     			h2 = element("h2");
     			h2.textContent = "you shouldn't be able to get here";
-    			add_location(h2, file, 85, 6, 2743);
+    			add_location(h2, file, 90, 6, 2902);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h2, anchor);
@@ -44150,14 +44150,14 @@ test2
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(85:5) {:else}",
+    		source: "(90:5) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (83:48) 
+    // (88:48) 
     function create_if_block_4(ctx) {
     	let about;
     	let current;
@@ -44201,14 +44201,14 @@ test2
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(83:48) ",
+    		source: "(88:48) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (81:52) 
+    // (86:52) 
     function create_if_block_3(ctx) {
     	let herolist;
     	let current;
@@ -44242,14 +44242,14 @@ test2
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(81:52) ",
+    		source: "(86:52) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (79:51) 
+    // (84:51) 
     function create_if_block_2(ctx) {
     	let myheroes;
     	let current;
@@ -44283,14 +44283,14 @@ test2
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(79:51) ",
+    		source: "(84:51) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (77:57) 
+    // (82:57) 
     function create_if_block_1(ctx) {
     	let recommendations;
     	let current;
@@ -44323,14 +44323,14 @@ test2
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(77:57) ",
+    		source: "(82:57) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (75:5) {#if $AppData.activeView === 'comps'}
+    // (80:5) {#if $AppData.activeView === 'comps'}
     function create_if_block(ctx) {
     	let comps;
     	let current;
@@ -44364,14 +44364,14 @@ test2
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(75:5) {#if $AppData.activeView === 'comps'}",
+    		source: "(80:5) {#if $AppData.activeView === 'comps'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (69:0) <Modal on:closed={handleModalClosed}>
+    // (74:0) <Modal on:closed={handleModalClosed}>
     function create_default_slot(ctx) {
     	let div2;
     	let header;
@@ -44418,13 +44418,13 @@ test2
     			div0 = element("div");
     			if_block.c();
     			attr_dev(div0, "id", "currentDisplay");
-    			add_location(div0, file, 73, 4, 2178);
+    			add_location(div0, file, 78, 4, 2337);
     			attr_dev(div1, "class", "MainWindow svelte-m1sucb");
-    			add_location(div1, file, 72, 3, 2148);
+    			add_location(div1, file, 77, 3, 2307);
     			attr_dev(main, "class", "svelte-m1sucb");
-    			add_location(main, file, 71, 2, 2137);
+    			add_location(main, file, 76, 2, 2296);
     			attr_dev(div2, "class", "AppContainer svelte-m1sucb");
-    			add_location(div2, file, 69, 1, 2067);
+    			add_location(div2, file, 74, 1, 2226);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -44485,7 +44485,7 @@ test2
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(69:0) <Modal on:closed={handleModalClosed}>",
+    		source: "(74:0) <Modal on:closed={handleModalClosed}>",
     		ctx
     	});
 
@@ -44520,10 +44520,10 @@ test2
     			document.title = "AFKBuilder";
     			attr_dev(link0, "rel", "preconnect");
     			attr_dev(link0, "href", "https://fonts.gstatic.com");
-    			add_location(link0, file, 62, 1, 1798);
+    			add_location(link0, file, 67, 1, 1957);
     			attr_dev(link1, "href", "https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap");
     			attr_dev(link1, "rel", "stylesheet");
-    			add_location(link1, file, 63, 1, 1857);
+    			add_location(link1, file, 68, 1, 2016);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -44633,6 +44633,13 @@ test2
     	}
 
     	function handleModalClosed() {
+    		const queryString = window.location.search;
+    		const urlParams = new URLSearchParams(queryString);
+
+    		if (urlParams.has("modal")) {
+    			history.back();
+    		}
+
     		history.replaceState({ view: $AppData.activeView, modal: false }, $AppData.activeView, `?view=${$AppData.activeView}`);
     	}
 

@@ -54,6 +54,11 @@
 	}
 
 	function handleModalClosed() {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		if(urlParams.has('modal')) {
+			history.back();
+		}
 		history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 	}
 </script>
