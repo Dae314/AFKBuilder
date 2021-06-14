@@ -7,7 +7,17 @@
 	let showMobileMenu = false;
 
 	function handleMenuChange(item) {
-		history.pushState({view: item, modal: false}, item, `?view=${item}`);
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		if(urlParams.has('view')) {
+			if(urlParams.get('view') === item) {
+				history.replaceState({view: item, modal: false}, item, `?view=${item}`);
+			} else {
+				history.pushState({view: item, modal: false}, item, `?view=${item}`);
+			}
+		} else {
+			history.pushState({view: item, modal: false}, item, `?view=${item}`);
+		}
 		$AppData.activeView = item;
 		dispatch('saveData');
 		showMobileMenu = false;
