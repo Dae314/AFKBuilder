@@ -30,6 +30,7 @@
 	let hfConfig = {};
 
 	onMount(async () => {
+		history.pushState({view: $AppData.activeView, modal: true}, "Comp Editor", `?view=${$AppData.activeView}&modal=true`);
 		if(compID) {
 			const compCopy = $AppData.Comps.find(e => e.uuid === compID);
 			if(typeof compCopy === 'undefined') throw new Error(`Invalid CompID given to CompEditor: ${compID}.`);
@@ -154,7 +155,13 @@
 	function removeSubHero(subIdx, heroIdx) {
 		comp.subs[subIdx].heroes = comp.subs[subIdx].heroes.filter((e, i) => i !== heroIdx);
 	}
+
+	function handlePopState() {
+		close();
+	}
 </script>
+
+<svelte:window on:popstate={handlePopState} />
 
 <div class="editorContainer">
 	<section class="sect1">
@@ -539,22 +546,14 @@
 	}
 	.footerButton {
 		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
+		border: 3px solid var(--appColorPrimary);
 		border-radius: 10px;
 		color: var(--appColorPrimary);
 		cursor: pointer;
 		font-size: 1.05rem;
 	}
-	.footerButton:hover {
-		background-color: var(--appColorPrimary);
-		color: white;
-	}
 	.saveButton {
 		margin-right: 10px;
-	}
-	.cancelButton:hover {
-		background-color: var(--appColorPriAccent);
-		color: white;
 	}
 	.subRemoveButton {
 		background-color: #aaa;
@@ -597,6 +596,14 @@
 			justify-content: space-evenly;
 			overflow: hidden;
 			padding: 0;
+		}
+		.footerButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
+		}
+		.cancelButton:hover {
+			background-color: var(--appColorPriAccent);
+			color: white;
 		}
 	}
 </style>

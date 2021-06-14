@@ -1,9 +1,23 @@
 <script>
+	import { onMount, getContext } from 'svelte';
 	import Artifacts from '../stores/Artifacts.js';
+	import AppData from '../stores/AppData.js';
+
+	const { close } = getContext('simple-modal');
+
+	onMount(async () => {
+		history.pushState({view: $AppData.activeView, modal: true}, "Artifact Detail", `?view=${$AppData.activeView}&modal=true`);
+	});
 
 	export let artifactID = "";
 	let artifact = $Artifacts[artifactID];
+
+	function handlePopState() {
+		close();
+	}
 </script>
+
+<svelte:window on:popstate={handlePopState} />
 
 <div class="container">
 	<section class="headerSection">

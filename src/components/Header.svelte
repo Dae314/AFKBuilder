@@ -7,6 +7,7 @@
 	let showMobileMenu = false;
 
 	function handleMenuChange(item) {
+		history.pushState({view: item, modal: false}, item, `?view=${item}`);
 		$AppData.activeView = item;
 		dispatch('saveData');
 		showMobileMenu = false;
@@ -35,6 +36,9 @@
 			<div class="middle-line"></div>
 		</div>
 		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
+			<li class="logoContainer" on:click={() => handleMenuChange('comps')}>
+				<button class="logo"><img src="./img/app/afkbuilder_logo.png" alt="AFKBuilder"></button>
+			</li>
 			{#each menu as item}
 				<li on:click={() => handleMenuChange(item.toLowerCase())}>
 					<button class="{$AppData.activeView === item.toLowerCase() ? 'selected' : ''}">{item}</button>
@@ -51,7 +55,10 @@
 		height: 45px;
 		min-height: 45px;
 		padding: 5px;
+		position: fixed;
+		top: 0;
 		width: 100%;
+		z-index: 10;
 	}
 	.inner {
 		align-items: center;
@@ -61,6 +68,10 @@
 		max-width: 980px;
 		padding-left: 20px;
 		padding-right: 20px;
+	}
+	.logoContainer {
+		display: none;
+		visibility: hidden;
 	}
 	.mobile-icon {
 		cursor: pointer;
@@ -126,7 +137,6 @@
 		height: calc(100% - 45px);
 		left: 0;
 		position: fixed;
-		z-index: 10;
 	}
 	.navbar-list li {
 		cursor: pointer;
@@ -171,11 +181,12 @@
 		}
 		nav {
 			padding: 0;
+			position: static;
 		}
 		.inner {
 			max-width: 75%;
 			min-height: 100%;
-			padding-right: 20px;
+			padding-left: 10px;
 		}
 		.navbar-list {
 			display: flex;
@@ -206,6 +217,23 @@
 		}
 		.navbar-list li:before {
 			display: none;
+		}
+		.logoContainer {
+			display: block;
+			visibility: visible;
+		}
+		.logoContainer .logo {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: transparent;
+			outline: 0;
+			border: 0;
+			padding: 0;
+			margin: 0;
+		}
+		.logo img {
+			max-width: 35px;
 		}
 	}
 </style>

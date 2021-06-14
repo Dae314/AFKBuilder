@@ -1,14 +1,21 @@
 <script>
+	import { onMount, getContext } from 'svelte';
 	import HeroData from '../stores/HeroData.js';
 	import AppData from '../stores/AppData.js';
 	import SIFurnBox from '../shared/SIFurnBox.svelte';
 	
+	const { close } = getContext('simple-modal');
+
 	export let heroID;
 	const hero = $HeroData.find(e => e.id === heroID);
 	let openSkills = true;
 	let openSI = false;
 	let openFurn = false;
 	$: skillShown = 0;
+
+	onMount(async () => {
+		history.pushState({view: $AppData.activeView, modal: true}, "Hero Detail", `?view=${$AppData.activeView}&modal=true`);
+	});
 
 	function saveAppData() {
 		window.localStorage.setItem('appData', JSON.stringify($AppData));
@@ -18,7 +25,13 @@
 		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed;
 		saveAppData();
 	}
+
+	function handlePopState() {
+		close();
+	}
 </script>
+
+<svelte:window on:popstate={handlePopState} />
 
 <div class="container">
 	<section class="headerSection">
@@ -180,9 +193,6 @@
 		transition: all 0.2s;
 		width: 100%;
 	}
-	.portrait:hover {
-		border: 3px solid var(--appColorPrimary);
-	}
 	.portrait:active {
 		transform: scale(0.9);
 	}
@@ -224,9 +234,6 @@
 		margin: 5px 10px;
 		max-width: 70px;
 		transition: all 0.2s;
-	}
-	.skillPicker img:hover {
-		border: 2px solid var(--appColorPrimary);
 	}
 	.skillPicker img:active {
 		transform: scale(0.9);
@@ -338,6 +345,9 @@
 	@media only screen and (min-width: 767px) {
 		.attrImg {
 			max-width: 70px;
+		}
+		.skillPicker img:hover {
+			border: 2px solid var(--appColorPrimary);
 		}
 	}
 </style>

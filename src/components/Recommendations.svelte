@@ -321,6 +321,7 @@
 		font-size: 2.5rem;
 		font-weight: bold;
 		text-align: center;
+		text-transform: uppercase;
 	}
 	.recCard {
 		background-color: transparent;
@@ -345,10 +346,6 @@
 		outline: none;
 		padding: 0px;
 		width: 25px;
-	}
-	.claimButton:hover {
-		background-color: var(--appColorPrimary);
-		color: white;
 	}
 	.recCard h4 {
 		font-size: 1.2rem;
@@ -430,10 +427,6 @@
 		cursor: pointer;
 		font-size: 1rem;
 	}
-	.compButton:hover {
-		background-color: var(--appColorPrimary);
-		color: white;
-	}
 	@media only screen and (min-width: 767px) {
 		.sectionPicker {
 			justify-content: flex-start;
@@ -446,6 +439,14 @@
 		}
 		.noRec span {
 			font-size: 6rem;
+		}
+		.claimButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
+		}
+		.compButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
 		}
 	}
 </style>

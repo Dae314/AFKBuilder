@@ -13,6 +13,14 @@
 	export let version = '';
 
 	onMount(async () => {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		if(urlParams.has('view')) {
+			$AppData.activeView = urlParams.get('view');
+		} else {
+			$AppData.activeView = 'comps';
+		}
+		history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 		saveAppData();
 	});
 
@@ -30,6 +38,20 @@
 		saveAppData();
 		location.reload();
 	}
+
+	function handlePopState(event) {
+		const state = event.state;
+		if('view' in state) {
+			if(state.modal) {
+				history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
+			}else{
+				$AppData.activeView = state.view;
+			}
+		} else {
+			$AppData.activeView = 'comps';
+		}
+		saveAppData();
+	}
 </script>
 
 <svelte:head>
@@ -37,6 +59,8 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
 </svelte:head>
+
+<svelte:window on:popstate={handlePopState} />
 
 <Modal>
 	<div class="AppContainer">
@@ -77,10 +101,16 @@
 	main {
 		display: flex;
 		height: 100%;
+		padding-top: 45px;
 		width: 100%;
 	}
 	.MainWindow {
 		width: 100%;
 		height: 100%;
+	}
+	@media only screen and (min-width: 767px) {
+		main {
+			padding: 0;
+		}
 	}
 </style>

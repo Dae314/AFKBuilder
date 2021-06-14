@@ -220,7 +220,7 @@
 	}
 </script>
 
-<div class="MHContainer">
+<div class="MHContainer" on:click={() => openInOutMenu = false}>
 	<section class="sect1">
 		<div class="mobileExpander {openFilters ? 'filterOpen' : ''}">
 			<div class="searchContainer">
@@ -380,7 +380,7 @@
 			<button class="inOutButton" on:click={handleImportData}><img src="./img/utility/import.png" alt="import"></button>
 			<div class="tooltip tooltip-inOutButton2"><span class="tooltipText">Import Data</span></div>
 		</div>
-		<button class="inOutMenuButton" on:click={() => openInOutMenu = !openInOutMenu}><img src="./img/utility/export_import.png" alt="Import/Export"></button>
+		<button class="inOutMenuButton" on:click={(e) => {openInOutMenu = !openInOutMenu; e.stopPropagation();}}><img src="./img/utility/export_import.png" alt="Import/Export"></button>
 	</section>
 	<section class="sect4">
 		<div class="copyConfirm" class:visible={copyConfirmVisible}><span>My Hero Data Copied to Clipboard</span></div>
@@ -396,7 +396,7 @@
 		z-index: 1;
 	}
 	.sect2 {
-		min-height: 100vh;
+		min-height: 100%;
 		padding: 10px;
 		width: 100%;
 	}
@@ -421,6 +421,7 @@
 		-ms-user-select: none;
 		padding-top: 50px;
 		text-align: center;
+		text-transform: uppercase;
 		-webkit-user-select: none;
 		width: 100%;
 		user-select: none;
@@ -518,10 +519,6 @@
 		transition: all .3s;
 		width: 33px;
 	}
-	.filterMasterButton:hover {
-		background-color: var(--appColorPrimary);
-		color: rgba(255, 255, 255, 0.9);
-	}
 	.filterMasterButton:active {
 		background-color: var(--appColorPriDark);
 		border-color: var(--appColorPriDark);
@@ -530,10 +527,6 @@
 	.filterMasterDisabled {
 		border-color: #888;
 		color: #888;
-	}
-	.filterMasterDisabled:hover {
-		background-color: #888;
-		color: rgba(255, 255, 255, 0.9);
 	}
 	.filterMasterDisabled:active {
 		background-color: #666;
@@ -570,7 +563,7 @@
 	.MHGrid {
 		display: grid;
 		grid-gap: 5px 5px;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 380px));
+		grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
 		grid-template-rows: repeat(auto-fit, minmax(240px, 250px));
 		justify-content: space-evenly;
 		overflow: hidden;
@@ -592,6 +585,7 @@
 		flex-direction: column;
 		justify-content: center;
 		width: 100%;
+		position: relative;
 	}
 	.portrait {
 		border-radius: 50%;
@@ -698,6 +692,24 @@
 	.inOutButton img {
 		max-width: 20px;
 	}
+	.tooltip-inOutButton1, .tooltip-inOutButton2 {
+		bottom: 45px;
+		display: inline-block;
+		position: relative;
+		right: 70px;
+		width: 100%;
+	}
+	.tooltip-inOutButton2 {
+		bottom: 38px;
+	}
+	.tooltip-inOutButton1 .tooltipText, .tooltip-inOutButton2 .tooltipText {
+		background-color: var(--appColorPrimary);
+		border-radius: 6px;
+		color: white;
+		padding: 5px;
+		position: absolute;
+		text-align: center;
+	}
 	@media only screen and (min-width: 767px) {
 		.MHContainer {
 			display: flex;
@@ -715,6 +727,7 @@
 		}
 		.sect2 {
 			padding-left: 50px;
+			padding-right: 50px;
 		}
 		.mobileExpanderTitle {
 			height: auto;
@@ -736,26 +749,14 @@
 			bottom: 105px;
 			left: 5px;
 		}
-		.tooltip-inOutButton1 {
+		.tooltip-inOutButton1, .tooltip-inOutButton2 {
 			bottom: 45px;
 			position: relative;
 			right: 130px;
+			width: fit-content;
 		}
 		.tooltip-inOutButton2 {
 			bottom: 38px;
-			position: relative;
-			right: 130px;
-		}
-		.tooltip-faction {
-			bottom: -4px;
-			position: relative;
-			right: 50%;
-			transform: translate(-50%, 0);
-		}
-		.tooltip-type {
-			bottom: 8px;
-			position: relative;
-			right: 45px;
 		}
 		.tooltip .tooltipText {
 			background-color: var(--appColorPrimary);
@@ -765,6 +766,33 @@
 			position: absolute;
 			text-align: center;
 			visibility: hidden;
+		}
+		.tooltip-faction {
+			position: absolute;
+			right: 20%;
+			top: 35%;
+			z-index: 2;
+		}
+		.tooltip-type {
+			position: absolute;
+			right: 29%;
+			top: 10%;
+		}
+		.tooltip-class {
+			position: absolute;
+			right: 29%;
+			top: 58%;
+		}
+		.filterMasterButton:hover {
+			background-color: var(--appColorPrimary);
+			color: rgba(255, 255, 255, 0.9);
+		}
+		.filterMasterDisabled:hover {
+			background-color: #888;
+			color: rgba(255, 255, 255, 0.9);
+		}
+		.attrImage:hover+.tooltip .tooltipText {
+			visibility: visible;
 		}
 		.filtersButton:hover+.tooltip .tooltipText {
 			visibility: visible;

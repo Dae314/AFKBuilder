@@ -1,5 +1,5 @@
 <script>
-	import { getContext } from 'svelte';
+	import { onMount, getContext } from 'svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import AppData from '../stores/AppData.js';
 	export let dataHandler = () => {};
@@ -11,6 +11,10 @@
 	let data;
 	let status = -1;
 	let statusMsg = 'Awaiting data import';
+
+	onMount(async () => {
+		history.pushState({view: $AppData.activeView, modal: true}, "Import Data", `?view=${$AppData.activeView}&modal=true`);
+	});
 
 	async function handleImport() {
 		if(!data) {
@@ -35,7 +39,13 @@
 		$AppData.dismissImportWarn = true;
 		saveAppData();
 	}
+
+	function handlePopState() {
+		close();
+	}
 </script>
+
+<svelte:window on:popstate={handlePopState} />
 
 <div class="container">
 	{#if !$AppData.dismissImportWarn}
@@ -110,18 +120,20 @@
 	}
 	.submitButton {
 		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
+		border: 3px solid var(--appColorPrimary);
 		border-radius: 10px;
 		color: var(--appColorPrimary);
 		padding: 5px;
 		transition: transform 0.2s;
 		width: 100px;
 	}
-	.submitButton:hover {
-		background-color: var(--appColorPrimary);
-		color: white;
-	}
 	.submitButton:active {
 		transform: scale(0.9);
+	}
+	@media only screen and (min-width: 767px) {
+		.submitButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
+		}
 	}
 </style>

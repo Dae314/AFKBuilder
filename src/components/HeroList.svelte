@@ -4,9 +4,8 @@
 	import HeroData from '../stores/HeroData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
-	import FlipButton from '../shared/FlipButton.svelte';
 	import SIFurnBox from '../shared/SIFurnBox.svelte';
-	import TutorialBox from '../shared/TutorialBox.svelte';
+import { stop_propagation } from 'svelte/internal';
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
@@ -188,8 +187,7 @@
 	}
 
 	function handlePortraitClick(heroID) {
-		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed
-		dispatch('saveData');
+		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed;
 	}
 </script>
 
@@ -275,17 +273,7 @@
 				{#each displayList as hero}
 				<tr class="heroRow" on:click={() => handleHeroClick(hero.id)}>
 					<td>
-						<!-- <div class="flipCard" on:click={(e) => e.stopPropagation()}>
-							<div class="flipCardInner">
-								<div class="flipCardFront">
-									<img on:click="{() => handlePortraitClick(hero.id)}" class="portrait {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}" src={hero.portrait} alt={hero.name}>
-								</div>
-								<div class="flipCardBack">
-									<button on:click="{() => handlePortraitClick(hero.id)}" class="claimButton {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}">{$AppData.MH.List[hero.id].claimed ? 'Unclaim' : 'Claim'}</button>
-								</div>
-							</div>
-						</div> -->
-						<img class="portrait" class:owned={$AppData.MH.List[hero.id].claimed} src={hero.portrait} alt={hero.name}>
+						<img on:click={(e) => { handlePortraitClick(hero.id); e.stopPropagation();} } class="portrait" class:owned={$AppData.MH.List[hero.id].claimed} src={hero.portrait} alt={hero.name}>
 						<p class="heroName">{hero.name}</p>
 					</td>
 					<td class="attrArea">
@@ -406,10 +394,6 @@
 		transition: all .3s;
 		width: 33px;
 	}
-	.filterMasterButton:hover {
-		background-color: var(--appColorPrimary);
-		color: rgba(255, 255, 255, 0.9);
-	}
 	.filterMasterButton:active {
 		background-color: var(--appColorPriDark);
 		border-color: var(--appColorPriDark);
@@ -418,10 +402,6 @@
 	.filterMasterDisabled {
 		border-color: #888;
 		color: #888;
-	}
-	.filterMasterDisabled:hover {
-		background-color: #888;
-		color: rgba(255, 255, 255, 0.9);
 	}
 	.filterMasterDisabled:active {
 		background-color: #666;
@@ -487,15 +467,9 @@
 	.sortHeader {
 		cursor: pointer;
 	}
-	.sortHeader:hover {
-		background-color: var(--appColorPriAccent);
-	}
 	.hiddenMobile {
 		display: none;
 		visibility: hidden;
-	}
-	.heroRow:hover {
-		background-color: var(--appColorQuaternary);
 	}
 	.heroRow td {
 		border-bottom: 1px solid #bbb;
@@ -503,8 +477,12 @@
 	}
 	.portrait {
 		border-radius: 50%;
+		cursor: pointer;
 		max-width: 70px;
-		transition: transform 0.2s;
+		transition: all 0.2s;
+	}
+	.portrait:active {
+		transform: scale(0.9);
 	}
 	.portrait.owned {
 		border: 5px solid var(--appColorPrimary);
@@ -612,6 +590,14 @@
 			margin: 0 auto;
 			margin-bottom: 10px;
 		}
+		.filterMasterButton:hover {
+			background-color: var(--appColorPrimary);
+			color: rgba(255, 255, 255, 0.9);
+		}
+		.filterMasterDisabled:hover {
+			background-color: #888;
+			color: rgba(255, 255, 255, 0.9);
+		}
 		.filterButton {
 			margin: 0 auto;
 			margin-bottom: 10px;
@@ -622,6 +608,12 @@
 		}
 		table {
 			width: 90%;
+		}
+		.sortHeader:hover {
+			background-color: var(--appColorPriAccent);
+		}
+		.heroRow:hover {
+			background-color: var(--appColorQuaternary);
 		}
 		.tooltip {
 			display: inline-block;

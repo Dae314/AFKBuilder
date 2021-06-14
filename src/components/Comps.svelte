@@ -53,16 +53,24 @@
 	}
 
 	function sortByStars(a, b) {
-		if(a.starred && !b.starred) {
-			return -1;
-		} else if(!a.starred && b.starred) {
-			return 1;
-		} else {
-			return 0;
-		}
+		// if(a.starred && !b.starred) {
+		// 	return -1;
+		// } else if(!a.starred && b.starred) {
+		// 	return 1;
+		// } else {
+		// 	return 0;
+		// }
+		return 0;
 	}
 
 	function handleCompCardClick(compIdx) {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		if(urlParams.has('modal')) {
+			history.replaceState({view: $AppData.activeView, modal: true}, $AppData.activeView, `?view=${$AppData.activeView}&modal=true`);
+		} else {
+			history.pushState({view: $AppData.activeView, modal: true}, $AppData.activeView, `?view=${$AppData.activeView}&modal=true`);
+		}
 		$AppData.selectedComp = compIdx;
 		openDetail = true;
 		selectedLine = 0;
@@ -134,10 +142,6 @@
 		dispatch('saveData');
 	}
 
-	function handleCardChange(event) {
-		if(event.keyCode === 13 || event.keyCode === 27) event.target.blur();
-	}
-
 	function handleDelComp(idx) {
 		$AppData.Comps = $AppData.Comps.filter((e, i) => i !== idx);
 		sortedCompList = $AppData.Comps.sort(sortByStars);
@@ -197,6 +201,11 @@
 		}
 	}
 
+	function handleCloseButtonClick() {
+		openDetail = false;
+		history.back();
+	}
+
 	function handleHeroDetailClick(heroID) {
 		open(HeroDetail, 
 		{ heroID: heroID, },
@@ -212,7 +221,13 @@
 			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
 		});
 	}
+
+	function handlePopState() {
+		openDetail = false;
+	}
 </script>
+
+<svelte:window on:popstate={handlePopState} />
 
 <div class="CompContainer">
 	<section class="sect1">
@@ -226,10 +241,12 @@
 				</div>
 			{:else}
 				{#each sortedCompList as comp, i}
-					<div id="comp{i}" class="compCard" class:highlight={highlightComp !== null && highlightComp === i} on:click={() => handleCompCardClick(i) }>
+					<div id="comp{i}" class="compCard" class:highlight={highlightComp !== null && highlightComp === i} class:active={i === $AppData.selectedComp} on:click={() => handleCompCardClick(i) }>
 						<div class="compCardHead">
 							<div class="titleAuthorContainer">
-								<input type="text" class="compCardTitle" readonly="true" on:dblclick={(e) => { e.target.readOnly = ''; e.stopPropagation(); }} on:blur={(e) => { e.target.readOnly='true'; dispatch('saveData'); }} bind:value={comp.name} on:keydown={handleCardChange}>
+								<div class="compCardTitleContainer">
+									<span class="compCardTitle">{comp.name}</span>
+								</div>
 								<div class="authorContainer">
 									<span class="author">{comp.author}</span>
 								</div>
@@ -265,7 +282,7 @@
 			{#if $AppData.selectedComp !== null}
 				<div class="compDetailHead">
 					<div class="closeButtonContainer">
-						<button class="detailButton closeDetailButton" on:click={() => openDetail = false}><i class="arrow left"></i>Close</button>
+						<button class="detailButton closeDetailButton" on:click={handleCloseButtonClick}><i class="arrow left"></i>Close</button>
 					</div>
 					<div class="titleContainer">
 						<h3 class="compTitle">{$AppData.Comps[$AppData.selectedComp].name}</h3>
@@ -396,10 +413,10 @@
 					</div>
 				</div>
 			{:else}
-				<div class="noComp">
-					<TutorialBox noMargin={true}>
-						<span>Select a comp to view details.</span>
-					</TutorialBox>
+				<div class="noSelectedComp">
+					<div class="noSelectedCompText">
+						<span>&#8678; Select a Comp</span>
+					</div>
 				</div>
 			{/if}
 		</div>
@@ -462,6 +479,7 @@
 		-ms-user-select: none;
 		position: absolute;
 		text-align: center;
+		text-transform: uppercase;
 		-webkit-user-select: none;
 		width: 100%;
 		user-select: none;
@@ -473,6 +491,7 @@
 		cursor: pointer;
 		margin-bottom: 10px;
 		scroll-snap-align: center;
+		transition: all 0.2s;
 	}
 	.compCard.highlight {
 		animation: flash 1s linear 3;
@@ -485,20 +504,20 @@
 	.titleAuthorContainer {
 		width: 100%;
 	}
-	.compCardTitle:read-only {
-		background: transparent;
-		border: 0;
-		font-size: 1.3rem;
-		font-weight: bold;
-		margin: 0;
-		padding: 0;
+	.compCardTitleContainer {
 		width: 80%;
-	}
-	.compCardTitle:focus {
-		outline: none;
 	}
 	.compCardTitle {
-		width: 80%;
+		-ms-user-select: none;
+		font-size: 1.3rem;
+		font-weight: bold;
+		user-select: none;
+		-webkit-user-select: none;
+	}
+	.author {
+		-ms-user-select: none;
+		user-select: none;
+		-webkit-user-select: none;
 	}
 	.cardDeleteButton {
 		background-color: transparent;
@@ -564,13 +583,7 @@
 	.star.active, .star.active:before, .star.active:after {
 		border-bottom-color: #F7BC19;
 	}
-	.star:hover, .star:hover:before, .star:hover:after {
-		border-bottom-color: #E0920B;
-	}
 	.star:active, .star:active:before, .star:active:after {
-		border-bottom-color: #F7BC19;
-	}
-	.star.active:hover, .star.active:hover:before, .star.active:hover:after {
 		border-bottom-color: #F7BC19;
 	}
 	.compImgs {
@@ -612,18 +625,11 @@
 		flex-direction: column;
 		justify-content: center;
 	}
-	.newCompButton:hover {
-		background-color: var(--appColorPrimary);
-		color: white;
-	}
 	.plusIcon {
 		display: block;
 		font-size: 2.5rem;
 		font-weight: bold;
 		transition: transform 0.7s;
-	}
-	.newCompButton:hover .plusIcon {
-		transform: rotateZ(180deg);
 	}
 	.newCompText {
 		font-size: 1.1rem;
@@ -648,14 +654,15 @@
 		font-size: 1.1rem;
 		width: 100%;
 	}
-	.newCompOptionButton:hover {
-		background-color: var(--appColorPriAccent);
-	}
 	.newCompOptionButton:first-child {
 		border-right: 3px solid var(--appColorPriAccent);
 	}
 	.newCompOptionButton:last-child {
 		border-left: 3px solid var(--appColorPriAccent);
+	}
+	.noSelectedComp {
+		display: none;
+		visibility: hidden;
 	}
 	.compDetails {
 		background-color: var(--appBGColor);
@@ -706,13 +713,6 @@
 	.left {
 		transform: rotate(135deg);
 	}
-	.closeDetailButton:hover {
-		background-color: var(--appColorPrimary);
-		color: white;
-	}
-	.closeDetailButton:hover .arrow {
-		border-color: white;
-	}
 	.titleContainer {
 		align-items: center;
 		display: flex;
@@ -756,9 +756,6 @@
 	.deleteButton {
 		background-color: var(--appDelColor);
 		border: 3px solid var(--appDelColor);
-	}
-	.editDelButton:hover {
-		box-shadow: 2px 2px 5px #aaa;
 	}
 	.editDelButton:active {
 		box-shadow: none;
@@ -874,7 +871,7 @@
 		scroll-snap-align: center;
 	}
 	.selectedHero {
-		border: 3px solid var(--appColorPrimary);
+		border: 2px solid var(--appColorPrimary);
 		border-radius: 10px;
 		display: flex;
 		flex-direction: column;
@@ -1066,6 +1063,14 @@
 		.noComps {
 			font-size: 2.5rem;
 		}
+		.compCard:hover {
+			box-shadow: 3px 3px 10px #bbb;
+			transform: scale(1.02);
+		}
+		.compCard.active {
+			border: 5px solid var(--appColorPrimary);
+			transform: scale(1.03);
+		}
 		.cardDeleteButton:hover+.tooltip .tooltipText {
 			visibility: visible;
 		}
@@ -1091,8 +1096,17 @@
 			margin-right: 8px;
 			max-width: 15px;
 		}
+		.editDelButton:hover {
+			box-shadow: 2px 2px 5px #aaa;
+		}
 		.deleteButton img {
 			max-width: 12px;
+		}
+		.star:hover, .star:hover:before, .star:hover:after {
+			border-bottom-color: #E0920B;
+		}
+		.star.active:hover, .star.active:hover:before, .star.active:hover:after {
+			border-bottom-color: #F7BC19;
 		}
 		.addButtonArea {
 			width: 21%;
@@ -1100,8 +1114,37 @@
 		.newCompButton {
 			border-right: 3px solid var(--appColorPrimary);
 		}
+		.newCompButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
+		}
+		.newCompButton:hover .plusIcon {
+			transform: rotateZ(180deg);
+		}
+		.newCompOptionButton:hover {
+			background-color: var(--appColorPriAccent);
+		}
 		.bodyArea1, .bodyArea2 {
 			display: flex;
+		}
+		.noSelectedComp {
+			color: rgba(100, 100, 100, 0.3);
+			display: block;
+			font-size: 4rem;
+			font-weight: bold;
+			height: 100%;
+			-ms-user-select: none;
+			text-transform: uppercase;
+			user-select: none;
+			visibility: visible;
+			-webkit-user-select: none;
+		}
+		.closeDetailButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
+		}
+		.closeDetailButton:hover .arrow {
+			border-color: white;
 		}
 		.lastUpdate {
 			padding-bottom: 0px;
@@ -1145,6 +1188,9 @@
 		}
 		.mobileExpander {
 			max-height: 5000px;
+			padding: 0;
+		}
+		.mobileExpander.open {
 			padding: 0;
 		}
 		.mobileExpander.descSection {

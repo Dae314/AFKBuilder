@@ -1,5 +1,6 @@
 <script>
-	import { getContext } from 'svelte';
+	import { onMount, getContext } from 'svelte';
+	import AppData from '../stores/AppData.js';
 
 	export let message = "Are you sure?";
 	export let onCancel = () => {};
@@ -7,6 +8,10 @@
 	export let confirmData = 0;
 
 	const { close } = getContext('simple-modal');
+
+	onMount(async () => {
+		history.pushState({view: $AppData.activeView, modal: true}, "Confirm", `?view=${$AppData.activeView}&modal=true`);
+	});
 
 	function handleCancel() {
 		onCancel();
@@ -17,7 +22,13 @@
 		onConfirm(confirmData);
 		close();
 	}
+
+	function handlePopState() {
+		close();
+	}
 </script>
+
+<svelte:window on:popstate={handlePopState} />
 
 <div class="confirmContainer">
 	<div class="text"><span>{message}</span></div>
@@ -47,7 +58,7 @@
 	.optionButton {
 		background: transparent;
 		border: 3px solid var(--appColorPrimary);
-		border-radius: 5px;
+		border-radius: 10px;
 		color: var(--appColorPrimary);
 		font-size: 1rem;
 	}
@@ -59,12 +70,14 @@
 		border: 3px solid var(--appDelColor);
 		color: var(--appDelColor);
 	}
-	.confirmButton:hover {
-		background-color: var(--appDelColor);
-		color: white;
-	}
-	.cancelButton:hover {
-		background-color: var(--appColorPrimary);
-		color: white;
+	@media only screen and (min-width: 767px) {
+		.confirmButton:hover {
+			background-color: var(--appDelColor);
+			color: white;
+		}
+		.cancelButton:hover {
+			background-color: var(--appColorPriAccent);
+			color: white;
+		}
 	}
 </style>

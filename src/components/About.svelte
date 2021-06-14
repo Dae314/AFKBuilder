@@ -16,7 +16,7 @@
 		},
 		{ name: 'Wyatt Rice',
 			image: './img/contributors/wyatt.jpg',
-			title: 'Designer',
+			title: 'Design Consultant',
 			message: 'Open for commissions!',
 			website: 'https://www.twitter.com/wyattjrice',
 		},
@@ -80,18 +80,18 @@
 		<div class="contributorGrid">
 			{#each contributors as person}
 				{#if person.website !== ''}
-				<a href={person.website} target="_blank" rel="noreferrer noopener">
-					<div class="contributorCard">
-						<div class="left">
+				<div class="contributorCard">
+					<div class="left">
+						<a href={person.website} target="_blank" rel="noreferrer noopener">
 							<img class="avatar" src="{person.image}" alt="{person.name}">
 							<div class="name"><span>{person.name}</span></div>
-						</div>
-						<div class="right">
-							<h3>{person.title}</h3>
-							<div class="message"><span>{person.message}</span></div>
-						</div>
+						</a>
 					</div>
-				</a>
+					<div class="right">
+						<h3>{person.title}</h3>
+						<div class="message"><span>{person.message}</span></div>
+					</div>
+				</div>
 				{:else}
 				<div class="contributorCard">
 					<div class="left">
@@ -149,13 +149,6 @@
 	.areaDesc .text {
 		text-align: center;
 	}
-	.avatar {
-		border-radius: 50%;
-		max-width: 50px;
-	}
-	.name {
-		font-weight: bold;
-	}
 	.contributorGrid {
 		display: grid;
 		grid-gap: 10px;
@@ -163,10 +156,6 @@
 		justify-content: space-evenly;
 		margin-bottom: 10px;
 		overflow: hidden;
-	}
-	.contributorGrid a {
-		color: inherit;
-		text-decoration: none;
 	}
 	.contributorCard {
 		border: 3px solid var(--appColorPrimary);
@@ -184,6 +173,21 @@
 		justify-content: center;
 		min-width: 100px;
 		padding-right: 10px;
+	}
+	.contributorCard a {
+		align-items: center;
+		color: inherit;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		text-decoration: none;
+	}
+	.contributorCard .avatar {
+		border-radius: 50%;
+		max-width: 50px;
+	}
+	.contributorCard .name {
+		font-weight: bold;
 	}
 	.contributorCard .right {
 		padding-left: 20px;
@@ -224,10 +228,6 @@
 		outline: none;
 		padding: 10px;
 	}
-	.clearButton:hover {
-		background-color: var(--appDelColor);
-		color: white;
-	}
 	.tutorialButton {
 		background-color: transparent;
 		border: 3px solid var(--appColorPrimary);
@@ -238,10 +238,6 @@
 		font-weight: bold;
 		outline: none;
 		padding: 10px;
-	}
-	.tutorialButton:hover {
-		background-color: var(--appColorPrimary);
-		color: white;
 	}
 	@media only screen and (min-width: 767px) {
 		.generalDesc {
@@ -265,6 +261,14 @@
 		}
 		.config {
 			justify-content: flex-start;
+		}
+		.clearButton:hover {
+			background-color: var(--appDelColor);
+			color: white;
+		}
+		.tutorialButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
 		}
 	}
 </style>
