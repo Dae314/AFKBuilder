@@ -11064,23 +11064,23 @@ test2
 
     function get_each_context$9(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[9] = list[i];
+    	child_ctx[10] = list[i];
     	return child_ctx;
     }
 
-    // (38:3) {#each menu as item}
+    // (41:3) {#each menu as item}
     function create_each_block$9(ctx) {
     	let li;
     	let button;
-    	let t0_value = /*item*/ ctx[9] + "";
+    	let t0_value = /*item*/ ctx[10] + "";
     	let t0;
     	let button_class_value;
     	let t1;
     	let mounted;
     	let dispose;
 
-    	function click_handler_1() {
-    		return /*click_handler_1*/ ctx[6](/*item*/ ctx[9]);
+    	function click_handler_2() {
+    		return /*click_handler_2*/ ctx[7](/*item*/ ctx[10]);
     	}
 
     	const block = {
@@ -11090,13 +11090,13 @@ test2
     			t0 = text$1(t0_value);
     			t1 = space();
 
-    			attr_dev(button, "class", button_class_value = "" + (null_to_empty(/*$AppData*/ ctx[1].activeView === /*item*/ ctx[9].toLowerCase()
+    			attr_dev(button, "class", button_class_value = "" + (null_to_empty(/*$AppData*/ ctx[1].activeView === /*item*/ ctx[10].toLowerCase()
     			? "selected"
-    			: "") + " svelte-v3do0w"));
+    			: "") + " svelte-gxfisd"));
 
-    			add_location(button, file$h, 39, 5, 1088);
-    			attr_dev(li, "class", "svelte-v3do0w");
-    			add_location(li, file$h, 38, 4, 1023);
+    			add_location(button, file$h, 42, 5, 1266);
+    			attr_dev(li, "class", "svelte-gxfisd");
+    			add_location(li, file$h, 41, 4, 1201);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -11105,16 +11105,16 @@ test2
     			append_dev(li, t1);
 
     			if (!mounted) {
-    				dispose = listen_dev(li, "click", click_handler_1, false, false, false);
+    				dispose = listen_dev(li, "click", click_handler_2, false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*$AppData*/ 2 && button_class_value !== (button_class_value = "" + (null_to_empty(/*$AppData*/ ctx[1].activeView === /*item*/ ctx[9].toLowerCase()
+    			if (dirty & /*$AppData*/ 2 && button_class_value !== (button_class_value = "" + (null_to_empty(/*$AppData*/ ctx[1].activeView === /*item*/ ctx[10].toLowerCase()
     			? "selected"
-    			: "") + " svelte-v3do0w"))) {
+    			: "") + " svelte-gxfisd"))) {
     				attr_dev(button, "class", button_class_value);
     			}
     		},
@@ -11129,7 +11129,7 @@ test2
     		block,
     		id: create_each_block$9.name,
     		type: "each",
-    		source: "(38:3) {#each menu as item}",
+    		source: "(41:3) {#each menu as item}",
     		ctx
     	});
 
@@ -11142,8 +11142,13 @@ test2
     	let div1;
     	let div0;
     	let div1_class_value;
-    	let t;
+    	let t0;
     	let ul;
+    	let li;
+    	let button;
+    	let img;
+    	let img_src_value;
+    	let t1;
     	let ul_class_value;
     	let mounted;
     	let dispose;
@@ -11161,22 +11166,34 @@ test2
     			div2 = element("div");
     			div1 = element("div");
     			div0 = element("div");
-    			t = space();
+    			t0 = space();
     			ul = element("ul");
+    			li = element("li");
+    			button = element("button");
+    			img = element("img");
+    			t1 = space();
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div0, "class", "middle-line svelte-v3do0w");
+    			attr_dev(div0, "class", "middle-line svelte-gxfisd");
     			add_location(div0, file$h, 34, 3, 890);
-    			attr_dev(div1, "class", div1_class_value = "mobile-icon " + (/*showMobileMenu*/ ctx[0] ? "active" : "") + " svelte-v3do0w");
+    			attr_dev(div1, "class", div1_class_value = "mobile-icon " + (/*showMobileMenu*/ ctx[0] ? "active" : "") + " svelte-gxfisd");
     			add_location(div1, file$h, 33, 2, 786);
-    			attr_dev(ul, "class", ul_class_value = "navbar-list " + (/*showMobileMenu*/ ctx[0] ? "mobile" : "") + " svelte-v3do0w");
+    			if (img.src !== (img_src_value = "./img/app/afkbuilder_logo.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "AFKBuilder");
+    			attr_dev(img, "class", "svelte-gxfisd");
+    			add_location(img, file$h, 38, 25, 1093);
+    			attr_dev(button, "class", "logo svelte-gxfisd");
+    			add_location(button, file$h, 38, 4, 1072);
+    			attr_dev(li, "class", "logoContainer svelte-gxfisd");
+    			add_location(li, file$h, 37, 3, 997);
+    			attr_dev(ul, "class", ul_class_value = "navbar-list " + (/*showMobileMenu*/ ctx[0] ? "mobile" : "") + " svelte-gxfisd");
     			add_location(ul, file$h, 36, 2, 935);
-    			attr_dev(div2, "class", "inner svelte-v3do0w");
+    			attr_dev(div2, "class", "inner svelte-gxfisd");
     			add_location(div2, file$h, 32, 1, 763);
-    			attr_dev(nav, "class", "svelte-v3do0w");
+    			attr_dev(nav, "class", "svelte-gxfisd");
     			add_location(nav, file$h, 31, 0, 755);
     		},
     		l: function claim(nodes) {
@@ -11187,20 +11204,28 @@ test2
     			append_dev(nav, div2);
     			append_dev(div2, div1);
     			append_dev(div1, div0);
-    			append_dev(div2, t);
+    			append_dev(div2, t0);
     			append_dev(div2, ul);
+    			append_dev(ul, li);
+    			append_dev(li, button);
+    			append_dev(button, img);
+    			append_dev(ul, t1);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(ul, null);
     			}
 
     			if (!mounted) {
-    				dispose = listen_dev(div1, "click", /*click_handler*/ ctx[5], false, false, false);
+    				dispose = [
+    					listen_dev(div1, "click", /*click_handler*/ ctx[5], false, false, false),
+    					listen_dev(li, "click", /*click_handler_1*/ ctx[6], false, false, false)
+    				];
+
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*showMobileMenu*/ 1 && div1_class_value !== (div1_class_value = "mobile-icon " + (/*showMobileMenu*/ ctx[0] ? "active" : "") + " svelte-v3do0w")) {
+    			if (dirty & /*showMobileMenu*/ 1 && div1_class_value !== (div1_class_value = "mobile-icon " + (/*showMobileMenu*/ ctx[0] ? "active" : "") + " svelte-gxfisd")) {
     				attr_dev(div1, "class", div1_class_value);
     			}
 
@@ -11228,7 +11253,7 @@ test2
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty & /*showMobileMenu*/ 1 && ul_class_value !== (ul_class_value = "navbar-list " + (/*showMobileMenu*/ ctx[0] ? "mobile" : "") + " svelte-v3do0w")) {
+    			if (dirty & /*showMobileMenu*/ 1 && ul_class_value !== (ul_class_value = "navbar-list " + (/*showMobileMenu*/ ctx[0] ? "mobile" : "") + " svelte-gxfisd")) {
     				attr_dev(ul, "class", ul_class_value);
     			}
     		},
@@ -11238,7 +11263,7 @@ test2
     			if (detaching) detach_dev(nav);
     			destroy_each(each_blocks, detaching);
     			mounted = false;
-    			dispose();
+    			run_all(dispose);
     		}
     	};
 
@@ -11292,7 +11317,8 @@ test2
     	});
 
     	const click_handler = () => handleMobileIconClick();
-    	const click_handler_1 = item => handleMenuChange(item.toLowerCase());
+    	const click_handler_1 = () => handleMenuChange("comps");
+    	const click_handler_2 = item => handleMenuChange(item.toLowerCase());
 
     	$$self.$capture_state = () => ({
     		onMount,
@@ -11322,7 +11348,8 @@ test2
     		handleMenuChange,
     		handleMobileIconClick,
     		click_handler,
-    		click_handler_1
+    		click_handler_1,
+    		click_handler_2
     	];
     }
 
