@@ -563,7 +563,7 @@
 	.MHGrid {
 		display: grid;
 		grid-gap: 5px 5px;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 380px));
+		grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
 		grid-template-rows: repeat(auto-fit, minmax(240px, 250px));
 		justify-content: space-evenly;
 		overflow: hidden;
@@ -585,6 +585,7 @@
 		flex-direction: column;
 		justify-content: center;
 		width: 100%;
+		position: relative;
 	}
 	.portrait {
 		border-radius: 50%;
@@ -726,6 +727,7 @@
 		}
 		.sect2 {
 			padding-left: 50px;
+			padding-right: 50px;
 		}
 		.mobileExpanderTitle {
 			height: auto;
@@ -756,17 +758,6 @@
 		.tooltip-inOutButton2 {
 			bottom: 38px;
 		}
-		.tooltip-faction {
-			bottom: -4px;
-			position: relative;
-			right: 50%;
-			transform: translate(-50%, 0);
-		}
-		.tooltip-type {
-			bottom: 8px;
-			position: relative;
-			right: 45px;
-		}
 		.tooltip .tooltipText {
 			background-color: var(--appColorPrimary);
 			border-radius: 6px;
@@ -776,6 +767,22 @@
 			text-align: center;
 			visibility: hidden;
 		}
+		.tooltip-faction {
+			position: absolute;
+			right: 20%;
+			top: 35%;
+			z-index: 2;
+		}
+		.tooltip-type {
+			position: absolute;
+			right: 29%;
+			top: 10%;
+		}
+		.tooltip-class {
+			position: absolute;
+			right: 29%;
+			top: 58%;
+		}
 		.filterMasterButton:hover {
 			background-color: var(--appColorPrimary);
 			color: rgba(255, 255, 255, 0.9);
@@ -783,6 +790,9 @@
 		.filterMasterDisabled:hover {
 			background-color: #888;
 			color: rgba(255, 255, 255, 0.9);
+		}
+		.attrImage:hover+.tooltip .tooltipText {
+			visibility: visible;
 		}
 		.filtersButton:hover+.tooltip .tooltipText {
 			visibility: visible;
