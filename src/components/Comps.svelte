@@ -1043,6 +1043,12 @@
 		.noComps {
 			font-size: 2.5rem;
 		}
+		.compCard:hover {
+			box-shadow: 3px 3px 10px #bbb;
+		}
+		.compCard:active {
+			box-shadow: none;
+		}
 		.cardDeleteButton:hover+.tooltip .tooltipText {
 			visibility: visible;
 		}
