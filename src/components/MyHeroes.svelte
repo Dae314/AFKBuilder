@@ -220,7 +220,7 @@
 	}
 </script>
 
-<div class="MHContainer">
+<div class="MHContainer" on:click={() => openInOutMenu = false}>
 	<section class="sect1">
 		<div class="mobileExpander {openFilters ? 'filterOpen' : ''}">
 			<div class="searchContainer">
@@ -380,7 +380,7 @@
 			<button class="inOutButton" on:click={handleImportData}><img src="./img/utility/import.png" alt="import"></button>
 			<div class="tooltip tooltip-inOutButton2"><span class="tooltipText">Import Data</span></div>
 		</div>
-		<button class="inOutMenuButton" on:click={() => openInOutMenu = !openInOutMenu}><img src="./img/utility/export_import.png" alt="Import/Export"></button>
+		<button class="inOutMenuButton" on:click={(e) => {openInOutMenu = !openInOutMenu; e.stopPropagation();}}><img src="./img/utility/export_import.png" alt="Import/Export"></button>
 	</section>
 	<section class="sect4">
 		<div class="copyConfirm" class:visible={copyConfirmVisible}><span>My Hero Data Copied to Clipboard</span></div>
