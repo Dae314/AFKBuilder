@@ -64,6 +64,13 @@
 	}
 
 	function handleCompCardClick(compIdx) {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		if(urlParams.has('modal')) {
+			history.replaceState({view: $AppData.activeView, modal: true}, $AppData.activeView, `?view=${$AppData.activeView}&modal=true`);
+		} else {
+			history.pushState({view: $AppData.activeView, modal: true}, $AppData.activeView, `?view=${$AppData.activeView}&modal=true`);
+		}
 		$AppData.selectedComp = compIdx;
 		openDetail = true;
 		selectedLine = 0;
@@ -194,6 +201,11 @@
 		}
 	}
 
+	function handleCloseButtonClick() {
+		openDetail = false;
+		history.back();
+	}
+
 	function handleHeroDetailClick(heroID) {
 		open(HeroDetail, 
 		{ heroID: heroID, },
@@ -209,7 +221,13 @@
 			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
 		});
 	}
+
+	function handlePopState() {
+		openDetail = false;
+	}
 </script>
+
+<svelte:window on:popstate={handlePopState} />
 
 <div class="CompContainer">
 	<section class="sect1">
@@ -264,7 +282,7 @@
 			{#if $AppData.selectedComp !== null}
 				<div class="compDetailHead">
 					<div class="closeButtonContainer">
-						<button class="detailButton closeDetailButton" on:click={() => openDetail = false}><i class="arrow left"></i>Close</button>
+						<button class="detailButton closeDetailButton" on:click={handleCloseButtonClick}><i class="arrow left"></i>Close</button>
 					</div>
 					<div class="titleContainer">
 						<h3 class="compTitle">{$AppData.Comps[$AppData.selectedComp].name}</h3>

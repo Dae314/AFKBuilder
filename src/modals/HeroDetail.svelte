@@ -1,14 +1,21 @@
 <script>
+	import { onMount, getContext } from 'svelte';
 	import HeroData from '../stores/HeroData.js';
 	import AppData from '../stores/AppData.js';
 	import SIFurnBox from '../shared/SIFurnBox.svelte';
 	
+	const { close } = getContext('simple-modal');
+
 	export let heroID;
 	const hero = $HeroData.find(e => e.id === heroID);
 	let openSkills = true;
 	let openSI = false;
 	let openFurn = false;
 	$: skillShown = 0;
+
+	onMount(async () => {
+		history.pushState({view: $AppData.activeView, modal: true}, "Hero Detail", `?view=${$AppData.activeView}&modal=true`);
+	});
 
 	function saveAppData() {
 		window.localStorage.setItem('appData', JSON.stringify($AppData));
@@ -18,7 +25,13 @@
 		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed;
 		saveAppData();
 	}
+
+	function handlePopState() {
+		close();
+	}
 </script>
+
+<svelte:window on:popstate={handlePopState} />
 
 <div class="container">
 	<section class="headerSection">

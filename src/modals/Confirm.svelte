@@ -1,5 +1,6 @@
 <script>
-	import { getContext } from 'svelte';
+	import { onMount, getContext } from 'svelte';
+	import AppData from '../stores/AppData.js';
 
 	export let message = "Are you sure?";
 	export let onCancel = () => {};
@@ -7,6 +8,10 @@
 	export let confirmData = 0;
 
 	const { close } = getContext('simple-modal');
+
+	onMount(async () => {
+		history.pushState({view: $AppData.activeView, modal: true}, "Confirm", `?view=${$AppData.activeView}&modal=true`);
+	});
 
 	function handleCancel() {
 		onCancel();
@@ -17,7 +22,13 @@
 		onConfirm(confirmData);
 		close();
 	}
+
+	function handlePopState() {
+		close();
+	}
 </script>
+
+<svelte:window on:popstate={handlePopState} />
 
 <div class="confirmContainer">
 	<div class="text"><span>{message}</span></div>

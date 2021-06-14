@@ -1,5 +1,5 @@
 <script>
-	import { getContext } from 'svelte';
+	import { onMount, getContext } from 'svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import AppData from '../stores/AppData.js';
 	export let dataHandler = () => {};
@@ -11,6 +11,10 @@
 	let data;
 	let status = -1;
 	let statusMsg = 'Awaiting data import';
+
+	onMount(async () => {
+		history.pushState({view: $AppData.activeView, modal: true}, "Import Data", `?view=${$AppData.activeView}&modal=true`);
+	});
 
 	async function handleImport() {
 		if(!data) {
@@ -35,7 +39,13 @@
 		$AppData.dismissImportWarn = true;
 		saveAppData();
 	}
+
+	function handlePopState() {
+		close();
+	}
 </script>
+
+<svelte:window on:popstate={handlePopState} />
 
 <div class="container">
 	{#if !$AppData.dismissImportWarn}

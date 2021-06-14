@@ -7,6 +7,7 @@
 	let showMobileMenu = false;
 
 	function handleMenuChange(item) {
+		history.pushState({view: item, modal: false}, item, `?view=${item}`);
 		$AppData.activeView = item;
 		dispatch('saveData');
 		showMobileMenu = false;
