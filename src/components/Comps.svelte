@@ -472,6 +472,7 @@
 		cursor: pointer;
 		margin-bottom: 10px;
 		scroll-snap-align: center;
+		transition: all 0.2s;
 	}
 	.compCard.highlight {
 		animation: flash 1s linear 3;
@@ -1043,15 +1044,13 @@
 		.noComps {
 			font-size: 2.5rem;
 		}
+		.compCard:hover {
+			box-shadow: 3px 3px 10px #bbb;
+			transform: scale(1.02);
+		}
 		.compCard.active {
 			border: 5px solid var(--appColorPrimary);
 			transform: scale(1.03);
-		}
-		.compCard:hover {
-			box-shadow: 3px 3px 10px #bbb;
-		}
-		.compCard:active {
-			box-shadow: none;
 		}
 		.cardDeleteButton:hover+.tooltip .tooltipText {
 			visibility: visible;
