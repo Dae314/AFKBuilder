@@ -398,9 +398,6 @@
 					<div class="noSelectedCompText">
 						<span>&#8678; Select a Comp</span>
 					</div>
-					<!-- <TutorialBox noMargin={true}>
-						<span>Select a comp to view details.</span>
-					</TutorialBox> -->
 				</div>
 			{/if}
 		</div>
@@ -463,6 +460,7 @@
 		-ms-user-select: none;
 		position: absolute;
 		text-align: center;
+		text-transform: uppercase;
 		-webkit-user-select: none;
 		width: 100%;
 		user-select: none;
@@ -1104,10 +1102,11 @@
 		.noSelectedComp {
 			color: rgba(100, 100, 100, 0.3);
 			display: block;
-			font-size: 5rem;
+			font-size: 4rem;
 			font-weight: bold;
 			height: 100%;
 			-ms-user-select: none;
+			text-transform: uppercase;
 			user-select: none;
 			visibility: visible;
 			-webkit-user-select: none;

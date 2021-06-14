@@ -421,6 +421,7 @@
 		-ms-user-select: none;
 		padding-top: 50px;
 		text-align: center;
+		text-transform: uppercase;
 		-webkit-user-select: none;
 		width: 100%;
 		user-select: none;
