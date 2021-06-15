@@ -251,11 +251,22 @@
 									<span class="author">{comp.author}</span>
 								</div>
 							</div>
-							<button class="cardDeleteButton" on:click={(e) => { handleDeleteButtonClick(i); e.stopPropagation(); }}><img class="deleteIcon" src="./img/utility/trashcan.png" alt="Delete"></button>
-							<div class="tooltip deleteTooltip"><span class="tooltipText">Delete</span></div>
-							<button class="cardExportButton" on:click={(e) => { handleExportButtonClick(i); e.stopPropagation(); }}><img class="exportIcon" src="./img/utility/export.png" alt="Export"></button>
-							<div class="tooltip exportTooltip"><span class="tooltipText">Export</span></div>
-							<i class="star" class:active={comp.starred} on:click={(e) => handleStarClick(e, comp)}></i>
+							<div class="buttonDraftArea">
+								<div class="cardButtonsContainer">
+									<div class="buttonArea">
+										<button class="cardDeleteButton" on:click={(e) => { handleDeleteButtonClick(i); e.stopPropagation(); }}><img class="deleteIcon" src="./img/utility/trashcan.png" alt="Delete"></button>
+										<div class="tooltip deleteTooltip"><span class="tooltipText">Delete</span></div>
+									</div>
+									<div class="buttonArea">
+										<button class="cardExportButton" on:click={(e) => { handleExportButtonClick(i); e.stopPropagation(); }}><img class="exportIcon" src="./img/utility/export.png" alt="Export"></button>
+										<div class="tooltip exportTooltip"><span class="tooltipText">Export</span></div>
+									</div>
+									<i class="star" class:active={comp.starred} on:click={(e) => handleStarClick(e, comp)}></i>
+								</div>
+								<div class="draftContainer">
+									<div class="draftLabel" class:open={comp.draft}><span>draft</span></div>
+								</div>
+							</div>
 						</div>
 						<div class="compImgs">
 							{#each comp.lines[0].heroes as hero,i}
@@ -500,6 +511,8 @@
 		display: flex;
 		justify-content: center;
 		padding: 10px;
+		padding-right: 5px;
+		padding-top: 8px;
 	}
 	.titleAuthorContainer {
 		width: 100%;
@@ -519,13 +532,32 @@
 		user-select: none;
 		-webkit-user-select: none;
 	}
+	.buttonDraftArea {
+		display: flex;
+		flex-direction: column;
+		width: 120px;
+	}
+	.cardButtonsContainer {
+		align-items: center;
+		display: grid;
+		grid-gap: 5px;
+		grid-template-columns: 1fr 1fr 1fr;
+		height: 100%;
+		justify-content: space-evenly;
+		justify-items: center;
+	}
+	.buttonArea {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
 	.cardDeleteButton {
 		background-color: transparent;
 		border: 0;
 		cursor: pointer;
 		height: fit-content;
 		margin: 0;
-		margin-right: 12px;
 		padding: 0;
 		padding-top: 1px;
 	}
@@ -539,7 +571,6 @@
 		cursor: pointer;
 		height: fit-content;
 		margin: 0;
-		margin-right: 10px;
 		padding: 0;
 		padding-top: 2px;
 	}
@@ -585,6 +616,18 @@
 	}
 	.star:active, .star:active:before, .star:active:after {
 		border-bottom-color: #F7BC19;
+	}
+	.draftContainer {
+		display: flex;
+		font-style: italic;
+		justify-content: flex-end;
+		padding-right: 4px;
+	}
+	.draftLabel {
+		visibility: hidden;
+	}
+	.draftLabel.open {
+		visibility: visible;
 	}
 	.compImgs {
 		align-items: center;
