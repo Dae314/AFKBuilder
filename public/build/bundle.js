@@ -9181,8 +9181,9 @@ var app = (function () {
     const MasterComps = readable([
     	{ name: 'Ainzbedo',
     		uuid: '95a86b74-45da-4184-bad5-da065dda0273',
-    		desc: 'The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.',
+    		desc: 'The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate. This comp can work without Albedo, but at high deficits, Albedo is important for buffing Ainz and allowing his ultimate ability to clean up enemies after "The Goal of All Life is Death" has triggered.The Ainz + Albedo (Ainzbedo) comp is currently one of the best single fight pushing comps in the game. Your goal with this comp is to stall for at least 15 seconds (30 without furniture) until Ainz can ult and his "Goal of all Life is Death" skill can activate.',
     		starred: false,
+    		draft: false,
     		author: 'MrPoop Buttho',
     		lastUpdate: new Date('June 3, 2021'),
     		heroes: {
@@ -9382,6 +9383,7 @@ With a reference later in the document defining the URL location:
 [id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
 `,
     		starred: false,
+    		draft: false,
     		author: 'Arty',
     		lastUpdate: new Date('May 31, 2021'),
     		heroes: {
@@ -9543,6 +9545,7 @@ test2
 </code></pre>
 .`,
     		starred: false,
+    		draft: false,
     		author: 'Arty',
     		lastUpdate: new Date('May 31, 2021'),
     		heroes: {
@@ -9585,6 +9588,7 @@ test2
     		uuid: '325a47eb-53fd-499a-8d67-da10cf6031e9',
     		desc: 'This comp relies on Skriath\'s 3/9 furniture ability and Eironn\'s start of match pull to yank all 5 enemies onto your side of the battlefield. At lower chapters and with a well invested Eironn, Eironn can carry this composition by himself. In later chapters or at higher deficits, Lucretia is often the carry.',
     		starred: false,
+    		draft: false,
     		author: 'Arty',
     		lastUpdate: new Date('May 31, 2021'),
     		heroes: {
@@ -9664,6 +9668,7 @@ test2
     		{name: 'uuid', type: 'string'},
     		{name: 'desc', type: 'string'},
     		{name: 'starred', type: 'boolean'},
+    		{name: 'draft', type: 'boolean'},
     		{name: 'author', type: 'string'},
     		{name: 'lastUpdate', type: 'date'},
     		{name: 'heroes', type: 'object'},
@@ -9707,90 +9712,93 @@ test2
     			return {retCode: 1, message: `Incorrect type for key ${key}, expected ${expectedPropType}`};
     		}
     	}
-    	if(data.lines.length < 1) return {retCode: 1, message: 'Comps must have at least 1 line'};
-    	if(data.name === '') return {retcode: 1, message: 'Comp title cannot be blank'};
-    	// line validation
-    	for(let line of data.lines) {
-    		// each line should be an object
-    		if(!isObject$1(line)) {
-    			return {retCode: 1, message: `Unexpected line object type detected. All lines should be objects.`};
-    		}
-    		// make sure all properties are there
-    		for(const prop of expectedLineProps) {
-    			if(!(prop.name in line)) {
-    				return {retCode: 1, message: `Line named ${line.name} is missing expected property ${prop.name}`};
+    	// perform detailed checks on finalized comps
+    	if(!data.draft) {
+    		if(data.lines.length < 1) return {retCode: 1, message: 'Comps must have at least 1 line'};
+    		if(data.name === '') return {retcode: 1, message: 'Comp title cannot be blank'};
+    		// line validation
+    		for(let line of data.lines) {
+    			// each line should be an object
+    			if(!isObject$1(line)) {
+    				return {retCode: 1, message: `Unexpected line object type detected. All lines should be objects.`};
+    			}
+    			// make sure all properties are there
+    			for(const prop of expectedLineProps) {
+    				if(!(prop.name in line)) {
+    					return {retCode: 1, message: `Line named ${line.name} is missing expected property ${prop.name}`};
+    				}
+    			}
+    			// make sure there are no unexpected keys and all keys are the right type
+    			for(const key in line) {
+    				if(!expectedLineProps.some(e => e.name === key)) {
+    					return {retCode: 1, message: `Unexpected key found in line named ${line.name}: ${key}`};
+    				}
+    				expectedPropType = expectedLineProps.find(e => e.name === key).type;
+    				if(!compareType(line[key], expectedPropType)) {
+    					return {retCode: 1, message: `Incorrect type for key ${key} in line named ${line.name}, expected ${expectedPropType}`};
+    				}
+    			}
+    			// make sure every hero in a line is also in heroes
+    			for(const hero of line.heroes) {
+    				if(!(hero in data.heroes)) {
+    					return {retCode: 1, message: `Hero ${hero} in line named ${line.name} is not in heroes`};
+    				}
     			}
     		}
-    		// make sure there are no unexpected keys and all keys are the right type
-    		for(const key in line) {
-    			if(!expectedLineProps.some(e => e.name === key)) {
-    				return {retCode: 1, message: `Unexpected key found in line named ${line.name}: ${key}`};
+    		// sub validation
+    		for(let sub of data.subs) {
+    			// each sub line should be an object
+    			if(!isObject$1(sub)) {
+    				return {retCode: 1, message: `Unexpected sub object type detected. All subs should be objects.`};
     			}
-    			expectedPropType = expectedLineProps.find(e => e.name === key).type;
-    			if(!compareType(line[key], expectedPropType)) {
-    				return {retCode: 1, message: `Incorrect type for key ${key} in line named ${line.name}, expected ${expectedPropType}`};
+    			// make sure each sub category object has the right props
+    			for(const prop of expectedSubProps) {
+    				if(!(prop.name in sub)) {
+    					return {retCode: 1, message: `Sub line named ${sub.name} is missing expected property ${prop.name}`};
+    				}
     			}
-    		}
-    		// make sure every hero in a line is also in heroes
-    		for(const hero of line.heroes) {
-    			if(!(hero in data.heroes)) {
-    				return {retCode: 1, message: `Hero ${hero} in line named ${line.name} is not in heroes`};
+    			// make sure there are no unexpected keys and all keys are the right type
+    			for(const key in sub) {
+    				if(!expectedSubProps.some(e => e.name === key)) {
+    					return {retCode: 1, message: `Unexpected key found in sub line named ${sub.name}: ${key}`};
+    				}
+    				expectedPropType = expectedSubProps.find(e => e.name === key).type;
+    				if(!compareType(sub[key], expectedPropType)) {
+    					return {retCode: 1, message: `Incorrect type for key ${key} in sub line named ${sub.name}, expected ${expectedPropType}`};
+    				}
     			}
-    		}
-    	}
-    	// sub validation
-    	for(let sub of data.subs) {
-    		// each sub line should be an object
-    		if(!isObject$1(sub)) {
-    			return {retCode: 1, message: `Unexpected sub object type detected. All subs should be objects.`};
-    		}
-    		// make sure each sub category object has the right props
-    		for(const prop of expectedSubProps) {
-    			if(!(prop.name in sub)) {
-    				return {retCode: 1, message: `Sub line named ${sub.name} is missing expected property ${prop.name}`};
-    			}
-    		}
-    		// make sure there are no unexpected keys and all keys are the right type
-    		for(const key in sub) {
-    			if(!expectedSubProps.some(e => e.name === key)) {
-    				return {retCode: 1, message: `Unexpected key found in sub line named ${sub.name}: ${key}`};
-    			}
-    			expectedPropType = expectedSubProps.find(e => e.name === key).type;
-    			if(!compareType(sub[key], expectedPropType)) {
-    				return {retCode: 1, message: `Incorrect type for key ${key} in sub line named ${sub.name}, expected ${expectedPropType}`};
+    			// make sure every hero in a sub line is also in heroes
+    			for(const hero of sub.heroes) {
+    				if(!(hero in data.heroes)) {
+    					return {retCode: 1, message: `Hero ${hero} in sub line named ${sub.name} is not in heroes`};
+    				}
     			}
     		}
-    		// make sure every hero in a sub line is also in heroes
-    		for(const hero of sub.heroes) {
-    			if(!(hero in data.heroes)) {
-    				return {retCode: 1, message: `Hero ${hero} in sub line named ${sub.name} is not in heroes`};
+    		// heroes validation
+    		for(const hero in data.heroes) {
+    			// make sure all heroes are in HeroData
+    			if(!(herodata.some(e => e.id === hero))) {
+    				return {retCode: 1, message: `Hero ${hero} is not an ID in HeroData`};
     			}
-    		}
-    	}
-    	// heroes validation
-    	for(const hero in data.heroes) {
-    		// make sure all heroes are in HeroData
-    		if(!(herodata.some(e => e.id === hero))) {
-    			return {retCode: 1, message: `Hero ${hero} is not an ID in HeroData`};
-    		}
-    		// each hero should be an object
-    		if(!isObject$1(data.heroes[hero])) {
-    			return {retCode: 1, message: `Unexpected hero object type detected. All heroes should be objects.`};
-    		}
-    		// make sure heroes have the right props
-    		for(const prop of expectedHeroProps) {
-    			if(!(prop.name in data.heroes[hero])) {
-    				return {retCode: 1, message: `Hero named ${hero} is missing expected property ${prop.name}`};
+    			// each hero should be an object
+    			if(!isObject$1(data.heroes[hero])) {
+    				return {retCode: 1, message: `Unexpected hero object type detected. All heroes should be objects.`};
     			}
-    		}
-    		// make sure there are no unexpected keys and all keys are the right type
-    		for(const key in data.heroes[hero]) {
-    			if(!expectedHeroProps.some(e => e.name === key)) {
-    				return {retCode: 1, message: `Unexpected key found in hero named ${hero}: ${key}`};
+    			// make sure heroes have the right props
+    			for(const prop of expectedHeroProps) {
+    				if(!(prop.name in data.heroes[hero])) {
+    					return {retCode: 1, message: `Hero named ${hero} is missing expected property ${prop.name}`};
+    				}
     			}
-    			expectedPropType = expectedHeroProps.find(e => e.name === key).type;
-    			if(!compareType(data.heroes[hero][key], expectedPropType)) {
-    				return {retCode: 1, message: `Incorrect type for key ${key} in hero named ${hero}, expected ${expectedPropType}`};
+    			// make sure there are no unexpected keys and all keys are the right type
+    			for(const key in data.heroes[hero]) {
+    				if(!expectedHeroProps.some(e => e.name === key)) {
+    					return {retCode: 1, message: `Unexpected key found in hero named ${hero}: ${key}`};
+    				}
+    				expectedPropType = expectedHeroProps.find(e => e.name === key).type;
+    				if(!compareType(data.heroes[hero][key], expectedPropType)) {
+    					return {retCode: 1, message: `Incorrect type for key ${key} in hero named ${hero}, expected ${expectedPropType}`};
+    				}
     			}
     		}
     	}
@@ -32719,7 +32727,7 @@ test2
     	return child_ctx;
     }
 
-    // (176:5) {#each comp.lines as line, i}
+    // (177:5) {#each comp.lines as line, i}
     function create_each_block_4$2(ctx) {
     	let button1;
     	let t0_value = /*line*/ ctx[63].name + "";
@@ -32745,10 +32753,10 @@ test2
     			button0 = element("button");
     			button0.textContent = "x";
     			attr_dev(button0, "class", "removeButton svelte-e1nxa6");
-    			add_location(button0, file$8, 178, 7, 4939);
+    			add_location(button0, file$8, 179, 7, 4958);
     			attr_dev(button1, "class", "linePickerOption svelte-e1nxa6");
     			toggle_class(button1, "open", /*openLine*/ ctx[1] === /*i*/ ctx[57]);
-    			add_location(button1, file$8, 176, 6, 4819);
+    			add_location(button1, file$8, 177, 6, 4838);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button1, anchor);
@@ -32784,14 +32792,14 @@ test2
     		block,
     		id: create_each_block_4$2.name,
     		type: "each",
-    		source: "(176:5) {#each comp.lines as line, i}",
+    		source: "(177:5) {#each comp.lines as line, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (187:5) {:else}
+    // (188:5) {:else}
     function create_else_block$6(ctx) {
     	let input;
     	let t0;
@@ -32838,13 +32846,13 @@ test2
     			attr_dev(input, "type", "text");
     			attr_dev(input, "class", "lineNameInput svelte-e1nxa6");
     			attr_dev(input, "placeholder", "Line Name");
-    			add_location(input, file$8, 187, 6, 5304);
+    			add_location(input, file$8, 188, 6, 5323);
     			attr_dev(div0, "class", "backline svelte-e1nxa6");
-    			add_location(div0, file$8, 189, 7, 5450);
+    			add_location(div0, file$8, 190, 7, 5469);
     			attr_dev(div1, "class", "frontline svelte-e1nxa6");
-    			add_location(div1, file$8, 211, 7, 6880);
+    			add_location(div1, file$8, 212, 7, 6899);
     			attr_dev(div2, "class", "lineDisplay svelte-e1nxa6");
-    			add_location(div2, file$8, 188, 6, 5416);
+    			add_location(div2, file$8, 189, 6, 5435);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, input, anchor);
@@ -32937,14 +32945,14 @@ test2
     		block,
     		id: create_else_block$6.name,
     		type: "else",
-    		source: "(187:5) {:else}",
+    		source: "(188:5) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (185:5) {#if openLine === null}
+    // (186:5) {#if openLine === null}
     function create_if_block_1$3(ctx) {
     	let span;
 
@@ -32953,7 +32961,7 @@ test2
     			span = element("span");
     			span.textContent = "Select a line to edit.";
     			attr_dev(span, "class", "noLine svelte-e1nxa6");
-    			add_location(span, file$8, 185, 6, 5232);
+    			add_location(span, file$8, 186, 6, 5251);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -32968,14 +32976,14 @@ test2
     		block,
     		id: create_if_block_1$3.name,
     		type: "if",
-    		source: "(185:5) {#if openLine === null}",
+    		source: "(186:5) {#if openLine === null}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (192:8) {#if i >= 2}
+    // (193:8) {#if i >= 2}
     function create_if_block_4$3(ctx) {
     	let if_block_anchor;
 
@@ -33019,14 +33027,14 @@ test2
     		block,
     		id: create_if_block_4$3.name,
     		type: "if",
-    		source: "(192:8) {#if i >= 2}",
+    		source: "(193:8) {#if i >= 2}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (200:9) {:else}
+    // (201:9) {:else}
     function create_else_block_2$2(ctx) {
     	let button;
     	let div;
@@ -33075,16 +33083,16 @@ test2
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[7].find(func).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[7].find(func_1).name);
     			attr_dev(img, "class", "svelte-e1nxa6");
-    			add_location(img, file$8, 202, 12, 6352);
+    			add_location(img, file$8, 203, 12, 6371);
     			attr_dev(span, "class", "coreMark svelte-e1nxa6");
     			toggle_class(span, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[58]].core);
-    			add_location(span, file$8, 203, 12, 6467);
+    			add_location(span, file$8, 204, 12, 6486);
     			attr_dev(div, "class", "imgContainer svelte-e1nxa6");
-    			add_location(div, file$8, 201, 11, 6312);
+    			add_location(div, file$8, 202, 11, 6331);
     			attr_dev(button, "class", "heroButton svelte-e1nxa6");
-    			add_location(button, file$8, 200, 10, 6118);
+    			add_location(button, file$8, 201, 10, 6137);
     			attr_dev(p, "class", "heroButton svelte-e1nxa6");
-    			add_location(p, file$8, 206, 10, 6588);
+    			add_location(p, file$8, 207, 10, 6607);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -33135,14 +33143,14 @@ test2
     		block,
     		id: create_else_block_2$2.name,
     		type: "else",
-    		source: "(200:9) {:else}",
+    		source: "(201:9) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (193:9) {#if hero === 'unknown'}
+    // (194:9) {#if hero === 'unknown'}
     function create_if_block_5$2(ctx) {
     	let button;
     	let div;
@@ -33172,13 +33180,13 @@ test2
     			if (img.src !== (img_src_value = "./img/portraits/unavailable.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Pick");
     			attr_dev(img, "class", "svelte-e1nxa6");
-    			add_location(img, file$8, 195, 12, 5815);
+    			add_location(img, file$8, 196, 12, 5834);
     			attr_dev(div, "class", "imgContainer svelte-e1nxa6");
-    			add_location(div, file$8, 194, 11, 5775);
+    			add_location(div, file$8, 195, 11, 5794);
     			attr_dev(button, "class", "heroButton svelte-e1nxa6");
-    			add_location(button, file$8, 193, 10, 5598);
+    			add_location(button, file$8, 194, 10, 5617);
     			attr_dev(p, "class", "heroButton svelte-e1nxa6");
-    			add_location(p, file$8, 198, 10, 5921);
+    			add_location(p, file$8, 199, 10, 5940);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -33212,14 +33220,14 @@ test2
     		block,
     		id: create_if_block_5$2.name,
     		type: "if",
-    		source: "(193:9) {#if hero === 'unknown'}",
+    		source: "(194:9) {#if hero === 'unknown'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (191:8) {#each comp.lines[openLine].heroes as  hero, i}
+    // (192:8) {#each comp.lines[openLine].heroes as  hero, i}
     function create_each_block_3$2(ctx) {
     	let if_block_anchor;
     	let if_block = /*i*/ ctx[57] >= 2 && create_if_block_4$3(ctx);
@@ -33246,14 +33254,14 @@ test2
     		block,
     		id: create_each_block_3$2.name,
     		type: "each",
-    		source: "(191:8) {#each comp.lines[openLine].heroes as  hero, i}",
+    		source: "(192:8) {#each comp.lines[openLine].heroes as  hero, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (214:8) {#if i < 2}
+    // (215:8) {#if i < 2}
     function create_if_block_2$3(ctx) {
     	let if_block_anchor;
 
@@ -33297,14 +33305,14 @@ test2
     		block,
     		id: create_if_block_2$3.name,
     		type: "if",
-    		source: "(214:8) {#if i < 2}",
+    		source: "(215:8) {#if i < 2}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (222:9) {:else}
+    // (223:9) {:else}
     function create_else_block_1$2(ctx) {
     	let button;
     	let div;
@@ -33353,16 +33361,16 @@ test2
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[7].find(func_3).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[7].find(func_4).name);
     			attr_dev(img, "class", "svelte-e1nxa6");
-    			add_location(img, file$8, 224, 12, 7782);
+    			add_location(img, file$8, 225, 12, 7801);
     			attr_dev(span, "class", "coreMark svelte-e1nxa6");
     			toggle_class(span, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[58]].core);
-    			add_location(span, file$8, 225, 12, 7897);
+    			add_location(span, file$8, 226, 12, 7916);
     			attr_dev(div, "class", "imgContainer svelte-e1nxa6");
-    			add_location(div, file$8, 223, 11, 7742);
+    			add_location(div, file$8, 224, 11, 7761);
     			attr_dev(button, "class", "heroButton svelte-e1nxa6");
-    			add_location(button, file$8, 222, 10, 7548);
+    			add_location(button, file$8, 223, 10, 7567);
     			attr_dev(p, "class", "heroButton svelte-e1nxa6");
-    			add_location(p, file$8, 228, 10, 8018);
+    			add_location(p, file$8, 229, 10, 8037);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -33413,14 +33421,14 @@ test2
     		block,
     		id: create_else_block_1$2.name,
     		type: "else",
-    		source: "(222:9) {:else}",
+    		source: "(223:9) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (215:9) {#if hero === 'unknown'}
+    // (216:9) {#if hero === 'unknown'}
     function create_if_block_3$3(ctx) {
     	let button;
     	let div;
@@ -33450,13 +33458,13 @@ test2
     			if (img.src !== (img_src_value = "./img/portraits/unavailable.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Pick");
     			attr_dev(img, "class", "svelte-e1nxa6");
-    			add_location(img, file$8, 217, 12, 7245);
+    			add_location(img, file$8, 218, 12, 7264);
     			attr_dev(div, "class", "imgContainer svelte-e1nxa6");
-    			add_location(div, file$8, 216, 11, 7205);
+    			add_location(div, file$8, 217, 11, 7224);
     			attr_dev(button, "class", "heroButton svelte-e1nxa6");
-    			add_location(button, file$8, 215, 10, 7028);
+    			add_location(button, file$8, 216, 10, 7047);
     			attr_dev(p, "class", "heroButton svelte-e1nxa6");
-    			add_location(p, file$8, 220, 10, 7351);
+    			add_location(p, file$8, 221, 10, 7370);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -33490,14 +33498,14 @@ test2
     		block,
     		id: create_if_block_3$3.name,
     		type: "if",
-    		source: "(215:9) {#if hero === 'unknown'}",
+    		source: "(216:9) {#if hero === 'unknown'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (213:8) {#each comp.lines[openLine].heroes as  hero, i}
+    // (214:8) {#each comp.lines[openLine].heroes as  hero, i}
     function create_each_block_2$2(ctx) {
     	let if_block_anchor;
     	let if_block = /*i*/ ctx[57] < 2 && create_if_block_2$3(ctx);
@@ -33524,14 +33532,14 @@ test2
     		block,
     		id: create_each_block_2$2.name,
     		type: "each",
-    		source: "(213:8) {#each comp.lines[openLine].heroes as  hero, i}",
+    		source: "(214:8) {#each comp.lines[openLine].heroes as  hero, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (254:8) {#each sub.heroes as hero, j}
+    // (255:8) {#each sub.heroes as hero, j}
     function create_each_block_1$3(ctx) {
     	let div;
     	let button1;
@@ -33598,16 +33606,16 @@ test2
     			: "Pick a Hero");
 
     			attr_dev(img, "class", "svelte-e1nxa6");
-    			add_location(img, file$8, 256, 11, 9365);
-    			add_location(span, file$8, 259, 80, 9700);
+    			add_location(img, file$8, 257, 11, 9384);
+    			add_location(span, file$8, 260, 80, 9719);
     			attr_dev(button0, "class", "subRemoveButton svelte-e1nxa6");
-    			add_location(button0, file$8, 259, 11, 9631);
+    			add_location(button0, file$8, 260, 11, 9650);
     			attr_dev(button1, "class", "heroButton svelte-e1nxa6");
-    			add_location(button1, file$8, 255, 10, 9147);
+    			add_location(button1, file$8, 256, 10, 9166);
     			attr_dev(p, "class", "svelte-e1nxa6");
-    			add_location(p, file$8, 261, 10, 9756);
+    			add_location(p, file$8, 262, 10, 9775);
     			attr_dev(div, "class", "subGroupMember");
-    			add_location(div, file$8, 254, 9, 9107);
+    			add_location(div, file$8, 255, 9, 9126);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -33657,14 +33665,14 @@ test2
     		block,
     		id: create_each_block_1$3.name,
     		type: "each",
-    		source: "(254:8) {#each sub.heroes as hero, j}",
+    		source: "(255:8) {#each sub.heroes as hero, j}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (247:5) {#each comp.subs as sub, i}
+    // (248:5) {#each comp.subs as sub, i}
     function create_each_block$6(ctx) {
     	let div2;
     	let div0;
@@ -33719,17 +33727,17 @@ test2
     			attr_dev(input, "class", "subTitleInput svelte-e1nxa6");
     			attr_dev(input, "type", "text");
     			attr_dev(input, "placeholder", "Subgroup Name");
-    			add_location(input, file$8, 249, 8, 8815);
+    			add_location(input, file$8, 250, 8, 8834);
     			attr_dev(button0, "class", "removeButton svelte-e1nxa6");
-    			add_location(button0, file$8, 250, 8, 8916);
+    			add_location(button0, file$8, 251, 8, 8935);
     			attr_dev(div0, "class", "subTitle svelte-e1nxa6");
-    			add_location(div0, file$8, 248, 7, 8783);
+    			add_location(div0, file$8, 249, 7, 8802);
     			attr_dev(button1, "class", "addHeroButton svelte-e1nxa6");
-    			add_location(button1, file$8, 264, 8, 9848);
+    			add_location(button1, file$8, 265, 8, 9867);
     			attr_dev(div1, "class", "subLine svelte-e1nxa6");
-    			add_location(div1, file$8, 252, 7, 9036);
+    			add_location(div1, file$8, 253, 7, 9055);
     			attr_dev(div2, "class", "subGroup svelte-e1nxa6");
-    			add_location(div2, file$8, 247, 6, 8752);
+    			add_location(div2, file$8, 248, 6, 8771);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -33801,14 +33809,14 @@ test2
     		block,
     		id: create_each_block$6.name,
     		type: "each",
-    		source: "(247:5) {#each comp.subs as sub, i}",
+    		source: "(248:5) {#each comp.subs as sub, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (281:2) {#if heroFinderOpen}
+    // (282:2) {#if heroFinderOpen}
     function create_if_block$6(ctx) {
     	let herofinder;
     	let current;
@@ -33849,7 +33857,7 @@ test2
     		block,
     		id: create_if_block$6.name,
     		type: "if",
-    		source: "(281:2) {#if heroFinderOpen}",
+    		source: "(282:2) {#if heroFinderOpen}",
     		ctx
     	});
 
@@ -33991,64 +33999,64 @@ test2
     			attr_dev(input0, "class", "titleInput svelte-e1nxa6");
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "placeholder", "Title");
-    			add_location(input0, file$8, 168, 3, 4467);
+    			add_location(input0, file$8, 169, 3, 4486);
     			attr_dev(input1, "class", "authorInput svelte-e1nxa6");
     			attr_dev(input1, "type", "text");
     			attr_dev(input1, "placeholder", "Author");
-    			add_location(input1, file$8, 169, 3, 4553);
+    			add_location(input1, file$8, 170, 3, 4572);
     			attr_dev(div0, "class", "editorHead svelte-e1nxa6");
-    			add_location(div0, file$8, 167, 2, 4438);
+    			add_location(div0, file$8, 168, 2, 4457);
     			attr_dev(h40, "class", "lineEditorTitle svelte-e1nxa6");
-    			add_location(h40, file$8, 173, 4, 4705);
+    			add_location(h40, file$8, 174, 4, 4724);
     			attr_dev(button0, "class", "linePickerOption addLineButton svelte-e1nxa6");
-    			add_location(button0, file$8, 181, 5, 5074);
+    			add_location(button0, file$8, 182, 5, 5093);
     			attr_dev(div1, "class", "lineEditHead svelte-e1nxa6");
-    			add_location(div1, file$8, 174, 4, 4749);
+    			add_location(div1, file$8, 175, 4, 4768);
     			attr_dev(div2, "class", "lineEditBody svelte-e1nxa6");
-    			add_location(div2, file$8, 183, 4, 5168);
+    			add_location(div2, file$8, 184, 4, 5187);
     			attr_dev(div3, "class", "lineEditor svelte-e1nxa6");
-    			add_location(div3, file$8, 172, 3, 4675);
+    			add_location(div3, file$8, 173, 3, 4694);
     			attr_dev(h41, "class", "svelte-e1nxa6");
-    			add_location(h41, file$8, 238, 4, 8418);
+    			add_location(h41, file$8, 239, 4, 8437);
     			attr_dev(textarea, "id", "descInput");
     			attr_dev(textarea, "class", "descInput svelte-e1nxa6");
     			attr_dev(textarea, "placeholder", "Description");
-    			add_location(textarea, file$8, 239, 4, 8444);
+    			add_location(textarea, file$8, 240, 4, 8463);
     			attr_dev(div4, "class", "descEditor svelte-e1nxa6");
-    			add_location(div4, file$8, 237, 3, 8388);
+    			add_location(div4, file$8, 238, 3, 8407);
     			attr_dev(div5, "class", "row1 svelte-e1nxa6");
-    			add_location(div5, file$8, 171, 2, 4652);
+    			add_location(div5, file$8, 172, 2, 4671);
     			attr_dev(h42, "class", "svelte-e1nxa6");
-    			add_location(h42, file$8, 244, 4, 8658);
+    			add_location(h42, file$8, 245, 4, 8677);
     			attr_dev(button1, "class", "subAddButton svelte-e1nxa6");
-    			add_location(button1, file$8, 269, 6, 10115);
+    			add_location(button1, file$8, 270, 6, 10134);
     			attr_dev(div6, "class", "newSubArea svelte-e1nxa6");
-    			add_location(div6, file$8, 268, 5, 10083);
+    			add_location(div6, file$8, 269, 5, 10102);
     			attr_dev(div7, "class", "subContainer svelte-e1nxa6");
-    			add_location(div7, file$8, 245, 4, 8684);
+    			add_location(div7, file$8, 246, 4, 8703);
     			attr_dev(div8, "class", "subEditor");
-    			add_location(div8, file$8, 243, 3, 8629);
+    			add_location(div8, file$8, 244, 3, 8648);
     			attr_dev(div9, "class", "row2");
-    			add_location(div9, file$8, 242, 2, 8606);
+    			add_location(div9, file$8, 243, 2, 8625);
     			attr_dev(button2, "class", "footerButton saveButton svelte-e1nxa6");
-    			add_location(button2, file$8, 275, 3, 10265);
+    			add_location(button2, file$8, 276, 3, 10284);
     			attr_dev(button3, "class", "footerButton cancelButton svelte-e1nxa6");
-    			add_location(button3, file$8, 276, 3, 10343);
+    			add_location(button3, file$8, 277, 3, 10362);
     			attr_dev(div10, "class", "footer svelte-e1nxa6");
-    			add_location(div10, file$8, 274, 2, 10240);
+    			add_location(div10, file$8, 275, 2, 10259);
     			attr_dev(section0, "class", "sect1");
-    			add_location(section0, file$8, 166, 1, 4411);
+    			add_location(section0, file$8, 167, 1, 4430);
     			attr_dev(section1, "class", "sect2 svelte-e1nxa6");
     			toggle_class(section1, "visible", /*heroFinderOpen*/ ctx[5]);
-    			add_location(section1, file$8, 279, 1, 10448);
+    			add_location(section1, file$8, 280, 1, 10467);
     			attr_dev(div11, "class", "statusMessage svelte-e1nxa6");
     			toggle_class(div11, "visible", /*showStatusMessage*/ ctx[3]);
     			toggle_class(div11, "error", /*statusError*/ ctx[4]);
-    			add_location(div11, file$8, 285, 2, 10615);
+    			add_location(div11, file$8, 286, 2, 10634);
     			attr_dev(section2, "class", "sect3 svelte-e1nxa6");
-    			add_location(section2, file$8, 284, 1, 10588);
+    			add_location(section2, file$8, 285, 1, 10607);
     			attr_dev(div12, "class", "editorContainer svelte-e1nxa6");
-    			add_location(div12, file$8, 165, 0, 4379);
+    			add_location(div12, file$8, 166, 0, 4398);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$4("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -34303,6 +34311,7 @@ test2
     		uuid: v4(),
     		desc: "",
     		starred: false,
+    		draft: false,
     		author: "",
     		lastUpdate: new Date(),
     		heroes: {},

@@ -16,6 +16,7 @@
 				uuid: uuidv4(),
 				desc: '',
 				starred: false,
+				draft: false,
 				author: '',
 				lastUpdate: new Date(),
 				heroes: {},
