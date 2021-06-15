@@ -269,9 +269,15 @@
 							</div>
 						</div>
 						<div class="compImgs">
-							{#each comp.lines[0].heroes as hero,i}
-								<img class="compCardImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
-							{/each}
+							{#if comp.lines.length > 0}
+								{#each comp.lines[0].heroes as hero}
+									{#if $HeroData.some(e => e.id === hero)}
+										<img class="compCardImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+									{:else}
+										<img class="compCardImg" src="./img/portraits/unavailable.png" alt="Unknown">
+									{/if}
+								{/each}
+							{/if}
 						</div>
 					</div>
 				{/each}
@@ -318,26 +324,38 @@
 							</div>
 							<div class="lineDisplay">
 								<div class="detailBackline">
-									{#each $AppData.Comps[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
-										{#if i >= 2}
-										<div class="detailImgContainer">
-											<a href="#heroDetailSection"><img on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
-											<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
-										</div>
-										<a href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
-										{/if}
-									{/each}
+									{#if $AppData.Comps[$AppData.selectedComp].lines.length > 0}
+										{#each $AppData.Comps[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
+											{#if i >= 2}
+												{#if $HeroData.some(e => e.id === hero)}
+													<div class="detailImgContainer">
+														<a href="#heroDetailSection"><img on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
+														<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
+													</div>
+													<a href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
+												{:else}
+													<img class="lineImg" src="./img/portraits/unavailable.png" alt="Unknown">
+												{/if}
+											{/if}
+										{/each}
+									{/if}
 								</div>
 								<div class="detailFrontline">
-									{#each $AppData.Comps[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
-										{#if i < 2}
-											<div class="detailImgContainer">
-												<a href="#heroDetailSection"><img on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
-												<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
-											</div>
-											<a href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
-										{/if}
-									{/each}
+									{#if $AppData.Comps[$AppData.selectedComp].lines.length > 0}
+										{#each $AppData.Comps[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
+											{#if i < 2}
+												{#if $HeroData.some(e => e.id === hero)}
+													<div class="detailImgContainer">
+														<a href="#heroDetailSection"><img on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
+														<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
+													</div>
+													<a href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
+												{:else}
+													<img class="lineImg" src="./img/portraits/unavailable.png" alt="Unknown">
+												{/if}
+											{/if}
+										{/each}
+									{/if}
 								</div>
 							</div>
 						</div>
