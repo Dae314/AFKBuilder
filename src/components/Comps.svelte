@@ -41,7 +41,7 @@
 
 	onMount(async () => {
 		const mediaListener = window.matchMedia("(max-width: 767px)");
-		mediaListener.addListener(() => adjustEditorWidth(mediaListener));
+		mediaListener.addEventListener('change', () => adjustEditorWidth(mediaListener));
 	});
 
 	function adjustEditorWidth(listener) {

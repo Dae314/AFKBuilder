@@ -36,7 +36,7 @@
 
 	onMount(async () => {
 		const mediaListener = window.matchMedia("(max-width: 767px)");
-		mediaListener.addListener(mediaQueryHandler);
+		mediaListener.addEventListener('change', mediaQueryHandler);
 	});
 </script>
 
