@@ -66,10 +66,10 @@
 	function handleCompCardClick(compIdx) {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
-		if(urlParams.has('modal')) {
-			history.replaceState({view: $AppData.activeView, modal: true}, $AppData.activeView, `?view=${$AppData.activeView}&modal=true`);
+		if(urlParams.has('comp')) {
+			history.replaceState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?view=${$AppData.activeView}&comp=true`);
 		} else {
-			history.pushState({view: $AppData.activeView, modal: true}, $AppData.activeView, `?view=${$AppData.activeView}&modal=true`);
+			history.pushState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?view=${$AppData.activeView}&comp=true`);
 		}
 		$AppData.selectedComp = compIdx;
 		openDetail = true;
@@ -222,8 +222,9 @@
 		});
 	}
 
-	function handlePopState() {
-		openDetail = false;
+	function handlePopState(event) {
+		const state = event.state;
+		if(!state.comp) openDetail = false;
 	}
 </script>
 

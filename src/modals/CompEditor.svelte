@@ -32,7 +32,7 @@
 	let autosave;
 
 	onMount(async () => {
-		history.pushState({view: $AppData.activeView, modal: true}, "Comp Editor", `?view=${$AppData.activeView}&modal=true`);
+		history.pushState({view: $AppData.activeView, modal: true, comp: true}, "Comp Editor", `?view=${$AppData.activeView}&comp=true&modal=true`);
 		if(compID) {
 			const compCopy = $AppData.Comps.find(e => e.uuid === compID);
 			if(typeof compCopy === 'undefined') throw new Error(`Invalid CompID given to CompEditor: ${compID}.`);
