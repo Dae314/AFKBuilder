@@ -169,6 +169,9 @@
 		<div class="editorHead">
 			<input class="titleInput" type="text" bind:value={comp.name} placeholder="Title">
 			<input class="authorInput" type="text" bind:value={comp.author} placeholder="Author">
+			{#if comp.draft}
+				<div class="draftContainer"><span class="draftLabel">draft</span></div>
+			{/if}
 		</div>
 		<div class="row1">
 			<div class="lineEditor">
@@ -335,6 +338,14 @@
 		margin: 0;
 		margin-bottom: 10px;
 		margin-top: 15px;
+	}
+	.draftContainer {
+		padding-top: 3px;
+	}
+	.draftLabel {
+		color: var(--appDelColor);
+		font-weight: bold;
+		font-style: italic;
 	}
 	.lineEditorTitle {
 		margin-top: 0;
