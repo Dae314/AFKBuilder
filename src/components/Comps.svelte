@@ -2,6 +2,7 @@
 	import { onMount, getContext, createEventDispatcher, tick } from 'svelte';
 	import MarkdownIt from 'markdown-it';
 	import Emoji from 'markdown-it-emoji';
+	import { v4 as uuidv4 } from 'uuid';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
@@ -37,11 +38,14 @@
 	let selectedLine = 0;
 	let selectedHero = '';
 	let copyConfirmVisible = false;
+	let showowConfirm = false;
+	let owText = '';
+	let owPromise;
 	let editorWidth = window.matchMedia("(max-width: 767px)").matches ? '100%' : '75%';
 
 	onMount(async () => {
 		const mediaListener = window.matchMedia("(max-width: 767px)");
-		mediaListener.addListener(() => adjustEditorWidth(mediaListener));
+		mediaListener.addEventListener('change', () => adjustEditorWidth(mediaListener));
 	});
 
 	function adjustEditorWidth(listener) {
@@ -66,10 +70,10 @@
 	function handleCompCardClick(compIdx) {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
-		if(urlParams.has('modal')) {
-			history.replaceState({view: $AppData.activeView, modal: true}, $AppData.activeView, `?view=${$AppData.activeView}&modal=true`);
+		if(urlParams.has('comp')) {
+			history.replaceState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?view=${$AppData.activeView}&comp=true`);
 		} else {
-			history.pushState({view: $AppData.activeView, modal: true}, $AppData.activeView, `?view=${$AppData.activeView}&modal=true`);
+			history.pushState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?view=${$AppData.activeView}&comp=true`);
 		}
 		$AppData.selectedComp = compIdx;
 		openDetail = true;
@@ -111,6 +115,7 @@
 		},
 		{ closeButton: ModalCloseButton,
 			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
+			closeOnOuterClick: false,
 		});
 		openNewCompOptions = false;
 	}
@@ -160,6 +165,7 @@
 
 	async function handleCompImport(compressedData) {
 		let data;
+		let statusMsg = '';
 
 		// unpack and decompress data
 		try {
@@ -179,13 +185,29 @@
 			return {retCode: returnObj.retCode, message: returnObj.message};
 		} else {
 			// message should contain a clean comp object now
-			if($AppData.Comps.some(e => e.uuid === data.uuid)) {
-				// update existing comp
-				const idx = $AppData.Comps.findIndex(e => e.uuid === data.uuid);
-				$AppData.Comps[idx] = data;
+			if($AppData.Comps.some(e => e.uuid === returnObj.message.uuid)) {
+				// comp exists, check if user wants to update it
+				const idx = $AppData.Comps.findIndex(e => e.uuid === returnObj.message.uuid);
+				const response = await openOverwriteConfirm(idx);
+				switch(response) {
+					case 'update':
+						$AppData.Comps[idx] = returnObj.message;
+						statusMsg = 'Comp updated successfully';
+						break;
+					case 'new':
+						returnObj.message.uuid = uuidv4();
+						$AppData.Comps = [...$AppData.Comps, returnObj.message];
+						statusMsg = 'Data import successful';
+						break;
+					case 'cancel':
+						return { retCode: 0, message: 'Data import cancelled' };
+						break;
+					default:
+						throw new Error(`Invalid response received from overwrite dialog: ${response}`);
+				}
 			} else {
-				// new comp, add it to the list
-				$AppData.Comps.push(returnObj.message);
+				// comp not in list yet, add it to the list
+				$AppData.Comps = [...$AppData.Comps, returnObj.message];
 			}
 			sortedCompList = $AppData.Comps.sort(sortByStars);
 			highlightComp = sortedCompList.findIndex(e => e.uuid === returnObj.message.uuid);
@@ -197,8 +219,19 @@
 			document.getElementById(`comp${highlightComp}`).scrollIntoView();
 			setTimeout(() => highlightComp = null, 3000);
 			dispatch('saveData');
-			return { retCode: 0, message: 'Data import successful' };
+			return { retCode: 0, message: statusMsg };
 		}
+	}
+
+	async function openOverwriteConfirm(index) {
+		let reply = '';
+		owText = `Update comp named "${$AppData.Comps[index].name}"?`;
+		showowConfirm = true;
+		let promise = new Promise((resolve) => { owPromise = resolve });
+		await promise.then((result) => { reply = result });
+		showowConfirm = false;
+		owText = '';
+		return reply;
 	}
 
 	function handleCloseButtonClick() {
@@ -222,8 +255,9 @@
 		});
 	}
 
-	function handlePopState() {
-		openDetail = false;
+	function handlePopState(event) {
+		const state = event.state;
+		if(!state.comp) openDetail = false;
 	}
 </script>
 
@@ -251,16 +285,33 @@
 									<span class="author">{comp.author}</span>
 								</div>
 							</div>
-							<button class="cardDeleteButton" on:click={(e) => { handleDeleteButtonClick(i); e.stopPropagation(); }}><img class="deleteIcon" src="./img/utility/trashcan.png" alt="Delete"></button>
-							<div class="tooltip deleteTooltip"><span class="tooltipText">Delete</span></div>
-							<button class="cardExportButton" on:click={(e) => { handleExportButtonClick(i); e.stopPropagation(); }}><img class="exportIcon" src="./img/utility/export.png" alt="Export"></button>
-							<div class="tooltip exportTooltip"><span class="tooltipText">Export</span></div>
-							<i class="star" class:active={comp.starred} on:click={(e) => handleStarClick(e, comp)}></i>
+							<div class="buttonDraftArea">
+								<div class="cardButtonsContainer">
+									<div class="buttonArea">
+										<button class="cardDeleteButton" on:click={(e) => { handleDeleteButtonClick(i); e.stopPropagation(); }}><img class="deleteIcon" src="./img/utility/trashcan.png" alt="Delete"></button>
+										<div class="tooltip deleteTooltip"><span class="tooltipText">Delete</span></div>
+									</div>
+									<div class="buttonArea">
+										<button class="cardExportButton" on:click={(e) => { handleExportButtonClick(i); e.stopPropagation(); }}><img class="exportIcon" src="./img/utility/export.png" alt="Export"></button>
+										<div class="tooltip exportTooltip"><span class="tooltipText">Export</span></div>
+									</div>
+									<i class="star" class:active={comp.starred} on:click={(e) => handleStarClick(e, comp)}></i>
+								</div>
+								<div class="draftContainer">
+									<div class="draftLabel" class:open={comp.draft}><span>draft</span></div>
+								</div>
+							</div>
 						</div>
 						<div class="compImgs">
-							{#each comp.lines[0].heroes as hero,i}
-								<img class="compCardImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
-							{/each}
+							{#if comp.lines.length > 0}
+								{#each comp.lines[0].heroes as hero}
+									{#if $HeroData.some(e => e.id === hero)}
+										<img class="compCardImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+									{:else}
+										<img class="compCardImg" src="./img/portraits/unavailable.png" alt="Unknown">
+									{/if}
+								{/each}
+							{/if}
 						</div>
 					</div>
 				{/each}
@@ -307,26 +358,38 @@
 							</div>
 							<div class="lineDisplay">
 								<div class="detailBackline">
-									{#each $AppData.Comps[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
-										{#if i >= 2}
-										<div class="detailImgContainer">
-											<a href="#heroDetailSection"><img on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
-											<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
-										</div>
-										<a href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
-										{/if}
-									{/each}
+									{#if $AppData.Comps[$AppData.selectedComp].lines.length > 0}
+										{#each $AppData.Comps[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
+											{#if i >= 2}
+												{#if $HeroData.some(e => e.id === hero)}
+													<div class="detailImgContainer">
+														<a href="#heroDetailSection"><img on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
+														<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
+													</div>
+													<a href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
+												{:else}
+													<img class="lineImg" src="./img/portraits/unavailable.png" alt="Unknown">
+												{/if}
+											{/if}
+										{/each}
+									{/if}
 								</div>
 								<div class="detailFrontline">
-									{#each $AppData.Comps[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
-										{#if i < 2}
-											<div class="detailImgContainer">
-												<a href="#heroDetailSection"><img on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
-												<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
-											</div>
-											<a href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
-										{/if}
-									{/each}
+									{#if $AppData.Comps[$AppData.selectedComp].lines.length > 0}
+										{#each $AppData.Comps[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
+											{#if i < 2}
+												{#if $HeroData.some(e => e.id === hero)}
+													<div class="detailImgContainer">
+														<a href="#heroDetailSection"><img on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
+														<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
+													</div>
+													<a href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
+												{:else}
+													<img class="lineImg" src="./img/portraits/unavailable.png" alt="Unknown">
+												{/if}
+											{/if}
+										{/each}
+									{/if}
 								</div>
 							</div>
 						</div>
@@ -424,6 +487,25 @@
 	<section class="sect3">
 		<div class="copyConfirm" class:visible={copyConfirmVisible}><span>Comp Data Copied to Clipboard</span></div>
 	</section>
+	<section class="sect4" class:visible={showowConfirm}>
+		{#if showowConfirm}
+			<div class="owBackground">
+				<div class="owConfirmWindow">
+					<div class="owTitle">
+						<h4>Previous Comp Found</h4>
+					</div>
+					<div class="owBody">
+						<span>{owText}</span>
+					</div>
+					<div class="owFooter">
+						<button class="owFooterButton owUpdate" on:click={owPromise('update')}>Update</button>
+						<button class="owFooterButton owNew" on:click={owPromise('new')}>New</button>
+						<button class="owFooterButton owCancel" on:click={owPromise('cancel')}>Cancel</button>
+					</div>
+				</div>
+			</div>
+		{/if}
+	</section>
 </div>
 
 <style>
@@ -444,6 +526,61 @@
 		top: 80px;
 		transform: translate(-50%, 0);
 		width: fit-content;
+	}
+	.sect4 {
+		display: block;
+		height: 100%;
+		left: 0;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		visibility: hidden;
+		z-index: 1001;
+	}
+	.sect4.visible {
+		visibility: visible;
+	}
+	.owBackground {
+		align-items: center;
+		background-color: rgba(0, 0, 0, 0.5);
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		justify-content: center;
+		width: 100%;
+	}
+	.owConfirmWindow {
+		background-color: var(--appBGColor);
+		border-radius: 10px;
+		padding: 10px;
+	}
+	.owTitle {
+		display: flex;
+		justify-content: center;
+		padding: 10px;
+	}
+	.owTitle h4 {
+		margin: 0;
+	}
+	.owBody {
+		padding: 10px;
+	}
+	.owFooter {
+		display: flex;
+		justify-content: flex-end;
+		padding-top: 10px;
+	}
+	.owFooterButton {
+		background-color: transparent;
+		border: 3px solid var(--appColorPrimary);
+		border-radius: 10px;
+		color: var(--appColorPrimary);
+		outline: none;
+		padding: 5px;
+		margin-right: 10px;
+	}
+	.owFooterButton:last-child {
+		margin-right: 0;
 	}
 	.copyConfirm {
 		background-color: rgba(50, 50, 50, 0.7);
@@ -500,6 +637,8 @@
 		display: flex;
 		justify-content: center;
 		padding: 10px;
+		padding-right: 5px;
+		padding-top: 8px;
 	}
 	.titleAuthorContainer {
 		width: 100%;
@@ -519,13 +658,32 @@
 		user-select: none;
 		-webkit-user-select: none;
 	}
+	.buttonDraftArea {
+		display: flex;
+		flex-direction: column;
+		width: 120px;
+	}
+	.cardButtonsContainer {
+		align-items: center;
+		display: grid;
+		grid-gap: 5px;
+		grid-template-columns: 1fr 1fr 1fr;
+		height: 100%;
+		justify-content: space-evenly;
+		justify-items: center;
+	}
+	.buttonArea {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
 	.cardDeleteButton {
 		background-color: transparent;
 		border: 0;
 		cursor: pointer;
 		height: fit-content;
 		margin: 0;
-		margin-right: 12px;
 		padding: 0;
 		padding-top: 1px;
 	}
@@ -539,7 +697,6 @@
 		cursor: pointer;
 		height: fit-content;
 		margin: 0;
-		margin-right: 10px;
 		padding: 0;
 		padding-top: 2px;
 	}
@@ -585,6 +742,18 @@
 	}
 	.star:active, .star:active:before, .star:active:after {
 		border-bottom-color: #F7BC19;
+	}
+	.draftContainer {
+		display: flex;
+		font-style: italic;
+		justify-content: flex-end;
+		padding-right: 4px;
+	}
+	.draftLabel {
+		visibility: hidden;
+	}
+	.draftLabel.open {
+		visibility: visible;
 	}
 	.compImgs {
 		align-items: center;
@@ -1034,6 +1203,13 @@
 			max-width: 79%;
 			width: 79%;
 		}
+		.owFooterButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
+		}
+		.owCancel:hover {
+			background-color: var(--appColorPriAccent);
+		}
 		.tooltip {
 			bottom: -25px;
 			display: inline-block;
@@ -1196,8 +1372,8 @@
 		.mobileExpander.descSection {
 			border: 2px solid var(--appColorPrimary);
 			border-radius: 10px 0px 0px 10px;
-			margin-top: 27.5px;
-			max-height: 275px;
+			margin-top: 27px;
+			max-height: 334.5px;
 			overflow-y: auto;
 			padding: 5px;
 		}

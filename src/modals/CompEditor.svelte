@@ -1,12 +1,12 @@
 <script>
-	import { onMount, tick, getContext } from 'svelte';
+	import { onMount, onDestroy, tick, getContext } from 'svelte';
 	import { v4 as uuidv4 } from 'uuid';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from '../shared/HeroFinder.svelte';
 
-	export let compID = null;
-	export let onSuccess = () => {};
+	export let compID = null; // uuid for comp to be edited
+	export let onSuccess = () => {}; // save success callback
 
 	const { close } = getContext('simple-modal');
 
@@ -16,6 +16,7 @@
 				uuid: uuidv4(),
 				desc: '',
 				starred: false,
+				draft: true,
 				author: '',
 				lastUpdate: new Date(),
 				heroes: {},
@@ -28,19 +29,27 @@
 	let statusError = false;
 	let heroFinderOpen = false;
 	let hfConfig = {};
+	let autosave;
 
 	onMount(async () => {
-		history.pushState({view: $AppData.activeView, modal: true}, "Comp Editor", `?view=${$AppData.activeView}&modal=true`);
+		history.pushState({view: $AppData.activeView, modal: true, comp: true}, "Comp Editor", `?view=${$AppData.activeView}&comp=true&modal=true`);
 		if(compID) {
 			const compCopy = $AppData.Comps.find(e => e.uuid === compID);
 			if(typeof compCopy === 'undefined') throw new Error(`Invalid CompID given to CompEditor: ${compID}.`);
 			comp = JSON.parse(JSON.stringify(compCopy));
 			comp.lastUpdate = new Date(comp.lastUpdate);
 		}
+		autosave = setTimeout(() => {
+			if(comp.draft) saveDraft();
+		}, 30000);
 		await tick();
 		const descInput = document.getElementById('descInput');
 		descInput.style.height = 'inherit';
 		descInput.style.height = getTextareaHeight(descInput) + 'px';
+	});
+
+	onDestroy(async () => {
+		clearTimeout(autosave);
 	});
 
 	function deleteLine(lineIdx) {
@@ -98,6 +107,7 @@
 			statusMessage = `Validation error: ${returnObj.message}`;
 			showStatusMessage = true;
 			statusError = true;
+			comp.draft = true;
 			setTimeout(() => {
 				statusMessage = '';
 				showStatusMessage = false;
@@ -118,6 +128,49 @@
 			onSuccess();
 			close();
 		}
+	}
+
+	async function saveDraft() {
+		clearTimeout(autosave);
+		comp.draft = true;
+		comp.lastUpdate = new Date()
+		const returnObj = await validateComp(comp);
+		if(returnObj.retCode !== 0) {
+			// validation error occurred
+			statusMessage = `Validation error: ${returnObj.message}`;
+			showStatusMessage = true;
+			statusError = true;
+			setTimeout(() => {
+				statusMessage = '';
+				showStatusMessage = false;
+				statusError = false;
+			}, 8000);
+		} else {
+			// message should contain a clean comp data object now
+			comp = returnObj.message;
+			if(compID) {
+				// editing an existing comp
+				const compIdx = $AppData.Comps.findIndex(e => e.uuid === compID);
+				if(compIdx === -1) throw new Error(`Invalid CompID given to CompEditor: ${compID}.`);
+				$AppData.Comps[compIdx] = comp;
+			} else {
+				// adding a new comp
+				$AppData.Comps = [...$AppData.Comps, comp];
+				compID = comp.uuid;
+			}
+			onSuccess();
+			statusMessage = "Draft saved";
+			showStatusMessage = true;
+			statusError = false;
+			setTimeout(() => {
+				statusMessage = '';
+				showStatusMessage = false;
+				statusError = false;
+			}, 2000);
+		}
+		autosave = setTimeout(() => {
+			if(comp.draft) saveDraft();
+		}, 30000);
 	}
 
 	function openHeroFinder(config) {
@@ -168,6 +221,9 @@
 		<div class="editorHead">
 			<input class="titleInput" type="text" bind:value={comp.name} placeholder="Title">
 			<input class="authorInput" type="text" bind:value={comp.author} placeholder="Author">
+			{#if comp.draft}
+				<div class="draftContainer"><span class="draftLabel">draft</span></div>
+			{/if}
 		</div>
 		<div class="row1">
 			<div class="lineEditor">
@@ -273,7 +329,8 @@
 			</div>
 		</div>
 		<div class="footer">
-			<button class="footerButton saveButton" on:click={saveEdit}>Save</button>
+			<button class="footerButton draftButton" on:click={saveDraft}>Save Draft</button>
+			<button class="footerButton saveButton" on:click={() => { comp.draft = false; saveEdit(); }}>Save</button>
 			<button class="footerButton cancelButton" on:click={cancelEdit}>Cancel</button>
 		</div>
 	</section>
@@ -334,6 +391,14 @@
 		margin: 0;
 		margin-bottom: 10px;
 		margin-top: 15px;
+	}
+	.draftContainer {
+		padding-top: 3px;
+	}
+	.draftLabel {
+		color: var(--appDelColor);
+		font-weight: bold;
+		font-style: italic;
 	}
 	.lineEditorTitle {
 		margin-top: 0;
@@ -551,9 +616,10 @@
 		color: var(--appColorPrimary);
 		cursor: pointer;
 		font-size: 1.05rem;
-	}
-	.saveButton {
 		margin-right: 10px;
+	}
+	.cancelButton {
+		margin-right: 0;
 	}
 	.subRemoveButton {
 		background-color: #aaa;

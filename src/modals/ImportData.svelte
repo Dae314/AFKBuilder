@@ -1,6 +1,7 @@
 <script>
 	import { onMount, getContext } from 'svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
+	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import AppData from '../stores/AppData.js';
 	export let dataHandler = () => {};
 	export let saveAppData = () => {};
@@ -11,6 +12,7 @@
 	let data;
 	let status = -1;
 	let statusMsg = 'Awaiting data import';
+	let openConfirm = false;
 
 	onMount(async () => {
 		history.pushState({view: $AppData.activeView, modal: true}, "Import Data", `?view=${$AppData.activeView}&modal=true`);
@@ -31,7 +33,7 @@
 			// data import successful
 			status = 0;
 			statusMsg = returnObj.message;
-			setTimeout(() => close(), 300);
+			setTimeout(() => close(), 400);
 		}
 	}
 

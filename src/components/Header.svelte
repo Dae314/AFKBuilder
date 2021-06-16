@@ -2,12 +2,22 @@
 	import { onMount, createEventDispatcher } from 'svelte';
 	import AppData from '../stores/AppData.js'
 
-	const menu = [ 'Comps', 'Recommendations', 'My Heroes', 'Hero List', 'About' ];
+	export let menu = [];
 	const dispatch = createEventDispatcher();
 	let showMobileMenu = false;
 
 	function handleMenuChange(item) {
-		history.pushState({view: item, modal: false}, item, `?view=${item}`);
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		if(urlParams.has('view')) {
+			if(urlParams.get('view') === item) {
+				history.replaceState({view: item, modal: false}, item, `?view=${item}`);
+			} else {
+				history.pushState({view: item, modal: false}, item, `?view=${item}`);
+			}
+		} else {
+			history.pushState({view: item, modal: false}, item, `?view=${item}`);
+		}
 		$AppData.activeView = item;
 		dispatch('saveData');
 		showMobileMenu = false;
@@ -26,7 +36,7 @@
 
 	onMount(async () => {
 		const mediaListener = window.matchMedia("(max-width: 767px)");
-		mediaListener.addListener(mediaQueryHandler);
+		mediaListener.addEventListener('change', mediaQueryHandler);
 	});
 </script>
 
@@ -36,7 +46,7 @@
 			<div class="middle-line"></div>
 		</div>
 		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
-			<li class="logoContainer" on:click={() => handleMenuChange('comps')}>
+			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].toLowerCase())}>
 				<button class="logo"><img src="./img/app/afkbuilder_logo.png" alt="AFKBuilder"></button>
 			</li>
 			{#each menu as item}

@@ -49,6 +49,7 @@ window.validateComp = async function(data) {
 		{name: 'uuid', type: 'string'},
 		{name: 'desc', type: 'string'},
 		{name: 'starred', type: 'boolean'},
+		{name: 'draft', type: 'boolean'},
 		{name: 'author', type: 'string'},
 		{name: 'lastUpdate', type: 'date'},
 		{name: 'heroes', type: 'object'},
@@ -92,90 +93,93 @@ window.validateComp = async function(data) {
 			return {retCode: 1, message: `Incorrect type for key ${key}, expected ${expectedPropType}`};
 		}
 	}
-	if(data.lines.length < 1) return {retCode: 1, message: 'Comps must have at least 1 line'};
-	if(data.name === '') return {retcode: 1, message: 'Comp title cannot be blank'};
-	// line validation
-	for(let line of data.lines) {
-		// each line should be an object
-		if(!isObject(line)) {
-			return {retCode: 1, message: `Unexpected line object type detected. All lines should be objects.`};
-		}
-		// make sure all properties are there
-		for(const prop of expectedLineProps) {
-			if(!(prop.name in line)) {
-				return {retCode: 1, message: `Line named ${line.name} is missing expected property ${prop.name}`};
+	// perform detailed checks on finalized comps
+	if(!data.draft) {
+		if(data.lines.length < 1) return {retCode: 1, message: 'Comps must have at least 1 line'};
+		if(data.name === '') return {retcode: 1, message: 'Comp title cannot be blank'};
+		// line validation
+		for(let line of data.lines) {
+			// each line should be an object
+			if(!isObject(line)) {
+				return {retCode: 1, message: `Unexpected line object type detected. All lines should be objects.`};
+			}
+			// make sure all properties are there
+			for(const prop of expectedLineProps) {
+				if(!(prop.name in line)) {
+					return {retCode: 1, message: `Line named ${line.name} is missing expected property ${prop.name}`};
+				}
+			}
+			// make sure there are no unexpected keys and all keys are the right type
+			for(const key in line) {
+				if(!expectedLineProps.some(e => e.name === key)) {
+					return {retCode: 1, message: `Unexpected key found in line named ${line.name}: ${key}`};
+				}
+				expectedPropType = expectedLineProps.find(e => e.name === key).type;
+				if(!compareType(line[key], expectedPropType)) {
+					return {retCode: 1, message: `Incorrect type for key ${key} in line named ${line.name}, expected ${expectedPropType}`};
+				}
+			}
+			// make sure every hero in a line is also in heroes
+			for(const hero of line.heroes) {
+				if(!(hero in data.heroes)) {
+					return {retCode: 1, message: `Hero ${hero} in line named ${line.name} is not in heroes`};
+				}
 			}
 		}
-		// make sure there are no unexpected keys and all keys are the right type
-		for(const key in line) {
-			if(!expectedLineProps.some(e => e.name === key)) {
-				return {retCode: 1, message: `Unexpected key found in line named ${line.name}: ${key}`};
+		// sub validation
+		for(let sub of data.subs) {
+			// each sub line should be an object
+			if(!isObject(sub)) {
+				return {retCode: 1, message: `Unexpected sub object type detected. All subs should be objects.`};
 			}
-			expectedPropType = expectedLineProps.find(e => e.name === key).type;
-			if(!compareType(line[key], expectedPropType)) {
-				return {retCode: 1, message: `Incorrect type for key ${key} in line named ${line.name}, expected ${expectedPropType}`};
+			// make sure each sub category object has the right props
+			for(const prop of expectedSubProps) {
+				if(!(prop.name in sub)) {
+					return {retCode: 1, message: `Sub line named ${sub.name} is missing expected property ${prop.name}`};
+				}
 			}
-		}
-		// make sure every hero in a line is also in heroes
-		for(const hero of line.heroes) {
-			if(!(hero in data.heroes)) {
-				return {retCode: 1, message: `Hero ${hero} in line named ${line.name} is not in heroes`};
+			// make sure there are no unexpected keys and all keys are the right type
+			for(const key in sub) {
+				if(!expectedSubProps.some(e => e.name === key)) {
+					return {retCode: 1, message: `Unexpected key found in sub line named ${sub.name}: ${key}`};
+				}
+				expectedPropType = expectedSubProps.find(e => e.name === key).type;
+				if(!compareType(sub[key], expectedPropType)) {
+					return {retCode: 1, message: `Incorrect type for key ${key} in sub line named ${sub.name}, expected ${expectedPropType}`};
+				}
 			}
-		}
-	}
-	// sub validation
-	for(let sub of data.subs) {
-		// each sub line should be an object
-		if(!isObject(sub)) {
-			return {retCode: 1, message: `Unexpected sub object type detected. All subs should be objects.`};
-		}
-		// make sure each sub category object has the right props
-		for(const prop of expectedSubProps) {
-			if(!(prop.name in sub)) {
-				return {retCode: 1, message: `Sub line named ${sub.name} is missing expected property ${prop.name}`};
-			}
-		}
-		// make sure there are no unexpected keys and all keys are the right type
-		for(const key in sub) {
-			if(!expectedSubProps.some(e => e.name === key)) {
-				return {retCode: 1, message: `Unexpected key found in sub line named ${sub.name}: ${key}`};
-			}
-			expectedPropType = expectedSubProps.find(e => e.name === key).type;
-			if(!compareType(sub[key], expectedPropType)) {
-				return {retCode: 1, message: `Incorrect type for key ${key} in sub line named ${sub.name}, expected ${expectedPropType}`};
+			// make sure every hero in a sub line is also in heroes
+			for(const hero of sub.heroes) {
+				if(!(hero in data.heroes)) {
+					return {retCode: 1, message: `Hero ${hero} in sub line named ${sub.name} is not in heroes`};
+				}
 			}
 		}
-		// make sure every hero in a sub line is also in heroes
-		for(const hero of sub.heroes) {
-			if(!(hero in data.heroes)) {
-				return {retCode: 1, message: `Hero ${hero} in sub line named ${sub.name} is not in heroes`};
+		// heroes validation
+		for(const hero in data.heroes) {
+			// make sure all heroes are in HeroData
+			if(!(herodata.some(e => e.id === hero))) {
+				return {retCode: 1, message: `Hero ${hero} is not an ID in HeroData`};
 			}
-		}
-	}
-	// heroes validation
-	for(const hero in data.heroes) {
-		// make sure all heroes are in HeroData
-		if(!(herodata.some(e => e.id === hero))) {
-			return {retCode: 1, message: `Hero ${hero} is not an ID in HeroData`};
-		}
-		// each hero should be an object
-		if(!isObject(data.heroes[hero])) {
-			return {retCode: 1, message: `Unexpected hero object type detected. All heroes should be objects.`};
-		}
-		// make sure heroes have the right props
-		for(const prop of expectedHeroProps) {
-			if(!(prop.name in data.heroes[hero])) {
-				return {retCode: 1, message: `Hero named ${hero} is missing expected property ${prop.name}`};
+			// each hero should be an object
+			if(!isObject(data.heroes[hero])) {
+				return {retCode: 1, message: `Unexpected hero object type detected. All heroes should be objects.`};
 			}
-		}
-		// make sure there are no unexpected keys and all keys are the right type
-		for(const key in data.heroes[hero]) {
-			if(!expectedHeroProps.some(e => e.name === key)) {
-				return {retCode: 1, message: `Unexpected key found in hero named ${hero}: ${key}`};
+			// make sure heroes have the right props
+			for(const prop of expectedHeroProps) {
+				if(!(prop.name in data.heroes[hero])) {
+					return {retCode: 1, message: `Hero named ${hero} is missing expected property ${prop.name}`};
+				}
 			}
-			expectedPropType = expectedHeroProps.find(e => e.name === key).type;
-			if(!compareType(data.heroes[hero][key], expectedPropType)) {
-				return {retCode: 1, message: `Incorrect type for key ${key} in hero named ${hero}, expected ${expectedPropType}`};
+			// make sure there are no unexpected keys and all keys are the right type
+			for(const key in data.heroes[hero]) {
+				if(!expectedHeroProps.some(e => e.name === key)) {
+					return {retCode: 1, message: `Unexpected key found in hero named ${hero}: ${key}`};
+				}
+				expectedPropType = expectedHeroProps.find(e => e.name === key).type;
+				if(!compareType(data.heroes[hero][key], expectedPropType)) {
+					return {retCode: 1, message: `Incorrect type for key ${key} in hero named ${hero}, expected ${expectedPropType}`};
+				}
 			}
 		}
 	}

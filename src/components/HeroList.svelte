@@ -488,6 +488,7 @@ import { stop_propagation } from 'svelte/internal';
 		border: 5px solid var(--appColorPrimary);
 	}
 	.heroName {
+		font-weight: bold;
 		padding-top: 4px;
 	}
 	.attrArea {

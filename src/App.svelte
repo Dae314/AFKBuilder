@@ -11,14 +11,21 @@
 	import About from './components/About.svelte';
 
 	export let version = '';
+	const menuItems = [ 'Comps', 'Recommendations', 'My Heroes', 'Hero List', 'About' ];
+	const defaultView = 'comps';
 
 	onMount(async () => {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		if(urlParams.has('view')) {
-			$AppData.activeView = urlParams.get('view');
+			const menuItemsLower = menuItems.map((e) => e.toLowerCase());
+			if(menuItemsLower.includes(urlParams.get('view'))) {
+				$AppData.activeView = urlParams.get('view');
+			} else {
+				$AppData.activeView = defaultView;
+			}
 		} else {
-			$AppData.activeView = 'comps';
+			$AppData.activeView = defaultView;
 		}
 		history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 		saveAppData();
@@ -48,9 +55,18 @@
 				$AppData.activeView = state.view;
 			}
 		} else {
-			$AppData.activeView = 'comps';
+			$AppData.activeView = defaultView;
 		}
 		saveAppData();
+	}
+
+	function handleModalClosed() {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		if(urlParams.has('modal')) {
+			history.back();
+		}
+		history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 	}
 </script>
 
@@ -62,9 +78,9 @@
 
 <svelte:window on:popstate={handlePopState} />
 
-<Modal>
+<Modal on:closed={handleModalClosed}>
 	<div class="AppContainer">
-		<Header on:saveData={saveAppData} />
+		<Header menu={menuItems} on:saveData={saveAppData} />
 		<main>
 			<div class="MainWindow">
 				<div id="currentDisplay">
