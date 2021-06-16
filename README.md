@@ -1,5 +1,5 @@
 # AFKBuilder
-<sup>version: 0.6.0</sup>
+<sup>version: 0.7.14</sup>
 
 AFKBuilder is a tool designed to help players build, share, and use community made team compositions for AFKArena.
 
