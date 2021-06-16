@@ -2,6 +2,7 @@
 	import { onMount, getContext, createEventDispatcher, tick } from 'svelte';
 	import MarkdownIt from 'markdown-it';
 	import Emoji from 'markdown-it-emoji';
+	import { v4 as uuidv4 } from 'uuid';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
@@ -37,6 +38,9 @@
 	let selectedLine = 0;
 	let selectedHero = '';
 	let copyConfirmVisible = false;
+	let showowConfirm = false;
+	let owText = '';
+	let owPromise;
 	let editorWidth = window.matchMedia("(max-width: 767px)").matches ? '100%' : '75%';
 
 	onMount(async () => {
@@ -111,6 +115,7 @@
 		},
 		{ closeButton: ModalCloseButton,
 			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
+			closeOnOuterClick: false,
 		});
 		openNewCompOptions = false;
 	}
@@ -160,6 +165,7 @@
 
 	async function handleCompImport(compressedData) {
 		let data;
+		let statusMsg = '';
 
 		// unpack and decompress data
 		try {
@@ -179,13 +185,29 @@
 			return {retCode: returnObj.retCode, message: returnObj.message};
 		} else {
 			// message should contain a clean comp object now
-			if($AppData.Comps.some(e => e.uuid === data.uuid)) {
-				// update existing comp
-				const idx = $AppData.Comps.findIndex(e => e.uuid === data.uuid);
-				$AppData.Comps[idx] = data;
+			if($AppData.Comps.some(e => e.uuid === returnObj.message.uuid)) {
+				// comp exists, check if user wants to update it
+				const idx = $AppData.Comps.findIndex(e => e.uuid === returnObj.message.uuid);
+				const response = await openOverwriteConfirm(idx);
+				switch(response) {
+					case 'update':
+						$AppData.Comps[idx] = returnObj.message;
+						statusMsg = 'Comp updated successfully';
+						break;
+					case 'new':
+						returnObj.message.uuid = uuidv4();
+						$AppData.Comps = [...$AppData.Comps, returnObj.message];
+						statusMsg = 'Data import successful';
+						break;
+					case 'cancel':
+						return { retCode: 0, message: 'Data import cancelled' };
+						break;
+					default:
+						throw new Error(`Invalid response received from overwrite dialog: ${response}`);
+				}
 			} else {
-				// new comp, add it to the list
-				$AppData.Comps.push(returnObj.message);
+				// comp not in list yet, add it to the list
+				$AppData.Comps = [...$AppData.Comps, returnObj.message];
 			}
 			sortedCompList = $AppData.Comps.sort(sortByStars);
 			highlightComp = sortedCompList.findIndex(e => e.uuid === returnObj.message.uuid);
@@ -197,8 +219,19 @@
 			document.getElementById(`comp${highlightComp}`).scrollIntoView();
 			setTimeout(() => highlightComp = null, 3000);
 			dispatch('saveData');
-			return { retCode: 0, message: 'Data import successful' };
+			return { retCode: 0, message: statusMsg };
 		}
+	}
+
+	async function openOverwriteConfirm(index) {
+		let reply = '';
+		owText = `Update comp named "${$AppData.Comps[index].name}"?`;
+		showowConfirm = true;
+		let promise = new Promise((resolve) => { owPromise = resolve });
+		await promise.then((result) => { reply = result });
+		showowConfirm = false;
+		owText = '';
+		return reply;
 	}
 
 	function handleCloseButtonClick() {
@@ -454,6 +487,25 @@
 	<section class="sect3">
 		<div class="copyConfirm" class:visible={copyConfirmVisible}><span>Comp Data Copied to Clipboard</span></div>
 	</section>
+	<section class="sect4" class:visible={showowConfirm}>
+		{#if showowConfirm}
+			<div class="owBackground">
+				<div class="owConfirmWindow">
+					<div class="owTitle">
+						<h4>Previous Comp Found</h4>
+					</div>
+					<div class="owBody">
+						<span>{owText}</span>
+					</div>
+					<div class="owFooter">
+						<button class="owFooterButton owUpdate" on:click={owPromise('update')}>Update</button>
+						<button class="owFooterButton owNew" on:click={owPromise('new')}>New</button>
+						<button class="owFooterButton owCancel" on:click={owPromise('cancel')}>Cancel</button>
+					</div>
+				</div>
+			</div>
+		{/if}
+	</section>
 </div>
 
 <style>
@@ -474,6 +526,61 @@
 		top: 80px;
 		transform: translate(-50%, 0);
 		width: fit-content;
+	}
+	.sect4 {
+		display: block;
+		height: 100%;
+		left: 0;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		visibility: hidden;
+		z-index: 1001;
+	}
+	.sect4.visible {
+		visibility: visible;
+	}
+	.owBackground {
+		align-items: center;
+		background-color: rgba(0, 0, 0, 0.5);
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		justify-content: center;
+		width: 100%;
+	}
+	.owConfirmWindow {
+		background-color: var(--appBGColor);
+		border-radius: 10px;
+		padding: 10px;
+	}
+	.owTitle {
+		display: flex;
+		justify-content: center;
+		padding: 10px;
+	}
+	.owTitle h4 {
+		margin: 0;
+	}
+	.owBody {
+		padding: 10px;
+	}
+	.owFooter {
+		display: flex;
+		justify-content: flex-end;
+		padding-top: 10px;
+	}
+	.owFooterButton {
+		background-color: transparent;
+		border: 3px solid var(--appColorPrimary);
+		border-radius: 10px;
+		color: var(--appColorPrimary);
+		outline: none;
+		padding: 5px;
+		margin-right: 10px;
+	}
+	.owFooterButton:last-child {
+		margin-right: 0;
 	}
 	.copyConfirm {
 		background-color: rgba(50, 50, 50, 0.7);
@@ -1095,6 +1202,13 @@
 		.sect2 {
 			max-width: 79%;
 			width: 79%;
+		}
+		.owFooterButton:hover {
+			background-color: var(--appColorPrimary);
+			color: white;
+		}
+		.owCancel:hover {
+			background-color: var(--appColorPriAccent);
 		}
 		.tooltip {
 			bottom: -25px;

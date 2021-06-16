@@ -469,7 +469,6 @@
 		width: 100%;
 	}
 	.modalCloseContainer {
-		background: blue;
 		margin-left: auto;
 		position: relative;
 		right: 10%;
