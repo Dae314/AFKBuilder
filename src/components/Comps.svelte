@@ -258,6 +258,8 @@
 	function handlePopState(event) {
 		const state = event.state;
 		if(!state.comp) openDetail = false;
+		showowConfirm = false;
+		owText = '';
 	}
 </script>
 
