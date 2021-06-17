@@ -1,5 +1,6 @@
 <script>
 	import { getContext, createEventDispatcher } from 'svelte';
+	import { flip } from 'svelte/animate';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
@@ -298,8 +299,8 @@
 		</section>
 	{:else}
 		<section class="sect2 MHGrid">
-			{#each myHeroList as hero}
-			<div class="heroCard">
+			{#each myHeroList as hero (hero.id)}
+			<div class="heroCard" animate:flip="{{duration: 200}}">
 				<div class="heroHeader">
 					<div class="headArea">
 						<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
