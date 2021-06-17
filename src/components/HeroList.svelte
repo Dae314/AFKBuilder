@@ -1,11 +1,11 @@
 <script>
 	import { getContext, onMount, createEventDispatcher } from 'svelte';
+	import { flip } from 'svelte/animate';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
 	import SIFurnBox from '../shared/SIFurnBox.svelte';
-import { stop_propagation } from 'svelte/internal';
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
@@ -188,6 +188,7 @@ import { stop_propagation } from 'svelte/internal';
 
 	function handlePortraitClick(heroID) {
 		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed;
+		dispatch('saveData');
 	}
 </script>
 
@@ -270,8 +271,8 @@ import { stop_propagation } from 'svelte/internal';
 					<th class="nonSortHeader">SI <span class="hiddenMobile">Benchmark</span></th>
 					<th class="nonSortHeader">Furn <span class="hiddenMobile">Benchmark</span></th>
 				</tr>
-				{#each displayList as hero}
-				<tr class="heroRow" on:click={() => handleHeroClick(hero.id)}>
+				{#each displayList as hero (hero.id)}
+				<tr class="heroRow" on:click={() => handleHeroClick(hero.id)} animate:flip="{{duration: 200}}">
 					<td>
 						<img on:click={(e) => { handlePortraitClick(hero.id); e.stopPropagation();} } class="portrait" class:owned={$AppData.MH.List[hero.id].claimed} src={hero.portrait} alt={hero.name}>
 						<p class="heroName">{hero.name}</p>
@@ -356,7 +357,7 @@ import { stop_propagation } from 'svelte/internal';
 		transition: max-height 0.2s ease;
 	}
 	.mobileExpander.filterOpen {
-		box-shadow: 0px 0px 10px #aaa;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
 		max-height: 500px;
 	}
 	.searchContainer {
@@ -433,20 +434,20 @@ import { stop_propagation } from 'svelte/internal';
 		filter: grayscale(100%);
 	}
 	.tableContainer {
+		display: flex;
+		justify-content: center;
 		width: 100%;
 	}
 	table {
-		border: 1px solid #bbb;
 		border-radius: 6px;
 		border-spacing: 0;
+		box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15);
 		margin: 0;
 		padding: 0;
 		table-layout: fixed;
 		width: 100%;
 	}
 	table th {
-		background-color: var(--appColorPrimary);
-		border-bottom: 1px solid #bbb;
 		font-size: 0.9rem;
 		letter-spacing: .08rem;
 		text-transform: uppercase;
@@ -471,15 +472,11 @@ import { stop_propagation } from 'svelte/internal';
 		display: none;
 		visibility: hidden;
 	}
-	.heroRow td {
-		border-bottom: 1px solid #bbb;
-		transition: box-shadow 0.2s;
-	}
 	.portrait {
 		border-radius: 50%;
 		cursor: pointer;
 		max-width: 70px;
-		transition: all 0.2s;
+		transition: all 0.2s cubic-bezier(0.2, 0, 0.4, 0);
 	}
 	.portrait:active {
 		transform: scale(0.9);
@@ -541,7 +538,7 @@ import { stop_propagation } from 'svelte/internal';
 		}
 		.filtersButton {
 			border-radius: 0 50px 50px 0;
-			box-shadow: 3px 3px 12px #aaa;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 			height: 50px;
 		}
 		.filtersButton span {
@@ -555,7 +552,7 @@ import { stop_propagation } from 'svelte/internal';
 			transition: max-width 0.2s ease;
 		}
 		.mobileExpander.filterOpen {
-			box-shadow: 3px 3px 12px #aaa;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 			max-height: max-content;
 			max-width: 100%;
 			padding: 10px;
@@ -613,8 +610,12 @@ import { stop_propagation } from 'svelte/internal';
 		.sortHeader:hover {
 			background-color: var(--appColorPriAccent);
 		}
+		.heroRow {
+			transition: background-color 0.4s;
+		}
 		.heroRow:hover {
 			background-color: var(--appColorQuaternary);
+			transition: none;
 		}
 		.tooltip {
 			display: inline-block;
@@ -634,25 +635,33 @@ import { stop_propagation } from 'svelte/internal';
 			background-color: var(--appColorPrimary);
 			border-radius: 6px;
 			color: white;
+			-ms-user-select: none;
+			opacity: 0;
 			padding: 5px;
 			position: absolute;
 			text-align: center;
+			transition: opacity 0.2s;
+			user-select: none;
 			visibility: hidden;
+			-webkit-user-select: none;
 			z-index: 1;
 		}
 		.attrImage:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 		}
 		.filtersButton:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 		}
 		.mobileExpander.filterOpen+.mobileExpanderTitle .tooltip .tooltipText {
+			opacity: 0;
 			visibility: hidden;
 		}
 	}
 	@media only screen and (min-width: 1200px) {
 		table {
-			width: 60%;
+			width: 70%;
 		}
 	}
 </style>

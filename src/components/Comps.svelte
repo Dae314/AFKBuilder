@@ -1,5 +1,6 @@
 <script>
 	import { onMount, getContext, createEventDispatcher, tick } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import MarkdownIt from 'markdown-it';
 	import Emoji from 'markdown-it-emoji';
 	import { v4 as uuidv4 } from 'uuid';
@@ -100,8 +101,8 @@
 		open(Confirm,
 				{onConfirm: handleDelComp, confirmData: compIdx, message: `Delete comp named ${$AppData.Comps[compIdx].name}?`},
 				{closeButton: false,
-				 closeOnEsc: false,
-				 closeOnOuterClick: false,
+				 closeOnEsc: true,
+				 closeOnOuterClick: true,
 				 styleWindow: { width: 'fit-content', },
 				 styleContent: { width: 'fit-content', },
 				});
@@ -257,9 +258,11 @@
 
 	function handlePopState(event) {
 		const state = event.state;
-		if(!state.comp) openDetail = false;
-		showowConfirm = false;
-		owText = '';
+		if(state !== null) {
+			if(!state.comp) openDetail = false;
+			showowConfirm = false;
+			owText = '';
+		}
 	}
 </script>
 
@@ -411,7 +414,7 @@
 							</div>
 							<div class="mobileExpander selectHeroSection" class:open={openHero}>
 								{#if selectedHero !== ''}
-									<div class="selectedHero">
+									<div class="selectedHero" in:fade="{{duration: 200}}">
 										<div class="upperSelectCard">
 											<div>
 												<SIFurnBox type='si' num={sortedCompList[$AppData.selectedComp].heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
@@ -577,9 +580,9 @@
 		border: 3px solid var(--appColorPrimary);
 		border-radius: 10px;
 		color: var(--appColorPrimary);
+		margin-right: 10px;
 		outline: none;
 		padding: 5px;
-		margin-right: 10px;
 	}
 	.owFooterButton:last-child {
 		margin-right: 0;
@@ -630,7 +633,7 @@
 		cursor: pointer;
 		margin-bottom: 10px;
 		scroll-snap-align: center;
-		transition: all 0.2s;
+		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 0);
 	}
 	.compCard.highlight {
 		animation: flash 1s linear 3;
@@ -686,6 +689,7 @@
 		cursor: pointer;
 		height: fit-content;
 		margin: 0;
+		outline: 0;
 		padding: 0;
 		padding-top: 1px;
 	}
@@ -699,6 +703,7 @@
 		cursor: pointer;
 		height: fit-content;
 		margin: 0;
+		outline: 0;
 		padding: 0;
 		padding-top: 2px;
 	}
@@ -910,6 +915,7 @@
 		border: 3px solid var(--appColorPrimary);
 		border-radius: 5px;
 		color: white;
+		cursor: pointer;
 		display: flex;
 		flex-direction: row;
 		font-size: 0.9rem;
@@ -1213,13 +1219,13 @@
 			background-color: var(--appColorPriAccent);
 		}
 		.tooltip {
-			bottom: -25px;
+			bottom: -2px;
 			display: inline-block;
 			position: relative;
-			right: 41.5px;
+			right: 22px;
 		}
 		.exportTooltip {
-			right: 39px;
+			right: 22.5px;
 		}
 		.tooltip .tooltipText {
 			background-color: var(--appColorPrimary);
@@ -1227,9 +1233,11 @@
 			color: white;
 			font-size: 0.8rem;
 			-ms-user-select: none;
+			opacity: 0;
 			padding: 4px;
 			position: absolute;
 			text-align: center;
+			transition: opacity 0.2s;
 			user-select: none;
 			visibility: hidden;
 			-webkit-user-select: none;
@@ -1242,7 +1250,7 @@
 			font-size: 2.5rem;
 		}
 		.compCard:hover {
-			box-shadow: 3px 3px 10px #bbb;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
 			transform: scale(1.02);
 		}
 		.compCard.active {
@@ -1250,9 +1258,11 @@
 			transform: scale(1.03);
 		}
 		.cardDeleteButton:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 		}
 		.cardExportButton:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 		}
 		.compDetails {
@@ -1275,7 +1285,7 @@
 			max-width: 15px;
 		}
 		.editDelButton:hover {
-			box-shadow: 2px 2px 5px #aaa;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 		}
 		.deleteButton img {
 			max-width: 12px;
@@ -1343,6 +1353,14 @@
 		}
 		.lineDisplay {
 			border-radius: 0px 10px 10px 10px;
+			max-height: 335px;
+			min-height: 335px;
+		}
+		.lineImg {
+			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
+		}
+		.lineImg:hover {
+			transform: scale(1.1);
 		}
 		.description {
 			width: 100%;
@@ -1375,7 +1393,7 @@
 			border: 2px solid var(--appColorPrimary);
 			border-radius: 10px 0px 0px 10px;
 			margin-top: 27px;
-			max-height: 334.5px;
+			max-height: 335px;
 			overflow-y: auto;
 			padding: 5px;
 		}
@@ -1391,6 +1409,12 @@
 			margin-top: -4px;
 			overflow: hidden;
 			padding: 0;
+		}
+		.subImg {
+			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
+		}
+		.subImg:hover {
+			transform: scale(1.1);
 		}
 		.subGroupTitle {
 			padding-top: 0;

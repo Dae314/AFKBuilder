@@ -43,6 +43,8 @@ To compile, you must have NodeJS >=14.16.1 installed.
 1. Cleanup the repo after deployment
 	1. `git commit -a -m "Deploy to gh-pages"`
 	1. `git tag <version>`
+	1. `git push origin main`
+	1. `git push --tags`
 1. Recreate the dev branch for continued development
 	1. `git branch -d dev`
 	1. `git checkout -b dev`

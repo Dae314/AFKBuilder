@@ -1,5 +1,6 @@
 <script>
 	import { getContext, createEventDispatcher } from 'svelte';
+	import { flip } from 'svelte/animate';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
@@ -298,8 +299,8 @@
 		</section>
 	{:else}
 		<section class="sect2 MHGrid">
-			{#each myHeroList as hero}
-			<div class="heroCard">
+			{#each myHeroList as hero (hero.id)}
+			<div class="heroCard" animate:flip="{{duration: 200}}">
 				<div class="heroHeader">
 					<div class="headArea">
 						<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
@@ -481,7 +482,7 @@
 		transition: max-height 0.2s ease;
 	}
 	.mobileExpander.filterOpen {
-		box-shadow: 0px 0px 10px #aaa;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
 		max-height: 500px;
 	}
 	.searchContainer {
@@ -640,7 +641,7 @@
 		background-color: var(--appColorPrimary);
 		border: 2px solid var(--appColorPrimary);
 		border-radius: 50%;
-		box-shadow: 0px 0px 5px #bbb;
+		box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 		cursor: pointer;
 		display: flex;
 		height: 50px;
@@ -735,7 +736,7 @@
 		}
 		.filtersButton {
 			border-radius: 0 50px 50px 0;
-			box-shadow: 3px 3px 12px #aaa;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 			height: 50px;
 		}
 		.filtersButton span {
@@ -762,9 +763,11 @@
 			background-color: var(--appColorPrimary);
 			border-radius: 6px;
 			color: white;
+			opacity: 0;
 			padding: 5px;
 			position: absolute;
 			text-align: center;
+			transition: opacity 0.2s;
 			visibility: hidden;
 		}
 		.tooltip-faction {
@@ -792,12 +795,15 @@
 			color: rgba(255, 255, 255, 0.9);
 		}
 		.attrImage:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 		}
 		.filtersButton:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 		}
 		.inOutButton:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 			width: 100px;
 		}
@@ -809,7 +815,7 @@
 			transition: max-width 0.2s ease;
 		}
 		.mobileExpander.filterOpen {
-			box-shadow: 3px 3px 12px #aaa;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 			max-height: max-content;
 			max-width: 100%;
 			padding: 10px;

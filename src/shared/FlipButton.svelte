@@ -50,7 +50,7 @@
 	}
 	@media only screen and (min-width: 767px) {
 		.flipButton:hover {
-			box-shadow: 1px 3px 5px #aaa;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 		}
 	}
 	@keyframes MoveUpInitial {

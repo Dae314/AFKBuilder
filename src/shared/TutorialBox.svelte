@@ -83,7 +83,7 @@
 		border-bottom-color: #fd3;
 		border-bottom-width: 1em;
 		border-top-width: 0;
-		box-shadow: #999 0 1px 1px;
+		box-shadow: 0 1px 1px #999;
 		content: "";
 		display: block;
 		left: 0.0em;

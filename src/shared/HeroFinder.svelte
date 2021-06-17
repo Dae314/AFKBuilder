@@ -1,5 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
+	import { flip } from 'svelte/animate';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
@@ -368,8 +370,8 @@
 					</div>
 				</div>
 				<div class="heroGrid">
-					{#each heroes as hero}
-						<button class="heroPortrait" on:click={() => selectHero(hero.id)} class:active={hero.id in compHeroData}>
+					{#each heroes as hero (hero.id)}
+						<button class="heroPortrait" on:click={() => selectHero(hero.id)} class:active={hero.id in compHeroData} animate:flip="{{duration: 200}}">
 							<img src="{hero.portrait}" alt="hero.name">
 							<p>{hero.name}</p>
 						</button>
@@ -432,8 +434,8 @@
 					</div>
 					<h4>Artifacts</h4>
 					<div class="artifactLine">
-						{#each selectedHero.artifact as artifact, i}
-							<button class="artifactButton" on:click={() => handleRemoveArtifact(artifact) }>
+						{#each selectedHero.artifact as artifact, i (artifact)}
+							<button class="artifactButton" on:click={() => handleRemoveArtifact(artifact) } transition:fade="{{duration: 200}}">
 								<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 								<p>{$Artifacts[artifact].name}</p>
 							</button>
@@ -444,8 +446,8 @@
 					</div>
 					<div class="artifactPicker">
 						<div class="artifactGrid">
-							{#each unusedArtifacts as artifact}
-								<button class="artifactButton" on:click={() => handleAddArtifact(artifact) }>
+							{#each unusedArtifacts as artifact (artifact)}
+								<button class="artifactButton" on:click={() => handleAddArtifact(artifact) } animate:flip="{{duration: 200}}" transition:fade="{{duration: 200}}">
 									<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 									<p>{$Artifacts[artifact].name}</p>
 								</button>
@@ -474,7 +476,7 @@
 		right: 10%;
 	}
 	.heroFinderContainer {
-		background: white;
+		background: var(--appBGColor);
 		border-radius: 10px;
 		height: 80%;
 		overflow-x: hidden;
@@ -518,7 +520,7 @@
 		transition: max-height 0.2s ease;
 	}
 	.mobileExpander.filterOpen {
-		box-shadow: 0px 0px 10px #aaa;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
 		max-height: 500px;
 	}
 	.filters {
@@ -802,11 +804,11 @@
 		}
 		.backButton:hover {
 			background-color: var(--appColorPrimary);
-			box-shadow: 2px 2px 5px #aaa;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 			color: white;
 		}
 		.saveButton:hover {
-			box-shadow: 2px 2px 5px #aaa;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 		}
 	}
 </style>
