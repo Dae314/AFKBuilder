@@ -1,11 +1,11 @@
 import { get, writable } from 'svelte/store';
 import HeroData from './HeroData.js';
-import TestComps from './TestComps.js'
+// import TestComps from './TestComps.js'
 
 let AppData; // final exported value
 let appdata; // temporary value for editing
 const herodata = get(HeroData); // data from HeroData store
-const mastercomps = get(TestComps); // data from TestComps store
+// const testcomps = get(TestComps); // data from TestComps store
 
 // validation function for MH.List
 window.validateMyHeroData = async function(data) {
@@ -189,17 +189,17 @@ window.validateComp = async function(data) {
 }
 
 // update test comps if necessary
-function updateTestComps(appdata) {
-	let i;
-	for(const mcomp of mastercomps) {
-		if(appdata.Comps.some(e => e.uuid === mcomp.uuid)) {
-			i = appdata.Comps.findIndex(e => e.uuid === mcomp.uuid);
-			if(mcomp.lastUpdate > appdata.Comps[i].lastUpdate) {
-				appdata.Comps[i] = mcomp;
-			}
-		}
-	}
-}
+// function updateTestComps(appdata) {
+// 	let i;
+// 	for(const mcomp of testcomps) {
+// 		if(appdata.Comps.some(e => e.uuid === mcomp.uuid)) {
+// 			i = appdata.Comps.findIndex(e => e.uuid === mcomp.uuid);
+// 			if(mcomp.lastUpdate > appdata.Comps[i].lastUpdate) {
+// 				appdata.Comps[i] = mcomp;
+// 			}
+// 		}
+// 	}
+// }
 
 // function to build or add in new heroes from HeroData into MH.List
 function buildMyHeroData(data) {
@@ -311,7 +311,7 @@ if(window.localStorage.getItem('appData') !== null) {
 	for(let comp of appdata.Comps) {
 		comp.lastUpdate = new Date(comp.lastUpdate);
 	}
-	updateTestComps(appdata);
+	// updateTestComps(appdata);
 } else {
 	// Otherwise initialize a clean AppData
 	appdata = {
@@ -362,7 +362,7 @@ if(window.localStorage.getItem('appData') !== null) {
 		REC: {
 			openSection: 0,
 		},
-		Comps: mastercomps,
+		Comps: [],
 	};
 }
 
