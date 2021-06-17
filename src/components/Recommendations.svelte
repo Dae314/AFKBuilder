@@ -448,5 +448,11 @@
 			background-color: var(--appColorPrimary);
 			color: white;
 		}
+		.portrait {
+			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
+		}
+		.portrait:hover {
+			transform: scale(1.05);
+		}
 	}
 </style>
