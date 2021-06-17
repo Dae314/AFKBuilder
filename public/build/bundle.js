@@ -2545,7 +2545,7 @@ var app = (function () {
     	},
     	{ id: 'walker',
     		name: 'Walker',
-    		portrait: './img/portraits/unavailable.png',
+    		portrait: './img/portraits/walker.jpg',
     		class: 'Warrior',
     		faction: 'Lightbearer',
     		type: 'Strength',
@@ -2613,7 +2613,7 @@ var app = (function () {
     		si_benchmark: 30,
     		sig_item: {
     			name: 'Hotshot',
-    			image: './img/si/unavailable.png',
+    			image: './img/si/walker.png',
     			desc: 'When Walker\'s health falls below <em>60%</em>, his Crit Rating is increased by an additional <em>15%</em>.',
     			upgrades: [
     				{ desc: 'When Walker\'s health falls below <em>60%</em>, his Crit Rating is increased by an additional <em>20%</em>.',
@@ -2630,7 +2630,7 @@ var app = (function () {
     		furn_benchmark: 9,
     		furniture: {
     			name: 'Unfazed',
-    			image: './img/furniture/unavailable.png',
+    			image: './img/furniture/walker.png',
     			upgrades: [
     				{ desc: 'Walker is immune to control effects while his Ultimate ability is active.',
     					unlock: 3,
@@ -6759,7 +6759,7 @@ var app = (function () {
     	},
     	{ id: 'desira',
     		name: 'Desira',
-    		portrait: './img/portraits/unavailable.png',
+    		portrait: './img/portraits/desira.jpg',
     		class: 'Support',
     		faction: 'Graveborn',
     		type: 'Intelligence',
