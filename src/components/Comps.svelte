@@ -100,8 +100,8 @@
 		open(Confirm,
 				{onConfirm: handleDelComp, confirmData: compIdx, message: `Delete comp named ${$AppData.Comps[compIdx].name}?`},
 				{closeButton: false,
-				 closeOnEsc: false,
-				 closeOnOuterClick: false,
+				 closeOnEsc: true,
+				 closeOnOuterClick: true,
 				 styleWindow: { width: 'fit-content', },
 				 styleContent: { width: 'fit-content', },
 				});
@@ -577,9 +577,9 @@
 		border: 3px solid var(--appColorPrimary);
 		border-radius: 10px;
 		color: var(--appColorPrimary);
+		margin-right: 10px;
 		outline: none;
 		padding: 5px;
-		margin-right: 10px;
 	}
 	.owFooterButton:last-child {
 		margin-right: 0;

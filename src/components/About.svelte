@@ -26,8 +26,8 @@
 		open(Confirm,
 			{onConfirm: clearData, message: "Are you sure you want to CLEAR ALL DATA?"},
 			{ closeButton: false,
-				closeOnEsc: false,
-				closeOnOuterClick: false,
+				closeOnEsc: true,
+				closeOnOuterClick: true,
 				styleWindow: { width: 'fit-content', },
 				styleContent: { width: 'fit-content', },
 			});
