@@ -630,7 +630,7 @@
 		cursor: pointer;
 		margin-bottom: 10px;
 		scroll-snap-align: center;
-		transition: all 0.2s;
+		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 0);
 	}
 	.compCard.highlight {
 		animation: flash 1s linear 3;
