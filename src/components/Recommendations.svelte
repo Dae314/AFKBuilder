@@ -1,5 +1,6 @@
 <script>
 	import { getContext, createEventDispatcher } from 'svelte';
+	import { flip } from 'svelte/animate';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import HeroDetail from '../modals/HeroDetail.svelte';
@@ -156,8 +157,8 @@
 	<section class="recSection buildSection">
 		<div class="recArea">
 			{#if recommendations.filter(e => e.type === 'ascend').length > 0}
-				{#each recommendations.filter(e => e.type === 'ascend').sort(sortByCore) as rec}
-					<div class="recCard">
+				{#each recommendations.filter(e => e.type === 'ascend').sort(sortByCore) as rec (rec.id+'_asc')}
+					<div class="recCard" animate:flip="{{duration: 200}}">
 						<div class="claimButtonArea">
 							<button class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'asc')}>&#10004;</button>
 						</div>
@@ -190,8 +191,8 @@
 	<section class="recSection siSection">
 		<div class="recArea">
 			{#if recommendations.filter(e => e.type === 'si').length > 0}
-				{#each recommendations.filter(e => e.type === 'si').sort(sortByCore) as rec}
-					<div class="recCard">
+				{#each recommendations.filter(e => e.type === 'si').sort(sortByCore) as rec (rec.id+'_si')}
+					<div class="recCard" animate:flip="{{duration: 200}}">
 						<div class="claimButtonArea">
 							<button class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'si')}>&#10004;</button>
 						</div>
@@ -224,8 +225,8 @@
 	<section class="recSection furnSection">
 		<div class="recArea">
 			{#if recommendations.filter(e => e.type === 'furn').length > 0}
-				{#each recommendations.filter(e => e.type === 'furn').sort(sortByCore) as rec}
-					<div class="recCard">
+				{#each recommendations.filter(e => e.type === 'furn').sort(sortByCore) as rec (rec.id+'_furn')}
+					<div class="recCard" animate:flip="{{duration: 200}}">
 						<div class="claimButtonArea">
 							<button class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'furn')}>&#10004;</button>
 						</div>

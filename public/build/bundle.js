@@ -249,6 +249,75 @@ var app = (function () {
         });
     }
 
+    function create_animation(node, from, fn, params) {
+        if (!from)
+            return noop;
+        const to = node.getBoundingClientRect();
+        if (from.left === to.left && from.right === to.right && from.top === to.top && from.bottom === to.bottom)
+            return noop;
+        const { delay = 0, duration = 300, easing = identity, 
+        // @ts-ignore todo: should this be separated from destructuring? Or start/end added to public api and documentation?
+        start: start_time = now() + delay, 
+        // @ts-ignore todo:
+        end = start_time + duration, tick = noop, css } = fn(node, { from, to }, params);
+        let running = true;
+        let started = false;
+        let name;
+        function start() {
+            if (css) {
+                name = create_rule(node, 0, 1, duration, delay, easing, css);
+            }
+            if (!delay) {
+                started = true;
+            }
+        }
+        function stop() {
+            if (css)
+                delete_rule(node, name);
+            running = false;
+        }
+        loop$1(now => {
+            if (!started && now >= start_time) {
+                started = true;
+            }
+            if (started && now >= end) {
+                tick(1, 0);
+                stop();
+            }
+            if (!running) {
+                return false;
+            }
+            if (started) {
+                const p = now - start_time;
+                const t = 0 + 1 * easing(p / duration);
+                tick(t, 1 - t);
+            }
+            return true;
+        });
+        start();
+        tick(0, 1);
+        return stop;
+    }
+    function fix_position(node) {
+        const style = getComputedStyle(node);
+        if (style.position !== 'absolute' && style.position !== 'fixed') {
+            const { width, height } = style;
+            const a = node.getBoundingClientRect();
+            node.style.position = 'absolute';
+            node.style.width = width;
+            node.style.height = height;
+            add_transform(node, a);
+        }
+    }
+    function add_transform(node, a) {
+        const b = node.getBoundingClientRect();
+        if (a.left !== b.left || a.top !== b.top) {
+            const style = getComputedStyle(node);
+            const transform = style.transform === 'none' ? '' : style.transform;
+            node.style.transform = `${transform} translate(${a.left - b.left}px, ${a.top - b.top}px)`;
+        }
+    }
+
     let current_component;
     function set_current_component(component) {
         current_component = component;
@@ -586,6 +655,100 @@ var app = (function () {
         : typeof globalThis !== 'undefined'
             ? globalThis
             : global);
+    function outro_and_destroy_block(block, lookup) {
+        transition_out(block, 1, 1, () => {
+            lookup.delete(block.key);
+        });
+    }
+    function fix_and_outro_and_destroy_block(block, lookup) {
+        block.f();
+        outro_and_destroy_block(block, lookup);
+    }
+    function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block, next, get_context) {
+        let o = old_blocks.length;
+        let n = list.length;
+        let i = o;
+        const old_indexes = {};
+        while (i--)
+            old_indexes[old_blocks[i].key] = i;
+        const new_blocks = [];
+        const new_lookup = new Map();
+        const deltas = new Map();
+        i = n;
+        while (i--) {
+            const child_ctx = get_context(ctx, list, i);
+            const key = get_key(child_ctx);
+            let block = lookup.get(key);
+            if (!block) {
+                block = create_each_block(key, child_ctx);
+                block.c();
+            }
+            else if (dynamic) {
+                block.p(child_ctx, dirty);
+            }
+            new_lookup.set(key, new_blocks[i] = block);
+            if (key in old_indexes)
+                deltas.set(key, Math.abs(i - old_indexes[key]));
+        }
+        const will_move = new Set();
+        const did_move = new Set();
+        function insert(block) {
+            transition_in(block, 1);
+            block.m(node, next);
+            lookup.set(block.key, block);
+            next = block.first;
+            n--;
+        }
+        while (o && n) {
+            const new_block = new_blocks[n - 1];
+            const old_block = old_blocks[o - 1];
+            const new_key = new_block.key;
+            const old_key = old_block.key;
+            if (new_block === old_block) {
+                // do nothing
+                next = new_block.first;
+                o--;
+                n--;
+            }
+            else if (!new_lookup.has(old_key)) {
+                // remove old block
+                destroy(old_block, lookup);
+                o--;
+            }
+            else if (!lookup.has(new_key) || will_move.has(new_key)) {
+                insert(new_block);
+            }
+            else if (did_move.has(old_key)) {
+                o--;
+            }
+            else if (deltas.get(new_key) > deltas.get(old_key)) {
+                did_move.add(new_key);
+                insert(new_block);
+            }
+            else {
+                will_move.add(old_key);
+                o--;
+            }
+        }
+        while (o--) {
+            const old_block = old_blocks[o];
+            if (!new_lookup.has(old_block.key))
+                destroy(old_block, lookup);
+        }
+        while (n)
+            insert(new_blocks[n - 1]);
+        return new_blocks;
+    }
+    function validate_each_keys(ctx, list, get_context, get_key) {
+        const keys = new Set();
+        for (let i = 0; i < list.length; i++) {
+            const key = get_key(get_context(ctx, list, i));
+            if (keys.has(key)) {
+                throw new Error('Cannot have duplicate keys in a keyed each');
+            }
+            keys.add(key);
+        }
+    }
     function create_component(block) {
         block && block.c();
     }
@@ -10046,6 +10209,11 @@ test2
     AppData = writable(appdata);
 
     var AppData$1 = AppData;
+
+    function cubicOut(t) {
+        const f = t - 1.0;
+        return f * f * f + 1.0;
+    }
 
     function fade(node, { delay = 0, duration = 400, easing = identity } = {}) {
         const o = +getComputedStyle(node).opacity;
@@ -42261,6 +42429,23 @@ test2
     	}
     }
 
+    function flip(node, animation, params = {}) {
+        const style = getComputedStyle(node);
+        const transform = style.transform === 'none' ? '' : style.transform;
+        const scaleX = animation.from.width / node.clientWidth;
+        const scaleY = animation.from.height / node.clientHeight;
+        const dx = (animation.from.left - animation.to.left) / scaleX;
+        const dy = (animation.from.top - animation.to.top) / scaleY;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        const { delay = 0, duration = (d) => Math.sqrt(d) * 120, easing = cubicOut } = params;
+        return {
+            delay,
+            duration: is_function(duration) ? duration(d) : duration,
+            easing,
+            css: (_t, u) => `transform: ${transform} translate(${u * dx}px, ${u * dy}px);`
+        };
+    }
+
     /* src\components\Recommendations.svelte generated by Svelte v3.37.0 */
 
     const { Error: Error_1, Object: Object_1 } = globals;
@@ -42309,7 +42494,7 @@ test2
     	return child_ctx;
     }
 
-    // (148:3) {#each sections as section, i}
+    // (149:3) {#each sections as section, i}
     function create_each_block_6(ctx) {
     	let li;
     	let button;
@@ -42331,8 +42516,8 @@ test2
     			t1 = space();
     			attr_dev(button, "class", "sectionButton svelte-1ynxeld");
     			toggle_class(button, "active", /*$AppData*/ ctx[1].REC.openSection === /*i*/ ctx[45]);
-    			add_location(button, file$2, 149, 4, 4144);
-    			add_location(li, file$2, 148, 3, 4134);
+    			add_location(button, file$2, 150, 4, 4185);
+    			add_location(li, file$2, 149, 3, 4175);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -42363,14 +42548,14 @@ test2
     		block,
     		id: create_each_block_6.name,
     		type: "each",
-    		source: "(148:3) {#each sections as section, i}",
+    		source: "(149:3) {#each sections as section, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (223:42) 
+    // (224:42) 
     function create_if_block_4$1(ctx) {
     	let section;
     	let div;
@@ -42396,9 +42581,9 @@ test2
     			div = element("div");
     			if_block.c();
     			attr_dev(div, "class", "recArea svelte-1ynxeld");
-    			add_location(div, file$2, 224, 2, 7172);
+    			add_location(div, file$2, 225, 2, 7310);
     			attr_dev(section, "class", "recSection furnSection svelte-1ynxeld");
-    			add_location(section, file$2, 223, 1, 7128);
+    			add_location(section, file$2, 224, 1, 7266);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
@@ -42452,14 +42637,14 @@ test2
     		block,
     		id: create_if_block_4$1.name,
     		type: "if",
-    		source: "(223:42) ",
+    		source: "(224:42) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (189:42) 
+    // (190:42) 
     function create_if_block_2$1(ctx) {
     	let section;
     	let div;
@@ -42485,9 +42670,9 @@ test2
     			div = element("div");
     			if_block.c();
     			attr_dev(div, "class", "recArea svelte-1ynxeld");
-    			add_location(div, file$2, 190, 2, 5785);
+    			add_location(div, file$2, 191, 2, 5875);
     			attr_dev(section, "class", "recSection siSection svelte-1ynxeld");
-    			add_location(section, file$2, 189, 1, 5743);
+    			add_location(section, file$2, 190, 1, 5833);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
@@ -42541,14 +42726,14 @@ test2
     		block,
     		id: create_if_block_2$1.name,
     		type: "if",
-    		source: "(189:42) ",
+    		source: "(190:42) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (155:1) {#if $AppData.REC.openSection === 0}
+    // (156:1) {#if $AppData.REC.openSection === 0}
     function create_if_block$2(ctx) {
     	let section;
     	let div;
@@ -42574,9 +42759,9 @@ test2
     			div = element("div");
     			if_block.c();
     			attr_dev(div, "class", "recArea svelte-1ynxeld");
-    			add_location(div, file$2, 156, 2, 4438);
+    			add_location(div, file$2, 157, 2, 4479);
     			attr_dev(section, "class", "recSection buildSection svelte-1ynxeld");
-    			add_location(section, file$2, 155, 1, 4393);
+    			add_location(section, file$2, 156, 1, 4434);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
@@ -42630,14 +42815,14 @@ test2
     		block,
     		id: create_if_block$2.name,
     		type: "if",
-    		source: "(155:1) {#if $AppData.REC.openSection === 0}",
+    		source: "(156:1) {#if $AppData.REC.openSection === 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (252:3) {:else}
+    // (253:3) {:else}
     function create_else_block_2(ctx) {
     	let div;
     	let span;
@@ -42648,9 +42833,9 @@ test2
     			span = element("span");
     			span.textContent = "No Furniture Recommendations";
     			attr_dev(span, "class", "svelte-1ynxeld");
-    			add_location(span, file$2, 252, 23, 8358);
+    			add_location(span, file$2, 253, 23, 8546);
     			attr_dev(div, "class", "noRec svelte-1ynxeld");
-    			add_location(div, file$2, 252, 4, 8339);
+    			add_location(div, file$2, 253, 4, 8527);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -42668,28 +42853,29 @@ test2
     		block,
     		id: create_else_block_2.name,
     		type: "else",
-    		source: "(252:3) {:else}",
+    		source: "(253:3) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (226:3) {#if recommendations.filter(e => e.type === 'furn').length > 0}
+    // (227:3) {#if recommendations.filter(e => e.type === 'furn').length > 0}
     function create_if_block_5(ctx) {
+    	let each_blocks = [];
+    	let each_1_lookup = new Map();
     	let each_1_anchor;
     	let current;
     	let each_value_4 = /*recommendations*/ ctx[0].filter(func_11).sort(sortByCore);
     	validate_each_argument(each_value_4);
-    	let each_blocks = [];
+    	const get_key = ctx => /*rec*/ ctx[29].id + "_furn";
+    	validate_each_keys(ctx, each_value_4, get_each_context_4, get_key);
 
     	for (let i = 0; i < each_value_4.length; i += 1) {
-    		each_blocks[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
+    		let child_ctx = get_each_context_4(ctx, each_value_4, i);
+    		let key = get_key(child_ctx);
+    		each_1_lookup.set(key, each_blocks[i] = create_each_block_4(key, child_ctx));
     	}
-
-    	const out = i => transition_out(each_blocks[i], 1, 1, () => {
-    		each_blocks[i] = null;
-    	});
 
     	const block = {
     		c: function create() {
@@ -42711,28 +42897,11 @@ test2
     			if (dirty[0] & /*recommendations, handleCompClick, handlePortraitClick, $HeroData, handleClaimClick*/ 229) {
     				each_value_4 = /*recommendations*/ ctx[0].filter(func_11).sort(sortByCore);
     				validate_each_argument(each_value_4);
-    				let i;
-
-    				for (i = 0; i < each_value_4.length; i += 1) {
-    					const child_ctx = get_each_context_4(ctx, each_value_4, i);
-
-    					if (each_blocks[i]) {
-    						each_blocks[i].p(child_ctx, dirty);
-    						transition_in(each_blocks[i], 1);
-    					} else {
-    						each_blocks[i] = create_each_block_4(child_ctx);
-    						each_blocks[i].c();
-    						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-    					}
-    				}
-
     				group_outros();
-
-    				for (i = each_value_4.length; i < each_blocks.length; i += 1) {
-    					out(i);
-    				}
-
+    				for (let i = 0; i < each_blocks.length; i += 1) each_blocks[i].r();
+    				validate_each_keys(ctx, each_value_4, get_each_context_4, get_key);
+    				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value_4, each_1_lookup, each_1_anchor.parentNode, fix_and_outro_and_destroy_block, create_each_block_4, each_1_anchor, get_each_context_4);
+    				for (let i = 0; i < each_blocks.length; i += 1) each_blocks[i].a();
     				check_outros();
     			}
     		},
@@ -42746,8 +42915,6 @@ test2
     			current = true;
     		},
     		o: function outro(local) {
-    			each_blocks = each_blocks.filter(Boolean);
-
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				transition_out(each_blocks[i]);
     			}
@@ -42755,7 +42922,10 @@ test2
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			destroy_each(each_blocks, detaching);
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].d(detaching);
+    			}
+
     			if (detaching) detach_dev(each_1_anchor);
     		}
     	};
@@ -42764,14 +42934,14 @@ test2
     		block,
     		id: create_if_block_5.name,
     		type: "if",
-    		source: "(226:3) {#if recommendations.filter(e => e.type === 'furn').length > 0}",
+    		source: "(227:3) {#if recommendations.filter(e => e.type === 'furn').length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (245:7) {#each rec.comps as comp}
+    // (246:7) {#each rec.comps as comp}
     function create_each_block_5(ctx) {
     	let li;
     	let button;
@@ -42790,9 +42960,9 @@ test2
     			button = element("button");
     			t = text$1(t_value);
     			attr_dev(button, "class", "compButton svelte-1ynxeld");
-    			add_location(button, file$2, 245, 12, 8157);
+    			add_location(button, file$2, 246, 12, 8345);
     			attr_dev(li, "class", "svelte-1ynxeld");
-    			add_location(li, file$2, 245, 8, 8153);
+    			add_location(li, file$2, 246, 8, 8341);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -42819,15 +42989,15 @@ test2
     		block,
     		id: create_each_block_5.name,
     		type: "each",
-    		source: "(245:7) {#each rec.comps as comp}",
+    		source: "(246:7) {#each rec.comps as comp}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (227:4) {#each recommendations.filter(e => e.type === 'furn').sort(sortByCore) as rec}
-    function create_each_block_4(ctx) {
+    // (228:4) {#each recommendations.filter(e => e.type === 'furn').sort(sortByCore) as rec (rec.id+'_furn')}
+    function create_each_block_4(key_1, ctx) {
     	let div4;
     	let div0;
     	let button0;
@@ -42852,6 +43022,8 @@ test2
     	let t8;
     	let ul;
     	let t9;
+    	let rect;
+    	let stop_animation = noop;
     	let current;
     	let mounted;
     	let dispose;
@@ -42886,6 +43058,8 @@ test2
     	}
 
     	const block = {
+    		key: key_1,
+    		first: null,
     		c: function create() {
     			div4 = element("div");
     			div0 = element("div");
@@ -42916,32 +43090,33 @@ test2
 
     			t9 = space();
     			attr_dev(button0, "class", "claimButton svelte-1ynxeld");
-    			add_location(button0, file$2, 229, 7, 7419);
+    			add_location(button0, file$2, 230, 7, 7607);
     			attr_dev(div0, "class", "claimButtonArea svelte-1ynxeld");
-    			add_location(div0, file$2, 228, 6, 7381);
+    			add_location(div0, file$2, 229, 6, 7569);
     			attr_dev(h4, "class", "svelte-1ynxeld");
-    			add_location(h4, file$2, 231, 6, 7541);
+    			add_location(h4, file$2, 232, 6, 7729);
     			attr_dev(img, "class", "portrait svelte-1ynxeld");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[2].find(func_13).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[2].find(func_14).name);
-    			add_location(img, file$2, 234, 8, 7727);
+    			add_location(img, file$2, 235, 8, 7915);
     			attr_dev(span, "class", "coreMark svelte-1ynxeld");
     			toggle_class(span, "visible", /*rec*/ ctx[29].core);
-    			add_location(span, file$2, 235, 8, 7859);
+    			add_location(span, file$2, 236, 8, 8047);
     			attr_dev(button1, "class", "portraitButton svelte-1ynxeld");
-    			add_location(button1, file$2, 233, 7, 7641);
+    			add_location(button1, file$2, 234, 7, 7829);
     			attr_dev(div1, "class", "portraitContainer svelte-1ynxeld");
-    			add_location(div1, file$2, 232, 6, 7601);
+    			add_location(div1, file$2, 233, 6, 7789);
     			attr_dev(div2, "class", "recText svelte-1ynxeld");
-    			add_location(div2, file$2, 238, 6, 7954);
+    			add_location(div2, file$2, 239, 6, 8142);
     			attr_dev(h5, "class", "svelte-1ynxeld");
-    			add_location(h5, file$2, 242, 7, 8080);
+    			add_location(h5, file$2, 243, 7, 8268);
     			attr_dev(ul, "class", "svelte-1ynxeld");
-    			add_location(ul, file$2, 243, 7, 8105);
+    			add_location(ul, file$2, 244, 7, 8293);
     			attr_dev(div3, "class", "compArea svelte-1ynxeld");
-    			add_location(div3, file$2, 241, 6, 8049);
+    			add_location(div3, file$2, 242, 6, 8237);
     			attr_dev(div4, "class", "recCard svelte-1ynxeld");
-    			add_location(div4, file$2, 227, 5, 7352);
+    			add_location(div4, file$2, 228, 5, 7507);
+    			this.first = div4;
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div4, anchor);
@@ -43034,6 +43209,17 @@ test2
     				each_blocks.length = each_value_5.length;
     			}
     		},
+    		r: function measure() {
+    			rect = div4.getBoundingClientRect();
+    		},
+    		f: function fix() {
+    			fix_position(div4);
+    			stop_animation();
+    		},
+    		a: function animate() {
+    			stop_animation();
+    			stop_animation = create_animation(div4, rect, flip, { duration: 200 });
+    		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(sifurnbox.$$.fragment, local);
@@ -43056,14 +43242,14 @@ test2
     		block,
     		id: create_each_block_4.name,
     		type: "each",
-    		source: "(227:4) {#each recommendations.filter(e => e.type === 'furn').sort(sortByCore) as rec}",
+    		source: "(228:4) {#each recommendations.filter(e => e.type === 'furn').sort(sortByCore) as rec (rec.id+'_furn')}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (218:3) {:else}
+    // (219:3) {:else}
     function create_else_block_1(ctx) {
     	let div;
     	let span;
@@ -43074,9 +43260,9 @@ test2
     			span = element("span");
     			span.textContent = "No Signature Item Recommendations";
     			attr_dev(span, "class", "svelte-1ynxeld");
-    			add_location(span, file$2, 218, 23, 6996);
+    			add_location(span, file$2, 219, 23, 7134);
     			attr_dev(div, "class", "noRec svelte-1ynxeld");
-    			add_location(div, file$2, 218, 4, 6977);
+    			add_location(div, file$2, 219, 4, 7115);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -43094,28 +43280,29 @@ test2
     		block,
     		id: create_else_block_1.name,
     		type: "else",
-    		source: "(218:3) {:else}",
+    		source: "(219:3) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (192:3) {#if recommendations.filter(e => e.type === 'si').length > 0}
+    // (193:3) {#if recommendations.filter(e => e.type === 'si').length > 0}
     function create_if_block_3$1(ctx) {
+    	let each_blocks = [];
+    	let each_1_lookup = new Map();
     	let each_1_anchor;
     	let current;
     	let each_value_2 = /*recommendations*/ ctx[0].filter(func_7).sort(sortByCore);
     	validate_each_argument(each_value_2);
-    	let each_blocks = [];
+    	const get_key = ctx => /*rec*/ ctx[29].id + "_si";
+    	validate_each_keys(ctx, each_value_2, get_each_context_2, get_key);
 
     	for (let i = 0; i < each_value_2.length; i += 1) {
-    		each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    		let child_ctx = get_each_context_2(ctx, each_value_2, i);
+    		let key = get_key(child_ctx);
+    		each_1_lookup.set(key, each_blocks[i] = create_each_block_2(key, child_ctx));
     	}
-
-    	const out = i => transition_out(each_blocks[i], 1, 1, () => {
-    		each_blocks[i] = null;
-    	});
 
     	const block = {
     		c: function create() {
@@ -43137,28 +43324,11 @@ test2
     			if (dirty[0] & /*recommendations, handleCompClick, handlePortraitClick, $HeroData, handleClaimClick*/ 229) {
     				each_value_2 = /*recommendations*/ ctx[0].filter(func_7).sort(sortByCore);
     				validate_each_argument(each_value_2);
-    				let i;
-
-    				for (i = 0; i < each_value_2.length; i += 1) {
-    					const child_ctx = get_each_context_2(ctx, each_value_2, i);
-
-    					if (each_blocks[i]) {
-    						each_blocks[i].p(child_ctx, dirty);
-    						transition_in(each_blocks[i], 1);
-    					} else {
-    						each_blocks[i] = create_each_block_2(child_ctx);
-    						each_blocks[i].c();
-    						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-    					}
-    				}
-
     				group_outros();
-
-    				for (i = each_value_2.length; i < each_blocks.length; i += 1) {
-    					out(i);
-    				}
-
+    				for (let i = 0; i < each_blocks.length; i += 1) each_blocks[i].r();
+    				validate_each_keys(ctx, each_value_2, get_each_context_2, get_key);
+    				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value_2, each_1_lookup, each_1_anchor.parentNode, fix_and_outro_and_destroy_block, create_each_block_2, each_1_anchor, get_each_context_2);
+    				for (let i = 0; i < each_blocks.length; i += 1) each_blocks[i].a();
     				check_outros();
     			}
     		},
@@ -43172,8 +43342,6 @@ test2
     			current = true;
     		},
     		o: function outro(local) {
-    			each_blocks = each_blocks.filter(Boolean);
-
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				transition_out(each_blocks[i]);
     			}
@@ -43181,7 +43349,10 @@ test2
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			destroy_each(each_blocks, detaching);
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].d(detaching);
+    			}
+
     			if (detaching) detach_dev(each_1_anchor);
     		}
     	};
@@ -43190,14 +43361,14 @@ test2
     		block,
     		id: create_if_block_3$1.name,
     		type: "if",
-    		source: "(192:3) {#if recommendations.filter(e => e.type === 'si').length > 0}",
+    		source: "(193:3) {#if recommendations.filter(e => e.type === 'si').length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (211:7) {#each rec.comps as comp}
+    // (212:7) {#each rec.comps as comp}
     function create_each_block_3(ctx) {
     	let li;
     	let button;
@@ -43216,9 +43387,9 @@ test2
     			button = element("button");
     			t = text$1(t_value);
     			attr_dev(button, "class", "compButton svelte-1ynxeld");
-    			add_location(button, file$2, 211, 12, 6795);
+    			add_location(button, file$2, 212, 12, 6933);
     			attr_dev(li, "class", "svelte-1ynxeld");
-    			add_location(li, file$2, 211, 8, 6791);
+    			add_location(li, file$2, 212, 8, 6929);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -43245,15 +43416,15 @@ test2
     		block,
     		id: create_each_block_3.name,
     		type: "each",
-    		source: "(211:7) {#each rec.comps as comp}",
+    		source: "(212:7) {#each rec.comps as comp}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (193:4) {#each recommendations.filter(e => e.type === 'si').sort(sortByCore) as rec}
-    function create_each_block_2(ctx) {
+    // (194:4) {#each recommendations.filter(e => e.type === 'si').sort(sortByCore) as rec (rec.id+'_si')}
+    function create_each_block_2(key_1, ctx) {
     	let div4;
     	let div0;
     	let button0;
@@ -43278,6 +43449,8 @@ test2
     	let t8;
     	let ul;
     	let t9;
+    	let rect;
+    	let stop_animation = noop;
     	let current;
     	let mounted;
     	let dispose;
@@ -43317,6 +43490,8 @@ test2
     	}
 
     	const block = {
+    		key: key_1,
+    		first: null,
     		c: function create() {
     			div4 = element("div");
     			div0 = element("div");
@@ -43347,32 +43522,33 @@ test2
 
     			t9 = space();
     			attr_dev(button0, "class", "claimButton svelte-1ynxeld");
-    			add_location(button0, file$2, 195, 7, 6028);
+    			add_location(button0, file$2, 196, 7, 6166);
     			attr_dev(div0, "class", "claimButtonArea svelte-1ynxeld");
-    			add_location(div0, file$2, 194, 6, 5990);
+    			add_location(div0, file$2, 195, 6, 6128);
     			attr_dev(h4, "class", "svelte-1ynxeld");
-    			add_location(h4, file$2, 197, 6, 6148);
+    			add_location(h4, file$2, 198, 6, 6286);
     			attr_dev(img, "class", "portrait svelte-1ynxeld");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[2].find(func_9).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[2].find(func_10).name);
-    			add_location(img, file$2, 200, 8, 6334);
+    			add_location(img, file$2, 201, 8, 6472);
     			attr_dev(span, "class", "coreMark svelte-1ynxeld");
     			toggle_class(span, "visible", /*rec*/ ctx[29].core);
-    			add_location(span, file$2, 201, 8, 6466);
+    			add_location(span, file$2, 202, 8, 6604);
     			attr_dev(button1, "class", "portraitButton svelte-1ynxeld");
-    			add_location(button1, file$2, 199, 7, 6248);
+    			add_location(button1, file$2, 200, 7, 6386);
     			attr_dev(div1, "class", "portraitContainer svelte-1ynxeld");
-    			add_location(div1, file$2, 198, 6, 6208);
+    			add_location(div1, file$2, 199, 6, 6346);
     			attr_dev(div2, "class", "recText svelte-1ynxeld");
-    			add_location(div2, file$2, 204, 6, 6561);
+    			add_location(div2, file$2, 205, 6, 6699);
     			attr_dev(h5, "class", "svelte-1ynxeld");
-    			add_location(h5, file$2, 208, 7, 6718);
+    			add_location(h5, file$2, 209, 7, 6856);
     			attr_dev(ul, "class", "svelte-1ynxeld");
-    			add_location(ul, file$2, 209, 7, 6743);
+    			add_location(ul, file$2, 210, 7, 6881);
     			attr_dev(div3, "class", "compArea svelte-1ynxeld");
-    			add_location(div3, file$2, 207, 6, 6687);
+    			add_location(div3, file$2, 208, 6, 6825);
     			attr_dev(div4, "class", "recCard svelte-1ynxeld");
-    			add_location(div4, file$2, 193, 5, 5961);
+    			add_location(div4, file$2, 194, 5, 6066);
+    			this.first = div4;
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div4, anchor);
@@ -43465,6 +43641,17 @@ test2
     				each_blocks.length = each_value_3.length;
     			}
     		},
+    		r: function measure() {
+    			rect = div4.getBoundingClientRect();
+    		},
+    		f: function fix() {
+    			fix_position(div4);
+    			stop_animation();
+    		},
+    		a: function animate() {
+    			stop_animation();
+    			stop_animation = create_animation(div4, rect, flip, { duration: 200 });
+    		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(sifurnbox.$$.fragment, local);
@@ -43487,14 +43674,14 @@ test2
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(193:4) {#each recommendations.filter(e => e.type === 'si').sort(sortByCore) as rec}",
+    		source: "(194:4) {#each recommendations.filter(e => e.type === 'si').sort(sortByCore) as rec (rec.id+'_si')}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (184:3) {:else}
+    // (185:3) {:else}
     function create_else_block$2(ctx) {
     	let div;
     	let span;
@@ -43505,9 +43692,9 @@ test2
     			span = element("span");
     			span.textContent = "No Build Recommendations";
     			attr_dev(span, "class", "svelte-1ynxeld");
-    			add_location(span, file$2, 184, 23, 5620);
+    			add_location(span, file$2, 185, 23, 5710);
     			attr_dev(div, "class", "noRec svelte-1ynxeld");
-    			add_location(div, file$2, 184, 4, 5601);
+    			add_location(div, file$2, 185, 4, 5691);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -43525,28 +43712,29 @@ test2
     		block,
     		id: create_else_block$2.name,
     		type: "else",
-    		source: "(184:3) {:else}",
+    		source: "(185:3) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (158:3) {#if recommendations.filter(e => e.type === 'ascend').length > 0}
+    // (159:3) {#if recommendations.filter(e => e.type === 'ascend').length > 0}
     function create_if_block_1$1(ctx) {
+    	let each_blocks = [];
+    	let each_1_lookup = new Map();
     	let each_1_anchor;
     	let current;
     	let each_value = /*recommendations*/ ctx[0].filter(func_3).sort(sortByCore);
     	validate_each_argument(each_value);
-    	let each_blocks = [];
+    	const get_key = ctx => /*rec*/ ctx[29].id + "_asc";
+    	validate_each_keys(ctx, each_value, get_each_context$1, get_key);
 
     	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+    		let child_ctx = get_each_context$1(ctx, each_value, i);
+    		let key = get_key(child_ctx);
+    		each_1_lookup.set(key, each_blocks[i] = create_each_block$1(key, child_ctx));
     	}
-
-    	const out = i => transition_out(each_blocks[i], 1, 1, () => {
-    		each_blocks[i] = null;
-    	});
 
     	const block = {
     		c: function create() {
@@ -43568,28 +43756,11 @@ test2
     			if (dirty[0] & /*recommendations, handleCompClick, handlePortraitClick, $HeroData, handleClaimClick*/ 229) {
     				each_value = /*recommendations*/ ctx[0].filter(func_3).sort(sortByCore);
     				validate_each_argument(each_value);
-    				let i;
-
-    				for (i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context$1(ctx, each_value, i);
-
-    					if (each_blocks[i]) {
-    						each_blocks[i].p(child_ctx, dirty);
-    						transition_in(each_blocks[i], 1);
-    					} else {
-    						each_blocks[i] = create_each_block$1(child_ctx);
-    						each_blocks[i].c();
-    						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-    					}
-    				}
-
     				group_outros();
-
-    				for (i = each_value.length; i < each_blocks.length; i += 1) {
-    					out(i);
-    				}
-
+    				for (let i = 0; i < each_blocks.length; i += 1) each_blocks[i].r();
+    				validate_each_keys(ctx, each_value, get_each_context$1, get_key);
+    				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value, each_1_lookup, each_1_anchor.parentNode, fix_and_outro_and_destroy_block, create_each_block$1, each_1_anchor, get_each_context$1);
+    				for (let i = 0; i < each_blocks.length; i += 1) each_blocks[i].a();
     				check_outros();
     			}
     		},
@@ -43603,8 +43774,6 @@ test2
     			current = true;
     		},
     		o: function outro(local) {
-    			each_blocks = each_blocks.filter(Boolean);
-
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				transition_out(each_blocks[i]);
     			}
@@ -43612,7 +43781,10 @@ test2
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			destroy_each(each_blocks, detaching);
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].d(detaching);
+    			}
+
     			if (detaching) detach_dev(each_1_anchor);
     		}
     	};
@@ -43621,14 +43793,14 @@ test2
     		block,
     		id: create_if_block_1$1.name,
     		type: "if",
-    		source: "(158:3) {#if recommendations.filter(e => e.type === 'ascend').length > 0}",
+    		source: "(159:3) {#if recommendations.filter(e => e.type === 'ascend').length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (177:7) {#each rec.comps as comp}
+    // (178:7) {#each rec.comps as comp}
     function create_each_block_1(ctx) {
     	let li;
     	let button;
@@ -43647,9 +43819,9 @@ test2
     			button = element("button");
     			t = text$1(t_value);
     			attr_dev(button, "class", "compButton svelte-1ynxeld");
-    			add_location(button, file$2, 177, 12, 5419);
+    			add_location(button, file$2, 178, 12, 5509);
     			attr_dev(li, "class", "svelte-1ynxeld");
-    			add_location(li, file$2, 177, 8, 5415);
+    			add_location(li, file$2, 178, 8, 5505);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -43676,15 +43848,15 @@ test2
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(177:7) {#each rec.comps as comp}",
+    		source: "(178:7) {#each rec.comps as comp}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (159:4) {#each recommendations.filter(e => e.type === 'ascend').sort(sortByCore) as rec}
-    function create_each_block$1(ctx) {
+    // (160:4) {#each recommendations.filter(e => e.type === 'ascend').sort(sortByCore) as rec (rec.id+'_asc')}
+    function create_each_block$1(key_1, ctx) {
     	let div4;
     	let div0;
     	let button0;
@@ -43709,6 +43881,8 @@ test2
     	let t8;
     	let ul;
     	let t9;
+    	let rect;
+    	let stop_animation = noop;
     	let current;
     	let mounted;
     	let dispose;
@@ -43743,6 +43917,8 @@ test2
     	}
 
     	const block = {
+    		key: key_1,
+    		first: null,
     		c: function create() {
     			div4 = element("div");
     			div0 = element("div");
@@ -43773,32 +43949,33 @@ test2
 
     			t9 = space();
     			attr_dev(button0, "class", "claimButton svelte-1ynxeld");
-    			add_location(button0, file$2, 161, 7, 4689);
+    			add_location(button0, file$2, 162, 7, 4779);
     			attr_dev(div0, "class", "claimButtonArea svelte-1ynxeld");
-    			add_location(div0, file$2, 160, 6, 4651);
+    			add_location(div0, file$2, 161, 6, 4741);
     			attr_dev(h4, "class", "svelte-1ynxeld");
-    			add_location(h4, file$2, 163, 6, 4810);
+    			add_location(h4, file$2, 164, 6, 4900);
     			attr_dev(img, "class", "portrait svelte-1ynxeld");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[2].find(func_5).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[2].find(func_6).name);
-    			add_location(img, file$2, 166, 8, 4996);
+    			add_location(img, file$2, 167, 8, 5086);
     			attr_dev(span, "class", "coreMark svelte-1ynxeld");
     			toggle_class(span, "visible", /*rec*/ ctx[29].core);
-    			add_location(span, file$2, 167, 8, 5128);
+    			add_location(span, file$2, 168, 8, 5218);
     			attr_dev(button1, "class", "portraitButton svelte-1ynxeld");
-    			add_location(button1, file$2, 165, 7, 4910);
+    			add_location(button1, file$2, 166, 7, 5000);
     			attr_dev(div1, "class", "portraitContainer svelte-1ynxeld");
-    			add_location(div1, file$2, 164, 6, 4870);
+    			add_location(div1, file$2, 165, 6, 4960);
     			attr_dev(div2, "class", "recText svelte-1ynxeld");
-    			add_location(div2, file$2, 170, 6, 5223);
+    			add_location(div2, file$2, 171, 6, 5313);
     			attr_dev(h5, "class", "svelte-1ynxeld");
-    			add_location(h5, file$2, 174, 7, 5342);
+    			add_location(h5, file$2, 175, 7, 5432);
     			attr_dev(ul, "class", "svelte-1ynxeld");
-    			add_location(ul, file$2, 175, 7, 5367);
+    			add_location(ul, file$2, 176, 7, 5457);
     			attr_dev(div3, "class", "compArea svelte-1ynxeld");
-    			add_location(div3, file$2, 173, 6, 5311);
+    			add_location(div3, file$2, 174, 6, 5401);
     			attr_dev(div4, "class", "recCard svelte-1ynxeld");
-    			add_location(div4, file$2, 159, 5, 4622);
+    			add_location(div4, file$2, 160, 5, 4679);
+    			this.first = div4;
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div4, anchor);
@@ -43891,6 +44068,17 @@ test2
     				each_blocks.length = each_value_1.length;
     			}
     		},
+    		r: function measure() {
+    			rect = div4.getBoundingClientRect();
+    		},
+    		f: function fix() {
+    			fix_position(div4);
+    			stop_animation();
+    		},
+    		a: function animate() {
+    			stop_animation();
+    			stop_animation = create_animation(div4, rect, flip, { duration: 200 });
+    		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(ascendbox.$$.fragment, local);
@@ -43913,7 +44101,7 @@ test2
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(159:4) {#each recommendations.filter(e => e.type === 'ascend').sort(sortByCore) as rec}",
+    		source: "(160:4) {#each recommendations.filter(e => e.type === 'ascend').sort(sortByCore) as rec (rec.id+'_asc')}",
     		ctx
     	});
 
@@ -43963,11 +44151,11 @@ test2
     			t = space();
     			if (if_block) if_block.c();
     			attr_dev(ul, "class", "sectionPicker svelte-1ynxeld");
-    			add_location(ul, file$2, 146, 2, 4068);
+    			add_location(ul, file$2, 147, 2, 4109);
     			attr_dev(div0, "class", "sectionPickerSection svelte-1ynxeld");
-    			add_location(div0, file$2, 145, 1, 4030);
+    			add_location(div0, file$2, 146, 1, 4071);
     			attr_dev(div1, "class", "recContainer svelte-1ynxeld");
-    			add_location(div1, file$2, 144, 0, 4001);
+    			add_location(div1, file$2, 145, 0, 4042);
     		},
     		l: function claim(nodes) {
     			throw new Error_1("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -44273,6 +44461,7 @@ test2
     	$$self.$capture_state = () => ({
     		getContext,
     		createEventDispatcher,
+    		flip,
     		AppData: AppData$1,
     		HeroData,
     		HeroDetail,
@@ -45052,7 +45241,7 @@ test2
     		c: function create() {
     			h2 = element("h2");
     			h2.textContent = "you shouldn't be able to get here";
-    			add_location(h2, file, 97, 6, 3228);
+    			add_location(h2, file, 97, 6, 3254);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h2, anchor);
@@ -45214,6 +45403,7 @@ test2
     	let recommendations;
     	let current;
     	recommendations = new Recommendations({ $$inline: true });
+    	recommendations.$on("saveData", /*saveAppData*/ ctx[3]);
 
     	const block = {
     		c: function create() {
