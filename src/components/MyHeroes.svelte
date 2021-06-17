@@ -762,9 +762,11 @@
 			background-color: var(--appColorPrimary);
 			border-radius: 6px;
 			color: white;
+			opacity: 0;
 			padding: 5px;
 			position: absolute;
 			text-align: center;
+			transition: opacity 0.2s;
 			visibility: hidden;
 		}
 		.tooltip-faction {
@@ -792,12 +794,15 @@
 			color: rgba(255, 255, 255, 0.9);
 		}
 		.attrImage:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 		}
 		.filtersButton:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 		}
 		.inOutButton:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 			width: 100px;
 		}

@@ -1229,9 +1229,11 @@
 			color: white;
 			font-size: 0.8rem;
 			-ms-user-select: none;
+			opacity: 0;
 			padding: 4px;
 			position: absolute;
 			text-align: center;
+			transition: opacity 0.2s;
 			user-select: none;
 			visibility: hidden;
 			-webkit-user-select: none;
@@ -1252,9 +1254,11 @@
 			transform: scale(1.03);
 		}
 		.cardDeleteButton:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 		}
 		.cardExportButton:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 		}
 		.compDetails {

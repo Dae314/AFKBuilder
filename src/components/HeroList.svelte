@@ -634,19 +634,27 @@ import { stop_propagation } from 'svelte/internal';
 			background-color: var(--appColorPrimary);
 			border-radius: 6px;
 			color: white;
+			-ms-user-select: none;
+			opacity: 0;
 			padding: 5px;
 			position: absolute;
 			text-align: center;
+			transition: opacity 0.2s;
+			user-select: none;
 			visibility: hidden;
+			-webkit-user-select: none;
 			z-index: 1;
 		}
 		.attrImage:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 		}
 		.filtersButton:hover+.tooltip .tooltipText {
+			opacity: 1;
 			visibility: visible;
 		}
 		.mobileExpander.filterOpen+.mobileExpanderTitle .tooltip .tooltipText {
+			opacity: 0;
 			visibility: hidden;
 		}
 	}
