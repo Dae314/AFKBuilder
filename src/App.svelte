@@ -48,16 +48,18 @@
 
 	function handlePopState(event) {
 		const state = event.state;
-		if('view' in state) {
-			if(state.modal) {
-				history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
-			}else{
-				$AppData.activeView = state.view;
+		if(state !== null) {
+			if('view' in state) {
+				if(state.modal) {
+					history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
+				}else{
+					$AppData.activeView = state.view;
+				}
+			} else {
+				$AppData.activeView = defaultView;
 			}
-		} else {
-			$AppData.activeView = defaultView;
+			saveAppData();
 		}
-		saveAppData();
 	}
 
 	function handleModalClosed() {
