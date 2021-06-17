@@ -479,7 +479,7 @@ import { stop_propagation } from 'svelte/internal';
 		border-radius: 50%;
 		cursor: pointer;
 		max-width: 70px;
-		transition: all 0.2s;
+		transition: all 0.2s cubic-bezier(0.2, 0, 0.4, 0);
 	}
 	.portrait:active {
 		transform: scale(0.9);
