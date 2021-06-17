@@ -1,5 +1,6 @@
 <script>
 	import { onMount, getContext, createEventDispatcher, tick } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import MarkdownIt from 'markdown-it';
 	import Emoji from 'markdown-it-emoji';
 	import { v4 as uuidv4 } from 'uuid';
@@ -411,7 +412,7 @@
 							</div>
 							<div class="mobileExpander selectHeroSection" class:open={openHero}>
 								{#if selectedHero !== ''}
-									<div class="selectedHero">
+									<div class="selectedHero" in:fade="{{duration: 200}}">
 										<div class="upperSelectCard">
 											<div>
 												<SIFurnBox type='si' num={sortedCompList[$AppData.selectedComp].heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
