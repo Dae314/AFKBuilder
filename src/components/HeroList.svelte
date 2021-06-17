@@ -433,20 +433,20 @@
 		filter: grayscale(100%);
 	}
 	.tableContainer {
+		display: flex;
+		justify-content: center;
 		width: 100%;
 	}
 	table {
-		border: 1px solid #bbb;
 		border-radius: 6px;
 		border-spacing: 0;
+		box-shadow: 0px 0px 30px rgba(170, 170, 170, 0.25);
 		margin: 0;
 		padding: 0;
 		table-layout: fixed;
 		width: 100%;
 	}
 	table th {
-		background-color: var(--appColorPrimary);
-		border-bottom: 1px solid #bbb;
 		font-size: 0.9rem;
 		letter-spacing: .08rem;
 		text-transform: uppercase;
@@ -470,9 +470,6 @@
 	.hiddenMobile {
 		display: none;
 		visibility: hidden;
-	}
-	.heroRow td {
-		border-bottom: 1px solid #bbb;
 	}
 	.portrait {
 		border-radius: 50%;
@@ -663,7 +660,7 @@
 	}
 	@media only screen and (min-width: 1200px) {
 		table {
-			width: 60%;
+			width: 70%;
 		}
 	}
 </style>
