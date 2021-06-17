@@ -1215,13 +1215,13 @@
 			background-color: var(--appColorPriAccent);
 		}
 		.tooltip {
-			bottom: -25px;
+			bottom: -2px;
 			display: inline-block;
 			position: relative;
-			right: 41.5px;
+			right: 22px;
 		}
 		.exportTooltip {
-			right: 39px;
+			right: 22.5px;
 		}
 		.tooltip .tooltipText {
 			background-color: var(--appColorPrimary);
