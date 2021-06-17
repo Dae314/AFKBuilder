@@ -87,7 +87,7 @@
 					{#if $AppData.activeView === 'comps'}
 						<Comps on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'recommendations'}
-						<Recommendations />
+						<Recommendations on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'my heroes'}
 						<MyHeroes on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'hero list' }
