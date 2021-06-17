@@ -1345,6 +1345,8 @@
 		}
 		.lineDisplay {
 			border-radius: 0px 10px 10px 10px;
+			max-height: 335px;
+			min-height: 335px;
 		}
 		.description {
 			width: 100%;
@@ -1377,7 +1379,7 @@
 			border: 2px solid var(--appColorPrimary);
 			border-radius: 10px 0px 0px 10px;
 			margin-top: 27px;
-			max-height: 334.5px;
+			max-height: 335px;
 			overflow-y: auto;
 			padding: 5px;
 		}
