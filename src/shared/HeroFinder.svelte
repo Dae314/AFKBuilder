@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
@@ -433,8 +434,8 @@
 					</div>
 					<h4>Artifacts</h4>
 					<div class="artifactLine">
-						{#each selectedHero.artifact as artifact, i}
-							<button class="artifactButton" on:click={() => handleRemoveArtifact(artifact) }>
+						{#each selectedHero.artifact as artifact, i (artifact)}
+							<button class="artifactButton" on:click={() => handleRemoveArtifact(artifact) } transition:fade="{{duration: 200}}">
 								<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 								<p>{$Artifacts[artifact].name}</p>
 							</button>
@@ -445,8 +446,8 @@
 					</div>
 					<div class="artifactPicker">
 						<div class="artifactGrid">
-							{#each unusedArtifacts as artifact}
-								<button class="artifactButton" on:click={() => handleAddArtifact(artifact) }>
+							{#each unusedArtifacts as artifact (artifact)}
+								<button class="artifactButton" on:click={() => handleAddArtifact(artifact) } animate:flip="{{duration: 200}}" transition:fade="{{duration: 200}}">
 									<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 									<p>{$Artifacts[artifact].name}</p>
 								</button>
