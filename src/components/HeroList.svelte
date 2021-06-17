@@ -1,5 +1,6 @@
 <script>
 	import { getContext, onMount, createEventDispatcher } from 'svelte';
+	import { flip } from 'svelte/animate';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
@@ -270,8 +271,8 @@
 					<th class="nonSortHeader">SI <span class="hiddenMobile">Benchmark</span></th>
 					<th class="nonSortHeader">Furn <span class="hiddenMobile">Benchmark</span></th>
 				</tr>
-				{#each displayList as hero}
-				<tr class="heroRow" on:click={() => handleHeroClick(hero.id)}>
+				{#each displayList as hero (hero.id)}
+				<tr class="heroRow" on:click={() => handleHeroClick(hero.id)} animate:flip="{{duration: 200}}">
 					<td>
 						<img on:click={(e) => { handlePortraitClick(hero.id); e.stopPropagation();} } class="portrait" class:owned={$AppData.MH.List[hero.id].claimed} src={hero.portrait} alt={hero.name}>
 						<p class="heroName">{hero.name}</p>
