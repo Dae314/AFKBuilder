@@ -244,6 +244,10 @@
 		}
 		.logo img {
 			max-width: 35px;
+			transition: transform 0.4s;
+		}
+		.logo:hover img {
+			transform: rotateZ(360deg);
 		}
 	}
 </style>
