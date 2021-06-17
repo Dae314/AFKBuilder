@@ -474,7 +474,7 @@
 		right: 10%;
 	}
 	.heroFinderContainer {
-		background: white;
+		background: var(--appBGColor);
 		border-radius: 10px;
 		height: 80%;
 		overflow-x: hidden;
@@ -518,7 +518,7 @@
 		transition: max-height 0.2s ease;
 	}
 	.mobileExpander.filterOpen {
-		box-shadow: 0px 0px 10px #aaa;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
 		max-height: 500px;
 	}
 	.filters {
@@ -802,11 +802,11 @@
 		}
 		.backButton:hover {
 			background-color: var(--appColorPrimary);
-			box-shadow: 2px 2px 5px #aaa;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 			color: white;
 		}
 		.saveButton:hover {
-			box-shadow: 2px 2px 5px #aaa;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 		}
 	}
 </style>

@@ -356,7 +356,7 @@
 		transition: max-height 0.2s ease;
 	}
 	.mobileExpander.filterOpen {
-		box-shadow: 0px 0px 10px #aaa;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
 		max-height: 500px;
 	}
 	.searchContainer {
@@ -440,7 +440,7 @@
 	table {
 		border-radius: 6px;
 		border-spacing: 0;
-		box-shadow: 0px 0px 30px rgba(170, 170, 170, 0.25);
+		box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15);
 		margin: 0;
 		padding: 0;
 		table-layout: fixed;
@@ -537,7 +537,7 @@
 		}
 		.filtersButton {
 			border-radius: 0 50px 50px 0;
-			box-shadow: 3px 3px 12px #aaa;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 			height: 50px;
 		}
 		.filtersButton span {
@@ -551,7 +551,7 @@
 			transition: max-width 0.2s ease;
 		}
 		.mobileExpander.filterOpen {
-			box-shadow: 3px 3px 12px #aaa;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 			max-height: max-content;
 			max-width: 100%;
 			padding: 10px;

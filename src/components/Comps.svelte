@@ -915,6 +915,7 @@
 		border: 3px solid var(--appColorPrimary);
 		border-radius: 5px;
 		color: white;
+		cursor: pointer;
 		display: flex;
 		flex-direction: row;
 		font-size: 0.9rem;
@@ -1249,7 +1250,7 @@
 			font-size: 2.5rem;
 		}
 		.compCard:hover {
-			box-shadow: 3px 3px 10px #bbb;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
 			transform: scale(1.02);
 		}
 		.compCard.active {
@@ -1284,7 +1285,7 @@
 			max-width: 15px;
 		}
 		.editDelButton:hover {
-			box-shadow: 2px 2px 5px #aaa;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 		}
 		.deleteButton img {
 			max-width: 12px;
