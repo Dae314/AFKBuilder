@@ -9546,7 +9546,7 @@ test2
     			albedo: {ascendLv: 6, si: 30, furn: 3, artifact: ['barricade'], core: true},
     			ainz: {ascendLv: 6, si: 30, furn: 9, artifact: ['windbinder'], core: true},
     			rowan: {ascendLv: 6, si: 30, furn: 0, artifact: ['call'], core: false},
-    			talene: {ascendLv: 6, si: 30, furn: 9, artifact: ['sword'], core: false},
+    			talene: {ascendLv: 6, si: 30, furn: 9, artifact: ['blade'], core: false},
     			ezio: {ascendLv: 6, si: 20, furn: 3, artifact: ['eye'], core: false},
     			hendrik: {ascendLv: 6, si: 20, furn: 0, artifact: ['barricade'], core: false},
     			brutus: {ascendLv: 0, si: 0, furn: 0, artifact: ['barricade'], core: false},
