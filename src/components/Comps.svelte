@@ -686,6 +686,7 @@
 		cursor: pointer;
 		height: fit-content;
 		margin: 0;
+		outline: 0;
 		padding: 0;
 		padding-top: 1px;
 	}
@@ -699,6 +700,7 @@
 		cursor: pointer;
 		height: fit-content;
 		margin: 0;
+		outline: 0;
 		padding: 0;
 		padding-top: 2px;
 	}
