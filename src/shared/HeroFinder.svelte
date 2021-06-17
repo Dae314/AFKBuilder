@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { flip } from 'svelte/animate';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
@@ -368,8 +369,8 @@
 					</div>
 				</div>
 				<div class="heroGrid">
-					{#each heroes as hero}
-						<button class="heroPortrait" on:click={() => selectHero(hero.id)} class:active={hero.id in compHeroData}>
+					{#each heroes as hero (hero.id)}
+						<button class="heroPortrait" on:click={() => selectHero(hero.id)} class:active={hero.id in compHeroData} animate:flip="{{duration: 200}}">
 							<img src="{hero.portrait}" alt="hero.name">
 							<p>{hero.name}</p>
 						</button>
