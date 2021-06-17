@@ -1352,6 +1352,12 @@
 			max-height: 335px;
 			min-height: 335px;
 		}
+		.lineImg {
+			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
+		}
+		.lineImg:hover {
+			transform: scale(1.1);
+		}
 		.description {
 			width: 100%;
 		}
@@ -1399,6 +1405,12 @@
 			margin-top: -4px;
 			overflow: hidden;
 			padding: 0;
+		}
+		.subImg {
+			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
+		}
+		.subImg:hover {
+			transform: scale(1.1);
 		}
 		.subGroupTitle {
 			padding-top: 0;
