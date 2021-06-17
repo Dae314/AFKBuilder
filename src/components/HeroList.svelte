@@ -5,7 +5,6 @@
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
 	import SIFurnBox from '../shared/SIFurnBox.svelte';
-import { stop_propagation } from 'svelte/internal';
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
@@ -188,6 +187,7 @@ import { stop_propagation } from 'svelte/internal';
 
 	function handlePortraitClick(heroID) {
 		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed;
+		dispatch('saveData');
 	}
 </script>
 
