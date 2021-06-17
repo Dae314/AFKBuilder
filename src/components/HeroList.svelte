@@ -473,7 +473,6 @@
 	}
 	.heroRow td {
 		border-bottom: 1px solid #bbb;
-		transition: box-shadow 0.2s;
 	}
 	.portrait {
 		border-radius: 50%;
@@ -613,8 +612,12 @@
 		.sortHeader:hover {
 			background-color: var(--appColorPriAccent);
 		}
+		.heroRow {
+			transition: background-color 0.4s;
+		}
 		.heroRow:hover {
 			background-color: var(--appColorQuaternary);
+			transition: none;
 		}
 		.tooltip {
 			display: inline-block;
