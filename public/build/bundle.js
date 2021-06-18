@@ -9622,9 +9622,9 @@ var app = (function () {
     					return {retCode: 1, message: `Incorrect type for key ${key} in line named ${line.name}, expected ${expectedPropType}`};
     				}
     			}
-    			// make sure every hero in a line is also in heroes
+    			// make sure every hero in a line is also in heroes or is unknown
     			for(const hero of line.heroes) {
-    				if(!(hero in data.heroes)) {
+    				if(!(hero in data.heroes) && hero !== 'unknown') {
     					return {retCode: 1, message: `Hero ${hero} in line named ${line.name} is not in heroes`};
     				}
     			}
