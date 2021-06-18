@@ -40492,11 +40492,11 @@ var app = (function () {
 
     function get_each_context$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[49] = list[i];
+    	child_ctx[50] = list[i];
     	return child_ctx;
     }
 
-    // (300:1) {:else}
+    // (303:1) {:else}
     function create_else_block$3(ctx) {
     	let section;
     	let each_blocks = [];
@@ -40504,7 +40504,7 @@ var app = (function () {
     	let current;
     	let each_value = /*myHeroList*/ ctx[4];
     	validate_each_argument(each_value);
-    	const get_key = ctx => /*hero*/ ctx[49].id;
+    	const get_key = ctx => /*hero*/ ctx[50].id;
     	validate_each_keys(ctx, each_value, get_each_context$2, get_key);
 
     	for (let i = 0; i < each_value.length; i += 1) {
@@ -40522,7 +40522,7 @@ var app = (function () {
     			}
 
     			attr_dev(section, "class", "sect2 MHGrid svelte-14obrkm");
-    			add_location(section, file$3, 300, 2, 12537);
+    			add_location(section, file$3, 303, 2, 12613);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
@@ -40574,14 +40574,14 @@ var app = (function () {
     		block,
     		id: create_else_block$3.name,
     		type: "else",
-    		source: "(300:1) {:else}",
+    		source: "(303:1) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (294:1) {#if myHeroList.length === 0}
+    // (297:1) {#if myHeroList.length === 0}
     function create_if_block$3(ctx) {
     	let section;
     	let div;
@@ -40593,11 +40593,11 @@ var app = (function () {
     			div = element("div");
     			span = element("span");
     			span.textContent = "Heroes you own will appear here";
-    			add_location(span, file$3, 296, 4, 12454);
+    			add_location(span, file$3, 299, 4, 12530);
     			attr_dev(div, "class", "noHeroes svelte-14obrkm");
-    			add_location(div, file$3, 295, 3, 12426);
+    			add_location(div, file$3, 298, 3, 12502);
     			attr_dev(section, "class", "sect2 svelte-14obrkm");
-    			add_location(section, file$3, 294, 2, 12398);
+    			add_location(section, file$3, 297, 2, 12474);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
@@ -40616,14 +40616,14 @@ var app = (function () {
     		block,
     		id: create_if_block$3.name,
     		type: "if",
-    		source: "(294:1) {#if myHeroList.length === 0}",
+    		source: "(297:1) {#if myHeroList.length === 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (302:3) {#each myHeroList as hero (hero.id)}
+    // (305:3) {#each myHeroList as hero (hero.id)}
     function create_each_block$2(key_1, ctx) {
     	let div17;
     	let div10;
@@ -40634,7 +40634,7 @@ var app = (function () {
     	let t0;
     	let div0;
     	let span0;
-    	let t1_value = /*hero*/ ctx[49].faction + "";
+    	let t1_value = /*hero*/ ctx[50].faction + "";
     	let t1;
     	let t2;
     	let div6;
@@ -40648,7 +40648,7 @@ var app = (function () {
     	let div3;
     	let button;
 
-    	let t4_value = (/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[49].id].claimed
+    	let t4_value = (/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[50].id].claimed
     	? "Remove"
     	: "Add") + "";
 
@@ -40661,7 +40661,7 @@ var app = (function () {
     	let t6;
     	let div7;
     	let span1;
-    	let t7_value = /*hero*/ ctx[49].type + "";
+    	let t7_value = /*hero*/ ctx[50].type + "";
     	let t7;
     	let t8;
     	let img3;
@@ -40670,11 +40670,11 @@ var app = (function () {
     	let t9;
     	let div8;
     	let span2;
-    	let t10_value = /*hero*/ ctx[49].class + "";
+    	let t10_value = /*hero*/ ctx[50].class + "";
     	let t10;
     	let t11;
     	let p;
-    	let t12_value = /*hero*/ ctx[49].name + "";
+    	let t12_value = /*hero*/ ctx[50].name + "";
     	let t12;
     	let t13;
     	let div16;
@@ -40696,15 +40696,15 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_19() {
-    		return /*click_handler_19*/ ctx[37](/*hero*/ ctx[49]);
+    		return /*click_handler_19*/ ctx[37](/*hero*/ ctx[50]);
     	}
 
     	function click_handler_20() {
-    		return /*click_handler_20*/ ctx[38](/*hero*/ ctx[49]);
+    		return /*click_handler_20*/ ctx[38](/*hero*/ ctx[50]);
     	}
 
     	function func() {
-    		return /*func*/ ctx[39](/*hero*/ ctx[49]);
+    		return /*func*/ ctx[39](/*hero*/ ctx[50]);
     	}
 
     	flipbutton0 = new FlipButton({
@@ -40727,14 +40727,14 @@ var app = (function () {
     					"background-color: #FE481A; color: white; border: 3px solid #B33212; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
     					"background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 3px solid #B289E8; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;"
     				],
-    				curOption: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[49].id].ascendLv,
+    				curOption: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[50].id].ascendLv,
     				onClick: func
     			},
     			$$inline: true
     		});
 
     	function func_1() {
-    		return /*func_1*/ ctx[40](/*hero*/ ctx[49]);
+    		return /*func_1*/ ctx[40](/*hero*/ ctx[50]);
     	}
 
     	flipbutton1 = new FlipButton({
@@ -40749,14 +40749,14 @@ var app = (function () {
     					"background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;",
     					"background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;"
     				],
-    				curOption: Math.floor(/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[49].id].si / 5),
+    				curOption: Math.floor(/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[50].id].si / 5),
     				onClick: func_1
     			},
     			$$inline: true
     		});
 
     	function func_2() {
-    		return /*func_2*/ ctx[41](/*hero*/ ctx[49]);
+    		return /*func_2*/ ctx[41](/*hero*/ ctx[50]);
     	}
 
     	flipbutton2 = new FlipButton({
@@ -40767,9 +40767,9 @@ var app = (function () {
     					"background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;",
     					"background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;"
     				],
-    				curOption: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[49].id].furn === 0
+    				curOption: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[50].id].furn === 0
     				? 0
-    				: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[49].id].furn === 3
+    				: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[50].id].furn === 3
     					? 1
     					: 2,
     				onClick: func_2
@@ -40829,68 +40829,68 @@ var app = (function () {
     			create_component(flipbutton2.$$.fragment);
     			t16 = space();
     			attr_dev(img0, "class", "attrImage factionImg svelte-14obrkm");
-    			if (img0.src !== (img0_src_value = "./img/factions/" + /*hero*/ ctx[49].faction.toLowerCase() + ".png")) attr_dev(img0, "src", img0_src_value);
-    			attr_dev(img0, "alt", img0_alt_value = /*hero*/ ctx[49].faction);
-    			add_location(img0, file$3, 305, 6, 12735);
+    			if (img0.src !== (img0_src_value = "./img/factions/" + /*hero*/ ctx[50].faction.toLowerCase() + ".png")) attr_dev(img0, "src", img0_src_value);
+    			attr_dev(img0, "alt", img0_alt_value = /*hero*/ ctx[50].faction);
+    			add_location(img0, file$3, 308, 6, 12811);
     			attr_dev(span0, "class", "tooltipText svelte-14obrkm");
-    			add_location(span0, file$3, 306, 43, 12889);
+    			add_location(span0, file$3, 309, 43, 12965);
     			attr_dev(div0, "class", "tooltip tooltip-faction svelte-14obrkm");
-    			add_location(div0, file$3, 306, 6, 12852);
+    			add_location(div0, file$3, 309, 6, 12928);
     			attr_dev(div1, "class", "headArea svelte-14obrkm");
-    			add_location(div1, file$3, 304, 5, 12705);
+    			add_location(div1, file$3, 307, 5, 12781);
     			attr_dev(img1, "class", "portrait svelte-14obrkm");
-    			if (img1.src !== (img1_src_value = /*hero*/ ctx[49].portrait)) attr_dev(img1, "src", img1_src_value);
-    			attr_dev(img1, "alt", img1_alt_value = /*hero*/ ctx[49].name);
-    			add_location(img1, file$3, 312, 9, 13136);
+    			if (img1.src !== (img1_src_value = /*hero*/ ctx[50].portrait)) attr_dev(img1, "src", img1_src_value);
+    			attr_dev(img1, "alt", img1_alt_value = /*hero*/ ctx[50].name);
+    			add_location(img1, file$3, 315, 9, 13212);
     			attr_dev(div2, "class", "flipCardFront svelte-14obrkm");
-    			add_location(div2, file$3, 311, 8, 13098);
+    			add_location(div2, file$3, 314, 8, 13174);
     			attr_dev(button, "class", "claimButton svelte-14obrkm");
-    			toggle_class(button, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[49].id].claimed);
-    			add_location(button, file$3, 315, 9, 13305);
+    			toggle_class(button, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[50].id].claimed);
+    			add_location(button, file$3, 318, 9, 13381);
     			attr_dev(div3, "class", "flipCardBack svelte-14obrkm");
-    			add_location(div3, file$3, 314, 8, 13268);
+    			add_location(div3, file$3, 317, 8, 13344);
     			attr_dev(div4, "class", "flipCardInner svelte-14obrkm");
-    			add_location(div4, file$3, 310, 7, 13061);
+    			add_location(div4, file$3, 313, 7, 13137);
     			attr_dev(div5, "class", "flipCard svelte-14obrkm");
-    			add_location(div5, file$3, 309, 6, 12992);
+    			add_location(div5, file$3, 312, 6, 13068);
     			attr_dev(div6, "class", "headArea svelte-14obrkm");
-    			add_location(div6, file$3, 308, 5, 12962);
+    			add_location(div6, file$3, 311, 5, 13038);
     			attr_dev(img2, "class", "attrImage typeImg svelte-14obrkm");
-    			if (img2.src !== (img2_src_value = "./img/types/" + /*hero*/ ctx[49].type.toLowerCase() + ".png")) attr_dev(img2, "src", img2_src_value);
-    			attr_dev(img2, "alt", img2_alt_value = /*hero*/ ctx[49].type);
-    			add_location(img2, file$3, 321, 6, 13587);
+    			if (img2.src !== (img2_src_value = "./img/types/" + /*hero*/ ctx[50].type.toLowerCase() + ".png")) attr_dev(img2, "src", img2_src_value);
+    			attr_dev(img2, "alt", img2_alt_value = /*hero*/ ctx[50].type);
+    			add_location(img2, file$3, 324, 6, 13663);
     			attr_dev(span1, "class", "tooltipText svelte-14obrkm");
-    			add_location(span1, file$3, 322, 40, 13724);
+    			add_location(span1, file$3, 325, 40, 13800);
     			attr_dev(div7, "class", "tooltip tooltip-type svelte-14obrkm");
-    			add_location(div7, file$3, 322, 6, 13690);
+    			add_location(div7, file$3, 325, 6, 13766);
     			attr_dev(img3, "class", "attrImage classImg svelte-14obrkm");
-    			if (img3.src !== (img3_src_value = "./img/classes/" + /*hero*/ ctx[49].class.toLowerCase() + ".png")) attr_dev(img3, "src", img3_src_value);
-    			attr_dev(img3, "alt", img3_alt_value = /*hero*/ ctx[49].class);
-    			add_location(img3, file$3, 323, 6, 13782);
+    			if (img3.src !== (img3_src_value = "./img/classes/" + /*hero*/ ctx[50].class.toLowerCase() + ".png")) attr_dev(img3, "src", img3_src_value);
+    			attr_dev(img3, "alt", img3_alt_value = /*hero*/ ctx[50].class);
+    			add_location(img3, file$3, 326, 6, 13858);
     			attr_dev(span2, "class", "tooltipText svelte-14obrkm");
-    			add_location(span2, file$3, 324, 41, 13925);
+    			add_location(span2, file$3, 327, 41, 14001);
     			attr_dev(div8, "class", "tooltip tooltip-class svelte-14obrkm");
-    			add_location(div8, file$3, 324, 6, 13890);
+    			add_location(div8, file$3, 327, 6, 13966);
     			attr_dev(div9, "class", "headArea svelte-14obrkm");
-    			add_location(div9, file$3, 320, 5, 13557);
+    			add_location(div9, file$3, 323, 5, 13633);
     			attr_dev(div10, "class", "heroHeader svelte-14obrkm");
-    			add_location(div10, file$3, 303, 4, 12674);
+    			add_location(div10, file$3, 306, 4, 12750);
     			attr_dev(p, "class", "heroName svelte-14obrkm");
-    			add_location(p, file$3, 327, 4, 14007);
+    			add_location(p, file$3, 330, 4, 14083);
     			attr_dev(div11, "class", "flipButtonArea");
-    			add_location(div11, file$3, 330, 6, 14123);
+    			add_location(div11, file$3, 333, 6, 14199);
     			attr_dev(div12, "class", "ascButtonArea svelte-14obrkm");
-    			add_location(div12, file$3, 329, 5, 14088);
+    			add_location(div12, file$3, 332, 5, 14164);
     			attr_dev(div13, "class", "flipButtonArea svelte-14obrkm");
-    			add_location(div13, file$3, 346, 6, 15753);
+    			add_location(div13, file$3, 349, 6, 15829);
     			attr_dev(div14, "class", "flipButtonArea svelte-14obrkm");
-    			add_location(div14, file$3, 360, 6, 17109);
+    			add_location(div14, file$3, 363, 6, 17185);
     			attr_dev(div15, "class", "siFurnButtonArea svelte-14obrkm");
-    			add_location(div15, file$3, 345, 5, 15715);
+    			add_location(div15, file$3, 348, 5, 15791);
     			attr_dev(div16, "class", "flipButtonContainer svelte-14obrkm");
-    			add_location(div16, file$3, 328, 4, 14048);
+    			add_location(div16, file$3, 331, 4, 14124);
     			attr_dev(div17, "class", "heroCard svelte-14obrkm");
-    			add_location(div17, file$3, 302, 3, 12613);
+    			add_location(div17, file$3, 305, 3, 12689);
     			this.first = div17;
     		},
     		m: function mount(target, anchor) {
@@ -40956,65 +40956,65 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (!current || dirty[0] & /*myHeroList*/ 16 && img0.src !== (img0_src_value = "./img/factions/" + /*hero*/ ctx[49].faction.toLowerCase() + ".png")) {
+    			if (!current || dirty[0] & /*myHeroList*/ 16 && img0.src !== (img0_src_value = "./img/factions/" + /*hero*/ ctx[50].faction.toLowerCase() + ".png")) {
     				attr_dev(img0, "src", img0_src_value);
     			}
 
-    			if (!current || dirty[0] & /*myHeroList*/ 16 && img0_alt_value !== (img0_alt_value = /*hero*/ ctx[49].faction)) {
+    			if (!current || dirty[0] & /*myHeroList*/ 16 && img0_alt_value !== (img0_alt_value = /*hero*/ ctx[50].faction)) {
     				attr_dev(img0, "alt", img0_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*myHeroList*/ 16) && t1_value !== (t1_value = /*hero*/ ctx[49].faction + "")) set_data_dev(t1, t1_value);
+    			if ((!current || dirty[0] & /*myHeroList*/ 16) && t1_value !== (t1_value = /*hero*/ ctx[50].faction + "")) set_data_dev(t1, t1_value);
 
-    			if (!current || dirty[0] & /*myHeroList*/ 16 && img1.src !== (img1_src_value = /*hero*/ ctx[49].portrait)) {
+    			if (!current || dirty[0] & /*myHeroList*/ 16 && img1.src !== (img1_src_value = /*hero*/ ctx[50].portrait)) {
     				attr_dev(img1, "src", img1_src_value);
     			}
 
-    			if (!current || dirty[0] & /*myHeroList*/ 16 && img1_alt_value !== (img1_alt_value = /*hero*/ ctx[49].name)) {
+    			if (!current || dirty[0] & /*myHeroList*/ 16 && img1_alt_value !== (img1_alt_value = /*hero*/ ctx[50].name)) {
     				attr_dev(img1, "alt", img1_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*$AppData, myHeroList*/ 17) && t4_value !== (t4_value = (/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[49].id].claimed
+    			if ((!current || dirty[0] & /*$AppData, myHeroList*/ 17) && t4_value !== (t4_value = (/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[50].id].claimed
     			? "Remove"
     			: "Add") + "")) set_data_dev(t4, t4_value);
 
     			if (dirty[0] & /*$AppData, myHeroList*/ 17) {
-    				toggle_class(button, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[49].id].claimed);
+    				toggle_class(button, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[50].id].claimed);
     			}
 
-    			if (!current || dirty[0] & /*myHeroList*/ 16 && img2.src !== (img2_src_value = "./img/types/" + /*hero*/ ctx[49].type.toLowerCase() + ".png")) {
+    			if (!current || dirty[0] & /*myHeroList*/ 16 && img2.src !== (img2_src_value = "./img/types/" + /*hero*/ ctx[50].type.toLowerCase() + ".png")) {
     				attr_dev(img2, "src", img2_src_value);
     			}
 
-    			if (!current || dirty[0] & /*myHeroList*/ 16 && img2_alt_value !== (img2_alt_value = /*hero*/ ctx[49].type)) {
+    			if (!current || dirty[0] & /*myHeroList*/ 16 && img2_alt_value !== (img2_alt_value = /*hero*/ ctx[50].type)) {
     				attr_dev(img2, "alt", img2_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*myHeroList*/ 16) && t7_value !== (t7_value = /*hero*/ ctx[49].type + "")) set_data_dev(t7, t7_value);
+    			if ((!current || dirty[0] & /*myHeroList*/ 16) && t7_value !== (t7_value = /*hero*/ ctx[50].type + "")) set_data_dev(t7, t7_value);
 
-    			if (!current || dirty[0] & /*myHeroList*/ 16 && img3.src !== (img3_src_value = "./img/classes/" + /*hero*/ ctx[49].class.toLowerCase() + ".png")) {
+    			if (!current || dirty[0] & /*myHeroList*/ 16 && img3.src !== (img3_src_value = "./img/classes/" + /*hero*/ ctx[50].class.toLowerCase() + ".png")) {
     				attr_dev(img3, "src", img3_src_value);
     			}
 
-    			if (!current || dirty[0] & /*myHeroList*/ 16 && img3_alt_value !== (img3_alt_value = /*hero*/ ctx[49].class)) {
+    			if (!current || dirty[0] & /*myHeroList*/ 16 && img3_alt_value !== (img3_alt_value = /*hero*/ ctx[50].class)) {
     				attr_dev(img3, "alt", img3_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*myHeroList*/ 16) && t10_value !== (t10_value = /*hero*/ ctx[49].class + "")) set_data_dev(t10, t10_value);
-    			if ((!current || dirty[0] & /*myHeroList*/ 16) && t12_value !== (t12_value = /*hero*/ ctx[49].name + "")) set_data_dev(t12, t12_value);
+    			if ((!current || dirty[0] & /*myHeroList*/ 16) && t10_value !== (t10_value = /*hero*/ ctx[50].class + "")) set_data_dev(t10, t10_value);
+    			if ((!current || dirty[0] & /*myHeroList*/ 16) && t12_value !== (t12_value = /*hero*/ ctx[50].name + "")) set_data_dev(t12, t12_value);
     			const flipbutton0_changes = {};
-    			if (dirty[0] & /*$AppData, myHeroList*/ 17) flipbutton0_changes.curOption = /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[49].id].ascendLv;
+    			if (dirty[0] & /*$AppData, myHeroList*/ 17) flipbutton0_changes.curOption = /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[50].id].ascendLv;
     			if (dirty[0] & /*myHeroList*/ 16) flipbutton0_changes.onClick = func;
     			flipbutton0.$set(flipbutton0_changes);
     			const flipbutton1_changes = {};
-    			if (dirty[0] & /*$AppData, myHeroList*/ 17) flipbutton1_changes.curOption = Math.floor(/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[49].id].si / 5);
+    			if (dirty[0] & /*$AppData, myHeroList*/ 17) flipbutton1_changes.curOption = Math.floor(/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[50].id].si / 5);
     			if (dirty[0] & /*myHeroList*/ 16) flipbutton1_changes.onClick = func_1;
     			flipbutton1.$set(flipbutton1_changes);
     			const flipbutton2_changes = {};
 
-    			if (dirty[0] & /*$AppData, myHeroList*/ 17) flipbutton2_changes.curOption = /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[49].id].furn === 0
+    			if (dirty[0] & /*$AppData, myHeroList*/ 17) flipbutton2_changes.curOption = /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[50].id].furn === 0
     			? 0
-    			: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[49].id].furn === 3
+    			: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[50].id].furn === 3
     				? 1
     				: 2;
 
@@ -41059,7 +41059,7 @@ var app = (function () {
     		block,
     		id: create_each_block$2.name,
     		type: "each",
-    		source: "(302:3) {#each myHeroList as hero (hero.id)}",
+    		source: "(305:3) {#each myHeroList as hero (hero.id)}",
     		ctx
     	});
 
@@ -41321,173 +41321,173 @@ var app = (function () {
     			attr_dev(input, "type", "search");
     			attr_dev(input, "placeholder", "Search");
     			attr_dev(input, "class", "svelte-14obrkm");
-    			add_location(input, file$3, 228, 5, 7968);
+    			add_location(input, file$3, 231, 5, 8044);
     			attr_dev(div0, "class", "search svelte-14obrkm");
-    			add_location(div0, file$3, 227, 4, 7941);
+    			add_location(div0, file$3, 230, 4, 8017);
     			attr_dev(div1, "class", "searchContainer svelte-14obrkm");
-    			add_location(div1, file$3, 226, 3, 7906);
+    			add_location(div1, file$3, 229, 3, 7982);
 
     			attr_dev(button0, "class", button0_class_value = "filterMasterButton " + (/*allFactionsEnabled*/ ctx[5]
     			? ""
     			: "filterMasterDisabled") + " svelte-14obrkm");
 
-    			add_location(button0, file$3, 233, 5, 8183);
+    			add_location(button0, file$3, 236, 5, 8259);
     			attr_dev(img0, "class", img0_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowLB ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img0.src !== (img0_src_value = "./img/factions/lightbearer.png")) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", "Lightbearer");
-    			add_location(img0, file$3, 235, 6, 8426);
+    			add_location(img0, file$3, 238, 6, 8502);
     			attr_dev(button1, "class", "filterButton svelte-14obrkm");
-    			add_location(button1, file$3, 234, 5, 8348);
+    			add_location(button1, file$3, 237, 5, 8424);
     			attr_dev(img1, "class", img1_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowM ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img1.src !== (img1_src_value = "./img/factions/mauler.png")) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", "Mauler");
-    			add_location(img1, file$3, 238, 6, 8649);
+    			add_location(img1, file$3, 241, 6, 8725);
     			attr_dev(button2, "class", "filterButton svelte-14obrkm");
-    			add_location(button2, file$3, 237, 5, 8572);
+    			add_location(button2, file$3, 240, 5, 8648);
     			attr_dev(img2, "class", img2_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowW ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img2.src !== (img2_src_value = "./img/factions/wilder.png")) attr_dev(img2, "src", img2_src_value);
     			attr_dev(img2, "alt", "wilder");
-    			add_location(img2, file$3, 241, 6, 8861);
+    			add_location(img2, file$3, 244, 6, 8937);
     			attr_dev(button3, "class", "filterButton svelte-14obrkm");
-    			add_location(button3, file$3, 240, 5, 8784);
+    			add_location(button3, file$3, 243, 5, 8860);
     			attr_dev(img3, "class", img3_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowGB ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img3.src !== (img3_src_value = "./img/factions/graveborn.png")) attr_dev(img3, "src", img3_src_value);
     			attr_dev(img3, "alt", "Graveborn");
-    			add_location(img3, file$3, 244, 6, 9074);
+    			add_location(img3, file$3, 247, 6, 9150);
     			attr_dev(button4, "class", "filterButton svelte-14obrkm");
-    			add_location(button4, file$3, 243, 5, 8996);
+    			add_location(button4, file$3, 246, 5, 9072);
     			attr_dev(img4, "class", img4_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowC ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img4.src !== (img4_src_value = "./img/factions/celestial.png")) attr_dev(img4, "src", img4_src_value);
     			attr_dev(img4, "alt", "Celestial");
-    			add_location(img4, file$3, 247, 6, 9293);
+    			add_location(img4, file$3, 250, 6, 9369);
     			attr_dev(button5, "class", "filterButton svelte-14obrkm");
-    			add_location(button5, file$3, 246, 5, 9216);
+    			add_location(button5, file$3, 249, 5, 9292);
     			attr_dev(img5, "class", img5_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowH ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img5.src !== (img5_src_value = "./img/factions/hypogean.png")) attr_dev(img5, "src", img5_src_value);
     			attr_dev(img5, "alt", "Hypogean");
-    			add_location(img5, file$3, 250, 6, 9511);
+    			add_location(img5, file$3, 253, 6, 9587);
     			attr_dev(button6, "class", "filterButton svelte-14obrkm");
-    			add_location(button6, file$3, 249, 5, 9434);
+    			add_location(button6, file$3, 252, 5, 9510);
     			attr_dev(img6, "class", img6_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowD ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img6.src !== (img6_src_value = "./img/factions/dimensional.png")) attr_dev(img6, "src", img6_src_value);
     			attr_dev(img6, "alt", "Dimensional");
-    			add_location(img6, file$3, 253, 6, 9727);
+    			add_location(img6, file$3, 256, 6, 9803);
     			attr_dev(button7, "class", "filterButton svelte-14obrkm");
-    			add_location(button7, file$3, 252, 5, 9650);
+    			add_location(button7, file$3, 255, 5, 9726);
     			attr_dev(div2, "class", "filterSection svelte-14obrkm");
-    			add_location(div2, file$3, 232, 4, 8149);
+    			add_location(div2, file$3, 235, 4, 8225);
     			attr_dev(button8, "class", button8_class_value = "filterMasterButton " + (/*allTypesEnabled*/ ctx[6] ? "" : "filterMasterDisabled") + " svelte-14obrkm");
-    			add_location(button8, file$3, 257, 5, 9917);
+    			add_location(button8, file$3, 260, 5, 9993);
     			attr_dev(img7, "class", img7_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowInt ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img7.src !== (img7_src_value = "./img/types/intelligence.png")) attr_dev(img7, "src", img7_src_value);
     			attr_dev(img7, "alt", "Intelligence");
-    			add_location(img7, file$3, 259, 6, 10155);
+    			add_location(img7, file$3, 262, 6, 10231);
     			attr_dev(button9, "class", "filterButton svelte-14obrkm");
-    			add_location(button9, file$3, 258, 5, 10076);
+    			add_location(button9, file$3, 261, 5, 10152);
     			attr_dev(img8, "class", img8_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowAgi ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img8.src !== (img8_src_value = "./img/types/agility.png")) attr_dev(img8, "src", img8_src_value);
     			attr_dev(img8, "alt", "Agility");
-    			add_location(img8, file$3, 262, 6, 10380);
+    			add_location(img8, file$3, 265, 6, 10456);
     			attr_dev(button10, "class", "filterButton svelte-14obrkm");
-    			add_location(button10, file$3, 261, 5, 10301);
+    			add_location(button10, file$3, 264, 5, 10377);
     			attr_dev(img9, "class", img9_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowStr ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img9.src !== (img9_src_value = "./img/types/strength.png")) attr_dev(img9, "src", img9_src_value);
     			attr_dev(img9, "alt", "Strength");
-    			add_location(img9, file$3, 265, 6, 10595);
+    			add_location(img9, file$3, 268, 6, 10671);
     			attr_dev(button11, "class", "filterButton svelte-14obrkm");
-    			add_location(button11, file$3, 264, 5, 10516);
+    			add_location(button11, file$3, 267, 5, 10592);
     			attr_dev(div3, "class", "filterSection svelte-14obrkm");
-    			add_location(div3, file$3, 256, 4, 9883);
+    			add_location(div3, file$3, 259, 4, 9959);
     			attr_dev(button12, "class", button12_class_value = "filterMasterButton " + (/*allClassEnabled*/ ctx[7] ? "" : "filterMasterDisabled") + " svelte-14obrkm");
-    			add_location(button12, file$3, 269, 5, 10778);
+    			add_location(button12, file$3, 272, 5, 10854);
     			attr_dev(img10, "class", img10_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowMage ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img10.src !== (img10_src_value = "./img/classes/mage.png")) attr_dev(img10, "src", img10_src_value);
     			attr_dev(img10, "alt", "Mage");
-    			add_location(img10, file$3, 271, 6, 11018);
+    			add_location(img10, file$3, 274, 6, 11094);
     			attr_dev(button13, "class", "filterButton svelte-14obrkm");
-    			add_location(button13, file$3, 270, 5, 10938);
+    			add_location(button13, file$3, 273, 5, 11014);
     			attr_dev(img11, "class", img11_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowWar ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img11.src !== (img11_src_value = "./img/classes/warrior.png")) attr_dev(img11, "src", img11_src_value);
     			attr_dev(img11, "alt", "Warrior");
-    			add_location(img11, file$3, 274, 6, 11230);
+    			add_location(img11, file$3, 277, 6, 11306);
     			attr_dev(button14, "class", "filterButton svelte-14obrkm");
-    			add_location(button14, file$3, 273, 5, 11151);
+    			add_location(button14, file$3, 276, 5, 11227);
     			attr_dev(img12, "class", img12_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowTank ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img12.src !== (img12_src_value = "./img/classes/tank.png")) attr_dev(img12, "src", img12_src_value);
     			attr_dev(img12, "alt", "Tank");
-    			add_location(img12, file$3, 277, 6, 11448);
+    			add_location(img12, file$3, 280, 6, 11524);
     			attr_dev(button15, "class", "filterButton svelte-14obrkm");
-    			add_location(button15, file$3, 276, 5, 11368);
+    			add_location(button15, file$3, 279, 5, 11444);
     			attr_dev(img13, "class", img13_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowSup ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img13.src !== (img13_src_value = "./img/classes/support.png")) attr_dev(img13, "src", img13_src_value);
     			attr_dev(img13, "alt", "Support");
-    			add_location(img13, file$3, 280, 6, 11660);
+    			add_location(img13, file$3, 283, 6, 11736);
     			attr_dev(button16, "class", "filterButton svelte-14obrkm");
-    			add_location(button16, file$3, 279, 5, 11581);
+    			add_location(button16, file$3, 282, 5, 11657);
     			attr_dev(img14, "class", img14_class_value = "filterImg " + (/*$AppData*/ ctx[0].MH.ShowRan ? "" : "filterInactive") + " svelte-14obrkm");
     			if (img14.src !== (img14_src_value = "./img/classes/ranger.png")) attr_dev(img14, "src", img14_src_value);
     			attr_dev(img14, "alt", "Ranger");
-    			add_location(img14, file$3, 283, 6, 11877);
+    			add_location(img14, file$3, 286, 6, 11953);
     			attr_dev(button17, "class", "filterButton svelte-14obrkm");
-    			add_location(button17, file$3, 282, 5, 11798);
+    			add_location(button17, file$3, 285, 5, 11874);
     			attr_dev(div4, "class", "filterSection svelte-14obrkm");
-    			add_location(div4, file$3, 268, 4, 10744);
+    			add_location(div4, file$3, 271, 4, 10820);
     			attr_dev(div5, "class", "filters svelte-14obrkm");
-    			add_location(div5, file$3, 231, 3, 8122);
+    			add_location(div5, file$3, 234, 3, 8198);
     			attr_dev(div6, "class", div6_class_value = "mobileExpander " + (/*openFilters*/ ctx[1] ? "filterOpen" : "") + " svelte-14obrkm");
-    			add_location(div6, file$3, 225, 2, 7839);
+    			add_location(div6, file$3, 228, 2, 7915);
     			attr_dev(i, "class", i_class_value = "arrow " + (/*openFilters*/ ctx[1] ? "open" : "right") + " svelte-14obrkm");
-    			add_location(i, file$3, 289, 77, 12155);
+    			add_location(i, file$3, 292, 77, 12231);
     			attr_dev(span0, "class", "svelte-14obrkm");
-    			add_location(span0, file$3, 289, 132, 12210);
+    			add_location(span0, file$3, 292, 132, 12286);
     			attr_dev(button18, "class", "filtersButton svelte-14obrkm");
-    			add_location(button18, file$3, 289, 3, 12081);
+    			add_location(button18, file$3, 292, 3, 12157);
     			attr_dev(span1, "class", "tooltipText svelte-14obrkm");
-    			add_location(span1, file$3, 290, 41, 12293);
+    			add_location(span1, file$3, 293, 41, 12369);
     			attr_dev(div7, "class", "tooltip tooltip-expander svelte-14obrkm");
-    			add_location(div7, file$3, 290, 3, 12255);
+    			add_location(div7, file$3, 293, 3, 12331);
     			attr_dev(div8, "class", "mobileExpanderTitle svelte-14obrkm");
-    			add_location(div8, file$3, 288, 2, 12043);
+    			add_location(div8, file$3, 291, 2, 12119);
     			attr_dev(section0, "class", "sect1 svelte-14obrkm");
-    			add_location(section0, file$3, 224, 1, 7812);
+    			add_location(section0, file$3, 227, 1, 7888);
     			if (img15.src !== (img15_src_value = "./img/utility/export.png")) attr_dev(img15, "src", img15_src_value);
     			attr_dev(img15, "alt", "export");
     			attr_dev(img15, "class", "svelte-14obrkm");
-    			add_location(img15, file$3, 378, 59, 18070);
+    			add_location(img15, file$3, 381, 59, 18146);
     			attr_dev(button19, "class", "inOutButton svelte-14obrkm");
-    			add_location(button19, file$3, 378, 3, 18014);
+    			add_location(button19, file$3, 381, 3, 18090);
     			attr_dev(span2, "class", "tooltipText svelte-14obrkm");
-    			add_location(span2, file$3, 379, 45, 18175);
+    			add_location(span2, file$3, 382, 45, 18251);
     			attr_dev(div9, "class", "tooltip tooltip-inOutButton1 svelte-14obrkm");
-    			add_location(div9, file$3, 379, 3, 18133);
+    			add_location(div9, file$3, 382, 3, 18209);
     			if (img16.src !== (img16_src_value = "./img/utility/import.png")) attr_dev(img16, "src", img16_src_value);
     			attr_dev(img16, "alt", "import");
     			attr_dev(img16, "class", "svelte-14obrkm");
-    			add_location(img16, file$3, 380, 59, 18286);
+    			add_location(img16, file$3, 383, 59, 18362);
     			attr_dev(button20, "class", "inOutButton svelte-14obrkm");
-    			add_location(button20, file$3, 380, 3, 18230);
+    			add_location(button20, file$3, 383, 3, 18306);
     			attr_dev(span3, "class", "tooltipText svelte-14obrkm");
-    			add_location(span3, file$3, 381, 45, 18391);
+    			add_location(span3, file$3, 384, 45, 18467);
     			attr_dev(div10, "class", "tooltip tooltip-inOutButton2 svelte-14obrkm");
-    			add_location(div10, file$3, 381, 3, 18349);
+    			add_location(div10, file$3, 384, 3, 18425);
     			attr_dev(div11, "class", div11_class_value = "inOutMenu " + (/*openInOutMenu*/ ctx[2] ? "open" : "") + " svelte-14obrkm");
-    			add_location(div11, file$3, 377, 2, 17956);
+    			add_location(div11, file$3, 380, 2, 18032);
     			if (img17.src !== (img17_src_value = "./img/utility/export_import.png")) attr_dev(img17, "src", img17_src_value);
     			attr_dev(img17, "alt", "Import/Export");
     			attr_dev(img17, "class", "svelte-14obrkm");
-    			add_location(img17, file$3, 383, 107, 18560);
+    			add_location(img17, file$3, 386, 107, 18636);
     			attr_dev(button21, "class", "inOutMenuButton svelte-14obrkm");
-    			add_location(button21, file$3, 383, 2, 18455);
+    			add_location(button21, file$3, 386, 2, 18531);
     			attr_dev(section1, "class", "sect3 svelte-14obrkm");
-    			add_location(section1, file$3, 376, 1, 17929);
-    			add_location(span4, file$3, 386, 62, 18735);
+    			add_location(section1, file$3, 379, 1, 18005);
+    			add_location(span4, file$3, 389, 62, 18811);
     			attr_dev(div12, "class", "copyConfirm svelte-14obrkm");
     			toggle_class(div12, "visible", /*copyConfirmVisible*/ ctx[3]);
-    			add_location(div12, file$3, 386, 2, 18675);
+    			add_location(div12, file$3, 389, 2, 18751);
     			attr_dev(section2, "class", "sect4 svelte-14obrkm");
-    			add_location(section2, file$3, 385, 1, 18648);
+    			add_location(section2, file$3, 388, 1, 18724);
     			attr_dev(div13, "class", "MHContainer svelte-14obrkm");
-    			add_location(div13, file$3, 223, 0, 7745);
+    			add_location(div13, file$3, 226, 0, 7821);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$1("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -41816,6 +41816,7 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("MyHeroes", slots, []);
     	const dispatch = createEventDispatcher();
+    	const jsurl = JsonUrl("lzma"); // json-url compressor
     	const { open } = getContext("simple-modal");
     	let openFilters = false;
     	let openInOutMenu = false;
@@ -41967,7 +41968,8 @@ var app = (function () {
 
     		// unpack and decompress data
     		try {
-    			data = JSON.parse(LZUTF8.decompress(LZUTF8.decodeBase64(compressedData)));
+    			const json = await jsurl.decompress(compressedData);
+    			data = JSON.parse(json);
     		} catch(e) {
     			// there was a problem unpacking the data, return an error
     			console.log(e);
@@ -42020,14 +42022,16 @@ var app = (function () {
     		);
     	}
 
-    	function handleExportData() {
-    		navigator.clipboard.writeText(LZUTF8.encodeBase64(LZUTF8.compress(JSON.stringify($AppData.MH.List)))).then(
+    	async function handleExportData() {
+    		const output = await jsurl.compress(JSON.stringify($AppData.MH.List));
+
+    		navigator.clipboard.writeText(output).then(
     			() => {
     				$$invalidate(3, copyConfirmVisible = true);
     				setTimeout(() => $$invalidate(3, copyConfirmVisible = false), 1000);
     			},
     			() => {
-    				throw new Error("Error copying My Hero data to clipboard.");
+    				throw new Error("Error copying Comp data to clipboard.");
     			}
     		);
     	}
@@ -42085,6 +42089,7 @@ var app = (function () {
     		ImportData,
     		FlipButton,
     		dispatch,
+    		jsurl,
     		open,
     		openFilters,
     		openInOutMenu,

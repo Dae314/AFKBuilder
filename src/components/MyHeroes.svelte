@@ -13,6 +13,7 @@
 	$: allClassEnabled = $AppData.MH.ShowMage && $AppData.MH.ShowWar && $AppData.MH.ShowTank && $AppData.MH.ShowSup && $AppData.MH.ShowRan;
 
 	const dispatch = createEventDispatcher();
+	const jsurl = JsonUrl('lzma'); // json-url compressor
 	const { open } = getContext('simple-modal');
 	let openFilters = false;
 	let openInOutMenu = false;
@@ -179,7 +180,8 @@
 
 		// unpack and decompress data
 		try {
-			data = JSON.parse(LZUTF8.decompress(LZUTF8.decodeBase64(compressedData)));
+			const json = await jsurl.decompress(compressedData);
+			data = JSON.parse(json);
 		} catch(e) {
 			// there was a problem unpacking the data, return an error
 			console.log(e);
@@ -211,12 +213,13 @@
 		});
 	}
 
-	function handleExportData() {
-		navigator.clipboard.writeText(LZUTF8.encodeBase64(LZUTF8.compress(JSON.stringify($AppData.MH.List)))).then(() => {
+	async function handleExportData() {
+		const output = await jsurl.compress(JSON.stringify($AppData.MH.List));
+		navigator.clipboard.writeText(output).then(() => {
 			copyConfirmVisible = true;
 			setTimeout(() => copyConfirmVisible = false, 1000);
 		}, () => {
-			throw new Error("Error copying My Hero data to clipboard.");
+			throw new Error("Error copying Comp data to clipboard.");
 		});
 	}
 </script>
