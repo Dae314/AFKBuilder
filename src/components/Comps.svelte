@@ -18,6 +18,7 @@
 	import AscendBox from '../shared/AscendBox.svelte';
 
 	const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",];
+	const jsurl = JsonUrl('lzma'); // json-url compressor
 	const dispatch = createEventDispatcher();
 	const { open } = getContext('simple-modal');
 	const md = new MarkdownIt({
@@ -121,8 +122,9 @@
 		openNewCompOptions = false;
 	}
 
-	function handleExportButtonClick(compIdx) {
-		navigator.clipboard.writeText(LZUTF8.encodeBase64(LZUTF8.compress(JSON.stringify($AppData.Comps[compIdx])))).then(() => {
+	async function handleExportButtonClick(compIdx) {
+		const output = await jsurl.compress(JSON.stringify($AppData.Comps[compIdx]));
+		navigator.clipboard.writeText(output).then(() => {
 			copyConfirmVisible = true;
 			setTimeout(() => copyConfirmVisible = false, 1000);
 		}, () => {
@@ -167,17 +169,17 @@
 	async function handleCompImport(compressedData) {
 		let data;
 		let statusMsg = '';
-
+		
 		// unpack and decompress data
 		try {
-			data = JSON.parse(LZUTF8.decompress(LZUTF8.decodeBase64(compressedData)));
-			// JSON doesn't parse date objects correctly, so need to re-initialize them
-			if('lastUpdate' in data) data.lastUpdate = new Date(data.lastUpdate);
+			const json = await jsurl.decompress(compressedData);
+			data = JSON.parse(json);
 		} catch(e) {
 			// there was a problem unpacking the data, return an error
 			console.log(e);
 			return {retCode: 1, message: 'Failed to parse data'};
 		}
+		if('lastUpdate' in data) data.lastUpdate = new Date(data.lastUpdate);
 
 		// run consistency checks on data
 		const returnObj = await validateComp(data);
