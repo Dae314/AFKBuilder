@@ -3722,7 +3722,7 @@ var app = (function () {
     	{ id: 'anoki',
     		name: 'Anoki',
     		portrait: './img/portraits/anoki.jpg',
-    		class: 'Warrior',
+    		class: 'Tank',
     		faction: 'Mauler',
     		type: 'Strength',
     		skills: [
