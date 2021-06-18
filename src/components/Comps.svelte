@@ -194,11 +194,13 @@
 				const response = await openOverwriteConfirm(idx);
 				switch(response) {
 					case 'update':
+						returnObj.message.starred = $AppData.Comps[idx].starred;
 						$AppData.Comps[idx] = returnObj.message;
 						statusMsg = 'Comp updated successfully';
 						break;
 					case 'new':
 						returnObj.message.uuid = uuidv4();
+						returnObj.message.starred = false;
 						$AppData.Comps = [...$AppData.Comps, returnObj.message];
 						statusMsg = 'Data import successful';
 						break;
@@ -210,6 +212,7 @@
 				}
 			} else {
 				// comp not in list yet, add it to the list
+				returnObj.message.starred = false;
 				$AppData.Comps = [...$AppData.Comps, returnObj.message];
 			}
 			sortedCompList = $AppData.Comps.sort(sortByStars);
