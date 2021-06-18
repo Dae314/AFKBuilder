@@ -1092,7 +1092,7 @@ var app = (function () {
     					{ desc: 'Raises all allies\' Attack Ratings by <em>7%</em> and Defense Ratings by <em>14%</em> for every non-summoned enemy that falls in combat while Estrilda is alive, up until the end of the battle. This ability may be stacked up to <em>3</em> times.',
     						unlock: 81,
     					},
-    					{ desc: 'All fo Estrilda\'s allies will recover <em>60</em> energy points for every non-summoned enemy that she defeats in battle while she is alive.',
+    					{ desc: 'All of Estrilda\'s allies will recover <em>60</em> energy points for every non-summoned enemy that she defeats in battle while she is alive.',
     						unlock: 161,
     					},
     				],
@@ -1229,7 +1229,7 @@ var app = (function () {
     				desc: 'Belinda blesses the ally with the highest Attack Rating, raising their Attack Rating by <em>15%</em> and Crit Rating by <em>15%</em>.',
     				unlock: 61,
     				upgrades: [
-    					{ desc: 'Belinda blesses two allies with the highest Attack Rating.',
+    					{ desc: 'Belinda blesses <em>2</em> allies with the highest Attack Rating.',
     						unlock: 141,
     					},
     					{ desc: 'Attack Rating increased <em>20%</em> and Crit Rating increased <em>20%</em>.',
@@ -1722,7 +1722,7 @@ var app = (function () {
     					{ desc: 'Restores <em>40</em> Energy per hit.',
     						unlock: 141,
     					},
-    					{ desc: 'Normal attack damage increased to <em>30%</em>.',
+    					{ desc: 'Normal Attack damage increased to <em>30%</em>.',
     						unlock: 221,
     					},
     				],
@@ -1985,7 +1985,7 @@ var app = (function () {
     					{ desc: 'Enemy\'s health recovery is reduced by <em>30%</em> while burning.',
     						unlock: 21,
     					},
-    					{ desc: 'Normal attacks have a <em>70%</em> Chance to become flaming arrows, burning effect deals <em>60%</em> damage per second.',
+    					{ desc: 'Normal Attacks have a <em>70%</em> chance to become flaming arrows, burning effect deals <em>60%</em> damage per second.',
     						unlock: 101,
     					},
     					{ desc: 'Enemy\'s health recovery is reduced by <em>50%</em> while burning.',
@@ -1996,10 +1996,10 @@ var app = (function () {
     			{
     				name: 'Lightning Arrows',
     				image: './img/skills/gwyneth3.png',
-    				desc: 'Normal attacks have a <em>60%</em> chance to become lightning arrows that can damage multiple nearby enemies for <em>240%</em> damage with chain lightning. Lightning arrows can also be combined with flaming arrows, allowing for the burning effect of the "Flaming Arrow" ability to also affect multiple nearby enemies.',
+    				desc: 'Normal Attacks have a <em>60%</em> chance to become lightning arrows that can damage multiple nearby enemies for <em>240%</em> damage with chain lightning. Lightning arrows can also be combined with flaming arrows, allowing for the burning effect of the "Flaming Arrow" ability to also affect multiple nearby enemies.',
     				unlock: 41,
     				upgrades: [
-    					{ desc: 'Normal attacks have a <em>70%</em> to become lightning arrows.',
+    					{ desc: 'Normal Attacks have a <em>70%</em> to become lightning arrows.',
     						unlock: 121,
     					},
     					{ desc: 'Stuns target enemy and any enemies hit by lightning.',
@@ -2031,7 +2031,7 @@ var app = (function () {
     				{ desc: 'Attack Rating is raised to <em>20%</em>.',
     					unlock: 10,
     				},
-    				{ desc: 'Gwyneth fires two arrows in quick sucession when she or a nearby ally uses their ultimate ability.',
+    				{ desc: 'Gwyneth fires <em>2</em> arrows in quick sucession when she or a nearby ally uses their ultimate ability.',
     					unlock: 20,
     				},
     				{ desc: 'Attack Rating is raised to <em>30%</em>.',
@@ -2259,7 +2259,7 @@ var app = (function () {
     			{
     				name: 'Aura of Haste',
     				image: './img/skills/oscar1.png',
-    				desc: 'Oscar throws four knives into the ground, forming a magical aura on the ground that deals <em>270%</em> AoE damage to nearby enemies. The aura exists for <em>11</em> seconds and increases Oscar\'s Haste by <em>100</em> points while he is standing inside it.',
+    				desc: 'Oscar throws <em>4</em> knives into the ground, forming a magical aura on the ground that deals <em>270%</em> AoE damage to nearby enemies. The aura exists for <em>11</em> seconds and increases Oscar\'s Haste by <em>100</em> points while he is standing inside it.',
     				unlock: 1,
     				upgrades: [
     					{ desc: 'Duration is extended up to <em>13</em> seconds.',
@@ -2273,7 +2273,7 @@ var app = (function () {
     			{
     				name: 'Fine Cuts',
     				image: './img/skills/oscar2.png',
-    				desc: 'Oscar targets the two weakest enemies and throws knives at them, dealing <em>180%</em> to them. This attack causes Oscar\'s knives to remain stuck in the ground to be potentially used again.',
+    				desc: 'Oscar targets the <em>2</em> weakest enemies and throws knives at them, dealing <em>180%</em> to them. This attack causes Oscar\'s knives to remain stuck in the ground to be potentially used again.',
     				unlock: 11,
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>220%</em>.',
@@ -2455,7 +2455,7 @@ var app = (function () {
     			{
     				name: 'Duty Bound',
     				image: './img/skills/peggy1.png',
-    				desc: 'Passive: Peggy is accompanied by two guards, that each possess <em>80%</em> of her own attributes. If an enemy is beside Peggy, her guards will return to protect her. Peggy\'s movements will always prioritize the rear-center allied side of the battlefield. If Peggy is killed, her guards will leave the battlefield.<br><br>Active: Using the Ultimate ability increases the guards\' Haste by <em>5</em> points and Defense Rating by <em>100%</em> for <em>12</em> seconds. If there are no guards present on the battlefield when this ability is used, Peggy will call forward a guard, which uses his shield to knock back any enemies in his path, sending them hurtling into the air, dealing damage equal to <em>350%</em> of the guard\'s Attack Rating, also stunning them for <em>3</em> seconds.',
+    				desc: 'Passive: Peggy is accompanied by <em>2</em> guards, that each possess <em>80%</em> of her own attributes. If an enemy is beside Peggy, her guards will return to protect her. Peggy\'s movements will always prioritize the rear-center allied side of the battlefield. If Peggy is killed, her guards will leave the battlefield.<br><br>Active: Using the Ultimate ability increases the guards\' Haste by <em>5</em> points and Defense Rating by <em>100%</em> for <em>12</em> seconds. If there are no guards present on the battlefield when this ability is used, Peggy will call forward a guard, which uses his shield to knock back any enemies in his path, sending them hurtling into the air, dealing damage equal to <em>350%</em> of the guard\'s Attack Rating, also stunning them for <em>3</em> seconds.',
     				unlock: 1,
     				upgrades: [
     					{ desc: 'Guard possesses <em>100%</em> of Peggy\'s attributes.',
@@ -4084,7 +4084,7 @@ var app = (function () {
     		sig_item: {
     			name: 'Nature\'s Touch',
     			image: './img/si/nemora.png',
-    			desc: 'Normal attacks heal Nemora\'s weakest ally for <em>60%</em> of her own attack rating.',
+    			desc: 'Normal Attacks heal Nemora\'s weakest ally for <em>60%</em> of her own attack rating.',
     			upgrades: [
     				{ desc: 'Healing effect is raised by <em>75%</em> if a critical strike occurs when using a normal attack.',
     					unlock: 10,
@@ -4135,7 +4135,7 @@ var app = (function () {
     			{
     				name: 'Triple Strike',
     				image: './img/skills/kaz2.png',
-    				desc: 'Kaz strikes at an enemy in front of her, successively striking them three times for <em>100%</em> damage per hit.',
+    				desc: 'Kaz strikes at an enemy in front of her, successively striking them <em>3</em> times for <em>100%</em> damage per hit.',
     				unlock: 11,
     				upgrades: [
     					{ desc: 'Damage is increased to <em>110%</em>.',
@@ -4852,7 +4852,7 @@ var app = (function () {
     			{
     				name: 'Wind Ward',
     				image: './img/skills/lorsan4.png',
-    				desc: 'Casts a shield upon two random allies which lasts for <em>7</em> seconds and is able to reduce damage equal to <em>250%</em> of Lorsan\'s own attack rating.',
+    				desc: 'Casts a shield upon <em>2</em> random allies which lasts for <em>7</em> seconds and is able to reduce damage equal to <em>250%</em> of Lorsan\'s own attack rating.',
     				unlock: 61,
     				upgrades: [
     					{ desc: 'Allies currently protected by the shield will have their dodge increased by <em>90</em> points. If the ally being protected is a Wilder hero, the shield\'s value will be increased a further <em>20%</em>.',
@@ -5115,7 +5115,7 @@ var app = (function () {
     			{
     				name: 'Pippa\'s Pandemonium',
     				image: './img/skills/pippa2.png',
-    				desc: 'Pippa continuously fires one magic orb every <em>0.15</em> seconds, with each orb dealing <em>90%</em> damage to its target. After firing <em>4</em> magic orbs, every subsequent orb fired increases Pippa\'s chance of spell failure by <em>8%</em>. If Pippa fails to fire an orb, she is temporarily stunned and the ability will cease.',
+    				desc: 'Pippa continuously fires <em>1</em> magic orb every <em>0.15</em> seconds, with each orb dealing <em>90%</em> damage to its target. After firing <em>4</em> magic orbs, every subsequent orb fired increases Pippa\'s chance of spell failure by <em>8%</em>. If Pippa fails to fire an orb, she is temporarily stunned and the ability will cease.',
     				unlock: 11,
     				upgrades: [
     					{ desc: 'Pippa has a <em>25%</em> chance to fire a yellow magic orb that deals damage and simultaneously reduces its target\'s Energy points by <em>70</em>.',
@@ -5170,7 +5170,7 @@ var app = (function () {
     				{ desc: 'Pippa\'s teleported ally is immune to all damage for <em>5</em> seconds after being teleported by the ability "Astral Shift".',
     					unlock: 20,
     				},
-    				{ desc: 'After using the ability "Transmogrification" a total of <em>2</em> times, Pippa will no longer fail to cast this spell, and it will now target the two enemies with the highest Attack Ratings.',
+    				{ desc: 'After using the ability "Transmogrification" a total of <em>2</em> times, Pippa will no longer fail to cast this spell, and it will now target the <em>2</em> enemies with the highest Attack Ratings.',
     					unlock: 30,
     				},
     			],
@@ -5281,7 +5281,7 @@ var app = (function () {
     				{ desc: '<em>2</em> Wind Swallows are already encircling Respen when he enters battle.',
     					unlock: 3,
     				},
-    				{ desc: 'Respen commands two Wind Swallows to attack enemies when using his ability "Feathered Fury", if there are no less than <em>3</em> Wind Swallows encircling him.',
+    				{ desc: 'Respen commands <em>2</em> Wind Swallows to attack enemies when using his ability "Feathered Fury", if there are no less than <em>3</em> Wind Swallows encircling him.',
     					unlock: 9,
     				},
     			],
@@ -5401,7 +5401,7 @@ var app = (function () {
     					{ desc: 'Damage is increased up to <em>140%</em>. Skeletal warrior can now use its own special abilities.',
     						unlock: 81,
     					},
-    					{ desc: 'Damage is increased by up to <em>150%</em>. Summons two Skeletal warriors.',
+    					{ desc: 'Damage is increased by up to <em>150%</em>. Summons <em>2</em> Skeletal warriors.',
     						unlock: 161,
     					},
     				],
@@ -5652,7 +5652,7 @@ var app = (function () {
     		sig_item: {
     			name: 'Vengeful Fury',
     			image: './img/si/oden.png',
-    			desc: 'During battles, Oden gains one Fiend Point required for his "Eye of Evil" ability from every Energy Point taken away from his enemies.',
+    			desc: 'During battles, Oden gains <em>1</em> Fiend Point required for his "Eye of Evil" ability from every Energy Point taken away from his enemies.',
     			upgrades: [
     				{ desc: 'Each time the ability "Eye of Evil" reaches <em>200</em> Fiend Points, Oden\'s Attack Rating is raised by <em>3%</em> and his Haste is raised by <em>3</em> points. Attributes can be raised up to <em>10</em> times.',
     					unlock: 10,
@@ -5848,7 +5848,7 @@ var app = (function () {
     		sig_item: {
     			name: 'Anguished Spirit',
     			image: './img/si/ferael.png',
-    			desc: 'Normal attacks will cause an evil spirit to haunt the enemy target if a critical strike occurs.',
+    			desc: 'Normal Attacks will cause an evil spirit to haunt the enemy target if a critical strike occurs.',
     			upgrades: [
     				{ desc: 'Attack ratings for all enemies are reduced by <em>3%</em> and health recovery rates are reduced by <em>15%</em> for every spirit that is haunting an enemy on the battlefield. This ability may be stacked up to <em>4</em> times.',
     					unlock: 10,
@@ -5954,7 +5954,7 @@ var app = (function () {
     				{ desc: 'Thoran\'s max health is increased by <em>30%</em> while in battle.',
     					unlock: 20,
     				},
-    				{ desc: 'Thoran cannot be killed in battle for the first two times that he enters the focusing phase of his "Retaliation" ability.',
+    				{ desc: 'Thoran cannot be killed in battle for the first <em>2</em> times that he enters the focusing phase of his "Retaliation" ability.',
     					unlock: 30,
     				},
     			],
@@ -6846,7 +6846,7 @@ var app = (function () {
     			name: 'Treacherous Mist',
     			image: './img/furniture/desira.png',
     			upgrades: [
-    				{ desc: 'Enemy targets are cursed with <em>1</em> "Mark of Hatred" for every <em>3</em> seconds that they are within the Oceanic Mist.',
+    				{ desc: 'Enemy targets are cursed with <em>1</em> "Mark of Hatred" for every <em>3</em> seconds that they are within the "Oceanic Mist."',
     					unlock: 3,
     				},
     				{ desc: 'Enemies within the "Oceanic Mist" are unable to receive a majority of buffs from their allies, but shall retain all of the buffs they already have.',
@@ -6865,7 +6865,7 @@ var app = (function () {
     			{
     				name: 'Divine Fury',
     				image: './img/skills/athalia1.png',
-    				desc: 'Athalia attacks her enemies with lightning speed and precision, slashing them three times from various positions on the battlefield. Each slash deals <em>160%</em> damage to all enemies in her path. The third slash has a <em>100%</em> critical strike chance.',
+    				desc: 'Athalia attacks her enemies with lightning speed and precision, slashing them <em>3</em> times from various positions on the battlefield. Each slash deals <em>160%</em> damage to all enemies in her path. The third slash has a <em>100%</em> critical strike chance.',
     				unlock: 1,
     				upgrades: [
     					{ desc: 'Enemies that are struck more than once are dealt an additional <em>50%</em> damage.',
@@ -7061,7 +7061,7 @@ var app = (function () {
     			{
     				name: 'Sea of Flowers',
     				image: './img/skills/flora1.png',
-    				desc: 'Flora targets the most densely packed group of enemies and unleashes a sea of flowers which lasts for <em>12</em> seconds onto them, dealing <em>200%</em> AoE damage to the targets. Enemies that are within the sea of flowers lose <em>40%</em> worth of Flora\'s Attack Rating as health per second. Only one sea of flowers may be active at a time.',
+    				desc: 'Flora targets the most densely packed group of enemies and unleashes a sea of flowers which lasts for <em>12</em> seconds onto them, dealing <em>200%</em> AoE damage to the targets. Enemies that are within the sea of flowers lose <em>40%</em> worth of Flora\'s Attack Rating as health per second. Only <em>1</em> sea of flowers may be active at a time.',
     				unlock: 1,
     				upgrades: [
     					{ desc: 'Damage is increased to <em>220%</em>.',
@@ -7130,7 +7130,7 @@ var app = (function () {
     				{ desc: 'When Flora\'s health is above <em>90%</em>, the cooldown time of her ability "Swoop" is reduced by <em>250%</em>.',
     					unlock: 20,
     				},
-    				{ desc: 'Reduces an enemy\'s Haste by <em>50</em> points for <em>5</em> seconds when the ability Swoop deals Critical Damage to an enemy.',
+    				{ desc: 'Reduces an enemy\'s Haste by <em>50</em> points for <em>5</em> seconds when the ability "Swoop" deals Critical Damage to an enemy.',
     					unlock: 30,
     				},
     			],
@@ -7173,7 +7173,7 @@ var app = (function () {
     			{
     				name: 'Time Trap',
     				image: './img/skills/orthros2.png',
-    				desc: 'At the beginning of the battle, Orthros will set up a time trap that individually targets the two enemies that are currently closest to him. The time traps will then explode within the first <em>20</em> seconds of battle. Once a time trap is triggered it will cause <em>320%</em> AoE damage to nearby enemies, the time trap will also be triggered if an affected enemy dies.',
+    				desc: 'At the beginning of the battle, Orthros will set up a time trap that individually targets the <em>2</em> enemies that are currently closest to him. The time traps will then explode within the first <em>20</em> seconds of battle. Once a time trap is triggered it will cause <em>320%</em> AoE damage to nearby enemies, the time trap will also be triggered if an affected enemy dies.',
     				unlock: 11,
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>360%</em>.',
@@ -7728,7 +7728,7 @@ var app = (function () {
     			name: 'Cosmic Attraction',
     			image: './img/furniture/morael.png',
     			upgrades: [
-    				{ desc: 'If an enemy walks into the Star Cores Cosmic Field after it has already been created by Morael\'s Ultimate ability, they shall also become trapped. If an enemy leaves the Cosmic Field and is later trapped by it again, the damage dealt this time is reduced by <em>20%</em>.',
+    				{ desc: 'If an enemy walks into the Star Core\'s Cosmic Field after it has already been created by Morael\'s Ultimate ability, they shall also become trapped. If an enemy leaves the Cosmic Field and is later trapped by it again, the damage dealt this time is reduced by <em>20%</em>.',
     					unlock: 3,
     				},
     				{ desc: 'While the Cosmic Field exists, all enemies on the battlefield are pulled towards the Star Core at a certain speed due to its gravitational force.',
@@ -7816,7 +7816,7 @@ var app = (function () {
     				{ desc: 'Ezizh\'s fire lasts for <em>1</em> second and raises the damage by <em>20%</em>.',
     					unlock: 20,
     				},
-    				{ desc: 'Increases the duration the ground burns for by <em>100%</em>. However only one location can be burned at a time.',
+    				{ desc: 'Increases the duration the ground burns for by <em>100%</em>. However only <em>1</em> location can be burned at a time.',
     					unlock: 30,
     				},
     			],
@@ -7957,16 +7957,16 @@ var app = (function () {
     			{
     				name: 'Doppelganger',
     				image: './img/skills/zolrath2.png',
-    				desc: 'Zolrath and his future self deal <em>50%</em> damage multiple times to an enemy. The final two attacks on the enemy deal <em>180%</em> damage each to any enemy in the attack\'s path. While using this ability the two Zolrath\'s cannot be controlled, however both can receive damage.',
+    				desc: 'Zolrath and his future self deal <em>50%</em> damage multiple times to an enemy. The final <em>2</em> attacks on the enemy deal <em>180%</em> damage each to any enemy in the attack\'s path. While using this ability the two Zolrath\'s cannot be controlled, however both can receive damage.',
     				unlock: 11,
     				upgrades: [
-    					{ desc: 'Damage of final two attacks is increased up to <em>200%</em> each.',
+    					{ desc: 'Damage of final <em>2</em> attacks is increased up to <em>200%</em> each.',
     						unlock: 21,
     					},
-    					{ desc: 'Damage of final two attacks is increased up to <em>230%</em> each.',
+    					{ desc: 'Damage of final <em>2</em> attacks is increased up to <em>230%</em> each.',
     						unlock: 101,
     					},
-    					{ desc: 'Damage of final two attacks is increased up to <em>250%</em> each.',
+    					{ desc: 'Damage of final <em>2</em> attacks is increased up to <em>250%</em> each.',
     						unlock: 181,
     					},
     				],
@@ -7977,7 +7977,7 @@ var app = (function () {
     				desc: 'After <em>18</em> seconds Zolrath\'s normal attack becomes more powerful, allowing his normal attack to deal <em>150%</em> damage twice per attack.',
     				unlock: 41,
     				upgrades: [
-    					{ desc: 'After <em>45</em> seconds Zolrath\'s normal attack becomes more powerful, allowing him to strike at surrounding enemies in a three-stage attack for <em>230%</em> damage per attack. Zolrath\'s first two attacks are able to knock-back enemies, with the final attack causing the enemy to become temporarily stunned.',
+    					{ desc: 'After <em>45</em> seconds Zolrath\'s normal attack becomes more powerful, allowing him to strike at surrounding enemies in a three-stage attack for <em>230%</em> damage per attack. Zolrath\'s first <em>2</em> attacks are able to knock-back enemies, with the final attack causing the enemy to become temporarily stunned.',
     						unlock: 121,
     					},
     					{ desc: 'Zolrath\'s attack rating increases by <em>1%</em> per second until it reaches <em>70%</em>.',
@@ -8104,10 +8104,10 @@ var app = (function () {
     			image: './img/si/khazard.png',
     			desc: 'Increases the duration of most negative debuff effects which are currently affecting all enemies on the battlefield by <em>30%</em>.',
     			upgrades: [
-    				{ desc: 'Normal attacks that deal critical damage now have a freezing effect that lasts for <em>1</em> seconds.',
+    				{ desc: 'Normal Attacks that deal critical damage now have a freezing effect that lasts for <em>1</em> seconds.',
     					unlock: 10,
     				},
-    				{ desc: 'Normal attacks that deal critical damage now have a freezing effect that lasts for <em>3</em> seconds.',
+    				{ desc: 'Normal Attacks that deal critical damage now have a freezing effect that lasts for <em>3</em> seconds.',
     					unlock: 20,
     				},
     				{ desc: 'Increases the duration of most negative debuff effects which are currently affecting all enemies on the battlefield by <em>60%</em> seconds.',
@@ -8352,7 +8352,7 @@ var app = (function () {
     				desc: 'This is a passive ability that allows for Mortas\' Normal Attacks to steal <em>4%</em> of an enemy\'s current health and <em>10%</em> of their current shield value. Each enemy may only be affected by this ability once every <em>1.5</em> seconds. The amount of health stolen from an enemy cannot exceed <em>220%</em> of Mortas\' own Attack Rating.',
     				unlock: 11,
     				upgrades: [
-    					{ desc: 'Normal attacks now also steal <em>50</em> Energy points from the enemy.',
+    					{ desc: 'Normal Attacks now also steal <em>50</em> Energy points from the enemy.',
     						unlock: 21,
     					},
     					{ desc: 'Normal Attacks steal <em>6%</em> of the enemy\'s current health and <em>15%</em> of their current shield value.',
@@ -8433,7 +8433,7 @@ var app = (function () {
     			{
     				name: 'Shadow Mastiff',
     				image: './img/skills/leofric1.png',
-    				desc: 'Leofric summons a "Shadow Mastiff" statue in front of the enemy with the highest Attack Rating, and taunts them for <em>8</em> seconds. The "Shadow Mastiff" possesses <em>1150%</em> of Leofric\'s Attack Rating as health, and only one may be present on the battlefield at a time. If the "Shadow Mastiff" is destroyed before its timer ends, the attacking enemy will permanently lose <em>18%</em> of their Attack Rating (effect can only occur once per enemy). If the "Shadow Mastiff" is not destroyed before its timer ends, it shall deal <em>290%</em> damage to the attacking enemy when its timer ends.',
+    				desc: 'Leofric summons a "Shadow Mastiff" statue in front of the enemy with the highest Attack Rating, and taunts them for <em>8</em> seconds. The "Shadow Mastiff" possesses <em>1150%</em> of Leofric\'s Attack Rating as health, and only <em>1</em> may be present on the battlefield at a time. If the "Shadow Mastiff" is destroyed before its timer ends, the attacking enemy will permanently lose <em>18%</em> of their Attack Rating (effect can only occur once per enemy). If the "Shadow Mastiff" is not destroyed before its timer ends, it shall deal <em>290%</em> damage to the attacking enemy when its timer ends.',
     				unlock: 1,
     				upgrades: [
     					{ desc: 'If the "Shadow Mastiff" is destroyed before its timer ends, the attacking enemy will permanently lose <em>22%</em> of their Attack Rating. If the "Shadow Mastiff" is not destroyed before its timer ends, it shall deal <em>320%</em> damage when it ends.',
@@ -8600,7 +8600,7 @@ var app = (function () {
     				{ desc: 'Arthur rallies his team, raising the Crit Rating for all allies standing behind Arthur by <em>30%</em>.',
     					unlock: 20,
     				},
-    				{ desc: 'Arthur recovers <em>5%</em> of his max health every second when there are two or more rallied allies on the battlefield and is also immune to control abilities.',
+    				{ desc: 'Arthur recovers <em>5%</em> of his max health every second when there are <em>2</em> or more rallied allies on the battlefield and is also immune to control abilities.',
     					unlock: 30,
     				},
     			],
@@ -8674,7 +8674,7 @@ var app = (function () {
     			{
     				name: 'Kamui Matsube',
     				image: './img/skills/nakoruru4.png',
-    				desc: 'Nakoruru is carried by Mamahaha towards the weakest enemy target. Once close enough, Nakoruru pounces on the enemy target, dealing <em>280%</em> damage to them. This ability may be used up to two times per battle; once when Nakoruru\'s health falls below <em>70%</em> for the first time and again when it falls below <em>40%</em> for the first time. While being carried by Mamahaha, Nakoruru cannot be attacked and will recover <em>400%</em> worth of her Attack Rating as health.',
+    				desc: 'Nakoruru is carried by Mamahaha towards the weakest enemy target. Once close enough, Nakoruru pounces on the enemy target, dealing <em>280%</em> damage to them. This ability may be used up to <em>2</em> times per battle; once when Nakoruru\'s health falls below <em>70%</em> for the first time and again when it falls below <em>40%</em> for the first time. While being carried by Mamahaha, Nakoruru cannot be attacked and will recover <em>400%</em> worth of her Attack Rating as health.',
     				unlock: 61,
     				upgrades: [
     					{ desc: 'Damage is increased to <em>300%</em>.',
@@ -9133,7 +9133,7 @@ var app = (function () {
     			{
     				name: 'Adverse Reaction',
     				image: './img/skills/joker2.png',
-    				desc: 'JOKER chooses the enemy that is positioned directly opposite himself at the start of battles as his Combat Target (CT). If the CT belongs to a non-Dimensional faction, JOKER will temporarily change factions in order to gain a factional damage bonus against the CT but will also suffer from its adverse effects. When JOKER\'s abilities deal damage to an enemy of whom he has a factional advantage against, the enemy will be knocked down for 2s and then weakened. Weakened enemies receive <em>30%</em> more damage over 5s. Knock-down and weakening effects may only be used once every 7s against the same target. If the CT is slain, JOKER will choose the enemy with the highest Combat Rating as his next CT.',
+    				desc: 'JOKER chooses the enemy that is positioned directly opposite himself at the start of battles as his Combat Target (CT). If the CT belongs to a non-Dimensional faction, JOKER will temporarily change factions in order to gain a factional damage bonus against the CT but will also suffer from its adverse effects. When JOKER\'s abilities deal damage to an enemy of whom he has a factional advantage against, the enemy will be knocked down for <em>2</em> seconds and then weakened. Weakened enemies receive <em>30%</em> more damage over <em>5</em> seconds. Knock-down and weakening effects may only be used once every <em>7</em> seconds against the same target. If the CT is slain, JOKER will choose the enemy with the highest Combat Rating as his next CT.',
     				unlock: 11,
     				upgrades: [
     					{ desc: 'Combat Target is knocked to the ground for <em>2.5</em> seconds.',
@@ -9329,7 +9329,7 @@ var app = (function () {
     			{
     				name: 'Tempest of Agony',
     				image: './img/skills/prince2.png',
-    				desc: 'This ability can only be used whenever there is more than <em>1</em> enemy in close proximity to Prince. Prince deals <em>150%</em> damage to nearby enemies, also stunning them for <em>2</em> seconds. This ability can be used up to one time every <em>5</em> seconds.',
+    				desc: 'This ability can only be used whenever there is more than <em>1</em> enemy in close proximity to Prince. Prince deals <em>150%</em> damage to nearby enemies, also stunning them for <em>2</em> seconds. This ability can be used up to <em>1</em> time every <em>5</em> seconds.',
     				unlock: 11,
     				upgrades: [
     					{ desc: 'Damage is increased to <em>170%</em>.',
@@ -9346,7 +9346,7 @@ var app = (function () {
     			{
     				name: 'Wall Dive Attack',
     				image: './img/skills/prince3.png',
-    				desc: 'This ability can only be used whenever Prince is situated at the edge of the battlefield and an enemy is nearby. When used, Prince pounces from a wall towards an enemy target, dealing damage to all enemies he passes through, which is equal to <em>9%</em> of their own max health, but shall not exceed <em>290%</em> of Prince\'s own Attack Rating. This ability can be used up to one time every <em>3</em> seconds.',
+    				desc: 'This ability can only be used whenever Prince is situated at the edge of the battlefield and an enemy is nearby. When used, Prince pounces from a wall towards an enemy target, dealing damage to all enemies he passes through, which is equal to <em>9%</em> of their own max health, but shall not exceed <em>290%</em> of Prince\'s own Attack Rating. This ability can be used up to <em>1</em> time every <em>3</em> seconds.',
     				unlock: 41,
     				upgrades: [
     					{ desc: 'Damage dealt is equal to <em>12%</em> of enemies\' max health, but cannot exceed <em>320%</em> of Prince\'s Attack Rating.',
