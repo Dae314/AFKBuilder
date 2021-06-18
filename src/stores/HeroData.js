@@ -8336,7 +8336,7 @@ const HeroData = readable([
 		skills: [
 			{
 				name: 'Destiny Foreseen',
-				image: './img/skills/unavailable.png',
+				image: './img/skills/merlin1.png',
 				desc: 'Merlin foresees impending danger, allowing him to reduce the damage received by himself and all allies by <em>25%</em> for <em>8</em> seconds. While Merlin\'s premonition is still occurring, if an enemy that is symmetrically positioned uses their Ultimate ability, all allied heroes will receive a runic shield that has a value equal to <em>180%</em> of their own max health, which exists for <em>5</em> seconds. While the shield exists it prevents enemy control effects and cannot be dispelled. If a premonition is still in effect when Merlin uses his Ultimate ability again, the duration of this ability shall be reset.',
 				unlock: 1,
 				upgrades: [
@@ -8350,7 +8350,7 @@ const HeroData = readable([
 			},
 			{
 				name: 'Magical Amelioration',
-				image: './img/skills/unavailable.png',
+				image: './img/skills/merlin2.png',
 				desc: 'Merlin calls upon the forces of magic to heal himself and his most injured ally for <em>4.5%</em> max health per second over <em>8</em> seconds. <em>30%</em> of all damage dealt to this injured ally during the healing period is borne by Merlin.',
 				unlock: 11,
 				upgrades: [
@@ -8367,7 +8367,7 @@ const HeroData = readable([
 			},
 			{
 				name: 'Karmic Law',
-				image: './img/skills/unavailable.png',
+				image: './img/skills/merlin3.png',
 				desc: 'When Merlin is suffering from the effects of an enemy control ability, he dispels the majority of the negative effects currently affecting him and lets loose his Spirit Owl, who proceeds to imprison the source of the effect for <em>3</em> seconds, causing them to lose health equal to <em>150%</em> of Merlin\'s Attack Rating every second. This ability cannot be dispelled. This ability can be triggered once every <em>8</em> seconds.',
 				unlock: 41,
 				upgrades: [
@@ -8381,7 +8381,7 @@ const HeroData = readable([
 			},
 			{
 				name: 'Guardian Owl',
-				image: './img/skills/unavailable.png',
+				image: './img/skills/merlin4.png',
 				desc: 'When Merlin suffers fatal damage for the first time he enters a spirit form and seeks refuge in his Spirit Owl. While in spirit form, Merlin protects his most injured ally, during which time both Merlin and the ally recover <em>10%</em> max health per second over <em>7</em> seconds. When Merlin stops protecting his ally, he reappears in his original position. If the allied target dies while Merlin is protecting them, Merlin will prematurely reappear in his original position. This ability may only be used when there are surviving allies still on the battlefield.',
 				unlock: 61,
 				upgrades: [
@@ -8397,7 +8397,7 @@ const HeroData = readable([
 		si_benchmark: 0,
 		sig_item: {
 			name: 'Shared Destiny',
-			image: './img/si/unavailable.png',
+			image: './img/si/merlin.png',
 			desc: 'While the ability "Magical Amelioration" is in effect, <em>10%</em> of the damage dealt by the protected allied target is converted into health for both Merlin and the allied target.',
 			upgrades: [
 				{ desc: '<em>20%</em> of the damage dealt by the protected allied target is converted into health for both Merlin and the allied target.',
@@ -8414,7 +8414,7 @@ const HeroData = readable([
 		furn_benchmark: 9,
 		furniture: {
 			name: 'Foresight',
-			image: './img/furniture/unavailable.png',
+			image: './img/furniture/merlin.png',
 			upgrades: [
 				{ desc: 'The duration of the ability "Destiny Foreseen" is extended by <em>50%</em>.',
 					unlock: 3,
