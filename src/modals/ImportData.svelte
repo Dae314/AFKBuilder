@@ -1,7 +1,6 @@
 <script>
 	import { onMount, getContext } from 'svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
-	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import AppData from '../stores/AppData.js';
 	export let dataHandler = () => {};
 	export let saveAppData = () => {};
@@ -12,7 +11,6 @@
 	let data;
 	let status = -1;
 	let statusMsg = 'Awaiting data import';
-	let openConfirm = false;
 
 	onMount(async () => {
 		history.pushState({view: $AppData.activeView, modal: true}, "Import Data", `?view=${$AppData.activeView}&modal=true`);
@@ -21,10 +19,10 @@
 	async function handleImport() {
 		if(!data) {
 			status = 1;
-			statusMsg = "Import data cannot be empty"
-			return
+			statusMsg = "Import data cannot be empty";
+			return;
 		}
-		const returnObj = await dataHandler(data);
+		const returnObj = await dataHandler(data.trim());
 		if(returnObj.retCode !== 0) {
 			// data import error occurred
 			status = returnObj.retCode;
