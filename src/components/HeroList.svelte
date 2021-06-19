@@ -1,11 +1,13 @@
 <script>
 	import { getContext, onMount, createEventDispatcher } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
 	import SIFurnBox from '../shared/SIFurnBox.svelte';
+	import TutorialBox from '../shared/TutorialBox.svelte';
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
@@ -190,14 +192,43 @@
 		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed;
 		dispatch('saveData');
 	}
+
+	function isCharacterKeyPress(event) {
+		let keycode = event.keyCode;
+		let valid = 
+			(keycode > 47 && keycode < 58)   || // number keys
+			(keycode > 64 && keycode < 91)   || // letter keys
+			(keycode > 95 && keycode < 112)  || // numpad keys
+			(keycode > 185 && keycode < 193) || // ;=,-./` (in order)
+			(keycode > 218 && keycode < 223) || // [\]' (in order)
+			(keycode === 9);										// tab
+		return valid;
+	}
+
+	function dynamicSearch(event) {
+		if(isCharacterKeyPress(event)) {
+			if(event.keyCode === 9) {
+				// tab pressed, toggle openFilters
+				openFilters = !openFilters;
+				openFilters ? document.querySelector('#searchBox').focus() : document.querySelector('#searchBox').blur();
+			} else if(!openFilters) {
+				openFilters = true;
+				$AppData.HL.SearchStr = $AppData.HL.SearchStr + event.key;
+				document.querySelector('#searchBox').focus();
+				updateSearch();
+			}
+		}
+	}
 </script>
+
+<svelte:window on:keyup={dynamicSearch} />
 
 <div class="HLContainer">
 	<section class="sect1">
-		<div class="mobileExpander {openFilters ? 'filterOpen' : ''}">
+		<div class="mobileExpander" class:filterOpen={openFilters}>
 			<div class="searchContainer">
 				<div class="search">
-					<input type="search" placeholder="Search" bind:value={$AppData.HL.SearchStr} on:keyup={updateSearch} on:search={updateSearch}>
+					<input id="searchBox" type="search" placeholder="Search" bind:value={$AppData.HL.SearchStr} on:keyup={updateSearch} on:search={updateSearch}>
 				</div>
 			</div>
 			<div class="filters">
@@ -263,6 +294,15 @@
 		</div>
 	</section>
 	<section class="sect2">
+		{#if !$AppData.dismissHLSearchInfo}
+			<div class="searchInfo" transition:fade="{{duration: 200}}">
+				<div class="tutorialBoxContainer">
+					<TutorialBox clickable={true} onClick={() => {$AppData.dismissHLSearchInfo = true; dispatch('saveData');}}>
+						Just start typing to search! Pressing tab will also open and close the filter area.
+					</TutorialBox>
+				</div>
+			</div>
+		{/if}
 		<div class='tableContainer'>
 			<table class='heroTable'>
 				<tr>
@@ -316,6 +356,10 @@
 	}
 	.sect2 {
 		padding: 10px;
+	}
+	.searchInfo {
+		display: none;
+		visibility: hidden;
 	}
 	.filtersButton {
 		background-color: var(--appColorSecondary);
@@ -531,6 +575,16 @@
 			padding: 0;
 			padding-left: 50px;
 			width: 100%;
+		}
+		.searchInfo {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 10px;
+			visibility: visible;
+			width: 100%;
+		}
+		.tutorialBoxContainer {
+			width: 50%;
 		}
 		.mobileExpanderTitle {
 			height: auto;

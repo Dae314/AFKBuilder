@@ -61,6 +61,7 @@ window.validateComp = async function(data) {
 		{name: 'si', type: 'number'},
 		{name: 'furn', type: 'number'},
 		{name: 'artifact', type: 'array'},
+		// {name: 'artifacts', type: 'object'},
 		{name: 'core', type: 'boolean'},
 	];
 	const expectedSubProps = [
@@ -201,6 +202,113 @@ window.validateComp = async function(data) {
 // 	}
 // }
 
+// function to build or add in new app data top level structures
+function buildAppData(data) {
+	const expectedProps = [
+		{name: 'activeView', default: 'comps'},
+		{name: 'selectedComp', default: null},
+		{name: 'dismissImportWarn', default: false},
+		{name: 'dismissHLSearchInfo', default: false},
+		{name: 'dismissMHSearchInfo', default: false},
+		{name: 'HL', default: {}},
+		{name: 'MH', default: {}},
+		{name: 'REC', default: {}},
+		{name: 'Comps', default: []},
+	];
+	const expectedHLProps = [
+		{name: 'Sort', default: 'name'},
+		{name: 'Order', default: 'asc'},
+		{name: 'SearchStr', default: ''},
+		{name: 'ShowLB', default: true},
+		{name: 'ShowM', default: true},
+		{name: 'ShowW', default: true},
+		{name: 'ShowGB', default: true},
+		{name: 'ShowC', default: true},
+		{name: 'ShowH', default: true},
+		{name: 'ShowD', default: true},
+		{name: 'ShowInt', default: true},
+		{name: 'ShowAgi', default: true},
+		{name: 'ShowStr', default: true},
+		{name: 'ShowMage', default: true},
+		{name: 'ShowWar', default: true},
+		{name: 'ShowTank', default: true},
+		{name: 'ShowSup', default: true},
+		{name: 'ShowRan', default: true},
+	];
+	const expectedMHProps = [
+		{name: 'Sort', default: 'name'},
+		{name: 'Order', default: 'asc'},
+		{name: 'SearchStr', default: ''},
+		{name: 'ShowLB', default: true},
+		{name: 'ShowM', default: true},
+		{name: 'ShowW', default: true},
+		{name: 'ShowGB', default: true},
+		{name: 'ShowC', default: true},
+		{name: 'ShowH', default: true},
+		{name: 'ShowD', default: true},
+		{name: 'ShowInt', default: true},
+		{name: 'ShowAgi', default: true},
+		{name: 'ShowStr', default: true},
+		{name: 'ShowMage', default: true},
+		{name: 'ShowWar', default: true},
+		{name: 'ShowTank', default: true},
+		{name: 'ShowSup', default: true},
+		{name: 'ShowRan', default: true},
+		{name: 'List', default: {}},
+	];
+	const expectedRECProps = [
+		{name: 'openSection', default: 0},
+	];
+
+	// make sure that data is an object (and nothing else)
+	if(!isObject(data)) throw new Error('AppData must be a plain Javascript object.');
+
+	// data must be an object at this point, so make sure it's consistent with the format we expect
+	// add top-level props as required
+	for(const prop of expectedProps) {
+		if(!(prop.name in data)) data[prop.name] = prop.default;
+	}
+	// delete extra top-level props
+	for(let prop in data) {
+		if(!expectedProps.some(e => e.name === prop)) delete data[prop];
+	}
+
+	// add HL props as required
+	for(const prop of expectedHLProps) {
+		if(!(prop.name in data.HL)) data.HL[prop.name] = prop.default;
+	}
+	// delete extra HL props
+	for(let prop in data.HL) {
+		if(!expectedHLProps.some(e => e.name === prop)) delete data.HL[prop];
+	}
+
+	// add MH props as required
+	for(const prop of expectedMHProps) {
+		if(!(prop.name in data.MH)) data.MH[prop.name] = prop.default;
+	}
+	// delete extra MH props
+	for(let prop in data.MH) {
+		if(!expectedMHProps.some(e => e.name === prop)) delete data.MH[prop];
+	}
+	// rebuild MH.List
+	data.MH.List = buildMyHeroData(data.MH.List);
+
+	// add REC props as required
+	for(const prop of expectedRECProps) {
+		if(!(prop.name in data.REC)) data.REC[prop.name] = prop.default;
+	}
+	// delete extra REC props
+	for(let prop in data.REC) {
+		if(!expectedRECProps.some(e => e.name === prop)) delete data.REC[prop];
+	}
+
+	// rebuild Comps
+	data.Comps = buildCompsData(data.Comps);
+
+	// everything should be good now, return the clean AppData object
+	return data;
+}
+
 // function to build or add in new heroes from HeroData into MH.List
 function buildMyHeroData(data) {
 	const expectedProps = [
@@ -211,7 +319,6 @@ function buildMyHeroData(data) {
 	];
 
 	// make sure that data is an object (and nothing else)
-	// https://javascript.plainenglish.io/javascript-check-if-a-variable-is-an-object-and-nothing-else-not-an-array-a-set-etc-a3987ea08fd7
 	if(!isObject(data)) throw new Error('My Hero List data must be a plain Javascript object.');
 
 	// data must be an object at this point, so make sure it's consistent with the format we expect
@@ -238,6 +345,94 @@ function buildMyHeroData(data) {
 	}
 
 	// everything should be good now, return the clean MH.List object
+	return data;
+}
+
+// function to build or add new props to objects in the Comp array
+function buildCompsData(data) {
+	const expectedProps = [
+		{name: 'author', default: ''},
+		{name: 'desc', default: ''},
+		{name: 'draft', default: false},
+		{name: 'heroes', default: {}},
+		{name: 'lastUpdate', default: new Date()},
+		{name: 'lines', default: []},
+		{name: 'name', default: ''},
+		{name: 'starred', default: false},
+		{name: 'subs', default: []},
+		{name: 'uuid', default: ''},
+	];
+	const expectedHeroProps = [
+		{name: 'ascendLv', default: 6},
+		{name: 'si', default: 20},
+		{name: 'furn', default: 3},
+		{name: 'artifact', default: []},
+		// {name: 'artifacts', default: {}},
+		{name: 'core', default: false},
+	];
+	const expectedArtifactsProps = [
+		{name: 'primary', default: []},
+		{name: 'secondary', default: []},
+		{name: 'situational', default: []},
+	]
+	const expectedLineProps = [
+		{name: 'name', default: ''},
+		{name: 'heroes', default: ['unknown','unknown','unknown','unknown','unknown']},
+	];
+	const expectedSubProps = [
+		{name: 'name', default: ''},
+		{name: 'heroes', default: []},
+	]
+
+	// make sure that data is an array
+	if(!Array.isArray(data)) throw new Error('Comps must be an array.');
+
+	// data must be an array at this point, so make sure it's consistent with the format we expect
+	for(let comp of data) {
+		// add top-level props as required
+		for(const prop of expectedProps) {
+			if(!(prop.name in comp)) comp[prop.name] = prop.default;
+		}
+		// delete extra top-level props
+		for(let prop in comp) {
+			if(!expectedProps.some(e => e.name === prop)) delete comp[prop];
+		}
+		// clean up hero and artifacts props
+		for(const hero in comp.heroes) {
+			for(const prop of expectedHeroProps) {
+				if(!(prop.name in comp.heroes[hero])) comp.heroes[hero][prop.name] = prop.default;
+			}
+			for(let prop in comp.heroes[hero]) {
+				if(!expectedHeroProps.some(e => e.name === prop)) delete comp.heroes[hero][prop];
+			}
+			// for(const prop of expectedArtifactsProps) {
+			// 	if(!(prop.name in comp.heroes[hero].artifacts)) comp.heroes[hero].artifacts[prop.name] = prop.default;
+			// }
+			// for(let prop in comp.heroes[hero].artifacts) {
+			// 	if(!expectedArtifactsProps.some(e => e.name === prop)) delete comp.heroes[hero].artifacts[prop];
+			// }
+		}
+		// clean up line props
+		for(let line of comp.lines) {
+			for(const prop of expectedLineProps) {
+				if(!(prop.name in line)) line[prop.name] = prop.default;
+			}
+			for(let prop in line) {
+				if(!expectedLineProps.some(e => e.name === prop)) delete line[prop];
+			}
+		}
+		// clean up sub props
+		for(let sub of comp.subs) {
+			for(const prop of expectedSubProps) {
+				if(!(prop.name in sub)) sub[prop.name] = prop.default;
+			}
+			for(let prop in sub) {
+				if(!expectedSubProps.some(e => e.name === prop)) delete sub[prop];
+			}
+		}
+	}
+
+	// everything should be good now, return the clean Comp object
 	return data;
 }
 
@@ -305,8 +500,8 @@ if(window.localStorage.getItem('appData') !== null) {
 	appdata = JSON.parse(window.localStorage.getItem('appData'))
 	appdata.HL.SearchStr = '';
 	appdata.MH.SearchStr = '';
-	// rebuild MH.List - adds new heroes from HeroData
-	appdata.MH.List = buildMyHeroData(appdata.MH.List);
+	// rebuild app data structure (adds any new attributes and also rebuilds MH.List)
+	appdata = buildAppData(appdata);
 	// JSON doesn't parse date objects correctly, so need to re-initialize them
 	for(let comp of appdata.Comps) {
 		comp.lastUpdate = new Date(comp.lastUpdate);
@@ -314,56 +509,7 @@ if(window.localStorage.getItem('appData') !== null) {
 	// updateTestComps(appdata);
 } else {
 	// Otherwise initialize a clean AppData
-	appdata = {
-		activeView: 'comps',
-		selectedComp: null,
-		dismissImportWarn: false,
-		HL: {
-			Sort: 'name',
-			Order: 'asc',
-			SearchStr: '',
-			ShowLB: true,
-			ShowM: true,
-			ShowW: true,
-			ShowGB: true,
-			ShowC: true,
-			ShowH: true,
-			ShowD: true,
-			ShowInt: true,
-			ShowAgi: true,
-			ShowStr: true,
-			ShowMage: true,
-			ShowWar: true,
-			ShowTank: true,
-			ShowSup: true,
-			ShowRan: true,
-		},
-		MH: {
-			Sort: 'name',
-			Order: 'asc',
-			SearchStr: '',
-			ShowLB: true,
-			ShowM: true,
-			ShowW: true,
-			ShowGB: true,
-			ShowC: true,
-			ShowH: true,
-			ShowD: true,
-			ShowInt: true,
-			ShowAgi: true,
-			ShowStr: true,
-			ShowMage: true,
-			ShowWar: true,
-			ShowTank: true,
-			ShowSup: true,
-			ShowRan: true,
-			List: buildMyHeroData({}), // build a new MH.List by sending the builder a blank object
-		},
-		REC: {
-			openSection: 0,
-		},
-		Comps: [],
-	};
+	appdata = buildAppData({});
 }
 
 performMHValidation();
