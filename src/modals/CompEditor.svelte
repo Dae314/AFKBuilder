@@ -209,6 +209,12 @@
 		comp.subs[subIdx].heroes = comp.subs[subIdx].heroes.filter((e, i) => i !== heroIdx);
 	}
 
+	function removeLineHero(lineIdx, heroIdx) {
+		const heroID = comp.lines[lineIdx].heroes[heroIdx];
+		comp.lines[lineIdx].heroes[heroIdx] = 'unknown';
+		delete comp.heroes[heroID];
+	}
+
 	function handlePopState() {
 		close();
 	}
@@ -255,6 +261,7 @@
 											<div class="imgContainer">
 												<img src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
+												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
 											</div>
 										</button>
 										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes,})}>{$HeroData.find(e => e.id === hero).name}</p>
@@ -274,6 +281,7 @@
 											<div class="imgContainer">
 												<img src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
+												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
 											</div>
 										</button>
 										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>{$HeroData.find(e => e.id === hero).name}</p>
@@ -307,7 +315,7 @@
 											<img
 												src={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).portrait : './img/portraits/unavailable.png'}
 												alt={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).name : 'Pick a Hero'}>
-											<button class="subRemoveButton" on:click={() => removeSubHero(i, j)}><span>x</span></button>
+											<button class="removeHeroButton subHeroButton" on:click={() => removeSubHero(i, j)}><span>x</span></button>
 										</button>
 										<p>{$HeroData.find(e => e.id === hero).name}</p>
 									</div>
@@ -532,6 +540,19 @@
 		pointer-events: none;
 		visibility: visible;
 	}
+	.removeHeroButton {
+		background-color: #aaa;
+		border: none;
+		border-radius: 50%;
+		cursor: pointer;
+		outline: none;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	.removeHeroButton.lineHeroButton {
+		right: -6px;
+	}
 	.heroButton+p {
 		color: black;
 		font-size: 0.8rem;
@@ -622,16 +643,6 @@
 	}
 	.cancelButton {
 		margin-right: 0;
-	}
-	.subRemoveButton {
-		background-color: #aaa;
-		border: none;
-		border-radius: 50%;
-		cursor: pointer;
-		outline: none;
-		position: absolute;
-		right: 0;
-		top: 0;
 	}
 	@media only screen and (min-width: 767px) {
 		.row1 {

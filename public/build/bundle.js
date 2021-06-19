@@ -32821,41 +32821,41 @@ var app = (function () {
 
     function get_each_context$6(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[56] = list[i];
-    	child_ctx[57] = list;
-    	child_ctx[58] = i;
+    	child_ctx[59] = list[i];
+    	child_ctx[60] = list;
+    	child_ctx[61] = i;
     	return child_ctx;
     }
 
     function get_each_context_1$3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[59] = list[i];
-    	child_ctx[61] = i;
+    	child_ctx[62] = list[i];
+    	child_ctx[64] = i;
     	return child_ctx;
     }
 
     function get_each_context_2$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[59] = list[i];
-    	child_ctx[58] = i;
+    	child_ctx[62] = list[i];
+    	child_ctx[61] = i;
     	return child_ctx;
     }
 
     function get_each_context_3$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[59] = list[i];
-    	child_ctx[58] = i;
+    	child_ctx[62] = list[i];
+    	child_ctx[61] = i;
     	return child_ctx;
     }
 
     function get_each_context_4$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[64] = list[i];
-    	child_ctx[58] = i;
+    	child_ctx[67] = list[i];
+    	child_ctx[61] = i;
     	return child_ctx;
     }
 
-    // (224:3) {#if comp.draft}
+    // (230:3) {#if comp.draft}
     function create_if_block_6$1(ctx) {
     	let div;
     	let span;
@@ -32865,10 +32865,10 @@ var app = (function () {
     			div = element("div");
     			span = element("span");
     			span.textContent = "draft";
-    			attr_dev(span, "class", "draftLabel svelte-p5hqs");
-    			add_location(span, file$8, 224, 32, 6225);
-    			attr_dev(div, "class", "draftContainer svelte-p5hqs");
-    			add_location(div, file$8, 224, 4, 6197);
+    			attr_dev(span, "class", "draftLabel svelte-twpr7w");
+    			add_location(span, file$8, 230, 32, 6415);
+    			attr_dev(div, "class", "draftContainer svelte-twpr7w");
+    			add_location(div, file$8, 230, 4, 6387);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -32883,17 +32883,17 @@ var app = (function () {
     		block,
     		id: create_if_block_6$1.name,
     		type: "if",
-    		source: "(224:3) {#if comp.draft}",
+    		source: "(230:3) {#if comp.draft}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (232:5) {#each comp.lines as line, i}
+    // (238:5) {#each comp.lines as line, i}
     function create_each_block_4$2(ctx) {
     	let button1;
-    	let t0_value = /*line*/ ctx[64].name + "";
+    	let t0_value = /*line*/ ctx[67].name + "";
     	let t0;
     	let t1;
     	let button0;
@@ -32901,11 +32901,11 @@ var app = (function () {
     	let dispose;
 
     	function click_handler(...args) {
-    		return /*click_handler*/ ctx[25](/*i*/ ctx[58], ...args);
+    		return /*click_handler*/ ctx[26](/*i*/ ctx[61], ...args);
     	}
 
     	function click_handler_1() {
-    		return /*click_handler_1*/ ctx[26](/*i*/ ctx[58]);
+    		return /*click_handler_1*/ ctx[27](/*i*/ ctx[61]);
     	}
 
     	const block = {
@@ -32915,11 +32915,11 @@ var app = (function () {
     			t1 = space();
     			button0 = element("button");
     			button0.textContent = "x";
-    			attr_dev(button0, "class", "removeButton svelte-p5hqs");
-    			add_location(button0, file$8, 234, 7, 6579);
-    			attr_dev(button1, "class", "linePickerOption svelte-p5hqs");
-    			toggle_class(button1, "open", /*openLine*/ ctx[1] === /*i*/ ctx[58]);
-    			add_location(button1, file$8, 232, 6, 6459);
+    			attr_dev(button0, "class", "removeButton svelte-twpr7w");
+    			add_location(button0, file$8, 240, 7, 6769);
+    			attr_dev(button1, "class", "linePickerOption svelte-twpr7w");
+    			toggle_class(button1, "open", /*openLine*/ ctx[1] === /*i*/ ctx[61]);
+    			add_location(button1, file$8, 238, 6, 6649);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button1, anchor);
@@ -32938,10 +32938,10 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty[0] & /*comp*/ 1 && t0_value !== (t0_value = /*line*/ ctx[64].name + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*comp*/ 1 && t0_value !== (t0_value = /*line*/ ctx[67].name + "")) set_data_dev(t0, t0_value);
 
     			if (dirty[0] & /*openLine*/ 2) {
-    				toggle_class(button1, "open", /*openLine*/ ctx[1] === /*i*/ ctx[58]);
+    				toggle_class(button1, "open", /*openLine*/ ctx[1] === /*i*/ ctx[61]);
     			}
     		},
     		d: function destroy(detaching) {
@@ -32955,14 +32955,14 @@ var app = (function () {
     		block,
     		id: create_each_block_4$2.name,
     		type: "each",
-    		source: "(232:5) {#each comp.lines as line, i}",
+    		source: "(238:5) {#each comp.lines as line, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (243:5) {:else}
+    // (249:5) {:else}
     function create_else_block$6(ctx) {
     	let input;
     	let t0;
@@ -33007,15 +33007,15 @@ var app = (function () {
     			}
 
     			attr_dev(input, "type", "text");
-    			attr_dev(input, "class", "lineNameInput svelte-p5hqs");
+    			attr_dev(input, "class", "lineNameInput svelte-twpr7w");
     			attr_dev(input, "placeholder", "Line Name");
-    			add_location(input, file$8, 243, 6, 6944);
-    			attr_dev(div0, "class", "backline svelte-p5hqs");
-    			add_location(div0, file$8, 245, 7, 7090);
-    			attr_dev(div1, "class", "frontline svelte-p5hqs");
-    			add_location(div1, file$8, 264, 7, 8256);
-    			attr_dev(div2, "class", "lineDisplay svelte-p5hqs");
-    			add_location(div2, file$8, 244, 6, 7056);
+    			add_location(input, file$8, 249, 6, 7134);
+    			attr_dev(div0, "class", "backline svelte-twpr7w");
+    			add_location(div0, file$8, 251, 7, 7280);
+    			attr_dev(div1, "class", "frontline svelte-twpr7w");
+    			add_location(div1, file$8, 271, 7, 8576);
+    			attr_dev(div2, "class", "lineDisplay svelte-twpr7w");
+    			add_location(div2, file$8, 250, 6, 7246);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, input, anchor);
@@ -33036,7 +33036,7 @@ var app = (function () {
     			}
 
     			if (!mounted) {
-    				dispose = listen_dev(input, "input", /*input_input_handler*/ ctx[27]);
+    				dispose = listen_dev(input, "input", /*input_input_handler*/ ctx[28]);
     				mounted = true;
     			}
     		},
@@ -33045,7 +33045,7 @@ var app = (function () {
     				set_input_value(input, /*comp*/ ctx[0].lines[/*openLine*/ ctx[1]].name);
     			}
 
-    			if (dirty[0] & /*openHeroFinder, openLine, updateLineHero, closeHeroFinder, comp, $HeroData*/ 229507) {
+    			if (dirty[0] & /*openHeroFinder, openLine, updateLineHero, closeHeroFinder, comp, $HeroData, removeLineHero*/ 1278083) {
     				each_value_3 = /*comp*/ ctx[0].lines[/*openLine*/ ctx[1]].heroes;
     				validate_each_argument(each_value_3);
     				let i;
@@ -33069,7 +33069,7 @@ var app = (function () {
     				each_blocks_1.length = each_value_3.length;
     			}
 
-    			if (dirty[0] & /*openHeroFinder, openLine, updateLineHero, closeHeroFinder, comp, $HeroData*/ 229507) {
+    			if (dirty[0] & /*openHeroFinder, openLine, updateLineHero, closeHeroFinder, comp, $HeroData, removeLineHero*/ 1278083) {
     				each_value_2 = /*comp*/ ctx[0].lines[/*openLine*/ ctx[1]].heroes;
     				validate_each_argument(each_value_2);
     				let i;
@@ -33108,14 +33108,14 @@ var app = (function () {
     		block,
     		id: create_else_block$6.name,
     		type: "else",
-    		source: "(243:5) {:else}",
+    		source: "(249:5) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (241:5) {#if openLine === null}
+    // (247:5) {#if openLine === null}
     function create_if_block_1$4(ctx) {
     	let span;
 
@@ -33123,8 +33123,8 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "Select a line to edit.";
-    			attr_dev(span, "class", "noLine svelte-p5hqs");
-    			add_location(span, file$8, 241, 6, 6872);
+    			attr_dev(span, "class", "noLine svelte-twpr7w");
+    			add_location(span, file$8, 247, 6, 7062);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -33139,19 +33139,19 @@ var app = (function () {
     		block,
     		id: create_if_block_1$4.name,
     		type: "if",
-    		source: "(241:5) {#if openLine === null}",
+    		source: "(247:5) {#if openLine === null}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (248:8) {#if i >= 2}
+    // (254:8) {#if i >= 2}
     function create_if_block_4$3(ctx) {
     	let if_block_anchor;
 
     	function select_block_type_1(ctx, dirty) {
-    		if (/*hero*/ ctx[59] === "unknown") return create_if_block_5$2;
+    		if (/*hero*/ ctx[62] === "unknown") return create_if_block_5$2;
     		return create_else_block_2$2;
     	}
 
@@ -33190,87 +33190,105 @@ var app = (function () {
     		block,
     		id: create_if_block_4$3.name,
     		type: "if",
-    		source: "(248:8) {#if i >= 2}",
+    		source: "(254:8) {#if i >= 2}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (253:9) {:else}
+    // (259:9) {:else}
     function create_else_block_2$2(ctx) {
-    	let button;
+    	let button1;
     	let div;
     	let img;
     	let img_src_value;
     	let img_alt_value;
     	let t0;
-    	let span;
+    	let span0;
     	let t1;
+    	let button0;
+    	let span1;
+    	let t3;
     	let p;
-    	let t2_value = /*$HeroData*/ ctx[7].find(func_2).name + "";
-    	let t2;
+    	let t4_value = /*$HeroData*/ ctx[7].find(func_2).name + "";
+    	let t4;
     	let mounted;
     	let dispose;
 
     	function func(...args) {
-    		return /*func*/ ctx[29](/*hero*/ ctx[59], ...args);
+    		return /*func*/ ctx[30](/*hero*/ ctx[62], ...args);
     	}
 
     	function func_1(...args) {
-    		return /*func_1*/ ctx[30](/*hero*/ ctx[59], ...args);
+    		return /*func_1*/ ctx[31](/*hero*/ ctx[62], ...args);
     	}
 
     	function click_handler_3() {
-    		return /*click_handler_3*/ ctx[31](/*i*/ ctx[58], /*hero*/ ctx[59]);
-    	}
-
-    	function func_2(...args) {
-    		return /*func_2*/ ctx[32](/*hero*/ ctx[59], ...args);
+    		return /*click_handler_3*/ ctx[32](/*i*/ ctx[61]);
     	}
 
     	function click_handler_4() {
-    		return /*click_handler_4*/ ctx[33](/*i*/ ctx[58], /*hero*/ ctx[59]);
+    		return /*click_handler_4*/ ctx[33](/*i*/ ctx[61], /*hero*/ ctx[62]);
+    	}
+
+    	function func_2(...args) {
+    		return /*func_2*/ ctx[34](/*hero*/ ctx[62], ...args);
+    	}
+
+    	function click_handler_5() {
+    		return /*click_handler_5*/ ctx[35](/*i*/ ctx[61], /*hero*/ ctx[62]);
     	}
 
     	const block = {
     		c: function create() {
-    			button = element("button");
+    			button1 = element("button");
     			div = element("div");
     			img = element("img");
     			t0 = space();
-    			span = element("span");
+    			span0 = element("span");
     			t1 = space();
+    			button0 = element("button");
+    			span1 = element("span");
+    			span1.textContent = "x";
+    			t3 = space();
     			p = element("p");
-    			t2 = text$1(t2_value);
+    			t4 = text$1(t4_value);
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[7].find(func).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[7].find(func_1).name);
-    			attr_dev(img, "class", "svelte-p5hqs");
-    			add_location(img, file$8, 255, 12, 7728);
-    			attr_dev(span, "class", "coreMark svelte-p5hqs");
-    			toggle_class(span, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[59]].core);
-    			add_location(span, file$8, 256, 12, 7843);
-    			attr_dev(div, "class", "imgContainer svelte-p5hqs");
-    			add_location(div, file$8, 254, 11, 7688);
-    			attr_dev(button, "class", "heroButton svelte-p5hqs");
-    			add_location(button, file$8, 253, 10, 7494);
-    			attr_dev(p, "class", "heroButton svelte-p5hqs");
-    			add_location(p, file$8, 259, 10, 7964);
+    			attr_dev(img, "class", "svelte-twpr7w");
+    			add_location(img, file$8, 261, 12, 7918);
+    			attr_dev(span0, "class", "coreMark svelte-twpr7w");
+    			toggle_class(span0, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[62]].core);
+    			add_location(span0, file$8, 262, 12, 8033);
+    			add_location(span1, file$8, 263, 105, 8209);
+    			attr_dev(button0, "class", "removeHeroButton lineHeroButton svelte-twpr7w");
+    			add_location(button0, file$8, 263, 12, 8116);
+    			attr_dev(div, "class", "imgContainer svelte-twpr7w");
+    			add_location(div, file$8, 260, 11, 7878);
+    			attr_dev(button1, "class", "heroButton svelte-twpr7w");
+    			add_location(button1, file$8, 259, 10, 7684);
+    			attr_dev(p, "class", "heroButton svelte-twpr7w");
+    			add_location(p, file$8, 266, 10, 8284);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, button, anchor);
-    			append_dev(button, div);
+    			insert_dev(target, button1, anchor);
+    			append_dev(button1, div);
     			append_dev(div, img);
     			append_dev(div, t0);
-    			append_dev(div, span);
-    			insert_dev(target, t1, anchor);
+    			append_dev(div, span0);
+    			append_dev(div, t1);
+    			append_dev(div, button0);
+    			append_dev(button0, span1);
+    			insert_dev(target, t3, anchor);
     			insert_dev(target, p, anchor);
-    			append_dev(p, t2);
+    			append_dev(p, t4);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button, "click", click_handler_3, false, false, false),
-    					listen_dev(p, "click", click_handler_4, false, false, false)
+    					listen_dev(button0, "click", click_handler_3, false, false, false),
+    					listen_dev(button1, "click", click_handler_4, false, false, false),
+    					listen_dev(p, "click", click_handler_5, false, false, false)
     				];
 
     				mounted = true;
@@ -33288,14 +33306,14 @@ var app = (function () {
     			}
 
     			if (dirty[0] & /*comp, openLine*/ 3) {
-    				toggle_class(span, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[59]].core);
+    				toggle_class(span0, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[62]].core);
     			}
 
-    			if (dirty[0] & /*$HeroData, comp, openLine*/ 131 && t2_value !== (t2_value = /*$HeroData*/ ctx[7].find(func_2).name + "")) set_data_dev(t2, t2_value);
+    			if (dirty[0] & /*$HeroData, comp, openLine*/ 131 && t4_value !== (t4_value = /*$HeroData*/ ctx[7].find(func_2).name + "")) set_data_dev(t4, t4_value);
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(button);
-    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(button1);
+    			if (detaching) detach_dev(t3);
     			if (detaching) detach_dev(p);
     			mounted = false;
     			run_all(dispose);
@@ -33306,14 +33324,14 @@ var app = (function () {
     		block,
     		id: create_else_block_2$2.name,
     		type: "else",
-    		source: "(253:9) {:else}",
+    		source: "(259:9) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (249:9) {#if hero === 'unknown'}
+    // (255:9) {#if hero === 'unknown'}
     function create_if_block_5$2(ctx) {
     	let button;
     	let span;
@@ -33322,7 +33340,7 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_2() {
-    		return /*click_handler_2*/ ctx[28](/*i*/ ctx[58]);
+    		return /*click_handler_2*/ ctx[29](/*i*/ ctx[61]);
     	}
 
     	const block = {
@@ -33331,9 +33349,9 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "+";
     			t1 = space();
-    			add_location(span, file$8, 250, 11, 7429);
-    			attr_dev(button, "class", "addHeroButton lineButton svelte-p5hqs");
-    			add_location(button, file$8, 249, 10, 7238);
+    			add_location(span, file$8, 256, 11, 7619);
+    			attr_dev(button, "class", "addHeroButton lineButton svelte-twpr7w");
+    			add_location(button, file$8, 255, 10, 7428);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -33359,17 +33377,17 @@ var app = (function () {
     		block,
     		id: create_if_block_5$2.name,
     		type: "if",
-    		source: "(249:9) {#if hero === 'unknown'}",
+    		source: "(255:9) {#if hero === 'unknown'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (247:8) {#each comp.lines[openLine].heroes as  hero, i}
+    // (253:8) {#each comp.lines[openLine].heroes as  hero, i}
     function create_each_block_3$2(ctx) {
     	let if_block_anchor;
-    	let if_block = /*i*/ ctx[58] >= 2 && create_if_block_4$3(ctx);
+    	let if_block = /*i*/ ctx[61] >= 2 && create_if_block_4$3(ctx);
 
     	const block = {
     		c: function create() {
@@ -33381,7 +33399,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (/*i*/ ctx[58] >= 2) if_block.p(ctx, dirty);
+    			if (/*i*/ ctx[61] >= 2) if_block.p(ctx, dirty);
     		},
     		d: function destroy(detaching) {
     			if (if_block) if_block.d(detaching);
@@ -33393,19 +33411,19 @@ var app = (function () {
     		block,
     		id: create_each_block_3$2.name,
     		type: "each",
-    		source: "(247:8) {#each comp.lines[openLine].heroes as  hero, i}",
+    		source: "(253:8) {#each comp.lines[openLine].heroes as  hero, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (267:8) {#if i < 2}
+    // (274:8) {#if i < 2}
     function create_if_block_2$3(ctx) {
     	let if_block_anchor;
 
     	function select_block_type_2(ctx, dirty) {
-    		if (/*hero*/ ctx[59] === "unknown") return create_if_block_3$3;
+    		if (/*hero*/ ctx[62] === "unknown") return create_if_block_3$3;
     		return create_else_block_1$2;
     	}
 
@@ -33444,87 +33462,105 @@ var app = (function () {
     		block,
     		id: create_if_block_2$3.name,
     		type: "if",
-    		source: "(267:8) {#if i < 2}",
+    		source: "(274:8) {#if i < 2}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (272:9) {:else}
+    // (279:9) {:else}
     function create_else_block_1$2(ctx) {
-    	let button;
+    	let button1;
     	let div;
     	let img;
     	let img_src_value;
     	let img_alt_value;
     	let t0;
-    	let span;
+    	let span0;
     	let t1;
+    	let button0;
+    	let span1;
+    	let t3;
     	let p;
-    	let t2_value = /*$HeroData*/ ctx[7].find(func_5).name + "";
-    	let t2;
+    	let t4_value = /*$HeroData*/ ctx[7].find(func_5).name + "";
+    	let t4;
     	let mounted;
     	let dispose;
 
     	function func_3(...args) {
-    		return /*func_3*/ ctx[35](/*hero*/ ctx[59], ...args);
+    		return /*func_3*/ ctx[37](/*hero*/ ctx[62], ...args);
     	}
 
     	function func_4(...args) {
-    		return /*func_4*/ ctx[36](/*hero*/ ctx[59], ...args);
-    	}
-
-    	function click_handler_6() {
-    		return /*click_handler_6*/ ctx[37](/*i*/ ctx[58], /*hero*/ ctx[59]);
-    	}
-
-    	function func_5(...args) {
-    		return /*func_5*/ ctx[38](/*hero*/ ctx[59], ...args);
+    		return /*func_4*/ ctx[38](/*hero*/ ctx[62], ...args);
     	}
 
     	function click_handler_7() {
-    		return /*click_handler_7*/ ctx[39](/*i*/ ctx[58], /*hero*/ ctx[59]);
+    		return /*click_handler_7*/ ctx[39](/*i*/ ctx[61]);
+    	}
+
+    	function click_handler_8() {
+    		return /*click_handler_8*/ ctx[40](/*i*/ ctx[61], /*hero*/ ctx[62]);
+    	}
+
+    	function func_5(...args) {
+    		return /*func_5*/ ctx[41](/*hero*/ ctx[62], ...args);
+    	}
+
+    	function click_handler_9() {
+    		return /*click_handler_9*/ ctx[42](/*i*/ ctx[61], /*hero*/ ctx[62]);
     	}
 
     	const block = {
     		c: function create() {
-    			button = element("button");
+    			button1 = element("button");
     			div = element("div");
     			img = element("img");
     			t0 = space();
-    			span = element("span");
+    			span0 = element("span");
     			t1 = space();
+    			button0 = element("button");
+    			span1 = element("span");
+    			span1.textContent = "x";
+    			t3 = space();
     			p = element("p");
-    			t2 = text$1(t2_value);
+    			t4 = text$1(t4_value);
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[7].find(func_3).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[7].find(func_4).name);
-    			attr_dev(img, "class", "svelte-p5hqs");
-    			add_location(img, file$8, 274, 12, 8894);
-    			attr_dev(span, "class", "coreMark svelte-p5hqs");
-    			toggle_class(span, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[59]].core);
-    			add_location(span, file$8, 275, 12, 9009);
-    			attr_dev(div, "class", "imgContainer svelte-p5hqs");
-    			add_location(div, file$8, 273, 11, 8854);
-    			attr_dev(button, "class", "heroButton svelte-p5hqs");
-    			add_location(button, file$8, 272, 10, 8660);
-    			attr_dev(p, "class", "heroButton svelte-p5hqs");
-    			add_location(p, file$8, 278, 10, 9130);
+    			attr_dev(img, "class", "svelte-twpr7w");
+    			add_location(img, file$8, 281, 12, 9214);
+    			attr_dev(span0, "class", "coreMark svelte-twpr7w");
+    			toggle_class(span0, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[62]].core);
+    			add_location(span0, file$8, 282, 12, 9329);
+    			add_location(span1, file$8, 283, 105, 9505);
+    			attr_dev(button0, "class", "removeHeroButton lineHeroButton svelte-twpr7w");
+    			add_location(button0, file$8, 283, 12, 9412);
+    			attr_dev(div, "class", "imgContainer svelte-twpr7w");
+    			add_location(div, file$8, 280, 11, 9174);
+    			attr_dev(button1, "class", "heroButton svelte-twpr7w");
+    			add_location(button1, file$8, 279, 10, 8980);
+    			attr_dev(p, "class", "heroButton svelte-twpr7w");
+    			add_location(p, file$8, 286, 10, 9580);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, button, anchor);
-    			append_dev(button, div);
+    			insert_dev(target, button1, anchor);
+    			append_dev(button1, div);
     			append_dev(div, img);
     			append_dev(div, t0);
-    			append_dev(div, span);
-    			insert_dev(target, t1, anchor);
+    			append_dev(div, span0);
+    			append_dev(div, t1);
+    			append_dev(div, button0);
+    			append_dev(button0, span1);
+    			insert_dev(target, t3, anchor);
     			insert_dev(target, p, anchor);
-    			append_dev(p, t2);
+    			append_dev(p, t4);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button, "click", click_handler_6, false, false, false),
-    					listen_dev(p, "click", click_handler_7, false, false, false)
+    					listen_dev(button0, "click", click_handler_7, false, false, false),
+    					listen_dev(button1, "click", click_handler_8, false, false, false),
+    					listen_dev(p, "click", click_handler_9, false, false, false)
     				];
 
     				mounted = true;
@@ -33542,14 +33578,14 @@ var app = (function () {
     			}
 
     			if (dirty[0] & /*comp, openLine*/ 3) {
-    				toggle_class(span, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[59]].core);
+    				toggle_class(span0, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[62]].core);
     			}
 
-    			if (dirty[0] & /*$HeroData, comp, openLine*/ 131 && t2_value !== (t2_value = /*$HeroData*/ ctx[7].find(func_5).name + "")) set_data_dev(t2, t2_value);
+    			if (dirty[0] & /*$HeroData, comp, openLine*/ 131 && t4_value !== (t4_value = /*$HeroData*/ ctx[7].find(func_5).name + "")) set_data_dev(t4, t4_value);
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(button);
-    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(button1);
+    			if (detaching) detach_dev(t3);
     			if (detaching) detach_dev(p);
     			mounted = false;
     			run_all(dispose);
@@ -33560,14 +33596,14 @@ var app = (function () {
     		block,
     		id: create_else_block_1$2.name,
     		type: "else",
-    		source: "(272:9) {:else}",
+    		source: "(279:9) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (268:9) {#if hero === 'unknown'}
+    // (275:9) {#if hero === 'unknown'}
     function create_if_block_3$3(ctx) {
     	let button;
     	let span;
@@ -33575,8 +33611,8 @@ var app = (function () {
     	let mounted;
     	let dispose;
 
-    	function click_handler_5() {
-    		return /*click_handler_5*/ ctx[34](/*i*/ ctx[58]);
+    	function click_handler_6() {
+    		return /*click_handler_6*/ ctx[36](/*i*/ ctx[61]);
     	}
 
     	const block = {
@@ -33585,9 +33621,9 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "+";
     			t1 = space();
-    			add_location(span, file$8, 269, 11, 8595);
-    			attr_dev(button, "class", "addHeroButton lineButton svelte-p5hqs");
-    			add_location(button, file$8, 268, 10, 8404);
+    			add_location(span, file$8, 276, 11, 8915);
+    			attr_dev(button, "class", "addHeroButton lineButton svelte-twpr7w");
+    			add_location(button, file$8, 275, 10, 8724);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -33595,7 +33631,7 @@ var app = (function () {
     			append_dev(button, t1);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", click_handler_5, false, false, false);
+    				dispose = listen_dev(button, "click", click_handler_6, false, false, false);
     				mounted = true;
     			}
     		},
@@ -33613,17 +33649,17 @@ var app = (function () {
     		block,
     		id: create_if_block_3$3.name,
     		type: "if",
-    		source: "(268:9) {#if hero === 'unknown'}",
+    		source: "(275:9) {#if hero === 'unknown'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (266:8) {#each comp.lines[openLine].heroes as  hero, i}
+    // (273:8) {#each comp.lines[openLine].heroes as  hero, i}
     function create_each_block_2$2(ctx) {
     	let if_block_anchor;
-    	let if_block = /*i*/ ctx[58] < 2 && create_if_block_2$3(ctx);
+    	let if_block = /*i*/ ctx[61] < 2 && create_if_block_2$3(ctx);
 
     	const block = {
     		c: function create() {
@@ -33635,7 +33671,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (/*i*/ ctx[58] < 2) if_block.p(ctx, dirty);
+    			if (/*i*/ ctx[61] < 2) if_block.p(ctx, dirty);
     		},
     		d: function destroy(detaching) {
     			if (if_block) if_block.d(detaching);
@@ -33647,14 +33683,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2$2.name,
     		type: "each",
-    		source: "(266:8) {#each comp.lines[openLine].heroes as  hero, i}",
+    		source: "(273:8) {#each comp.lines[openLine].heroes as  hero, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (304:8) {#each sub.heroes as hero, j}
+    // (312:8) {#each sub.heroes as hero, j}
     function create_each_block_1$3(ctx) {
     	let div;
     	let button1;
@@ -33672,31 +33708,31 @@ var app = (function () {
     	let dispose;
 
     	function func_6(...args) {
-    		return /*func_6*/ ctx[44](/*hero*/ ctx[59], ...args);
+    		return /*func_6*/ ctx[47](/*hero*/ ctx[62], ...args);
     	}
 
     	function func_7(...args) {
-    		return /*func_7*/ ctx[45](/*hero*/ ctx[59], ...args);
+    		return /*func_7*/ ctx[48](/*hero*/ ctx[62], ...args);
     	}
 
     	function func_8(...args) {
-    		return /*func_8*/ ctx[46](/*hero*/ ctx[59], ...args);
+    		return /*func_8*/ ctx[49](/*hero*/ ctx[62], ...args);
     	}
 
     	function func_9(...args) {
-    		return /*func_9*/ ctx[47](/*hero*/ ctx[59], ...args);
+    		return /*func_9*/ ctx[50](/*hero*/ ctx[62], ...args);
     	}
 
-    	function click_handler_9() {
-    		return /*click_handler_9*/ ctx[48](/*i*/ ctx[58], /*j*/ ctx[61]);
+    	function click_handler_11() {
+    		return /*click_handler_11*/ ctx[51](/*i*/ ctx[61], /*j*/ ctx[64]);
     	}
 
-    	function click_handler_10() {
-    		return /*click_handler_10*/ ctx[49](/*i*/ ctx[58], /*j*/ ctx[61], /*hero*/ ctx[59]);
+    	function click_handler_12() {
+    		return /*click_handler_12*/ ctx[52](/*i*/ ctx[61], /*j*/ ctx[64], /*hero*/ ctx[62]);
     	}
 
     	function func_10(...args) {
-    		return /*func_10*/ ctx[50](/*hero*/ ctx[59], ...args);
+    		return /*func_10*/ ctx[53](/*hero*/ ctx[62], ...args);
     	}
 
     	const block = {
@@ -33720,17 +33756,17 @@ var app = (function () {
     			? /*$HeroData*/ ctx[7].find(func_9).name
     			: "Pick a Hero");
 
-    			attr_dev(img, "class", "svelte-p5hqs");
-    			add_location(img, file$8, 306, 11, 10477);
-    			add_location(span, file$8, 309, 80, 10812);
-    			attr_dev(button0, "class", "subRemoveButton svelte-p5hqs");
-    			add_location(button0, file$8, 309, 11, 10743);
-    			attr_dev(button1, "class", "heroButton svelte-p5hqs");
-    			add_location(button1, file$8, 305, 10, 10259);
-    			attr_dev(p, "class", "svelte-p5hqs");
-    			add_location(p, file$8, 311, 10, 10868);
+    			attr_dev(img, "class", "svelte-twpr7w");
+    			add_location(img, file$8, 314, 11, 10927);
+    			add_location(span, file$8, 317, 95, 11277);
+    			attr_dev(button0, "class", "removeHeroButton subHeroButton svelte-twpr7w");
+    			add_location(button0, file$8, 317, 11, 11193);
+    			attr_dev(button1, "class", "heroButton svelte-twpr7w");
+    			add_location(button1, file$8, 313, 10, 10709);
+    			attr_dev(p, "class", "svelte-twpr7w");
+    			add_location(p, file$8, 319, 10, 11333);
     			attr_dev(div, "class", "subGroupMember");
-    			add_location(div, file$8, 304, 9, 10219);
+    			add_location(div, file$8, 312, 9, 10669);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -33745,8 +33781,8 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button0, "click", click_handler_9, false, false, false),
-    					listen_dev(button1, "click", click_handler_10, false, false, false)
+    					listen_dev(button0, "click", click_handler_11, false, false, false),
+    					listen_dev(button1, "click", click_handler_12, false, false, false)
     				];
 
     				mounted = true;
@@ -33780,14 +33816,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$3.name,
     		type: "each",
-    		source: "(304:8) {#each sub.heroes as hero, j}",
+    		source: "(312:8) {#each sub.heroes as hero, j}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (297:5) {#each comp.subs as sub, i}
+    // (305:5) {#each comp.subs as sub, i}
     function create_each_block$6(ctx) {
     	let div2;
     	let div0;
@@ -33802,14 +33838,14 @@ var app = (function () {
     	let dispose;
 
     	function input_input_handler_1() {
-    		/*input_input_handler_1*/ ctx[42].call(input, /*each_value*/ ctx[57], /*i*/ ctx[58]);
+    		/*input_input_handler_1*/ ctx[45].call(input, /*each_value*/ ctx[60], /*i*/ ctx[61]);
     	}
 
-    	function click_handler_8(...args) {
-    		return /*click_handler_8*/ ctx[43](/*i*/ ctx[58], ...args);
+    	function click_handler_10(...args) {
+    		return /*click_handler_10*/ ctx[46](/*i*/ ctx[61], ...args);
     	}
 
-    	let each_value_1 = /*sub*/ ctx[56].heroes;
+    	let each_value_1 = /*sub*/ ctx[59].heroes;
     	validate_each_argument(each_value_1);
     	let each_blocks = [];
 
@@ -33817,8 +33853,8 @@ var app = (function () {
     		each_blocks[i] = create_each_block_1$3(get_each_context_1$3(ctx, each_value_1, i));
     	}
 
-    	function click_handler_11() {
-    		return /*click_handler_11*/ ctx[51](/*i*/ ctx[58], /*sub*/ ctx[56]);
+    	function click_handler_13() {
+    		return /*click_handler_13*/ ctx[54](/*i*/ ctx[61], /*sub*/ ctx[59]);
     	}
 
     	const block = {
@@ -33839,26 +33875,26 @@ var app = (function () {
     			t3 = space();
     			button1 = element("button");
     			button1.textContent = "+";
-    			attr_dev(input, "class", "subTitleInput svelte-p5hqs");
+    			attr_dev(input, "class", "subTitleInput svelte-twpr7w");
     			attr_dev(input, "type", "text");
     			attr_dev(input, "placeholder", "Subgroup Name");
-    			add_location(input, file$8, 299, 8, 9927);
-    			attr_dev(button0, "class", "removeButton svelte-p5hqs");
-    			add_location(button0, file$8, 300, 8, 10028);
-    			attr_dev(div0, "class", "subTitle svelte-p5hqs");
-    			add_location(div0, file$8, 298, 7, 9895);
-    			attr_dev(button1, "class", "addHeroButton svelte-p5hqs");
-    			add_location(button1, file$8, 314, 8, 10960);
-    			attr_dev(div1, "class", "subLine svelte-p5hqs");
-    			add_location(div1, file$8, 302, 7, 10148);
-    			attr_dev(div2, "class", "subGroup svelte-p5hqs");
-    			add_location(div2, file$8, 297, 6, 9864);
+    			add_location(input, file$8, 307, 8, 10377);
+    			attr_dev(button0, "class", "removeButton svelte-twpr7w");
+    			add_location(button0, file$8, 308, 8, 10478);
+    			attr_dev(div0, "class", "subTitle svelte-twpr7w");
+    			add_location(div0, file$8, 306, 7, 10345);
+    			attr_dev(button1, "class", "addHeroButton svelte-twpr7w");
+    			add_location(button1, file$8, 322, 8, 11425);
+    			attr_dev(div1, "class", "subLine svelte-twpr7w");
+    			add_location(div1, file$8, 310, 7, 10598);
+    			attr_dev(div2, "class", "subGroup svelte-twpr7w");
+    			add_location(div2, file$8, 305, 6, 10314);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
     			append_dev(div2, div0);
     			append_dev(div0, input);
-    			set_input_value(input, /*sub*/ ctx[56].name);
+    			set_input_value(input, /*sub*/ ctx[59].name);
     			append_dev(div0, t0);
     			append_dev(div0, button0);
     			append_dev(div2, t2);
@@ -33874,8 +33910,8 @@ var app = (function () {
     			if (!mounted) {
     				dispose = [
     					listen_dev(input, "input", input_input_handler_1),
-    					listen_dev(button0, "click", click_handler_8, false, false, false),
-    					listen_dev(button1, "click", click_handler_11, false, false, false)
+    					listen_dev(button0, "click", click_handler_10, false, false, false),
+    					listen_dev(button1, "click", click_handler_13, false, false, false)
     				];
 
     				mounted = true;
@@ -33884,12 +33920,12 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*comp*/ 1 && input.value !== /*sub*/ ctx[56].name) {
-    				set_input_value(input, /*sub*/ ctx[56].name);
+    			if (dirty[0] & /*comp*/ 1 && input.value !== /*sub*/ ctx[59].name) {
+    				set_input_value(input, /*sub*/ ctx[59].name);
     			}
 
     			if (dirty[0] & /*$HeroData, comp, openHeroFinder, updateSubHero, closeHeroFinder, removeSubHero*/ 884865) {
-    				each_value_1 = /*sub*/ ctx[56].heroes;
+    				each_value_1 = /*sub*/ ctx[59].heroes;
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -33924,14 +33960,14 @@ var app = (function () {
     		block,
     		id: create_each_block$6.name,
     		type: "each",
-    		source: "(297:5) {#each comp.subs as sub, i}",
+    		source: "(305:5) {#each comp.subs as sub, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (332:2) {#if heroFinderOpen}
+    // (340:2) {#if heroFinderOpen}
     function create_if_block$7(ctx) {
     	let herofinder;
     	let current;
@@ -33972,7 +34008,7 @@ var app = (function () {
     		block,
     		id: create_if_block$7.name,
     		type: "if",
-    		source: "(332:2) {#if heroFinderOpen}",
+    		source: "(340:2) {#if heroFinderOpen}",
     		ctx
     	});
 
@@ -34120,69 +34156,69 @@ var app = (function () {
     			section2 = element("section");
     			div11 = element("div");
     			t24 = text$1(/*statusMessage*/ ctx[2]);
-    			attr_dev(input0, "class", "titleInput svelte-p5hqs");
+    			attr_dev(input0, "class", "titleInput svelte-twpr7w");
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "placeholder", "Title");
-    			add_location(input0, file$8, 221, 3, 5999);
-    			attr_dev(input1, "class", "authorInput svelte-p5hqs");
+    			add_location(input0, file$8, 227, 3, 6189);
+    			attr_dev(input1, "class", "authorInput svelte-twpr7w");
     			attr_dev(input1, "type", "text");
     			attr_dev(input1, "placeholder", "Author");
-    			add_location(input1, file$8, 222, 3, 6085);
-    			attr_dev(div0, "class", "editorHead svelte-p5hqs");
-    			add_location(div0, file$8, 220, 2, 5970);
-    			attr_dev(h40, "class", "lineEditorTitle svelte-p5hqs");
-    			add_location(h40, file$8, 229, 4, 6345);
-    			attr_dev(button0, "class", "linePickerOption addLineButton svelte-p5hqs");
-    			add_location(button0, file$8, 237, 5, 6714);
-    			attr_dev(div1, "class", "lineEditHead svelte-p5hqs");
-    			add_location(div1, file$8, 230, 4, 6389);
-    			attr_dev(div2, "class", "lineEditBody svelte-p5hqs");
-    			add_location(div2, file$8, 239, 4, 6808);
-    			attr_dev(div3, "class", "lineEditor svelte-p5hqs");
-    			add_location(div3, file$8, 228, 3, 6315);
-    			attr_dev(h41, "class", "svelte-p5hqs");
-    			add_location(h41, file$8, 288, 4, 9530);
+    			add_location(input1, file$8, 228, 3, 6275);
+    			attr_dev(div0, "class", "editorHead svelte-twpr7w");
+    			add_location(div0, file$8, 226, 2, 6160);
+    			attr_dev(h40, "class", "lineEditorTitle svelte-twpr7w");
+    			add_location(h40, file$8, 235, 4, 6535);
+    			attr_dev(button0, "class", "linePickerOption addLineButton svelte-twpr7w");
+    			add_location(button0, file$8, 243, 5, 6904);
+    			attr_dev(div1, "class", "lineEditHead svelte-twpr7w");
+    			add_location(div1, file$8, 236, 4, 6579);
+    			attr_dev(div2, "class", "lineEditBody svelte-twpr7w");
+    			add_location(div2, file$8, 245, 4, 6998);
+    			attr_dev(div3, "class", "lineEditor svelte-twpr7w");
+    			add_location(div3, file$8, 234, 3, 6505);
+    			attr_dev(h41, "class", "svelte-twpr7w");
+    			add_location(h41, file$8, 296, 4, 9980);
     			attr_dev(textarea, "id", "descInput");
-    			attr_dev(textarea, "class", "descInput svelte-p5hqs");
+    			attr_dev(textarea, "class", "descInput svelte-twpr7w");
     			attr_dev(textarea, "placeholder", "Description");
-    			add_location(textarea, file$8, 289, 4, 9556);
-    			attr_dev(div4, "class", "descEditor svelte-p5hqs");
-    			add_location(div4, file$8, 287, 3, 9500);
-    			attr_dev(div5, "class", "row1 svelte-p5hqs");
-    			add_location(div5, file$8, 227, 2, 6292);
-    			attr_dev(h42, "class", "svelte-p5hqs");
-    			add_location(h42, file$8, 294, 4, 9770);
-    			attr_dev(button1, "class", "subAddButton svelte-p5hqs");
-    			add_location(button1, file$8, 319, 6, 11227);
-    			attr_dev(div6, "class", "newSubArea svelte-p5hqs");
-    			add_location(div6, file$8, 318, 5, 11195);
-    			attr_dev(div7, "class", "subContainer svelte-p5hqs");
-    			add_location(div7, file$8, 295, 4, 9796);
+    			add_location(textarea, file$8, 297, 4, 10006);
+    			attr_dev(div4, "class", "descEditor svelte-twpr7w");
+    			add_location(div4, file$8, 295, 3, 9950);
+    			attr_dev(div5, "class", "row1 svelte-twpr7w");
+    			add_location(div5, file$8, 233, 2, 6482);
+    			attr_dev(h42, "class", "svelte-twpr7w");
+    			add_location(h42, file$8, 302, 4, 10220);
+    			attr_dev(button1, "class", "subAddButton svelte-twpr7w");
+    			add_location(button1, file$8, 327, 6, 11692);
+    			attr_dev(div6, "class", "newSubArea svelte-twpr7w");
+    			add_location(div6, file$8, 326, 5, 11660);
+    			attr_dev(div7, "class", "subContainer svelte-twpr7w");
+    			add_location(div7, file$8, 303, 4, 10246);
     			attr_dev(div8, "class", "subEditor");
-    			add_location(div8, file$8, 293, 3, 9741);
+    			add_location(div8, file$8, 301, 3, 10191);
     			attr_dev(div9, "class", "row2");
-    			add_location(div9, file$8, 292, 2, 9718);
-    			attr_dev(button2, "class", "footerButton draftButton svelte-p5hqs");
-    			add_location(button2, file$8, 325, 3, 11377);
-    			attr_dev(button3, "class", "footerButton saveButton svelte-p5hqs");
-    			add_location(button3, file$8, 326, 3, 11463);
-    			attr_dev(button4, "class", "footerButton cancelButton svelte-p5hqs");
-    			add_location(button4, file$8, 327, 3, 11574);
-    			attr_dev(div10, "class", "footer svelte-p5hqs");
-    			add_location(div10, file$8, 324, 2, 11352);
+    			add_location(div9, file$8, 300, 2, 10168);
+    			attr_dev(button2, "class", "footerButton draftButton svelte-twpr7w");
+    			add_location(button2, file$8, 333, 3, 11842);
+    			attr_dev(button3, "class", "footerButton saveButton svelte-twpr7w");
+    			add_location(button3, file$8, 334, 3, 11928);
+    			attr_dev(button4, "class", "footerButton cancelButton svelte-twpr7w");
+    			add_location(button4, file$8, 335, 3, 12039);
+    			attr_dev(div10, "class", "footer svelte-twpr7w");
+    			add_location(div10, file$8, 332, 2, 11817);
     			attr_dev(section0, "class", "sect1");
-    			add_location(section0, file$8, 219, 1, 5943);
-    			attr_dev(section1, "class", "sect2 svelte-p5hqs");
+    			add_location(section0, file$8, 225, 1, 6133);
+    			attr_dev(section1, "class", "sect2 svelte-twpr7w");
     			toggle_class(section1, "visible", /*heroFinderOpen*/ ctx[5]);
-    			add_location(section1, file$8, 330, 1, 11679);
-    			attr_dev(div11, "class", "statusMessage svelte-p5hqs");
+    			add_location(section1, file$8, 338, 1, 12144);
+    			attr_dev(div11, "class", "statusMessage svelte-twpr7w");
     			toggle_class(div11, "visible", /*showStatusMessage*/ ctx[3]);
     			toggle_class(div11, "error", /*statusError*/ ctx[4]);
-    			add_location(div11, file$8, 336, 2, 11846);
-    			attr_dev(section2, "class", "sect3 svelte-p5hqs");
-    			add_location(section2, file$8, 335, 1, 11819);
-    			attr_dev(div12, "class", "editorContainer svelte-p5hqs");
-    			add_location(div12, file$8, 218, 0, 5911);
+    			add_location(div11, file$8, 344, 2, 12311);
+    			attr_dev(section2, "class", "sect3 svelte-twpr7w");
+    			add_location(section2, file$8, 343, 1, 12284);
+    			attr_dev(div12, "class", "editorContainer svelte-twpr7w");
+    			add_location(div12, file$8, 224, 0, 6101);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$4("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -34252,15 +34288,15 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(window_1$2, "popstate", /*handlePopState*/ ctx[20], false, false, false),
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[23]),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[24]),
+    					listen_dev(window_1$2, "popstate", /*handlePopState*/ ctx[21], false, false, false),
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[24]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[25]),
     					listen_dev(button0, "click", /*addLine*/ ctx[10], false, false, false),
-    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[40]),
-    					listen_dev(textarea, "input", /*input_handler*/ ctx[41], false, false, false),
+    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[43]),
+    					listen_dev(textarea, "input", /*input_handler*/ ctx[44], false, false, false),
     					listen_dev(button1, "click", /*addSub*/ ctx[11], false, false, false),
     					listen_dev(button2, "click", /*saveDraft*/ ctx[14], false, false, false),
-    					listen_dev(button3, "click", /*click_handler_12*/ ctx[52], false, false, false),
+    					listen_dev(button3, "click", /*click_handler_14*/ ctx[55], false, false, false),
     					listen_dev(button4, "click", /*cancelEdit*/ ctx[12], false, false, false)
     				];
 
@@ -34435,7 +34471,7 @@ var app = (function () {
     	let $AppData;
     	let $HeroData;
     	validate_store(AppData$1, "AppData");
-    	component_subscribe($$self, AppData$1, $$value => $$invalidate(54, $AppData = $$value));
+    	component_subscribe($$self, AppData$1, $$value => $$invalidate(57, $AppData = $$value));
     	validate_store(HeroData, "HeroData");
     	component_subscribe($$self, HeroData, $$value => $$invalidate(7, $HeroData = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -34618,7 +34654,7 @@ var app = (function () {
     				// adding a new comp
     				set_store_value(AppData$1, $AppData.Comps = [...$AppData.Comps, comp], $AppData);
 
-    				$$invalidate(21, compID = comp.uuid);
+    				$$invalidate(22, compID = comp.uuid);
     			}
 
     			onSuccess();
@@ -34690,6 +34726,12 @@ var app = (function () {
     		$$invalidate(0, comp.subs[subIdx].heroes = comp.subs[subIdx].heroes.filter((e, i) => i !== heroIdx), comp);
     	}
 
+    	function removeLineHero(lineIdx, heroIdx) {
+    		const heroID = comp.lines[lineIdx].heroes[heroIdx];
+    		$$invalidate(0, comp.lines[lineIdx].heroes[heroIdx] = "unknown", comp);
+    		delete comp.heroes[heroID];
+    	}
+
     	function handlePopState() {
     		close();
     	}
@@ -34733,17 +34775,7 @@ var app = (function () {
 
     	const func = (hero, e) => e.id === hero;
     	const func_1 = (hero, e) => e.id === hero;
-
-    	const click_handler_3 = (i, hero) => openHeroFinder({
-    		idx: openLine,
-    		pos: i,
-    		onSuccess: updateLineHero,
-    		close: closeHeroFinder,
-    		oldHeroID: hero,
-    		compHeroData: comp.heroes
-    	});
-
-    	const func_2 = (hero, e) => e.id === hero;
+    	const click_handler_3 = i => removeLineHero(openLine, i);
 
     	const click_handler_4 = (i, hero) => openHeroFinder({
     		idx: openLine,
@@ -34754,7 +34786,18 @@ var app = (function () {
     		compHeroData: comp.heroes
     	});
 
-    	const click_handler_5 = i => openHeroFinder({
+    	const func_2 = (hero, e) => e.id === hero;
+
+    	const click_handler_5 = (i, hero) => openHeroFinder({
+    		idx: openLine,
+    		pos: i,
+    		onSuccess: updateLineHero,
+    		close: closeHeroFinder,
+    		oldHeroID: hero,
+    		compHeroData: comp.heroes
+    	});
+
+    	const click_handler_6 = i => openHeroFinder({
     		idx: openLine,
     		pos: i,
     		onSuccess: updateLineHero,
@@ -34764,8 +34807,9 @@ var app = (function () {
 
     	const func_3 = (hero, e) => e.id === hero;
     	const func_4 = (hero, e) => e.id === hero;
+    	const click_handler_7 = i => removeLineHero(openLine, i);
 
-    	const click_handler_6 = (i, hero) => openHeroFinder({
+    	const click_handler_8 = (i, hero) => openHeroFinder({
     		idx: openLine,
     		pos: i,
     		onSuccess: updateLineHero,
@@ -34776,7 +34820,7 @@ var app = (function () {
 
     	const func_5 = (hero, e) => e.id === hero;
 
-    	const click_handler_7 = (i, hero) => openHeroFinder({
+    	const click_handler_9 = (i, hero) => openHeroFinder({
     		idx: openLine,
     		pos: i,
     		onSuccess: updateLineHero,
@@ -34798,7 +34842,7 @@ var app = (function () {
     		$$invalidate(0, comp);
     	}
 
-    	const click_handler_8 = (i, e) => {
+    	const click_handler_10 = (i, e) => {
     		deleteSub(i);
     		e.stopPropagation();
     	};
@@ -34807,9 +34851,9 @@ var app = (function () {
     	const func_7 = (hero, e) => e.id === hero;
     	const func_8 = (hero, e) => e.id === hero;
     	const func_9 = (hero, e) => e.id === hero;
-    	const click_handler_9 = (i, j) => removeSubHero(i, j);
+    	const click_handler_11 = (i, j) => removeSubHero(i, j);
 
-    	const click_handler_10 = (i, j, hero) => openHeroFinder({
+    	const click_handler_12 = (i, j, hero) => openHeroFinder({
     		idx: i,
     		pos: j,
     		onSuccess: updateSubHero,
@@ -34821,7 +34865,7 @@ var app = (function () {
 
     	const func_10 = (hero, e) => e.id === hero;
 
-    	const click_handler_11 = (i, sub) => openHeroFinder({
+    	const click_handler_13 = (i, sub) => openHeroFinder({
     		idx: i,
     		pos: sub.heroes.length,
     		onSuccess: updateSubHero,
@@ -34829,14 +34873,14 @@ var app = (function () {
     		compHeroData: comp.heroes
     	});
 
-    	const click_handler_12 = () => {
+    	const click_handler_14 = () => {
     		$$invalidate(0, comp.draft = false, comp);
     		saveEdit();
     	};
 
     	$$self.$$set = $$props => {
-    		if ("compID" in $$props) $$invalidate(21, compID = $$props.compID);
-    		if ("onSuccess" in $$props) $$invalidate(22, onSuccess = $$props.onSuccess);
+    		if ("compID" in $$props) $$invalidate(22, compID = $$props.compID);
+    		if ("onSuccess" in $$props) $$invalidate(23, onSuccess = $$props.onSuccess);
     	};
 
     	$$self.$capture_state = () => ({
@@ -34873,14 +34917,15 @@ var app = (function () {
     		updateLineHero,
     		updateSubHero,
     		removeSubHero,
+    		removeLineHero,
     		handlePopState,
     		$AppData,
     		$HeroData
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("compID" in $$props) $$invalidate(21, compID = $$props.compID);
-    		if ("onSuccess" in $$props) $$invalidate(22, onSuccess = $$props.onSuccess);
+    		if ("compID" in $$props) $$invalidate(22, compID = $$props.compID);
+    		if ("onSuccess" in $$props) $$invalidate(23, onSuccess = $$props.onSuccess);
     		if ("comp" in $$props) $$invalidate(0, comp = $$props.comp);
     		if ("openLine" in $$props) $$invalidate(1, openLine = $$props.openLine);
     		if ("statusMessage" in $$props) $$invalidate(2, statusMessage = $$props.statusMessage);
@@ -34916,6 +34961,7 @@ var app = (function () {
     		updateLineHero,
     		updateSubHero,
     		removeSubHero,
+    		removeLineHero,
     		handlePopState,
     		compID,
     		onSuccess,
@@ -34928,34 +34974,36 @@ var app = (function () {
     		func,
     		func_1,
     		click_handler_3,
-    		func_2,
     		click_handler_4,
+    		func_2,
     		click_handler_5,
+    		click_handler_6,
     		func_3,
     		func_4,
-    		click_handler_6,
-    		func_5,
     		click_handler_7,
+    		click_handler_8,
+    		func_5,
+    		click_handler_9,
     		textarea_input_handler,
     		input_handler,
     		input_input_handler_1,
-    		click_handler_8,
+    		click_handler_10,
     		func_6,
     		func_7,
     		func_8,
     		func_9,
-    		click_handler_9,
-    		click_handler_10,
-    		func_10,
     		click_handler_11,
-    		click_handler_12
+    		click_handler_12,
+    		func_10,
+    		click_handler_13,
+    		click_handler_14
     	];
     }
 
     class CompEditor extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$8, create_fragment$8, safe_not_equal, { compID: 21, onSuccess: 22 }, [-1, -1, -1]);
+    		init(this, options, instance$8, create_fragment$8, safe_not_equal, { compID: 22, onSuccess: 23 }, [-1, -1, -1]);
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
