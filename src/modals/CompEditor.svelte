@@ -473,9 +473,14 @@
 		width: 100%;
 	}
 	.noLine {
+		color: rgba(100, 100, 100, 0.5);
+		font-size: 1rem;
+		font-weight: bold;
 		-ms-user-select: none;
-		user-select: none;
+		text-align: center;
+		text-transform: uppercase;
 		-webkit-user-select: none;
+		width: 100%;
 	}
 	.lineNameInput {
 		text-align: center;
