@@ -39392,7 +39392,7 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			t = text$1("Just start typing to search! Pressing tab will open and close the filter area too.");
+    			t = text$1("Just start typing to search! Pressing tab will also open and close the filter area.");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, t, anchor);
@@ -39535,47 +39535,47 @@ var app = (function () {
     			if (img0.src !== (img0_src_value = /*hero*/ ctx[41].portrait)) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", img0_alt_value = /*hero*/ ctx[41].name);
     			toggle_class(img0, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[41].id].claimed);
-    			add_location(img0, file$4, 316, 6, 13527);
+    			add_location(img0, file$4, 316, 6, 13528);
     			attr_dev(p, "class", "heroName svelte-13z2rbw");
-    			add_location(p, file$4, 317, 6, 13714);
+    			add_location(p, file$4, 317, 6, 13715);
     			attr_dev(td0, "class", "svelte-13z2rbw");
-    			add_location(td0, file$4, 315, 5, 13515);
+    			add_location(td0, file$4, 315, 5, 13516);
     			attr_dev(img1, "class", "attrImage factionImg svelte-13z2rbw");
     			if (img1.src !== (img1_src_value = "./img/factions/" + /*hero*/ ctx[41].faction.toLowerCase() + ".png")) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", img1_alt_value = /*hero*/ ctx[41].faction);
-    			add_location(img1, file$4, 321, 7, 13831);
+    			add_location(img1, file$4, 321, 7, 13832);
     			attr_dev(span0, "class", "tooltipText svelte-13z2rbw");
-    			add_location(span0, file$4, 322, 40, 13982);
+    			add_location(span0, file$4, 322, 40, 13983);
     			attr_dev(div0, "class", "tooltip tooltip-top svelte-13z2rbw");
-    			add_location(div0, file$4, 322, 7, 13949);
+    			add_location(div0, file$4, 322, 7, 13950);
     			attr_dev(div1, "class", "factionArea svelte-13z2rbw");
-    			add_location(div1, file$4, 320, 6, 13797);
+    			add_location(div1, file$4, 320, 6, 13798);
     			attr_dev(img2, "class", "attrImage svelte-13z2rbw");
     			if (img2.src !== (img2_src_value = "./img/types/" + /*hero*/ ctx[41].type.toLowerCase() + ".png")) attr_dev(img2, "src", img2_src_value);
     			attr_dev(img2, "alt", img2_alt_value = /*hero*/ ctx[41].type);
-    			add_location(img2, file$4, 325, 7, 14093);
+    			add_location(img2, file$4, 325, 7, 14094);
     			attr_dev(span1, "class", "tooltipText svelte-13z2rbw");
-    			add_location(span1, file$4, 326, 40, 14222);
+    			add_location(span1, file$4, 326, 40, 14223);
     			attr_dev(div2, "class", "tooltip tooltip-bot svelte-13z2rbw");
-    			add_location(div2, file$4, 326, 7, 14189);
+    			add_location(div2, file$4, 326, 7, 14190);
     			attr_dev(img3, "class", "attrImage svelte-13z2rbw");
     			if (img3.src !== (img3_src_value = "./img/classes/" + /*hero*/ ctx[41].class.toLowerCase() + ".png")) attr_dev(img3, "src", img3_src_value);
     			attr_dev(img3, "alt", img3_alt_value = /*hero*/ ctx[41].class);
-    			add_location(img3, file$4, 327, 7, 14281);
+    			add_location(img3, file$4, 327, 7, 14282);
     			attr_dev(span2, "class", "tooltipText svelte-13z2rbw");
-    			add_location(span2, file$4, 328, 40, 14414);
+    			add_location(span2, file$4, 328, 40, 14415);
     			attr_dev(div3, "class", "tooltip tooltip-bot svelte-13z2rbw");
-    			add_location(div3, file$4, 328, 7, 14381);
+    			add_location(div3, file$4, 328, 7, 14382);
     			attr_dev(div4, "class", "typeClassArea svelte-13z2rbw");
-    			add_location(div4, file$4, 324, 6, 14057);
+    			add_location(div4, file$4, 324, 6, 14058);
     			attr_dev(td1, "class", "attrArea svelte-13z2rbw");
-    			add_location(td1, file$4, 319, 5, 13768);
+    			add_location(td1, file$4, 319, 5, 13769);
     			attr_dev(td2, "class", "svelte-13z2rbw");
-    			add_location(td2, file$4, 331, 5, 14498);
+    			add_location(td2, file$4, 331, 5, 14499);
     			attr_dev(td3, "class", "svelte-13z2rbw");
-    			add_location(td3, file$4, 334, 5, 14592);
+    			add_location(td3, file$4, 334, 5, 14593);
     			attr_dev(tr, "class", "heroRow svelte-13z2rbw");
-    			add_location(tr, file$4, 314, 4, 13413);
+    			add_location(tr, file$4, 314, 4, 13414);
     			this.first = tr;
     		},
     		m: function mount(target, anchor) {
@@ -40100,22 +40100,22 @@ var app = (function () {
     			attr_dev(section0, "class", "sect1 svelte-13z2rbw");
     			add_location(section0, file$4, 226, 1, 7992);
     			attr_dev(th0, "class", "sortHeader svelte-13z2rbw");
-    			add_location(th0, file$4, 308, 5, 13060);
+    			add_location(th0, file$4, 308, 5, 13061);
     			attr_dev(th1, "class", "nonSortHeader svelte-13z2rbw");
-    			add_location(th1, file$4, 309, 5, 13142);
+    			add_location(th1, file$4, 309, 5, 13143);
     			attr_dev(span2, "class", "hiddenMobile svelte-13z2rbw");
-    			add_location(span2, file$4, 310, 34, 13219);
+    			add_location(span2, file$4, 310, 34, 13220);
     			attr_dev(th2, "class", "nonSortHeader svelte-13z2rbw");
-    			add_location(th2, file$4, 310, 5, 13190);
+    			add_location(th2, file$4, 310, 5, 13191);
     			attr_dev(span3, "class", "hiddenMobile svelte-13z2rbw");
-    			add_location(span3, file$4, 311, 36, 13305);
+    			add_location(span3, file$4, 311, 36, 13306);
     			attr_dev(th3, "class", "nonSortHeader svelte-13z2rbw");
-    			add_location(th3, file$4, 311, 5, 13274);
-    			add_location(tr, file$4, 307, 4, 13049);
+    			add_location(th3, file$4, 311, 5, 13275);
+    			add_location(tr, file$4, 307, 4, 13050);
     			attr_dev(table, "class", "heroTable svelte-13z2rbw");
-    			add_location(table, file$4, 306, 3, 13018);
+    			add_location(table, file$4, 306, 3, 13019);
     			attr_dev(div9, "class", "tableContainer svelte-13z2rbw");
-    			add_location(div9, file$4, 305, 2, 12985);
+    			add_location(div9, file$4, 305, 2, 12986);
     			attr_dev(section1, "class", "sect2 svelte-13z2rbw");
     			add_location(section1, file$4, 295, 1, 12557);
     			attr_dev(div10, "class", "HLContainer svelte-13z2rbw");

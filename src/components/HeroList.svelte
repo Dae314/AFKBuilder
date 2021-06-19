@@ -298,7 +298,7 @@
 			<div class="searchInfo" transition:fade="{{duration: 200}}">
 				<div class="tutorialBoxContainer">
 					<TutorialBox clickable={true} onClick={() => {$AppData.dismissHLSearchInfo = true; dispatch('saveData');}}>
-						Just start typing to search! Pressing tab will open and close the filter area too.
+						Just start typing to search! Pressing tab will also open and close the filter area.
 					</TutorialBox>
 				</div>
 			</div>
