@@ -49,8 +49,10 @@
 			unusedArtifacts = makeUnusedArtifactList();
 		}
 		heroes = makeHeroList();
-		await tick();
-		document.querySelector('#searchBox').focus();
+		if(section === 1) {
+			await tick();
+			document.querySelector('#searchBox').focus();
+		}
 	});
 
 	// filter variables
@@ -293,8 +295,16 @@
 				core: false,
 			};
 		}
-		section = 2;
+		changeSection(2);
 		unusedArtifacts = makeUnusedArtifactList();
+	}
+
+	async function changeSection(sectNum) {
+		section = sectNum;
+		if(section === 1) {
+			await tick();
+			document.querySelector('#searchBox').focus();
+		}
 	}
 </script>
 
@@ -383,7 +393,7 @@
 		{:else if section === 2}
 			<div class="section2">
 				<div class="heroEditHead">
-					<button class="backButton" on:click={() => section = 1}><span>&lt; Heroes</span></button>
+					<button class="backButton" on:click={() => changeSection(1)}><span>&lt; Heroes</span></button>
 					<div class="heroName">{$HeroData.find(e => e.id === selectedHero.id).name}</div>
 					<button class="saveButton" on:click={() => saveHero()}><span>Save</span></button>
 				</div>
