@@ -1,11 +1,13 @@
 <script>
 	import { getContext, onMount, createEventDispatcher } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
 	import SIFurnBox from '../shared/SIFurnBox.svelte';
+	import TutorialBox from '../shared/TutorialBox.svelte';
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
@@ -292,6 +294,15 @@
 		</div>
 	</section>
 	<section class="sect2">
+		{#if !$AppData.dismissHLSearchInfo}
+			<div class="searchInfo" transition:fade="{{duration: 200}}">
+				<div class="tutorialBoxContainer">
+					<TutorialBox clickable={true} onClick={() => {$AppData.dismissHLSearchInfo = true; dispatch('saveData');}}>
+						Just start typing to search! Pressing tab will open and close the filter area too.
+					</TutorialBox>
+				</div>
+			</div>
+		{/if}
 		<div class='tableContainer'>
 			<table class='heroTable'>
 				<tr>
@@ -345,6 +356,10 @@
 	}
 	.sect2 {
 		padding: 10px;
+	}
+	.searchInfo {
+		display: none;
+		visibility: hidden;
 	}
 	.filtersButton {
 		background-color: var(--appColorSecondary);
@@ -560,6 +575,16 @@
 			padding: 0;
 			padding-left: 50px;
 			width: 100%;
+		}
+		.searchInfo {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 10px;
+			visibility: visible;
+			width: 100%;
+		}
+		.tutorialBoxContainer {
+			width: 50%;
 		}
 		.mobileExpanderTitle {
 			height: auto;

@@ -208,6 +208,8 @@ function buildAppData(data) {
 		{name: 'activeView', default: 'comps'},
 		{name: 'selectedComp', default: null},
 		{name: 'dismissImportWarn', default: false},
+		{name: 'dismissHLSearchInfo', default: false},
+		{name: 'dismissMHSearchInfo', default: false},
 		{name: 'HL', default: {}},
 		{name: 'MH', default: {}},
 		{name: 'REC', default: {}},
