@@ -183,7 +183,7 @@
 		hfConfig = {};
 	}
 
-	function updateLineHero(idx, pos, hero) {
+	function updateLineHero(idx, pos, hero, oldHeroID) {
 		comp.lines[idx].heroes[pos] = hero.id;
 		comp.heroes[hero.id] = {
 			ascendLv: hero.ascendLv,
@@ -192,9 +192,11 @@
 			artifact: hero.artifact,
 			core: hero.core,
 		}
+		// check if the last reference to the old hero was replaced, and remove it if necessary
+		if(oldHeroID !== '' && oldHeroID !== hero.id) removeHeroesReference(oldHeroID);
 	}
 
-	function updateSubHero(idx, pos, hero) {
+	function updateSubHero(idx, pos, hero, oldHeroID) {
 		comp.subs[idx].heroes[pos] = hero.id;
 		comp.heroes[hero.id] = {
 			ascendLv: hero.ascendLv,
@@ -220,11 +222,11 @@
 	// function checks all subs and lines for reference to heroID and
 	// removes them from comp.heroes if no references are present
 	function removeHeroesReference(heroID) {
-		for(sub of comp.subs) {
+		for(const sub of comp.subs) {
 			// reference found in a sub line, abort removal
 			if(sub.heroes.includes(heroID)) return 0;
 		}
-		for(line of comp.lines) {
+		for(const line of comp.lines) {
 			// reference found in an example line, abort removal
 			if(line.heroes.includes(heroID)) return 0;
 		}

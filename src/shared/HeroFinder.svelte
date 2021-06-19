@@ -269,7 +269,7 @@
 			// message should contain a clean hero object now
 			selectedHero = returnObj.message;
 		}
-		onSuccess(idx, pos, selectedHero);
+		onSuccess(idx, pos, selectedHero, oldHeroID);
 		close();
 	}
 
