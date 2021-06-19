@@ -1,5 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import HeroData from '../stores/HeroData.js';
@@ -18,7 +18,7 @@
 	let close = () => {};
 	let section = 1;
 	let selectedHero = {};
-	let openFilters = false;
+	let openFilters = true;
 	let idx = 0;
 	let pos = 0;
 	let onSuccess = () => {};
@@ -49,6 +49,8 @@
 			unusedArtifacts = makeUnusedArtifactList();
 		}
 		heroes = makeHeroList();
+		await tick();
+		document.querySelector('#searchBox').focus();
 	});
 
 	// filter variables
@@ -309,7 +311,7 @@
 				<div class="mobileExpander" class:filterOpen={openFilters}>
 					<div class="searchContainer">
 						<div class="search">
-							<input type="search" placeholder="Search" bind:value={searchStr} on:keyup={() => heroes = makeHeroList()} on:search={() => heroes = makeHeroList()}>
+							<input id="searchBox" type="search" placeholder="Search" bind:value={searchStr} on:keyup={() => heroes = makeHeroList()} on:search={() => heroes = makeHeroList()}>
 						</div>
 					</div>
 					<div class="filters">
