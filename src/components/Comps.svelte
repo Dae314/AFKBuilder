@@ -318,9 +318,15 @@
 									{#if $HeroData.some(e => e.id === hero)}
 										<img class="compCardImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 									{:else}
-										<img class="compCardImg" src="./img/portraits/unavailable.png" alt="Unknown">
+										<i class="emptyCardSlot"></i>
 									{/if}
 								{/each}
+							{:else}
+								<i class="emptyCardSlot"></i>
+								<i class="emptyCardSlot"></i>
+								<i class="emptyCardSlot"></i>
+								<i class="emptyCardSlot"></i>
+								<i class="emptyCardSlot"></i>
 							{/if}
 						</div>
 					</div>
@@ -378,7 +384,7 @@
 													</div>
 													<a href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
 												{:else}
-													<img class="lineImg" src="./img/portraits/unavailable.png" alt="Unknown">
+													<i class="emptyLineSlot"></i>
 												{/if}
 											{/if}
 										{/each}
@@ -395,7 +401,7 @@
 													</div>
 													<a href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
 												{:else}
-													<img class="lineImg" src="./img/portraits/unavailable.png" alt="Unknown">
+													<i class="emptyLineSlot"></i>
 												{/if}
 											{/if}
 										{/each}
@@ -784,6 +790,16 @@
 	.compCardImg.claimed {
 		border: 3px solid var(--appColorPrimary);
 	}
+	.emptyCardSlot {
+		background: transparent;
+		border: 3px solid var(--appColorPriAccent);
+		border-radius: 50%;
+		flex-grow: 0;
+		flex-shrink: 0;
+		height: 50px;
+		margin: 3px;
+		width: 50px;
+	}
 	.addButtonArea {
 		bottom: 0;
 		left: 0;
@@ -1018,6 +1034,16 @@
 	}
 	.lineImg.claimed {
 		border: 5px solid var(--appColorPrimary);
+	}
+	.emptyLineSlot {
+		background: transparent;
+		border: 3px solid var(--appColorPriAccent);
+		border-radius: 50%;
+		flex-grow: 0;
+		flex-shrink: 0;
+		height: 70px;
+		margin: 5px;
+		width: 70px;
 	}
 	.expanderButton {
 		background-color: var(--appColorSecondary);
