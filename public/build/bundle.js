@@ -46120,7 +46120,7 @@ var app = (function () {
 
     const app = new App({
     	target: document.body,
-    	props: {version: '0.9.10'}
+    	props: {version: '0.9.17'}
     });
 
     return app;
