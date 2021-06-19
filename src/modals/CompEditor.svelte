@@ -247,12 +247,9 @@
 								{#each comp.lines[openLine].heroes as  hero, i}
 								{#if i >= 2}
 									{#if hero === 'unknown'}
-										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
-											<div class="imgContainer">
-												<img src="./img/portraits/unavailable.png" alt="Pick">
-											</div>
+										<button class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
+											<span>+</span>
 										</button>
-										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>Pick</p>
 									{:else}
 										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<div class="imgContainer">
@@ -269,12 +266,9 @@
 								{#each comp.lines[openLine].heroes as  hero, i}
 								{#if i < 2}
 									{#if hero === 'unknown'}
-										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
-											<div class="imgContainer">
-												<img src="./img/portraits/unavailable.png" alt="Pick">
-											</div>
+										<button class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
+											<span>+</span>
 										</button>
-										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>Pick</p>
 									{:else}
 										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<div class="imgContainer">
@@ -498,6 +492,9 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+	}
+	.lineButton {
+		margin: 5px;
 	}
 	.heroButton {
 		background: transparent;
