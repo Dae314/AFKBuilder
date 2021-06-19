@@ -287,8 +287,8 @@
 			selectedHero = {
 				id: heroID,
 				ascendLv: 6,
-				si: 20,
-				furn: 3,
+				si: $HeroData.find(e => e.id === heroID).si_benchmark,
+				furn: $HeroData.find(e => e.id === heroID).furn_benchmark,
 				artifact: [],
 				core: false,
 			};
