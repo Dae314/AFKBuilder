@@ -206,7 +206,9 @@
 	}
 
 	function removeSubHero(subIdx, heroIdx) {
+		const heroID = comp.subs[subIdx].heroes[heroIdx];
 		comp.subs[subIdx].heroes = comp.subs[subIdx].heroes.filter((e, i) => i !== heroIdx);
+		delete comp.heroes[heroID];
 	}
 
 	function removeLineHero(lineIdx, heroIdx) {
