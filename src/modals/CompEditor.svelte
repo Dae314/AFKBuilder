@@ -208,12 +208,27 @@
 	function removeSubHero(subIdx, heroIdx) {
 		const heroID = comp.subs[subIdx].heroes[heroIdx];
 		comp.subs[subIdx].heroes = comp.subs[subIdx].heroes.filter((e, i) => i !== heroIdx);
-		delete comp.heroes[heroID];
+		removeHeroesReference(heroID);
 	}
 
 	function removeLineHero(lineIdx, heroIdx) {
 		const heroID = comp.lines[lineIdx].heroes[heroIdx];
 		comp.lines[lineIdx].heroes[heroIdx] = 'unknown';
+		removeHeroesReference(heroID);
+	}
+
+	// function checks all subs and lines for reference to heroID and
+	// removes them from comp.heroes if no references are present
+	function removeHeroesReference(heroID) {
+		for(sub of comp.subs) {
+			// reference found in a sub line, abort removal
+			if(sub.heroes.includes(heroID)) return 0;
+		}
+		for(line of comp.lines) {
+			// reference found in an example line, abort removal
+			if(line.heroes.includes(heroID)) return 0;
+		}
+		// no references found in any example or sub lines, OK to delete
 		delete comp.heroes[heroID];
 	}
 
