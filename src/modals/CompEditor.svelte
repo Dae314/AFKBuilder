@@ -183,7 +183,7 @@
 		hfConfig = {};
 	}
 
-	function updateLineHero(idx, pos, hero) {
+	function updateLineHero(idx, pos, hero, oldHeroID) {
 		comp.lines[idx].heroes[pos] = hero.id;
 		comp.heroes[hero.id] = {
 			ascendLv: hero.ascendLv,
@@ -192,9 +192,11 @@
 			artifact: hero.artifact,
 			core: hero.core,
 		}
+		// check if the last reference to the old hero was replaced, and remove it if necessary
+		if(oldHeroID !== '' && oldHeroID !== hero.id) removeHeroesReference(oldHeroID);
 	}
 
-	function updateSubHero(idx, pos, hero) {
+	function updateSubHero(idx, pos, hero, oldHeroID) {
 		comp.subs[idx].heroes[pos] = hero.id;
 		comp.heroes[hero.id] = {
 			ascendLv: hero.ascendLv,
@@ -206,7 +208,30 @@
 	}
 
 	function removeSubHero(subIdx, heroIdx) {
+		const heroID = comp.subs[subIdx].heroes[heroIdx];
 		comp.subs[subIdx].heroes = comp.subs[subIdx].heroes.filter((e, i) => i !== heroIdx);
+		removeHeroesReference(heroID);
+	}
+
+	function removeLineHero(lineIdx, heroIdx) {
+		const heroID = comp.lines[lineIdx].heroes[heroIdx];
+		comp.lines[lineIdx].heroes[heroIdx] = 'unknown';
+		removeHeroesReference(heroID);
+	}
+
+	// function checks all subs and lines for reference to heroID and
+	// removes them from comp.heroes if no references are present
+	function removeHeroesReference(heroID) {
+		for(const sub of comp.subs) {
+			// reference found in a sub line, abort removal
+			if(sub.heroes.includes(heroID)) return 0;
+		}
+		for(const line of comp.lines) {
+			// reference found in an example line, abort removal
+			if(line.heroes.includes(heroID)) return 0;
+		}
+		// no references found in any example or sub lines, OK to delete
+		delete comp.heroes[heroID];
 	}
 
 	function handlePopState() {
@@ -247,17 +272,15 @@
 								{#each comp.lines[openLine].heroes as  hero, i}
 								{#if i >= 2}
 									{#if hero === 'unknown'}
-										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
-											<div class="imgContainer">
-												<img src="./img/portraits/unavailable.png" alt="Pick">
-											</div>
+										<button class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
+											<span>+</span>
 										</button>
-										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>Pick</p>
 									{:else}
 										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<div class="imgContainer">
 												<img src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
+												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
 											</div>
 										</button>
 										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes,})}>{$HeroData.find(e => e.id === hero).name}</p>
@@ -269,17 +292,15 @@
 								{#each comp.lines[openLine].heroes as  hero, i}
 								{#if i < 2}
 									{#if hero === 'unknown'}
-										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
-											<div class="imgContainer">
-												<img src="./img/portraits/unavailable.png" alt="Pick">
-											</div>
+										<button class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
+											<span>+</span>
 										</button>
-										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>Pick</p>
 									{:else}
 										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<div class="imgContainer">
 												<img src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
+												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
 											</div>
 										</button>
 										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>{$HeroData.find(e => e.id === hero).name}</p>
@@ -313,7 +334,7 @@
 											<img
 												src={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).portrait : './img/portraits/unavailable.png'}
 												alt={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).name : 'Pick a Hero'}>
-											<button class="subRemoveButton" on:click={() => removeSubHero(i, j)}><span>x</span></button>
+											<button class="removeHeroButton subHeroButton" on:click={() => removeSubHero(i, j)}><span>x</span></button>
 										</button>
 										<p>{$HeroData.find(e => e.id === hero).name}</p>
 									</div>
@@ -453,7 +474,7 @@
 	}
 	.linePickerOption .removeButton {
 		align-items: center;
-		background-color: #aaa;
+		background-color: var(--appRemoveButtonColor);
 		border: none;
 		border-radius: 50%;
 		cursor: pointer;
@@ -479,9 +500,14 @@
 		width: 100%;
 	}
 	.noLine {
+		color: rgba(100, 100, 100, 0.5);
+		font-size: 1rem;
+		font-weight: bold;
 		-ms-user-select: none;
-		user-select: none;
+		text-align: center;
+		text-transform: uppercase;
 		-webkit-user-select: none;
+		width: 100%;
 	}
 	.lineNameInput {
 		text-align: center;
@@ -498,6 +524,9 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+	}
+	.lineButton {
+		margin: 5px;
 	}
 	.heroButton {
 		background: transparent;
@@ -530,6 +559,19 @@
 		pointer-events: none;
 		visibility: visible;
 	}
+	.removeHeroButton {
+		background-color: var(--appRemoveButtonColor);
+		border: none;
+		border-radius: 50%;
+		cursor: pointer;
+		outline: none;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	.removeHeroButton.lineHeroButton {
+		right: -6px;
+	}
 	.heroButton+p {
 		color: black;
 		font-size: 0.8rem;
@@ -560,7 +602,7 @@
 	}
 	.subTitle .removeButton {
 		align-items: center;
-		background-color: #aaa;
+		background-color: var(--appRemoveButtonColor);
 		border: none;
 		border-radius: 50%;
 		cursor: pointer;
@@ -620,16 +662,6 @@
 	}
 	.cancelButton {
 		margin-right: 0;
-	}
-	.subRemoveButton {
-		background-color: #aaa;
-		border: none;
-		border-radius: 50%;
-		cursor: pointer;
-		outline: none;
-		position: absolute;
-		right: 0;
-		top: 0;
 	}
 	@media only screen and (min-width: 767px) {
 		.row1 {
