@@ -79,9 +79,16 @@
 		border: 3px solid var(--appColorPrimary);
 		border-radius: 10px;
 		cursor: pointer;
-		margin-bottom: 10px;
 		scroll-snap-align: center;
 		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 0);
+	}
+	img {
+		user-drag: none; 
+		user-select: none;
+		-moz-user-select: none;
+		-webkit-user-drag: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
 	}
 	.compCard.highlight {
 		animation: flash 1s linear 3;

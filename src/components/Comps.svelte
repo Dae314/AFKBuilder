@@ -17,6 +17,7 @@
 	import SIFurnBox from '../shared/SIFurnBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import AscendBox from '../shared/AscendBox.svelte';
+	import SortableList from '../shared/SortableList.svelte';
 
 	const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",];
 	const jsurl = JsonUrl('lzma'); // json-url compressor
@@ -31,6 +32,7 @@
 	md.use(Emoji);
 
 	$: sortedCompList = $AppData.Comps.sort(sortByStars);
+	$: selectedUUID = $AppData.selectedComp !== null && $AppData.Comps[$AppData.selectedComp].uuid;
 	$: highlightComp = null;
 
 	let openDetail = false;
@@ -270,6 +272,21 @@
 			owText = '';
 		}
 	}
+
+	async function handleCardSort(event) {
+		if(!Array.isArray(event.detail)) return 0;
+		let allCompsValid = true;
+		for(const comp of event.detail) {
+			let returnObj = await validateComp(comp);
+			allCompsValid = allCompsValid && returnObj.retCode === 0;
+		}
+		if(allCompsValid) {
+			sortedCompList = event.detail;
+			$AppData.Comps = sortedCompList;
+			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selectedUUID);
+			dispatch('saveData');
+		}
+	}
 </script>
 
 <svelte:window on:popstate={handlePopState} />
@@ -285,7 +302,12 @@
 					</div>
 				</div>
 			{:else}
-				{#each sortedCompList as comp, i}
+				<SortableList
+					list={sortedCompList}
+					key="uuid"
+					on:sort={handleCardSort}
+					let:item={comp}
+					let:index={i}>
 					<CompCard
 						comp={comp}
 						idx={i}
@@ -295,7 +317,18 @@
 						exportCallback={handleExportButtonClick}
 						starCallback={handleStarClick}
 					/>
-				{/each}
+				</SortableList>
+				<!-- {#each sortedCompList as comp, i}
+					<CompCard
+						comp={comp}
+						idx={i}
+						highlightComp={highlightComp}
+						delCallback={handleDeleteButtonClick}
+						cardClickCallback={handleCompCardClick}
+						exportCallback={handleExportButtonClick}
+						starCallback={handleStarClick}
+					/>
+				{/each} -->
 			{/if}
 		</div>
 		<div class="addButtonArea">
@@ -490,6 +523,14 @@
 </div>
 
 <style>
+	img, a {
+		user-drag: none; 
+		user-select: none;
+		-moz-user-select: none;
+		-webkit-user-drag: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
 	.CompContainer {
 		display: flex;
 		flex-direction: row;
@@ -583,7 +624,7 @@
 		height: calc(100vh - 45px - 80px);
 		overflow-x: hidden;
 		overflow-y: auto;
-		padding: 10px;
+		padding: 5px;
 		padding-bottom: 0px;
 		position: relative;
 		scroll-behavior: smooth;
