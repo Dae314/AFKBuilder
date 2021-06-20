@@ -474,7 +474,7 @@
 	}
 	.linePickerOption .removeButton {
 		align-items: center;
-		background-color: #aaa;
+		background-color: var(--appRemoveButtonColor);
 		border: none;
 		border-radius: 50%;
 		cursor: pointer;
@@ -560,7 +560,7 @@
 		visibility: visible;
 	}
 	.removeHeroButton {
-		background-color: #aaa;
+		background-color: var(--appRemoveButtonColor);
 		border: none;
 		border-radius: 50%;
 		cursor: pointer;
@@ -602,7 +602,7 @@
 	}
 	.subTitle .removeButton {
 		align-items: center;
-		background-color: #aaa;
+		background-color: var(--appRemoveButtonColor);
 		border: none;
 		border-radius: 50%;
 		cursor: pointer;
