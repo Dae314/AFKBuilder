@@ -25,6 +25,9 @@
 	let oldHeroID = '';
 	let oldHeroData = {};
 	let compHeroData = {};
+	let pickArtifactPri = false;
+	let pickArtifactSec = false;
+	let pickArtifactSit = false;
 
 	onMount(async () => {
 		close = config.close;
@@ -44,6 +47,7 @@
 				si: oldHeroData.si,
 				furn: oldHeroData.furn,
 				artifact: oldHeroData.artifact,
+				artifacts: oldHeroData.artifacts,
 				core: oldHeroData.core
 			}
 			unusedArtifacts = makeUnusedArtifactList();
@@ -103,22 +107,19 @@
 	}
 
 	function makeUnusedArtifactList() {
-		let buffer = [];
-		if('artifact' in selectedHero && 'id' in selectedHero) {
-			const heroClass = $HeroData.find(e => e.id === selectedHero.id).class;
-			if('artifact' in selectedHero) {
-				for(const artifact in $Artifacts) {
-					if($Artifacts[artifact].class === heroClass || $Artifacts[artifact].class === 'Any') {
-						if(!selectedHero.artifact.includes(artifact)) {
-							buffer.push(artifact);
-						}
-					}
-				}
-			} else {
-				for(const artifact in $Artifacts) {
-					buffer.push(artifact);
-				}
+		let buffer = Object.keys($Artifacts);
+		let artifactsInLine = [];
+		for(const key in selectedHero.artifacts) {
+			for(const artifact of selectedHero.artifacts[key]) {
+				artifactsInLine.push(artifact);
 			}
+		}
+		if('artifacts' in selectedHero && 'id' in selectedHero) {
+			const heroClass = $HeroData.find(e => e.id === selectedHero.id).class;
+			// filter for artifacts of the right class
+			buffer = buffer.filter(e => $Artifacts[e].class === heroClass || $Artifacts[e].class === 'Any');
+			// filter out artifacts that are already in a line
+			buffer = buffer.filter(e => !artifactsInLine.includes(e));
 		}
 		return buffer.sort();
 	}
@@ -205,15 +206,31 @@
 		}
 	}
 
-	function handleAddArtifact(artifact) {
-		if(!selectedHero.artifact.includes(artifact)) {
-			selectedHero.artifact = [...selectedHero.artifact, artifact];
+	function handleAddArtifact(artifact, line) {
+		if(artifact in $Artifacts) {
+			if(!selectedHero.artifacts[line].includes(artifact)) {
+				selectedHero.artifacts[line] = [...selectedHero.artifacts[line], artifact];
+			}
+			unusedArtifacts = makeUnusedArtifactList();
 		}
-		unusedArtifacts = makeUnusedArtifactList();
+		switch(line) {
+			case 'primary':
+				pickArtifactPri = false;
+				break;
+			case 'secondary':
+				pickArtifactSec = false;
+				break;
+			case 'situational':
+				pickArtifactSit = false;
+				break;
+			default:
+				throw new Error(`Error invalid artifact line type given: ${line}`);
+		}
 	}
 
-	function handleRemoveArtifact(artifact) {
-		selectedHero.artifact = selectedHero.artifact.filter((e) => e !== artifact);
+	function handleRemoveArtifact(artifact, line) {
+		if(!(line in selectedHero.artifacts)) throw new Error(`Invalid artifact line given: ${line}`);
+		selectedHero.artifacts[line] = selectedHero.artifacts[line].filter((e) => e !== artifact);
 		unusedArtifacts = makeUnusedArtifactList();
 	}
 
@@ -224,6 +241,7 @@
 			{name: 'si', type: 'number'},
 			{name: 'furn', type: 'number'},
 			{name: 'artifact', type: 'array'},
+			{name: 'artifacts', type: 'object'},
 			{name: 'core', type: 'boolean'},
 		];
 
@@ -236,10 +254,12 @@
 			if(!(prop.name in hero)) {
 				return { retCode: 1, message: `Hero object missing property: ${prop.name}`};
 			} else {
-				if(prop.type != 'array') {
-					if(!(typeof hero[prop.name] === prop.type)) return { retCode: 1, message: `Hero object property, ${prop.name}, is type ${typeof hero[prop.name]}. Expected ${prop.type}.`};
-				} else {
+				if(prop.type === 'array') {
 					if(!Array.isArray(hero[prop.name])) return { retCode: 1, message: `Hero object property, ${prop.name}, is type ${typeof hero[prop.name]}. Expected ${prop.type}.`};
+				} else if(prop.type === 'object') {
+					if(!Object.prototype.toString.call(hero[prop.name]) === '[object Object]') return { retCode: 1, message: `Hero object property, ${prop.name}, is type ${typeof hero[prop.name]}. Expected ${prop.type}.`};
+				} else {
+					if(!(typeof hero[prop.name] === prop.type)) return { retCode: 1, message: `Hero object property, ${prop.name}, is type ${typeof hero[prop.name]}. Expected ${prop.type}.`};
 				}
 			}
 		}
@@ -283,6 +303,7 @@
 				si: compHeroData[heroID].si,
 				furn: compHeroData[heroID].furn,
 				artifact: compHeroData[heroID].artifact,
+				artifacts: compHeroData[heroID].artifacts,
 				core: compHeroData[heroID].core,
 			};
 		} else {
@@ -292,6 +313,7 @@
 				si: $HeroData.find(e => e.id === heroID).si_benchmark,
 				furn: $HeroData.find(e => e.id === heroID).furn_benchmark,
 				artifact: [],
+				artifacts: {primary: [], secondary: [], situational: []},
 				core: false,
 			};
 		}
@@ -445,7 +467,90 @@
 						<button class="coreButton" class:on={selectedHero.core} on:click={() => selectedHero.core = !selectedHero.core}><span>Core</span></button>
 					</div>
 					<h4>Artifacts</h4>
-					<div class="artifactLine">
+					<div class="selectedArtifacts">
+						<div class="gridCell">
+							<h5>Primary</h5>
+							<div class="artifactLine priArtifactLine">
+								{#if !pickArtifactPri}
+									{#each selectedHero.artifacts.primary as artifact, i (artifact)}
+										<!-- <div class="artifactContainer" animate:flip="{{duration: 200}}"> -->
+										<div class="artifactContainer" in:fade="{{duration: 200}}">
+											<div class="artifactImgContainer">
+												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+												<button class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'primary'); e.stopPropagation(); }}><span>x</span></button>
+											</div>
+											<p>{$Artifacts[artifact].name}</p>
+										</div>
+									{/each}
+									<button class="addArtifactButton" on:click={() => pickArtifactPri = true}><span>+</span></button>
+								{:else}
+									<div class="mobileArtifactPicker">
+										{#each unusedArtifacts as artifact (artifact)}
+											<button class="artifactButton" on:click={() => handleAddArtifact(artifact, 'primary') } transition:fade="{{duration: 200}}">
+												<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+												<p>{$Artifacts[artifact].name}</p>
+											</button>
+										{/each}
+									</div>
+								{/if}
+							</div>
+						</div>
+						<div class="gridCell">
+							<h5>Secondary</h5>
+							<div class="artifactLine secArtifactLine">
+								{#if !pickArtifactSec}
+									{#each selectedHero.artifacts.secondary as artifact (artifact)}
+										<!-- <div class="artifactContainer" animate:flip="{{duration: 200}}"> -->
+										<div class="artifactContainer" in:fade="{{duration: 200}}">
+											<div class="artifactImgContainer">
+												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+												<button class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'secondary'); e.stopPropagation(); }}><span>x</span></button>
+											</div>
+											<p>{$Artifacts[artifact].name}</p>
+										</div>
+									{/each}
+									<button class="addArtifactButton" on:click={() => pickArtifactSec = true}><span>+</span></button>
+								{:else}
+									<div class="mobileArtifactPicker">
+										{#each unusedArtifacts as artifact (artifact)}
+											<button class="artifactButton" on:click={() => handleAddArtifact(artifact, 'secondary') } transition:fade="{{duration: 200}}">
+												<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+												<p>{$Artifacts[artifact].name}</p>
+											</button>
+										{/each}
+									</div>
+								{/if}
+							</div>
+						</div>
+						<div class="gridCell">
+							<h5>Situational</h5>
+							<div class="artifactLine sitArtifactLine">
+								{#if !pickArtifactSit}
+									{#each selectedHero.artifacts.situational as artifact (artifact)}
+										<!-- <div class="artifactContainer" animate:flip="{{duration: 200}}"> -->
+										<div class="artifactContainer" in:fade="{{duration: 200}}">
+											<div class="artifactImgContainer">
+												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+												<button class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'situational'); e.stopPropagation(); }}><span>x</span></button>
+											</div>
+											<p>{$Artifacts[artifact].name}</p>
+										</div>
+									{/each}
+									<button class="addArtifactButton" on:click={() => pickArtifactSit = true}><span>+</span></button>
+								{:else}
+									<div class="mobileArtifactPicker">
+										{#each unusedArtifacts as artifact (artifact)}
+											<button class="artifactButton" on:click={() => handleAddArtifact(artifact, 'situational') } transition:fade="{{duration: 200}}">
+												<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+												<p>{$Artifacts[artifact].name}</p>
+											</button>
+										{/each}
+									</div>
+								{/if}
+							</div>
+						</div>
+					</div>
+					<!-- <div class="artifactLine">
 						{#each selectedHero.artifact as artifact, i (artifact)}
 							<button class="artifactButton" on:click={() => handleRemoveArtifact(artifact) } transition:fade="{{duration: 200}}">
 								<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
@@ -455,8 +560,8 @@
 								<span>&gt;</span>
 							{/if}
 						{/each}
-					</div>
-					<div class="artifactPicker">
+					</div> -->
+					<!-- <div class="artifactPicker">
 						<div class="artifactGrid">
 							{#each unusedArtifacts as artifact (artifact)}
 								<button class="artifactButton" on:click={() => handleAddArtifact(artifact) } animate:flip="{{duration: 200}}" transition:fade="{{duration: 200}}">
@@ -465,10 +570,36 @@
 								</button>
 							{/each}
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		{/if}
+	</div>
+</div>
+
+<div class="desktopArtifactPicker" class:open={pickArtifactPri || pickArtifactSec || pickArtifactSit}>
+	<div class="background" on:click={() => {
+		const line = pickArtifactPri ? 'primary' : pickArtifactSec ? 'secondary' : 'situational';
+		handleAddArtifact('cancel', line);
+	}}>
+		<div class="artifactModalCloseContainer">
+			<ModalCloseButton onClose={() => {
+				const line = pickArtifactPri ? 'primary' : pickArtifactSec ? 'secondary' : 'situational';
+				handleAddArtifact('cancel', line);
+			}} />
+		</div>
+		<div class="artifactPickerWindow" on:click={e => e.stopPropagation()}>
+			{#each unusedArtifacts as artifact (artifact)}
+				<button class="artifactButton"
+					on:click={() => {
+						const line = pickArtifactPri ? 'primary' : pickArtifactSec ? 'secondary' : 'situational';
+						handleAddArtifact(artifact, line);
+					}} transition:fade="{{duration: 200}}">
+					<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+					<p>{$Artifacts[artifact].name}</p>
+				</button>
+			{/each}
+		</div>
 	</div>
 </div>
 
@@ -684,7 +815,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		padding: 5px;
+		padding: 10px;
 	}
 	.portraitArea {
 		align-items: center;
@@ -749,37 +880,56 @@
 		text-align: center;
 		width: 100%;
 	}
+	.selectedArtifacts {
+		display: grid;
+		grid-gap: 5px 5px;
+		grid-template-columns: 100%;
+		justify-content: space-evenly;
+		overflow: hidden;
+		width: 100%;
+	}
+	.gridCell h5 {
+		margin: 0;
+		margin-top: 5px;
+		padding-left: 5px;
+	}
 	.artifactLine {
 		align-items: center;
 		background-color: var(--appBGColorDark);
 		border-radius: 10px;
 		display: flex;
 		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
 		margin-top: 5px;
 		min-height: 90px;
+		overflow-x: auto;
 		padding: 5px;
+		padding-left: 10px;
 		width: 100%;
 	}
-	.artifactLine span {
-		font-size: 2rem;
-		font-weight: bold;
+	.mobileArtifactPicker {
+		display: flex;
+		flex-direction: row;
 	}
-	.artifactPicker {
-		background-color: var(--appBGColorDark);
-		border-radius: 10px;
-		margin-top: 10px;
-		padding: 5px;
-		width: 100%;
+	.artifactContainer {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin-right: 10px;
 	}
-	.artifactGrid {
-		display: grid;
-		grid-gap: 5px 5px;
-		grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-		grid-template-rows: repeat(auto-fit, minmax(50px, 1fr));
-		justify-content: space-evenly;
+	.artifactContainer p {
+		font-size: 0.8rem;
+		margin: 0;
+		width: 80px;
+		-ms-user-select: none;
 		overflow: hidden;
+		text-overflow: ellipsis;
+		user-select: none;
+		-webkit-user-select: none;
+		white-space: nowrap;
+	}
+	.artifactImgContainer {
+		position: relative;
 	}
 	.artifactButton {
 		align-items: center;
@@ -793,11 +943,44 @@
 	}
 	.artifactImg {
 		border-radius: 50%;
-		max-width: 80px;
+		max-width: 60px;
+	}
+	.removeButton {
+		background-color: var(--appRemoveButtonColor);
+		border: none;
+		border-radius: 50%;
+		cursor: pointer;
+		font-weight: normal;
+		outline: none;
+		position: absolute;
+		right: -3px;
+		top: 0;
+	}
+	.addArtifactButton {
+		background: transparent;
+		border: 3px solid var(--appColorPrimary);
+		border-radius: 50%;
+		color: var(--appColorPrimary);
+		cursor: pointer;
+		flex-grow: 0;
+		flex-shrink: 0;
+		font-size: 1.5rem;
+		height: 60px;
+		margin-bottom: 17px;
+		width: 60px;
 	}
 	.artifactButton p {
 		margin: 0;
-		max-width: 160px;
+		width: 80px;
+		-ms-user-select: none;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		user-select: none;
+		-webkit-user-select: none;
+		white-space: nowrap;
+	}
+	.desktopArtifactPicker {
+		display: none;
 	}
 	@media only screen and (min-width: 767px) {
 		.modalCloseContainer {
@@ -821,6 +1004,44 @@
 		}
 		.saveButton:hover {
 			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+		}
+		.mobileArtifactPicker {
+			display: none;
+		}
+		.desktopArtifactPicker {
+			display: none;
+			visibility: hidden;
+		}
+		.desktopArtifactPicker.open {
+			display: block;
+			height: 100%;
+			position: fixed;
+			left: 0;
+			top: 0;
+			visibility: visible;
+			width: 100%;
+			z-index: 5;
+		}
+		.desktopArtifactPicker .background {
+			height: 100%;
+			position: relative;
+			width: 100%;
+			z-index: 5;
+		}
+		.artifactModalCloseContainer {
+			margin-left: auto;
+			position: relative;
+			right: 37.5%;
+		}
+		.artifactPickerWindow {
+			background-color: var(--appBGColor);
+			border-radius: 10px;
+			display: grid;
+			grid-gap: 5px;
+			grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+			padding: 10px;
+			width: 25%;
+			z-index: 5;
 		}
 	}
 </style>

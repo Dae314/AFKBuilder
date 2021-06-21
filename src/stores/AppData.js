@@ -61,7 +61,7 @@ window.validateComp = async function(data) {
 		{name: 'si', type: 'number'},
 		{name: 'furn', type: 'number'},
 		{name: 'artifact', type: 'array'},
-		// {name: 'artifacts', type: 'object'},
+		{name: 'artifacts', type: 'object'},
 		{name: 'core', type: 'boolean'},
 	];
 	const expectedSubProps = [
@@ -367,7 +367,7 @@ function buildCompsData(data) {
 		{name: 'si', default: 20},
 		{name: 'furn', default: 3},
 		{name: 'artifact', default: []},
-		// {name: 'artifacts', default: {}},
+		{name: 'artifacts', default: {}},
 		{name: 'core', default: false},
 	];
 	const expectedArtifactsProps = [
@@ -405,12 +405,12 @@ function buildCompsData(data) {
 			for(let prop in comp.heroes[hero]) {
 				if(!expectedHeroProps.some(e => e.name === prop)) delete comp.heroes[hero][prop];
 			}
-			// for(const prop of expectedArtifactsProps) {
-			// 	if(!(prop.name in comp.heroes[hero].artifacts)) comp.heroes[hero].artifacts[prop.name] = prop.default;
-			// }
-			// for(let prop in comp.heroes[hero].artifacts) {
-			// 	if(!expectedArtifactsProps.some(e => e.name === prop)) delete comp.heroes[hero].artifacts[prop];
-			// }
+			for(const prop of expectedArtifactsProps) {
+				if(!(prop.name in comp.heroes[hero].artifacts)) comp.heroes[hero].artifacts[prop.name] = prop.default;
+			}
+			for(let prop in comp.heroes[hero].artifacts) {
+				if(!expectedArtifactsProps.some(e => e.name === prop)) delete comp.heroes[hero].artifacts[prop];
+			}
 		}
 		// clean up line props
 		for(let line of comp.lines) {
