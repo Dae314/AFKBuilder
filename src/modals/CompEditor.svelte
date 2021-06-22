@@ -189,7 +189,7 @@
 			ascendLv: hero.ascendLv,
 			si: hero.si,
 			furn: hero.furn,
-			artifact: hero.artifact,
+			artifacts: hero.artifacts,
 			core: hero.core,
 		}
 		// check if the last reference to the old hero was replaced, and remove it if necessary
@@ -202,9 +202,11 @@
 			ascendLv: hero.ascendLv,
 			si: hero.si,
 			furn: hero.furn,
-			artifact: hero.artifact,
+			artifacts: hero.artifacts,
 			core: hero.core,
 		}
+		// check if the last reference to the old hero was replaced, and remove it if necessary
+		if(oldHeroID !== '' && oldHeroID !== hero.id) removeHeroesReference(oldHeroID);
 	}
 
 	function removeSubHero(subIdx, heroIdx) {
@@ -325,7 +327,7 @@
 						<div class="subGroup">
 							<div class="subTitle">
 								<input class="subTitleInput" type="text" bind:value={sub.name} placeholder="Subgroup Name">
-								<button class="removeButton" on:click={(e) => { deleteSub(i); e.stopPropagation(); }}>x</button>
+								<button class="removeButton" on:click={(e) => { deleteSub(i); e.stopPropagation(); }}><span>x</span></button>
 							</div>
 							<div class="subLine">
 								{#each sub.heroes as hero, j}
@@ -507,6 +509,7 @@
 		text-align: center;
 		text-transform: uppercase;
 		-webkit-user-select: none;
+		user-select: none;
 		width: 100%;
 	}
 	.lineNameInput {

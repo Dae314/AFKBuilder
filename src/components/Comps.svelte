@@ -443,17 +443,48 @@
 											<div class="ascendBoxContainer">
 												<AscendBox ascendLv="{$AppData.Comps[$AppData.selectedComp].heroes[selectedHero].ascendLv}" />
 											</div>
-											<div class="artifactsContainer">
-												{#each sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifact as artifact, i}
-													<button on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
-														<img src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-														<p>{$Artifacts[artifact].name}</p>
-													</button>
-													{#if i < sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifact.length - 1}
-														<span>&gt;</span>
+											{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.primary.length > 0 || sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.secondary.length > 0 || sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.situational.length > 0}
+												<div class="artifactsContainer">
+													<h5>Artifacts</h5>
+													<div class="artifactLine priArtifactLine">
+														<h6>Primary</h6>
+														<div class="artifactArea">
+															{#each sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.primary as artifact}
+																<button on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																	<img src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																	<p>{$Artifacts[artifact].name}</p>
+																</button>
+															{/each}
+														</div>
+													</div>
+													{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.secondary.length > 0}
+														<div class="artifactLine secArtifactLine">
+															<h6>Secondary</h6>
+															<div class="artifactArea">
+																{#each sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.secondary as artifact}
+																	<button on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																		<img src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																		<p>{$Artifacts[artifact].name}</p>
+																	</button>
+																{/each}
+															</div>
+														</div>
 													{/if}
-												{/each}
-											</div>
+													{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.situational.length > 0}
+														<div class="artifactLine sitArtifactLine">
+															<h6>Situational</h6>
+															<div class="artifactArea">
+																{#each sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.situational as artifact}
+																	<button on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																		<img src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																		<p>{$Artifacts[artifact].name}</p>
+																	</button>
+																{/each}
+															</div>
+														</div>
+													{/if}
+												</div>
+											{/if}
 										</div>
 									</div>
 								{:else}
@@ -948,7 +979,7 @@
 		position: relative;
 	}
 	.portraitContainer + p {
-		font-size: 1rem;
+		font-size: 1.1rem;
 		font-weight: bold;
 		margin: 0;
 		margin-bottom: 5px;
@@ -990,11 +1021,30 @@
 		margin-bottom: 10px;
 	}
 	.artifactsContainer {
-		align-items: center;
 		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
+		flex-direction: column;
 		justify-content: center;
+		width: 100%;
+	}
+	.artifactsContainer h5 {
+		font-size: 1rem;
+		margin: 0;
+		text-align: center;
+	}
+	.artifactLine h6 {
+		font-size: 0.9rem;
+		margin: 0;
+		margin-top: 7px;
+		margin-bottom: 3px;
+	}
+	.artifactArea {
+		background: var(--appBGColorDark);
+		border-radius: 10px;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, 90px);
+		min-height: 80px;
+		padding: 5px;
+		width: 100%;
 	}
 	.artifactImgContainer {
 		align-items: center;
@@ -1005,19 +1055,22 @@
 		flex-direction: column;
 		justify-content: center;
 		outline: none;
+		padding: 3px;
 	}
 	.artifactImgContainer img {
 		border-radius: 50%;
-		max-width: 50px;
+		max-width: 60px;
 	}
 	.artifactImgContainer p {
 		margin: 0;
-		max-width: 100px;
+		max-width: 80px;
+		-ms-user-select: none;
+		overflow: hidden;
 		text-align: center;
-	}
-	.artifactsContainer span {
-		font-size: 2rem;
-		font-weight: bold;
+		text-overflow: ellipsis;
+		user-select: none;
+		-webkit-user-select: none;
+		white-space: nowrap;
 	}
 	.subDisplay {
 		display: flex;
@@ -1045,7 +1098,7 @@
 		width: 100%;
 	}
 	.subHeroContainer p {
-		font-size: 1rem;
+		font-size: 0.9rem;
 		font-weight: bold;
 		margin: 0;
 		margin-top: -5px;
