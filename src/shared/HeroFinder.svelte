@@ -473,7 +473,6 @@
 							<div class="artifactLine priArtifactLine">
 								{#if !pickArtifactPri}
 									{#each selectedHero.artifacts.primary as artifact, i (artifact)}
-										<!-- <div class="artifactContainer" animate:flip="{{duration: 200}}"> -->
 										<div class="artifactContainer" in:fade="{{duration: 200}}">
 											<div class="artifactImgContainer">
 												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
@@ -500,7 +499,6 @@
 							<div class="artifactLine secArtifactLine">
 								{#if !pickArtifactSec}
 									{#each selectedHero.artifacts.secondary as artifact (artifact)}
-										<!-- <div class="artifactContainer" animate:flip="{{duration: 200}}"> -->
 										<div class="artifactContainer" in:fade="{{duration: 200}}">
 											<div class="artifactImgContainer">
 												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
@@ -527,7 +525,6 @@
 							<div class="artifactLine sitArtifactLine">
 								{#if !pickArtifactSit}
 									{#each selectedHero.artifacts.situational as artifact (artifact)}
-										<!-- <div class="artifactContainer" animate:flip="{{duration: 200}}"> -->
 										<div class="artifactContainer" in:fade="{{duration: 200}}">
 											<div class="artifactImgContainer">
 												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
@@ -550,27 +547,6 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="artifactLine">
-						{#each selectedHero.artifact as artifact, i (artifact)}
-							<button class="artifactButton" on:click={() => handleRemoveArtifact(artifact) } transition:fade="{{duration: 200}}">
-								<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-								<p>{$Artifacts[artifact].name}</p>
-							</button>
-							{#if i < selectedHero.artifact.length - 1}
-								<span>&gt;</span>
-							{/if}
-						{/each}
-					</div> -->
-					<!-- <div class="artifactPicker">
-						<div class="artifactGrid">
-							{#each unusedArtifacts as artifact (artifact)}
-								<button class="artifactButton" on:click={() => handleAddArtifact(artifact) } animate:flip="{{duration: 200}}" transition:fade="{{duration: 200}}">
-									<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-									<p>{$Artifacts[artifact].name}</p>
-								</button>
-							{/each}
-						</div>
-					</div> -->
 				</div>
 			</div>
 		{/if}
@@ -928,6 +904,10 @@
 		-webkit-user-select: none;
 		white-space: nowrap;
 	}
+	.artifactContainer:hover p, .artifactContainer p:hover {
+		overflow: visible;
+		width: fit-content;
+	}
 	.artifactImgContainer {
 		position: relative;
 	}
@@ -978,6 +958,10 @@
 		user-select: none;
 		-webkit-user-select: none;
 		white-space: nowrap;
+	}
+	.artifactButton:hover p, .artifactButton p:hover {
+		overflow: visible;
+		width: fit-content;
 	}
 	.desktopArtifactPicker {
 		display: none;
