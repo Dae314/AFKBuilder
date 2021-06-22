@@ -47,7 +47,7 @@
 				si: oldHeroData.si,
 				furn: oldHeroData.furn,
 				artifact: oldHeroData.artifact,
-				artifacts: oldHeroData.artifacts,
+				artifacts: JSON.parse(JSON.stringify(oldHeroData.artifacts)),
 				core: oldHeroData.core
 			}
 			unusedArtifacts = makeUnusedArtifactList();
