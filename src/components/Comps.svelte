@@ -4,6 +4,7 @@
 	import MarkdownIt from 'markdown-it';
 	import Emoji from 'markdown-it-emoji';
 	import { v4 as uuidv4 } from 'uuid';
+	import JSONURL from 'json-url';
 	import CompCard from './CompCard.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
@@ -20,7 +21,7 @@
 	import SortableList from '../shared/SortableList.svelte';
 
 	const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",];
-	const jsurl = JsonUrl('lzma'); // json-url compressor
+	const jsurl = JSONURL('lzma'); // json-url compressor
 	const dispatch = createEventDispatcher();
 	const { open } = getContext('simple-modal');
 	const md = new MarkdownIt({

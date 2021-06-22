@@ -2,6 +2,7 @@
 	import { getContext, createEventDispatcher } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
+	import JSONURL from 'json-url';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
@@ -15,7 +16,7 @@
 	$: allClassEnabled = $AppData.MH.ShowMage && $AppData.MH.ShowWar && $AppData.MH.ShowTank && $AppData.MH.ShowSup && $AppData.MH.ShowRan;
 
 	const dispatch = createEventDispatcher();
-	const jsurl = JsonUrl('lzma'); // json-url compressor
+	const jsurl = JSONURL('lzma'); // json-url compressor
 	const { open } = getContext('simple-modal');
 	let openFilters = false;
 	let openInOutMenu = false;
