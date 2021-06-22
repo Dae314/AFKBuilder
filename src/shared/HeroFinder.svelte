@@ -481,7 +481,9 @@
 											<p>{$Artifacts[artifact].name}</p>
 										</div>
 									{/each}
-									<button class="addArtifactButton" on:click={() => pickArtifactPri = true}><span>+</span></button>
+									{#if unusedArtifacts.length > 0}
+										<button class="addArtifactButton" on:click={() => pickArtifactPri = true}><span>+</span></button>
+									{/if}
 								{:else}
 									<div class="mobileArtifactPicker">
 										{#each unusedArtifacts as artifact (artifact)}
@@ -507,7 +509,9 @@
 											<p>{$Artifacts[artifact].name}</p>
 										</div>
 									{/each}
-									<button class="addArtifactButton" on:click={() => pickArtifactSec = true}><span>+</span></button>
+									{#if unusedArtifacts.length > 0}
+										<button class="addArtifactButton" on:click={() => pickArtifactSec = true}><span>+</span></button>
+									{/if}
 								{:else}
 									<div class="mobileArtifactPicker">
 										{#each unusedArtifacts as artifact (artifact)}
@@ -533,7 +537,9 @@
 											<p>{$Artifacts[artifact].name}</p>
 										</div>
 									{/each}
-									<button class="addArtifactButton" on:click={() => pickArtifactSit = true}><span>+</span></button>
+									{#if unusedArtifacts.length > 0}
+										<button class="addArtifactButton" on:click={() => pickArtifactSit = true}><span>+</span></button>
+									{/if}
 								{:else}
 									<div class="mobileArtifactPicker">
 										{#each unusedArtifacts as artifact (artifact)}
@@ -873,8 +879,9 @@
 		align-items: center;
 		background-color: var(--appBGColorDark);
 		border-radius: 10px;
-		display: flex;
-		flex-direction: row;
+		display: grid;
+		grid-gap: 5px;
+		grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
 		margin-top: 5px;
 		min-height: 90px;
 		overflow-x: auto;
@@ -891,7 +898,6 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		margin-right: 10px;
 	}
 	.artifactContainer p {
 		font-size: 0.8rem;
@@ -899,14 +905,11 @@
 		width: 80px;
 		-ms-user-select: none;
 		overflow: hidden;
+		text-align: center;
 		text-overflow: ellipsis;
 		user-select: none;
 		-webkit-user-select: none;
 		white-space: nowrap;
-	}
-	.artifactContainer:hover p, .artifactContainer p:hover {
-		overflow: visible;
-		width: fit-content;
 	}
 	.artifactImgContainer {
 		position: relative;
@@ -946,7 +949,9 @@
 		flex-shrink: 0;
 		font-size: 1.5rem;
 		height: 60px;
-		margin-bottom: 17px;
+		margin-bottom: 20px;
+		margin-left: auto;
+		margin-right: auto;
 		width: 60px;
 	}
 	.artifactButton p {
