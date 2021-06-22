@@ -2,7 +2,7 @@ import App from './App.svelte';
 
 const app = new App({
 	target: document.body,
-	props: {version: '0.9.29'}
+	props: {version: '0.10.0'}
 });
 
 export default app;
