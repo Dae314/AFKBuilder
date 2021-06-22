@@ -964,10 +964,6 @@
 		-webkit-user-select: none;
 		white-space: nowrap;
 	}
-	.artifactButton:hover p, .artifactButton p:hover {
-		overflow: visible;
-		width: fit-content;
-	}
 	.desktopArtifactPicker {
 		display: none;
 	}
@@ -1031,6 +1027,10 @@
 			padding: 10px;
 			width: 25%;
 			z-index: 5;
+		}
+		.artifactButton:hover p, .artifactButton p:hover {
+			overflow: visible;
+			width: fit-content;
 		}
 	}
 </style>
