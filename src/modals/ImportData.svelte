@@ -47,7 +47,7 @@
 
 <svelte:window on:popstate={handlePopState} />
 
-<div class="container">
+<div class="container" on:keyup={e => e.stopPropagation()}>
 	{#if !$AppData.dismissImportWarn}
 		<TutorialBox warning={true} onClick={dismissWarn} clickable={true}>
 			Warning: Importing bad data may introduce corruption, make the app unusable, or introduce unwanted information. Make sure you are importing data from a trusted source and you have a current backup of your data.
@@ -56,7 +56,7 @@
 	<div class="titleContainer">
 		<h3 class="title">{title}</h3>
 	</div>
-	<textarea class="dataInput" bind:value={data}></textarea>
+	<textarea autofocus class="dataInput" bind:value={data}></textarea>
 	<div class="footer">
 		<div class="status">
 			<div class="statusText" class:error={status > 0} class:visible={status >= 0}><span>{statusMsg}</span></div>

@@ -29338,24 +29338,25 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Import";
     			attr_dev(h3, "class", "title svelte-2zz59z");
-    			add_location(h3, file$f, 56, 2, 1613);
+    			add_location(h3, file$f, 56, 2, 1649);
     			attr_dev(div0, "class", "titleContainer svelte-2zz59z");
-    			add_location(div0, file$f, 55, 1, 1581);
+    			add_location(div0, file$f, 55, 1, 1617);
+    			textarea.autofocus = true;
     			attr_dev(textarea, "class", "dataInput svelte-2zz59z");
-    			add_location(textarea, file$f, 58, 1, 1655);
-    			add_location(span, file$f, 61, 80, 1841);
+    			add_location(textarea, file$f, 58, 1, 1691);
+    			add_location(span, file$f, 61, 80, 1887);
     			attr_dev(div1, "class", "statusText svelte-2zz59z");
     			toggle_class(div1, "error", /*status*/ ctx[2] > 0);
     			toggle_class(div1, "visible", /*status*/ ctx[2] >= 0);
-    			add_location(div1, file$f, 61, 3, 1764);
+    			add_location(div1, file$f, 61, 3, 1810);
     			attr_dev(div2, "class", "status svelte-2zz59z");
-    			add_location(div2, file$f, 60, 2, 1739);
+    			add_location(div2, file$f, 60, 2, 1785);
     			attr_dev(button, "class", "submitButton svelte-2zz59z");
-    			add_location(button, file$f, 64, 3, 1914);
+    			add_location(button, file$f, 64, 3, 1960);
     			attr_dev(div3, "class", "submitArea svelte-2zz59z");
-    			add_location(div3, file$f, 63, 2, 1885);
+    			add_location(div3, file$f, 63, 2, 1931);
     			attr_dev(div4, "class", "footer svelte-2zz59z");
-    			add_location(div4, file$f, 59, 1, 1715);
+    			add_location(div4, file$f, 59, 1, 1761);
     			attr_dev(div5, "class", "container svelte-2zz59z");
     			add_location(div5, file$f, 49, 0, 1207);
     		},
@@ -29382,12 +29383,14 @@ var app = (function () {
     			append_dev(div4, div3);
     			append_dev(div3, button);
     			current = true;
+    			textarea.focus();
 
     			if (!mounted) {
     				dispose = [
     					listen_dev(window, "popstate", /*handlePopState*/ ctx[7], false, false, false),
     					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[10]),
-    					listen_dev(button, "click", /*handleImport*/ ctx[5], false, false, false)
+    					listen_dev(button, "click", /*handleImport*/ ctx[5], false, false, false),
+    					listen_dev(div5, "keyup", keyup_handler, false, false, false)
     				];
 
     				mounted = true;
@@ -29460,6 +29463,8 @@ var app = (function () {
 
     	return block;
     }
+
+    const keyup_handler = e => e.stopPropagation();
 
     function instance$f($$self, $$props, $$invalidate) {
     	let $AppData;
