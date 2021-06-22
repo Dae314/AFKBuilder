@@ -274,7 +274,13 @@
 		if(!(hero.ascendLv >= 0 && hero.ascendLv <= 6)) return { retCode: 1, message: `Hero ascend level must be between 0-30: ${hero.ascendLv}` };
 		if(!(hero.ascendLv >= 0 && hero.ascendLv <= 30)) return { retCode: 1, message: `Hero si level must be between 0-30: ${hero.si}` };
 		if(!(hero.ascendLv >= 0 && hero.ascendLv <= 9)) return { retCode: 1, message: `Hero furniture level must be between 0-30: ${hero.furn}` };
-		for(const artifact of hero.artifact) {
+		let artifactsInLine = [];
+		for(const key in selectedHero.artifacts) {
+			for(const artifact of selectedHero.artifacts[key]) {
+				artifactsInLine.push(artifact);
+			}
+		}
+		for(const artifact of artifactsInLine) {
 			if(!Object.keys($Artifacts).includes(artifact)) return { retCode: 1, message: `Artifact not found in $Artifacts database: ${artifact}` };
 		}
 
@@ -303,7 +309,7 @@
 				si: compHeroData[heroID].si,
 				furn: compHeroData[heroID].furn,
 				artifact: compHeroData[heroID].artifact,
-				artifacts: compHeroData[heroID].artifacts,
+				artifacts: JSON.parse(JSON.stringify(compHeroData[heroID].artifacts)),
 				core: compHeroData[heroID].core,
 			};
 		} else {
