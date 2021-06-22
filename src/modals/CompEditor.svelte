@@ -189,7 +189,6 @@
 			ascendLv: hero.ascendLv,
 			si: hero.si,
 			furn: hero.furn,
-			artifact: hero.artifact,
 			artifacts: hero.artifacts,
 			core: hero.core,
 		}
@@ -203,7 +202,6 @@
 			ascendLv: hero.ascendLv,
 			si: hero.si,
 			furn: hero.furn,
-			artifact: hero.artifact,
 			artifacts: hero.artifacts,
 			core: hero.core,
 		}

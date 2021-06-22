@@ -60,7 +60,6 @@ window.validateComp = async function(data) {
 		{name: 'ascendLv', type: 'number'},
 		{name: 'si', type: 'number'},
 		{name: 'furn', type: 'number'},
-		{name: 'artifact', type: 'array'},
 		{name: 'artifacts', type: 'object'},
 		{name: 'core', type: 'boolean'},
 	];
@@ -366,7 +365,6 @@ function buildCompsData(data) {
 		{name: 'ascendLv', default: 6},
 		{name: 'si', default: 20},
 		{name: 'furn', default: 3},
-		{name: 'artifact', default: []},
 		{name: 'artifacts', default: {}},
 		{name: 'core', default: false},
 	];

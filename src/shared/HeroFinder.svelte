@@ -46,7 +46,6 @@
 				ascendLv: oldHeroData.ascendLv,
 				si: oldHeroData.si,
 				furn: oldHeroData.furn,
-				artifact: oldHeroData.artifact,
 				artifacts: JSON.parse(JSON.stringify(oldHeroData.artifacts)),
 				core: oldHeroData.core
 			}
@@ -240,7 +239,6 @@
 			{name: 'ascendLv', type: 'number'},
 			{name: 'si', type: 'number'},
 			{name: 'furn', type: 'number'},
-			{name: 'artifact', type: 'array'},
 			{name: 'artifacts', type: 'object'},
 			{name: 'core', type: 'boolean'},
 		];
@@ -308,7 +306,6 @@
 				ascendLv: compHeroData[heroID].ascendLv,
 				si: compHeroData[heroID].si,
 				furn: compHeroData[heroID].furn,
-				artifact: compHeroData[heroID].artifact,
 				artifacts: JSON.parse(JSON.stringify(compHeroData[heroID].artifacts)),
 				core: compHeroData[heroID].core,
 			};
@@ -318,7 +315,6 @@
 				ascendLv: 6,
 				si: $HeroData.find(e => e.id === heroID).si_benchmark,
 				furn: $HeroData.find(e => e.id === heroID).furn_benchmark,
-				artifact: [],
 				artifacts: {primary: [], secondary: [], situational: []},
 				core: false,
 			};
