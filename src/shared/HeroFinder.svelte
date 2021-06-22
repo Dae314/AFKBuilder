@@ -880,6 +880,7 @@
 		background-color: var(--appBGColorDark);
 		border-radius: 10px;
 		display: grid;
+		grid-auto-flow: column;
 		grid-gap: 5px;
 		grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
 		margin-top: 5px;
@@ -890,8 +891,10 @@
 		width: 100%;
 	}
 	.mobileArtifactPicker {
-		display: flex;
-		flex-direction: row;
+		display: grid;
+		grid-gap: 5px;
+		grid-auto-flow: column;
+		grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
 	}
 	.artifactContainer {
 		align-items: center;
@@ -992,6 +995,9 @@
 		}
 		.mobileArtifactPicker {
 			display: none;
+		}
+		.artifactLine {
+			grid-auto-flow: row;
 		}
 		.desktopArtifactPicker {
 			display: none;
