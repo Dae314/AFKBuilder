@@ -979,7 +979,7 @@
 		position: relative;
 	}
 	.portraitContainer + p {
-		font-size: 1rem;
+		font-size: 1.1rem;
 		font-weight: bold;
 		margin: 0;
 		margin-bottom: 5px;
@@ -1027,10 +1027,12 @@
 		width: 100%;
 	}
 	.artifactsContainer h5 {
+		font-size: 1rem;
 		margin: 0;
 		text-align: center;
 	}
 	.artifactLine h6 {
+		font-size: 0.9rem;
 		margin: 0;
 		margin-top: 7px;
 		margin-bottom: 3px;
@@ -1096,7 +1098,7 @@
 		width: 100%;
 	}
 	.subHeroContainer p {
-		font-size: 1rem;
+		font-size: 0.9rem;
 		font-weight: bold;
 		margin: 0;
 		margin-top: -5px;
