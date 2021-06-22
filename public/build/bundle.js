@@ -28515,7 +28515,7 @@ var app = (function () {
     	},
     	limit: {
     		name: 'Life\'s Limit',
-    		image: './img/artifacts/unavailable.png',
+    		image: './img/artifacts/limit.jpg',
     		upgrades: [
     			{ unlock: 0,
     				desc: 'When the wielder receives damage from an enemy that is positioned relatively far away, the source of the attack shall be regarded as the central target, and the nearby enemies shall be dealt <em>150%</em> AoE damage which ignores Defense Ratings and reduces Haste by <em>12</em> points for <em>5</em> seconds. This effect may only be used once every <em>7</em> seconds.',
