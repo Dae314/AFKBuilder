@@ -35137,7 +35137,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (249:3) {#if comp.draft}
+    // (251:3) {#if comp.draft}
     function create_if_block_6$1(ctx) {
     	let div;
     	let span;
@@ -35148,9 +35148,9 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "draft";
     			attr_dev(span, "class", "draftLabel svelte-1l7swo3");
-    			add_location(span, file$9, 249, 32, 7265);
+    			add_location(span, file$9, 251, 32, 7439);
     			attr_dev(div, "class", "draftContainer svelte-1l7swo3");
-    			add_location(div, file$9, 249, 4, 7237);
+    			add_location(div, file$9, 251, 4, 7411);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -35165,14 +35165,14 @@ var app = (function () {
     		block,
     		id: create_if_block_6$1.name,
     		type: "if",
-    		source: "(249:3) {#if comp.draft}",
+    		source: "(251:3) {#if comp.draft}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (257:5) {#each comp.lines as line, i}
+    // (259:5) {#each comp.lines as line, i}
     function create_each_block_4$2(ctx) {
     	let button1;
     	let t0_value = /*line*/ ctx[68].name + "";
@@ -35198,10 +35198,10 @@ var app = (function () {
     			button0 = element("button");
     			button0.textContent = "x";
     			attr_dev(button0, "class", "removeButton svelte-1l7swo3");
-    			add_location(button0, file$9, 259, 7, 7619);
+    			add_location(button0, file$9, 261, 7, 7793);
     			attr_dev(button1, "class", "linePickerOption svelte-1l7swo3");
     			toggle_class(button1, "open", /*openLine*/ ctx[1] === /*i*/ ctx[62]);
-    			add_location(button1, file$9, 257, 6, 7499);
+    			add_location(button1, file$9, 259, 6, 7673);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button1, anchor);
@@ -35237,14 +35237,14 @@ var app = (function () {
     		block,
     		id: create_each_block_4$2.name,
     		type: "each",
-    		source: "(257:5) {#each comp.lines as line, i}",
+    		source: "(259:5) {#each comp.lines as line, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (268:5) {:else}
+    // (270:5) {:else}
     function create_else_block$6(ctx) {
     	let input;
     	let t0;
@@ -35291,13 +35291,13 @@ var app = (function () {
     			attr_dev(input, "type", "text");
     			attr_dev(input, "class", "lineNameInput svelte-1l7swo3");
     			attr_dev(input, "placeholder", "Line Name");
-    			add_location(input, file$9, 268, 6, 7984);
+    			add_location(input, file$9, 270, 6, 8158);
     			attr_dev(div0, "class", "backline svelte-1l7swo3");
-    			add_location(div0, file$9, 270, 7, 8130);
+    			add_location(div0, file$9, 272, 7, 8304);
     			attr_dev(div1, "class", "frontline svelte-1l7swo3");
-    			add_location(div1, file$9, 290, 7, 9426);
+    			add_location(div1, file$9, 292, 7, 9600);
     			attr_dev(div2, "class", "lineDisplay svelte-1l7swo3");
-    			add_location(div2, file$9, 269, 6, 8096);
+    			add_location(div2, file$9, 271, 6, 8270);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, input, anchor);
@@ -35390,14 +35390,14 @@ var app = (function () {
     		block,
     		id: create_else_block$6.name,
     		type: "else",
-    		source: "(268:5) {:else}",
+    		source: "(270:5) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (266:5) {#if openLine === null}
+    // (268:5) {#if openLine === null}
     function create_if_block_1$4(ctx) {
     	let span;
 
@@ -35406,7 +35406,7 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "Select a line to edit.";
     			attr_dev(span, "class", "noLine svelte-1l7swo3");
-    			add_location(span, file$9, 266, 6, 7912);
+    			add_location(span, file$9, 268, 6, 8086);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -35421,14 +35421,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$4.name,
     		type: "if",
-    		source: "(266:5) {#if openLine === null}",
+    		source: "(268:5) {#if openLine === null}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (273:8) {#if i >= 2}
+    // (275:8) {#if i >= 2}
     function create_if_block_4$3(ctx) {
     	let if_block_anchor;
 
@@ -35472,14 +35472,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4$3.name,
     		type: "if",
-    		source: "(273:8) {#if i >= 2}",
+    		source: "(275:8) {#if i >= 2}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (278:9) {:else}
+    // (280:9) {:else}
     function create_else_block_2$2(ctx) {
     	let button1;
     	let div;
@@ -35539,19 +35539,19 @@ var app = (function () {
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[7].find(func).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[7].find(func_1).name);
     			attr_dev(img, "class", "svelte-1l7swo3");
-    			add_location(img, file$9, 280, 12, 8768);
+    			add_location(img, file$9, 282, 12, 8942);
     			attr_dev(span0, "class", "coreMark svelte-1l7swo3");
     			toggle_class(span0, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[63]].core);
-    			add_location(span0, file$9, 281, 12, 8883);
-    			add_location(span1, file$9, 282, 105, 9059);
+    			add_location(span0, file$9, 283, 12, 9057);
+    			add_location(span1, file$9, 284, 105, 9233);
     			attr_dev(button0, "class", "removeHeroButton lineHeroButton svelte-1l7swo3");
-    			add_location(button0, file$9, 282, 12, 8966);
+    			add_location(button0, file$9, 284, 12, 9140);
     			attr_dev(div, "class", "imgContainer svelte-1l7swo3");
-    			add_location(div, file$9, 279, 11, 8728);
+    			add_location(div, file$9, 281, 11, 8902);
     			attr_dev(button1, "class", "heroButton svelte-1l7swo3");
-    			add_location(button1, file$9, 278, 10, 8534);
+    			add_location(button1, file$9, 280, 10, 8708);
     			attr_dev(p, "class", "heroButton svelte-1l7swo3");
-    			add_location(p, file$9, 285, 10, 9134);
+    			add_location(p, file$9, 287, 10, 9308);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button1, anchor);
@@ -35606,14 +35606,14 @@ var app = (function () {
     		block,
     		id: create_else_block_2$2.name,
     		type: "else",
-    		source: "(278:9) {:else}",
+    		source: "(280:9) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (274:9) {#if hero === 'unknown'}
+    // (276:9) {#if hero === 'unknown'}
     function create_if_block_5$2(ctx) {
     	let button;
     	let span;
@@ -35631,9 +35631,9 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "+";
     			t1 = space();
-    			add_location(span, file$9, 275, 11, 8469);
+    			add_location(span, file$9, 277, 11, 8643);
     			attr_dev(button, "class", "addHeroButton lineButton svelte-1l7swo3");
-    			add_location(button, file$9, 274, 10, 8278);
+    			add_location(button, file$9, 276, 10, 8452);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -35659,14 +35659,14 @@ var app = (function () {
     		block,
     		id: create_if_block_5$2.name,
     		type: "if",
-    		source: "(274:9) {#if hero === 'unknown'}",
+    		source: "(276:9) {#if hero === 'unknown'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (272:8) {#each comp.lines[openLine].heroes as  hero, i}
+    // (274:8) {#each comp.lines[openLine].heroes as  hero, i}
     function create_each_block_3$2(ctx) {
     	let if_block_anchor;
     	let if_block = /*i*/ ctx[62] >= 2 && create_if_block_4$3(ctx);
@@ -35693,14 +35693,14 @@ var app = (function () {
     		block,
     		id: create_each_block_3$2.name,
     		type: "each",
-    		source: "(272:8) {#each comp.lines[openLine].heroes as  hero, i}",
+    		source: "(274:8) {#each comp.lines[openLine].heroes as  hero, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (293:8) {#if i < 2}
+    // (295:8) {#if i < 2}
     function create_if_block_2$3(ctx) {
     	let if_block_anchor;
 
@@ -35744,14 +35744,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2$3.name,
     		type: "if",
-    		source: "(293:8) {#if i < 2}",
+    		source: "(295:8) {#if i < 2}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (298:9) {:else}
+    // (300:9) {:else}
     function create_else_block_1$2(ctx) {
     	let button1;
     	let div;
@@ -35811,19 +35811,19 @@ var app = (function () {
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[7].find(func_3).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[7].find(func_4).name);
     			attr_dev(img, "class", "svelte-1l7swo3");
-    			add_location(img, file$9, 300, 12, 10064);
+    			add_location(img, file$9, 302, 12, 10238);
     			attr_dev(span0, "class", "coreMark svelte-1l7swo3");
     			toggle_class(span0, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[63]].core);
-    			add_location(span0, file$9, 301, 12, 10179);
-    			add_location(span1, file$9, 302, 105, 10355);
+    			add_location(span0, file$9, 303, 12, 10353);
+    			add_location(span1, file$9, 304, 105, 10529);
     			attr_dev(button0, "class", "removeHeroButton lineHeroButton svelte-1l7swo3");
-    			add_location(button0, file$9, 302, 12, 10262);
+    			add_location(button0, file$9, 304, 12, 10436);
     			attr_dev(div, "class", "imgContainer svelte-1l7swo3");
-    			add_location(div, file$9, 299, 11, 10024);
+    			add_location(div, file$9, 301, 11, 10198);
     			attr_dev(button1, "class", "heroButton svelte-1l7swo3");
-    			add_location(button1, file$9, 298, 10, 9830);
+    			add_location(button1, file$9, 300, 10, 10004);
     			attr_dev(p, "class", "heroButton svelte-1l7swo3");
-    			add_location(p, file$9, 305, 10, 10430);
+    			add_location(p, file$9, 307, 10, 10604);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button1, anchor);
@@ -35878,14 +35878,14 @@ var app = (function () {
     		block,
     		id: create_else_block_1$2.name,
     		type: "else",
-    		source: "(298:9) {:else}",
+    		source: "(300:9) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (294:9) {#if hero === 'unknown'}
+    // (296:9) {#if hero === 'unknown'}
     function create_if_block_3$3(ctx) {
     	let button;
     	let span;
@@ -35903,9 +35903,9 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "+";
     			t1 = space();
-    			add_location(span, file$9, 295, 11, 9765);
+    			add_location(span, file$9, 297, 11, 9939);
     			attr_dev(button, "class", "addHeroButton lineButton svelte-1l7swo3");
-    			add_location(button, file$9, 294, 10, 9574);
+    			add_location(button, file$9, 296, 10, 9748);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -35931,14 +35931,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3$3.name,
     		type: "if",
-    		source: "(294:9) {#if hero === 'unknown'}",
+    		source: "(296:9) {#if hero === 'unknown'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (292:8) {#each comp.lines[openLine].heroes as  hero, i}
+    // (294:8) {#each comp.lines[openLine].heroes as  hero, i}
     function create_each_block_2$2(ctx) {
     	let if_block_anchor;
     	let if_block = /*i*/ ctx[62] < 2 && create_if_block_2$3(ctx);
@@ -35965,14 +35965,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2$2.name,
     		type: "each",
-    		source: "(292:8) {#each comp.lines[openLine].heroes as  hero, i}",
+    		source: "(294:8) {#each comp.lines[openLine].heroes as  hero, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (331:8) {#each sub.heroes as hero, j}
+    // (333:8) {#each sub.heroes as hero, j}
     function create_each_block_1$3(ctx) {
     	let div;
     	let button1;
@@ -36039,16 +36039,16 @@ var app = (function () {
     			: "Pick a Hero");
 
     			attr_dev(img, "class", "svelte-1l7swo3");
-    			add_location(img, file$9, 333, 11, 11790);
-    			add_location(span, file$9, 336, 95, 12140);
+    			add_location(img, file$9, 335, 11, 11964);
+    			add_location(span, file$9, 338, 95, 12314);
     			attr_dev(button0, "class", "removeHeroButton subHeroButton svelte-1l7swo3");
-    			add_location(button0, file$9, 336, 11, 12056);
+    			add_location(button0, file$9, 338, 11, 12230);
     			attr_dev(button1, "class", "heroButton svelte-1l7swo3");
-    			add_location(button1, file$9, 332, 10, 11572);
+    			add_location(button1, file$9, 334, 10, 11746);
     			attr_dev(p, "class", "svelte-1l7swo3");
-    			add_location(p, file$9, 338, 10, 12196);
+    			add_location(p, file$9, 340, 10, 12370);
     			attr_dev(div, "class", "subGroupMember");
-    			add_location(div, file$9, 331, 9, 11532);
+    			add_location(div, file$9, 333, 9, 11706);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -36098,14 +36098,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$3.name,
     		type: "each",
-    		source: "(331:8) {#each sub.heroes as hero, j}",
+    		source: "(333:8) {#each sub.heroes as hero, j}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (324:5) {#each comp.subs as sub, i}
+    // (326:5) {#each comp.subs as sub, i}
     function create_each_block$7(ctx) {
     	let div2;
     	let div0;
@@ -36162,18 +36162,18 @@ var app = (function () {
     			attr_dev(input, "class", "subTitleInput svelte-1l7swo3");
     			attr_dev(input, "type", "text");
     			attr_dev(input, "placeholder", "Subgroup Name");
-    			add_location(input, file$9, 326, 8, 11227);
-    			add_location(span, file$9, 327, 94, 11414);
+    			add_location(input, file$9, 328, 8, 11401);
+    			add_location(span, file$9, 329, 94, 11588);
     			attr_dev(button0, "class", "removeButton svelte-1l7swo3");
-    			add_location(button0, file$9, 327, 8, 11328);
+    			add_location(button0, file$9, 329, 8, 11502);
     			attr_dev(div0, "class", "subTitle svelte-1l7swo3");
-    			add_location(div0, file$9, 325, 7, 11195);
+    			add_location(div0, file$9, 327, 7, 11369);
     			attr_dev(button1, "class", "addHeroButton svelte-1l7swo3");
-    			add_location(button1, file$9, 341, 8, 12288);
+    			add_location(button1, file$9, 343, 8, 12462);
     			attr_dev(div1, "class", "subLine svelte-1l7swo3");
-    			add_location(div1, file$9, 329, 7, 11461);
+    			add_location(div1, file$9, 331, 7, 11635);
     			attr_dev(div2, "class", "subGroup svelte-1l7swo3");
-    			add_location(div2, file$9, 324, 6, 11164);
+    			add_location(div2, file$9, 326, 6, 11338);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -36246,14 +36246,14 @@ var app = (function () {
     		block,
     		id: create_each_block$7.name,
     		type: "each",
-    		source: "(324:5) {#each comp.subs as sub, i}",
+    		source: "(326:5) {#each comp.subs as sub, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (359:2) {#if heroFinderOpen}
+    // (361:2) {#if heroFinderOpen}
     function create_if_block$8(ctx) {
     	let herofinder;
     	let current;
@@ -36294,7 +36294,7 @@ var app = (function () {
     		block,
     		id: create_if_block$8.name,
     		type: "if",
-    		source: "(359:2) {#if heroFinderOpen}",
+    		source: "(361:2) {#if heroFinderOpen}",
     		ctx
     	});
 
@@ -36445,66 +36445,66 @@ var app = (function () {
     			attr_dev(input0, "class", "titleInput svelte-1l7swo3");
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "placeholder", "Title");
-    			add_location(input0, file$9, 246, 3, 7039);
+    			add_location(input0, file$9, 248, 3, 7213);
     			attr_dev(input1, "class", "authorInput svelte-1l7swo3");
     			attr_dev(input1, "type", "text");
     			attr_dev(input1, "placeholder", "Author");
-    			add_location(input1, file$9, 247, 3, 7125);
+    			add_location(input1, file$9, 249, 3, 7299);
     			attr_dev(div0, "class", "editorHead svelte-1l7swo3");
-    			add_location(div0, file$9, 245, 2, 7010);
+    			add_location(div0, file$9, 247, 2, 7184);
     			attr_dev(h40, "class", "lineEditorTitle svelte-1l7swo3");
-    			add_location(h40, file$9, 254, 4, 7385);
+    			add_location(h40, file$9, 256, 4, 7559);
     			attr_dev(button0, "class", "linePickerOption addLineButton svelte-1l7swo3");
-    			add_location(button0, file$9, 262, 5, 7754);
+    			add_location(button0, file$9, 264, 5, 7928);
     			attr_dev(div1, "class", "lineEditHead svelte-1l7swo3");
-    			add_location(div1, file$9, 255, 4, 7429);
+    			add_location(div1, file$9, 257, 4, 7603);
     			attr_dev(div2, "class", "lineEditBody svelte-1l7swo3");
-    			add_location(div2, file$9, 264, 4, 7848);
+    			add_location(div2, file$9, 266, 4, 8022);
     			attr_dev(div3, "class", "lineEditor svelte-1l7swo3");
-    			add_location(div3, file$9, 253, 3, 7355);
+    			add_location(div3, file$9, 255, 3, 7529);
     			attr_dev(h41, "class", "svelte-1l7swo3");
-    			add_location(h41, file$9, 315, 4, 10830);
+    			add_location(h41, file$9, 317, 4, 11004);
     			attr_dev(textarea, "id", "descInput");
     			attr_dev(textarea, "class", "descInput svelte-1l7swo3");
     			attr_dev(textarea, "placeholder", "Description");
-    			add_location(textarea, file$9, 316, 4, 10856);
+    			add_location(textarea, file$9, 318, 4, 11030);
     			attr_dev(div4, "class", "descEditor svelte-1l7swo3");
-    			add_location(div4, file$9, 314, 3, 10800);
+    			add_location(div4, file$9, 316, 3, 10974);
     			attr_dev(div5, "class", "row1 svelte-1l7swo3");
-    			add_location(div5, file$9, 252, 2, 7332);
+    			add_location(div5, file$9, 254, 2, 7506);
     			attr_dev(h42, "class", "svelte-1l7swo3");
-    			add_location(h42, file$9, 321, 4, 11070);
+    			add_location(h42, file$9, 323, 4, 11244);
     			attr_dev(button1, "class", "subAddButton svelte-1l7swo3");
-    			add_location(button1, file$9, 346, 6, 12555);
+    			add_location(button1, file$9, 348, 6, 12729);
     			attr_dev(div6, "class", "newSubArea svelte-1l7swo3");
-    			add_location(div6, file$9, 345, 5, 12523);
+    			add_location(div6, file$9, 347, 5, 12697);
     			attr_dev(div7, "class", "subContainer svelte-1l7swo3");
-    			add_location(div7, file$9, 322, 4, 11096);
+    			add_location(div7, file$9, 324, 4, 11270);
     			attr_dev(div8, "class", "subEditor");
-    			add_location(div8, file$9, 320, 3, 11041);
+    			add_location(div8, file$9, 322, 3, 11215);
     			attr_dev(div9, "class", "row2");
-    			add_location(div9, file$9, 319, 2, 11018);
+    			add_location(div9, file$9, 321, 2, 11192);
     			attr_dev(button2, "class", "footerButton draftButton svelte-1l7swo3");
-    			add_location(button2, file$9, 352, 3, 12705);
+    			add_location(button2, file$9, 354, 3, 12879);
     			attr_dev(button3, "class", "footerButton saveButton svelte-1l7swo3");
-    			add_location(button3, file$9, 353, 3, 12791);
+    			add_location(button3, file$9, 355, 3, 12965);
     			attr_dev(button4, "class", "footerButton cancelButton svelte-1l7swo3");
-    			add_location(button4, file$9, 354, 3, 12902);
+    			add_location(button4, file$9, 356, 3, 13076);
     			attr_dev(div10, "class", "footer svelte-1l7swo3");
-    			add_location(div10, file$9, 351, 2, 12680);
+    			add_location(div10, file$9, 353, 2, 12854);
     			attr_dev(section0, "class", "sect1");
-    			add_location(section0, file$9, 244, 1, 6983);
+    			add_location(section0, file$9, 246, 1, 7157);
     			attr_dev(section1, "class", "sect2 svelte-1l7swo3");
     			toggle_class(section1, "visible", /*heroFinderOpen*/ ctx[5]);
-    			add_location(section1, file$9, 357, 1, 13007);
+    			add_location(section1, file$9, 359, 1, 13181);
     			attr_dev(div11, "class", "statusMessage svelte-1l7swo3");
     			toggle_class(div11, "visible", /*showStatusMessage*/ ctx[3]);
     			toggle_class(div11, "error", /*statusError*/ ctx[4]);
-    			add_location(div11, file$9, 363, 2, 13174);
+    			add_location(div11, file$9, 365, 2, 13348);
     			attr_dev(section2, "class", "sect3 svelte-1l7swo3");
-    			add_location(section2, file$9, 362, 1, 13147);
+    			add_location(section2, file$9, 364, 1, 13321);
     			attr_dev(div12, "class", "editorContainer svelte-1l7swo3");
-    			add_location(div12, file$9, 243, 0, 6951);
+    			add_location(div12, file$9, 245, 0, 7125);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$4("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -37009,6 +37009,9 @@ var app = (function () {
     			},
     			comp
     		);
+
+    		// check if the last reference to the old hero was replaced, and remove it if necessary
+    		if (oldHeroID !== "" && oldHeroID !== hero.id) removeHeroesReference(oldHeroID);
     	}
 
     	function removeSubHero(subIdx, heroIdx) {
