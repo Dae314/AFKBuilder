@@ -101,17 +101,22 @@
 		padding-top: 8px;
 	}
 	.titleAuthorContainer {
-		width: 100%;
-	}
-	.compCardTitleContainer {
 		width: 80%;
 	}
+	.compCardTitleContainer {
+		width: 100%;
+	}
 	.compCardTitle {
-		-ms-user-select: none;
+		display: inline-block;
 		font-size: 1.3rem;
 		font-weight: bold;
+		-ms-user-select: none;
+		overflow: hidden;
+		text-overflow: ellipsis;
 		user-select: none;
 		-webkit-user-select: none;
+		white-space: nowrap;
+		width: 100%;
 	}
 	.author {
 		-ms-user-select: none;
@@ -121,7 +126,7 @@
 	.buttonDraftArea {
 		display: flex;
 		flex-direction: column;
-		width: 120px;
+		width: 20%;
 	}
 	.cardButtonsContainer {
 		align-items: center;
@@ -277,6 +282,12 @@
 		.compCard.active {
 			border: 5px solid var(--appColorPrimary);
 			transform: scale(1.03);
+		}
+		.titleAuthorContainer {
+			width: 70%;
+		}
+		.buttonDraftArea {
+			width: 30%;
 		}
 		.cardDeleteButton:hover+.tooltip .tooltipText {
 			opacity: 1;

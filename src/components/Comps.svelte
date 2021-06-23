@@ -752,6 +752,9 @@
 		padding-bottom: 10px;
 		width: 100%;
 	}
+	.closeButtonContainer {
+		width: 25%;
+	}
 	.closeDetailButton {
 		align-items: center;
 		background-color: transparent;
@@ -778,12 +781,19 @@
 		align-items: center;
 		display: flex;
 		flex-direction: column;
+		overflow: hidden;
 		justify-content: center;
-		width: 100%;
+		width: 50%;
 	}
 	.compTitle {
+		display: inline-block;
 		font-size: 1.5rem;
 		margin: 0;
+		overflow: hidden;
+		text-align: center;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 100%;
 	}
 	.authorTitle {
 		font-size: 0.9rem;
@@ -793,6 +803,8 @@
 		align-items: center;
 		display: flex;
 		flex-direction: row;
+		justify-content: flex-end;
+		width: 25%;
 	}
 	.editDelButton {
 		align-items: center;
@@ -1161,8 +1173,15 @@
 			position: static;
 			visibility: visible;
 		}
-		.closeDetailButton {
+		.closeButtonContainer { 
 			visibility: hidden;
+			width: 25%;
+		}
+		.titleContainer {
+			width: 50%;
+		}
+		.editContainer {
+			width: 25%;
 		}
 		.exportButton {
 			display: flex;
