@@ -319,17 +319,6 @@
 						starCallback={handleStarClick}
 					/>
 				</SortableList>
-				<!-- {#each sortedCompList as comp, i}
-					<CompCard
-						comp={comp}
-						idx={i}
-						highlightComp={highlightComp}
-						delCallback={handleDeleteButtonClick}
-						cardClickCallback={handleCompCardClick}
-						exportCallback={handleExportButtonClick}
-						starCallback={handleStarClick}
-					/>
-				{/each} -->
 			{/if}
 		</div>
 		<div class="addButtonArea">
