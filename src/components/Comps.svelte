@@ -1276,7 +1276,7 @@
 			margin-top: 27px;
 			max-height: 335px;
 			overflow-y: auto;
-			padding: 5px;
+			padding: 10px;
 		}
 		.subGroups {
 			width: 100%;
@@ -1318,6 +1318,7 @@
 		margin: 5px 0px;
 	}
 	.descText :global(p) {
+		line-height: 160%;
 		margin: 5px 0px;
 	}
 	.descText :global(a) {
@@ -1325,6 +1326,7 @@
 	}
 	.descText :global(ul), .descText :global(ol) {
 		margin: 10px 0px;
+		padding-left: 24px;
 	}
 	.descText :global(h1), .descText :global(h2), .descText :global(h3) {
 		margin: 10px 0px;
@@ -1337,25 +1339,31 @@
 	}
 	.descText :global(blockquote) {
 		border-left: 5px solid var(--appColorPriOpaque);
+		color: #999;
 		margin-left: 20px;
 		padding-left: 5px;
 	}
-	.descText :global(code) {
+	.descText :global(pre) {
 		background-color: var(--appBGColorDark);
 		color: black;
 		font-family: 'Courier New', Courier, monospace;
 		font-size: 1.0rem;
+		padding: 10px;
 	}
 	.descText :global(table) {
 		border-collapse: collapse;
 	}
 	.descText :global(th) {
 		border-bottom: 2px solid var(--appColorPrimary);
+		padding-top: 7px;
+		padding-bottom: 7px;
 		padding-right: 20px;
 		text-align: left;
 	}
 	.descText :global(td) {
 		border-bottom: 1px solid black;
+		padding-top: 7px;
+		padding-bottom: 7px;
 	}
 	.descText :global(tr):nth-child(even) {
 		background-color: var(--appColorPriOpaque);
