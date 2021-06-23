@@ -1107,6 +1107,13 @@
 		padding-top: 5px;
 		width: 100%;
 	}
+	.subGroupTitle span {
+		display: inline-block;
+		width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 	.subGroupTitle:first-child {
 		padding-top: 0;
 	}
