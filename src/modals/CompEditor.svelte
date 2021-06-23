@@ -709,6 +709,9 @@
 		}
 	}
 	/* toastui editor styling */
+	:global(.toastui-editor-ww-container), :global(.toastui-editor-md-container) {
+		z-index: 4 !important;
+	}
 	:global(.toastui-editor-dropdown-toolbar) {
 		flex-wrap: wrap !important;
 		height: auto !important;
