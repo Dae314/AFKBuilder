@@ -81254,7 +81254,7 @@ var app = (function () {
     			button = element("button");
     			t0 = text$2(t0_value);
     			t1 = space();
-    			attr_dev(button, "class", "sectionButton svelte-1ynxeld");
+    			attr_dev(button, "class", "sectionButton svelte-ilsixj");
     			toggle_class(button, "active", /*$AppData*/ ctx[1].REC.openSection === /*i*/ ctx[45]);
     			add_location(button, file$2, 150, 4, 4185);
     			add_location(li, file$2, 149, 3, 4175);
@@ -81320,9 +81320,9 @@ var app = (function () {
     			section = element("section");
     			div = element("div");
     			if_block.c();
-    			attr_dev(div, "class", "recArea svelte-1ynxeld");
+    			attr_dev(div, "class", "recArea svelte-ilsixj");
     			add_location(div, file$2, 225, 2, 7310);
-    			attr_dev(section, "class", "recSection furnSection svelte-1ynxeld");
+    			attr_dev(section, "class", "recSection furnSection svelte-ilsixj");
     			add_location(section, file$2, 224, 1, 7266);
     		},
     		m: function mount(target, anchor) {
@@ -81409,9 +81409,9 @@ var app = (function () {
     			section = element("section");
     			div = element("div");
     			if_block.c();
-    			attr_dev(div, "class", "recArea svelte-1ynxeld");
+    			attr_dev(div, "class", "recArea svelte-ilsixj");
     			add_location(div, file$2, 191, 2, 5875);
-    			attr_dev(section, "class", "recSection siSection svelte-1ynxeld");
+    			attr_dev(section, "class", "recSection siSection svelte-ilsixj");
     			add_location(section, file$2, 190, 1, 5833);
     		},
     		m: function mount(target, anchor) {
@@ -81498,9 +81498,9 @@ var app = (function () {
     			section = element("section");
     			div = element("div");
     			if_block.c();
-    			attr_dev(div, "class", "recArea svelte-1ynxeld");
+    			attr_dev(div, "class", "recArea svelte-ilsixj");
     			add_location(div, file$2, 157, 2, 4479);
-    			attr_dev(section, "class", "recSection buildSection svelte-1ynxeld");
+    			attr_dev(section, "class", "recSection buildSection svelte-ilsixj");
     			add_location(section, file$2, 156, 1, 4434);
     		},
     		m: function mount(target, anchor) {
@@ -81572,9 +81572,9 @@ var app = (function () {
     			div = element("div");
     			span = element("span");
     			span.textContent = "No Furniture Recommendations";
-    			attr_dev(span, "class", "svelte-1ynxeld");
+    			attr_dev(span, "class", "svelte-ilsixj");
     			add_location(span, file$2, 253, 23, 8546);
-    			attr_dev(div, "class", "noRec svelte-1ynxeld");
+    			attr_dev(div, "class", "noRec svelte-ilsixj");
     			add_location(div, file$2, 253, 4, 8527);
     		},
     		m: function mount(target, anchor) {
@@ -81699,9 +81699,9 @@ var app = (function () {
     			li = element("li");
     			button = element("button");
     			t = text$2(t_value);
-    			attr_dev(button, "class", "compButton svelte-1ynxeld");
+    			attr_dev(button, "class", "compButton svelte-ilsixj");
     			add_location(button, file$2, 246, 12, 8345);
-    			attr_dev(li, "class", "svelte-1ynxeld");
+    			attr_dev(li, "class", "svelte-ilsixj");
     			add_location(li, file$2, 246, 8, 8341);
     		},
     		m: function mount(target, anchor) {
@@ -81829,32 +81829,32 @@ var app = (function () {
     			}
 
     			t9 = space();
-    			attr_dev(button0, "class", "claimButton svelte-1ynxeld");
+    			attr_dev(button0, "class", "claimButton svelte-ilsixj");
     			add_location(button0, file$2, 230, 7, 7607);
-    			attr_dev(div0, "class", "claimButtonArea svelte-1ynxeld");
+    			attr_dev(div0, "class", "claimButtonArea svelte-ilsixj");
     			add_location(div0, file$2, 229, 6, 7569);
-    			attr_dev(h4, "class", "svelte-1ynxeld");
+    			attr_dev(h4, "class", "svelte-ilsixj");
     			add_location(h4, file$2, 232, 6, 7729);
-    			attr_dev(img, "class", "portrait svelte-1ynxeld");
+    			attr_dev(img, "class", "portrait svelte-ilsixj");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[2].find(func_13).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[2].find(func_14).name);
     			add_location(img, file$2, 235, 8, 7915);
-    			attr_dev(span, "class", "coreMark svelte-1ynxeld");
+    			attr_dev(span, "class", "coreMark svelte-ilsixj");
     			toggle_class(span, "visible", /*rec*/ ctx[29].core);
     			add_location(span, file$2, 236, 8, 8047);
-    			attr_dev(button1, "class", "portraitButton svelte-1ynxeld");
+    			attr_dev(button1, "class", "portraitButton svelte-ilsixj");
     			add_location(button1, file$2, 234, 7, 7829);
-    			attr_dev(div1, "class", "portraitContainer svelte-1ynxeld");
+    			attr_dev(div1, "class", "portraitContainer svelte-ilsixj");
     			add_location(div1, file$2, 233, 6, 7789);
-    			attr_dev(div2, "class", "recText svelte-1ynxeld");
+    			attr_dev(div2, "class", "recText svelte-ilsixj");
     			add_location(div2, file$2, 239, 6, 8142);
-    			attr_dev(h5, "class", "svelte-1ynxeld");
+    			attr_dev(h5, "class", "svelte-ilsixj");
     			add_location(h5, file$2, 243, 7, 8268);
-    			attr_dev(ul, "class", "svelte-1ynxeld");
+    			attr_dev(ul, "class", "svelte-ilsixj");
     			add_location(ul, file$2, 244, 7, 8293);
-    			attr_dev(div3, "class", "compArea svelte-1ynxeld");
+    			attr_dev(div3, "class", "compArea svelte-ilsixj");
     			add_location(div3, file$2, 242, 6, 8237);
-    			attr_dev(div4, "class", "recCard svelte-1ynxeld");
+    			attr_dev(div4, "class", "recCard svelte-ilsixj");
     			add_location(div4, file$2, 228, 5, 7507);
     			this.first = div4;
     		},
@@ -81999,9 +81999,9 @@ var app = (function () {
     			div = element("div");
     			span = element("span");
     			span.textContent = "No Signature Item Recommendations";
-    			attr_dev(span, "class", "svelte-1ynxeld");
+    			attr_dev(span, "class", "svelte-ilsixj");
     			add_location(span, file$2, 219, 23, 7134);
-    			attr_dev(div, "class", "noRec svelte-1ynxeld");
+    			attr_dev(div, "class", "noRec svelte-ilsixj");
     			add_location(div, file$2, 219, 4, 7115);
     		},
     		m: function mount(target, anchor) {
@@ -82126,9 +82126,9 @@ var app = (function () {
     			li = element("li");
     			button = element("button");
     			t = text$2(t_value);
-    			attr_dev(button, "class", "compButton svelte-1ynxeld");
+    			attr_dev(button, "class", "compButton svelte-ilsixj");
     			add_location(button, file$2, 212, 12, 6933);
-    			attr_dev(li, "class", "svelte-1ynxeld");
+    			attr_dev(li, "class", "svelte-ilsixj");
     			add_location(li, file$2, 212, 8, 6929);
     		},
     		m: function mount(target, anchor) {
@@ -82261,32 +82261,32 @@ var app = (function () {
     			}
 
     			t9 = space();
-    			attr_dev(button0, "class", "claimButton svelte-1ynxeld");
+    			attr_dev(button0, "class", "claimButton svelte-ilsixj");
     			add_location(button0, file$2, 196, 7, 6166);
-    			attr_dev(div0, "class", "claimButtonArea svelte-1ynxeld");
+    			attr_dev(div0, "class", "claimButtonArea svelte-ilsixj");
     			add_location(div0, file$2, 195, 6, 6128);
-    			attr_dev(h4, "class", "svelte-1ynxeld");
+    			attr_dev(h4, "class", "svelte-ilsixj");
     			add_location(h4, file$2, 198, 6, 6286);
-    			attr_dev(img, "class", "portrait svelte-1ynxeld");
+    			attr_dev(img, "class", "portrait svelte-ilsixj");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[2].find(func_9).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[2].find(func_10).name);
     			add_location(img, file$2, 201, 8, 6472);
-    			attr_dev(span, "class", "coreMark svelte-1ynxeld");
+    			attr_dev(span, "class", "coreMark svelte-ilsixj");
     			toggle_class(span, "visible", /*rec*/ ctx[29].core);
     			add_location(span, file$2, 202, 8, 6604);
-    			attr_dev(button1, "class", "portraitButton svelte-1ynxeld");
+    			attr_dev(button1, "class", "portraitButton svelte-ilsixj");
     			add_location(button1, file$2, 200, 7, 6386);
-    			attr_dev(div1, "class", "portraitContainer svelte-1ynxeld");
+    			attr_dev(div1, "class", "portraitContainer svelte-ilsixj");
     			add_location(div1, file$2, 199, 6, 6346);
-    			attr_dev(div2, "class", "recText svelte-1ynxeld");
+    			attr_dev(div2, "class", "recText svelte-ilsixj");
     			add_location(div2, file$2, 205, 6, 6699);
-    			attr_dev(h5, "class", "svelte-1ynxeld");
+    			attr_dev(h5, "class", "svelte-ilsixj");
     			add_location(h5, file$2, 209, 7, 6856);
-    			attr_dev(ul, "class", "svelte-1ynxeld");
+    			attr_dev(ul, "class", "svelte-ilsixj");
     			add_location(ul, file$2, 210, 7, 6881);
-    			attr_dev(div3, "class", "compArea svelte-1ynxeld");
+    			attr_dev(div3, "class", "compArea svelte-ilsixj");
     			add_location(div3, file$2, 208, 6, 6825);
-    			attr_dev(div4, "class", "recCard svelte-1ynxeld");
+    			attr_dev(div4, "class", "recCard svelte-ilsixj");
     			add_location(div4, file$2, 194, 5, 6066);
     			this.first = div4;
     		},
@@ -82431,9 +82431,9 @@ var app = (function () {
     			div = element("div");
     			span = element("span");
     			span.textContent = "No Build Recommendations";
-    			attr_dev(span, "class", "svelte-1ynxeld");
+    			attr_dev(span, "class", "svelte-ilsixj");
     			add_location(span, file$2, 185, 23, 5710);
-    			attr_dev(div, "class", "noRec svelte-1ynxeld");
+    			attr_dev(div, "class", "noRec svelte-ilsixj");
     			add_location(div, file$2, 185, 4, 5691);
     		},
     		m: function mount(target, anchor) {
@@ -82558,9 +82558,9 @@ var app = (function () {
     			li = element("li");
     			button = element("button");
     			t = text$2(t_value);
-    			attr_dev(button, "class", "compButton svelte-1ynxeld");
+    			attr_dev(button, "class", "compButton svelte-ilsixj");
     			add_location(button, file$2, 178, 12, 5509);
-    			attr_dev(li, "class", "svelte-1ynxeld");
+    			attr_dev(li, "class", "svelte-ilsixj");
     			add_location(li, file$2, 178, 8, 5505);
     		},
     		m: function mount(target, anchor) {
@@ -82688,32 +82688,32 @@ var app = (function () {
     			}
 
     			t9 = space();
-    			attr_dev(button0, "class", "claimButton svelte-1ynxeld");
+    			attr_dev(button0, "class", "claimButton svelte-ilsixj");
     			add_location(button0, file$2, 162, 7, 4779);
-    			attr_dev(div0, "class", "claimButtonArea svelte-1ynxeld");
+    			attr_dev(div0, "class", "claimButtonArea svelte-ilsixj");
     			add_location(div0, file$2, 161, 6, 4741);
-    			attr_dev(h4, "class", "svelte-1ynxeld");
+    			attr_dev(h4, "class", "svelte-ilsixj");
     			add_location(h4, file$2, 164, 6, 4900);
-    			attr_dev(img, "class", "portrait svelte-1ynxeld");
+    			attr_dev(img, "class", "portrait svelte-ilsixj");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[2].find(func_5).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[2].find(func_6).name);
     			add_location(img, file$2, 167, 8, 5086);
-    			attr_dev(span, "class", "coreMark svelte-1ynxeld");
+    			attr_dev(span, "class", "coreMark svelte-ilsixj");
     			toggle_class(span, "visible", /*rec*/ ctx[29].core);
     			add_location(span, file$2, 168, 8, 5218);
-    			attr_dev(button1, "class", "portraitButton svelte-1ynxeld");
+    			attr_dev(button1, "class", "portraitButton svelte-ilsixj");
     			add_location(button1, file$2, 166, 7, 5000);
-    			attr_dev(div1, "class", "portraitContainer svelte-1ynxeld");
+    			attr_dev(div1, "class", "portraitContainer svelte-ilsixj");
     			add_location(div1, file$2, 165, 6, 4960);
-    			attr_dev(div2, "class", "recText svelte-1ynxeld");
+    			attr_dev(div2, "class", "recText svelte-ilsixj");
     			add_location(div2, file$2, 171, 6, 5313);
-    			attr_dev(h5, "class", "svelte-1ynxeld");
+    			attr_dev(h5, "class", "svelte-ilsixj");
     			add_location(h5, file$2, 175, 7, 5432);
-    			attr_dev(ul, "class", "svelte-1ynxeld");
+    			attr_dev(ul, "class", "svelte-ilsixj");
     			add_location(ul, file$2, 176, 7, 5457);
-    			attr_dev(div3, "class", "compArea svelte-1ynxeld");
+    			attr_dev(div3, "class", "compArea svelte-ilsixj");
     			add_location(div3, file$2, 174, 6, 5401);
-    			attr_dev(div4, "class", "recCard svelte-1ynxeld");
+    			attr_dev(div4, "class", "recCard svelte-ilsixj");
     			add_location(div4, file$2, 160, 5, 4679);
     			this.first = div4;
     		},
@@ -82890,11 +82890,11 @@ var app = (function () {
 
     			t = space();
     			if (if_block) if_block.c();
-    			attr_dev(ul, "class", "sectionPicker svelte-1ynxeld");
+    			attr_dev(ul, "class", "sectionPicker svelte-ilsixj");
     			add_location(ul, file$2, 147, 2, 4109);
-    			attr_dev(div0, "class", "sectionPickerSection svelte-1ynxeld");
+    			attr_dev(div0, "class", "sectionPickerSection svelte-ilsixj");
     			add_location(div0, file$2, 146, 1, 4071);
-    			attr_dev(div1, "class", "recContainer svelte-1ynxeld");
+    			attr_dev(div1, "class", "recContainer svelte-ilsixj");
     			add_location(div1, file$2, 145, 0, 4042);
     		},
     		l: function claim(nodes) {
