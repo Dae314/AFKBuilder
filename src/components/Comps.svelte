@@ -873,7 +873,11 @@
 		cursor: pointer;
 		font-size: 1.0rem;
 		margin-right: 5px;
+		max-width: 100px;
+		overflow: hidden;
 		padding: 3px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	.lineSwitchButton.active {
 		background-color: var(--appColorPrimary);

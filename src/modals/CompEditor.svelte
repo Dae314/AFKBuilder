@@ -267,7 +267,7 @@
 				<div class="lineEditHead">
 					{#each comp.lines as line, i}
 						<button class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
-							{line.name}
+							<span>{line.name}</span>
 							<button class="removeButton" on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
 						</button>
 					{/each}
@@ -477,7 +477,15 @@
 		cursor: pointer;
 		display: flex;
 		justify-content: center;
+		max-width: 100px;
 		padding: 3px;
+	}
+	.linePickerOption span {
+		display: inline-block;
+		width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	.linePickerOption.open {
 		background-color: var(--appColorPrimary);
