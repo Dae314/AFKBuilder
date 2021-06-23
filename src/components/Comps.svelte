@@ -797,8 +797,14 @@
 		width: 100%;
 	}
 	.authorTitle {
+		display: inline-block;
 		font-size: 0.9rem;
 		margin: 0;
+		overflow: hidden;
+		text-align: center;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 100%;
 	}
 	.editContainer {
 		align-items: center;

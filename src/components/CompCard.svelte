@@ -119,9 +119,14 @@
 		width: 100%;
 	}
 	.author {
+		display: inline-block;
 		-ms-user-select: none;
+		overflow: hidden;
 		user-select: none;
 		-webkit-user-select: none;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 100%;
 	}
 	.buttonDraftArea {
 		display: flex;
