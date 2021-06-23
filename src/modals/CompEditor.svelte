@@ -51,7 +51,7 @@
 			events: {
 				change: handleContentChange,
 			},
-			height: '338px',
+			height: '346.5px',
 			initialValue: comp.desc,
 			initialEditType: 'wysiwyg',
 			language: 'en_US',
@@ -345,7 +345,7 @@
 											<img
 												src={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).portrait : './img/portraits/unavailable.png'}
 												alt={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).name : 'Pick a Hero'}>
-											<button class="removeHeroButton subHeroButton" on:click={() => removeSubHero(i, j)}><span>x</span></button>
+											<button class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
 										</button>
 										<p>{$HeroData.find(e => e.id === hero).name}</p>
 									</div>
@@ -537,6 +537,9 @@
 		flex-direction: column;
 		justify-content: center;
 	}
+	.backline {
+		margin-right: 10px;
+	}
 	.lineButton {
 		margin: 5px;
 	}
@@ -544,6 +547,7 @@
 		background: transparent;
 		border: none;
 		cursor: pointer;
+		padding: 0;
 		position: relative;
 	}
 	.heroButton img {
@@ -578,24 +582,25 @@
 		cursor: pointer;
 		outline: none;
 		position: absolute;
-		right: 0;
-		top: 0;
-	}
-	.removeHeroButton.lineHeroButton {
 		right: -6px;
+		top: 0;
 	}
 	.heroButton+p {
 		color: black;
 		font-size: 0.8rem;
 		font-weight: bold;
 		margin: 0;
+		overflow: hidden;
 		text-align: center;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 70px;
 	}
 	.subLine p {
 		color: black;
 	}
 	.lineDisplay p {
-		margin-bottom: 5px;
+		margin-bottom: 10px;
 	}
 	.subGroup {
 		margin-bottom: 10px;
@@ -624,6 +629,12 @@
 		display: flex;
 		flex-wrap: wrap;
 		max-width: 100%;
+	}
+	.subGroupMember {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		margin-right: 7px;
 	}
 	.addHeroButton {
 		background: transparent;

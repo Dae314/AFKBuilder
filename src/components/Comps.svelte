@@ -891,6 +891,9 @@
 		justify-content: center;
 		width: 80px;
 	}
+	.detailBackline {
+		margin-right: 10px;
+	}
 	.detailImgContainer + a {
 		color: black;
 		font-size: 0.8rem;
@@ -898,8 +901,12 @@
 		margin: 0;
 		margin-bottom: 5px;
 		margin-top: -8px;
+		overflow: hidden;
 		text-align: center;
 		text-decoration: none;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 80px;
 	}
 	.lineImg {
 		border-radius: 50%;
@@ -1098,21 +1105,28 @@
 		padding: 5px;
 		width: 100%;
 	}
+	.subHeroContainer {
+		margin-right: 8px;
+	}
+	.subHeroContainer a {
+		align-items: center;
+		color: black;
+		display: flex;
+		flex-direction: column;
+		text-decoration: none;
+	}
 	.subHeroContainer p {
 		font-size: 0.9rem;
 		font-weight: bold;
 		margin: 0;
-		margin-top: -5px;
-		padding-right: 10px;
+		width: 80px;
+		overflow: hidden;
 		text-align: center;
-	}
-	.subHeroContainer a {
-		color: black;
-		text-decoration: none;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	.subImg {
 		border-radius: 50%;
-		margin-right: 10px;
 		max-width: 70px;
 	}
 	.subImg.claimed {
