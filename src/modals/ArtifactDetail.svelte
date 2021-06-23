@@ -58,6 +58,11 @@
 		position: relative;
 		width: 100%;
 	}
+	img {
+		user-drag: none; 
+		-webkit-user-drag: none;
+		-webkit-user-select: none;
+	}
 	.headerSection h3 {
 		background-color: var(--appColorPrimary);
 		color: white;
@@ -120,6 +125,9 @@
 		font-weight: bold;
 		margin: 5px;
 		padding: 10px;
+		user-select: none;
+		-moz-user-select: none;
+		-webkit-user-select: none;
 	}
 	.descContainer {
 		padding: 10px;
