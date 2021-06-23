@@ -21,6 +21,8 @@
 		"svelte": "^3.0.0"
 	},
 	"dependencies": {
+		"@toast-ui/editor": "^3.0.0",
+		"json-url": "^3.0.0",
 		"markdown-it": "^12.0.6",
 		"markdown-it-emoji": "^2.0.0",
 		"punycode": "^2.1.1",

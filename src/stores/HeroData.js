@@ -16,7 +16,7 @@ const HeroData = readable([
 					{ desc: 'Raises all allies\' Attack Ratings by <em>7%</em> and Defense Ratings by <em>14%</em> for every non-summoned enemy that falls in combat while Estrilda is alive, up until the end of the battle. This ability may be stacked up to <em>3</em> times.',
 						unlock: 81,
 					},
-					{ desc: 'All of Estrilda\'s allies will recover <em>60</em> energy points for every non-summoned enemy that she defeats in battle while she is alive.',
+					{ desc: 'All of Estrilda\'s allies will recover <em>60</em> Energy points for every non-summoned enemy that she defeats in battle while she is alive.',
 						unlock: 161,
 					},
 				],
@@ -39,10 +39,10 @@ const HeroData = readable([
 			},
 			{ name: 'Inspire',
 				image: './img/skills/estrilda3.png',
-				desc: 'Estrilda increases her allies\' morale by waving her flag in the air, increasing their attack rating by <em>30%</em> for <em>8</em> seconds.',
+				desc: 'Estrilda increases her allies\' morale by waving her flag in the air, increasing their Attack Rating by <em>30%</em> for <em>8</em> seconds.',
 				unlock: 41,
 				upgrades: [
-					{ desc: 'Estrilda and her allies recover <em>100</em> energy.',
+					{ desc: 'Estrilda and her allies recover <em>100</em> Energy.',
 						unlock: 121,
 					},
 					{ desc: 'Energy restored increased by up to <em>150</em> points.',
@@ -105,7 +105,7 @@ const HeroData = readable([
 			{
 				name: 'Divine Light',
 				image: './img/skills/belinda1.png',
-				desc: 'Belinda uses her divine power to attack a large area of enemies <em>4</em> times. Each successful hit deals <em>110%</em> magic damage to the enemy targets.',
+				desc: 'Belinda uses her divine power to attack a large area of enemies <em>4</em> times. Each successful hit deals <em>110%</em> Magic Damage to the enemy targets.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Damage increases for every successive hit that lands.',
@@ -174,7 +174,7 @@ const HeroData = readable([
 				{ desc: 'Raises potency of "Divine Retribution\'s" damage when used by allies up to <em>80%</em>.',
 					unlock: 20,
 				},
-				{ desc: 'Restores <em>40</em> energy each time ability is used.',
+				{ desc: 'Restores <em>40</em> Energy each time ability is used.',
 					unlock: 30,
 				},
 			],
@@ -264,9 +264,9 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Helping Hand',
 			image: './img/si/raine.png',
-			desc: 'Raine teams up with the ally with the highest Combat Rating, allowing for them to recover Health and Energy every <em>2</em> seconds. The recovery amount is equal of <em>30%</em> of what Raine recovers over these <em>2</em> seconds.',
+			desc: 'Raine teams up with the ally with the highest Combat Rating, allowing for them to recover health and Energy every <em>2</em> seconds. The recovery amount is equal of <em>30%</em> of what Raine recovers over these <em>2</em> seconds.',
 			upgrades: [
-				{ desc: 'Ally recovers <em>50%</em> health or energy.',
+				{ desc: 'Ally recovers <em>50%</em> health or Energy.',
 					unlock: 10,
 				},
 				{ desc: 'When both Raine and the ally she is teamed up with are alive and one of them uses their ultimate ability, both Raine and her ally will receive a shield that is able to mitigate damage equal to <em>100%</em> of Raine\'s Attack Rating.',
@@ -282,10 +282,10 @@ const HeroData = readable([
 			name: 'Deadly Force',
 			image: './img/furniture/raine.png',
 			upgrades: [
-				{ desc: 'After <em>3</em> seconds of battle, the enemy with the lowest Health is marked up until their death. While marked, all damage that is dealt to the enemy is increased by <em>30%</em>.',
+				{ desc: 'After <em>3</em> seconds of battle, the enemy with the lowest health is marked up until their death. While marked, all damage that is dealt to the enemy is increased by <em>30%</em>.',
 					unlock: 3,
 				},
-				{ desc: 'When the marked enemy dies, Raine re-marks the enemy that currently has the lowest Health.',
+				{ desc: 'When the marked enemy dies, Raine re-marks the enemy that currently has the lowest health.',
 					unlock: 9,
 				},
 			],
@@ -301,13 +301,13 @@ const HeroData = readable([
 			{
 				name: 'Motivation',
 				image: './img/skills/rosaline1.png',
-				desc: 'Rosaline will continuously follow the ally with the highest attack rating from start to finish. While following her ally, the damage that Rosaline receives is reduced by <em>40%</em>. Using this ability fully restores the energy of the ally Rosaline is currently following to its maximum. Rosaline expends a greater amount of her own energy when the amount of energy restored to her ally is higher, with at least <em>200</em> energy points being expended each time this ability is used.',
+				desc: 'Rosaline will continuously follow the ally with the highest Attack Rating from start to finish. While following her ally, the damage that Rosaline receives is reduced by <em>40%</em>. Using this ability fully restores the Energy of the ally Rosaline is currently following to its maximum. Rosaline expends a greater amount of her own Energy when the amount of Energy restored to her ally is higher, with at least <em>200</em> Energy points being expended each time this ability is used.',
 				unlock: 1,
 				upgrades: [
-					{ desc: 'Raises the attack rating of the ally being followed by <em>40%</em> for <em>4</em> seconds.',
+					{ desc: 'Raises the Attack Rating of the ally being followed by <em>40%</em> for <em>4</em> seconds.',
 						unlock: 81,
 					},
-					{ desc: 'Raises the attack rating of the ally being followed by <em>60%</em> for <em>4</em> seconds.',
+					{ desc: 'Raises the Attack Rating of the ally being followed by <em>60%</em> for <em>4</em> seconds.',
 						unlock: 161,
 					},
 				],
@@ -332,13 +332,13 @@ const HeroData = readable([
 			{
 				name: 'Afternoon Tea',
 				image: './img/skills/rosaline3.png',
-				desc: 'Rosaline heals the ally she is following for <em>150%</em> worth of her attack rating.',
+				desc: 'Rosaline heals the ally she is following for <em>150%</em> worth of her Attack Rating.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'The effects of this ability are increased by <em>25%</em> each time it is successfully used, up until it reaches <em>150%</em>.',
 						unlock: 121,
 					},
-					{ desc: 'Health recovery increased by up to <em>170%</em> of Attack Rating.',
+					{ desc: 'Health Recovery increased by up to <em>170%</em> of Attack Rating.',
 						unlock: 201,
 					},
 				],
@@ -362,12 +362,12 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Servitude',
 			image: './img/si/rosaline.png',
-			desc: 'Rosaline raises the attack and defense ratings of the ally she is currently following for <em>8%</em> of her own ratings\' values.',
+			desc: 'Rosaline raises the Attack and Defense Ratings of the ally she is currently following for <em>8%</em> of her own ratings\' values.',
 			upgrades: [
-				{ desc: 'Attack and defense ratings are raised by <em>16%</em> of Rosaline\'s own rating values.',
+				{ desc: 'Attack and Defense Ratings are raised by <em>16%</em> of Rosaline\'s own rating values.',
 					unlock: 10,
 				},
-				{ desc: 'Attack and defense ratings are raised by <em>30%</em> of Rosaline\'s own rating values.',
+				{ desc: 'Attack and Defense Ratings are raised by <em>30%</em> of Rosaline\'s own rating values.',
 					unlock: 20,
 				},
 				{ desc: 'Raises ally\'s crit rating and dodge for <em>25%</em> of Rosaline\'s own rating values.',
@@ -399,13 +399,13 @@ const HeroData = readable([
 			{
 				name: 'Heaven\'s Protection',
 				image: './img/skills/lucius1.png',
-				desc: 'Lucius blesses all of his allies with a divine shield that reduces damage equal to <em>500%</em> of his own attack rating\'s value for <em>8</em> seconds.',
+				desc: 'Lucius blesses all of his allies with a divine shield that reduces damage equal to <em>500%</em> of his own Attack Rating\'s value for <em>8</em> seconds.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Shield lasts for <em>10</em> seconds. Shield is able to restore allies\' health over time.',
 						unlock: 81,
 					},
-					{ desc: 'Value of shield is increased to <em>550%</em> of attack rating value.',
+					{ desc: 'Value of shield is increased to <em>550%</em> of Attack Rating value.',
 						unlock: 161,
 					},
 				],
@@ -433,7 +433,7 @@ const HeroData = readable([
 				desc: 'Lucius heals the ally with the lowest health for <em>200%</em> of his own Attack Rating and raises their Defense Rating for <em>5</em> seconds.',
 				unlock: 41,
 				upgrades: [
-					{ desc: 'Health recovery rate is increased by up to <em>75%</em> the lower an ally\'s health falls.',
+					{ desc: 'Health Recovery Rate is increased by up to <em>75%</em> the lower an ally\'s health falls.',
 						unlock: 121,
 					},
 					{ desc: 'Health recovery increased by up to <em>220%</em> of Attack Rating.',
@@ -447,7 +447,7 @@ const HeroData = readable([
 				desc: 'Lucius creates a blessed shield that is able to reduce <em>65%</em> of all the damage that he receives for <em>5</em> seconds. Lucius will halt his blessed shield if his ultimate ability is available for use. Lucius cannot be controlled by enemies while using this ability.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Lucius recovers <em>200%</em> more energy when attacked while using Blessed Shield.',
+					{ desc: 'Lucius recovers <em>200%</em> more Energy when attacked while using Blessed Shield.',
 						unlock: 141,
 					},
 					{ desc: 'Damage received while using Blessed Shield is reduced by <em>75%</em>.',
@@ -460,12 +460,12 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Divine Purge',
 			image: './img/si/lucius.png',
-			desc: 'Enemy heroes have their energy recovery effects reduced by <em>30%</em> for <em>4</em> seconds when they are struck by the ability "Divine Strike" or if a normal attack becomes a critical strike.',
+			desc: 'Enemy heroes have their Energy recovery effects reduced by <em>30%</em> for <em>4</em> seconds when they are struck by the ability "Divine Strike" or if a Normal Attack becomes a critical strike.',
 			upgrades: [
-				{ desc: 'Enemy heroes have their energy recovery effects reduced by <em>60%</em> for <em>4</em> seconds.',
+				{ desc: 'Enemy heroes have their Energy recovery effects reduced by <em>60%</em> for <em>4</em> seconds.',
 					unlock: 10,
 				},
-				{ desc: 'Enemy heroes have their energy recovery effects reduced by <em>90%</em> for <em>4</em> seconds.',
+				{ desc: 'Enemy heroes have their Energy recovery effects reduced by <em>90%</em> for <em>4</em> seconds.',
 					unlock: 20,
 				},
 				{ desc: 'Removes the majority of the enemy\'s buffs when used.',
@@ -481,7 +481,7 @@ const HeroData = readable([
 				{ desc: 'The "Blessed Shield" ability will no longer be interrupted when cast. While the effects of "Blessed Shield" are active, all damage received by the ally positioned below Lucius\' location is reduced by <em>30%</em>',
 					unlock: 3,
 				},
-				{ desc: 'While the effects of "Blessed Shield" are active, the amount of energy the ally positioned below Lucius recovers when attacked is increased by <em>75%</em>.',
+				{ desc: 'While the effects of "Blessed Shield" are active, the amount of Energy the ally positioned below Lucius recovers when attacked is increased by <em>75%</em>.',
 					unlock: 9,
 				},
 			],
@@ -545,7 +545,7 @@ const HeroData = readable([
 				desc: 'Thane raises his own Crit Rating by <em>14%</em>.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'For each successful critical strike, Thane recovers <em>6%</em> of the HP that has already been lost and also regains <em>25</em> energy points.',
+					{ desc: 'For each successful critical strike, Thane recovers <em>6%</em> of the HP that has already been lost and also regains <em>25</em> Energy points.',
 						unlock: 141,
 					},
 					{ desc: 'Thane raises his own Crit Rating by <em>17%</em>.',
@@ -615,7 +615,7 @@ const HeroData = readable([
 					{ desc: 'Enemy\'s attack speed reduced by <em>45%</em>.',
 						unlock: 21,
 					},
-					{ desc: 'Enemy\'s energy regeneration reduced by <em>60%</em>.',
+					{ desc: 'Enemy\'s Energy regeneration reduced by <em>60%</em>.',
 						unlock: 101,
 					},
 					{ desc: 'Effects are increased to <em>7.5</em> seconds.',
@@ -626,7 +626,7 @@ const HeroData = readable([
 			{
 				name: 'Confine',
 				image: './img/skills/fawkes3.png',
-				desc: 'Fawkes deals <em>50%</em> damage to the enemy with the highest attack rating and then locks them in his coffin for <em>7</em> seconds. The affected enemy cannot attack or be attacked while inside the coffin.',
+				desc: 'Fawkes deals <em>50%</em> damage to the enemy with the highest Attack Rating and then locks them in his coffin for <em>7</em> seconds. The affected enemy cannot attack or be attacked while inside the coffin.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'Duration is extended up to <em>8</em> seconds.',
@@ -640,7 +640,7 @@ const HeroData = readable([
 			{
 				name: 'Silver Bolt',
 				image: './img/skills/fawkes4.png',
-				desc: 'Silver Bolt raises Fawkes\' normal attack damage by <em>20%</em> and deals a further additional <em>40%</em> damage to de-buffed enemies.',
+				desc: 'Silver Bolt raises Fawkes\' Normal Attack damage by <em>20%</em> and deals a further additional <em>40%</em> damage to de-buffed enemies.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Restores <em>40</em> Energy per hit.',
@@ -656,12 +656,12 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Purged Perseverance',
 			image: './img/si/fawkes.png',
-			desc: 'When the ability Purification is used, allied heroes with more than <em>60%</em> of their total energy will be immune to control abilities and have their defense rating increased by <em>5%</em>. Effect lasts <em>5</em> seconds.',
+			desc: 'When the ability Purification is used, allied heroes with more than <em>60%</em> of their total Energy will be immune to control abilities and have their Defense Rating increased by <em>5%</em>. Effect lasts <em>5</em> seconds.',
 			upgrades: [
-				{ desc: 'Defense rating is increased to <em>20%</em>.',
+				{ desc: 'Defense Rating is increased to <em>20%</em>.',
 					unlock: 10,
 				},
-				{ desc: 'Defense rating is increased to <em>40%</em>.',
+				{ desc: 'Defense Rating is increased to <em>40%</em>.',
 					unlock: 20,
 				},
 				{ desc: 'Effect duration is increased to <em>8</em> seconds.',
@@ -754,15 +754,15 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Steadfast',
 			image: './img/si/hendrik.png',
-			desc: 'At the beginning of battles Hendrik\'s max health is increased by <em>300%</em> of his attack rating. The max health increase will not affect the proportion of health that Hendrik already possesses.',
+			desc: 'At the beginning of battles Hendrik\'s max health is increased by <em>300%</em> of his Attack Rating. The max health increase will not affect the proportion of health that Hendrik already possesses.',
 			upgrades: [
-				{ desc: 'At the beginning of battles Hendrik\'s max health is increased by <em>600%</em> of his attack rating. The max health increase will not affect the proportion of health that Hendrik already possesses.',
+				{ desc: 'At the beginning of battles Hendrik\'s max health is increased by <em>600%</em> of his Attack Rating. The max health increase will not affect the proportion of health that Hendrik already possesses.',
 					unlock: 10,
 				},
 				{ desc: 'All of Hendrik\'s attacks now do additional damage that is equal to <em>2%</em> of his max health.',
 					unlock: 20,
 				},
-				{ desc: 'At the beginning of battles Hendrik\'s max health is increased by <em>1000%</em> of his attack rating. The max health increase will not affect the proportion of health that Hendrik already possesses.',
+				{ desc: 'At the beginning of battles Hendrik\'s max health is increased by <em>1000%</em> of his Attack Rating. The max health increase will not affect the proportion of health that Hendrik already possesses.',
 					unlock: 30,
 				},
 			],
@@ -791,13 +791,13 @@ const HeroData = readable([
 			{
 				name: 'Dazzle',
 				image: './img/skills/rowan1.png',
-				desc: 'Rowan throws copious amounts of gold coins onto the battlefield which <em>3</em> random targets will receive every <em>0.5</em> seconds. If the coins are collected by any allies, they will recover <em>50</em> energy points and their attack rating will be increased by <em>30%</em> for <em>8</em> seconds. If the coins are received by any enemies, they will be stunned for <em>4</em> seconds.',
+				desc: 'Rowan throws copious amounts of gold coins onto the battlefield which <em>3</em> random targets will receive every <em>0.5</em> seconds. If the coins are collected by any allies, they will recover <em>50</em> Energy points and their Attack Rating will be increased by <em>30%</em> for <em>8</em> seconds. If the coins are received by any enemies, they will be stunned for <em>4</em> seconds.',
 				unlock: 1,
 				upgrades: [
-					{ desc: 'Allies recover <em>60</em> energy points.',
+					{ desc: 'Allies recover <em>60</em> Energy points.',
 						unlock: 81,
 					},
-					{ desc: 'Allies recover <em>70</em> energy points.',
+					{ desc: 'Allies recover <em>70</em> Energy points.',
 						unlock: 161,
 					},
 				],
@@ -805,13 +805,13 @@ const HeroData = readable([
 			{
 				name: 'Avian Assault',
 				image: './img/skills/rowan2.png',
-				desc: 'Rowan\'s duck attacks the nearest enemy multiple times for <em>60%</em> damage each, causing the enemy\'s accuracy to drop by <em>120</em> points for <em>10</em> seconds while also allowing Rowan to steal <em>80</em> of the enemy\'s energy points.',
+				desc: 'Rowan\'s duck attacks the nearest enemy multiple times for <em>60%</em> damage each, causing the enemy\'s accuracy to drop by <em>120</em> points for <em>10</em> seconds while also allowing Rowan to steal <em>80</em> of the enemy\'s Energy points.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Damage is increased to <em>70%</em>.',
 						unlock: 21,
 					},
-					{ desc: 'Steals <em>120</em> energy points.',
+					{ desc: 'Steals <em>120</em> Energy points.',
 						unlock: 101,
 					},
 					{ desc: 'Damage is increased to <em>80%</em>.',
@@ -836,13 +836,13 @@ const HeroData = readable([
 			{
 				name: 'Damage Control',
 				image: './img/skills/rowan4.png',
-				desc: 'When Rowan receives damage that exceeds <em>10%</em> of his max health, he will use his energy to mitigate the damage, causing him to lose energy instead of health. This ability can be used once every <em>3</em> seconds. Energy lost when using this ability is determined by the damage which is mitigated. A maximum of <em>80</em> energy points can be used to mitigate damage.',
+				desc: 'When Rowan receives damage that exceeds <em>10%</em> of his max health, he will use his Energy to mitigate the damage, causing him to lose Energy instead of health. This ability can be used once every <em>3</em> seconds. Energy lost when using this ability is determined by the damage which is mitigated. A maximum of <em>80</em> Energy points can be used to mitigate damage.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Rowan recovers <em>20</em> energy per second.',
+					{ desc: 'Rowan recovers <em>20</em> Energy per second.',
 						unlock: 141,
 					},
-					{ desc: 'Energy lost when using ability reduced to <em>50</em> energy points.',
+					{ desc: 'Energy lost when using ability reduced to <em>50</em> Energy points.',
 						unlock: 221,
 					},
 				],
@@ -852,7 +852,7 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Thirsty Work',
 			image: './img/si/rowan.png',
-			desc: 'After entering the battle Rowan will set up a stall that now includes an energy potion. When an ally\'s energy is above <em>600</em> points they will drink a potion, replenishing <em>60</em> energy points. The energy potion will be replenished each time the stall is set up.',
+			desc: 'After entering the battle Rowan will set up a stall that now includes an Energy potion. When an ally\'s Energy is above <em>600</em> points they will drink a potion, replenishing <em>60</em> Energy points. The Energy potion will be replenished each time the stall is set up.',
 			upgrades: [
 				{ desc: 'Energy restored increased to <em>120</em> points.',
 					unlock: 10,
@@ -903,7 +903,7 @@ const HeroData = readable([
 			{
 				name: 'Flaming Arrows',
 				image: './img/skills/gwyneth2.png',
-				desc: 'Gwyneth\'s normal attacks will prioritize the enemy directly opposite her current position. Her normal attacks deal high damage and have a low attack frequency. Gwyneth\'s normal attacks have a <em>60%</em> chance to become flaming arrows that burn the enemy for <em>40%</em> damage per second over <em>5</em> seconds.',
+				desc: 'Gwyneth\'s Normal Attacks will prioritize the enemy directly opposite her current position. Her Normal Attacks deal high damage and have a low attack frequency. Gwyneth\'s Normal Attacks have a <em>60%</em> chance to become flaming arrows that burn the enemy for <em>40%</em> damage per second over <em>5</em> seconds.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Enemy\'s health recovery is reduced by <em>30%</em> while burning.',
@@ -1035,10 +1035,10 @@ const HeroData = readable([
 				desc: 'After the effects of "Drunken Frenzy" have worn off, Rigby will recover <em>12%</em> of his max health per second for <em>5</em> seconds.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Rigby\'s Health recovery rate is Increased by <em>50%</em>.',
+					{ desc: 'Rigby\'s Health Recovery Rate is Increased by <em>50%</em>.',
 						unlock: 141,
 					},
-					{ desc: 'Rigby\'s Health recovery rate is increased by <em>80%</em>.',
+					{ desc: 'Rigby\'s Health Recovery Rate is increased by <em>80%</em>.',
 						unlock: 221,
 					},
 				],
@@ -1102,7 +1102,7 @@ const HeroData = readable([
 				desc: 'Cecilia initiates a three-stage attack against an enemy, with each attack dealing <em>70%</em> damage to the target. Each time this ability is used increases the enemy\'s "Symbols of Sins" by <em>1</em> symbol. The damage caused by this ability is increased by <em>10%</em> for every additional symbol that the enemy is marked with. Enemies may be marked by a maximum of <em>5</em> symbols.',
 				unlock: 11,
 				upgrades: [
-					{ desc: 'Ability\'s cooldown time is ignored every time a normal attack produces a critical strike.',
+					{ desc: 'Ability\'s cooldown time is ignored every time a Normal Attack produces a critical strike.',
 						unlock: 21,
 					},
 					{ desc: 'Damage of each attack is raised to <em>80%</em> damage per attack.',
@@ -1130,7 +1130,7 @@ const HeroData = readable([
 			{
 				name: 'Devil Trap',
 				image: './img/skills/cecilia4.png',
-				desc: 'Cecilia creates a divine circle that encompasses her enemies. All enemies within the divine circle have their attack ratings reduced by <em>60%</em>. The first time each enemy tries to exit the circle will cause them to suffer <em>220%</em> damage.',
+				desc: 'Cecilia creates a divine circle that encompasses her enemies. All enemies within the divine circle have their Attack Ratings reduced by <em>60%</em>. The first time each enemy tries to exit the circle will cause them to suffer <em>220%</em> damage.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Damage increased by up to <em>240%</em>.',
@@ -1146,12 +1146,12 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Repentance',
 			image: './img/si/cecilia.png',
-			desc: 'All allied heroes including Cecilia recover <em>200</em> energy points and a total equivalent of <em>200%</em> worth of Cecilia\'s attack rating as health over <em>5</em> seconds whenever the ability "Judgement Day" kills an enemy in less than <em>5</em> seconds.',
+			desc: 'All allied heroes including Cecilia recover <em>200</em> Energy points and a total equivalent of <em>200%</em> worth of Cecilia\'s Attack Rating as health over <em>5</em> seconds whenever the ability "Judgement Day" kills an enemy in less than <em>5</em> seconds.',
 			upgrades: [
-				{ desc: 'Allied heroes including Cecilia recover <em>200</em> energy points and a total equivalent of <em>250%</em> worth of Cecilia\'s attack rating as health.',
+				{ desc: 'Allied heroes including Cecilia recover <em>200</em> Energy points and a total equivalent of <em>250%</em> worth of Cecilia\'s Attack Rating as health.',
 					unlock: 10,
 				},
-				{ desc: 'Allied heroes including Cecilia recover <em>200</em> energy points and a total equivalent of <em>300%</em> worth of Cecilia\'s attack rating as health.',
+				{ desc: 'Allied heroes including Cecilia recover <em>200</em> Energy points and a total equivalent of <em>300%</em> worth of Cecilia\'s Attack Rating as health.',
 					unlock: 20,
 				},
 				{ desc: 'Cecilia\'s Health Recovery Rate is increased by an additional <em>50%</em>.',
@@ -1228,7 +1228,7 @@ const HeroData = readable([
 			{
 				name: 'Unfazed',
 				image: './img/skills/oscar4.png',
-				desc: 'Oscar scrubs his glasses clean, removing the majority of de-buff effects which are currently affecting him and simultaneously increases his Crit Rating by <em>25</em> points and his Dodge Rating by <em>9</em> <em>5</em> points which will remain that way until Oscar falls victim to any enemy control abilities.',
+				desc: 'Oscar scrubs his glasses clean, removing the majority of de-buff effects which are currently affecting him and simultaneously increases his Crit Rating by <em>25</em> points and his Dodge Rating by <em>95</em> points which will remain that way until Oscar falls victim to any enemy control abilities.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Crit Rating is increased by <em>35</em> points.',
@@ -1424,7 +1424,7 @@ const HeroData = readable([
 			{
 				name: 'Royal Marksmen',
 				image: './img/skills/peggy4.png',
-				desc: 'Peggy calls forth <em>5</em> marksmen that fire a salvo at the enemy which is closest to Peggy. Each marksman deals <em>70%</em> damage to the target, subsequently reducing the target\'s Accuracy by <em>10</em> points and their Haste by 1O points for <em>7</em> seconds. If the enemy target is on the enemy side of the battlefield, the marksmen have a chance to miss their shots. The farther an enemy is from the marksmen increases their chances of missing, with the maximum chance to miss a shot being <em>30%</em>.',
+				desc: 'Peggy calls forth <em>5</em> marksmen that fire a salvo at the enemy which is closest to Peggy. Each marksman deals <em>70%</em> damage to the target, subsequently reducing the target\'s Accuracy by <em>10</em> points and their Haste by <em>10</em> points for <em>7</em> seconds. If the enemy target is on the enemy side of the battlefield, the marksmen have a chance to miss their shots. The farther an enemy is from the marksmen increases their chances of missing, with the maximum chance to miss a shot being <em>30%</em>.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Each Marksman\'s damage is increased by <em>80%</em>.',
@@ -1589,7 +1589,7 @@ const HeroData = readable([
 			{
 				name: 'Roar',
 				image: './img/skills/brutus2.png',
-				desc: 'Brutus lets out a terrifying roar that causes enemies to become more vulnerable. Any physical damage dealt to enemies is increased by <em>25%</em>.',
+				desc: 'Brutus lets out a terrifying roar that causes enemies to become more vulnerable. Any Physical Damage dealt to enemies is increased by <em>25%</em>.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Physical Damage received by enemies is increased by up to <em>30%</em>.',
@@ -1636,7 +1636,7 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Upsurge',
 			image: './img/si/brutus.png',
-			desc: 'Restores <em>15%</em> of Brutus\' max health after the ability "Last Grasp" is used.',
+			desc: 'Restores <em>15%</em> of Brutus\' max HP after the ability "Last Gasp" is used.',
 			upgrades: [
 				{ desc: '<em>30%</em> of max HP is restored after resurrection.',
 					unlock: 10,
@@ -1687,7 +1687,7 @@ const HeroData = readable([
 			{
 				name: 'Concentration',
 				image: './img/skills/khasos2.png',
-				desc: 'Khasos\' normal attack is able to hit multiple enemies when they get too close to him and his defense rating is increased by <em>12%</em>. If enemies are far away from Khasos then his Attack Rating will be increased by <em>8%</em>.',
+				desc: 'Khasos\' Normal Attack is able to hit multiple enemies when they get too close to him and his Defense Rating is increased by <em>12%</em>. If enemies are far away from Khasos then his Attack Rating will be increased by <em>8%</em>.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Increases Defense Rating by <em>25%</em>. Increases Attack Rating by <em>12%</em>.',
@@ -1707,7 +1707,7 @@ const HeroData = readable([
 				desc: 'Khasos throws a war axe towards his enemies that causes <em>130%</em> damage twice to all enemies in its path. Khasos has a <em>70%</em> chance to catch the axe on its return, if he successfully catches it, his attack speed will be temporarily increased.',
 				unlock: 41,
 				upgrades: [
-					{ desc: 'Damage is increased by up to <em>145%</em>. Recovers a small amount of energy if the war axe is caught by Khasos.',
+					{ desc: 'Damage is increased by up to <em>145%</em>. Recovers a small amount of Energy if the war axe is caught by Khasos.',
 						unlock: 121,
 					},
 					{ desc: 'Damage is increased to <em>160%</em>.',
@@ -1794,7 +1794,7 @@ const HeroData = readable([
 					{ desc: 'When this ability deals damage against enemies that are poisoned as a result of Vurk\'s "Poison Vial" ability, Vurk\'s Attack Speed will be increased by <em>60</em> for <em>3</em> seconds. This ability cannot be stacked.',
 						unlock: 101,
 					},
-					{ desc: 'For every poisoned enemy that this ability deals damage against, Vurk shall recover an additional <em>40</em> energy.',
+					{ desc: 'For every poisoned enemy that this ability deals damage against, Vurk shall recover an additional <em>40</em> Energy.',
 						unlock: 181,
 					},
 				],
@@ -1900,7 +1900,7 @@ const HeroData = readable([
 			{
 				name: 'Offensive Totem',
 				image: './img/skills/numisu3.png',
-				desc: 'Place a Totem of Ridicule behind an enemy. When the totem is placed, deal <em>120%</em> of attack power in AoE damage, and mock nearby enemies for <em>2</em> seconds, forcing them to use normal attacks against it. Totems of Ridicule have the same defense rating as Numisu, and HP equal to <em>650%</em> of his Attack Power.',
+				desc: 'Place a Totem of Ridicule behind an enemy. When the totem is placed, deal <em>120%</em> of attack power in AoE damage, and mock nearby enemies for <em>2</em> seconds, forcing them to use Normal Attacks against it. Totems of Ridicule have the same Defense Rating as Numisu, and HP equal to <em>650%</em> of his Attack Power.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'Offensive Totem heals itself for <em>10%</em> health per second.',
@@ -1914,10 +1914,10 @@ const HeroData = readable([
 			{
 				name: 'Fanaticism',
 				image: './img/skills/numisu4.png',
-				desc: 'Numisu buffs the ally with the highest attack power, granting them <em>40</em> haste and <em>20%</em> normal attack speed for <em>10</em> seconds.',
+				desc: 'Numisu buffs the ally with the highest attack power, granting them <em>40</em> haste and <em>20%</em> Normal Attack speed for <em>10</em> seconds.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Haste increased to <em>50</em>, normal attack speed increased to <em>30%</em>.',
+					{ desc: 'Haste increased to <em>50</em>, Normal Attack speed increased to <em>30%</em>.',
 						unlock: 141,
 					},
 					{ desc: 'Effects are increased to <em>12</em> seconds.',
@@ -1958,7 +1958,7 @@ const HeroData = readable([
 		},
 	},
 	{ id: 'warek',
-		name: 'warek',
+		name: 'Warek',
 		portrait: './img/portraits/warek.jpg',
 		class: 'Warrior',
 		faction: 'Mauler',
@@ -2015,7 +2015,7 @@ const HeroData = readable([
 				desc: 'A passive ability that allows Warek to build up his rage with each successful attack that he lands on his enemies, allowing him to raise his damage by <em>2.5%</em>. This ability can be stacked up to <em>12</em> times.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Warek regenerates energy over time once ability is fully stacked and his Life Leech attributes are greatly increased.',
+					{ desc: 'Warek regenerates Energy over time once ability is fully stacked and his Life Leech attributes are greatly increased.',
 						unlock: 141,
 					},
 					{ desc: 'Damage is raised up to <em>4%</em>.',
@@ -2036,7 +2036,7 @@ const HeroData = readable([
 				{ desc: 'Ability restores <em>5%</em> of max health per second.',
 					unlock: 20,
 				},
-				{ desc: 'Stacks Warek\'s "Carnal Rage" buff effects once every <em>2</em> seconds. Once the effects can no longer be stacked, his attack rating will be increased by an additional <em>0.7%</em> per second.',
+				{ desc: 'Stacks Warek\'s "Carnal Rage" buff effects once every <em>2</em> seconds. Once the effects can no longer be stacked, his Attack Rating will be increased by an additional <em>0.7%</em> per second.',
 					unlock: 30,
 				},
 			],
@@ -2065,7 +2065,7 @@ const HeroData = readable([
 			{
 				name: 'Beast of Burden',
 				image: './img/skills/skreg1.png',
-				desc: 'Skreg\'s iron-jaw steed cannot be knocked backwards. When this ability is used, Skreg rides his iron-jaw, which uses <em>80</em> energy per second up until all if his energy is exhausted. While Skreg is riding his iron-jaw he is immune to control abilities and his attack is increased by <em>30%</em>, Skreg\'s normal attacks will also deal damage twice and knock down enemy targets.',
+				desc: 'Skreg\'s iron-jaw steed cannot be knocked backwards. When this ability is used, Skreg rides his iron-jaw, which uses <em>80</em> Energy per second up until all if his Energy is exhausted. While Skreg is riding his iron-jaw he is immune to control abilities and his attack is increased by <em>30%</em>, Skreg\'s Normal Attacks will also deal damage twice and knock down enemy targets.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Energy expediture reduced to <em>60</em> per second.',
@@ -2126,15 +2126,15 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Beast Rider',
 			image: './img/si/skreg.png',
-			desc: 'The ability "Beast of Burden" will no longer drain energy for the first <em>5</em> seconds after each time it is used.',
+			desc: 'The ability "Beast of Burden" will no longer drain Energy for the first <em>5</em> seconds after each time it is used.',
 			upgrades: [
-				{ desc: 'Only requires <em>500</em> energy to activate ultimate ability for the first time.',
+				{ desc: 'Only requires <em>500</em> Energy to activate ultimate ability for the first time.',
 					unlock: 10,
 				},
 				{ desc: 'Energy that is recovered when injured is increased by <em>50%</em>.',
 					unlock: 20,
 				},
-				{ desc: 'Only requires <em>200</em> energy to activate ultimate ability for the first time.',
+				{ desc: 'Only requires <em>200</em> Energy to activate ultimate ability for the first time.',
 					unlock: 30,
 				},
 			],
@@ -2147,7 +2147,7 @@ const HeroData = readable([
 				{ desc: 'All allied heroes with the enemy half of the battlefield have their Attack Ratings increased by <em>20%</em> and also receive <em>25%</em> less damage from enemy attacks.',
 					unlock: 3,
 				},
-				{ desc: 'Allied heroes recover <em>100</em> energy points after every <em>3</em> seconds in the enemy\'s half of the battlefield.',
+				{ desc: 'Allied heroes recover <em>100</em> Energy points after every <em>3</em> seconds in the enemy\'s half of the battlefield.',
 					unlock: 9,
 				},
 			],
@@ -2208,7 +2208,7 @@ const HeroData = readable([
 			{
 				name: 'Spectral Disruption',
 				image: './img/skills/safiya4.png',
-				desc: 'At the beginning of the battle Safiya casts a circular enchantment on the ground that lasts for <em>25</em> seconds. All allies standing within the circle have their attack ratings increased by <em>16%</em> and all enemies standing within the circle have their attack ratings reduced by <em>50%</em> as well as their haste reduced.',
+				desc: 'At the beginning of the battle Safiya casts a circular enchantment on the ground that lasts for <em>25</em> seconds. All allies standing within the circle have their Attack Ratings increased by <em>16%</em> and all enemies standing within the circle have their Attack Ratings reduced by <em>50%</em> as well as their haste reduced.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Damage increased to <em>20%</em>.',
@@ -2224,15 +2224,15 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Arcane Power',
 			image: './img/si/safiya.png',
-			desc: '<em>1%</em> of Safiya\'s total damage output is converted into her attack rating. The attack rating can be increased up to a total of <em>140%</em>.',
+			desc: '<em>1%</em> of Safiya\'s total damage output is converted into her Attack Rating. The Attack Rating can be increased up to a total of <em>140%</em>.',
 			upgrades: [
-				{ desc: '<em>2%</em> of Safiya\'s total damage output is converted into her attack rating.',
+				{ desc: '<em>2%</em> of Safiya\'s total damage output is converted into her Attack Rating.',
 					unlock: 10,
 				},
-				{ desc: '<em>3%</em> of Safiya\'s total damage output is converted into her attack rating.',
+				{ desc: '<em>3%</em> of Safiya\'s total damage output is converted into her Attack Rating.',
 					unlock: 20,
 				},
-				{ desc: 'Safiya will use "Scattered Bolt" instead of normal attacks once the attack rating increase has reached its maximum percentage.',
+				{ desc: 'Safiya will use "Scattered Bolt" instead of Normal Attacks once the Attack Rating increase has reached its maximum percentage.',
 					unlock: 30,
 				},
 			],
@@ -2330,7 +2330,7 @@ const HeroData = readable([
 				{ desc: 'Enemies that possess a higher percentage of health compared to Satrana\'s own deal <em>40%</em> less damage to Satrana.',
 					unlock: 20,
 				},
-				{ desc: 'When Satrana\'s health falls below <em>35%</em> for the first time, the next time she uses her "Firedance" ability will not require her to use any energy points.',
+				{ desc: 'When Satrana\'s health falls below <em>35%</em> for the first time, the next time she uses her "Firedance" ability will not require her to use any Energy points.',
 					unlock: 30,
 				},
 			],
@@ -2390,7 +2390,7 @@ const HeroData = readable([
 			{
 				name: 'Piercing Assault',
 				image: './img/skills/antandra3.png',
-				desc: 'Antandra throws her spear at the enemy with the highest Attack Rating, dealing <em>180%</em> damage to all enemies it penetrates. Antandra then dashes over to the enemy target, after which she receives a shield which exists for <em>5</em> seconds, that has a value equal to <em>550%</em> of the target Attack rating, but will not exceed <em>1000%</em> of her own Attack Rating. Enemies hit by Antandra\'s spear are marked by Antandra. Antandra cannot be controlled and ignores enemy dodges while this ability is active.',
+				desc: 'Antandra throws her spear at the enemy with the highest Attack Rating, dealing <em>180%</em> damage to all enemies it penetrates. Antandra then dashes over to the enemy target, after which she receives a shield which exists for <em>5</em> seconds, that has a value equal to <em>550%</em> of the target Attack Rating, but will not exceed <em>1000%</em> of her own Attack Rating. Enemies hit by Antandra\'s spear are marked by Antandra. Antandra cannot be controlled and ignores enemy dodges while this ability is active.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'Damage is increased to <em>210%</em>.',
@@ -2441,7 +2441,7 @@ const HeroData = readable([
 				{ desc: 'Antandra receives <em>40%</em> less damage from enemies that are out of range of her "Knockdown" ability.',
 					unlock: 3,
 				},
-				{ desc: 'If Antandra loses a total of <em>95%</em> of her max health, her Attack Rating is increased by <em>30%</em> and she recovers <em>70</em> energy points per second and is also immune to enemy control abilities until the end of the battle.',
+				{ desc: 'If Antandra loses a total of <em>95%</em> of her max health, her Attack Rating is increased by <em>30%</em> and she recovers <em>70</em> Energy points per second and is also immune to enemy control abilities until the end of the battle.',
 					unlock: 9,
 				},
 			],
@@ -2502,7 +2502,7 @@ const HeroData = readable([
 			{
 				name: 'Savagery',
 				image: './img/skills/tidus4.png',
-				desc: 'Tidus viciously and persistently attacks an enemy whose health is lower than <em>50%</em> of its maximum until they are slain. While using this ability, the Attack Rating of Tidus\' normal attacks is increased by <em>35%</em>.',
+				desc: 'Tidus viciously and persistently attacks an enemy whose health is lower than <em>50%</em> of its maximum until they are slain. While using this ability, the Attack Rating of Tidus\' Normal Attack is increased by <em>35%</em>.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Life Leech level is raised by <em>40</em> while pursuing a weakened enemy.',
@@ -2684,7 +2684,7 @@ const HeroData = readable([
 			{
 				name: 'Born to Lead',
 				image: './img/skills/anoki3.png',
-				desc: 'Anoki manifests an aura around himself that lasts for <em>8</em> seconds. While the aura is present, all allies including Anoki have their Attack Ratings increased by <em>8%</em>, the damage they receive is reduced by <em>1%</em> and the frequency of their normal attacks is increased by <em>15%</em>. Melee heroes receive an extra increase of <em>150%</em> for all of the preceding attributes.',
+				desc: 'Anoki manifests an aura around himself that lasts for <em>8</em> seconds. While the aura is present, all allies including Anoki have their Attack Ratings increased by <em>8%</em>, the damage they receive is reduced by <em>1%</em> and the frequency of their Normal Attacks is increased by <em>15%</em>. Melee heroes receive an extra increase of <em>150%</em> for all of the preceding attributes.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'Attack Rating is raised by <em>9%</em>.',
@@ -2754,10 +2754,10 @@ const HeroData = readable([
 				desc: 'Drez instantly moves to the weakest enemy. For the following <em>15</em> seconds, Drez will prioritize the pursuit of that enemy, during which time Normal Melee Attacks become stronger and Drez\'s Crit Rating is increased by <em>100%</em>.',
 				unlock: 1,
 				upgrades: [
-					{ desc: 'If the target dies during this time, <em>400</em> energy is restored.',
+					{ desc: 'If the target dies during this time, <em>400</em> Energy is restored.',
 						unlock: 81,
 					},
-					{ desc: 'If the target dies during this time, <em>700</em> energy is restored.',
+					{ desc: 'If the target dies during this time, <em>700</em> Energy is restored.',
 						unlock: 161,
 					},
 				],
@@ -2782,7 +2782,7 @@ const HeroData = readable([
 			{
 				name: 'Tactical Retreat',
 				image: './img/skills/drez3.png',
-				desc: 'When Drez\'s health falls below <em>50%</em> for the first time, he leaves the battlefield for <em>5</em> seconds, during which time he recovers <em>100</em> energy points per second. While away from the battlefield, using Drez\'s Ultimate ability will cause him to prematurely return to the battlefield. If Drez\'s Ultimate ability "Deadly Ambush" is already being used when he disappears from the battlefield, he will continue to use it once he returns.',
+				desc: 'When Drez\'s health falls below <em>50%</em> for the first time, he leaves the battlefield for <em>5</em> seconds, during which time he recovers <em>100</em> Energy points per second. While away from the battlefield, using Drez\'s Ultimate ability will cause him to prematurely return to the battlefield. If Drez\'s Ultimate ability "Deadly Ambush" is already being used when he disappears from the battlefield, he will continue to use it once he returns.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'After returning to the battlefield, Drez\'s Attack Rating is increased by <em>25%</em> and his Life Leech is increased by <em>40</em> points for <em>15</em> seconds.',
@@ -2961,7 +2961,7 @@ const HeroData = readable([
 			{
 				name: 'Beguile',
 				image: './img/skills/nemora2.png',
-				desc: 'Nemora deals <em>90%</em> damage to a random enemy target that is standing within her attack range, causing them to become entranced for <em>6</em> seconds. While in an entranced state, the affected enemy will use normal attacks to attack their own team.',
+				desc: 'Nemora deals <em>90%</em> damage to a random enemy target that is standing within her attack range, causing them to become entranced for <em>6</em> seconds. While in an entranced state, the affected enemy will use Normal Attacks to attack their own team.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Damage is increased to <em>110%</em>.',
@@ -2995,7 +2995,7 @@ const HeroData = readable([
 				desc: 'Nemora gradually heals the weakest member of her team for <em>30%</em> of her own maximum health.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Gradually restores a total of <em>150</em> energy points to her ally.',
+					{ desc: 'Gradually restores a total of <em>150</em> Energy points to her ally.',
 						unlock: 141,
 					},
 					{ desc: 'Total amount of health restored increased to <em>40%</em> of maximum health.',
@@ -3008,9 +3008,9 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Nature\'s Touch',
 			image: './img/si/nemora.png',
-			desc: 'Normal Attacks heal Nemora\'s weakest ally for <em>60%</em> of her own attack rating.',
+			desc: 'Normal Attacks heal Nemora\'s weakest ally for <em>60%</em> of her own Attack Rating.',
 			upgrades: [
-				{ desc: 'Healing effect is raised by <em>75%</em> if a critical strike occurs when using a normal attack.',
+				{ desc: 'Healing effect is raised by <em>75%</em> if a critical strike occurs when using a Normal Attack.',
 					unlock: 10,
 				},
 				{ desc: 'Health recovery increased by up to <em>90%</em> of Attack Rating.',
@@ -3093,7 +3093,7 @@ const HeroData = readable([
 				desc: 'Kaz\'s natural feline agility allows her to raise her dodge rating by <em>70</em> points.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Recovers <em>25</em> energy points for every successful dodge.',
+					{ desc: 'Recovers <em>25</em> Energy points for every successful dodge.',
 						unlock: 141,
 					},
 					{ desc: 'Dodge rating is increased by <em>100</em> points.',
@@ -3177,7 +3177,7 @@ const HeroData = readable([
 				desc: 'Lyca bounds onto the battlefield at the beginning of battles and inspires her allies, increasing their Haste by <em>35</em> points for <em>8</em> seconds.',
 				unlock: 41,
 				upgrades: [
-					{ desc: 'Regenerates <em>70</em> energy points for Lyca and her allies.',
+					{ desc: 'Regenerates <em>70</em> Energy points for Lyca and her allies.',
 						unlock: 121,
 					},
 					{ desc: 'Energy restored increased by up to <em>100</em> points.',
@@ -3241,10 +3241,10 @@ const HeroData = readable([
 			{
 				name: 'Deep Roots',
 				image: './img/skills/ulmus1.png',
-				desc: 'Ulmus immediately recovers <em>40%</em> of his max HP and roots himself to the ground until the end of the battle. While rooted to the groun, Ulmus is immune to all control abilities and his normal attack turns into a ranged attack that raises his Attack Rating by <em>40%</em>. If Ulmus possesses enough energy while he is rooted, he will use <em>35%</em> of his maximum energy to strengthen his normal attack damage and stun effect.',
+				desc: 'Ulmus immediately recovers <em>40%</em> of his max HP and roots himself to the ground until the end of the battle. While rooted to the groun, Ulmus is immune to all control abilities and his Normal Attack turns into a ranged attack that raises his Attack Rating by <em>40%</em>. If Ulmus possesses enough Energy while he is rooted, he will use <em>35%</em> of his maximum Energy to strengthen his Normal Attack damage and stun effect.',
 				unlock: 1,
 				upgrades: [
-					{ desc: 'Energy required to strengthen normal attack is reduced to <em>30%</em> of max Energy.',
+					{ desc: 'Energy required to strengthen Normal Attack is reduced to <em>30%</em> of max Energy.',
 						unlock: 81,
 					},
 					{ desc: 'Attack Rating is raised by <em>50%</em>.',
@@ -3278,7 +3278,7 @@ const HeroData = readable([
 					{ desc: 'Shield restores <em>4%</em> of lost HP per second while active.',
 						unlock: 121,
 					},
-					{ desc: 'Value of shield is increased to <em>220%</em> of attack rating value.',
+					{ desc: 'Value of shield is increased to <em>220%</em> of Attack Rating value.',
 						unlock: 201,
 					},
 				],
@@ -3339,7 +3339,7 @@ const HeroData = readable([
 			{
 				name: 'Battle Cry',
 				image: './img/skills/gorvo1.png',
-				desc: 'Gorvo roars angrily, dealing <em>130%</em> to all enemies. Gorvo\'s roar is able to taunt enemies within a certain radius into targeting him with normal attacks for <em>5</em> seconds. Gorvo is also able to deflect <em>60%</em> of the damage he receives back at his enemies while this ability is active.',
+				desc: 'Gorvo roars angrily, dealing <em>130%</em> to all enemies. Gorvo\'s roar is able to taunt enemies within a certain radius into targeting him with Normal Attacks for <em>5</em> seconds. Gorvo is also able to deflect <em>60%</em> of the damage he receives back at his enemies while this ability is active.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Taunt duration is increased to <em>6</em> seconds.',
@@ -3405,7 +3405,7 @@ const HeroData = readable([
 				{ desc: 'Increases the efficacy of all shields by <em>50%</em>.',
 					unlock: 10,
 				},
-				{ desc: 'If the shield created by the ability "Shell Shield" is not broken within a certain period of time, the remaining shield value will be converted into energy. Ability restores up to <em>250</em> energy points.',
+				{ desc: 'If the shield created by the ability "Shell Shield" is not broken within a certain period of time, the remaining shield value will be converted into Energy. Ability restores up to <em>250</em> Energy points.',
 					unlock: 20,
 				},
 				{ desc: 'When in a shielded state, Gorvo will recover <em>5%</em> of his max health every second.',
@@ -3482,10 +3482,10 @@ const HeroData = readable([
 			{
 				name: 'Sylvan Oath',
 				image: './img/skills/eironn4.png',
-				desc: 'Sylvan Oath is a passive ability that increases Eironn\'s attack rating by <em>15%</em> and gives his attacks a <em>30%</em> chance to ignore his enemies\' defense ratings. Any damage dealt to enemies that are using shield abilities is multiplied by <em>150%</em> times.',
+				desc: 'Sylvan Oath is a passive ability that increases Eironn\'s Attack Rating by <em>15%</em> and gives his attacks a <em>30%</em> chance to ignore his enemies\' Defense Ratings. Any damage dealt to enemies that are using shield abilities is multiplied by <em>150%</em> times.',
 				unlock: 61,
 				upgrades: [
-					{ desc: '<em>50%</em> chance to ignore enemy defense ratings.',
+					{ desc: '<em>50%</em> chance to ignore enemy Defense Ratings.',
 						unlock: 141,
 					},
 					{ desc: 'Increases Attack Rating by <em>20%</em>.',
@@ -3664,13 +3664,13 @@ const HeroData = readable([
 			{
 				name: 'Ocean\'s Blessing',
 				image: './img/skills/seirus3.png',
-				desc: 'Seirus uses the ocean\'s blessing to strengthen his weapon. After strengthening his weapon, the following <em>3</em> normal attacks will have a greater Area of Effect range and increased damage, allowing Seirus to deal <em>180%</em> damage per normal attack.',
+				desc: 'Seirus uses the ocean\'s blessing to strengthen his weapon. After strengthening his weapon, the following <em>3</em> Normal Attacks will have a greater Area of Effect range and increased damage, allowing Seirus to deal <em>180%</em> damage per Normal Attack.',
 				unlock: 41,
 				upgrades: [
-					{ desc: 'Damage of normal attacks raised up to <em>200%</em>.',
+					{ desc: 'Damage of Normal Attacks raised up to <em>200%</em>.',
 						unlock: 121,
 					},
-					{ desc: 'Damage of normal attack raised up to <em>220%</em>.',
+					{ desc: 'Damage of Normal Attack raised up to <em>220%</em>.',
 						unlock: 201,
 					},
 				],
@@ -3734,7 +3734,7 @@ const HeroData = readable([
 				desc: 'Lorsan summons a tempest amongst a concentrated area of enemies that continuously grows larger over time, dealing AoE damage multiple times to its surrounding enemies. Once reaching its maximum size, the tempest will explode, dealing <em>200%</em> damage to nearby enemies.',
 				unlock: 1,
 				upgrades: [
-					{ desc: 'Final explosion causes nearby enemies to lose <em>50%</em> of their energy.',
+					{ desc: 'Final explosion causes nearby enemies to lose <em>50%</em> of their Energy.',
 						unlock: 81,
 					},
 					{ desc: 'Final explosion damage is increased up to <em>250%</em>.',
@@ -3776,13 +3776,13 @@ const HeroData = readable([
 			{
 				name: 'Wind Ward',
 				image: './img/skills/lorsan4.png',
-				desc: 'Casts a shield upon <em>2</em> random allies which lasts for <em>7</em> seconds and is able to reduce damage equal to <em>250%</em> of Lorsan\'s own attack rating.',
+				desc: 'Casts a shield upon <em>2</em> random allies which lasts for <em>7</em> seconds and is able to reduce damage equal to <em>250%</em> of Lorsan\'s own Attack Rating.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Allies currently protected by the shield will have their dodge increased by <em>90</em> points. If the ally being protected is a Wilder hero, the shield\'s value will be increased a further <em>20%</em>.',
 						unlock: 141,
 					},
-					{ desc: 'Value of shield is increased to <em>300%</em> of attack rating value.',
+					{ desc: 'Value of shield is increased to <em>300%</em> of Attack Rating value.',
 						unlock: 221,
 					},
 				],
@@ -3975,10 +3975,10 @@ const HeroData = readable([
 				desc: 'When Saurus or his phase form use either of their "War Strike" or "Burst Strikes" abilities without any interruptions, Saurus\' Attack Rating will be increased by <em>10%</em> and his Defense Rating will be increased by <em>25%</em>. This ability can be stacked <em>5</em> times. If any of Saurus\' abilities are interrupted, this effect will end.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'All of Saurus\' allies receive a Defense and Attack Rating increase that is worth <em>80%</em> of Saurus\' own increased Attack and Defense ratings.',
+					{ desc: 'All of Saurus\' allies receive a Defense and Attack Rating increase that is worth <em>80%</em> of Saurus\' own increased Attack and Defense Ratings.',
 						unlock: 141,
 					},
-					{ desc: 'All of Saurus\' allies receive a Defense and Attack Rating increase that is worth <em>100%</em> of Saurus\' own increased Attack and Defense ratings.',
+					{ desc: 'All of Saurus\' allies receive a Defense and Attack Rating increase that is worth <em>100%</em> of Saurus\' own increased Attack and Defense Ratings.',
 						unlock: 221,
 					},
 				],
@@ -4353,7 +4353,7 @@ const HeroData = readable([
 				desc: 'Grezhul forms a shield around a friendly target, mitigating up to <em>150%</em> damage for a period of time. If the shield is broken it will cause <em>120%</em> damage to nearby enemy targets.',
 				unlock: 41,
 				upgrades: [
-					{ desc: 'Shield\'s armor increased by up to <em>200%</em> and damage is increased by up to <em>150%</em>. Reduces enemies\' energy by <em>100</em> energy points.',
+					{ desc: 'Shield\'s armor increased by up to <em>200%</em> and damage is increased by up to <em>150%</em>. Reduces enemies\' Energy by <em>100</em> Energy points.',
 						unlock: 121,
 					},
 					{ desc: 'Damage is increased by up to <em>200%</em>.',
@@ -4496,7 +4496,7 @@ const HeroData = readable([
 			name: 'Inner Yearning',
 			image: './img/furniture/shemira.png',
 			upgrades: [
-				{ desc: 'When Shemira\'s energy is full, she becomes immune to all control abilities for <em>2</em> seconds and immediately uses her ultimate ability. This ability can be activated even while another ability is currently in use.',
+				{ desc: 'When Shemira\'s Energy is full, she becomes immune to all control abilities for <em>2</em> seconds and immediately uses her ultimate ability. This ability can be activated even while another ability is currently in use.',
 					unlock: 3,
 				},
 				{ desc: 'When Shemira\'s health falls below <em>50%</em>, the percentage of damage that is converted into health while her "Tortured Souls" ability is in effect is raised by <em>30%</em>. Once "Tortured Souls" has finished dealing damage to enemies, the percentage of damage converted into her health falls by <em>30%</em>.',
@@ -4515,13 +4515,13 @@ const HeroData = readable([
 			{
 				name: 'Soul Burn',
 				image: './img/skills/oden1.png',
-				desc: 'Oden completely drains all energy from the enemy that possesses the highest amount of energy, dealing <em>160%</em> base damage to them. An additional <em>1%</em> damage is dealt to the enemy for every <em>1%</em> of energy that the enemy target has when the ability is cast against them. The higher the amount of energy that Oden drains from his enemies will result in Oden losing a higher proportion of his own energy. Oden will lose at least <em>300</em> energy points when using this ability, regardless of his enemies\' energy levels.',
+				desc: 'Oden completely drains all Energy from the enemy that possesses the highest amount of Energy, dealing <em>160%</em> base damage to them. An additional <em>1%</em> damage is dealt to the enemy for every <em>1%</em> of Energy that the enemy target has when the ability is cast against them. The higher the amount of Energy that Oden drains from his enemies will result in Oden losing a higher proportion of his own Energy. Oden will lose at least <em>300</em> Energy points when using this ability, regardless of his enemies\' Energy levels.',
 				unlock: 1,
 				upgrades: [
-					{ desc: 'Enemies cannot recover any energy for <em>5</em> seconds after this ability is used against them.',
+					{ desc: 'Enemies cannot recover any Energy for <em>5</em> seconds after this ability is used against them.',
 						unlock: 81,
 					},
-					{ desc: 'Additional damage dealt to the enemy is increased to <em>1.5%</em> for every <em>1%</em> of energy the enemy target has.',
+					{ desc: 'Additional damage dealt to the enemy is increased to <em>1.5%</em> for every <em>1%</em> of Energy the enemy target has.',
 						unlock: 161,
 					},
 				],
@@ -4535,7 +4535,7 @@ const HeroData = readable([
 					{ desc: 'Damage increased to <em>190%</em>.',
 						unlock: 21,
 					},
-					{ desc: 'Recovers an additional <em>50</em> energy points for every enemy struck.',
+					{ desc: 'Recovers an additional <em>50</em> Energy points for every enemy struck.',
 						unlock: 101,
 					},
 					{ desc: 'Damage increased to <em>200%</em>.',
@@ -4560,7 +4560,7 @@ const HeroData = readable([
 			{
 				name: 'Eye of Evil',
 				image: './img/skills/oden4.png',
-				desc: 'When Oden recovers 300/1000/2000 energy points respectively, one of his eyes will open until all three of his eyes are open. After Oden\'s first eye has been opened, the AoE damage effect caused by the Ability "Eviction" will now include a stun effect, which stuns the affected enemies for <em>3</em> seconds. After Oden\'s second eye has been opened the ability "Void Lightning" will additionally target the enemy that is currently standing farthest away from Oden. After Oden\'s third and final eye has been opened, Oden\'s normal attacks will cause his enemies to lose an additional <em>60</em> energy points per attack.',
+				desc: 'When Oden recovers 300/1000/2000 Energy points respectively, one of his eyes will open until all three of his eyes are open. After Oden\'s first eye has been opened, the AoE damage effect caused by the Ability "Eviction" will now include a stun effect, which stuns the affected enemies for <em>3</em> seconds. After Oden\'s second eye has been opened the ability "Void Lightning" will additionally target the enemy that is currently standing farthest away from Oden. After Oden\'s third and final eye has been opened, Oden\'s Normal Attacks will cause his enemies to lose an additional <em>60</em> Energy points per attack.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Oden\'s Attack Rating is increased by <em>10%</em> and his Casting Speed is increased by <em>10%</em> each time he opens another eye.',
@@ -4731,7 +4731,7 @@ const HeroData = readable([
 					{ desc: 'Damage is increased to <em>170%</em>.',
 						unlock: 21,
 					},
-					{ desc: 'Any spirits which are summoned due to one of Ferael\'s abilities will deduct <em>15</em> of their target\'s energy points per attack.',
+					{ desc: 'Any spirits which are summoned due to one of Ferael\'s abilities will deduct <em>15</em> of their target\'s Energy points per attack.',
 						unlock: 101,
 					},
 					{ desc: 'Any spirits which are summoned due to one of Ferael\'s abilities have a chance to interrupt their enemies\' attacks each time they attack them.',
@@ -4774,13 +4774,13 @@ const HeroData = readable([
 			image: './img/si/ferael.png',
 			desc: 'Normal Attacks will cause an evil spirit to haunt the enemy target if a critical strike occurs.',
 			upgrades: [
-				{ desc: 'Attack ratings for all enemies are reduced by <em>3%</em> and health recovery rates are reduced by <em>15%</em> for every spirit that is haunting an enemy on the battlefield. This ability may be stacked up to <em>4</em> times.',
+				{ desc: 'Attack Ratings for all enemies are reduced by <em>3%</em> and Health Recovery Rates are reduced by <em>15%</em> for every spirit that is haunting an enemy on the battlefield. This ability may be stacked up to <em>4</em> times.',
 					unlock: 10,
 				},
-				{ desc: 'Attack ratings for all enemies are reduced by <em>5%</em> and health recovery rates are reduced by <em>15%</em> for every spirit that is haunting an enemy on the battlefield. This ability may be stacked up to <em>4</em> times.',
+				{ desc: 'Attack Ratings for all enemies are reduced by <em>5%</em> and Health Recovery Rates are reduced by <em>15%</em> for every spirit that is haunting an enemy on the battlefield. This ability may be stacked up to <em>4</em> times.',
 					unlock: 20,
 				},
-				{ desc: 'Attack ratings for all enemies are reduced by <em>5%</em> and health recovery rates are reduced by <em>15%</em> for every spirit that is haunting an enemy on the battlefield. This ability may be stacked up to <em>6</em> times.',
+				{ desc: 'Attack Ratings for all enemies are reduced by <em>5%</em> and Health Recovery Rates are reduced by <em>15%</em> for every spirit that is haunting an enemy on the battlefield. This ability may be stacked up to <em>6</em> times.',
 					unlock: 30,
 				},
 			],
@@ -4891,7 +4891,7 @@ const HeroData = readable([
 				{ desc: 'Enemies that are stunned by the ability "Resurrection" are drawn towards Thoran and he recovers <em>5%</em> of his max health for every enemy stunned by the ability "Resurrection".',
 					unlock: 3,
 				},
-				{ desc: 'Thoran immediately recovers <em>150</em> energy points after he is brought back to life by his "Resurrection" ability.',
+				{ desc: 'Thoran immediately recovers <em>150</em> Energy points after he is brought back to life by his "Resurrection" ability.',
 					unlock: 9,
 				},
 			],
@@ -4952,7 +4952,7 @@ const HeroData = readable([
 			{
 				name: 'Etheral Resurgence',
 				image: './img/skills/kelthur4.png',
-				desc: 'When Kelthur dies he comes back to the battlefield in spectral form. While in this spectral form Kelthur cannot be attacked, however he will gradually lose health over time. Simultaneously Kelthur is still able to use his normal attacks and ultimate ability normally in combat. Kelthur\'s Haste is increased by <em>80%</em> for the time that he remains on the battlefield in spectral form.',
+				desc: 'When Kelthur dies he comes back to the battlefield in spectral form. While in this spectral form Kelthur cannot be attacked, however he will gradually lose health over time. Simultaneously Kelthur is still able to use his Normal Attacks and ultimate ability normally in combat. Kelthur\'s Haste is increased by <em>80%</em> for the time that he remains on the battlefield in spectral form.',
 				unlock: 61,
 				upgrades: [
 					{ desc: '<em>40%</em> of Kelthur\'s health is restored while in spectral form when any non-summoned enemy is slain.',
@@ -4968,7 +4968,7 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Blood Sap',
 			image: './img/si/kelthur.png',
-			desc: 'When any non-summoned allies which are within <em>20</em> levels of Kelthur\'s own level are defeated, Kelthur\'s attack rating will be increased by <em>20%</em>.',
+			desc: 'When any non-summoned allies which are within <em>20</em> levels of Kelthur\'s own level are defeated, Kelthur\'s Attack Rating will be increased by <em>20%</em>.',
 			upgrades: [
 				{ desc: 'Increases Attack Rating by <em>28%</em>.',
 					unlock: 10,
@@ -5008,7 +5008,7 @@ const HeroData = readable([
 				desc: 'Nara deals <em>110%</em> damage to the enemy target. Damage ignores the target\'s defense and invincibility effects. If the target\'s health is below <em>40%</em>, then the ability\'s damage is multiplied <em>6</em> times. However, if the auto battle feature is being used, this ability will not deal damage to any enemy targets with health above a <em>40%</em>.',
 				unlock: 1,
 				upgrades: [
-					{ desc: 'Restores an additional <em>250</em> energy if enemy target is slain. If a summoned entity is slain, the amount of additional energy points that are recovered is increased to <em>700</em> points.',
+					{ desc: 'Restores an additional <em>250</em> Energy if enemy target is slain. If a summoned entity is slain, the amount of additional Energy points that are recovered is increased to <em>700</em> points.',
 						unlock: 81,
 					},
 					{ desc: 'Activates a shield that can mitigate <em>350%</em> damage if enemy target is slain.',
@@ -5050,7 +5050,7 @@ const HeroData = readable([
 			{
 				name: 'Terrify',
 				image: './img/skills/nara4.png',
-				desc: 'A passive ability that causes Nara\'s attackers to lose <em>90</em> energy each time they deal damage to her. Enemies can suffer energy loss up to a maximum of <em>4</em> times within <em>10</em> seconds.',
+				desc: 'A passive ability that causes Nara\'s attackers to lose <em>90</em> Energy each time they deal damage to her. Enemies can suffer Energy loss up to a maximum of <em>4</em> times within <em>10</em> seconds.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Energy lost by attackers is raised to <em>100</em>.',
@@ -5103,7 +5103,7 @@ const HeroData = readable([
 			{
 				name: 'Phantom Assassin',
 				image: './img/skills/baden1.png',
-				desc: 'Baden summons a shadow phantom that possesses <em>90%</em> of his own health and attack rating. The phantom is able to use all of Baden\'s abilities except for his ultimate ability and will suffer <em>150%</em> damage when attacked.',
+				desc: 'Baden summons a shadow phantom that possesses <em>90%</em> of his own health and Attack Rating. The phantom is able to use all of Baden\'s abilities except for his ultimate ability and will suffer <em>150%</em> damage when attacked.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Baden summons an additional phantom.',
@@ -5117,7 +5117,7 @@ const HeroData = readable([
 			{
 				name: 'Phantom Strike',
 				image: './img/skills/baden2.png',
-				desc: 'Baden summons a phantom behind an enemy\'s back that lasts for <em>6</em> seconds that proceeds to attack them, dealing <em>180%</em> damage to them. The phantom possesses <em>70%</em> of Baden\'s Health and Attack Rating but will be dealt <em>220%</em> damage when attacked and may only attack with normal attacks.',
+				desc: 'Baden summons a phantom behind an enemy\'s back that lasts for <em>6</em> seconds that proceeds to attack them, dealing <em>180%</em> damage to them. The phantom possesses <em>70%</em> of Baden\'s Health and Attack Rating but will be dealt <em>220%</em> damage when attacked and may only attack with Normal Attacks.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Damage is increased to <em>190%</em>.',
@@ -5460,7 +5460,7 @@ const HeroData = readable([
 			image: './img/si/daimon.png',
 			desc: 'After using the ability "Blood Shield", while the shield is still in use, Daimon temporarily gains <em>20%</em> of the enemy target\'s Attack Rating and <em>30%</em> of their Defense Rating. This ability cannot be stacked.',
 			upgrades: [
-				{ desc: 'Daimon permanently acquires the target\'s Attack and Defense ratings if the enemy target dies while Daimon\'s "Blood Shield" is being used.',
+				{ desc: 'Daimon permanently acquires the target\'s Attack and Defense Ratings if the enemy target dies while Daimon\'s "Blood Shield" is being used.',
 					unlock: 10,
 				},
 				{ desc: 'After using the ability "Blood Shield", while the shield is still in use, Daimon temporarily gains <em>40%</em> of the enemy target\'s Attack Rating and <em>60%</em> of their Defense Rating. This ability cannot be stacked.',
@@ -5574,10 +5574,10 @@ const HeroData = readable([
 			name: 'Entangled Souls',
 			image: './img/furniture/theowyn.png',
 			upgrades: [
-				{ desc: 'Enemies cannot recover energy when they are afflicted by the "Haunting Specter" ability.',
+				{ desc: 'Enemies cannot recover Energy when they are afflicted by the "Haunting Specter" ability.',
 					unlock: 3,
 				},
-				{ desc: 'Enemies afflicted by the "Haunting Specter" ability now give <em>100%</em> of the energy they would have recovered to Theowyn.',
+				{ desc: 'Enemies afflicted by the "Haunting Specter" ability now give <em>100%</em> of the Energy they would have recovered to Theowyn.',
 					unlock: 9,
 				},
 			],
@@ -5627,7 +5627,7 @@ const HeroData = readable([
 				desc: 'Silas sprays a powerful gas onto the battlefield that remains there for <em>12</em> seconds. Any allies standing within the gas cloud will recover health equal to <em>30%</em> of Silas\' Attack Rating value per second. If any enemies are standing within the gas cloud, they will suffer <em>60%</em> damage per second.',
 				unlock: 41,
 				upgrades: [
-					{ desc: 'Reduces the health recovery rate of enemies within the gas cloud by <em>35%</em>.',
+					{ desc: 'Reduces the Health Recovery Rate of enemies within the gas cloud by <em>35%</em>.',
 						unlock: 121,
 					},
 					{ desc: 'Gas cloud deals damage equal to <em>70%</em> of Silas\' Attack Rating per second to enemies.',
@@ -5654,12 +5654,12 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Adrenaline Shot',
 			image: './img/si/silas.png',
-			desc: 'Each time an enemy loses <em>1%</em> of their max health, their health recovery rate decreases by <em>0.6%</em>, which may be further decreased up until it reaches a total value of <em>38%</em>. Each time an ally loses <em>1%</em> of their max health, their health recovery rate increases by <em>0.8%</em>, which may be increased up until it reaches a total value of <em>48%</em>.',
+			desc: 'Each time an enemy loses <em>1%</em> of their max health, their Health Recovery Rate decreases by <em>0.6%</em>, which may be further decreased up until it reaches a total value of <em>38%</em>. Each time an ally loses <em>1%</em> of their max health, their Health Recovery Rate increases by <em>0.8%</em>, which may be increased up until it reaches a total value of <em>48%</em>.',
 			upgrades: [
-				{ desc: 'Health recovery rate of enemies is decreased by <em>0.8%</em> until it reaches <em>48%</em>.',
+				{ desc: 'Health Recovery Rate of enemies is decreased by <em>0.8%</em> until it reaches <em>48%</em>.',
 					unlock: 10,
 				},
-				{ desc: 'Health recovery rate of enemies is decreased by <em>1%</em> until it reaches <em>60%</em>.',
+				{ desc: 'Health Recovery Rate of enemies is decreased by <em>1%</em> until it reaches <em>60%</em>.',
 					unlock: 20,
 				},
 				{ desc: 'Allied heroes that have more than <em>50%</em> of their max health receive an Attack Rating increase of <em>20%</em>.',
@@ -5736,7 +5736,7 @@ const HeroData = readable([
 			{
 				name: 'Oceanic Mist',
 				image: './img/skills/desira4.png',
-				desc: 'Desira summons the Oceanic Mist that spreads from behind the allied side\'s backline towards the enemies\' backline, which will then cover the whole battlefield. Any allies within the mist shall recover an amount of health equal to <em>15%</em> of Desira\'s Attack Rating every <em>0.5</em> seconds. The Oceanic Mist will stay on the battlefield for a maximum of <em>12</em> seconds, and shall also disappear if Desira dies.',
+				desc: 'Desira summons the "Oceanic Mist" that spreads from behind the allied side\'s backline towards the enemies\' backline, which will then cover the whole battlefield. Any allies within the mist shall recover an amount of health equal to <em>15%</em> of Desira\'s Attack Rating every <em>0.5</em> seconds. The "Oceanic Mist" will stay on the battlefield for a maximum of <em>12</em> seconds, and shall also disappear if Desira dies.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Amount of health recovered is equal to <em>18%</em> of Desira\'s Attack Rating.',
@@ -5803,13 +5803,13 @@ const HeroData = readable([
 			{
 				name: 'Judgement',
 				image: './img/skills/athalia2.png',
-				desc: 'Athalia descends from the heavens onto the battlefield and targets the enemy directly opposite her, inflicting <em>280%</em> damage on them. Once the initial attack has finished, Athalia will stand and attack the targeted enemy normally. Enemies will not be able to regenerate energy when attacked by this ability.',
+				desc: 'Athalia descends from the heavens onto the battlefield and targets the enemy directly opposite her, inflicting <em>280%</em> damage on them. Once the initial attack has finished, Athalia will stand and attack the targeted enemy normally. Enemies will not be able to regenerate Energy when attacked by this ability.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Damage increased by up to <em>290%</em>.',
 						unlock: 21,
 					},
-					{ desc: 'Targeted enemy cannot regenerate energy from attacks for <em>5</em> seconds after initial attack.',
+					{ desc: 'Targeted enemy cannot regenerate Energy from attacks for <em>5</em> seconds after initial attack.',
 						unlock: 101,
 					},
 					{ desc: 'Damage increased by up to <em>310%</em>.',
@@ -5850,15 +5850,15 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Bloodless',
 			image: './img/si/athalia.png',
-			desc: 'Defense rating is increased by <em>4%</em> of the value of Athalia\'s attack rating.',
+			desc: 'Defense Rating is increased by <em>4%</em> of the value of Athalia\'s Attack Rating.',
 			upgrades: [
-				{ desc: 'Defense rating is increased by <em>9%</em> of the value of Athalia\'s attack rating.',
+				{ desc: 'Defense Rating is increased by <em>9%</em> of the value of Athalia\'s Attack Rating.',
 					unlock: 10,
 				},
-				{ desc: 'Enemies that attack Athalia will begin to bleed out for <em>2</em> seconds (ability cannot be stacked). Enemies will lose health equal to <em>85%</em> of Athalia\'s attack rating per second and their health recovery rate will be decreased by <em>70%</em>.',
+				{ desc: 'Enemies that attack Athalia will begin to bleed out for <em>2</em> seconds (ability cannot be stacked). Enemies will lose health equal to <em>85%</em> of Athalia\'s Attack Rating per second and their Health Recovery Rate will be decreased by <em>70%</em>.',
 					unlock: 20,
 				},
-				{ desc: 'Enemies injured by Athalia will begin to bleed out for <em>2</em> seconds (ability cannot be stacked). Enemies will lose health equal to <em>85%</em> of Athalia\'s attack rating per second and their health recovery rate will be decreased by <em>70%</em>.',
+				{ desc: 'Enemies injured by Athalia will begin to bleed out for <em>2</em> seconds (ability cannot be stacked). Enemies will lose health equal to <em>85%</em> of Athalia\'s Attack Rating per second and their Health Recovery Rate will be decreased by <em>70%</em>.',
 					unlock: 30,
 				},
 			],
@@ -5887,7 +5887,7 @@ const HeroData = readable([
 			{
 				name: 'Hope',
 				image: './img/skills/twins1.png',
-				desc: 'Elijah and Lailah both fight independently but share the same health and energy, they also possess an additional <em>35%</em> health. After activating this ability, Elijah and Lailah dance with one another, motivating all allied heroes, increasing their haste by <em>75</em> for <em>8</em> seconds. This ability cannot be used when Elijah is under the effects of enemy control abilities.',
+				desc: 'Elijah and Lailah both fight independently but share the same health and Energy, they also possess an additional <em>35%</em> health. After activating this ability, Elijah and Lailah dance with one another, motivating all allied heroes, increasing their haste by <em>75</em> for <em>8</em> seconds. This ability cannot be used when Elijah is under the effects of enemy control abilities.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Ability removes all negative effects from all allied heroes and prevents them from being controlled by enemies for <em>4</em> seconds.',
@@ -5901,16 +5901,16 @@ const HeroData = readable([
 			{
 				name: 'Grace',
 				image: './img/skills/twins2.png',
-				desc: 'Elijah restores <em>130%</em> of his weakest ally\'s health and Lailah restores the energy of the ally with the highest remaining energy by <em>40</em> points. This ability will prioritize frontline heroes first.',
+				desc: 'Elijah restores <em>130%</em> of his weakest ally\'s health and Lailah restores the Energy of the ally with the highest remaining Energy by <em>40</em> points. This ability will prioritize frontline heroes first.',
 				unlock: 11,
 				upgrades: [
-					{ desc: 'Elijah restores <em>140%</em> of his ally\'s health, Lailah restores <em>50</em> of her ally\'s energy points.',
+					{ desc: 'Elijah restores <em>140%</em> of his ally\'s health, Lailah restores <em>50</em> of her ally\'s Energy points.',
 						unlock: 21,
 					},
-					{ desc: 'Elijah restores <em>150%</em> of his ally\'s health, Lailah restores <em>60</em> of her ally\'s energy points.',
+					{ desc: 'Elijah restores <em>150%</em> of his ally\'s health, Lailah restores <em>60</em> of her ally\'s Energy points.',
 						unlock: 101,
 					},
-					{ desc: 'Elijah restores <em>160%</em> of his ally\'s health, Lailah restores <em>70</em> of her ally\'s energy points.',
+					{ desc: 'Elijah restores <em>160%</em> of his ally\'s health, Lailah restores <em>70</em> of her ally\'s Energy points.',
 						unlock: 181,
 					},
 				],
@@ -5918,7 +5918,7 @@ const HeroData = readable([
 			{
 				name: 'Cleanse',
 				image: './img/skills/twins3.png',
-				desc: 'If Lailah is affected by an enemy control ability, Elijah will remove all negative effects from Lailah and create a shield around her equal to <em>280%</em> of their attack rating. When an enemy nears Elijah, Lailah will teleport to his location, attacking the enemy for <em>180%</em> damage, knocking them back in the process.',
+				desc: 'If Lailah is affected by an enemy control ability, Elijah will remove all negative effects from Lailah and create a shield around her equal to <em>280%</em> of their Attack Rating. When an enemy nears Elijah, Lailah will teleport to his location, attacking the enemy for <em>180%</em> damage, knocking them back in the process.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'Value of shield cast by Elijah is increased to <em>320%</em>, Lailah\'s knockback effect stuns enemies for <em>2.5</em> seconds.',
@@ -5935,7 +5935,7 @@ const HeroData = readable([
 				desc: 'The last two allies to be affected by Lailah and Elijah\'s "Grace" ability will form a union. In this state of union, the two heroes will both take <em>30%</em> of the damage that is inflicted upon the other, subsequently lessening the damage of the allied hero which is attacked.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Attack and defense ratings for the two heroes in a state of union are both increased by <em>20%</em> of the other union hero\'s own rating values.',
+					{ desc: 'Attack and Defense Ratings for the two heroes in a state of union are both increased by <em>20%</em> of the other union hero\'s own rating values.',
 						unlock: 141,
 					},
 					{ desc: 'Attack, defense, crit ratings, dodge, accuracy and life leech attributes are all increased by <em>15%</em> of the other union hero\'s own attribute values.',
@@ -5948,15 +5948,15 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Blessed Binding',
 			image: './img/si/twins.png',
-			desc: 'When Lailah and Elijah are in close proximity to one another, their attack rating will be increased by <em>5%</em>. When they are far apart from one another, their defense rating will be increased by <em>15%</em>.',
+			desc: 'When Lailah and Elijah are in close proximity to one another, their Attack Rating will be increased by <em>5%</em>. When they are far apart from one another, their Defense Rating will be increased by <em>15%</em>.',
 			upgrades: [
-				{ desc: 'When Lailah and Elijah are in close proximity to one another, their attack rating will be increased by <em>10%</em>. When they are far apart from one another, their defense rating will be increased by <em>25%</em>.',
+				{ desc: 'When Lailah and Elijah are in close proximity to one another, their Attack Rating will be increased by <em>10%</em>. When they are far apart from one another, their Defense Rating will be increased by <em>25%</em>.',
 					unlock: 10,
 				},
-				{ desc: 'When Elijah\'s normal attack deals a critical strike to an enemy, the affected enemy\'s damage towards Lailah will be reduced by <em>40%</em> for <em>6</em> seconds.',
+				{ desc: 'When Elijah\'s Normal Attack deals a critical strike to an enemy, the affected enemy\'s damage towards Lailah will be reduced by <em>40%</em> for <em>6</em> seconds.',
 					unlock: 20,
 				},
-				{ desc: 'When Lailah\'s normal attack deals a critical strike to an enemy, any damage dealt to the affected enemy by Elijah will be increased by <em>100%</em> for <em>6</em> seconds.',
+				{ desc: 'When Lailah\'s Normal Attack deals a critical strike to an enemy, any damage dealt to the affected enemy by Elijah will be increased by <em>100%</em> for <em>6</em> seconds.',
 					unlock: 30,
 				},
 			],
@@ -6114,7 +6114,7 @@ const HeroData = readable([
 			{
 				name: 'Inertia',
 				image: './img/skills/orthros3.png',
-				desc: 'Deals <em>200%</em> damage to a single enemy target and prevents them from recovering energy for the following <em>9</em> seconds.',
+				desc: 'Deals <em>200%</em> damage to a single enemy target and prevents them from recovering Energy for the following <em>9</em> seconds.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'Damage increased by up to <em>220%</em>.',
@@ -6181,10 +6181,10 @@ const HeroData = readable([
 			{
 				name: 'Fire Born',
 				image: './img/skills/talene1.png',
-				desc: 'Talene goes into \'Phoenix\' form that lasts until death and converts <em>90%</em> of her current health into a permanent shield of equal value, plus an additional extra permanent shield on top that is equal to <em>20%</em> of her max health. Talene\'s normal attacks will turn into close-range area attacks that deal <em>150%</em> damage while in Phoenix form.',
+				desc: 'Talene goes into \'Phoenix\' form that lasts until death and converts <em>90%</em> of her current health into a permanent shield of equal value, plus an additional extra permanent shield on top that is equal to <em>20%</em> of her max health. Talene\'s Normal Attacks will turn into close-range area attacks that deal <em>150%</em> damage while in Phoenix form.',
 				unlock: 1,
 				upgrades: [
-					{ desc: 'When in \Phoenix Form\', Talene\'s normal attacks shall deal additional damage that is equal to <em>20%</em> of the remaining shield values produced by her shield abilities.',
+					{ desc: 'When in \Phoenix Form\', Talene\'s Normal Attacks shall deal additional damage that is equal to <em>20%</em> of the remaining shield values produced by her shield abilities.',
 						unlock: 81,
 					},
 					{ desc: 'Additional shield is equal to <em>25%</em> of Talene\'s max health.',
@@ -6247,10 +6247,10 @@ const HeroData = readable([
 				{ desc: 'Talene\'s Attack Rating is increased by <em>20%</em> and her Defense Rating is increased by <em>40%</em> every time she is reborn using her "Phoenix Rising" ability.',
 					unlock: 10,
 				},
-				{ desc: 'Talene immediately recovers <em>120</em> energy points each time she is reborn.',
+				{ desc: 'Talene immediately recovers <em>120</em> Energy points each time she is reborn.',
 					unlock: 20,
 				},
-				{ desc: 'Talene immediately recovers <em>400</em> energy points each time she is reborn.',
+				{ desc: 'Talene immediately recovers <em>400</em> Energy points each time she is reborn.',
 					unlock: 30,
 				},
 			],
@@ -6279,7 +6279,7 @@ const HeroData = readable([
 			{
 				name: 'Cloud Clones',
 				image: './img/skills/wukong1.png',
-				desc: 'Wu Kong disappears from the battlefield after summoning <em>3</em> clones of himself. Once all the clones have disappeared from the battlefield, the original Wu Kong will return to it. Cloud clones are able to use Wu Kong\'s "Bludgeon" ability as well as his normal attacks. Clones possess <em>90%</em> of the original Wu Kong\'s stats, however, they will receive <em>220%</em> damage dealt from enemy attacks.',
+				desc: 'Wu Kong disappears from the battlefield after summoning <em>3</em> clones of himself. Once all the clones have disappeared from the battlefield, the original Wu Kong will return to it. Cloud clones are able to use Wu Kong\'s "Bludgeon" ability as well as his Normal Attacks. Clones possess <em>90%</em> of the original Wu Kong\'s stats, however, they will receive <em>220%</em> damage dealt from enemy attacks.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Clones receive <em>200%</em> damage.',
@@ -6358,7 +6358,7 @@ const HeroData = readable([
 			name: 'Warrior\'s Meditation',
 			image: './img/furniture/wukong.png',
 			upgrades: [
-				{ desc: 'Wu Kong recovers <em>60</em> energy points per second when he is absent from the battlefield as a result of his "Cloud Clones" ability. This ability no longer regenerates energy when Wu Kong\'s energy reaches or exceeds <em>600</em> points.',
+				{ desc: 'Wu Kong recovers <em>60</em> Energy points per second when he is absent from the battlefield as a result of his "Cloud Clones" ability. This ability no longer regenerates Energy when Wu Kong\'s Energy reaches or exceeds <em>600</em> points.',
 					unlock: 3,
 				},
 				{ desc: 'Wu Kong recovers <em>3%</em> of his max health per second while absent from the battlefield as a result of his "Cloud Clones" ability.',
@@ -6716,13 +6716,13 @@ const HeroData = readable([
 			{
 				name: 'Mental Fury',
 				image: './img/skills/ezizh4.png',
-				desc: 'Ezizh enrages his teammates, allowing them to to regain <em>40</em> energy points every <em>3</em> seconds.',
+				desc: 'Ezizh enrages his teammates, allowing them to to regain <em>40</em> Energy points every <em>3</em> seconds.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Ezizh\'s teammates are able to regain energy after his death, however the effect\'s efficiency is reduced by <em>30%</em>.',
+					{ desc: 'Ezizh\'s teammates are able to regain Energy after his death, however the effect\'s efficiency is reduced by <em>30%</em>.',
 						unlock: 141,
 					},
-					{ desc: 'Allies recover <em>50</em> energy points every <em>3</em> seconds.',
+					{ desc: 'Allies recover <em>50</em> Energy points every <em>3</em> seconds.',
 						unlock: 221,
 					},
 				],
@@ -6769,10 +6769,10 @@ const HeroData = readable([
 			{
 				name: 'Mesmerize',
 				image: './img/skills/mehira1.png',
-				desc: 'Mehira entrances an enemy heroes which causes them to start attacking each other with their normal attacks for <em>4</em> seconds.',
+				desc: 'Mehira entrances an enemy heroes which causes them to start attacking each other with their Normal Attacks for <em>4</em> seconds.',
 				unlock: 1,
 				upgrades: [
-					{ desc: 'While entranced, enemies will not recover energy when attacked.',
+					{ desc: 'While entranced, enemies will not recover Energy when attacked.',
 						unlock: 81,
 					},
 					{ desc: 'Duration is extended up to <em>5</em> seconds.',
@@ -6783,7 +6783,7 @@ const HeroData = readable([
 			{
 				name: 'Whiplash',
 				image: './img/skills/mehira2.png',
-				desc: 'Mehira uses her whip to deal <em>120%</em> AoE damage to everyone in front of her, including allies. If this ability inflicts damage upon any of her allies, they will recover <em>65</em> energy and their Haste will be increased by <em>40%</em> for <em>8</em> seconds.',
+				desc: 'Mehira uses her whip to deal <em>120%</em> AoE damage to everyone in front of her, including allies. If this ability inflicts damage upon any of her allies, they will recover <em>65</em> Energy and their Haste will be increased by <em>40%</em> for <em>8</em> seconds.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Damage is increased to <em>125%</em>.',
@@ -6838,7 +6838,7 @@ const HeroData = readable([
 				{ desc: 'When other teammates lose health, <em>20%</em> of the health lost will be given to Mehira.',
 					unlock: 20,
 				},
-				{ desc: 'If at full health, any excess healing abilities or effects that Mehira receives will be converted into energy.',
+				{ desc: 'If at full health, any excess healing abilities or effects that Mehira receives will be converted into Energy.',
 					unlock: 30,
 				},
 			],
@@ -6867,10 +6867,10 @@ const HeroData = readable([
 			{
 				name: 'Time Rift',
 				image: './img/skills/zolrath1.png',
-				desc: 'Zolrath expends <em>200</em> energy to open a time rift. Once inside the time rift, Zolrath will continuously lose <em>120</em> energy points per second while he recovers <em>7.5%</em> of his max health. When Zolrath\'s energy is exhausted, his health is fully recovered or the ability is used again, Zolrath will reappear from the time rift and attack the weakest enemy target for <em>360%</em> damage. This ability may be used even if Zolrath is being controlled by an enemy ability.',
+				desc: 'Zolrath expends <em>200</em> Energy to open a time rift. Once inside the time rift, Zolrath will continuously lose <em>120</em> Energy points per second while he recovers <em>7.5%</em> of his max health. When Zolrath\'s Energy is exhausted, his health is fully recovered or the ability is used again, Zolrath will reappear from the time rift and attack the weakest enemy target for <em>360%</em> damage. This ability may be used even if Zolrath is being controlled by an enemy ability.',
 				unlock: 1,
 				upgrades: [
-					{ desc: 'Zolrath ignores fatal damage the first time it is dealt to him and immediately uses his ultimate ability, ignoring its energy requirement.',
+					{ desc: 'Zolrath ignores fatal damage the first time it is dealt to him and immediately uses his ultimate ability, ignoring its Energy requirement.',
 						unlock: 81,
 					},
 					{ desc: 'Ability restores <em>9%</em> of max health per second.',
@@ -6898,13 +6898,13 @@ const HeroData = readable([
 			{
 				name: 'Annihilate',
 				image: './img/skills/zolrath3.png',
-				desc: 'After <em>18</em> seconds Zolrath\'s normal attack becomes more powerful, allowing his normal attack to deal <em>150%</em> damage twice per attack.',
+				desc: 'After <em>18</em> seconds Zolrath\'s Normal Attack becomes more powerful, allowing his Normal Attack to deal <em>150%</em> damage twice per attack.',
 				unlock: 41,
 				upgrades: [
-					{ desc: 'After <em>45</em> seconds Zolrath\'s normal attack becomes more powerful, allowing him to strike at surrounding enemies in a three-stage attack for <em>230%</em> damage per attack. Zolrath\'s first <em>2</em> attacks are able to knock-back enemies, with the final attack causing the enemy to become temporarily stunned.',
+					{ desc: 'After <em>45</em> seconds Zolrath\'s Normal Attack becomes more powerful, allowing him to strike at surrounding enemies in a three-stage attack for <em>230%</em> damage per attack. Zolrath\'s first <em>2</em> attacks are able to knock-back enemies, with the final attack causing the enemy to become temporarily stunned.',
 						unlock: 121,
 					},
-					{ desc: 'Zolrath\'s attack rating increases by <em>1%</em> per second until it reaches <em>70%</em>.',
+					{ desc: 'Zolrath\'s Attack Rating increases by <em>1%</em> per second until it reaches <em>70%</em>.',
 						unlock: 201,
 					},
 				],
@@ -6936,7 +6936,7 @@ const HeroData = readable([
 				{ desc: 'Damage dealt to enemies with a lower health percentage than Zolrath is increased by <em>40%</em>.',
 					unlock: 20,
 				},
-				{ desc: 'Damage ignores defense rating and damage immunity effect of enemies that have less than <em>40%</em> of their max health.',
+				{ desc: 'Damage ignores Defense Rating and damage immunity effect of enemies that have less than <em>40%</em> of their max health.',
 					unlock: 30,
 				},
 			],
@@ -6968,7 +6968,7 @@ const HeroData = readable([
 				desc: 'Khazard explodes, dealing an initial <em>130%</em> damage to all enemies on the battlefield, causing the battlefield to become enveloped in a "Frozen Mist" for <em>14</em> seconds. While the frozen mist is present, enemies will suffer <em>45%</em> damage per second and enemies with health lower than <em>30%</em> will become frozen until the are able to recover <em>30%</em> of their health or the mist disappears.',
 				unlock: 1,
 				upgrades: [
-					{ desc: 'Enemies\' health recovery rates are reduced by <em>70%</em> when "Frozen Mist" has enveloped the battlefield.',
+					{ desc: 'Enemies\' Health Recovery Rates are reduced by <em>70%</em> when "Frozen Mist" has enveloped the battlefield.',
 						unlock: 81,
 					},
 					{ desc: 'Duration of "Frozen Mist" ability effects are increased to <em>16</em> seconds.',
@@ -7063,7 +7063,7 @@ const HeroData = readable([
 			{
 				name: 'Devour',
 				image: './img/skills/mezoth1.png',
-				desc: 'Passive: Mezoth cannot be controlled whenever his health is higher than <em>50%</em>, and the duration for the majority of debuffs affecting him is reduced by <em>50%</em>. When actively using his Ultimate ability, Mezoth imprisons an enemy up until his energy is completely exhausted. During the imprisonment period, Mezoth loses <em>70</em> energy per second and the imprisoned enemy lose health equal to <em>70%</em> of Mezoth\'s Attack Rating every second and cannot attack or use any abilities (enemies cannot die as a result of this damage). If affected by an enemy control ability, Mezoth will lose an additional <em>70</em> energy per <em>0.5</em> seconds. If the enemy target is immune to control abilities, they will not be imprisoned and shall be immediately dealt <em>480%</em> damage instead. Allied heroes shall prioritize their attacks against enemies that are not imprisoned.',
+				desc: 'Passive: Mezoth cannot be controlled whenever his health is higher than <em>50%</em>, and the duration for the majority of debuffs affecting him is reduced by <em>50%</em>. When actively using his Ultimate ability, Mezoth imprisons an enemy up until his Energy is completely exhausted. During the imprisonment period, Mezoth loses <em>70</em> Energy per second and the imprisoned enemy lose health equal to <em>70%</em> of Mezoth\'s Attack Rating every second and cannot attack or use any abilities (enemies cannot die as a result of this damage). If affected by an enemy control ability, Mezoth will lose an additional <em>70</em> Energy per <em>0.5</em> seconds. If the enemy target is immune to control abilities, they will not be imprisoned and shall be immediately dealt <em>480%</em> damage instead. Allied heroes shall prioritize their attacks against enemies that are not imprisoned.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Imprisoned enemies lose health equal to <em>80%</em> of Mezoth\'s Attack Rating per second.',
@@ -7111,10 +7111,10 @@ const HeroData = readable([
 				desc: 'At the beginning of battles Mezoth\'s max health value is increased by <em>80%</em>, and the percentage of health that he begins the battle with remains unchanged. The increased value of Mezoth\'s health will slowly diminish over <em>50</em> seconds, starting from the beginning of battles. The diminishing max health value does not affect the current percentage of Mezoth\'s overall health.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Mezoth\'s Defense Rating can be increased by up to an additional <em>100%</em>, based upon the current percentage of his max health. A higher health ratio results in a higher defense rating.',
+					{ desc: 'Mezoth\'s Defense Rating can be increased by up to an additional <em>100%</em>, based upon the current percentage of his max health. A higher health ratio results in a higher Defense Rating.',
 						unlock: 141,
 					},
-					{ desc: 'Mezoth\'s Defense Rating can be increased by up to an additional <em>180%</em>, based upon the current percentage of his max health. A higher health ratio results in a higher defense rating.',
+					{ desc: 'Mezoth\'s Defense Rating can be increased by up to an additional <em>180%</em>, based upon the current percentage of his max health. A higher health ratio results in a higher Defense Rating.',
 						unlock: 221,
 					},
 				],
@@ -7124,12 +7124,12 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Virclent Greed',
 			image: './img/si/mezoth.png',
-			desc: 'Hero gains <em>200</em> energy points at the start of battles.',
+			desc: 'Hero gains <em>200</em> Energy points at the start of battles.',
 			upgrades: [
 				{ desc: 'Imprisoned enemies shall bear <em>25%</em> of the damage that is intended for Mezoth.',
 					unlock: 10,
 				},
-				{ desc: 'Hero gains <em>500</em> energy points at the start of battles.',
+				{ desc: 'Hero gains <em>500</em> Energy points at the start of battles.',
 					unlock: 20,
 				},
 				{ desc: 'Imprisoned enemies shall bear <em>50%</em> of the damage that is intended for Mezoth.',
@@ -7142,10 +7142,10 @@ const HeroData = readable([
 			name: 'Fiendish Negation',
 			image: './img/furniture/mezoth.png',
 			upgrades: [
-				{ desc: 'If an enemy imprisoned by the ability "Devour" currently has less than <em>15%</em> Health they will be instantly slain.',
+				{ desc: 'If an enemy imprisoned by the ability "Devour" currently has less than <em>15%</em> health they will be instantly slain.',
 					unlock: 3,
 				},
-				{ desc: 'When an enemy is slain by the ability "Fiendish Negation", Mezoth recovers <em>10%</em> of his max Health and <em>80</em> Energy points every second over <em>4</em> seconds.',
+				{ desc: 'When an enemy is slain by the ability "Fiendish Negation", Mezoth recovers <em>10%</em> of his max health and <em>80</em> Energy points every second over <em>4</em> seconds.',
 					unlock: 9,
 				},
 			],
@@ -7161,7 +7161,7 @@ const HeroData = readable([
 			{
 				name: 'Ungodly Defiance',
 				image: './img/skills/lucretia1.png',
-				desc: 'The first time Lucretia uses her Ultimate ability, she absorbs her two revolving skulls, absorbing their energy until the end of the battle. After absorbing the skulls, Lucretia\'s Life Leech is increased by <em>40</em> and her energy Recovery rate is increased by <em>50%</em>. Afterwards, each time she uses her Ultimate ability deals <em>280%</em> AoE damage to nearby enemies.',
+				desc: 'The first time Lucretia uses her Ultimate ability, she absorbs her two revolving skulls, absorbing their Energy until the end of the battle. After absorbing the skulls, Lucretia\'s Life Leech is increased by <em>40</em> and her Energy Recovery rate is increased by <em>50%</em>. Afterwards, each time she uses her Ultimate ability deals <em>280%</em> AoE damage to nearby enemies.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Damage is increased to <em>300%</em>.',
@@ -7222,7 +7222,7 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Animus',
 			image: './img/si/lucretia.png',
-			desc: 'Lucretia gains <em>150</em> energy per second over <em>5</em> seconds when a non-summoned ally dies for the first time.',
+			desc: 'Lucretia gains <em>150</em> Energy per second over <em>5</em> seconds when a non-summoned ally dies for the first time.',
 			upgrades: [
 				{ desc: 'When any non-summoned allies die, Lucretia\'s Attack Rating is increased by <em>30%</em> for <em>20</em> seconds. This ability can be stacked. Time durations for the stacked effects are calculated individually.',
 					unlock: 10,
@@ -7455,7 +7455,7 @@ const HeroData = readable([
 			{
 				name: 'Smite',
 				image: './img/skills/arthur1.png',
-				desc: 'Arthur will claim Excalibur from a lake the first time this ability is used. Once he is wielding the Lake Excalibur, Arthur\'s normal attacks will be greatly strengthened. Any subsequent uses of this ability will then deal <em>380%</em> AoE damage to enemies in front of Arthur.',
+				desc: 'Arthur will claim Excalibur from a lake the first time this ability is used. Once he is wielding the Lake Excalibur, Arthur\'s Normal Attacks will be greatly strengthened. Any subsequent uses of this ability will then deal <em>380%</em> AoE damage to enemies in front of Arthur.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Damage is increased to <em>430%</em>.',
@@ -7516,7 +7516,7 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Battle Rally',
 			image: './img/si/arthur.png',
-			desc: 'Arthur rallies his team, raising the attack frequency of normal attacks for all allies standing behind Arthur by <em>50%</em>.',
+			desc: 'Arthur rallies his team, raising the attack frequency of Normal Attacks for all allies standing behind Arthur by <em>50%</em>.',
 			upgrades: [
 				{ desc: 'Arthur rallies his team, raising the Crit Rating for all allies standing behind Arthur by <em>15%</em>.',
 					unlock: 10,
@@ -7861,7 +7861,7 @@ const HeroData = readable([
 			{
 				name: 'Magic Caster',
 				image: './img/skills/ainz2.png',
-				desc: 'Ainz\' normal attacks are changed to the following abilities, which are used in a cycle:<br><br>Call Greater Thunder: Deals <em>240%</em> damage to the enemy target.<br>Gravity Maelstrom: Deals <em>210%</em> damage to the enemy and any other nearby enemy targets.<br>True Dark: Deals <em>180%</em> damage to the enemy target and prevents the enemy from using their Ultimate ability for <em>5</em> seconds.',
+				desc: 'Ainz\' Normal Attacks are changed to the following abilities, which are used in a cycle:<br><br>Call Greater Thunder: Deals <em>240%</em> damage to the enemy target.<br>Gravity Maelstrom: Deals <em>210%</em> damage to the enemy and any other nearby enemy targets.<br>True Dark: Deals <em>180%</em> damage to the enemy target and prevents the enemy from using their Ultimate ability for <em>5</em> seconds.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Call Greater Thunder damage is increased to <em>270%</em>.',
@@ -8104,7 +8104,7 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Widespread Attack',
 			image: './img/si/joker.png',
-			desc: 'After JOKER uses his Ultimate ability, the AoE range of his normal attacks is increased for <em>7</em> seconds, during which time he deals <em>20%</em> additional damage.',
+			desc: 'After JOKER uses his Ultimate ability, the AoE range of his Normal Attacks is increased for <em>7</em> seconds, during which time he deals <em>20%</em> additional damage.',
 			upgrades: [
 				{ desc: 'JOKER gains <em>20</em> Attack Speed points while this ability\'s effects are in use.',
 					unlock: 10,

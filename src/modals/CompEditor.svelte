@@ -1,6 +1,8 @@
 <script>
 	import { onMount, onDestroy, tick, getContext } from 'svelte';
 	import { v4 as uuidv4 } from 'uuid';
+	import Editor from '@toast-ui/editor';
+	import '@toast-ui/editor/dist/toastui-editor.css';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from '../shared/HeroFinder.svelte';
@@ -30,6 +32,7 @@
 	let heroFinderOpen = false;
 	let hfConfig = {};
 	let autosave;
+	let editor; // ToastUI editor
 
 	onMount(async () => {
 		history.pushState({view: $AppData.activeView, modal: true, comp: true}, "Comp Editor", `?view=${$AppData.activeView}&comp=true&modal=true`);
@@ -43,9 +46,26 @@
 			if(comp.draft) saveDraft();
 		}, 30000);
 		await tick();
-		const descInput = document.getElementById('descInput');
-		descInput.style.height = 'inherit';
-		descInput.style.height = getTextareaHeight(descInput) + 'px';
+		editor = new Editor({
+			el: document.querySelector('#tuieditor'),
+			events: {
+				change: handleContentChange,
+			},
+			height: '338px',
+			initialValue: comp.desc,
+			initialEditType: 'wysiwyg',
+			language: 'en_US',
+			placeholder: 'Description',
+			toolbarItems: [
+				['heading', 'bold', 'italic', 'strike'],
+				['hr', 'quote'],
+				['ul', 'ol'],
+				['table', 'image', 'link'],
+				['code', 'codeblock'],
+			],
+			usageStatistics: false,
+			useDefaultHTMLSanitizer: true,
+		});
 	});
 
 	onDestroy(async () => {
@@ -80,19 +100,8 @@
 		}];
 	}
 
-	function getTextareaHeight(element) {
-		const computed = window.getComputedStyle(element);
-		return parseInt(computed.getPropertyValue('border-top-width'), 10)
-			+ parseInt(computed.getPropertyValue('padding-top'), 10)
-			+ element.scrollHeight
-			+ parseInt(computed.getPropertyValue('padding-bottom'), 10)
-			+ parseInt(computed.getPropertyValue('border-bottom-width'), 10);
-	}
-
-	function adjustHeight(event) {
-		const el = event.target;
-		el.style.height = 'inherit';
-		el.style.height = getTextareaHeight(el) + 'px';
+	function handleContentChange() {
+		if(editor) comp.desc = editor.getMarkdown();
 	}
 
 	function cancelEdit() {
@@ -316,7 +325,7 @@
 			</div>
 			<div class="descEditor">
 				<h4>Description</h4>
-				<textarea id="descInput" class="descInput" bind:value={comp.desc} placeholder="Description" on:input={(e) => adjustHeight(e)}></textarea>
+				<div id="tuieditor"></div>
 			</div>
 		</div>
 		<div class="row2">
@@ -588,11 +597,6 @@
 	.lineDisplay p {
 		margin-bottom: 5px;
 	}
-	#descInput {
-		max-height: 250px;
-		min-height: 50px;
-		width: 100%;
-	}
 	.subGroup {
 		margin-bottom: 10px;
 	}
@@ -686,9 +690,6 @@
 		.descEditor {
 			width: 100%;
 		}
-		#descInput {
-			max-height: 337px;
-		}
 		.subContainer {
 			display: grid;
 			grid-gap: 5px 20px;
@@ -706,5 +707,96 @@
 			background-color: var(--appColorPriAccent);
 			color: white;
 		}
+	}
+	/* toastui editor styling */
+	:global(.toastui-editor-ww-container), :global(.toastui-editor-md-container) {
+		z-index: 4 !important;
+	}
+	:global(.toastui-editor-dropdown-toolbar) {
+		flex-wrap: wrap !important;
+		height: auto !important;
+	}
+	:global(.toastui-editor-contents) {
+		padding: 10px !important;
+	}
+	:global(.toastui-editor-contents) :global(hr) {
+		border: 1px solid var(--appColorPrimary) !important;
+		margin: 5px 0px !important;
+	}
+	:global(.toastui-editor-contents) :global(p) {
+		margin: 0 !important;
+	}
+	:global(.toastui-editor-contents) :global(a) {
+		color: var(--appColorPrimary) !important;
+	}
+	:global(.toastui-editor-contents) :global(ul), :global(.toastui-editor-contents) :global(ol) {
+		margin: 10px 0px !important;
+	}
+	:global(.toastui-editor-contents) :global(ul) {
+		list-style-type: disc !important;
+	}
+	:global(.toastui-editor-contents) :global(ul ul) {
+		list-style-type: circle !important;
+	}
+	:global(.toastui-editor-contents) :global(ul ul ul) {
+		list-style-type: square !important;
+	}
+	:global(.toastui-editor-contents) :global(ul > li::marker) {
+		font-size: 1.0rem !important;
+	}
+	:global(.toastui-editor-contents) :global(ul > li::before) {
+		display: none !important;
+	}
+	:global(.toastui-editor-contents) :global(ol > li::before) {
+		color: black !important;
+	}
+	:global(.toastui-editor-contents) :global(h1), :global(.toastui-editor-contents) :global(h2), :global(.toastui-editor-contents) :global(h3) {
+		margin: 10px 0px !important;
+	}
+	:global(.toastui-editor-contents) :global(h4), :global(.toastui-editor-contents) :global(h5), :global(.toastui-editor-contents) :global(h6) {
+		margin: 5px 0px !important;
+	}
+	:global(.toastui-editor-contents) :global(h1) {
+		border: 0 !important;
+		font-size: 1.6rem !important;
+	}
+	:global(.toastui-editor-contents) :global(h2) {
+		border: 0 !important;
+	}
+	:global(.toastui-editor-contents) :global(blockquote) {
+		border-left: 5px solid var(--appColorPriOpaque) !important;
+		margin-left: 20px !important;
+		padding-left: 5px !important;
+	}
+	:global(.toastui-editor-contents) :global(pre) {
+		background-color: var(--appBGColorDark) !important;
+	}
+	:global(.toastui-editor-contents) :global(table) {
+		border: 0 !important;
+		border-collapse: collapse !important;
+	}
+	:global(.toastui-editor-contents) :global(th) {
+		background-color: transparent !important;
+		border: 0 !important;
+		border-bottom: 2px solid var(--appColorPrimary) !important;
+		font-weight: bold !important;
+		padding: 0 !important;
+		padding-right: 20px !important;
+		text-align: left !important;
+	}
+	:global(.toastui-editor-contents) :global(th) :global(p) {
+		color: black !important;
+		padding: 0 !important;
+	}
+	:global(.toastui-editor-contents) :global(td) {
+		border: 0 !important;
+		border-bottom: 1px solid black !important;
+		padding: 0 !important;
+	}
+	:global(.toastui-editor-contents) :global(tr):nth-child(even) {
+		background-color: var(--appColorPriOpaque) !important;
+	}
+	:global(.toastui-editor-contents) :global(img) {
+		max-width: 100px !important;
 	}
 </style>
