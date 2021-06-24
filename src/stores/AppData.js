@@ -275,6 +275,8 @@ function buildAppData(data) {
 	for(let prop in data) {
 		if(!expectedProps.some(e => e.name === prop)) delete data[prop];
 	}
+	// maxDescLen is special and should always be updated
+	data.maxDescLen = expectedProps.find(e => e.name === 'maxDescLen').default;
 
 	// add HL props as required
 	for(const prop of expectedHLProps) {
