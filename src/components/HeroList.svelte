@@ -79,14 +79,11 @@
 			case 'name':
 				return [...displayList].sort(compareValues('name', order));
 				break;
-			case 'faction':
-				return [...displayList].sort(compareValues('faction', order));
+			case 'si':
+				return [...displayList].sort(compareValues('si_benchmark', order));
 				break;
-			case 'type':
-				return [...displayList].sort(compareValues('type', order));
-				break;
-			case 'class':
-				return [...displayList].sort(compareValues('class', order));
+			case 'furn':
+				return [...displayList].sort(compareValues('furn_benchmark', order));
 				break;
 			default:
 				throw new Error('Invalid Hero List sort column.');
@@ -305,12 +302,12 @@
 		{/if}
 		<div class='tableContainer'>
 			<table class='heroTable'>
-				<tr>
+				<thead>
 					<th class="sortHeader" on:click={() => handleHeaderClick('name')}>Hero</th>
 					<th class="nonSortHeader">Attributes</th>
-					<th class="nonSortHeader">SI <span class="hiddenMobile">Benchmark</span></th>
-					<th class="nonSortHeader">Furn <span class="hiddenMobile">Benchmark</span></th>
-				</tr>
+					<th class="sortHeader" on:click={() => handleHeaderClick('si')}>SI <span class="hiddenMobile">Benchmark</span></th>
+					<th class="sortHeader" on:click={() => handleHeaderClick('furn')}>Furn <span class="hiddenMobile">Benchmark</span></th>
+				</thead>
 				{#each displayList as hero (hero.id)}
 				<tr class="heroRow" on:click={() => handleHeroClick(hero.id)} animate:flip="{{duration: 200}}">
 					<td>
@@ -356,6 +353,16 @@
 	}
 	.sect2 {
 		padding: 10px;
+	}
+	input {
+		border: 1px solid var(--appColorPrimary);
+		border-radius: 5px;
+		transition: box-shadow 0.1s;
+	}
+	input:focus {
+		border-color: var(--appColorPrimary);
+		box-shadow: 0 0 0 2px var(--appColorPrimary);
+		outline: 0;
 	}
 	.searchInfo {
 		display: none;

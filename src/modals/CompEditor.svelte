@@ -51,7 +51,7 @@
 			events: {
 				change: handleContentChange,
 			},
-			height: '338px',
+			height: '346.5px',
 			initialValue: comp.desc,
 			initialEditType: 'wysiwyg',
 			language: 'en_US',
@@ -255,8 +255,8 @@
 <div class="editorContainer">
 	<section class="sect1">
 		<div class="editorHead">
-			<input class="titleInput" type="text" bind:value={comp.name} placeholder="Title">
-			<input class="authorInput" type="text" bind:value={comp.author} placeholder="Author">
+			<input class="titleInput" type="text" bind:value={comp.name} placeholder="Title" maxlength="50" class:maxed={comp.name.length >= 50}>
+			<input class="authorInput" type="text" bind:value={comp.author} placeholder="Author" maxlength="50" class:maxed={comp.author.length >= 50}>
 			{#if comp.draft}
 				<div class="draftContainer"><span class="draftLabel">draft</span></div>
 			{/if}
@@ -267,7 +267,7 @@
 				<div class="lineEditHead">
 					{#each comp.lines as line, i}
 						<button class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
-							{line.name}
+							<span>{line.name}</span>
 							<button class="removeButton" on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
 						</button>
 					{/each}
@@ -277,7 +277,7 @@
 					{#if openLine === null}
 						<span class="noLine">Select a line to edit.</span>
 					{:else}
-						<input type="text" class="lineNameInput" bind:value={comp.lines[openLine].name} placeholder="Line Name">
+						<input type="text" class="lineNameInput" bind:value={comp.lines[openLine].name} placeholder="Line Name" maxlength="30" class:maxed={comp.lines[openLine].name.length >= 30}>
 						<div class="lineDisplay">
 							<div class="backline">
 								{#each comp.lines[openLine].heroes as  hero, i}
@@ -326,6 +326,7 @@
 			<div class="descEditor">
 				<h4>Description</h4>
 				<div id="tuieditor"></div>
+				<div class="editorLimit" class:maxed={comp.desc.length >= $AppData.maxDescLen}><span>{comp.desc.length}/{$AppData.maxDescLen}</span></div>
 			</div>
 		</div>
 		<div class="row2">
@@ -335,7 +336,7 @@
 					{#each comp.subs as sub, i}
 						<div class="subGroup">
 							<div class="subTitle">
-								<input class="subTitleInput" type="text" bind:value={sub.name} placeholder="Subgroup Name">
+								<input class="subTitleInput" type="text" bind:value={sub.name} placeholder="Subgroup Name" maxlength="50" class:maxed={sub.name.length >= 50}>
 								<button class="removeButton" on:click={(e) => { deleteSub(i); e.stopPropagation(); }}><span>x</span></button>
 							</div>
 							<div class="subLine">
@@ -345,7 +346,7 @@
 											<img
 												src={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).portrait : './img/portraits/unavailable.png'}
 												alt={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).name : 'Pick a Hero'}>
-											<button class="removeHeroButton subHeroButton" on:click={() => removeSubHero(i, j)}><span>x</span></button>
+											<button class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
 										</button>
 										<p>{$HeroData.find(e => e.id === hero).name}</p>
 									</div>
@@ -380,6 +381,21 @@
 	.editorContainer {
 		padding: 10px;
 	}
+	input {
+		border: 1px solid var(--appColorPrimary);
+		border-radius: 5px;
+		transition: box-shadow 0.1s;
+	}
+	input:focus {
+		border-color: var(--appColorPrimary);
+		box-shadow: 0 0 0 2px var(--appColorPrimary);
+		outline: 0;
+	}
+	input.maxed {
+		border-color: var(--appDelColor);
+		outline: 0;
+		box-shadow: 0 0 0 2px var(--appDelColor);
+	}
 	.sect2 {
 		display: none;
 		visibility: hidden;
@@ -390,6 +406,7 @@
 		top: 80px;
 		transform: translate(-50%, 0);
 		width: fit-content;
+		z-index: 5;
 	}
 	.sect2.visible {
 		display: block;
@@ -435,12 +452,6 @@
 	.lineEditorTitle {
 		margin-top: 0;
 	}
-	input {
-		border: 1px solid var(--appColorPrimary);
-	}
-	input:focus {
-		outline: 2px solid var(--appColorPrimary);
-	}
 	.editorHead {
 		align-items: center;
 		border-bottom: 1px solid black;
@@ -477,7 +488,15 @@
 		cursor: pointer;
 		display: flex;
 		justify-content: center;
+		max-width: 100px;
 		padding: 3px;
+	}
+	.linePickerOption span {
+		display: inline-block;
+		width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	.linePickerOption.open {
 		background-color: var(--appColorPrimary);
@@ -537,6 +556,9 @@
 		flex-direction: column;
 		justify-content: center;
 	}
+	.backline {
+		margin-right: 10px;
+	}
 	.lineButton {
 		margin: 5px;
 	}
@@ -544,6 +566,7 @@
 		background: transparent;
 		border: none;
 		cursor: pointer;
+		padding: 0;
 		position: relative;
 	}
 	.heroButton img {
@@ -578,24 +601,34 @@
 		cursor: pointer;
 		outline: none;
 		position: absolute;
-		right: 0;
-		top: 0;
-	}
-	.removeHeroButton.lineHeroButton {
 		right: -6px;
+		top: 0;
 	}
 	.heroButton+p {
 		color: black;
 		font-size: 0.8rem;
 		font-weight: bold;
 		margin: 0;
+		overflow: hidden;
 		text-align: center;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 70px;
 	}
 	.subLine p {
 		color: black;
 	}
 	.lineDisplay p {
-		margin-bottom: 5px;
+		margin-bottom: 10px;
+	}
+	.editorLimit {
+		display: flex;
+		justify-content: flex-end;
+		font-size: 0.8rem;
+	}
+	.editorLimit.maxed {
+		color: var(--appDelColor);
+		font-weight: bold;
 	}
 	.subGroup {
 		margin-bottom: 10px;
@@ -624,6 +657,13 @@
 		display: flex;
 		flex-wrap: wrap;
 		max-width: 100%;
+	}
+	.subGroupMember {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		margin-right: 7px;
+		margin-bottom: 7px;
 	}
 	.addHeroButton {
 		background: transparent;

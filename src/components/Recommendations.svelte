@@ -427,6 +427,10 @@
 		color: var(--appColorPrimary);
 		cursor: pointer;
 		font-size: 1rem;
+		max-width: 100px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	@media only screen and (min-width: 767px) {
 		.sectionPicker {

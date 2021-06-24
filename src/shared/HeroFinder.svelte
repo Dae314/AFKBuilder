@@ -588,6 +588,16 @@
 </div>
 
 <style>
+	input {
+		border: 1px solid var(--appColorPrimary);
+		border-radius: 5px;
+		transition: box-shadow 0.1s;
+	}
+	input:focus {
+		border-color: var(--appColorPrimary);
+		box-shadow: 0 0 0 2px var(--appColorPrimary);
+		outline: 0;
+	}
 	.background {
 		align-items: center;
 		background-color: rgba(0, 0, 0, 0.5);
@@ -771,6 +781,7 @@
 		border: 2px solid var(--appColorPrimary);
 		border-radius: 5px;
 		color: var(--appColorPrimary);
+		cursor: pointer;
 		font-size: 1.1rem;
 		left: 5px;
 		outline: none;
@@ -785,6 +796,7 @@
 		border: 2px solid var(--appColorPrimary);
 		border-radius: 5px;
 		color: white;
+		cursor: pointer;
 		font-size: 1.1rem;
 		outline: none;
 		padding: 2px;

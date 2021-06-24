@@ -5,6 +5,7 @@ import HeroData from './HeroData.js';
 let AppData; // final exported value
 let appdata; // temporary value for editing
 const herodata = get(HeroData); // data from HeroData store
+const maxDescLen = 5000;
 // const testcomps = get(TestComps); // data from TestComps store
 
 // validation function for MH.List
@@ -182,6 +183,8 @@ window.validateComp = async function(data) {
 				}
 			}
 		}
+		// make sure the description isn't longer than max
+		if(data.desc.length > maxDescLen) return {retCode: 1, message: `Description cannot be longer than ${maxDescLen} characters.`};
 	}
 
 	// everything should be good now, return the clean Comp object
@@ -209,6 +212,7 @@ function buildAppData(data) {
 		{name: 'dismissImportWarn', default: false},
 		{name: 'dismissHLSearchInfo', default: false},
 		{name: 'dismissMHSearchInfo', default: false},
+		{name: 'maxDescLen', default: maxDescLen},
 		{name: 'HL', default: {}},
 		{name: 'MH', default: {}},
 		{name: 'REC', default: {}},
@@ -271,6 +275,8 @@ function buildAppData(data) {
 	for(let prop in data) {
 		if(!expectedProps.some(e => e.name === prop)) delete data[prop];
 	}
+	// maxDescLen is special and should always be updated
+	data.maxDescLen = expectedProps.find(e => e.name === 'maxDescLen').default;
 
 	// add HL props as required
 	for(const prop of expectedHLProps) {

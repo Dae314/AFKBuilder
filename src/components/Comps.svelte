@@ -99,6 +99,7 @@
 				{ closeButton: ModalCloseButton,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
 					styleWindow: {width: editorWidth,},
+					closeOnOuterClick: false,
 				});
 	}
 
@@ -319,17 +320,6 @@
 						starCallback={handleStarClick}
 					/>
 				</SortableList>
-				<!-- {#each sortedCompList as comp, i}
-					<CompCard
-						comp={comp}
-						idx={i}
-						highlightComp={highlightComp}
-						delCallback={handleDeleteButtonClick}
-						cardClickCallback={handleCompCardClick}
-						exportCallback={handleExportButtonClick}
-						starCallback={handleStarClick}
-					/>
-				{/each} -->
 			{/if}
 		</div>
 		<div class="addButtonArea">
@@ -763,6 +753,9 @@
 		padding-bottom: 10px;
 		width: 100%;
 	}
+	.closeButtonContainer {
+		width: 25%;
+	}
 	.closeDetailButton {
 		align-items: center;
 		background-color: transparent;
@@ -789,21 +782,36 @@
 		align-items: center;
 		display: flex;
 		flex-direction: column;
+		overflow: hidden;
 		justify-content: center;
-		width: 100%;
+		width: 50%;
 	}
 	.compTitle {
+		display: inline-block;
 		font-size: 1.5rem;
 		margin: 0;
+		overflow: hidden;
+		text-align: center;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 100%;
 	}
 	.authorTitle {
+		display: inline-block;
 		font-size: 0.9rem;
 		margin: 0;
+		overflow: hidden;
+		text-align: center;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 100%;
 	}
 	.editContainer {
 		align-items: center;
 		display: flex;
 		flex-direction: row;
+		justify-content: flex-end;
+		width: 25%;
 	}
 	.editDelButton {
 		align-items: center;
@@ -865,7 +873,11 @@
 		cursor: pointer;
 		font-size: 1.0rem;
 		margin-right: 5px;
+		max-width: 100px;
+		overflow: hidden;
 		padding: 3px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	.lineSwitchButton.active {
 		background-color: var(--appColorPrimary);
@@ -891,6 +903,9 @@
 		justify-content: center;
 		width: 80px;
 	}
+	.detailBackline {
+		margin-right: 10px;
+	}
 	.detailImgContainer + a {
 		color: black;
 		font-size: 0.8rem;
@@ -898,8 +913,12 @@
 		margin: 0;
 		margin-bottom: 5px;
 		margin-top: -8px;
+		overflow: hidden;
 		text-align: center;
 		text-decoration: none;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 80px;
 	}
 	.lineImg {
 		border-radius: 50%;
@@ -1088,6 +1107,13 @@
 		padding-top: 5px;
 		width: 100%;
 	}
+	.subGroupTitle span {
+		display: inline-block;
+		width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 	.subGroupTitle:first-child {
 		padding-top: 0;
 	}
@@ -1098,21 +1124,29 @@
 		padding: 5px;
 		width: 100%;
 	}
+	.subHeroContainer {
+		margin-right: 8px;
+		margin-bottom: 8px;
+	}
+	.subHeroContainer a {
+		align-items: center;
+		color: black;
+		display: flex;
+		flex-direction: column;
+		text-decoration: none;
+	}
 	.subHeroContainer p {
 		font-size: 0.9rem;
 		font-weight: bold;
 		margin: 0;
-		margin-top: -5px;
-		padding-right: 10px;
+		width: 80px;
+		overflow: hidden;
 		text-align: center;
-	}
-	.subHeroContainer a {
-		color: black;
-		text-decoration: none;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	.subImg {
 		border-radius: 50%;
-		margin-right: 10px;
 		max-width: 70px;
 	}
 	.subImg.claimed {
@@ -1158,8 +1192,15 @@
 			position: static;
 			visibility: visible;
 		}
-		.closeDetailButton {
+		.closeButtonContainer { 
 			visibility: hidden;
+			width: 25%;
+		}
+		.titleContainer {
+			width: 50%;
+		}
+		.editContainer {
+			width: 25%;
 		}
 		.exportButton {
 			display: flex;

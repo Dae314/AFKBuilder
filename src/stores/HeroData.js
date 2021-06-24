@@ -1534,7 +1534,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Hotshot',
 			image: './img/si/walker.png',
@@ -1551,7 +1551,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Unfazed',
 			image: './img/furniture/walker.png',
@@ -7431,7 +7431,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 0,
+		furn_benchmark: 3,
 		furniture: {
 			name: 'Subdued Vigor',
 			image: './img/furniture/leofric.png',
@@ -8313,7 +8313,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 3,
 		furniture: {
 			name: 'Battle Memory',
 			image: './img/furniture/prince.png',
@@ -8394,7 +8394,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 0,
+		si_benchmark: 30,
 		sig_item: {
 			name: 'Shared Destiny',
 			image: './img/si/merlin.png',
