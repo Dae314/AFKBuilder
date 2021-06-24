@@ -316,14 +316,20 @@
 					</td>
 					<td class="attrArea">
 						<div class="factionArea">
-							<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
-							<div class="tooltip tooltip-top"><span class="tooltipText">{hero.faction}</span></div>
+							<div class="attrImgContainer">
+								<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
+								<div class="tooltip tooltip-top"><span class="tooltipText">{hero.faction}</span></div>
+							</div>
 						</div>
 						<div class="typeClassArea">
-							<img class="attrImage" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
-							<div class="tooltip tooltip-bot"><span class="tooltipText">{hero.type}</span></div>
-							<img class="attrImage" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
-							<div class="tooltip tooltip-bot"><span class="tooltipText">{hero.class}</span></div>
+							<div class="attrImgContainer">
+								<img class="attrImage" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
+								<div class="tooltip tooltip-bot"><span class="tooltipText">{hero.type}</span></div>
+							</div>
+							<div class="attrImgContainer">
+								<img class="attrImage" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
+								<div class="tooltip tooltip-bot"><span class="tooltipText">{hero.class}</span></div>
+							</div>
 						</div>
 					</td>
 					<td>
@@ -549,11 +555,15 @@
 		height: 50%;
 	}
 	.typeClassArea {
+		display: flex;
 		height: 50%;
+	}
+	.attrImgContainer {
+		position: relative;
+		margin: 0px 5px;
 	}
 	.attrImage {
 		max-width: 40px;
-		padding-bottom: 5px;
 	}
 	.factionImg {
 		max-width: 70px;
@@ -679,43 +689,48 @@
 			transition: none;
 		}
 		.tooltip {
-			display: inline-block;
-			position: relative;
+			display: flex;
+			justify-content: center;
+			opacity: 0;
+			position: absolute;
+			transition: opacity 0.2s;
+			visibility: hidden;
+			width: 200px;
+			z-index: 1;
 		}
 		.tooltip-top {
-			bottom: 53px;
+			top: 18px;
+			left: 70px;
+			width: fit-content;
 		}
 		.tooltip-bot {
-			bottom: 40px;
+			bottom: -30px;
+			left: -80px;
 		}
 		.tooltip-expander {
-			bottom: 105px;
+			top: -35px;
 			left: 5px;
+			width: fit-content;
 		}
 		.tooltip .tooltipText {
 			background-color: var(--appColorPrimary);
 			border-radius: 6px;
 			color: white;
 			-ms-user-select: none;
-			opacity: 0;
 			padding: 5px;
-			position: absolute;
 			text-align: center;
-			transition: opacity 0.2s;
 			user-select: none;
-			visibility: hidden;
 			-webkit-user-select: none;
-			z-index: 1;
 		}
-		.attrImage:hover+.tooltip .tooltipText {
+		.attrImage:hover+.tooltip {
 			opacity: 1;
 			visibility: visible;
 		}
-		.filtersButton:hover+.tooltip .tooltipText {
+		.filtersButton:hover+.tooltip {
 			opacity: 1;
 			visibility: visible;
 		}
-		.mobileExpander.filterOpen+.mobileExpanderTitle .tooltip .tooltipText {
+		.mobileExpander.filterOpen+.mobileExpanderTitle .tooltip {
 			opacity: 0;
 			visibility: hidden;
 		}
