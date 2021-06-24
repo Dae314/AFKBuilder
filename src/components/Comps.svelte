@@ -37,7 +37,7 @@
 	$: highlightComp = null;
 
 	let openDetail = false;
-	let openNewCompOptions = false;
+	// let openNewCompOptions = false;
 	let openDesc = true;
 	let openHero = false;
 	let openSubs = false;
@@ -323,13 +323,22 @@
 			{/if}
 		</div>
 		<div class="addButtonArea">
-			<button class="newCompButton" class:open={!openNewCompOptions} on:click={() => openNewCompOptions = !openNewCompOptions}>
+			<!-- <button class="newCompButton" class:open={!openNewCompOptions} on:click={() => openNewCompOptions = !openNewCompOptions}>
 				<span class="plusIcon">+</span><span class="newCompText">Add</span>
-			</button>
-			<div class="newCompOptionsArea" class:open={openNewCompOptions}>
-				<button class="newCompOptionButton" on:click={handleImportButtonClick}><span>Import</span></button>
-				<button class="newCompOptionButton" on:click={handleNewButtonClick}><span>New</span></button>
-				<button class="newCompOptionButton" on:click={() => openNewCompOptions = !openNewCompOptions}><span>Back</span></button>
+			</button> -->
+			<!-- <div class="newCompOptionsArea" class:open={openNewCompOptions}> -->
+			<div class="newCompOptionsArea">
+				<button class="newCompOptionButton" on:click={handleImportButtonClick}>
+					<div class="imgContainer">
+						<img class="importButtonIcon" src="./img/utility/import.png" alt="Import">
+					</div>
+					<span>Import</span>
+				</button>
+				<button class="newCompOptionButton" on:click={handleNewButtonClick}>
+					<span class="plusIcon">+</span>
+					<span>New</span>
+				</button>
+				<!-- <button class="newCompOptionButton" on:click={() => openNewCompOptions = !openNewCompOptions}><span>Back</span></button> -->
 			</div>
 		</div>
 	</section>
@@ -671,7 +680,7 @@
 		position: fixed;
 		width: 100%;
 	}
-	.newCompButton {
+	/* .newCompButton {
 		border: none;
 		border-top: 3px solid var(--appColorPrimary);
 		color: var(--appColorPrimary);
@@ -686,28 +695,29 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-	}
+	} */
 	.plusIcon {
 		display: block;
-		font-size: 2.5rem;
+		font-size: 2rem;
 		font-weight: bold;
 		transition: transform 0.7s;
 	}
-	.newCompText {
+	/* .newCompText {
 		font-size: 1.1rem;
 		margin-bottom: 8px;
-	}
+	} */
 	.newCompOptionsArea {
 		background-color: var(--appColorPrimary);
-		display: none;
+		display: flex;
+		flex-direction: row;
 		height: 80px;
 		width: 100%;
 	}
-	.newCompOptionsArea.open {
+	/* .newCompOptionsArea.open {
 		display: flex;
 		flex-direction: row;
 		visibility: visible;
-	}
+	} */
 	.newCompOptionButton {
 		background-color: transparent;
 		border: 0;
@@ -721,6 +731,18 @@
 	}
 	.newCompOptionButton:last-child {
 		border-left: 3px solid var(--appColorPriAccent);
+	}
+	.newCompOptionButton .imgContainer {
+		align-items: center;
+		display: flex;
+		height: 37px;
+		justify-content: center;
+	}
+	.newCompOptionButton img {
+		max-width: 20px;
+	}
+	.newCompOptionButton span {
+		display: block;
 	}
 	.noSelectedComp {
 		display: none;
@@ -1221,7 +1243,7 @@
 		.addButtonArea {
 			width: 21%;
 		}
-		.newCompButton {
+		/* .newCompButton {
 			border-right: 3px solid var(--appColorPrimary);
 		}
 		.newCompButton:hover {
@@ -1230,9 +1252,12 @@
 		}
 		.newCompButton:hover .plusIcon {
 			transform: rotateZ(180deg);
-		}
+		} */
 		.newCompOptionButton:hover {
 			background-color: var(--appColorPriAccent);
+		}
+		.newCompOptionButton:hover .plusIcon {
+			transform: rotateZ(180deg);
 		}
 		.bodyArea1, .bodyArea2 {
 			display: flex;
