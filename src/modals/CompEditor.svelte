@@ -406,6 +406,7 @@
 		top: 80px;
 		transform: translate(-50%, 0);
 		width: fit-content;
+		z-index: 5;
 	}
 	.sect2.visible {
 		display: block;
