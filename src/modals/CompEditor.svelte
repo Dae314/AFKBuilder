@@ -380,6 +380,21 @@
 	.editorContainer {
 		padding: 10px;
 	}
+	input {
+		border: 1px solid var(--appColorPrimary);
+		border-radius: 5px;
+		transition: box-shadow 0.1s;
+	}
+	input:focus {
+		border-color: var(--appColorPrimary);
+		box-shadow: 0 0 0 2px var(--appColorPrimary);
+		outline: 0;
+	}
+	input.maxed {
+		border-color: var(--appDelColor);
+		outline: 0;
+		box-shadow: 0 0 0 2px var(--appDelColor);
+	}
 	.sect2 {
 		display: none;
 		visibility: hidden;
@@ -434,12 +449,6 @@
 	}
 	.lineEditorTitle {
 		margin-top: 0;
-	}
-	input {
-		border: 1px solid var(--appColorPrimary);
-	}
-	input:focus {
-		outline: 2px solid var(--appColorPrimary);
 	}
 	.editorHead {
 		align-items: center;
@@ -688,10 +697,6 @@
 	}
 	.cancelButton {
 		margin-right: 0;
-	}
-	input.maxed {
-		outline: 0;
-		outline: 2px solid var(--appDelColor);
 	}
 	@media only screen and (min-width: 767px) {
 		.row1 {

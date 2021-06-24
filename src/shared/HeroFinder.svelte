@@ -588,6 +588,16 @@
 </div>
 
 <style>
+	input {
+		border: 1px solid var(--appColorPrimary);
+		border-radius: 5px;
+		transition: box-shadow 0.1s;
+	}
+	input:focus {
+		border-color: var(--appColorPrimary);
+		box-shadow: 0 0 0 2px var(--appColorPrimary);
+		outline: 0;
+	}
 	.background {
 		align-items: center;
 		background-color: rgba(0, 0, 0, 0.5);

@@ -458,6 +458,16 @@
 		transform: translate(-50%, 0);
 		width: fit-content;
 	}
+	input {
+		border: 1px solid var(--appColorPrimary);
+		border-radius: 5px;
+		transition: box-shadow 0.1s;
+	}
+	input:focus {
+		border-color: var(--appColorPrimary);
+		box-shadow: 0 0 0 2px var(--appColorPrimary);
+		outline: 0;
+	}
 	.searchInfo {
 		display: none;
 		visibility: hidden;
