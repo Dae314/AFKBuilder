@@ -113,12 +113,12 @@
 		</div>
 	</section>
 	<section class="config">
-		<button class="clearButton" on:click={handleClearDataButtonClick}><span>Clear Data</span></button>
-		<button class="tutorialButton" on:click={handleTutorialButtonClick}><span>Reset Tutorial</span></button>
+		<button class="configButton clearButton" on:click={handleClearDataButtonClick}><span>Clear Data</span></button>
+		<button class="configButton tutorialButton" on:click={handleTutorialButtonClick}><span>Reset Tutorial</span></button>
 	</section>
 </div>
 
-<style>
+<style lang="scss">
 	.aboutContainer {
 		height: 100%;
 		padding: 10px;
@@ -132,10 +132,10 @@
 	.titleContainer {
 		padding-bottom: 10px;
 		width: 100%;
-	}
-	.titleContainer h1 {
-		margin: 0;
-		text-align: center;
+		h1 {
+			margin: 0;
+			text-align: center;
+		}
 	}
 	h2 {
 		margin: 0;
@@ -146,8 +146,10 @@
 	.generalDesc {
 		text-align: center;
 	}
-	.areaDesc .text {
-		text-align: center;
+	.areaDesc {
+		.text {
+			text-align: center;
+		}
 	}
 	.contributorGrid {
 		display: grid;
@@ -164,50 +166,52 @@
 		flex-direction: row;
 		height: 100%;
 		padding: 10px;
-	}
-	.contributorCard .left {
-		align-items: center;
-		border-right: 2px solid var(--appColorPrimary);
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		min-width: 100px;
-		padding-right: 10px;
-	}
-	.contributorCard a {
-		align-items: center;
-		color: inherit;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		text-decoration: none;
-	}
-	.contributorCard .avatar {
-		border-radius: 50%;
-		max-width: 50px;
-	}
-	.contributorCard .name {
-		font-weight: bold;
-	}
-	.contributorCard .right {
-		padding-left: 20px;
-	}
-	.contributorCard h3 {
-		margin: 0;
-		margin-bottom: 5px;
+		.left {
+			align-items: center;
+			border-right: 2px solid var(--appColorPrimary);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			min-width: 100px;
+			padding-right: 10px;
+		}
+		a {
+			align-items: center;
+			color: inherit;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			text-decoration: none;
+		}
+		.avatar {
+			border-radius: 50%;
+			max-width: 50px;
+		}
+		.name {
+			font-weight: bold;
+		}
+		.right {
+			padding-left: 20px;
+		}
+		h3 {
+			margin: 0;
+			margin-bottom: 5px;
+		}
 	}
 	.affiliate {
 		padding-top: 10px;
-	}
-	.disclaimer {
-		font-size: 0.6rem;
-		text-align: center;
-	}
-	.disclaimer a:link {
-		color: var(--appColorPrimary);
-	}
-	.disclaimer a:visited {
-		color: var(--appColorPrimary);
+		.disclaimer {
+			font-size: 0.6rem;
+			text-align: center;
+			a {
+				&:link {
+					color: var(--appColorPrimary);
+				}
+				&:visited {
+					color: var(--appColorPrimary);
+				}
+			}
+		}
 	}
 	.config {
 		border-top: 1px solid black;
@@ -215,29 +219,22 @@
 		justify-content: center;
 		margin-top: 20px;
 		padding: 15px;
-	}
-	.clearButton {
-		background-color: transparent;
-		border: 3px solid var(--appDelColor);
-		border-radius: 10px;
-		color: var(--appDelColor);
-		cursor: pointer;
-		font-size: 1rem;
-		font-weight: bold;
-		margin-right: 20px;
-		outline: none;
-		padding: 10px;
-	}
-	.tutorialButton {
-		background-color: transparent;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 10px;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		font-size: 1rem;
-		font-weight: bold;
-		outline: none;
-		padding: 10px;
+		.configButton {
+			background-color: transparent;
+			border: 3px solid var(--appColorPrimary);
+			border-radius: 10px;
+			color: var(--appColorPrimary);
+			cursor: pointer;
+			font-size: 1rem;
+			font-weight: bold;
+			outline: none;
+			padding: 10px;
+		}
+		.clearButton {
+			border-color: var(--appDelColor);
+			color: var(--appDelColor);
+			margin-right: 20px;
+		}
 	}
 	@media only screen and (min-width: 767px) {
 		.generalDesc {
@@ -249,12 +246,14 @@
 			grid-gap: 20px;
 			grid-template-columns: 1fr 1fr;
 			grid-template-rows: 1fr 1fr;
+			h2 {
+				text-align: center;
+			}
 		}
-		.areaDesc h2 {
-			text-align: center;
-		}
-		.contributors h2 {
-			text-align: left;
+		.contributors {
+			h2 {
+				text-align: left;
+			}
 		}
 		.contributorGrid {
 			justify-content: start;
@@ -262,13 +261,17 @@
 		.config {
 			justify-content: flex-start;
 		}
-		.clearButton:hover {
-			background-color: var(--appDelColor);
-			color: white;
+		.clearButton {
+			&:hover {
+				background-color: var(--appDelColor);
+				color: white;
+			}
 		}
-		.tutorialButton:hover {
-			background-color: var(--appColorPrimary);
-			color: white;
+		.tutorialButton {
+			&:hover {
+				background-color: var(--appColorPrimary);
+				color: white;
+			}
 		}
 	}
 </style>
