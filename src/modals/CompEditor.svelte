@@ -326,6 +326,7 @@
 			<div class="descEditor">
 				<h4>Description</h4>
 				<div id="tuieditor"></div>
+				<div class="editorLimit" class:maxed={comp.desc.length >= $AppData.maxDescLen}><span>{comp.desc.length}/{$AppData.maxDescLen}</span></div>
 			</div>
 		</div>
 		<div class="row2">
@@ -618,6 +619,15 @@
 	}
 	.lineDisplay p {
 		margin-bottom: 10px;
+	}
+	.editorLimit {
+		display: flex;
+		justify-content: flex-end;
+		font-size: 0.8rem;
+	}
+	.editorLimit.maxed {
+		color: var(--appDelColor);
+		font-weight: bold;
 	}
 	.subGroup {
 		margin-bottom: 10px;
