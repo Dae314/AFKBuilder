@@ -781,6 +781,7 @@
 		border: 2px solid var(--appColorPrimary);
 		border-radius: 5px;
 		color: var(--appColorPrimary);
+		cursor: pointer;
 		font-size: 1.1rem;
 		left: 5px;
 		outline: none;
@@ -795,6 +796,7 @@
 		border: 2px solid var(--appColorPrimary);
 		border-radius: 5px;
 		color: white;
+		cursor: pointer;
 		font-size: 1.1rem;
 		outline: none;
 		padding: 2px;
