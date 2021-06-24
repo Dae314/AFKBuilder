@@ -255,8 +255,8 @@
 <div class="editorContainer">
 	<section class="sect1">
 		<div class="editorHead">
-			<input class="titleInput" type="text" bind:value={comp.name} placeholder="Title">
-			<input class="authorInput" type="text" bind:value={comp.author} placeholder="Author">
+			<input class="titleInput" type="text" bind:value={comp.name} placeholder="Title" maxlength="50" class:maxed={comp.name.length >= 50}>
+			<input class="authorInput" type="text" bind:value={comp.author} placeholder="Author" maxlength="50" class:maxed={comp.author.length >= 50}>
 			{#if comp.draft}
 				<div class="draftContainer"><span class="draftLabel">draft</span></div>
 			{/if}
@@ -277,7 +277,7 @@
 					{#if openLine === null}
 						<span class="noLine">Select a line to edit.</span>
 					{:else}
-						<input type="text" class="lineNameInput" bind:value={comp.lines[openLine].name} placeholder="Line Name">
+						<input type="text" class="lineNameInput" bind:value={comp.lines[openLine].name} placeholder="Line Name" maxlength="30" class:maxed={comp.lines[openLine].name.length >= 30}>
 						<div class="lineDisplay">
 							<div class="backline">
 								{#each comp.lines[openLine].heroes as  hero, i}
@@ -335,7 +335,7 @@
 					{#each comp.subs as sub, i}
 						<div class="subGroup">
 							<div class="subTitle">
-								<input class="subTitleInput" type="text" bind:value={sub.name} placeholder="Subgroup Name">
+								<input class="subTitleInput" type="text" bind:value={sub.name} placeholder="Subgroup Name" maxlength="50" class:maxed={sub.name.length >= 50}>
 								<button class="removeButton" on:click={(e) => { deleteSub(i); e.stopPropagation(); }}><span>x</span></button>
 							</div>
 							<div class="subLine">
@@ -688,6 +688,10 @@
 	}
 	.cancelButton {
 		margin-right: 0;
+	}
+	input.maxed {
+		outline: 0;
+		outline: 2px solid var(--appDelColor);
 	}
 	@media only screen and (min-width: 767px) {
 		.row1 {
