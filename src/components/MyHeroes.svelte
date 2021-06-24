@@ -347,8 +347,10 @@
 			<div class="heroCard" animate:flip="{{duration: 200}}">
 				<div class="heroHeader">
 					<div class="headArea">
-						<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
-						<div class="tooltip tooltip-faction"><span class="tooltipText">{hero.faction}</span></div>
+						<div class="attrImgContainer">
+							<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
+							<div class="tooltip tooltip-faction"><span class="tooltipText">{hero.faction}</span></div>
+						</div>
 					</div>
 					<div class="headArea">
 						<div class="flipCard" on:click={(e) => e.stopPropagation()}>
@@ -363,10 +365,14 @@
 						</div>
 					</div>
 					<div class="headArea">
-						<img class="attrImage typeImg" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
-						<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
-						<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
-						<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
+						<div class="attrImgContainer">
+							<img class="attrImage typeImg" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
+							<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
+						</div>
+						<div class="attrImgContainer">
+							<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
+							<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
+						</div>
 					</div>
 				</div>
 				<p class="heroName">{hero.name}</p>
@@ -625,7 +631,6 @@
 		grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
 		grid-template-rows: repeat(auto-fit, minmax(240px, 250px));
 		justify-content: space-evenly;
-		overflow: hidden;
 	}
 	.heroCard {
 		border: 3px solid var(--appColorPrimary);
@@ -665,6 +670,9 @@
 		margin: 0;
 		padding-bottom: 10px;
 		width: 100%;
+	}
+	.attrImgContainer {
+		position: relative;
 	}
 	.attrImage {
 		max-width: 40px;
@@ -812,48 +820,46 @@
 			display: none;
 		}
 		.tooltip {
-			display: inline-block;
-			position: relative;
+			display: flex;
+			justify-content: center;
+			opacity: 0;
+			position: absolute;
+			transition: opacity 0.2s;
+			visibility: hidden;
+			width: 200px;
+			z-index: 1;
 		}
 		.tooltip-expander {
-			bottom: 105px;
+			top: -35px;
 			left: 5px;
+			width: fit-content;
 		}
 		.tooltip-inOutButton1, .tooltip-inOutButton2 {
-			bottom: 45px;
-			position: relative;
-			right: 130px;
+			bottom: 85px;
+			right: 70px;
 			width: fit-content;
 		}
 		.tooltip-inOutButton2 {
-			bottom: 38px;
+			bottom: 35px;
 		}
 		.tooltip .tooltipText {
 			background-color: var(--appColorPrimary);
 			border-radius: 6px;
 			color: white;
-			opacity: 0;
 			padding: 5px;
-			position: absolute;
 			text-align: center;
-			transition: opacity 0.2s;
-			visibility: hidden;
 		}
 		.tooltip-faction {
-			position: absolute;
-			right: 20%;
-			top: 35%;
-			z-index: 2;
+			left: -70px;
+			bottom: -30px;
 		}
 		.tooltip-type {
-			position: absolute;
-			right: 29%;
-			top: 10%;
+			left: -80px;
+			bottom: -20px;
 		}
 		.tooltip-class {
-			position: absolute;
-			right: 29%;
-			top: 58%;
+			left: -80px;
+			bottom: -30px;
 		}
 		.filterMasterButton:hover {
 			background-color: var(--appColorPrimary);
@@ -863,15 +869,15 @@
 			background-color: #888;
 			color: rgba(255, 255, 255, 0.9);
 		}
-		.attrImage:hover+.tooltip .tooltipText {
+		.attrImage:hover+.tooltip {
 			opacity: 1;
 			visibility: visible;
 		}
-		.filtersButton:hover+.tooltip .tooltipText {
+		.filtersButton:hover+.tooltip {
 			opacity: 1;
 			visibility: visible;
 		}
-		.inOutButton:hover+.tooltip .tooltipText {
+		.inOutButton:hover+.tooltip {
 			opacity: 1;
 			visibility: visible;
 			width: 100px;
@@ -889,7 +895,8 @@
 			max-width: 100%;
 			padding: 10px;
 		}
-		.mobileExpander.filterOpen+.mobileExpanderTitle .tooltip .tooltipText {
+		.mobileExpander.filterOpen+.mobileExpanderTitle .tooltip {
+			opacity: 0;
 			visibility: hidden;
 		}
 		.arrow.open {
