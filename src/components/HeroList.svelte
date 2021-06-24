@@ -305,12 +305,12 @@
 		{/if}
 		<div class='tableContainer'>
 			<table class='heroTable'>
-				<tr>
+				<thead>
 					<th class="sortHeader" on:click={() => handleHeaderClick('name')}>Hero</th>
 					<th class="nonSortHeader">Attributes</th>
 					<th class="nonSortHeader">SI <span class="hiddenMobile">Benchmark</span></th>
 					<th class="nonSortHeader">Furn <span class="hiddenMobile">Benchmark</span></th>
-				</tr>
+				</thead>
 				{#each displayList as hero (hero.id)}
 				<tr class="heroRow" on:click={() => handleHeroClick(hero.id)} animate:flip="{{duration: 200}}">
 					<td>
