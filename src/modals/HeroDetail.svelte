@@ -38,7 +38,10 @@
 		<h3 class="heroName">{hero.name}</h3>
 		<div class="imageContainer">
 			<div class="factionContainer">
-				<img class="attrImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
+				<div class="attrImgContainer">
+					<img class="attrImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
+					<div class="tooltip"><span class="tooltipText">{hero.faction}</span></div>
+				</div>
 			</div>
 			<div class="portraitContainer">
 				<div class="flipCard">
@@ -53,8 +56,14 @@
 				</div>
 			</div>
 			<div class="typeClassContainer">
-				<img class="attrImg" src="./img/types/{hero.type.toLowerCase()}.png" alt="{hero.type}">
-				<img class="attrImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt="{hero.class}">
+				<div class="attrImgContainer">
+					<img class="attrImg" src="./img/types/{hero.type.toLowerCase()}.png" alt="{hero.type}">
+					<div class="tooltip"><span class="tooltipText">{hero.type}</span></div>
+				</div>
+				<div class="attrImgContainer">
+					<img class="attrImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt="{hero.class}">
+					<div class="tooltip"><span class="tooltipText">{hero.class}</span></div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -171,10 +180,18 @@
 	.portraitContainer {
 		width: 44%;
 	}
+	.attrImgContainer {
+		position: relative;
+		height: fit-content;
+		width: fit-content;
+	}
 	.attrImg {
 		margin: 10px;
 		max-width: 60px;
 		width: 100%;
+	}
+	.tooltip {
+		display: none;
 	}
 	.flipCard {
 		cursor: pointer;
@@ -345,6 +362,31 @@
 	@media only screen and (min-width: 767px) {
 		.attrImg {
 			max-width: 70px;
+		}
+		.tooltip {
+			bottom: -20px;
+			display: flex;
+			justify-content: center;
+			left: -55px;
+			opacity: 0;
+			position: absolute;
+			transition: opacity 0.2s;
+			visibility: hidden;
+			width: 200px;
+			z-index: 4;
+		}
+		.attrImg:hover+.tooltip {
+			opacity: 1;
+			visibility: visible;
+		}
+		.tooltipText {
+			background-color: var(--appColorPrimary);
+			border-radius: 6px;
+			color: white;
+			-ms-user-select: none;
+			padding: 5px;
+			user-select: none;
+			-webkit-user-select: none;
 		}
 		.skillPicker img:hover {
 			border: 2px solid var(--appColorPrimary);
