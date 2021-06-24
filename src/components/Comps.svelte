@@ -1126,6 +1126,7 @@
 	}
 	.subHeroContainer {
 		margin-right: 8px;
+		margin-bottom: 8px;
 	}
 	.subHeroContainer a {
 		align-items: center;

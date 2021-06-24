@@ -652,6 +652,7 @@
 		display: flex;
 		flex-direction: column;
 		margin-right: 7px;
+		margin-bottom: 7px;
 	}
 	.addHeroButton {
 		background: transparent;
