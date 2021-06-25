@@ -73841,7 +73841,7 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(ul, "class", "svelte-1f557vl");
+    			attr_dev(ul, "class", "svelte-grlm9h");
     			add_location(ul, file$6, 62, 1, 1747);
     		},
     		m: function mount(target, anchor) {
@@ -73961,7 +73961,7 @@ var app = (function () {
     			attr_dev(li, "data-index", li_data_index_value = /*index*/ ctx[17]);
     			attr_dev(li, "data-id", li_data_id_value = JSON.stringify(/*getKey*/ ctx[6](/*item*/ ctx[15])));
     			attr_dev(li, "draggable", "true");
-    			attr_dev(li, "class", "svelte-1f557vl");
+    			attr_dev(li, "class", "svelte-grlm9h");
     			toggle_class(li, "over", /*getKey*/ ctx[6](/*item*/ ctx[15]) === /*isOver*/ ctx[1]);
     			add_location(li, file$6, 68, 3, 2016);
     			this.first = li;
