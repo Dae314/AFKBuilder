@@ -28897,7 +28897,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "i";
-    			attr_dev(span, "class", "infoIcon svelte-1vpx805");
+    			attr_dev(span, "class", "infoIcon svelte-wyxpqg");
     			add_location(span, file$g, 18, 2, 494);
     		},
     		m: function mount(target, anchor) {
@@ -28926,7 +28926,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			span = element("span");
-    			attr_dev(span, "class", "warningIcon svelte-1vpx805");
+    			attr_dev(span, "class", "warningIcon svelte-wyxpqg");
     			add_location(span, file$g, 16, 2, 447);
     		},
     		m: function mount(target, anchor) {
@@ -28956,7 +28956,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "!";
-    			attr_dev(span, "class", "errorIcon svelte-1vpx805");
+    			attr_dev(span, "class", "errorIcon svelte-wyxpqg");
     			add_location(span, file$g, 14, 2, 390);
     		},
     		m: function mount(target, anchor) {
@@ -29006,11 +29006,11 @@ var app = (function () {
     			div0 = element("div");
     			span = element("span");
     			if (default_slot) default_slot.c();
-    			attr_dev(span, "class", "infoText svelte-1vpx805");
+    			attr_dev(span, "class", "infoText svelte-wyxpqg");
     			add_location(span, file$g, 21, 2, 562);
-    			attr_dev(div0, "class", "textArea svelte-1vpx805");
+    			attr_dev(div0, "class", "textArea svelte-wyxpqg");
     			add_location(div0, file$g, 20, 1, 536);
-    			attr_dev(div1, "class", "infoBox svelte-1vpx805");
+    			attr_dev(div1, "class", "infoBox svelte-wyxpqg");
     			toggle_class(div1, "warning", /*warning*/ ctx[1]);
     			toggle_class(div1, "error", /*error*/ ctx[2]);
     			toggle_class(div1, "noMargin", /*noMargin*/ ctx[0]);

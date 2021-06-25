@@ -23,7 +23,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="scss">
 	.infoBox {
 		border: 2px solid var(--appColorPrimary);
 		border-radius: 10px;
@@ -56,19 +56,13 @@
 		padding: 3px;
 		width: 20px;
 	}
-	.warningIcon,
-		.warningIcon::before,
-		.warningIcon::after {
+	.warningIcon {
 		margin: 0;
 		padding: 0;
 		position: relative;
-	}
-	.warningIcon {
 		color: transparent;
 		font-size: 1.25rem;
 		margin-left: 3px;
-	}
-	.warningIcon {
 		background-color: transparent;
 		border: none;
 		border-radius: 0.625em;
@@ -77,32 +71,38 @@
 		overflow: hidden;
 		top: 0.225em;
 		width: 1.15em;
-	}
-	.warningIcon::before {
-		border: transparent 0.6em solid;
-		border-bottom-color: #fd3;
-		border-bottom-width: 1em;
-		border-top-width: 0;
-		box-shadow: 0 1px 1px #999;
-		content: "";
-		display: block;
-		left: 0.0em;
-		position: absolute;
-		top: -0.08em;
-	}
-	.warningIcon::after {
-		color: #333;
-		content: "!";
-		display: block;
-		font-family: "Garamond";
-		font-size: 0.65em;
-		font-weight: bold;
-		left: 0;
-		padding: 0 1px;
-		position: absolute;
-		text-align: center;
-		top: 0.3em;
-		width: 100%;
+		&::before {
+			margin: 0;
+			padding: 0;
+			position: relative;
+			border: transparent 0.6em solid;
+			border-bottom-color: #fd3;
+			border-bottom-width: 1em;
+			border-top-width: 0;
+			box-shadow: 0 1px 1px #999;
+			content: "";
+			display: block;
+			left: 0.0em;
+			position: absolute;
+			top: -0.08em;
+		}
+		&::after {
+			margin: 0;
+			padding: 0;
+			position: relative;
+			color: #333;
+			content: "!";
+			display: block;
+			font-family: "Garamond";
+			font-size: 0.65em;
+			font-weight: bold;
+			left: 0;
+			padding: 0 1px;
+			position: absolute;
+			text-align: center;
+			top: 0.3em;
+			width: 100%;
+		}
 	}
 	.errorIcon {
 		align-items: center;
@@ -125,8 +125,6 @@
 		width: 100%;
 	}
 	.infoText {
-		-ms-user-select: none;
 		user-select: none;
-		-webkit-user-select: none;
 	}
 </style>
