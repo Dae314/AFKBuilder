@@ -9559,6 +9559,7 @@ var app = (function () {
     		{name: 'heroes', type: 'object'},
     		{name: 'lines', type: 'array'},
     		{name: 'subs', type: 'array'},
+    		{name: 'tags', type: 'array'},
     	];
     	const expectedHeroProps = [
     		{name: 'ascendLv', type: 'number'},
@@ -9869,6 +9870,7 @@ var app = (function () {
     		{name: 'starred', default: false},
     		{name: 'subs', default: []},
     		{name: 'uuid', default: ''},
+    		{name: 'tags', default: []},
     	];
     	const expectedHeroProps = [
     		{name: 'ascendLv', default: 6},

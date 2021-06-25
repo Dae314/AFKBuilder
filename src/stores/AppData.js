@@ -56,6 +56,7 @@ window.validateComp = async function(data) {
 		{name: 'heroes', type: 'object'},
 		{name: 'lines', type: 'array'},
 		{name: 'subs', type: 'array'},
+		{name: 'tags', type: 'array'},
 	];
 	const expectedHeroProps = [
 		{name: 'ascendLv', type: 'number'},
@@ -366,6 +367,7 @@ function buildCompsData(data) {
 		{name: 'starred', default: false},
 		{name: 'subs', default: []},
 		{name: 'uuid', default: ''},
+		{name: 'tags', default: []},
 	];
 	const expectedHeroProps = [
 		{name: 'ascendLv', default: 6},
