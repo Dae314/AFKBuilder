@@ -272,6 +272,7 @@
 	}
 
 	async function handleCardSort(event) {
+		// catch if a user dragged something we weren't expecting and exit
 		if(!Array.isArray(event.detail)) return 0;
 		let allCompsValid = true;
 		for(const comp of event.detail) {
