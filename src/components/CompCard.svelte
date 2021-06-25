@@ -40,11 +40,11 @@
 		<div class="buttonDraftArea">
 			<div class="cardButtonsContainer">
 				<div class="buttonArea">
-					<button class="cardDeleteButton" on:click={(e) => { handleDeleteButtonClick(idx); e.stopPropagation(); }}><img class="deleteIcon" src="./img/utility/trashcan.png" alt="Delete"></button>
+					<button class="cardDeleteButton" on:click={(e) => { handleDeleteButtonClick(idx); e.stopPropagation(); }}><img draggable="false" class="deleteIcon" src="./img/utility/trashcan.png" alt="Delete"></button>
 					<div class="tooltip deleteTooltip"><span class="tooltipText">Delete</span></div>
 				</div>
 				<div class="buttonArea">
-					<button class="cardExportButton" on:click={(e) => { handleExportButtonClick(idx); e.stopPropagation(); }}><img class="exportIcon" src="./img/utility/export.png" alt="Export"></button>
+					<button class="cardExportButton" on:click={(e) => { handleExportButtonClick(idx); e.stopPropagation(); }}><img draggable="false" class="exportIcon" src="./img/utility/export.png" alt="Export"></button>
 					<div class="tooltip exportTooltip"><span class="tooltipText">Export</span></div>
 				</div>
 				<i class="star" class:active={comp.starred} on:click={(e) => handleStarClick(e, comp)}></i>
@@ -58,7 +58,7 @@
 		{#if comp.lines.length > 0}
 			{#each comp.lines[0].heroes as hero}
 				{#if $HeroData.some(e => e.id === hero)}
-					<img class="compCardImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+					<img draggable="false" class="compCardImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 				{:else}
 					<i class="emptyCardSlot"></i>
 				{/if}
@@ -86,7 +86,6 @@
 		animation: flash 1s linear 3;
 	}
 	img {
-		user-drag: none;
 		user-select: none;
 	}
 	.compCardHead {
