@@ -7,6 +7,7 @@
 	import HeroData from '../stores/HeroData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import ImportData from '../modals/ImportData.svelte';
+	import HeroDetail from '../modals/HeroDetail.svelte';
 	import FlipButton from '../shared/FlipButton.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 
@@ -252,6 +253,14 @@
 			}
 		}
 	}
+
+	function handleHeroDetailClick(heroID) {
+		open(HeroDetail, 
+		{ heroID: heroID, },
+		{ closeButton: ModalCloseButton,
+			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
+		});
+	}
 </script>
 
 <svelte:window on:keyup={dynamicSearch} />
@@ -344,6 +353,11 @@
 			<div class="MHGrid">
 				{#each myHeroList as hero (hero.id)}
 				<div class="heroCard" animate:flip="{{duration: 200}}">
+					<div class="detailArea">
+						<button class="heroDetailButton" on:click={() => handleHeroDetailClick(hero.id)}>
+							<span>i</span>
+						</button>
+					</div>
 					<div class="heroHeader">
 						<div class="headArea">
 							<div class="attrImgContainer">
@@ -624,7 +638,7 @@
 		display: grid;
 		grid-gap: 5px 5px;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
-		grid-template-rows: repeat(auto-fit, minmax(240px, 250px));
+		grid-template-rows: repeat(auto-fit, minmax(255px, 257px));
 		justify-content: space-evenly;
 	}
 	.heroCard {
@@ -633,6 +647,35 @@
 		display: flex;
 		flex-direction: column;
 		padding: 10px;
+		padding-top: 20px;
+		position: relative;
+	}
+	.detailArea {
+		z-index: 1;
+	}
+	.heroDetailButton {
+		background-color: transparent;
+		border: 2px solid var(--appColorPrimary);
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: var(--appColorPrimary);
+		cursor: pointer;
+		margin: 0;
+		font-weight: bold;
+		font-family: 'Times New Roman';
+		font-size: 1rem;
+		flex-shrink: 0;
+		flex-grow: 0;
+		height: 25px;
+		padding: 3px;
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		outline: 0;
+		width: 25px;
+		text-align: center;
 	}
 	.heroHeader {
 		display: flex;
@@ -833,6 +876,12 @@
 			&:hover+.tooltip {
 				opacity: 1;
 				visibility: visible;
+			}
+		}
+		.heroDetailButton {
+			&:hover {
+				background-color: var(--appColorPrimary);
+				color: white;
 			}
 		}
 		.tooltip {
