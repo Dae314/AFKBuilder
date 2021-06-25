@@ -747,6 +747,7 @@
 		border: 3px solid var(--appColorPrimary);
 		border-radius: 5px;
 		color: var(--appColorPrimary);
+		cursor: pointer;
 		display: flex;
 		font-size: 1.0rem;
 		justify-content: center;
