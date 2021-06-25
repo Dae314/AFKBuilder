@@ -67,7 +67,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="scss">
 	.container {
 		display: flex;
 		flex-direction: column;
@@ -126,14 +126,16 @@
 		padding: 5px;
 		transition: transform 0.2s;
 		width: 100px;
-	}
-	.submitButton:active {
-		transform: scale(0.9);
+		&:active {
+			transform: scale(0.9);
+		}
 	}
 	@media only screen and (min-width: 767px) {
-		.submitButton:hover {
-			background-color: var(--appColorPrimary);
-			color: white;
+		.submitButton {
+			&:hover {
+				background-color: var(--appColorPrimary);
+				color: white;
+			}
 		}
 	}
 </style>
