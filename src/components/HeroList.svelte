@@ -349,6 +349,9 @@
 	.HLContainer {
 		display: flex;
 		flex-direction: column;
+		height: calc(100vh - 85px);
+		padding-top: 10px;
+		overflow-y: auto;
 		width: 100%;
 	}
 	.sect1 {
@@ -574,8 +577,7 @@
 		.HLContainer {
 			display: flex;
 			flex-direction: row;
-			margin-top: 10px;
-			width: 100%;
+			height: calc(100vh - 45px);
 		}
 		.sect1 {
 			display: flex;
