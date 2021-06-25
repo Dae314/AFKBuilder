@@ -29,9 +29,11 @@
 	<section class="attributes">
 		<div class="classContainer">
 			{#if artifact.class === 'Any'}
-				<span class="allCircle">All</span>
+				<div class="allCircle classImg"><span>All</span></div>
+				<div class="tooltip classTooltip"><span class="tooltipText">All Classes</span></div>
 			{:else}
 				<img class="classImg" src="./img/classes/{artifact.class.toLowerCase()}.png" alt={artifact.class}>
+				<div class="tooltip"><span class="tooltipText">{artifact.class}</span></div>
 			{/if}
 		</div>
 		<div class="attrContainer">
@@ -94,15 +96,19 @@
 		padding: 10px;
 		width: 100%;
 	}
+	.classContainer {
+		position: relative;
+	}
 	.classImg {
 		margin-right: 10px;
 		max-width: 50px;
 	}
 	.allCircle {
 		align-items: center;
+		background-color: var(--appColorPrimary);
 		border: 2px solid var(--appColorPrimary);
 		border-radius: 50%;
-		color: var(--appColorPrimary);
+		color: white;
 		display: flex;
 		flex-grow: 0;
 		flex-shrink: 0;
@@ -110,6 +116,7 @@
 		height: 50px;
 		justify-content: center;
 		margin-right: 10px;
+		user-select: none;
 		width: 50px;
 	}
 	.attrContainer {
@@ -148,6 +155,35 @@
 			color: var(--appColorPrimary);
 			font-style: normal;
 			font-weight: bold;
+		}
+	}
+	.tooltip {
+		display: none;
+	}
+	@media only screen and (min-width: 767px) {
+		.tooltip {
+			bottom: -35px;
+			display: flex;
+			justify-content: center;
+			left: -75px;
+			opacity: 0;
+			position: absolute;
+			transition: opacity 0.2s;
+			visibility: hidden;
+			width: 200px;
+			z-index: 4;
+			.tooltipText {
+				background-color: var(--appColorPrimary);
+				border-radius: 6px;
+				color: white;
+				padding: 5px;
+				text-align: center;
+				user-select: none;
+			}
+		}
+		.classImg:hover+.tooltip {
+			opacity: 1;
+			visibility: visible;
 		}
 	}
 </style>

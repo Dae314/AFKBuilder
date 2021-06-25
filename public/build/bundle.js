@@ -73177,25 +73177,41 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (33:3) {:else}
+    // (34:3) {:else}
     function create_else_block$5(ctx) {
     	let img;
     	let img_src_value;
+    	let t0;
+    	let div;
+    	let span;
 
     	const block = {
     		c: function create() {
     			img = element("img");
-    			attr_dev(img, "class", "classImg svelte-av3iua");
+    			t0 = space();
+    			div = element("div");
+    			span = element("span");
+    			span.textContent = `${/*artifact*/ ctx[0].class}`;
+    			attr_dev(img, "class", "classImg svelte-1g1yz28");
     			if (img.src !== (img_src_value = "./img/classes/" + /*artifact*/ ctx[0].class.toLowerCase() + ".png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*artifact*/ ctx[0].class);
-    			add_location(img, file$8, 33, 4, 924);
+    			add_location(img, file$8, 34, 4, 1034);
+    			attr_dev(span, "class", "tooltipText svelte-1g1yz28");
+    			add_location(span, file$8, 35, 25, 1159);
+    			attr_dev(div, "class", "tooltip svelte-1g1yz28");
+    			add_location(div, file$8, 35, 4, 1138);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
+    			insert_dev(target, t0, anchor);
+    			insert_dev(target, div, anchor);
+    			append_dev(div, span);
     		},
     		p: noop$1,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(img);
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(div);
     		}
     	};
 
@@ -73203,7 +73219,7 @@ var app = (function () {
     		block,
     		id: create_else_block$5.name,
     		type: "else",
-    		source: "(33:3) {:else}",
+    		source: "(34:3) {:else}",
     		ctx
     	});
 
@@ -73212,21 +73228,41 @@ var app = (function () {
 
     // (31:3) {#if artifact.class === 'Any'}
     function create_if_block$7(ctx) {
-    	let span;
+    	let div0;
+    	let span0;
+    	let t1;
+    	let div1;
+    	let span1;
 
     	const block = {
     		c: function create() {
-    			span = element("span");
-    			span.textContent = "All";
-    			attr_dev(span, "class", "allCircle svelte-av3iua");
-    			add_location(span, file$8, 31, 4, 872);
+    			div0 = element("div");
+    			span0 = element("span");
+    			span0.textContent = "All";
+    			t1 = space();
+    			div1 = element("div");
+    			span1 = element("span");
+    			span1.textContent = "All Classes";
+    			add_location(span0, file$8, 31, 36, 904);
+    			attr_dev(div0, "class", "allCircle classImg svelte-1g1yz28");
+    			add_location(div0, file$8, 31, 4, 872);
+    			attr_dev(span1, "class", "tooltipText svelte-1g1yz28");
+    			add_location(span1, file$8, 32, 38, 966);
+    			attr_dev(div1, "class", "tooltip classTooltip svelte-1g1yz28");
+    			add_location(div1, file$8, 32, 4, 932);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, span, anchor);
+    			insert_dev(target, div0, anchor);
+    			append_dev(div0, span0);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, span1);
     		},
     		p: noop$1,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(span);
+    			if (detaching) detach_dev(div0);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(div1);
     		}
     	};
 
@@ -73241,7 +73277,7 @@ var app = (function () {
     	return block;
     }
 
-    // (38:3) {#each artifact.attributes as attr}
+    // (40:3) {#each artifact.attributes as attr}
     function create_each_block_1$2(ctx) {
     	let div;
     	let span;
@@ -73255,9 +73291,9 @@ var app = (function () {
     			span = element("span");
     			t0 = text$2(t0_value);
     			t1 = space();
-    			add_location(span, file$8, 39, 5, 1147);
-    			attr_dev(div, "class", "attrBox svelte-av3iua");
-    			add_location(div, file$8, 38, 4, 1119);
+    			add_location(span, file$8, 41, 5, 1339);
+    			attr_dev(div, "class", "attrBox svelte-1g1yz28");
+    			add_location(div, file$8, 40, 4, 1311);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -73275,14 +73311,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$2.name,
     		type: "each",
-    		source: "(38:3) {#each artifact.attributes as attr}",
+    		source: "(40:3) {#each artifact.attributes as attr}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (46:2) {#each artifact.upgrades as upgrade}
+    // (48:2) {#each artifact.upgrades as upgrade}
     function create_each_block$6(ctx) {
     	let div1;
     	let h4;
@@ -73305,12 +73341,12 @@ var app = (function () {
     			t3 = space();
     			div0 = element("div");
     			t4 = space();
-    			attr_dev(h4, "class", "svelte-av3iua");
-    			add_location(h4, file$8, 47, 4, 1320);
-    			attr_dev(div0, "class", "descText svelte-av3iua");
-    			add_location(div0, file$8, 48, 4, 1364);
+    			attr_dev(h4, "class", "svelte-1g1yz28");
+    			add_location(h4, file$8, 49, 4, 1512);
+    			attr_dev(div0, "class", "descText svelte-1g1yz28");
+    			add_location(div0, file$8, 50, 4, 1556);
     			attr_dev(div1, "class", "descArea");
-    			add_location(div1, file$8, 46, 3, 1292);
+    			add_location(div1, file$8, 48, 3, 1484);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
@@ -73333,7 +73369,7 @@ var app = (function () {
     		block,
     		id: create_each_block$6.name,
     		type: "each",
-    		source: "(46:2) {#each artifact.upgrades as upgrade}",
+    		source: "(48:2) {#each artifact.upgrades as upgrade}",
     		ctx
     	});
 
@@ -73408,25 +73444,25 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(h3, "class", "name svelte-av3iua");
+    			attr_dev(h3, "class", "name svelte-1g1yz28");
     			add_location(h3, file$8, 23, 2, 607);
-    			attr_dev(img, "class", "artifactImg svelte-av3iua");
+    			attr_dev(img, "class", "artifactImg svelte-1g1yz28");
     			if (img.src !== (img_src_value = /*artifact*/ ctx[0].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*artifact*/ ctx[0].name);
     			add_location(img, file$8, 25, 3, 679);
-    			attr_dev(div0, "class", "imgContainer svelte-av3iua");
+    			attr_dev(div0, "class", "imgContainer svelte-1g1yz28");
     			add_location(div0, file$8, 24, 2, 648);
-    			attr_dev(section0, "class", "headerSection svelte-av3iua");
+    			attr_dev(section0, "class", "headerSection svelte-1g1yz28");
     			add_location(section0, file$8, 22, 1, 572);
-    			attr_dev(div1, "class", "classContainer");
+    			attr_dev(div1, "class", "classContainer svelte-1g1yz28");
     			add_location(div1, file$8, 29, 2, 803);
-    			attr_dev(div2, "class", "attrContainer svelte-av3iua");
-    			add_location(div2, file$8, 36, 2, 1046);
-    			attr_dev(section1, "class", "attributes svelte-av3iua");
+    			attr_dev(div2, "class", "attrContainer svelte-1g1yz28");
+    			add_location(div2, file$8, 38, 2, 1238);
+    			attr_dev(section1, "class", "attributes svelte-1g1yz28");
     			add_location(section1, file$8, 28, 1, 771);
-    			attr_dev(section2, "class", "descContainer svelte-av3iua");
-    			add_location(section2, file$8, 44, 1, 1216);
-    			attr_dev(div3, "class", "container svelte-av3iua");
+    			attr_dev(section2, "class", "descContainer svelte-1g1yz28");
+    			add_location(section2, file$8, 46, 1, 1408);
+    			attr_dev(div3, "class", "container svelte-1g1yz28");
     			add_location(div3, file$8, 21, 0, 546);
     		},
     		l: function claim(nodes) {
