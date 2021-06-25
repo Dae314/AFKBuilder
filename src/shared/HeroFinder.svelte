@@ -587,16 +587,16 @@
 	</div>
 </div>
 
-<style>
+<style lang="scss">
 	input {
 		border: 1px solid var(--appColorPrimary);
 		border-radius: 5px;
 		transition: box-shadow 0.1s;
-	}
-	input:focus {
-		border-color: var(--appColorPrimary);
-		box-shadow: 0 0 0 2px var(--appColorPrimary);
-		outline: 0;
+		&:focus {
+			border-color: var(--appColorPrimary);
+			box-shadow: 0 0 0 2px var(--appColorPrimary);
+			outline: 0;
+		}
 	}
 	.background {
 		align-items: center;
@@ -664,6 +664,10 @@
 		display: flex;
 		flex-direction: row;
 		width: 100%;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		width: 100%;
 	}
 	.searchContainer {
 		border-bottom: 1px solid black;
@@ -674,16 +678,10 @@
 	.search {
 		display: inline-block;
 		width: 100%;
-	}
-	.search input {
-		height: 1.6rem;
-		width: 50%;
-	}
-	.filters {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		width: 100%;
+		input {
+			height: 1.6rem;
+			width: 50%;
+		}
 	}
 	.filterMasterButton {
 		align-items: center;
@@ -699,20 +697,20 @@
 		text-decoration: none;
 		transition: all .3s;
 		width: 33px;
-	}
-	.filterMasterButton:active {
-		background-color: var(--appColorPriDark);
-		border-color: var(--appColorPriDark);
-		color: white;
+		&:active {
+			background-color: var(--appColorPriDark);
+			border-color: var(--appColorPriDark);
+			color: white;
+		}
 	}
 	.filterMasterDisabled {
 		border-color: #888;
 		color: #888;
-	}
-	.filterMasterDisabled:active {
-		background-color: #666;
-		border-color: #666;
-		color: white;
+		&:active {
+			background-color: #666;
+			border-color: #666;
+			color: white;
+		}
 	}
 	.filterSection {
 		border-bottom: 1px solid black;
@@ -751,17 +749,19 @@
 		border: none;
 		cursor: pointer;
 		outline: none;
+		img {
+			border-radius: 50%;
+			max-width: 100px;
+		}
+		p {
+			font-weight: bold;
+			margin: 0;
+		}
 	}
-	.heroPortrait img {
-		border-radius: 50%;
-		max-width: 100px;
-	}
-	.heroPortrait.active img {
-		border: 5px solid var(--appColorPrimary);
-	}
-	.heroPortrait p {
-		font-weight: bold;
-		margin: 0;
+	.heroPortrait.active {
+		img {
+			border: 5px solid var(--appColorPrimary);
+		}
 	}
 	.heroEditHead {
 		border-bottom: 1px solid black;
@@ -787,9 +787,9 @@
 		outline: none;
 		padding: 2px;
 		position: absolute;
-	}
-	.backButton:active {
-		box-shadow: none;
+		&:active {
+			box-shadow: none;
+		}
 	}
 	.saveButton {
 		background-color: var(--appColorPrimary);
@@ -802,9 +802,9 @@
 		padding: 2px;
 		position: absolute;
 		right: 5px;
-	}
-	.saveButton:active {
-		box-shadow: none;
+		&:active {
+			box-shadow: none;
+		}
 	}
 	.heroEditor {
 		align-items: center;
@@ -812,6 +812,11 @@
 		flex-direction: column;
 		justify-content: center;
 		padding: 10px;
+		h4 {
+			margin: 10px 0px;
+			text-align: center;
+			width: 100%;
+		}
 	}
 	.portraitArea {
 		align-items: center;
@@ -871,11 +876,6 @@
 		background-color: var(--appDelColor);
 		box-shadow: none;
 	}
-	.heroEditor h4 {
-		margin: 10px 0px;
-		text-align: center;
-		width: 100%;
-	}
 	.selectedArtifacts {
 		display: grid;
 		grid-gap: 5px 5px;
@@ -884,10 +884,12 @@
 		overflow: hidden;
 		width: 100%;
 	}
-	.gridCell h5 {
-		margin: 0;
-		margin-top: 5px;
-		padding-left: 5px;
+	.gridCell {
+		h5 {
+			margin: 0;
+			margin-top: 5px;
+			padding-left: 5px;
+		}
 	}
 	.artifactLine {
 		align-items: center;
@@ -915,18 +917,16 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-	}
-	.artifactContainer p {
-		font-size: 0.8rem;
-		margin: 0;
-		width: 80px;
-		-ms-user-select: none;
-		overflow: hidden;
-		text-align: center;
-		text-overflow: ellipsis;
-		user-select: none;
-		-webkit-user-select: none;
-		white-space: nowrap;
+		p {
+			font-size: 0.8rem;
+			margin: 0;
+			width: 80px;
+			overflow: hidden;
+			text-align: center;
+			text-overflow: ellipsis;
+			user-select: none;
+			white-space: nowrap;
+		}
 	}
 	.artifactImgContainer {
 		position: relative;
@@ -940,6 +940,14 @@
 		flex-direction: column;
 		justify-content: center;
 		outline: none;
+		p {
+			margin: 0;
+			width: 80px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			user-select: none;
+			white-space: nowrap;
+		}
 	}
 	.artifactImg {
 		border-radius: 50%;
@@ -971,16 +979,6 @@
 		margin-right: auto;
 		width: 60px;
 	}
-	.artifactButton p {
-		margin: 0;
-		width: 80px;
-		-ms-user-select: none;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		user-select: none;
-		-webkit-user-select: none;
-		white-space: nowrap;
-	}
 	.desktopArtifactPicker {
 		display: none;
 	}
@@ -991,21 +989,29 @@
 		.heroFinderContainer {
 			width: 50%;
 		}
-		.filterMasterButton:hover {
-			background-color: var(--appColorPrimary);
-			color: rgba(255, 255, 255, 0.9);
+		.filterMasterButton {
+			&:hover {
+				background-color: var(--appColorPrimary);
+				color: rgba(255, 255, 255, 0.9);
+			}
 		}
-		.filterMasterDisabled:hover {
-			background-color: #888;
-			color: rgba(255, 255, 255, 0.9);
+		.filterMasterDisabled {
+			&:hover {
+				background-color: #888;
+				color: rgba(255, 255, 255, 0.9);
+			}
 		}
-		.backButton:hover {
-			background-color: var(--appColorPrimary);
-			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-			color: white;
+		.backButton {
+			&:hover {
+				background-color: var(--appColorPrimary);
+				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+				color: white;
+			}
 		}
-		.saveButton:hover {
-			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+		.saveButton {
+			&:hover {
+				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+			}
 		}
 		.mobileArtifactPicker {
 			display: none;
@@ -1016,6 +1022,12 @@
 		.desktopArtifactPicker {
 			display: none;
 			visibility: hidden;
+			.background {
+				height: 100%;
+				position: relative;
+				width: 100%;
+				z-index: 5;
+			}
 		}
 		.desktopArtifactPicker.open {
 			display: block;
@@ -1024,12 +1036,6 @@
 			left: 0;
 			top: 0;
 			visibility: visible;
-			width: 100%;
-			z-index: 5;
-		}
-		.desktopArtifactPicker .background {
-			height: 100%;
-			position: relative;
 			width: 100%;
 			z-index: 5;
 		}
@@ -1048,9 +1054,19 @@
 			width: 25%;
 			z-index: 5;
 		}
-		.artifactButton:hover p, .artifactButton p:hover {
-			overflow: visible;
-			width: fit-content;
+		.artifactButton {
+			&:hover {
+				p {
+					overflow: visible;
+					width: fit-content;
+				}
+			}
+			p {
+				&:hover {
+					overflow: visible;
+					width: fit-content;
+				}
+			}
 		}
 	}
 </style>
