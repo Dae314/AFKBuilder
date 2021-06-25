@@ -29649,7 +29649,7 @@ var app = (function () {
     			p = element("p");
     			t0 = text$2(/*num*/ ctx[0]);
     			t1 = text$2("f");
-    			attr_dev(p, "class", "num svelte-1i5k7pj");
+    			attr_dev(p, "class", "num svelte-fa0944");
     			add_location(p, file$e, 43, 2, 1135);
     		},
     		m: function mount(target, anchor) {
@@ -29738,7 +29738,7 @@ var app = (function () {
     			p = element("p");
     			t0 = text$2("+");
     			t1 = text$2(/*num*/ ctx[0]);
-    			attr_dev(p, "class", "num svelte-1i5k7pj");
+    			attr_dev(p, "class", "num svelte-fa0944");
     			add_location(p, file$e, 40, 3, 1087);
     		},
     		m: function mount(target, anchor) {
@@ -29776,7 +29776,7 @@ var app = (function () {
     			p = element("p");
     			t0 = text$2("SI +");
     			t1 = text$2(/*num*/ ctx[0]);
-    			attr_dev(p, "class", "num svelte-1i5k7pj");
+    			attr_dev(p, "class", "num svelte-fa0944");
     			add_location(p, file$e, 38, 3, 1043);
     		},
     		m: function mount(target, anchor) {
@@ -29819,7 +29819,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			if_block.c();
-    			attr_dev(div, "class", div_class_value = "box " + (/*type*/ ctx[1] === "si" ? "si" : "furn") + " lv-" + /*num*/ ctx[0] + " svelte-1i5k7pj");
+    			attr_dev(div, "class", div_class_value = "box " + (/*type*/ ctx[1] === "si" ? "si" : "furn") + " lv-" + /*num*/ ctx[0] + " svelte-fa0944");
     			set_style(div, "max-width", /*maxWidth*/ ctx[2]);
     			set_style(div, "font-size", /*fontSize*/ ctx[3]);
     			set_style(div, "width", /*maxWidth*/ ctx[2]);
@@ -29845,7 +29845,7 @@ var app = (function () {
     				}
     			}
 
-    			if (dirty & /*type, num*/ 3 && div_class_value !== (div_class_value = "box " + (/*type*/ ctx[1] === "si" ? "si" : "furn") + " lv-" + /*num*/ ctx[0] + " svelte-1i5k7pj")) {
+    			if (dirty & /*type, num*/ 3 && div_class_value !== (div_class_value = "box " + (/*type*/ ctx[1] === "si" ? "si" : "furn") + " lv-" + /*num*/ ctx[0] + " svelte-fa0944")) {
     				attr_dev(div, "class", div_class_value);
     			}
 
