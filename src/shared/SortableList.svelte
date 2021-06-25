@@ -84,7 +84,7 @@
 	</ul>
 {/if}
 
-<style>
+<style lang="scss">
 	ul {
 		list-style: none;
 		padding: 0;

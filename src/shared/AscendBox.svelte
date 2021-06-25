@@ -27,18 +27,16 @@
 	<span>{getHeroAscendText(ascendLv)}</span>
 </div>
 
-<style>
+<style lang="scss">
 	.ascendBox {
 		border-radius: 10px;
 		color: white;
 		font-weight: bold;
 		padding: 5px 10px;
 		width: fit-content;
-	}
-	.ascendBox span {
-		-ms-user-select: none;
-		user-select: none;
-		-webkit-user-select: none;
+		span {
+			user-select: none;
+		}
 	}
 	.ascLv-0 {
 		background-color: var(--eliteColor);

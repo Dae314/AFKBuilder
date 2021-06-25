@@ -67,7 +67,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="scss">
 	.container {
 		display: flex;
 		flex-direction: column;
@@ -83,9 +83,7 @@
 	.title {
 		font-size: 1.3rem;
 		margin: 0;
-		-ms-user-select: none;
 		user-select: none;
-		-webkit-user-select: none;
 	}
 	.dataInput {
 		height: 250px;
@@ -126,14 +124,16 @@
 		padding: 5px;
 		transition: transform 0.2s;
 		width: 100px;
-	}
-	.submitButton:active {
-		transform: scale(0.9);
+		&:active {
+			transform: scale(0.9);
+		}
 	}
 	@media only screen and (min-width: 767px) {
-		.submitButton:hover {
-			background-color: var(--appColorPrimary);
-			color: white;
+		.submitButton {
+			&:hover {
+				background-color: var(--appColorPrimary);
+				color: white;
+			}
 		}
 	}
 </style>

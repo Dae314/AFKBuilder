@@ -326,98 +326,104 @@
 			<div class="tooltip tooltip-expander"><span class="tooltipText">Filters</span></div>
 		</div>
 	</section>
-	{#if myHeroList.length === 0}
-		<section class="sect2">
+	<section class="sect2">
+		{#if myHeroList.length === 0}
 			<div class="noHeroes">
 				<span>Heroes you own will appear here</span>
 			</div>
-		</section>
-	{:else}
-		{#if !$AppData.dismissMHSearchInfo}
-			<div class="searchInfo" transition:fade="{{duration: 200}}">
-				<div class="tutorialBoxContainer">
-					<TutorialBox clickable={true} onClick={() => {$AppData.dismissMHSearchInfo = true; dispatch('saveData');}}>
-						Just start typing to search! Pressing tab will also open and close the filter area.
-					</TutorialBox>
-				</div>
-			</div>
-		{/if}
-		<section class="sect2 MHGrid">
-			{#each myHeroList as hero (hero.id)}
-			<div class="heroCard" animate:flip="{{duration: 200}}">
-				<div class="heroHeader">
-					<div class="headArea">
-						<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
-						<div class="tooltip tooltip-faction"><span class="tooltipText">{hero.faction}</span></div>
+		{:else}
+			{#if !$AppData.dismissMHSearchInfo}
+				<div class="searchInfo" transition:fade="{{duration: 200}}">
+					<div class="tutorialBoxContainer">
+						<TutorialBox clickable={true} onClick={() => {$AppData.dismissMHSearchInfo = true; dispatch('saveData');}}>
+							Just start typing to search! Pressing tab will also open and close the filter area.
+						</TutorialBox>
 					</div>
-					<div class="headArea">
-						<div class="flipCard" on:click={(e) => e.stopPropagation()}>
-							<div class="flipCardInner">
-								<div class="flipCardFront">
-									<img on:click="{() => handlePortraitClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
-								</div>
-								<div class="flipCardBack">
-									<button on:click="{() => handlePortraitClick(hero.id)}" class="claimButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
+				</div>
+			{/if}
+			<div class="MHGrid">
+				{#each myHeroList as hero (hero.id)}
+				<div class="heroCard" animate:flip="{{duration: 200}}">
+					<div class="heroHeader">
+						<div class="headArea">
+							<div class="attrImgContainer">
+								<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
+								<div class="tooltip tooltip-faction"><span class="tooltipText">{hero.faction}</span></div>
+							</div>
+						</div>
+						<div class="headArea">
+							<div class="flipCard" on:click={(e) => e.stopPropagation()}>
+								<div class="flipCardInner">
+									<div class="flipCardFront">
+										<img on:click="{() => handlePortraitClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
+									</div>
+									<div class="flipCardBack">
+										<button on:click="{() => handlePortraitClick(hero.id)}" class="claimButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
+									</div>
 								</div>
 							</div>
 						</div>
+						<div class="headArea">
+							<div class="attrImgContainer">
+								<img class="attrImage typeImg" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
+								<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
+							</div>
+							<div class="attrImgContainer">
+								<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
+								<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
+							</div>
+						</div>
 					</div>
-					<div class="headArea">
-						<img class="attrImage typeImg" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
-						<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
-						<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
-						<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
+					<p class="heroName">{hero.name}</p>
+					<div class="flipButtonContainer">
+						<div class="ascButtonArea">
+							<div class="flipButtonArea">
+								<FlipButton options="{['Elite', 'Elite+', 'Legendary', 'Legendary+', 'Mythic', 'Mythic+', 'Ascended']}"
+									optionStyles="{[
+										'background-color: #AF3CEA; color: white; border: 3px solid #AF3CEA; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										'background-color: #AF3CEA; color: white; border: 3px solid #6D2691; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										'background-color: #F7C331; color: white; border: 3px solid #F7C331; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										'background-color: #F7C331; color: white; border: 3px solid #AD8823; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										'background-color: #FE481A; color: white; border: 3px solid #FE481A; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										'background-color: #FE481A; color: white; border: 3px solid #B33212; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										'background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 3px solid #B289E8; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										]}"
+										curOption="{$AppData.MH.List[hero.id].ascendLv}"
+										onClick="{() => handleAscChange(hero.id)}" />
+							</div>
+						</div>
+						<div class="siFurnButtonArea">
+							<div class="flipButtonArea">
+								<FlipButton options="{['SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
+									optionStyles="{[
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										]}"
+										curOption="{Math.floor($AppData.MH.List[hero.id].si/5)}"
+										onClick="{() => handleSIChange(hero.id)}" />
+							</div>
+							<div class="flipButtonArea">
+								<FlipButton options="{['0f', '3f', '9f']}"
+									optionStyles="{[
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
+									]}"
+									curOption="{$AppData.MH.List[hero.id].furn === 0 ? 0 : $AppData.MH.List[hero.id].furn === 3 ? 1 : 2 }"
+									onClick="{() => handleFurnChange(hero.id)}" />
+							</div>
+						</div>
 					</div>
 				</div>
-				<p class="heroName">{hero.name}</p>
-				<div class="flipButtonContainer">
-					<div class="ascButtonArea">
-						<div class="flipButtonArea">
-							<FlipButton options="{['Elite', 'Elite+', 'Legendary', 'Legendary+', 'Mythic', 'Mythic+', 'Ascended']}"
-								optionStyles="{[
-									'background-color: #AF3CEA; color: white; border: 3px solid #AF3CEA; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									'background-color: #AF3CEA; color: white; border: 3px solid #6D2691; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									'background-color: #F7C331; color: white; border: 3px solid #F7C331; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									'background-color: #F7C331; color: white; border: 3px solid #AD8823; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									'background-color: #FE481A; color: white; border: 3px solid #FE481A; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									'background-color: #FE481A; color: white; border: 3px solid #B33212; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									'background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 3px solid #B289E8; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									]}"
-									curOption="{$AppData.MH.List[hero.id].ascendLv}"
-									onClick="{() => handleAscChange(hero.id)}" />
-						</div>
-					</div>
-					<div class="siFurnButtonArea">
-						<div class="flipButtonArea">
-							<FlipButton options="{['SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
-								optionStyles="{[
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									]}"
-									curOption="{Math.floor($AppData.MH.List[hero.id].si/5)}"
-									onClick="{() => handleSIChange(hero.id)}" />
-						</div>
-						<div class="flipButtonArea">
-							<FlipButton options="{['0f', '3f', '9f']}"
-								optionStyles="{[
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-								]}"
-								curOption="{$AppData.MH.List[hero.id].furn === 0 ? 0 : $AppData.MH.List[hero.id].furn === 3 ? 1 : 2 }"
-								onClick="{() => handleFurnChange(hero.id)}" />
-						</div>
-					</div>
-				</div>
+				{/each}
 			</div>
-			{/each}
-		</section>
-	{/if}
+		{/if}
+	</section>
 	<section class="sect3">
 		<div class="inOutMenu {openInOutMenu ? 'open' : ''}">
 			<button class="inOutButton" on:click={handleExportData}><img src="./img/utility/export.png" alt="export"></button>
@@ -432,7 +438,12 @@
 	</section>
 </div>
 
-<style>
+<style lang="scss">
+	.MHContainer {
+		height: calc(100vh - 85px);
+		overflow-y: auto;
+		padding: 10px;
+	}
 	.sect1 {
 		bottom: 0;
 		left: 0;
@@ -441,7 +452,6 @@
 		z-index: 1;
 	}
 	.sect2 {
-		min-height: 100%;
 		padding: 10px;
 		width: 100%;
 	}
@@ -462,11 +472,11 @@
 		border: 1px solid var(--appColorPrimary);
 		border-radius: 5px;
 		transition: box-shadow 0.1s;
-	}
-	input:focus {
-		border-color: var(--appColorPrimary);
-		box-shadow: 0 0 0 2px var(--appColorPrimary);
-		outline: 0;
+		&:focus {
+			border-color: var(--appColorPrimary);
+			box-shadow: 0 0 0 2px var(--appColorPrimary);
+			outline: 0;
+		}
 	}
 	.searchInfo {
 		display: none;
@@ -477,11 +487,9 @@
 		font-size: 4rem;
 		font-weight: bold;
 		height: 100%;
-		-ms-user-select: none;
 		padding-top: 50px;
 		text-align: center;
 		text-transform: uppercase;
-		-webkit-user-select: none;
 		width: 100%;
 		user-select: none;
 	}
@@ -521,16 +529,18 @@
 	}
 	.arrow.right {
 		transform: rotate(-45deg);
-		-webkit-transform: rotate(-45deg);
 	}
 	.arrow.open {
 		transform: rotate(-135deg);
-		-webkit-transform: rotate(-135deg);
 	}
 	.filters {
 		display: flex;
 		flex-direction: row;
 		height: 500px;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
 		width: 100%;
 	}
 	.mobileExpander {
@@ -548,49 +558,14 @@
 		padding-bottom: 15px;
 		padding-top: 15px;
 		text-align: center;
-	}
-	.search {
-		display: inline-block;
-		width: 100%;
-	}
-	.search input {
-		height: 1.6rem;
-		width: 50%;
-	}
-	.filters {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		width: 100%;
-	}
-	.filterMasterButton {
-		align-items: center;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 50%;
-		color: var(--appColorPrimary);
-		display: flex;
-		font-size: 0.6rem;
-		height: 33px;
-		justify-content: center;
-		margin-right: 15px;
-		margin-top: 7px;
-		text-decoration: none;
-		transition: all .3s;
-		width: 33px;
-	}
-	.filterMasterButton:active {
-		background-color: var(--appColorPriDark);
-		border-color: var(--appColorPriDark);
-		color: white;
-	}
-	.filterMasterDisabled {
-		border-color: #888;
-		color: #888;
-	}
-	.filterMasterDisabled:active {
-		background-color: #666;
-		border-color: #666;
-		color: white;
+		.search {
+			display: inline-block;
+			width: 100%;
+			input {
+				height: 1.6rem;
+				width: 50%;
+			}
+		}
 	}
 	.filterSection {
 		border-bottom: 1px solid black;
@@ -601,23 +576,49 @@
 		padding-bottom: 7px;
 		padding-left: 10px;
 		width: 100%;
-	}
-	.filterButton {
-		background: transparent;
-		border: 0;
-		cursor: pointer;
-		display: block;
-		margin-right: 10px;
-		margin-top: 7px;
-	}
-	.filterImg {
-		max-width: 33px;
-	}
-	.filterInactive {
-		filter: grayscale(100%);
-	}
-	.MHContainer {
-		padding: 10px;
+		.filterMasterButton {
+			align-items: center;
+			border: 3px solid var(--appColorPrimary);
+			border-radius: 50%;
+			color: var(--appColorPrimary);
+			display: flex;
+			font-size: 0.6rem;
+			height: 33px;
+			justify-content: center;
+			margin-right: 15px;
+			margin-top: 7px;
+			text-decoration: none;
+			transition: all .3s;
+			width: 33px;
+			&:active {
+				background-color: var(--appColorPriDark);
+				border-color: var(--appColorPriDark);
+				color: white;
+			}
+		}
+		.filterMasterDisabled {
+			border-color: #888;
+			color: #888;
+			&:active {
+				background-color: #666;
+				border-color: #666;
+				color: white;
+			}
+		}
+		.filterButton {
+			background: transparent;
+			border: 0;
+			cursor: pointer;
+			display: block;
+			margin-right: 10px;
+			margin-top: 7px;
+		}
+		.filterImg {
+			max-width: 33px;
+		}
+		.filterInactive {
+			filter: grayscale(100%);
+		}
 	}
 	.MHGrid {
 		display: grid;
@@ -625,7 +626,6 @@
 		grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
 		grid-template-rows: repeat(auto-fit, minmax(240px, 250px));
 		justify-content: space-evenly;
-		overflow: hidden;
 	}
 	.heroCard {
 		border: 3px solid var(--appColorPrimary);
@@ -651,9 +651,9 @@
 		cursor: pointer;
 		max-width: 100px;
 		transition: transform 0.2s;
-	}
-	.portrait:active {
-		transform: scale(0.9);
+		&:active {
+			transform: scale(0.9);
+		}
 	}
 	.claimButton {
 		display: none;
@@ -666,14 +666,17 @@
 		padding-bottom: 10px;
 		width: 100%;
 	}
-	.attrImage {
-		max-width: 40px;
-	}
-	.factionImg {
-		max-width: 60px;
-	}
-	.typeImg {
-		margin-bottom: 10px;
+	.attrImgContainer {
+		position: relative;
+		.attrImage {
+			max-width: 40px;
+		}
+		.factionImg {
+			max-width: 60px;
+		}
+		.typeImg {
+			margin-bottom: 10px;
+		}
 	}
 	.tooltip {
 		display: none;
@@ -690,9 +693,11 @@
 	.siFurnButtonArea {
 		display: flex;
 		flex-direction: row;
-	}
-	.siFurnButtonArea .flipButtonArea:first-child {
-		margin-right: 10px;
+		.flipButtonArea {
+			&:first-child {
+				margin-right: 10px;
+			}
+		}
 	}
 	.inOutMenuButton {
 		align-items: center;
@@ -707,12 +712,18 @@
 		transition: transform 0.3s ease-out;
 		width: 50px;
 		z-index: 1;
+		img {
+			max-width: 40px;
+		}
 	}
-	.inOutMenu.open + .inOutMenuButton {
-		transform: rotate(180deg);
-	}
-	.inOutMenuButton img {
-		max-width: 40px;
+	.inOutMenu.open {
+		+ {
+			.inOutMenuButton {
+				transform: rotate(180deg);
+			}
+		}
+		max-height: 350px;
+		overflow: visible;
 	}
 	.inOutMenu {
 		align-items: center;
@@ -729,10 +740,6 @@
 		transition: max-height 0.4s ease-out;
 		width: 100px;
 	}
-	.inOutMenu.open {
-		max-height: 350px;
-		overflow: visible;
-	}
 	.inOutButton {
 		align-items: center;
 		background-color: var(--appColorPrimary);
@@ -744,35 +751,49 @@
 		height: 40px;
 		justify-content: center;
 		width: 40px;
+		&:first-child {
+			margin-bottom: 10px;
+		}
+		img {
+			max-width: 20px;
+		}
 	}
-	.inOutButton:first-child {
-		margin-bottom: 10px;
-	}
-	.inOutButton img {
-		max-width: 20px;
-	}
-	.tooltip-inOutButton1, .tooltip-inOutButton2 {
+	.tooltip-inOutButton1 {
 		bottom: 45px;
 		display: inline-block;
 		position: relative;
 		right: 70px;
 		width: 100%;
+		.tooltipText {
+			background-color: var(--appColorPrimary);
+			border-radius: 6px;
+			color: white;
+			padding: 5px;
+			position: absolute;
+			text-align: center;
+		}
 	}
 	.tooltip-inOutButton2 {
+		bottom: 45px;
+		display: inline-block;
+		position: relative;
+		right: 70px;
+		width: 100%;
 		bottom: 38px;
-	}
-	.tooltip-inOutButton1 .tooltipText, .tooltip-inOutButton2 .tooltipText {
-		background-color: var(--appColorPrimary);
-		border-radius: 6px;
-		color: white;
-		padding: 5px;
-		position: absolute;
-		text-align: center;
+		.tooltipText {
+			background-color: var(--appColorPrimary);
+			border-radius: 6px;
+			color: white;
+			padding: 5px;
+			position: absolute;
+			text-align: center;
+		}
 	}
 	@media only screen and (min-width: 767px) {
 		.MHContainer {
 			display: flex;
 			flex-direction: column;
+			height: calc(100vh - 45px);
 			padding: 0px;
 		}
 		.sect1 {
@@ -792,7 +813,6 @@
 		.searchInfo {
 			display: flex;
 			justify-content: center;
-			margin-top: 10px;
 			visibility: visible;
 			width: 100%;
 		}
@@ -807,74 +827,71 @@
 			border-radius: 0 50px 50px 0;
 			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 			height: 50px;
-		}
-		.filtersButton span {
-			display: none;
+			span {
+				display: none;
+			}
+			&:hover+.tooltip {
+				opacity: 1;
+				visibility: visible;
+			}
 		}
 		.tooltip {
-			display: inline-block;
-			position: relative;
+			display: flex;
+			justify-content: center;
+			opacity: 0;
+			position: absolute;
+			transition: opacity 0.2s;
+			visibility: hidden;
+			width: 200px;
+			z-index: 1;
+			.tooltipText {
+				background-color: var(--appColorPrimary);
+				border-radius: 6px;
+				color: white;
+				padding: 5px;
+				text-align: center;
+			}
 		}
 		.tooltip-expander {
-			bottom: 105px;
+			top: -35px;
 			left: 5px;
+			width: fit-content;
 		}
-		.tooltip-inOutButton1, .tooltip-inOutButton2 {
-			bottom: 45px;
-			position: relative;
-			right: 130px;
+		.tooltip-inOutButton1 {
+			bottom: 85px;
+			right: 70px;
 			width: fit-content;
 		}
 		.tooltip-inOutButton2 {
-			bottom: 38px;
-		}
-		.tooltip .tooltipText {
-			background-color: var(--appColorPrimary);
-			border-radius: 6px;
-			color: white;
-			opacity: 0;
-			padding: 5px;
-			position: absolute;
-			text-align: center;
-			transition: opacity 0.2s;
-			visibility: hidden;
+			bottom: 85px;
+			right: 70px;
+			width: fit-content;
+			bottom: 35px;
 		}
 		.tooltip-faction {
-			position: absolute;
-			right: 20%;
-			top: 35%;
-			z-index: 2;
+			left: -70px;
+			bottom: -30px;
 		}
 		.tooltip-type {
-			position: absolute;
-			right: 29%;
-			top: 10%;
+			left: -80px;
+			bottom: -20px;
 		}
 		.tooltip-class {
-			position: absolute;
-			right: 29%;
-			top: 58%;
+			left: -80px;
+			bottom: -30px;
 		}
-		.filterMasterButton:hover {
-			background-color: var(--appColorPrimary);
-			color: rgba(255, 255, 255, 0.9);
+		.attrImage {
+			&:hover+.tooltip {
+				opacity: 1;
+				visibility: visible;
+			}
 		}
-		.filterMasterDisabled:hover {
-			background-color: #888;
-			color: rgba(255, 255, 255, 0.9);
-		}
-		.attrImage:hover+.tooltip .tooltipText {
-			opacity: 1;
-			visibility: visible;
-		}
-		.filtersButton:hover+.tooltip .tooltipText {
-			opacity: 1;
-			visibility: visible;
-		}
-		.inOutButton:hover+.tooltip .tooltipText {
-			opacity: 1;
-			visibility: visible;
-			width: 100px;
+		.inOutButton {
+			&:hover+.tooltip {
+				opacity: 1;
+				visibility: visible;
+				width: 100px;
+			}
 		}
 		.mobileExpander {
 			background-color: var(--appBGColor);
@@ -889,24 +906,26 @@
 			max-width: 100%;
 			padding: 10px;
 		}
-		.mobileExpander.filterOpen+.mobileExpanderTitle .tooltip .tooltipText {
-			visibility: hidden;
+		.mobileExpander.filterOpen+.mobileExpanderTitle {
+			.tooltip {
+				opacity: 0;
+				visibility: hidden;
+			}
 		}
 		.arrow.open {
 			transform: rotate(135deg);
-			-webkit-transform: rotate(135deg);
 		}
 		.searchContainer {
 			padding-bottom: 20px;
 			padding-top: 10px;
 			text-align: center;
-		}
-		.search {
-			display: inline-block;
-		}
-		.search input {
-			height: 1.5rem;
-			width: 220px;
+			.search {
+				display: inline-block;
+				input {
+					height: 1.5rem;
+					width: 220px;
+				}
+			}
 		}
 		.filters {
 			display: flex;
@@ -918,66 +937,81 @@
 			display: block;
 			padding: 0;
 			width: 33%;
-		}
-		.filterMasterButton {
-			margin: 0 auto;
-			margin-bottom: 10px;
-		}
-		.filterButton {
-			margin: 0 auto;
-			margin-bottom: 10px;
+			.filterMasterButton {
+				&:hover {
+					background-color: var(--appColorPrimary);
+					color: rgba(255, 255, 255, 0.9);
+				}
+				margin: 0 auto;
+				margin-bottom: 10px;
+			}
+			.filterMasterDisabled {
+				&:hover {
+					background-color: #888;
+					color: rgba(255, 255, 255, 0.9);
+				}
+			}
+			.filterButton {
+				margin: 0 auto;
+				margin-bottom: 10px;
+			}
 		}
 		.flipCard {
 			background-color: transparent;
 			cursor: pointer;
 			perspective: 1000px;
-		}
-		.flipCardInner {
-			height: 100%;
-			position: relative;
-			text-align: center;
-			transform-style: preserve-3d;
-			transition: transform 0.6s;
-			width: 100%;
-		}
-		.flipCard:hover .flipCardInner {
-			transform: rotateY(180deg);
-		}
-		.flipCardFront, .flipCardBack {
-			backface-visibility: hidden;
-			bottom: 50px;
-			height: 100%;
-			-webkit-backface-visibility: hidden;
-			width: 100%;
-		}
-		.flipCardBack {
-			display: block;
-			position: absolute;
-			top: 0px;
-			transform: rotateY(180deg);
-		}
-		.flipCardBack .claimButton {
-			background-color: var(--appColorPrimary);
-			border: 3px solid var(--appColorPrimary);
-			border-radius: 50%;
-			color: white;
-			cursor: pointer;
-			display: block;
-			font-size: 1.1rem;
-			font-weight: bold;
-			height: 100px;
-			padding: 5px;
-			transition: transform 0.2s;
-			width: 100px;
-		}
-		.flipCardBack .claimButton.owned {
-			background-color: transparent;
-			border: 3px solid var(--appColorPrimary);
-			color: var(--appColorPrimary);
-			font-size: 0.9rem;
-		}
-		.flipCardBack .claimButton:active {
-			transform: scale(0.9);
+			&:hover {
+				.flipCardInner {
+					transform: rotateY(180deg);
+				}
+			}
+			.flipCardInner {
+				height: 100%;
+				position: relative;
+				text-align: center;
+				transform-style: preserve-3d;
+				transition: transform 0.6s;
+				width: 100%;
+			}
+			.flipCardFront {
+				backface-visibility: hidden;
+				bottom: 50px;
+				height: 100%;
+				width: 100%;
+			}
+			.flipCardBack {
+				backface-visibility: hidden;
+				bottom: 50px;
+				height: 100%;
+				width: 100%;
+				display: block;
+				position: absolute;
+				top: 0px;
+				transform: rotateY(180deg);
+				.claimButton {
+					background-color: var(--appColorPrimary);
+					border: 3px solid var(--appColorPrimary);
+					border-radius: 50%;
+					color: white;
+					cursor: pointer;
+					display: block;
+					font-size: 1.1rem;
+					font-weight: bold;
+					height: 100px;
+					padding: 5px;
+					transition: transform 0.2s;
+					width: 100px;
+					&:active {
+						transform: scale(0.9);
+					}
+				}
+				.claimButton.owned {
+					background-color: transparent;
+					border: 3px solid var(--appColorPrimary);
+					color: var(--appColorPrimary);
+					font-size: 0.9rem;
+				}
+			}
 		}
 	}
 </style>

@@ -258,10 +258,11 @@
 	{/if}
 </div>
 
-<style>
+<style lang="scss">
 	.recContainer {
-		height: 100%;
+		height: calc(100vh - 45px);
 		padding: 10px;
+		overflow-y: auto;
 		width: 100%;
 	}
 	.sectionPickerSection {
@@ -276,22 +277,22 @@
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
-	}
-	.sectionButton {
-		background-color: transparent;
-		border: 3px solid var(--appColorPrimary);
-		border-bottom: none;
-		border-radius: 10px 10px 0px 0px;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		font-size: 1rem;
-		margin-right: 15px;
-		outline: none;
-		padding: 5px;
-	}
-	.sectionButton.active {
-		background-color: var(--appColorPrimary);
-		color: white;
+		.sectionButton {
+			background-color: transparent;
+			border: 3px solid var(--appColorPrimary);
+			border-bottom: none;
+			border-radius: 10px 10px 0px 0px;
+			color: var(--appColorPrimary);
+			cursor: pointer;
+			font-size: 1rem;
+			margin-right: 15px;
+			outline: none;
+			padding: 5px;
+		}
+		.sectionButton.active {
+			background-color: var(--appColorPrimary);
+			color: white;
+		}
 	}
 	.recSection {
 		border: 3px solid var(--appColorPrimary);
@@ -312,17 +313,15 @@
 		display: flex;
 		height: 100%;
 		justify-content: center;
-		-ms-user-select: none;
-		-webkit-user-select: none;
 		width: 100%;
 		user-select: none;
-	}
-	.noRec span {
-		color: rgba(100, 100, 100, 0.3);
-		font-size: 2.5rem;
-		font-weight: bold;
-		text-align: center;
-		text-transform: uppercase;
+		span {
+			color: rgba(100, 100, 100, 0.3);
+			font-size: 2.5rem;
+			font-weight: bold;
+			text-align: center;
+			text-transform: uppercase;
+		}
 	}
 	.recCard {
 		background-color: transparent;
@@ -330,30 +329,30 @@
 		border-radius: 10px;
 		padding: 10px;
 		position: relative;
+		h4 {
+			font-size: 1.2rem;
+			margin: 0;
+			margin-bottom: 5px;
+			text-align: center;
+			width: 100%;
+		}
 	}
 	.claimButtonArea {
 		position: absolute;
 		right: 5px;
 		top: 5px;
-	}
-	.claimButton {
-		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 50%;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		font-size: 0.9rem;
-		height: 25px;
-		outline: none;
-		padding: 0px;
-		width: 25px;
-	}
-	.recCard h4 {
-		font-size: 1.2rem;
-		margin: 0;
-		margin-bottom: 5px;
-		text-align: center;
-		width: 100%;
+		.claimButton {
+			background-color: transparent;
+			border: 2px solid var(--appColorPrimary);
+			border-radius: 50%;
+			color: var(--appColorPrimary);
+			cursor: pointer;
+			font-size: 0.9rem;
+			height: 25px;
+			outline: none;
+			padding: 0px;
+			width: 25px;
+		}
 	}
 	.portraitContainer {
 		align-items: center;
@@ -362,32 +361,32 @@
 		margin-bottom: 10px;
 		position: relative;
 		width: 100%;
-	}
-	.portraitButton {
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		outline: none;
-	}
-	.portrait {
-		border-radius: 50%;
-		max-width: 100px;
-	}
-	.coreMark {
-		background-color: var(--appDelColor);
-		border-radius: 50%;
-		bottom: 5px;
-		display: none;
-		height: 25px;
-		position: absolute;
-		right: 65px;
-		visibility: hidden;
-		width: 25px;
-	}
-	.coreMark.visible {
-		display: inline-block;
-		pointer-events: none;
-		visibility: visible;
+		.portraitButton {
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			outline: none;
+			.portrait {
+				border-radius: 50%;
+				max-width: 100px;
+			}
+		}
+		.coreMark {
+			background-color: var(--appDelColor);
+			border-radius: 50%;
+			bottom: 5px;
+			display: none;
+			height: 25px;
+			position: absolute;
+			right: 65px;
+			visibility: hidden;
+			width: 25px;
+		}
+		.coreMark.visible {
+			display: inline-block;
+			pointer-events: none;
+			visibility: visible;
+		}
 	}
 	.recText {
 		display: flex;
@@ -397,40 +396,38 @@
 	}
 	.compArea {
 		width: 100%;
-	}
-	.compArea h5 {
-		font-size: 1rem;
-		margin: 0;
-		-ms-user-select: none;
-		text-align: center;
-		-webkit-user-select: none;
-		width: 100%;
-		user-select: none;
-	}
-	.compArea ul {
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
-	}
-	.compArea li {
-		padding: 5px;
-	}
-	.compButton {
-		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 5px;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		font-size: 1rem;
-		max-width: 100px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+		h5 {
+			font-size: 1rem;
+			margin: 0;
+			text-align: center;
+			width: 100%;
+			user-select: none;
+		}
+		ul {
+			align-items: center;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+		li {
+			padding: 5px;
+			.compButton {
+				background-color: transparent;
+				border: 2px solid var(--appColorPrimary);
+				border-radius: 5px;
+				color: var(--appColorPrimary);
+				cursor: pointer;
+				font-size: 1rem;
+				max-width: 100px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
 	}
 	@media only screen and (min-width: 767px) {
 		.sectionPicker {
@@ -442,22 +439,32 @@
 		.recSection {
 			border-radius: 0px 10px 10px 10px;
 		}
-		.noRec span {
-			font-size: 6rem;
+		.noRec {
+			span {
+				font-size: 6rem;
+			}
 		}
-		.claimButton:hover {
-			background-color: var(--appColorPrimary);
-			color: white;
+		.claimButton {
+			&:hover {
+				background-color: var(--appColorPrimary);
+				color: white;
+			}
 		}
-		.compButton:hover {
-			background-color: var(--appColorPrimary);
-			color: white;
+		.compArea {
+			li {
+				.compButton {
+					&:hover {
+						background-color: var(--appColorPrimary);
+						color: white;
+					}
+				}
+			}
 		}
 		.portrait {
 			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-		}
-		.portrait:hover {
-			transform: scale(1.05);
+			&:hover {
+				transform: scale(1.05);
+			}
 		}
 	}
 </style>

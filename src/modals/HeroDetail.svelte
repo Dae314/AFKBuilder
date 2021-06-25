@@ -38,13 +38,16 @@
 		<h3 class="heroName">{hero.name}</h3>
 		<div class="imageContainer">
 			<div class="factionContainer">
-				<img class="attrImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
+				<div class="attrImgContainer">
+					<img draggable="false" class="attrImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
+					<div class="tooltip"><span class="tooltipText">{hero.faction}</span></div>
+				</div>
 			</div>
 			<div class="portraitContainer">
 				<div class="flipCard">
 					<div class="flipCardInner">
 						<div class="flipCardFront">
-							<img on:click="{() => handlePortraitClick(hero.id)}" class="portrait {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}" src={hero.portrait} alt={hero.name}>
+							<img draggable="false" on:click="{() => handlePortraitClick(hero.id)}" class="portrait {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}" src={hero.portrait} alt={hero.name}>
 						</div>
 						<div class="flipCardBack">
 							<button on:click="{() => handlePortraitClick(hero.id)}" class="claimButton {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}">{$AppData.MH.List[hero.id].claimed ? 'Unclaim' : 'Claim'}</button>
@@ -53,8 +56,14 @@
 				</div>
 			</div>
 			<div class="typeClassContainer">
-				<img class="attrImg" src="./img/types/{hero.type.toLowerCase()}.png" alt="{hero.type}">
-				<img class="attrImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt="{hero.class}">
+				<div class="attrImgContainer">
+					<img draggable="false" class="attrImg" src="./img/types/{hero.type.toLowerCase()}.png" alt="{hero.type}">
+					<div class="tooltip"><span class="tooltipText">{hero.type}</span></div>
+				</div>
+				<div class="attrImgContainer">
+					<img draggable="false" class="attrImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt="{hero.class}">
+					<div class="tooltip"><span class="tooltipText">{hero.class}</span></div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -76,7 +85,7 @@
 			<div class="skillDisplay">
 				<div class="skillPicker">
 					{#each hero.skills as skill, i}
-					<img class="{skillShown === i ? 'activeSkill' : ''}" on:click={() => skillShown = i} src={skill.image} alt={skill.name}>
+					<img draggable="false" class="{skillShown === i ? 'activeSkill' : ''}" on:click={() => skillShown = i} src={skill.image} alt={skill.name}>
 					{/each}
 				</div>
 				<div class="skillDetails">
@@ -102,7 +111,7 @@
 		<div class="mobileExpander {openSI ? 'isOpen' : '' }">
 			<div class="siFurnArea">
 				<div class="imageArea">
-					<img src={hero.sig_item.image} alt={hero.sig_item.name}>
+					<img draggable="false" src={hero.sig_item.image} alt={hero.sig_item.name}>
 					<h5 class="siFurnName">{hero.sig_item.name}</h5>
 				</div>
 				<p class="siFurnUnlock">Unlocked at +0:</p>
@@ -123,7 +132,7 @@
 		<div class="mobileExpander {openFurn ? 'isOpen' : '' }">
 			<div class="siFurnArea">
 				<div class="imageArea">
-					<img src={hero.furniture.image} alt={hero.furniture.name}>
+					<img draggable="false" src={hero.furniture.image} alt={hero.furniture.name}>
 					<h5 class="siFurnName">{@html hero.furniture.name}</h5>
 				</div>
 				<div class="siFurnUpgrades">
@@ -137,7 +146,7 @@
 	</section>
 </div>
 
-<style>
+<style lang="scss">
 	.container {
 		position: relative;
 	}
@@ -161,7 +170,14 @@
 		padding-top: 20px;
 		width: 100%;
 	}
-	.factionContainer, .typeClassContainer {
+	.factionContainer {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		width: 28%;
+	}
+	.typeClassContainer {
 		align-items: center;
 		display: flex;
 		flex-direction: column;
@@ -171,10 +187,18 @@
 	.portraitContainer {
 		width: 44%;
 	}
+	.attrImgContainer {
+		position: relative;
+		height: fit-content;
+		width: fit-content;
+	}
 	.attrImg {
 		margin: 10px;
 		max-width: 60px;
 		width: 100%;
+	}
+	.tooltip {
+		display: none;
 	}
 	.flipCard {
 		cursor: pointer;
@@ -192,9 +216,9 @@
 		max-width: 250px;
 		transition: all 0.2s;
 		width: 100%;
-	}
-	.portrait:active {
-		transform: scale(0.9);
+		&:active {
+			transform: scale(0.9);
+		}
 	}
 	.portrait.owned {
 		border: 10px solid var(--appColorPrimary);
@@ -210,11 +234,11 @@
 		flex-direction: column;
 		padding: 10px;
 		padding-top: 0px;
-	}
-	.benchmarkSection h4 {
-		margin: 0;
-		padding: 0;
-		padding-bottom: 10px;
+		h4 {
+			margin: 0;
+			padding: 0;
+			padding-bottom: 10px;
+		}
 	}
 	.skillsSection {
 		padding-top: 10px;
@@ -227,19 +251,19 @@
 		justify-content: center;
 		padding: 10px;
 		width: 100%;
-	}
-	.skillPicker img {
-		border-radius: 50%;
-		cursor: pointer;
-		margin: 5px 10px;
-		max-width: 70px;
-		transition: all 0.2s;
-	}
-	.skillPicker img:active {
-		transform: scale(0.9);
-	}
-	.skillPicker img.activeSkill {
-		border: 5px solid var(--appColorPrimary);
+		img {
+			border-radius: 50%;
+			cursor: pointer;
+			margin: 5px 10px;
+			max-width: 70px;
+			transition: all 0.2s;
+			&:active {
+				transform: scale(0.9);
+			}
+		}
+		img.activeSkill {
+			border: 5px solid var(--appColorPrimary);
+		}
 	}
 	.skill {
 		display: none;
@@ -264,11 +288,11 @@
 		margin: 0;
 		padding-bottom: 20px;
 		padding-left: 15px;
-	}
-	.skillDesc :global(em) {
-		color: var(--appColorPrimary);
-		font-style: normal;
-		font-weight: bold;
+		:global(em) {
+			color: var(--appColorPrimary);
+			font-style: normal;
+			font-weight: bold;
+		}
 	}
 	.siFurnArea {
 		padding: 10px;
@@ -280,9 +304,9 @@
 		flex-direction: column;
 		justify-content: center;
 		padding-bottom: 10px;
-	}
-	.imageArea img {
-		max-width: 120px;
+		img {
+			max-width: 120px;
+		}
 	}
 	.siFurnName {
 		font-size: 1.3rem;
@@ -300,11 +324,11 @@
 		margin: 0;
 		padding-bottom: 10px;
 		padding-left: 15px;
-	}
-	.siFurnDesc :global(em) {
-		color: var(--appColorPrimary);
-		font-style: normal;
-		font-weight: bold;
+		:global(em) {
+			color: var(--appColorPrimary);
+			font-style: normal;
+			font-weight: bold;
+		}
 	}
 	.expanderButton {
 		background-color: var(--appColorSecondary);
@@ -327,11 +351,9 @@
 	}
 	.right {
 		transform: rotate(-45deg);
-		-webkit-transform: rotate(-45deg);
 	}
 	.down {
 		transform: rotate(45deg);
-		-webkit-transform: rotate(45deg);
 	}
 	.mobileExpander {
 		margin-bottom: 10px;
@@ -345,9 +367,36 @@
 	@media only screen and (min-width: 767px) {
 		.attrImg {
 			max-width: 70px;
+			&:hover+.tooltip {
+				opacity: 1;
+				visibility: visible;
+			}
 		}
-		.skillPicker img:hover {
-			border: 2px solid var(--appColorPrimary);
+		.tooltip {
+			bottom: -20px;
+			display: flex;
+			justify-content: center;
+			left: -55px;
+			opacity: 0;
+			position: absolute;
+			transition: opacity 0.2s;
+			visibility: hidden;
+			width: 200px;
+			z-index: 4;
+		}
+		.tooltipText {
+			background-color: var(--appColorPrimary);
+			border-radius: 6px;
+			color: white;
+			padding: 5px;
+			user-select: none;
+		}
+		.skillPicker {
+			img {
+				&:hover {
+					border: 2px solid var(--appColorPrimary);
+				}
+			}
 		}
 	}
 </style>

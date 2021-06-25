@@ -23,15 +23,17 @@
 	<section class="headerSection">
 		<h3 class="name">{artifact.name}</h3>
 		<div class="imgContainer">
-			<img class="artifactImg" src={artifact.image} alt={artifact.name}>
+			<img draggable="false" class="artifactImg" src={artifact.image} alt={artifact.name}>
 		</div>
 	</section>
 	<section class="attributes">
 		<div class="classContainer">
 			{#if artifact.class === 'Any'}
-				<span class="allCircle">All</span>
+				<div class="allCircle classImg"><span>All</span></div>
+				<div class="tooltip classTooltip"><span class="tooltipText">All Classes</span></div>
 			{:else}
-				<img class="classImg" src="./img/classes/{artifact.class.toLowerCase()}.png" alt={artifact.class}>
+				<img draggable="false" class="classImg" src="./img/classes/{artifact.class.toLowerCase()}.png" alt={artifact.class}>
+				<div class="tooltip"><span class="tooltipText">{artifact.class}</span></div>
 			{/if}
 		</div>
 		<div class="attrContainer">
@@ -52,29 +54,26 @@
 	</section>
 </div>
 
-<style>
+<style lang="scss">
 	.container {
 		height: 100%;
 		position: relative;
 		width: 100%;
 	}
-	img {
-		user-drag: none; 
-		-webkit-user-drag: none;
-		-webkit-user-select: none;
-	}
-	.headerSection h3 {
-		background-color: var(--appColorPrimary);
-		color: white;
-		font-family: 'Roboto' sans-serif;
-		font-size: 2.0rem;
-		font-weight: bold;
-		letter-spacing: 1px;
-		margin: 0;
-		margin-bottom: 10px;
-		text-align: center;
-		text-transform: uppercase;
-		width: 100%;
+	.headerSection {
+		h3 {
+			background-color: var(--appColorPrimary);
+			color: white;
+			font-family: 'Roboto' sans-serif;
+			font-size: 2.0rem;
+			font-weight: bold;
+			letter-spacing: 1px;
+			margin: 0;
+			margin-bottom: 10px;
+			text-align: center;
+			text-transform: uppercase;
+			width: 100%;
+		}
 	}
 	.imgContainer {
 		display: flex;
@@ -94,15 +93,19 @@
 		padding: 10px;
 		width: 100%;
 	}
+	.classContainer {
+		position: relative;
+	}
 	.classImg {
 		margin-right: 10px;
 		max-width: 50px;
 	}
 	.allCircle {
 		align-items: center;
+		background-color: var(--appColorPrimary);
 		border: 2px solid var(--appColorPrimary);
 		border-radius: 50%;
-		color: var(--appColorPrimary);
+		color: white;
 		display: flex;
 		flex-grow: 0;
 		flex-shrink: 0;
@@ -110,6 +113,7 @@
 		height: 50px;
 		justify-content: center;
 		margin-right: 10px;
+		user-select: none;
 		width: 50px;
 	}
 	.attrContainer {
@@ -126,26 +130,55 @@
 		margin: 5px;
 		padding: 10px;
 		user-select: none;
-		-moz-user-select: none;
-		-webkit-user-select: none;
 	}
 	.descContainer {
 		padding: 10px;
 		padding-bottom: 20px;
 		padding-top: 0px;
-	}
-	.descArea h4 {
-		font-size: 1rem;
-		margin: 0;
-		margin-bottom: 5px;
-		margin-top: 10px;
+		.descArea {
+			h4 {
+				font-size: 1rem;
+				margin: 0;
+				margin-bottom: 5px;
+				margin-top: 10px;
+			}
+		}
 	}
 	.descText {
 		margin-left: 20px;
+		:global(em) {
+			color: var(--appColorPrimary);
+			font-style: normal;
+			font-weight: bold;
+		}
 	}
-	.descText :global(em) {
-		color: var(--appColorPrimary);
-		font-style: normal;
-		font-weight: bold;
+	.tooltip {
+		display: none;
+	}
+	@media only screen and (min-width: 767px) {
+		.tooltip {
+			bottom: -35px;
+			display: flex;
+			justify-content: center;
+			left: -75px;
+			opacity: 0;
+			position: absolute;
+			transition: opacity 0.2s;
+			visibility: hidden;
+			width: 200px;
+			z-index: 4;
+			.tooltipText {
+				background-color: var(--appColorPrimary);
+				border-radius: 6px;
+				color: white;
+				padding: 5px;
+				text-align: center;
+				user-select: none;
+			}
+		}
+		.classImg:hover+.tooltip {
+			opacity: 1;
+			visibility: visible;
+		}
 	}
 </style>
