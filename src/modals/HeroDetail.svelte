@@ -388,10 +388,8 @@
 			background-color: var(--appColorPrimary);
 			border-radius: 6px;
 			color: white;
-			-ms-user-select: none;
 			padding: 5px;
 			user-select: none;
-			-webkit-user-select: none;
 		}
 		.skillPicker {
 			img {

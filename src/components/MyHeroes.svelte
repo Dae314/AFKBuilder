@@ -529,11 +529,9 @@
 	}
 	.arrow.right {
 		transform: rotate(-45deg);
-		-webkit-transform: rotate(-45deg);
 	}
 	.arrow.open {
 		transform: rotate(-135deg);
-		-webkit-transform: rotate(-135deg);
 	}
 	.filters {
 		display: flex;
@@ -916,7 +914,6 @@
 		}
 		.arrow.open {
 			transform: rotate(135deg);
-			-webkit-transform: rotate(135deg);
 		}
 		.searchContainer {
 			padding-bottom: 20px;
@@ -980,14 +977,12 @@
 				backface-visibility: hidden;
 				bottom: 50px;
 				height: 100%;
-				-webkit-backface-visibility: hidden;
 				width: 100%;
 			}
 			.flipCardBack {
 				backface-visibility: hidden;
 				bottom: 50px;
 				height: 100%;
-				-webkit-backface-visibility: hidden;
 				width: 100%;
 				display: block;
 				position: absolute;

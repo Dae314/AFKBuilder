@@ -130,8 +130,6 @@
 		margin: 5px;
 		padding: 10px;
 		user-select: none;
-		-moz-user-select: none;
-		-webkit-user-select: none;
 	}
 	.descContainer {
 		padding: 10px;

@@ -399,9 +399,7 @@
 		h5 {
 			font-size: 1rem;
 			margin: 0;
-			-ms-user-select: none;
 			text-align: center;
-			-webkit-user-select: none;
 			width: 100%;
 			user-select: none;
 		}

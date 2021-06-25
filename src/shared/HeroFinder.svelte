@@ -643,11 +643,9 @@
 	}
 	.arrow.right {
 		transform: rotate(-45deg);
-		-webkit-transform: rotate(-45deg);
 	}
 	.arrow.open {
 		transform: rotate(45deg);
-		-webkit-transform: rotate(45deg);
 	}
 	.mobileExpander {
 		background-color: var(--appBGColor);

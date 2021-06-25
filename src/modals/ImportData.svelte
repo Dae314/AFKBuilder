@@ -83,9 +83,7 @@
 	.title {
 		font-size: 1.3rem;
 		margin: 0;
-		-ms-user-select: none;
 		user-select: none;
-		-webkit-user-select: none;
 	}
 	.dataInput {
 		height: 250px;

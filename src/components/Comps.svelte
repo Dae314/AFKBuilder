@@ -1077,12 +1077,10 @@
 		p {
 			margin: 0;
 			max-width: 80px;
-			-ms-user-select: none;
 			overflow: hidden;
 			text-align: center;
 			text-overflow: ellipsis;
 			user-select: none;
-			-webkit-user-select: none;
 			white-space: nowrap;
 		}
 	}
