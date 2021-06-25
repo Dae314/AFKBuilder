@@ -439,6 +439,10 @@
 </div>
 
 <style>
+	.MHContainer {
+		height: calc(100vh - 85px);
+		overflow-y: auto;
+	}
 	.sect1 {
 		bottom: 0;
 		left: 0;
@@ -447,7 +451,6 @@
 		z-index: 1;
 	}
 	.sect2 {
-		min-height: 100%;
 		padding: 10px;
 		width: 100%;
 	}
@@ -781,6 +784,7 @@
 		.MHContainer {
 			display: flex;
 			flex-direction: column;
+			height: calc(100vh - 45px);
 			padding: 0px;
 		}
 		.sect1 {
