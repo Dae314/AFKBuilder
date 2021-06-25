@@ -84401,11 +84401,11 @@ var app = (function () {
     			if_block.c();
     			attr_dev(div0, "id", "currentDisplay");
     			add_location(div0, file, 89, 4, 2784);
-    			attr_dev(div1, "class", "MainWindow svelte-m1sucb");
+    			attr_dev(div1, "class", "MainWindow svelte-bs27w4");
     			add_location(div1, file, 88, 3, 2754);
-    			attr_dev(main, "class", "svelte-m1sucb");
+    			attr_dev(main, "class", "svelte-bs27w4");
     			add_location(main, file, 87, 2, 2743);
-    			attr_dev(div2, "class", "AppContainer svelte-m1sucb");
+    			attr_dev(div2, "class", "AppContainer svelte-bs27w4");
     			add_location(div2, file, 85, 1, 2656);
     		},
     		m: function mount(target, anchor) {

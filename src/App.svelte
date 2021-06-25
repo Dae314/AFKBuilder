@@ -107,7 +107,7 @@
 	</div>
 </Modal>
 
-<style>
+<style lang="scss">
 	.AppContainer {
 		display: flex;
 		flex-direction: column;
