@@ -377,7 +377,7 @@
 	</section>
 </div>
 
-<style>
+<style lang="scss">
 	.editorContainer {
 		padding: 10px;
 	}
@@ -385,11 +385,11 @@
 		border: 1px solid var(--appColorPrimary);
 		border-radius: 5px;
 		transition: box-shadow 0.1s;
-	}
-	input:focus {
-		border-color: var(--appColorPrimary);
-		box-shadow: 0 0 0 2px var(--appColorPrimary);
-		outline: 0;
+		&:focus {
+			border-color: var(--appColorPrimary);
+			box-shadow: 0 0 0 2px var(--appColorPrimary);
+			outline: 0;
+		}
 	}
 	input.maxed {
 		border-color: var(--appDelColor);
@@ -434,7 +434,7 @@
 		visibility: visible;
 	}
 	.statusMessage.error {
-		background-color: var(--appDelColorOpaque)
+		background-color: var(--appDelColorOpaque);
 	}
 	h4 {
 		margin: 0;
@@ -490,30 +490,30 @@
 		justify-content: center;
 		max-width: 100px;
 		padding: 3px;
-	}
-	.linePickerOption span {
-		display: inline-block;
-		width: 100%;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+		span {
+			display: inline-block;
+			width: 100%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.removeButton {
+			align-items: center;
+			background-color: var(--appRemoveButtonColor);
+			border: none;
+			border-radius: 50%;
+			cursor: pointer;
+			display: flex;
+			font-size: 0.5rem;
+			height: 10px;
+			justify-content: center;
+			margin-left: 5px;
+			width: 10px;
+		}
 	}
 	.linePickerOption.open {
 		background-color: var(--appColorPrimary);
 		color: white;
-	}
-	.linePickerOption .removeButton {
-		align-items: center;
-		background-color: var(--appRemoveButtonColor);
-		border: none;
-		border-radius: 50%;
-		cursor: pointer;
-		display: flex;
-		font-size: 0.5rem;
-		height: 10px;
-		justify-content: center;
-		margin-left: 5px;
-		width: 10px;
 	}
 	.addLineButton {
 		padding: 5px;
@@ -533,10 +533,8 @@
 		color: rgba(100, 100, 100, 0.5);
 		font-size: 1rem;
 		font-weight: bold;
-		-ms-user-select: none;
 		text-align: center;
 		text-transform: uppercase;
-		-webkit-user-select: none;
 		user-select: none;
 		width: 100%;
 	}
@@ -549,14 +547,21 @@
 		flex-direction: row;
 		justify-content: center;
 		padding: 10px;
+		p {
+			margin-bottom: 10px;
+		}
 	}
-	.frontline, .backline {
+	.frontline {
 		align-items: center;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 	}
 	.backline {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 		margin-right: 10px;
 	}
 	.lineButton {
@@ -568,10 +573,10 @@
 		cursor: pointer;
 		padding: 0;
 		position: relative;
-	}
-	.heroButton img {
-		border-radius: 50%;
-		max-width: 60px;
+		img {
+			border-radius: 50%;
+			max-width: 60px;
+		}
 	}
 	.imgContainer {
 		height: fit-content;
@@ -615,11 +620,13 @@
 		white-space: nowrap;
 		width: 70px;
 	}
-	.subLine p {
-		color: black;
-	}
-	.lineDisplay p {
-		margin-bottom: 10px;
+	.subLine {
+		p {
+			color: black;
+		}
+		display: flex;
+		flex-wrap: wrap;
+		max-width: 100%;
 	}
 	.editorLimit {
 		display: flex;
@@ -639,24 +646,19 @@
 		flex-direction: row;
 		margin-bottom: 5px;
 		padding: 5px;
-	}
-	.subTitle .removeButton {
-		align-items: center;
-		background-color: var(--appRemoveButtonColor);
-		border: none;
-		border-radius: 50%;
-		cursor: pointer;
-		display: flex;
-		font-size: 1rem;
-		height: 25px;
-		justify-content: center;
-		margin-left: 5px;
-		width: 25px;
-	}
-	.subLine {
-		display: flex;
-		flex-wrap: wrap;
-		max-width: 100%;
+		.removeButton {
+			align-items: center;
+			background-color: var(--appRemoveButtonColor);
+			border: none;
+			border-radius: 50%;
+			cursor: pointer;
+			display: flex;
+			font-size: 1rem;
+			height: 25px;
+			justify-content: center;
+			margin-left: 5px;
+			width: 25px;
+		}
 	}
 	.subGroupMember {
 		align-items: center;
@@ -739,17 +741,24 @@
 			overflow: hidden;
 			padding: 0;
 		}
-		.footerButton:hover {
-			background-color: var(--appColorPrimary);
-			color: white;
+		.footerButton {
+			&:hover {
+				background-color: var(--appColorPrimary);
+				color: white;
+			}
 		}
-		.cancelButton:hover {
-			background-color: var(--appColorPriAccent);
-			color: white;
+		.cancelButton {
+			&:hover {
+				background-color: var(--appColorPriAccent);
+				color: white;
+			}
 		}
 	}
 	/* toastui editor styling */
-	:global(.toastui-editor-ww-container), :global(.toastui-editor-md-container) {
+	:global(.toastui-editor-ww-container) {
+		z-index: 4 !important;
+	}
+	:global(.toastui-editor-md-container) {
 		z-index: 4 !important;
 	}
 	:global(.toastui-editor-dropdown-toolbar) {
@@ -758,85 +767,88 @@
 	}
 	:global(.toastui-editor-contents) {
 		padding: 10px !important;
-	}
-	:global(.toastui-editor-contents) :global(hr) {
-		border: 1px solid var(--appColorPrimary) !important;
-		margin: 5px 0px !important;
-	}
-	:global(.toastui-editor-contents) :global(p) {
-		margin: 0 !important;
-	}
-	:global(.toastui-editor-contents) :global(a) {
-		color: var(--appColorPrimary) !important;
-	}
-	:global(.toastui-editor-contents) :global(ul), :global(.toastui-editor-contents) :global(ol) {
-		margin: 10px 0px !important;
-	}
-	:global(.toastui-editor-contents) :global(ul) {
-		list-style-type: disc !important;
-	}
-	:global(.toastui-editor-contents) :global(ul ul) {
-		list-style-type: circle !important;
-	}
-	:global(.toastui-editor-contents) :global(ul ul ul) {
-		list-style-type: square !important;
-	}
-	:global(.toastui-editor-contents) :global(ul > li::marker) {
-		font-size: 1.0rem !important;
-	}
-	:global(.toastui-editor-contents) :global(ul > li::before) {
-		display: none !important;
-	}
-	:global(.toastui-editor-contents) :global(ol > li::before) {
-		color: black !important;
-	}
-	:global(.toastui-editor-contents) :global(h1), :global(.toastui-editor-contents) :global(h2), :global(.toastui-editor-contents) :global(h3) {
-		margin: 10px 0px !important;
-	}
-	:global(.toastui-editor-contents) :global(h4), :global(.toastui-editor-contents) :global(h5), :global(.toastui-editor-contents) :global(h6) {
-		margin: 5px 0px !important;
-	}
-	:global(.toastui-editor-contents) :global(h1) {
-		border: 0 !important;
-		font-size: 1.6rem !important;
-	}
-	:global(.toastui-editor-contents) :global(h2) {
-		border: 0 !important;
-	}
-	:global(.toastui-editor-contents) :global(blockquote) {
-		border-left: 5px solid var(--appColorPriOpaque) !important;
-		margin-left: 20px !important;
-		padding-left: 5px !important;
-	}
-	:global(.toastui-editor-contents) :global(pre) {
-		background-color: var(--appBGColorDark) !important;
-	}
-	:global(.toastui-editor-contents) :global(table) {
-		border: 0 !important;
-		border-collapse: collapse !important;
-	}
-	:global(.toastui-editor-contents) :global(th) {
-		background-color: transparent !important;
-		border: 0 !important;
-		border-bottom: 2px solid var(--appColorPrimary) !important;
-		font-weight: bold !important;
-		padding: 0 !important;
-		padding-right: 20px !important;
-		text-align: left !important;
-	}
-	:global(.toastui-editor-contents) :global(th) :global(p) {
-		color: black !important;
-		padding: 0 !important;
-	}
-	:global(.toastui-editor-contents) :global(td) {
-		border: 0 !important;
-		border-bottom: 1px solid black !important;
-		padding: 0 !important;
-	}
-	:global(.toastui-editor-contents) :global(tr):nth-child(even) {
-		background-color: var(--appColorPriOpaque) !important;
-	}
-	:global(.toastui-editor-contents) :global(img) {
-		max-width: 100px !important;
+		:global(hr) {
+			border: 1px solid var(--appColorPrimary) !important;
+			margin: 5px 0px !important;
+		}
+		:global(p) {
+			margin: 0 !important;
+		}
+		:global(a) {
+			color: var(--appColorPrimary) !important;
+		}
+		:global(ul) {
+			margin: 10px 0px !important;
+			list-style-type: disc !important;
+		}
+		:global(ul ul) {
+			list-style-type: circle !important;
+		}
+		:global(ul ul ul) {
+			list-style-type: square !important;
+		}
+		:global(ul > li::marker) {
+			font-size: 1.0rem !important;
+		}
+		:global(ul > li::before) {
+			display: none !important;
+		}
+		:global(ol) {
+			margin: 10px 0px !important;
+		}
+		:global(ol > li::before) {
+			color: black !important;
+		}
+		:global(h1), :global(h2), :global(h3) {
+			margin: 10px 0px !important;
+		}
+		:global(h4), :global(h5), :global(h6) {
+			margin: 5px 0px !important;
+		}
+		:global(h1) {
+			border: 0 !important;
+			font-size: 1.6rem !important;
+		}
+		:global(h2) {
+			border: 0 !important;
+		}
+		:global(blockquote) {
+			border-left: 5px solid var(--appColorPriOpaque) !important;
+			margin-left: 20px !important;
+			padding-left: 5px !important;
+		}
+		:global(pre) {
+			background-color: var(--appBGColorDark) !important;
+		}
+		:global(table) {
+			border: 0 !important;
+			border-collapse: collapse !important;
+		}
+		:global(th) {
+			background-color: transparent !important;
+			border: 0 !important;
+			border-bottom: 2px solid var(--appColorPrimary) !important;
+			font-weight: bold !important;
+			padding: 0 !important;
+			padding-right: 20px !important;
+			text-align: left !important;
+			:global(p) {
+				color: black !important;
+				padding: 0 !important;
+			}
+		}
+		:global(td) {
+			border: 0 !important;
+			border-bottom: 1px solid black !important;
+			padding: 0 !important;
+		}
+		:global(tr) {
+			&:nth-child(even) {
+				background-color: var(--appColorPriOpaque) !important;
+			}
+		}
+		:global(img) {
+			max-width: 100px !important;
+		}
 	}
 </style>
