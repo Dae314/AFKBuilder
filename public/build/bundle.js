@@ -73679,9 +73679,9 @@ var app = (function () {
     			div = element("div");
     			span = element("span");
     			t = text$2(t_value);
-    			attr_dev(span, "class", "svelte-1tunbvn");
+    			attr_dev(span, "class", "svelte-5lyazj");
     			add_location(span, file$7, 26, 1, 436);
-    			attr_dev(div, "class", div_class_value = "ascendBox ascLv-" + /*ascendLv*/ ctx[0] + " svelte-1tunbvn");
+    			attr_dev(div, "class", div_class_value = "ascendBox ascLv-" + /*ascendLv*/ ctx[0] + " svelte-5lyazj");
     			add_location(div, file$7, 25, 0, 393);
     		},
     		l: function claim(nodes) {
@@ -73695,7 +73695,7 @@ var app = (function () {
     		p: function update(ctx, [dirty]) {
     			if (dirty & /*ascendLv*/ 1 && t_value !== (t_value = /*getHeroAscendText*/ ctx[1](/*ascendLv*/ ctx[0]) + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*ascendLv*/ 1 && div_class_value !== (div_class_value = "ascendBox ascLv-" + /*ascendLv*/ ctx[0] + " svelte-1tunbvn")) {
+    			if (dirty & /*ascendLv*/ 1 && div_class_value !== (div_class_value = "ascendBox ascLv-" + /*ascendLv*/ ctx[0] + " svelte-5lyazj")) {
     				attr_dev(div, "class", div_class_value);
     			}
     		},
