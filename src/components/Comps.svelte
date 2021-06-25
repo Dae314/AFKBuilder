@@ -37,7 +37,6 @@
 	$: highlightComp = null;
 
 	let openDetail = false;
-	// let openNewCompOptions = false;
 	let openDesc = true;
 	let openHero = false;
 	let openSubs = false;
@@ -124,7 +123,6 @@
 			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
 			closeOnOuterClick: false,
 		});
-		// openNewCompOptions = false;
 	}
 
 	async function handleExportButtonClick(compIdx) {
@@ -145,7 +143,6 @@
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
 					styleWindow: {width: editorWidth,},
 				});
-		// openNewCompOptions = false;
 	}
 
 	function handleStarClick(event, comp) {
@@ -225,7 +222,6 @@
 			$AppData.selectedComp = highlightComp;
 			selectedHero = '';
 			selectedLine = 0;
-			// openNewCompOptions = false;
 			await tick();
 			document.getElementById(`comp${highlightComp}`).scrollIntoView();
 			setTimeout(() => highlightComp = null, 3000);
@@ -323,10 +319,6 @@
 			{/if}
 		</div>
 		<div class="addButtonArea">
-			<!-- <button class="newCompButton" class:open={!openNewCompOptions} on:click={() => openNewCompOptions = !openNewCompOptions}>
-				<span class="plusIcon">+</span><span class="newCompText">Add</span>
-			</button> -->
-			<!-- <div class="newCompOptionsArea" class:open={openNewCompOptions}> -->
 			<div class="newCompOptionsArea">
 				<button class="newCompOptionButton" on:click={handleImportButtonClick}>
 					<div class="imgContainer">
@@ -338,7 +330,6 @@
 					<span class="plusIcon">+</span>
 					<span>New</span>
 				</button>
-				<!-- <button class="newCompOptionButton" on:click={() => openNewCompOptions = !openNewCompOptions}><span>Back</span></button> -->
 			</div>
 		</div>
 	</section>
@@ -680,32 +671,12 @@
 		position: fixed;
 		width: 100%;
 	}
-	/* .newCompButton {
-		border: none;
-		border-top: 3px solid var(--appColorPrimary);
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		display: none;
-		height: 80px;
-		transition: all 0.1s;
-		width: 100%;
-	}
-	.newCompButton.open {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	} */
 	.plusIcon {
 		display: block;
 		font-size: 2rem;
 		font-weight: bold;
 		transition: transform 0.7s;
 	}
-	/* .newCompText {
-		font-size: 1.1rem;
-		margin-bottom: 8px;
-	} */
 	.newCompOptionsArea {
 		background-color: var(--appColorPrimary);
 		display: flex;
@@ -713,11 +684,6 @@
 		height: 80px;
 		width: 100%;
 	}
-	/* .newCompOptionsArea.open {
-		display: flex;
-		flex-direction: row;
-		visibility: visible;
-	} */
 	.newCompOptionButton {
 		background-color: transparent;
 		border: 0;
@@ -1243,16 +1209,6 @@
 		.addButtonArea {
 			width: 21%;
 		}
-		/* .newCompButton {
-			border-right: 3px solid var(--appColorPrimary);
-		}
-		.newCompButton:hover {
-			background-color: var(--appColorPrimary);
-			color: white;
-		}
-		.newCompButton:hover .plusIcon {
-			transform: rotateZ(180deg);
-		} */
 		.newCompOptionButton:hover {
 			background-color: var(--appColorPriAccent);
 		}
