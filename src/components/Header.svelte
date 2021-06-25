@@ -58,7 +58,7 @@
 	</div>
 </nav>
 
-<style>
+<style lang="scss">
 	nav {
 		background-color: var(--appColorTertiary);
 		font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
@@ -88,49 +88,64 @@
 		height: 35px;
 		position: relative;
 		width: 35px;
-	}
-	.mobile-icon:after,
-		.mobile-icon:before,
+		&:after {
+			background-color: var(--appBGColor);
+			content: "";
+			height: 3px;
+			position: absolute;
+			transform-origin: center;
+			transition: all 0.4s;
+			width: 100%;
+			bottom: 7px;
+			width: 33%;
+		}
+		&:before {
+			background-color: var(--appBGColor);
+			content: "";
+			height: 3px;
+			position: absolute;
+			transform-origin: center;
+			transition: all 0.4s;
+			width: 100%;
+			top: 7px;
+			width: 66%;
+		}
+		&:hover {
+			&:before {
+				width: 100%;
+			}
+			&:after {
+				width: 100%;
+			}
+		}
 		.middle-line {
-		background-color: var(--appBGColor);
-		content: "";
-		height: 3px;
-		position: absolute;
-		transform-origin: center;
-		transition: all 0.4s;
-		width: 100%;
+			background-color: var(--appBGColor);
+			content: "";
+			height: 3px;
+			position: absolute;
+			transform-origin: center;
+			transition: all 0.4s;
+			width: 100%;
+			top: 7px;
+			bottom: 7px;
+			margin: auto;
+		}
 	}
-	.mobile-icon:before,
+	.mobile-icon.active {
+		&:before {
+			width: 100%;
+			top: 50%;
+			transform: rotate(-45deg);
+		}
+		&:after {
+			width: 100%;
+			top: 50%;
+			transform: rotate(-45deg);
+		}
 		.middle-line {
-		top: 7px;
-	}
-	.mobile-icon:after,
-		.middle-line {
-		bottom: 7px;
-	}
-	.mobile-icon:before {
-		width: 66%;
-	}
-	.mobile-icon:after {
-		width: 33%;
-	}
-	.middle-line {
-		margin: auto;
-	}
-	.mobile-icon:hover:before,
-		.mobile-icon:hover:after,
-		.mobile-icon.active:before,
-		.mobile-icon.active:after,
-		.mobile-icon.active .middle-line {
-		width: 100%;
-	}
-	.mobile-icon.active:before,
-		.mobile-icon.active:after {
-		top: 50%;
-		transform: rotate(-45deg);
-	}
-	.mobile-icon.active .middle-line {
-		transform: rotate(45deg);
+			width: 100%;
+			transform: rotate(45deg);
+		}
 	}
 	.navbar-list {
 		display: none;
@@ -139,6 +154,45 @@
 		padding-left: 10px;
 		padding-top: 10px;
 		width: 100%;
+		li {
+			cursor: pointer;
+			list-style-type: none;
+			padding-bottom: 20px;
+			padding-top: 20px;
+			position: relative;
+			&:before {
+				background-color: #424245;
+				bottom: 0;
+				content: "";
+				height: 1px;
+				left: 0;
+				position: absolute;
+				width: 100%;
+			}
+			&:hover {
+				button {
+					color: rgba(240, 240, 242, 1.0);
+				}
+			}
+		}
+		button {
+			background: none;
+			border: none;
+			color: rgba(240, 240, 242, 0.7);
+			cursor: pointer;
+			display: block;
+			font-size: 20px;
+			margin-left: 20px;
+			padding: 4px 10px;
+			text-align: center;
+			text-decoration: none;
+			&:focus {
+				outline: 0;
+			}
+		}
+		button.selected {
+			color: rgba(240, 240, 242, 1.0);
+		}
 	}
 	.navbar-list.mobile {
 		background-color: rgba(0, 0, 0, 0.8);
@@ -147,43 +201,6 @@
 		height: calc(100% - 45px);
 		left: 0;
 		position: fixed;
-	}
-	.navbar-list li {
-		cursor: pointer;
-		list-style-type: none;
-		padding-bottom: 20px;
-		padding-top: 20px;
-		position: relative;
-	}
-	.navbar-list li:before {
-		background-color: #424245;
-		bottom: 0;
-		content: "";
-		height: 1px;
-		left: 0;
-		position: absolute;
-		width: 100%;
-	}
-	.navbar-list button {
-		background: none;
-		border: none;
-		color: rgba(240, 240, 242, 0.7);
-		cursor: pointer;
-		display: block;
-		font-size: 20px;
-		margin-left: 20px;
-		padding: 4px 10px;
-		text-align: center;
-		text-decoration: none;
-	}
-	.navbar-list button:focus {
-		outline: 0;
-	}
-	.navbar-list button.selected {
-		color: rgba(240, 240, 242, 1.0);
-	}
-	.navbar-list li:hover button {
-		color: rgba(240, 240, 242, 1.0);
 	}
 	@media only screen and (min-width: 767px) {
 		.mobile-icon {
@@ -203,51 +220,57 @@
 			height: 100%;
 			padding: 0;
 			width: fit-content;
-		}
-		.navbar-list li {
-			align-items: center;
-			display: flex;
-			height: 100%;
-			justify-content: center;
-			margin-left: 20px;
-			padding: 0px;
-		}
-		.navbar-list li:first-child {
-			margin-left: 0;
-		}
-		.navbar-list button {
-			color: rgba(240, 240, 242, 0.7);
-			margin: 0;
-		}
-		.navbar-list button.selected {
-			color: rgba(240, 240, 242, 1.0);
-		}
-		.navbar-list li:hover button {
-			color: rgba(240, 240, 242, 1.0);
-		}
-		.navbar-list li:before {
-			display: none;
+			li {
+				align-items: center;
+				display: flex;
+				height: 100%;
+				justify-content: center;
+				margin-left: 20px;
+				padding: 0px;
+				&:first-child {
+					margin-left: 0;
+				}
+				&:hover {
+					button {
+						color: rgba(240, 240, 242, 1.0);
+					}
+				}
+				&:before {
+					display: none;
+				}
+			}
+			button {
+				color: rgba(240, 240, 242, 0.7);
+				margin: 0;
+			}
+			button.selected {
+				color: rgba(240, 240, 242, 1.0);
+			}
 		}
 		.logoContainer {
 			display: block;
 			visibility: visible;
+			.logo {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: transparent;
+				outline: 0;
+				border: 0;
+				padding: 0;
+				margin: 0;
+			}
 		}
-		.logoContainer .logo {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background-color: transparent;
-			outline: 0;
-			border: 0;
-			padding: 0;
-			margin: 0;
-		}
-		.logo img {
-			max-width: 35px;
-			transition: transform 0.4s;
-		}
-		.logo:hover img {
-			transform: rotateZ(360deg);
+		.logo {
+			img {
+				max-width: 35px;
+				transition: transform 0.4s;
+			}
+			&:hover {
+				img {
+					transform: rotateZ(360deg);
+				}
+			}
 		}
 	}
 </style>
