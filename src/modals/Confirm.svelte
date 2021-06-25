@@ -38,7 +38,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="scss">
 	.text {
 		display: flex;
 		font-size: 1.2rem;
@@ -61,23 +61,27 @@
 		border-radius: 10px;
 		color: var(--appColorPrimary);
 		font-size: 1rem;
-	}
-	.optionButton:first-child {
-		margin-left: auto;
-		margin-right: 10px;
+		&:first-child {
+			margin-left: auto;
+			margin-right: 10px;
+		}
 	}
 	.confirmButton {
 		border: 3px solid var(--appDelColor);
 		color: var(--appDelColor);
 	}
 	@media only screen and (min-width: 767px) {
-		.confirmButton:hover {
-			background-color: var(--appDelColor);
-			color: white;
+		.confirmButton {
+			&:hover {
+				background-color: var(--appDelColor);
+				color: white;
+			}
 		}
-		.cancelButton:hover {
-			background-color: var(--appColorPriAccent);
-			color: white;
+		.cancelButton {
+			&:hover {
+				background-color: var(--appColorPriAccent);
+				color: white;
+			}
 		}
 	}
 </style>

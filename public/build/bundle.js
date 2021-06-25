@@ -28685,13 +28685,13 @@ var app = (function () {
     			button1 = element("button");
     			button1.textContent = "Cancel";
     			add_location(span, file$h, 33, 19, 742);
-    			attr_dev(div0, "class", "text svelte-gskht8");
+    			attr_dev(div0, "class", "text svelte-1fxchds");
     			add_location(div0, file$h, 33, 1, 724);
-    			attr_dev(button0, "class", "optionButton confirmButton svelte-gskht8");
+    			attr_dev(button0, "class", "optionButton confirmButton svelte-1fxchds");
     			add_location(button0, file$h, 35, 2, 802);
-    			attr_dev(button1, "class", "optionButton cancelButton svelte-gskht8");
+    			attr_dev(button1, "class", "optionButton cancelButton svelte-1fxchds");
     			add_location(button1, file$h, 36, 2, 886);
-    			attr_dev(div1, "class", "optionsArea svelte-gskht8");
+    			attr_dev(div1, "class", "optionsArea svelte-1fxchds");
     			add_location(div1, file$h, 34, 1, 773);
     			attr_dev(div2, "class", "confirmContainer");
     			add_location(div2, file$h, 32, 0, 691);
