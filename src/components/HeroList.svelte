@@ -345,7 +345,7 @@
 	</section>
 </div>
 
-<style>
+<style lang="scss">
 	.HLContainer {
 		display: flex;
 		flex-direction: column;
@@ -356,6 +356,7 @@
 		left: 0;
 		position: fixed;
 		width: 100%;
+		z-index: 1;
 	}
 	.sect2 {
 		padding: 10px;
@@ -364,11 +365,11 @@
 		border: 1px solid var(--appColorPrimary);
 		border-radius: 5px;
 		transition: box-shadow 0.1s;
-	}
-	input:focus {
-		border-color: var(--appColorPrimary);
-		box-shadow: 0 0 0 2px var(--appColorPrimary);
-		outline: 0;
+		&:focus {
+			border-color: var(--appColorPrimary);
+			box-shadow: 0 0 0 2px var(--appColorPrimary);
+			outline: 0;
+		}
 	}
 	.searchInfo {
 		display: none;
@@ -395,16 +396,18 @@
 	}
 	.arrow.right {
 		transform: rotate(-45deg);
-		-webkit-transform: rotate(-45deg);
 	}
 	.arrow.open {
 		transform: rotate(-135deg);
-		-webkit-transform: rotate(-135deg);
 	}
 	.filters {
 		display: flex;
 		flex-direction: row;
 		height: 500px;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
 		width: 100%;
 	}
 	.mobileExpander {
@@ -422,20 +425,14 @@
 		padding-bottom: 15px;
 		padding-top: 15px;
 		text-align: center;
-	}
-	.search {
-		display: inline-block;
-		width: 100%;
-	}
-	.search input {
-		height: 1.6rem;
-		width: 50%;
-	}
-	.filters {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		width: 100%;
+		.search {
+			display: inline-block;
+			width: 100%;
+			input {
+				height: 1.6rem;
+				width: 50%;
+			}
+		}
 	}
 	.filterMasterButton {
 		align-items: center;
@@ -451,20 +448,20 @@
 		text-decoration: none;
 		transition: all .3s;
 		width: 33px;
-	}
-	.filterMasterButton:active {
-		background-color: var(--appColorPriDark);
-		border-color: var(--appColorPriDark);
-		color: white;
+		&:active {
+			background-color: var(--appColorPriDark);
+			border-color: var(--appColorPriDark);
+			color: white;
+		}
 	}
 	.filterMasterDisabled {
 		border-color: #888;
 		color: #888;
-	}
-	.filterMasterDisabled:active {
-		background-color: #666;
-		border-color: #666;
-		color: white;
+		&:active {
+			background-color: #666;
+			border-color: #666;
+			color: white;
+		}
 	}
 	.filterSection {
 		border-bottom: 1px solid black;
@@ -475,20 +472,20 @@
 		padding-bottom: 7px;
 		padding-left: 10px;
 		width: 100%;
-	}
-	.filterButton {
-		background: transparent;
-		border: 0;
-		cursor: pointer;
-		display: block;
-		margin-right: 10px;
-		margin-top: 7px;
-	}
-	.filterImg {
-		max-width: 33px;
-	}
-	.filterInactive {
-		filter: grayscale(100%);
+		.filterButton {
+			background: transparent;
+			border: 0;
+			cursor: pointer;
+			display: block;
+			margin-right: 10px;
+			margin-top: 7px;
+			.filterImg {
+				max-width: 33px;
+			}
+		}
+		.filterInactive {
+			filter: grayscale(100%);
+		}
 	}
 	.tableContainer {
 		display: flex;
@@ -503,24 +500,26 @@
 		padding: 0;
 		table-layout: fixed;
 		width: 100%;
-	}
-	table th {
-		font-size: 0.9rem;
-		letter-spacing: .08rem;
-		text-transform: uppercase;
-	}
-	table th:first-child {
-		border-radius: 6px 0 0 0;
-	}
-	table th:last-child {
-		border-radius: 0 6px 0 0;
-	}
-	table th, table td {
-		padding: 10px 0px;
-		text-align: center;
-	}
-	td p {
-		margin: 0;
+		th {
+			font-size: 0.9rem;
+			letter-spacing: .08rem;
+			text-transform: uppercase;
+			padding: 10px 0px;
+			text-align: center;
+			&:first-child {
+				border-radius: 6px 0 0 0;
+			}
+			&:last-child {
+				border-radius: 0 6px 0 0;
+			}
+		}
+		td {
+			padding: 10px 0px;
+			text-align: center;
+			p {
+				margin: 0;
+			}
+		}
 	}
 	.sortHeader {
 		cursor: pointer;
@@ -534,9 +533,9 @@
 		cursor: pointer;
 		max-width: 70px;
 		transition: all 0.2s cubic-bezier(0.2, 0, 0.4, 0);
-	}
-	.portrait:active {
-		transform: scale(0.9);
+		&:active {
+			transform: scale(0.9);
+		}
 	}
 	.portrait.owned {
 		border: 5px solid var(--appColorPrimary);
@@ -586,7 +585,6 @@
 			position: fixed;
 			top: 150px;
 			width: max-content;
-			z-index: 1;
 		}
 		.sect2 {
 			padding: 0;
@@ -611,9 +609,13 @@
 			border-radius: 0 50px 50px 0;
 			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 			height: 50px;
-		}
-		.filtersButton span {
-			display: none;
+			span {
+				display: none;
+			}
+			&:hover+.tooltip {
+				opacity: 1;
+				visibility: visible;
+			}
 		}
 		.mobileExpander {
 			background-color: var(--appBGColor);
@@ -630,19 +632,18 @@
 		}
 		.arrow.open {
 			transform: rotate(135deg);
-			-webkit-transform: rotate(135deg);
 		}
 		.searchContainer {
 			padding-bottom: 20px;
 			padding-top: 10px;
 			text-align: center;
-		}
-		.search {
-			display: inline-block;
-		}
-		.search input {
-			height: 1.5rem;
-			width: 220px;
+			.search {
+				display: inline-block;
+				input {
+					height: 1.5rem;
+					width: 220px;
+				}
+			}
 		}
 		.filters {
 			display: flex;
@@ -654,22 +655,24 @@
 			display: block;
 			padding: 0;
 			width: 33%;
-		}
-		.filterMasterButton {
-			margin: 0 auto;
-			margin-bottom: 10px;
-		}
-		.filterMasterButton:hover {
-			background-color: var(--appColorPrimary);
-			color: rgba(255, 255, 255, 0.9);
-		}
-		.filterMasterDisabled:hover {
-			background-color: #888;
-			color: rgba(255, 255, 255, 0.9);
-		}
-		.filterButton {
-			margin: 0 auto;
-			margin-bottom: 10px;
+			.filterMasterButton {
+				margin: 0 auto;
+				margin-bottom: 10px;
+				&:hover {
+					background-color: var(--appColorPrimary);
+					color: rgba(255, 255, 255, 0.9);
+				}
+			}
+			.filterMasterDisabled {
+				&:hover {
+					background-color: #888;
+					color: rgba(255, 255, 255, 0.9);
+				}
+			}
+			.filterButton {
+				margin: 0 auto;
+				margin-bottom: 10px;
+			}
 		}
 		.hiddenMobile {
 			display: inline-block;
@@ -678,15 +681,17 @@
 		table {
 			width: 90%;
 		}
-		.sortHeader:hover {
-			background-color: var(--appColorPriAccent);
+		.sortHeader {
+			&:hover {
+				background-color: var(--appColorPriAccent);
+			}
 		}
 		.heroRow {
 			transition: background-color 0.4s;
-		}
-		.heroRow:hover {
-			background-color: var(--appColorQuaternary);
-			transition: none;
+			&:hover {
+				background-color: var(--appColorQuaternary);
+				transition: none;
+			}
 		}
 		.tooltip {
 			display: flex;
@@ -697,6 +702,14 @@
 			visibility: hidden;
 			width: 200px;
 			z-index: 1;
+			.tooltipText {
+				background-color: var(--appColorPrimary);
+				border-radius: 6px;
+				color: white;
+				padding: 5px;
+				text-align: center;
+				user-select: none;
+			}
 		}
 		.tooltip-top {
 			top: 18px;
@@ -712,27 +725,17 @@
 			left: 5px;
 			width: fit-content;
 		}
-		.tooltip .tooltipText {
-			background-color: var(--appColorPrimary);
-			border-radius: 6px;
-			color: white;
-			-ms-user-select: none;
-			padding: 5px;
-			text-align: center;
-			user-select: none;
-			-webkit-user-select: none;
+		.attrImage {
+			&:hover+.tooltip {
+				opacity: 1;
+				visibility: visible;
+			}
 		}
-		.attrImage:hover+.tooltip {
-			opacity: 1;
-			visibility: visible;
-		}
-		.filtersButton:hover+.tooltip {
-			opacity: 1;
-			visibility: visible;
-		}
-		.mobileExpander.filterOpen+.mobileExpanderTitle .tooltip {
-			opacity: 0;
-			visibility: hidden;
+		.mobileExpander.filterOpen+.mobileExpanderTitle {
+			.tooltip {
+				opacity: 0;
+				visibility: hidden;
+			}
 		}
 	}
 	@media only screen and (min-width: 1200px) {
