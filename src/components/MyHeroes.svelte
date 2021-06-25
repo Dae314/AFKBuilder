@@ -438,10 +438,11 @@
 	</section>
 </div>
 
-<style>
+<style lang="scss">
 	.MHContainer {
 		height: calc(100vh - 85px);
 		overflow-y: auto;
+		padding: 10px;
 	}
 	.sect1 {
 		bottom: 0;
@@ -471,11 +472,11 @@
 		border: 1px solid var(--appColorPrimary);
 		border-radius: 5px;
 		transition: box-shadow 0.1s;
-	}
-	input:focus {
-		border-color: var(--appColorPrimary);
-		box-shadow: 0 0 0 2px var(--appColorPrimary);
-		outline: 0;
+		&:focus {
+			border-color: var(--appColorPrimary);
+			box-shadow: 0 0 0 2px var(--appColorPrimary);
+			outline: 0;
+		}
 	}
 	.searchInfo {
 		display: none;
@@ -486,11 +487,9 @@
 		font-size: 4rem;
 		font-weight: bold;
 		height: 100%;
-		-ms-user-select: none;
 		padding-top: 50px;
 		text-align: center;
 		text-transform: uppercase;
-		-webkit-user-select: none;
 		width: 100%;
 		user-select: none;
 	}
@@ -541,6 +540,10 @@
 		flex-direction: row;
 		height: 500px;
 		width: 100%;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		width: 100%;
 	}
 	.mobileExpander {
 		background-color: var(--appBGColor);
@@ -557,49 +560,14 @@
 		padding-bottom: 15px;
 		padding-top: 15px;
 		text-align: center;
-	}
-	.search {
-		display: inline-block;
-		width: 100%;
-	}
-	.search input {
-		height: 1.6rem;
-		width: 50%;
-	}
-	.filters {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		width: 100%;
-	}
-	.filterMasterButton {
-		align-items: center;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 50%;
-		color: var(--appColorPrimary);
-		display: flex;
-		font-size: 0.6rem;
-		height: 33px;
-		justify-content: center;
-		margin-right: 15px;
-		margin-top: 7px;
-		text-decoration: none;
-		transition: all .3s;
-		width: 33px;
-	}
-	.filterMasterButton:active {
-		background-color: var(--appColorPriDark);
-		border-color: var(--appColorPriDark);
-		color: white;
-	}
-	.filterMasterDisabled {
-		border-color: #888;
-		color: #888;
-	}
-	.filterMasterDisabled:active {
-		background-color: #666;
-		border-color: #666;
-		color: white;
+		.search {
+			display: inline-block;
+			width: 100%;
+			input {
+				height: 1.6rem;
+				width: 50%;
+			}
+		}
 	}
 	.filterSection {
 		border-bottom: 1px solid black;
@@ -610,23 +578,49 @@
 		padding-bottom: 7px;
 		padding-left: 10px;
 		width: 100%;
-	}
-	.filterButton {
-		background: transparent;
-		border: 0;
-		cursor: pointer;
-		display: block;
-		margin-right: 10px;
-		margin-top: 7px;
-	}
-	.filterImg {
-		max-width: 33px;
-	}
-	.filterInactive {
-		filter: grayscale(100%);
-	}
-	.MHContainer {
-		padding: 10px;
+		.filterMasterButton {
+			align-items: center;
+			border: 3px solid var(--appColorPrimary);
+			border-radius: 50%;
+			color: var(--appColorPrimary);
+			display: flex;
+			font-size: 0.6rem;
+			height: 33px;
+			justify-content: center;
+			margin-right: 15px;
+			margin-top: 7px;
+			text-decoration: none;
+			transition: all .3s;
+			width: 33px;
+			&:active {
+				background-color: var(--appColorPriDark);
+				border-color: var(--appColorPriDark);
+				color: white;
+			}
+		}
+		.filterMasterDisabled {
+			border-color: #888;
+			color: #888;
+			&:active {
+				background-color: #666;
+				border-color: #666;
+				color: white;
+			}
+		}
+		.filterButton {
+			background: transparent;
+			border: 0;
+			cursor: pointer;
+			display: block;
+			margin-right: 10px;
+			margin-top: 7px;
+		}
+		.filterImg {
+			max-width: 33px;
+		}
+		.filterInactive {
+			filter: grayscale(100%);
+		}
 	}
 	.MHGrid {
 		display: grid;
@@ -659,9 +653,9 @@
 		cursor: pointer;
 		max-width: 100px;
 		transition: transform 0.2s;
-	}
-	.portrait:active {
-		transform: scale(0.9);
+		&:active {
+			transform: scale(0.9);
+		}
 	}
 	.claimButton {
 		display: none;
@@ -676,15 +670,15 @@
 	}
 	.attrImgContainer {
 		position: relative;
-	}
-	.attrImage {
-		max-width: 40px;
-	}
-	.factionImg {
-		max-width: 60px;
-	}
-	.typeImg {
-		margin-bottom: 10px;
+		.attrImage {
+			max-width: 40px;
+		}
+		.factionImg {
+			max-width: 60px;
+		}
+		.typeImg {
+			margin-bottom: 10px;
+		}
 	}
 	.tooltip {
 		display: none;
@@ -701,9 +695,11 @@
 	.siFurnButtonArea {
 		display: flex;
 		flex-direction: row;
-	}
-	.siFurnButtonArea .flipButtonArea:first-child {
-		margin-right: 10px;
+		.flipButtonArea {
+			&:first-child {
+				margin-right: 10px;
+			}
+		}
 	}
 	.inOutMenuButton {
 		align-items: center;
@@ -718,12 +714,18 @@
 		transition: transform 0.3s ease-out;
 		width: 50px;
 		z-index: 1;
+		img {
+			max-width: 40px;
+		}
 	}
-	.inOutMenu.open + .inOutMenuButton {
-		transform: rotate(180deg);
-	}
-	.inOutMenuButton img {
-		max-width: 40px;
+	.inOutMenu.open {
+		+ {
+			.inOutMenuButton {
+				transform: rotate(180deg);
+			}
+		}
+		max-height: 350px;
+		overflow: visible;
 	}
 	.inOutMenu {
 		align-items: center;
@@ -740,10 +742,6 @@
 		transition: max-height 0.4s ease-out;
 		width: 100px;
 	}
-	.inOutMenu.open {
-		max-height: 350px;
-		overflow: visible;
-	}
 	.inOutButton {
 		align-items: center;
 		background-color: var(--appColorPrimary);
@@ -755,30 +753,43 @@
 		height: 40px;
 		justify-content: center;
 		width: 40px;
+		&:first-child {
+			margin-bottom: 10px;
+		}
+		img {
+			max-width: 20px;
+		}
 	}
-	.inOutButton:first-child {
-		margin-bottom: 10px;
-	}
-	.inOutButton img {
-		max-width: 20px;
-	}
-	.tooltip-inOutButton1, .tooltip-inOutButton2 {
+	.tooltip-inOutButton1 {
 		bottom: 45px;
 		display: inline-block;
 		position: relative;
 		right: 70px;
 		width: 100%;
+		.tooltipText {
+			background-color: var(--appColorPrimary);
+			border-radius: 6px;
+			color: white;
+			padding: 5px;
+			position: absolute;
+			text-align: center;
+		}
 	}
 	.tooltip-inOutButton2 {
+		bottom: 45px;
+		display: inline-block;
+		position: relative;
+		right: 70px;
+		width: 100%;
 		bottom: 38px;
-	}
-	.tooltip-inOutButton1 .tooltipText, .tooltip-inOutButton2 .tooltipText {
-		background-color: var(--appColorPrimary);
-		border-radius: 6px;
-		color: white;
-		padding: 5px;
-		position: absolute;
-		text-align: center;
+		.tooltipText {
+			background-color: var(--appColorPrimary);
+			border-radius: 6px;
+			color: white;
+			padding: 5px;
+			position: absolute;
+			text-align: center;
+		}
 	}
 	@media only screen and (min-width: 767px) {
 		.MHContainer {
@@ -818,9 +829,13 @@
 			border-radius: 0 50px 50px 0;
 			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
 			height: 50px;
-		}
-		.filtersButton span {
-			display: none;
+			span {
+				display: none;
+			}
+			&:hover+.tooltip {
+				opacity: 1;
+				visibility: visible;
+			}
 		}
 		.tooltip {
 			display: flex;
@@ -831,26 +846,29 @@
 			visibility: hidden;
 			width: 200px;
 			z-index: 1;
+			.tooltipText {
+				background-color: var(--appColorPrimary);
+				border-radius: 6px;
+				color: white;
+				padding: 5px;
+				text-align: center;
+			}
 		}
 		.tooltip-expander {
 			top: -35px;
 			left: 5px;
 			width: fit-content;
 		}
-		.tooltip-inOutButton1, .tooltip-inOutButton2 {
+		.tooltip-inOutButton1 {
 			bottom: 85px;
 			right: 70px;
 			width: fit-content;
 		}
 		.tooltip-inOutButton2 {
+			bottom: 85px;
+			right: 70px;
+			width: fit-content;
 			bottom: 35px;
-		}
-		.tooltip .tooltipText {
-			background-color: var(--appColorPrimary);
-			border-radius: 6px;
-			color: white;
-			padding: 5px;
-			text-align: center;
 		}
 		.tooltip-faction {
 			left: -70px;
@@ -864,26 +882,18 @@
 			left: -80px;
 			bottom: -30px;
 		}
-		.filterMasterButton:hover {
-			background-color: var(--appColorPrimary);
-			color: rgba(255, 255, 255, 0.9);
+		.attrImage {
+			&:hover+.tooltip {
+				opacity: 1;
+				visibility: visible;
+			}
 		}
-		.filterMasterDisabled:hover {
-			background-color: #888;
-			color: rgba(255, 255, 255, 0.9);
-		}
-		.attrImage:hover+.tooltip {
-			opacity: 1;
-			visibility: visible;
-		}
-		.filtersButton:hover+.tooltip {
-			opacity: 1;
-			visibility: visible;
-		}
-		.inOutButton:hover+.tooltip {
-			opacity: 1;
-			visibility: visible;
-			width: 100px;
+		.inOutButton {
+			&:hover+.tooltip {
+				opacity: 1;
+				visibility: visible;
+				width: 100px;
+			}
 		}
 		.mobileExpander {
 			background-color: var(--appBGColor);
@@ -898,9 +908,11 @@
 			max-width: 100%;
 			padding: 10px;
 		}
-		.mobileExpander.filterOpen+.mobileExpanderTitle .tooltip {
-			opacity: 0;
-			visibility: hidden;
+		.mobileExpander.filterOpen+.mobileExpanderTitle {
+			.tooltip {
+				opacity: 0;
+				visibility: hidden;
+			}
 		}
 		.arrow.open {
 			transform: rotate(135deg);
@@ -910,13 +922,13 @@
 			padding-bottom: 20px;
 			padding-top: 10px;
 			text-align: center;
-		}
-		.search {
-			display: inline-block;
-		}
-		.search input {
-			height: 1.5rem;
-			width: 220px;
+			.search {
+				display: inline-block;
+				input {
+					height: 1.5rem;
+					width: 220px;
+				}
+			}
 		}
 		.filters {
 			display: flex;
@@ -928,66 +940,83 @@
 			display: block;
 			padding: 0;
 			width: 33%;
-		}
-		.filterMasterButton {
-			margin: 0 auto;
-			margin-bottom: 10px;
-		}
-		.filterButton {
-			margin: 0 auto;
-			margin-bottom: 10px;
+			.filterMasterButton {
+				&:hover {
+					background-color: var(--appColorPrimary);
+					color: rgba(255, 255, 255, 0.9);
+				}
+				margin: 0 auto;
+				margin-bottom: 10px;
+			}
+			.filterMasterDisabled {
+				&:hover {
+					background-color: #888;
+					color: rgba(255, 255, 255, 0.9);
+				}
+			}
+			.filterButton {
+				margin: 0 auto;
+				margin-bottom: 10px;
+			}
 		}
 		.flipCard {
 			background-color: transparent;
 			cursor: pointer;
 			perspective: 1000px;
-		}
-		.flipCardInner {
-			height: 100%;
-			position: relative;
-			text-align: center;
-			transform-style: preserve-3d;
-			transition: transform 0.6s;
-			width: 100%;
-		}
-		.flipCard:hover .flipCardInner {
-			transform: rotateY(180deg);
-		}
-		.flipCardFront, .flipCardBack {
-			backface-visibility: hidden;
-			bottom: 50px;
-			height: 100%;
-			-webkit-backface-visibility: hidden;
-			width: 100%;
-		}
-		.flipCardBack {
-			display: block;
-			position: absolute;
-			top: 0px;
-			transform: rotateY(180deg);
-		}
-		.flipCardBack .claimButton {
-			background-color: var(--appColorPrimary);
-			border: 3px solid var(--appColorPrimary);
-			border-radius: 50%;
-			color: white;
-			cursor: pointer;
-			display: block;
-			font-size: 1.1rem;
-			font-weight: bold;
-			height: 100px;
-			padding: 5px;
-			transition: transform 0.2s;
-			width: 100px;
-		}
-		.flipCardBack .claimButton.owned {
-			background-color: transparent;
-			border: 3px solid var(--appColorPrimary);
-			color: var(--appColorPrimary);
-			font-size: 0.9rem;
-		}
-		.flipCardBack .claimButton:active {
-			transform: scale(0.9);
+			&:hover {
+				.flipCardInner {
+					transform: rotateY(180deg);
+				}
+			}
+			.flipCardInner {
+				height: 100%;
+				position: relative;
+				text-align: center;
+				transform-style: preserve-3d;
+				transition: transform 0.6s;
+				width: 100%;
+			}
+			.flipCardFront {
+				backface-visibility: hidden;
+				bottom: 50px;
+				height: 100%;
+				-webkit-backface-visibility: hidden;
+				width: 100%;
+			}
+			.flipCardBack {
+				backface-visibility: hidden;
+				bottom: 50px;
+				height: 100%;
+				-webkit-backface-visibility: hidden;
+				width: 100%;
+				display: block;
+				position: absolute;
+				top: 0px;
+				transform: rotateY(180deg);
+				.claimButton {
+					background-color: var(--appColorPrimary);
+					border: 3px solid var(--appColorPrimary);
+					border-radius: 50%;
+					color: white;
+					cursor: pointer;
+					display: block;
+					font-size: 1.1rem;
+					font-weight: bold;
+					height: 100px;
+					padding: 5px;
+					transition: transform 0.2s;
+					width: 100px;
+					&:active {
+						transform: scale(0.9);
+					}
+				}
+				.claimButton.owned {
+					background-color: transparent;
+					border: 3px solid var(--appColorPrimary);
+					color: var(--appColorPrimary);
+					font-size: 0.9rem;
+				}
+			}
 		}
 	}
 </style>
