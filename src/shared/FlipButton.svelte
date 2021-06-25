@@ -24,7 +24,7 @@
 		<span class:playAni="{playAni}">{options[curOption]}</span>
 </button>
 
-<style>
+<style lang="scss">
 	.flipButton {
 		background-color: transparent;
 		border: 2px solid var(--appColorPrimary);
@@ -35,22 +35,22 @@
 		padding: 7px;
 		text-decoration: none;
 		transition: all .3s;
-	}
-	.flipButton:active {
-		box-shadow: none;
-	}
-	.flipButton span {
-		-ms-user-select: none;
-		user-select: none;
-		-webkit-user-select: none;
+		&:active {
+			box-shadow: none;
+		}
+		span {
+			user-select: none;
+		}
 	}
 	.playAni {
 		animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
 		display: inline-block;
 	}
 	@media only screen and (min-width: 767px) {
-		.flipButton:hover {
-			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+		.flipButton {
+			&:hover {
+				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+			}
 		}
 	}
 	@keyframes MoveUpInitial {

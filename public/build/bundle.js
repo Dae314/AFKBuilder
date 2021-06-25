@@ -67113,10 +67113,10 @@ var app = (function () {
     			button = element("button");
     			span = element("span");
     			t = text$2(t_value);
-    			attr_dev(span, "class", "svelte-1irl59q");
+    			attr_dev(span, "class", "svelte-915uuz");
     			toggle_class(span, "playAni", /*playAni*/ ctx[3]);
     			add_location(span, file$b, 23, 2, 503);
-    			attr_dev(button, "class", "flipButton svelte-1irl59q");
+    			attr_dev(button, "class", "flipButton svelte-915uuz");
 
     			attr_dev(button, "style", button_style_value = Array.isArray(/*optionStyles*/ ctx[2]) && /*optionStyles*/ ctx[2][/*curOption*/ ctx[0]] !== null
     			? /*optionStyles*/ ctx[2][/*curOption*/ ctx[0]]
