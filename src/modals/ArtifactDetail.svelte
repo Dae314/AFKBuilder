@@ -23,7 +23,7 @@
 	<section class="headerSection">
 		<h3 class="name">{artifact.name}</h3>
 		<div class="imgContainer">
-			<img class="artifactImg" src={artifact.image} alt={artifact.name}>
+			<img draggable="false" class="artifactImg" src={artifact.image} alt={artifact.name}>
 		</div>
 	</section>
 	<section class="attributes">
@@ -32,7 +32,7 @@
 				<div class="allCircle classImg"><span>All</span></div>
 				<div class="tooltip classTooltip"><span class="tooltipText">All Classes</span></div>
 			{:else}
-				<img class="classImg" src="./img/classes/{artifact.class.toLowerCase()}.png" alt={artifact.class}>
+				<img draggable="false" class="classImg" src="./img/classes/{artifact.class.toLowerCase()}.png" alt={artifact.class}>
 				<div class="tooltip"><span class="tooltipText">{artifact.class}</span></div>
 			{/if}
 		</div>
@@ -59,9 +59,6 @@
 		height: 100%;
 		position: relative;
 		width: 100%;
-	}
-	img {
-		user-drag: none;
 	}
 	.headerSection {
 		h3 {

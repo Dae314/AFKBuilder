@@ -73195,14 +73195,15 @@ var app = (function () {
     			div = element("div");
     			span = element("span");
     			span.textContent = `${/*artifact*/ ctx[0].class}`;
-    			attr_dev(img, "class", "classImg svelte-1g1yz28");
+    			attr_dev(img, "draggable", "false");
+    			attr_dev(img, "class", "classImg svelte-qqcuqy");
     			if (img.src !== (img_src_value = "./img/classes/" + /*artifact*/ ctx[0].class.toLowerCase() + ".png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*artifact*/ ctx[0].class);
-    			add_location(img, file$8, 34, 4, 1034);
-    			attr_dev(span, "class", "tooltipText svelte-1g1yz28");
-    			add_location(span, file$8, 35, 25, 1159);
-    			attr_dev(div, "class", "tooltip svelte-1g1yz28");
-    			add_location(div, file$8, 35, 4, 1138);
+    			add_location(img, file$8, 34, 4, 1052);
+    			attr_dev(span, "class", "tooltipText svelte-qqcuqy");
+    			add_location(span, file$8, 35, 25, 1195);
+    			attr_dev(div, "class", "tooltip svelte-qqcuqy");
+    			add_location(div, file$8, 35, 4, 1174);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -73246,13 +73247,13 @@ var app = (function () {
     			div1 = element("div");
     			span1 = element("span");
     			span1.textContent = "All Classes";
-    			add_location(span0, file$8, 31, 36, 904);
-    			attr_dev(div0, "class", "allCircle classImg svelte-1g1yz28");
-    			add_location(div0, file$8, 31, 4, 872);
-    			attr_dev(span1, "class", "tooltipText svelte-1g1yz28");
-    			add_location(span1, file$8, 32, 38, 966);
-    			attr_dev(div1, "class", "tooltip classTooltip svelte-1g1yz28");
-    			add_location(div1, file$8, 32, 4, 932);
+    			add_location(span0, file$8, 31, 36, 922);
+    			attr_dev(div0, "class", "allCircle classImg svelte-qqcuqy");
+    			add_location(div0, file$8, 31, 4, 890);
+    			attr_dev(span1, "class", "tooltipText svelte-qqcuqy");
+    			add_location(span1, file$8, 32, 38, 984);
+    			attr_dev(div1, "class", "tooltip classTooltip svelte-qqcuqy");
+    			add_location(div1, file$8, 32, 4, 950);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -73294,9 +73295,9 @@ var app = (function () {
     			span = element("span");
     			t0 = text$2(t0_value);
     			t1 = space();
-    			add_location(span, file$8, 41, 5, 1339);
-    			attr_dev(div, "class", "attrBox svelte-1g1yz28");
-    			add_location(div, file$8, 40, 4, 1311);
+    			add_location(span, file$8, 41, 5, 1375);
+    			attr_dev(div, "class", "attrBox svelte-qqcuqy");
+    			add_location(div, file$8, 40, 4, 1347);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -73344,12 +73345,12 @@ var app = (function () {
     			t3 = space();
     			div0 = element("div");
     			t4 = space();
-    			attr_dev(h4, "class", "svelte-1g1yz28");
-    			add_location(h4, file$8, 49, 4, 1512);
-    			attr_dev(div0, "class", "descText svelte-1g1yz28");
-    			add_location(div0, file$8, 50, 4, 1556);
+    			attr_dev(h4, "class", "svelte-qqcuqy");
+    			add_location(h4, file$8, 49, 4, 1548);
+    			attr_dev(div0, "class", "descText svelte-qqcuqy");
+    			add_location(div0, file$8, 50, 4, 1592);
     			attr_dev(div1, "class", "descArea");
-    			add_location(div1, file$8, 48, 3, 1484);
+    			add_location(div1, file$8, 48, 3, 1520);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
@@ -73447,25 +73448,26 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(h3, "class", "name svelte-1g1yz28");
+    			attr_dev(h3, "class", "name svelte-qqcuqy");
     			add_location(h3, file$8, 23, 2, 607);
-    			attr_dev(img, "class", "artifactImg svelte-1g1yz28");
+    			attr_dev(img, "draggable", "false");
+    			attr_dev(img, "class", "artifactImg svelte-qqcuqy");
     			if (img.src !== (img_src_value = /*artifact*/ ctx[0].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*artifact*/ ctx[0].name);
     			add_location(img, file$8, 25, 3, 679);
-    			attr_dev(div0, "class", "imgContainer svelte-1g1yz28");
+    			attr_dev(div0, "class", "imgContainer svelte-qqcuqy");
     			add_location(div0, file$8, 24, 2, 648);
-    			attr_dev(section0, "class", "headerSection svelte-1g1yz28");
+    			attr_dev(section0, "class", "headerSection svelte-qqcuqy");
     			add_location(section0, file$8, 22, 1, 572);
-    			attr_dev(div1, "class", "classContainer svelte-1g1yz28");
-    			add_location(div1, file$8, 29, 2, 803);
-    			attr_dev(div2, "class", "attrContainer svelte-1g1yz28");
-    			add_location(div2, file$8, 38, 2, 1238);
-    			attr_dev(section1, "class", "attributes svelte-1g1yz28");
-    			add_location(section1, file$8, 28, 1, 771);
-    			attr_dev(section2, "class", "descContainer svelte-1g1yz28");
-    			add_location(section2, file$8, 46, 1, 1408);
-    			attr_dev(div3, "class", "container svelte-1g1yz28");
+    			attr_dev(div1, "class", "classContainer svelte-qqcuqy");
+    			add_location(div1, file$8, 29, 2, 821);
+    			attr_dev(div2, "class", "attrContainer svelte-qqcuqy");
+    			add_location(div2, file$8, 38, 2, 1274);
+    			attr_dev(section1, "class", "attributes svelte-qqcuqy");
+    			add_location(section1, file$8, 28, 1, 789);
+    			attr_dev(section2, "class", "descContainer svelte-qqcuqy");
+    			add_location(section2, file$8, 46, 1, 1444);
+    			attr_dev(div3, "class", "container svelte-qqcuqy");
     			add_location(div3, file$8, 21, 0, 546);
     		},
     		l: function claim(nodes) {
