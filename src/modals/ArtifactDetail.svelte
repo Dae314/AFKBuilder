@@ -52,29 +52,29 @@
 	</section>
 </div>
 
-<style>
+<style lang="scss">
 	.container {
 		height: 100%;
 		position: relative;
 		width: 100%;
 	}
 	img {
-		user-drag: none; 
-		-webkit-user-drag: none;
-		-webkit-user-select: none;
+		user-drag: none;
 	}
-	.headerSection h3 {
-		background-color: var(--appColorPrimary);
-		color: white;
-		font-family: 'Roboto' sans-serif;
-		font-size: 2.0rem;
-		font-weight: bold;
-		letter-spacing: 1px;
-		margin: 0;
-		margin-bottom: 10px;
-		text-align: center;
-		text-transform: uppercase;
-		width: 100%;
+	.headerSection {
+		h3 {
+			background-color: var(--appColorPrimary);
+			color: white;
+			font-family: 'Roboto' sans-serif;
+			font-size: 2.0rem;
+			font-weight: bold;
+			letter-spacing: 1px;
+			margin: 0;
+			margin-bottom: 10px;
+			text-align: center;
+			text-transform: uppercase;
+			width: 100%;
+		}
 	}
 	.imgContainer {
 		display: flex;
@@ -133,19 +133,21 @@
 		padding: 10px;
 		padding-bottom: 20px;
 		padding-top: 0px;
-	}
-	.descArea h4 {
-		font-size: 1rem;
-		margin: 0;
-		margin-bottom: 5px;
-		margin-top: 10px;
+		.descArea {
+			h4 {
+				font-size: 1rem;
+				margin: 0;
+				margin-bottom: 5px;
+				margin-top: 10px;
+			}
+		}
 	}
 	.descText {
 		margin-left: 20px;
-	}
-	.descText :global(em) {
-		color: var(--appColorPrimary);
-		font-style: normal;
-		font-weight: bold;
+		:global(em) {
+			color: var(--appColorPrimary);
+			font-style: normal;
+			font-weight: bold;
+		}
 	}
 </style>

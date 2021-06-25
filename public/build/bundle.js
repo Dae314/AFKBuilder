@@ -73185,7 +73185,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			img = element("img");
-    			attr_dev(img, "class", "classImg svelte-1ozblcm");
+    			attr_dev(img, "class", "classImg svelte-av3iua");
     			if (img.src !== (img_src_value = "./img/classes/" + /*artifact*/ ctx[0].class.toLowerCase() + ".png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*artifact*/ ctx[0].class);
     			add_location(img, file$8, 33, 4, 924);
@@ -73218,7 +73218,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "All";
-    			attr_dev(span, "class", "allCircle svelte-1ozblcm");
+    			attr_dev(span, "class", "allCircle svelte-av3iua");
     			add_location(span, file$8, 31, 4, 872);
     		},
     		m: function mount(target, anchor) {
@@ -73256,7 +73256,7 @@ var app = (function () {
     			t0 = text$2(t0_value);
     			t1 = space();
     			add_location(span, file$8, 39, 5, 1147);
-    			attr_dev(div, "class", "attrBox svelte-1ozblcm");
+    			attr_dev(div, "class", "attrBox svelte-av3iua");
     			add_location(div, file$8, 38, 4, 1119);
     		},
     		m: function mount(target, anchor) {
@@ -73305,11 +73305,11 @@ var app = (function () {
     			t3 = space();
     			div0 = element("div");
     			t4 = space();
-    			attr_dev(h4, "class", "svelte-1ozblcm");
+    			attr_dev(h4, "class", "svelte-av3iua");
     			add_location(h4, file$8, 47, 4, 1320);
-    			attr_dev(div0, "class", "descText svelte-1ozblcm");
+    			attr_dev(div0, "class", "descText svelte-av3iua");
     			add_location(div0, file$8, 48, 4, 1364);
-    			attr_dev(div1, "class", "descArea svelte-1ozblcm");
+    			attr_dev(div1, "class", "descArea");
     			add_location(div1, file$8, 46, 3, 1292);
     		},
     		m: function mount(target, anchor) {
@@ -73408,25 +73408,25 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(h3, "class", "name svelte-1ozblcm");
+    			attr_dev(h3, "class", "name svelte-av3iua");
     			add_location(h3, file$8, 23, 2, 607);
-    			attr_dev(img, "class", "artifactImg svelte-1ozblcm");
+    			attr_dev(img, "class", "artifactImg svelte-av3iua");
     			if (img.src !== (img_src_value = /*artifact*/ ctx[0].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*artifact*/ ctx[0].name);
     			add_location(img, file$8, 25, 3, 679);
-    			attr_dev(div0, "class", "imgContainer svelte-1ozblcm");
+    			attr_dev(div0, "class", "imgContainer svelte-av3iua");
     			add_location(div0, file$8, 24, 2, 648);
-    			attr_dev(section0, "class", "headerSection svelte-1ozblcm");
+    			attr_dev(section0, "class", "headerSection svelte-av3iua");
     			add_location(section0, file$8, 22, 1, 572);
     			attr_dev(div1, "class", "classContainer");
     			add_location(div1, file$8, 29, 2, 803);
-    			attr_dev(div2, "class", "attrContainer svelte-1ozblcm");
+    			attr_dev(div2, "class", "attrContainer svelte-av3iua");
     			add_location(div2, file$8, 36, 2, 1046);
-    			attr_dev(section1, "class", "attributes svelte-1ozblcm");
+    			attr_dev(section1, "class", "attributes svelte-av3iua");
     			add_location(section1, file$8, 28, 1, 771);
-    			attr_dev(section2, "class", "descContainer svelte-1ozblcm");
+    			attr_dev(section2, "class", "descContainer svelte-av3iua");
     			add_location(section2, file$8, 44, 1, 1216);
-    			attr_dev(div3, "class", "container svelte-1ozblcm");
+    			attr_dev(div3, "class", "container svelte-av3iua");
     			add_location(div3, file$8, 21, 0, 546);
     		},
     		l: function claim(nodes) {
