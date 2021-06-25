@@ -260,8 +260,9 @@
 
 <style>
 	.recContainer {
-		height: 100%;
+		height: calc(100vh - 45px);
 		padding: 10px;
+		overflow-y: auto;
 		width: 100%;
 	}
 	.sectionPickerSection {
