@@ -326,104 +326,104 @@
 			<div class="tooltip tooltip-expander"><span class="tooltipText">Filters</span></div>
 		</div>
 	</section>
-	{#if myHeroList.length === 0}
-		<section class="sect2">
+	<section class="sect2">
+		{#if myHeroList.length === 0}
 			<div class="noHeroes">
 				<span>Heroes you own will appear here</span>
 			</div>
-		</section>
-	{:else}
-		{#if !$AppData.dismissMHSearchInfo}
-			<div class="searchInfo" transition:fade="{{duration: 200}}">
-				<div class="tutorialBoxContainer">
-					<TutorialBox clickable={true} onClick={() => {$AppData.dismissMHSearchInfo = true; dispatch('saveData');}}>
-						Just start typing to search! Pressing tab will also open and close the filter area.
-					</TutorialBox>
-				</div>
-			</div>
-		{/if}
-		<section class="sect2 MHGrid">
-			{#each myHeroList as hero (hero.id)}
-			<div class="heroCard" animate:flip="{{duration: 200}}">
-				<div class="heroHeader">
-					<div class="headArea">
-						<div class="attrImgContainer">
-							<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
-							<div class="tooltip tooltip-faction"><span class="tooltipText">{hero.faction}</span></div>
-						</div>
+		{:else}
+			{#if !$AppData.dismissMHSearchInfo}
+				<div class="searchInfo" transition:fade="{{duration: 200}}">
+					<div class="tutorialBoxContainer">
+						<TutorialBox clickable={true} onClick={() => {$AppData.dismissMHSearchInfo = true; dispatch('saveData');}}>
+							Just start typing to search! Pressing tab will also open and close the filter area.
+						</TutorialBox>
 					</div>
-					<div class="headArea">
-						<div class="flipCard" on:click={(e) => e.stopPropagation()}>
-							<div class="flipCardInner">
-								<div class="flipCardFront">
-									<img on:click="{() => handlePortraitClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
-								</div>
-								<div class="flipCardBack">
-									<button on:click="{() => handlePortraitClick(hero.id)}" class="claimButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
+				</div>
+			{/if}
+			<div class="MHGrid">
+				{#each myHeroList as hero (hero.id)}
+				<div class="heroCard" animate:flip="{{duration: 200}}">
+					<div class="heroHeader">
+						<div class="headArea">
+							<div class="attrImgContainer">
+								<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
+								<div class="tooltip tooltip-faction"><span class="tooltipText">{hero.faction}</span></div>
+							</div>
+						</div>
+						<div class="headArea">
+							<div class="flipCard" on:click={(e) => e.stopPropagation()}>
+								<div class="flipCardInner">
+									<div class="flipCardFront">
+										<img on:click="{() => handlePortraitClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
+									</div>
+									<div class="flipCardBack">
+										<button on:click="{() => handlePortraitClick(hero.id)}" class="claimButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="headArea">
-						<div class="attrImgContainer">
-							<img class="attrImage typeImg" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
-							<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
+						<div class="headArea">
+							<div class="attrImgContainer">
+								<img class="attrImage typeImg" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
+								<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
+							</div>
+							<div class="attrImgContainer">
+								<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
+								<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
+							</div>
 						</div>
-						<div class="attrImgContainer">
-							<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
-							<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
+					</div>
+					<p class="heroName">{hero.name}</p>
+					<div class="flipButtonContainer">
+						<div class="ascButtonArea">
+							<div class="flipButtonArea">
+								<FlipButton options="{['Elite', 'Elite+', 'Legendary', 'Legendary+', 'Mythic', 'Mythic+', 'Ascended']}"
+									optionStyles="{[
+										'background-color: #AF3CEA; color: white; border: 3px solid #AF3CEA; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										'background-color: #AF3CEA; color: white; border: 3px solid #6D2691; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										'background-color: #F7C331; color: white; border: 3px solid #F7C331; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										'background-color: #F7C331; color: white; border: 3px solid #AD8823; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										'background-color: #FE481A; color: white; border: 3px solid #FE481A; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										'background-color: #FE481A; color: white; border: 3px solid #B33212; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										'background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 3px solid #B289E8; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
+										]}"
+										curOption="{$AppData.MH.List[hero.id].ascendLv}"
+										onClick="{() => handleAscChange(hero.id)}" />
+							</div>
+						</div>
+						<div class="siFurnButtonArea">
+							<div class="flipButtonArea">
+								<FlipButton options="{['SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
+									optionStyles="{[
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										]}"
+										curOption="{Math.floor($AppData.MH.List[hero.id].si/5)}"
+										onClick="{() => handleSIChange(hero.id)}" />
+							</div>
+							<div class="flipButtonArea">
+								<FlipButton options="{['0f', '3f', '9f']}"
+									optionStyles="{[
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
+									]}"
+									curOption="{$AppData.MH.List[hero.id].furn === 0 ? 0 : $AppData.MH.List[hero.id].furn === 3 ? 1 : 2 }"
+									onClick="{() => handleFurnChange(hero.id)}" />
+							</div>
 						</div>
 					</div>
 				</div>
-				<p class="heroName">{hero.name}</p>
-				<div class="flipButtonContainer">
-					<div class="ascButtonArea">
-						<div class="flipButtonArea">
-							<FlipButton options="{['Elite', 'Elite+', 'Legendary', 'Legendary+', 'Mythic', 'Mythic+', 'Ascended']}"
-								optionStyles="{[
-									'background-color: #AF3CEA; color: white; border: 3px solid #AF3CEA; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									'background-color: #AF3CEA; color: white; border: 3px solid #6D2691; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									'background-color: #F7C331; color: white; border: 3px solid #F7C331; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									'background-color: #F7C331; color: white; border: 3px solid #AD8823; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									'background-color: #FE481A; color: white; border: 3px solid #FE481A; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									'background-color: #FE481A; color: white; border: 3px solid #B33212; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									'background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 3px solid #B289E8; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-									]}"
-									curOption="{$AppData.MH.List[hero.id].ascendLv}"
-									onClick="{() => handleAscChange(hero.id)}" />
-						</div>
-					</div>
-					<div class="siFurnButtonArea">
-						<div class="flipButtonArea">
-							<FlipButton options="{['SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
-								optionStyles="{[
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									]}"
-									curOption="{Math.floor($AppData.MH.List[hero.id].si/5)}"
-									onClick="{() => handleSIChange(hero.id)}" />
-						</div>
-						<div class="flipButtonArea">
-							<FlipButton options="{['0f', '3f', '9f']}"
-								optionStyles="{[
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-								]}"
-								curOption="{$AppData.MH.List[hero.id].furn === 0 ? 0 : $AppData.MH.List[hero.id].furn === 3 ? 1 : 2 }"
-								onClick="{() => handleFurnChange(hero.id)}" />
-						</div>
-					</div>
-				</div>
+				{/each}
 			</div>
-			{/each}
-		</section>
-	{/if}
+		{/if}
+	</section>
 	<section class="sect3">
 		<div class="inOutMenu {openInOutMenu ? 'open' : ''}">
 			<button class="inOutButton" on:click={handleExportData}><img src="./img/utility/export.png" alt="export"></button>
@@ -800,7 +800,6 @@
 		.searchInfo {
 			display: flex;
 			justify-content: center;
-			margin-top: 10px;
 			visibility: visible;
 			width: 100%;
 		}
