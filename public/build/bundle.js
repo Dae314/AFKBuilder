@@ -74401,7 +74401,7 @@ var app = (function () {
     			add_location(span1, file$5, 298, 6, 9773);
     			attr_dev(div0, "class", "noCompsArrow");
     			add_location(div0, file$5, 297, 5, 9739);
-    			attr_dev(div1, "class", "noComps svelte-14p3299");
+    			attr_dev(div1, "class", "noComps svelte-1njucov");
     			add_location(div1, file$5, 295, 4, 9667);
     		},
     		m: function mount(target, anchor) {
@@ -74500,11 +74500,11 @@ var app = (function () {
     			div0 = element("div");
     			span = element("span");
     			span.textContent = "⇦ Select a Comp";
-    			add_location(span, file$5, 516, 6, 21004);
+    			add_location(span, file$5, 516, 6, 21292);
     			attr_dev(div0, "class", "noSelectedCompText");
-    			add_location(div0, file$5, 515, 5, 20964);
-    			attr_dev(div1, "class", "noSelectedComp svelte-14p3299");
-    			add_location(div1, file$5, 514, 4, 20929);
+    			add_location(div0, file$5, 515, 5, 21252);
+    			attr_dev(div1, "class", "noSelectedComp svelte-1njucov");
+    			add_location(div1, file$5, 514, 4, 21217);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
@@ -74730,106 +74730,109 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(i0, "class", "arrow left svelte-14p3299");
-    			add_location(i0, file$5, 340, 87, 11065);
-    			attr_dev(button0, "class", "detailButton closeDetailButton svelte-14p3299");
-    			add_location(button0, file$5, 340, 6, 10984);
-    			attr_dev(div0, "class", "closeButtonContainer svelte-14p3299");
-    			add_location(div0, file$5, 339, 5, 10942);
-    			attr_dev(h3, "class", "compTitle svelte-14p3299");
-    			add_location(h3, file$5, 343, 6, 11161);
-    			attr_dev(p, "class", "authorTitle svelte-14p3299");
-    			add_location(p, file$5, 344, 6, 11240);
-    			attr_dev(div1, "class", "titleContainer svelte-14p3299");
-    			add_location(div1, file$5, 342, 5, 11125);
+    			attr_dev(i0, "class", "arrow left svelte-1njucov");
+    			add_location(i0, file$5, 340, 87, 11083);
+    			attr_dev(button0, "class", "detailButton closeDetailButton svelte-1njucov");
+    			add_location(button0, file$5, 340, 6, 11002);
+    			attr_dev(div0, "class", "closeButtonContainer svelte-1njucov");
+    			add_location(div0, file$5, 339, 5, 10960);
+    			attr_dev(h3, "class", "compTitle svelte-1njucov");
+    			add_location(h3, file$5, 343, 6, 11179);
+    			attr_dev(p, "class", "authorTitle svelte-1njucov");
+    			add_location(p, file$5, 344, 6, 11258);
+    			attr_dev(div1, "class", "titleContainer svelte-1njucov");
+    			add_location(div1, file$5, 342, 5, 11143);
+    			attr_dev(img0, "draggable", "false");
     			if (img0.src !== (img0_src_value = "./img/utility/export.png")) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", "Export");
-    			attr_dev(img0, "class", "svelte-14p3299");
-    			add_location(img0, file$5, 347, 113, 11475);
-    			attr_dev(span0, "class", "svelte-14p3299");
-    			add_location(span0, file$5, 347, 162, 11524);
-    			attr_dev(button1, "class", "editDelButton exportButton svelte-14p3299");
-    			add_location(button1, file$5, 347, 6, 11368);
+    			attr_dev(img0, "class", "svelte-1njucov");
+    			add_location(img0, file$5, 347, 113, 11493);
+    			attr_dev(span0, "class", "svelte-1njucov");
+    			add_location(span0, file$5, 347, 180, 11560);
+    			attr_dev(button1, "class", "editDelButton exportButton svelte-1njucov");
+    			add_location(button1, file$5, 347, 6, 11386);
+    			attr_dev(img1, "draggable", "false");
     			if (img1.src !== (img1_src_value = "./img/utility/pencil.png")) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", "Edit");
-    			attr_dev(img1, "class", "svelte-14p3299");
-    			add_location(img1, file$5, 348, 109, 11663);
-    			attr_dev(span1, "class", "svelte-14p3299");
-    			add_location(span1, file$5, 348, 156, 11710);
-    			attr_dev(button2, "class", "editDelButton editButton svelte-14p3299");
-    			add_location(button2, file$5, 348, 6, 11560);
+    			attr_dev(img1, "class", "svelte-1njucov");
+    			add_location(img1, file$5, 348, 109, 11699);
+    			attr_dev(span1, "class", "svelte-1njucov");
+    			add_location(span1, file$5, 348, 174, 11764);
+    			attr_dev(button2, "class", "editDelButton editButton svelte-1njucov");
+    			add_location(button2, file$5, 348, 6, 11596);
+    			attr_dev(img2, "draggable", "false");
     			if (img2.src !== (img2_src_value = "./img/utility/trashcan.png")) attr_dev(img2, "src", img2_src_value);
     			attr_dev(img2, "alt", "Delete");
-    			attr_dev(img2, "class", "svelte-14p3299");
-    			add_location(img2, file$5, 349, 113, 11851);
-    			attr_dev(span2, "class", "svelte-14p3299");
-    			add_location(span2, file$5, 349, 164, 11902);
-    			attr_dev(button3, "class", "editDelButton deleteButton svelte-14p3299");
-    			add_location(button3, file$5, 349, 6, 11744);
-    			attr_dev(div2, "class", "editContainer svelte-14p3299");
-    			add_location(div2, file$5, 346, 5, 11333);
-    			attr_dev(div3, "class", "compDetailHead svelte-14p3299");
-    			add_location(div3, file$5, 338, 4, 10907);
-    			add_location(span3, file$5, 354, 6, 12028);
-    			attr_dev(div4, "class", "lastUpdate svelte-14p3299");
-    			add_location(div4, file$5, 353, 5, 11996);
-    			attr_dev(div5, "class", "lineSwitcher svelte-14p3299");
-    			add_location(div5, file$5, 358, 7, 12339);
-    			attr_dev(div6, "class", "detailBackline svelte-14p3299");
-    			add_location(div6, file$5, 364, 8, 12644);
-    			attr_dev(div7, "class", "detailFrontline svelte-14p3299");
-    			add_location(div7, file$5, 381, 8, 13699);
-    			attr_dev(div8, "class", "lineDisplay svelte-14p3299");
-    			add_location(div8, file$5, 363, 7, 12609);
-    			attr_dev(div9, "class", "lineExamples svelte-14p3299");
-    			add_location(div9, file$5, 357, 6, 12304);
-    			attr_dev(i1, "class", i1_class_value = "expanderArrow " + (/*openDesc*/ ctx[2] ? "down" : "right") + " svelte-14p3299");
-    			add_location(i1, file$5, 402, 77, 14927);
-    			add_location(span4, file$5, 402, 137, 14987);
-    			attr_dev(button4, "class", "expanderButton svelte-14p3299");
-    			add_location(button4, file$5, 402, 8, 14858);
+    			attr_dev(img2, "class", "svelte-1njucov");
+    			add_location(img2, file$5, 349, 113, 11905);
+    			attr_dev(span2, "class", "svelte-1njucov");
+    			add_location(span2, file$5, 349, 182, 11974);
+    			attr_dev(button3, "class", "editDelButton deleteButton svelte-1njucov");
+    			add_location(button3, file$5, 349, 6, 11798);
+    			attr_dev(div2, "class", "editContainer svelte-1njucov");
+    			add_location(div2, file$5, 346, 5, 11351);
+    			attr_dev(div3, "class", "compDetailHead svelte-1njucov");
+    			add_location(div3, file$5, 338, 4, 10925);
+    			add_location(span3, file$5, 354, 6, 12100);
+    			attr_dev(div4, "class", "lastUpdate svelte-1njucov");
+    			add_location(div4, file$5, 353, 5, 12068);
+    			attr_dev(div5, "class", "lineSwitcher svelte-1njucov");
+    			add_location(div5, file$5, 358, 7, 12411);
+    			attr_dev(div6, "class", "detailBackline svelte-1njucov");
+    			add_location(div6, file$5, 364, 8, 12716);
+    			attr_dev(div7, "class", "detailFrontline svelte-1njucov");
+    			add_location(div7, file$5, 381, 8, 13825);
+    			attr_dev(div8, "class", "lineDisplay svelte-1njucov");
+    			add_location(div8, file$5, 363, 7, 12681);
+    			attr_dev(div9, "class", "lineExamples svelte-1njucov");
+    			add_location(div9, file$5, 357, 6, 12376);
+    			attr_dev(i1, "class", i1_class_value = "expanderArrow " + (/*openDesc*/ ctx[2] ? "down" : "right") + " svelte-1njucov");
+    			add_location(i1, file$5, 402, 77, 15107);
+    			add_location(span4, file$5, 402, 137, 15167);
+    			attr_dev(button4, "class", "expanderButton svelte-1njucov");
+    			add_location(button4, file$5, 402, 8, 15038);
     			attr_dev(div10, "class", "mobileExpanderTitle");
-    			add_location(div10, file$5, 401, 7, 14815);
-    			attr_dev(span5, "class", "descText svelte-14p3299");
-    			add_location(span5, file$5, 405, 8, 15116);
-    			attr_dev(div11, "class", "mobileExpander descSection svelte-14p3299");
+    			add_location(div10, file$5, 401, 7, 14995);
+    			attr_dev(span5, "class", "descText svelte-1njucov");
+    			add_location(span5, file$5, 405, 8, 15296);
+    			attr_dev(div11, "class", "mobileExpander descSection svelte-1njucov");
     			toggle_class(div11, "open", /*openDesc*/ ctx[2]);
-    			add_location(div11, file$5, 404, 7, 15044);
-    			attr_dev(div12, "class", "description svelte-14p3299");
-    			add_location(div12, file$5, 400, 6, 14781);
-    			attr_dev(div13, "class", "bodyArea1 svelte-14p3299");
-    			add_location(div13, file$5, 356, 5, 12273);
-    			attr_dev(i2, "class", i2_class_value = "expanderArrow " + (/*openHero*/ ctx[3] ? "down" : "right") + " svelte-14p3299");
-    			add_location(i2, file$5, 412, 77, 15461);
-    			add_location(span6, file$5, 412, 137, 15521);
-    			attr_dev(button5, "class", "expanderButton svelte-14p3299");
-    			add_location(button5, file$5, 412, 8, 15392);
+    			add_location(div11, file$5, 404, 7, 15224);
+    			attr_dev(div12, "class", "description svelte-1njucov");
+    			add_location(div12, file$5, 400, 6, 14961);
+    			attr_dev(div13, "class", "bodyArea1 svelte-1njucov");
+    			add_location(div13, file$5, 356, 5, 12345);
+    			attr_dev(i2, "class", i2_class_value = "expanderArrow " + (/*openHero*/ ctx[3] ? "down" : "right") + " svelte-1njucov");
+    			add_location(i2, file$5, 412, 77, 15641);
+    			add_location(span6, file$5, 412, 137, 15701);
+    			attr_dev(button5, "class", "expanderButton svelte-1njucov");
+    			add_location(button5, file$5, 412, 8, 15572);
     			attr_dev(div14, "class", "mobileExpanderTitle");
-    			add_location(div14, file$5, 411, 7, 15349);
-    			attr_dev(div15, "class", "mobileExpander selectHeroSection svelte-14p3299");
+    			add_location(div14, file$5, 411, 7, 15529);
+    			attr_dev(div15, "class", "mobileExpander selectHeroSection svelte-1njucov");
     			toggle_class(div15, "open", /*openHero*/ ctx[3]);
-    			add_location(div15, file$5, 414, 7, 15576);
-    			attr_dev(div16, "class", "heroDetails svelte-14p3299");
+    			add_location(div15, file$5, 414, 7, 15756);
+    			attr_dev(div16, "class", "heroDetails svelte-1njucov");
     			attr_dev(div16, "id", "heroDetailSection");
-    			add_location(div16, file$5, 410, 6, 15292);
-    			attr_dev(i3, "class", i3_class_value = "expanderArrow " + (/*openSubs*/ ctx[4] ? "down" : "right") + " svelte-14p3299");
-    			add_location(i3, file$5, 489, 77, 19798);
-    			add_location(span7, file$5, 489, 137, 19858);
-    			attr_dev(button6, "class", "expanderButton svelte-14p3299");
-    			add_location(button6, file$5, 489, 8, 19729);
+    			add_location(div16, file$5, 410, 6, 15472);
+    			attr_dev(i3, "class", i3_class_value = "expanderArrow " + (/*openSubs*/ ctx[4] ? "down" : "right") + " svelte-1njucov");
+    			add_location(i3, file$5, 489, 77, 20050);
+    			add_location(span7, file$5, 489, 137, 20110);
+    			attr_dev(button6, "class", "expanderButton svelte-1njucov");
+    			add_location(button6, file$5, 489, 8, 19981);
     			attr_dev(div17, "class", "mobileExpanderTitle");
-    			add_location(div17, file$5, 488, 7, 19686);
-    			attr_dev(div18, "class", "subDisplay svelte-14p3299");
-    			add_location(div18, file$5, 492, 8, 19992);
-    			attr_dev(div19, "class", "mobileExpander subGroupExpander svelte-14p3299");
+    			add_location(div17, file$5, 488, 7, 19938);
+    			attr_dev(div18, "class", "subDisplay svelte-1njucov");
+    			add_location(div18, file$5, 492, 8, 20244);
+    			attr_dev(div19, "class", "mobileExpander subGroupExpander svelte-1njucov");
     			toggle_class(div19, "open", /*openSubs*/ ctx[4]);
-    			add_location(div19, file$5, 491, 7, 19915);
-    			attr_dev(div20, "class", "subGroups svelte-14p3299");
-    			add_location(div20, file$5, 487, 6, 19654);
-    			attr_dev(div21, "class", "bodyArea2 svelte-14p3299");
-    			add_location(div21, file$5, 409, 5, 15261);
-    			attr_dev(div22, "class", "compDetailBody svelte-14p3299");
-    			add_location(div22, file$5, 352, 4, 11961);
+    			add_location(div19, file$5, 491, 7, 20167);
+    			attr_dev(div20, "class", "subGroups svelte-1njucov");
+    			add_location(div20, file$5, 487, 6, 19906);
+    			attr_dev(div21, "class", "bodyArea2 svelte-1njucov");
+    			add_location(div21, file$5, 409, 5, 15441);
+    			attr_dev(div22, "class", "compDetailBody svelte-1njucov");
+    			add_location(div22, file$5, 352, 4, 12033);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -74984,7 +74987,7 @@ var app = (function () {
     				if_block1 = null;
     			}
 
-    			if (!current || dirty[0] & /*openDesc*/ 4 && i1_class_value !== (i1_class_value = "expanderArrow " + (/*openDesc*/ ctx[2] ? "down" : "right") + " svelte-14p3299")) {
+    			if (!current || dirty[0] & /*openDesc*/ 4 && i1_class_value !== (i1_class_value = "expanderArrow " + (/*openDesc*/ ctx[2] ? "down" : "right") + " svelte-1njucov")) {
     				attr_dev(i1, "class", i1_class_value);
     			}
 
@@ -74993,7 +74996,7 @@ var app = (function () {
     				toggle_class(div11, "open", /*openDesc*/ ctx[2]);
     			}
 
-    			if (!current || dirty[0] & /*openHero*/ 8 && i2_class_value !== (i2_class_value = "expanderArrow " + (/*openHero*/ ctx[3] ? "down" : "right") + " svelte-14p3299")) {
+    			if (!current || dirty[0] & /*openHero*/ 8 && i2_class_value !== (i2_class_value = "expanderArrow " + (/*openHero*/ ctx[3] ? "down" : "right") + " svelte-1njucov")) {
     				attr_dev(i2, "class", i2_class_value);
     			}
 
@@ -75027,7 +75030,7 @@ var app = (function () {
     				toggle_class(div15, "open", /*openHero*/ ctx[3]);
     			}
 
-    			if (!current || dirty[0] & /*openSubs*/ 16 && i3_class_value !== (i3_class_value = "expanderArrow " + (/*openSubs*/ ctx[4] ? "down" : "right") + " svelte-14p3299")) {
+    			if (!current || dirty[0] & /*openSubs*/ 16 && i3_class_value !== (i3_class_value = "expanderArrow " + (/*openSubs*/ ctx[4] ? "down" : "right") + " svelte-1njucov")) {
     				attr_dev(i3, "class", i3_class_value);
     			}
 
@@ -75109,9 +75112,9 @@ var app = (function () {
     		c: function create() {
     			button = element("button");
     			t = text$2(t_value);
-    			attr_dev(button, "class", "lineSwitchButton svelte-14p3299");
+    			attr_dev(button, "class", "lineSwitchButton svelte-1njucov");
     			toggle_class(button, "active", /*selectedLine*/ ctx[5] === /*i*/ ctx[83]);
-    			add_location(button, file$5, 360, 8, 12447);
+    			add_location(button, file$5, 360, 8, 12519);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -75282,8 +75285,8 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			i = element("i");
-    			attr_dev(i, "class", "emptyLineSlot svelte-14p3299");
-    			add_location(i, file$5, 375, 13, 13572);
+    			attr_dev(i, "class", "emptyLineSlot svelte-1njucov");
+    			add_location(i, file$5, 375, 13, 13698);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, i, anchor);
@@ -75353,23 +75356,26 @@ var app = (function () {
     			a1 = element("a");
     			span1 = element("span");
     			t2 = text$2(t2_value);
-    			attr_dev(img, "class", "lineImg svelte-14p3299");
+    			attr_dev(img, "draggable", "false");
+    			attr_dev(img, "class", "lineImg svelte-1njucov");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[13].find(func_2).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[13].find(func_3).name);
     			toggle_class(img, "claimed", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[72]].claimed);
-    			add_location(img, file$5, 370, 43, 13009);
+    			add_location(img, file$5, 370, 61, 13099);
+    			attr_dev(a0, "draggable", "false");
     			attr_dev(a0, "href", "#heroDetailSection");
-    			attr_dev(a0, "class", "svelte-14p3299");
-    			add_location(a0, file$5, 370, 14, 12980);
-    			attr_dev(span0, "class", "coreMark svelte-14p3299");
+    			attr_dev(a0, "class", "svelte-1njucov");
+    			add_location(a0, file$5, 370, 14, 13052);
+    			attr_dev(span0, "class", "coreMark svelte-1njucov");
     			toggle_class(span0, "visible", /*$AppData*/ ctx[0].Comps[/*$AppData*/ ctx[0].selectedComp].heroes[/*hero*/ ctx[72]].core);
-    			add_location(span0, file$5, 371, 14, 13252);
-    			attr_dev(div, "class", "detailImgContainer svelte-14p3299");
-    			add_location(div, file$5, 369, 13, 12932);
-    			add_location(span1, file$5, 373, 42, 13419);
+    			add_location(span0, file$5, 371, 14, 13360);
+    			attr_dev(div, "class", "detailImgContainer svelte-1njucov");
+    			add_location(div, file$5, 369, 13, 13004);
+    			add_location(span1, file$5, 373, 60, 13545);
+    			attr_dev(a1, "draggable", "false");
     			attr_dev(a1, "href", "#heroDetailSection");
-    			attr_dev(a1, "class", "svelte-14p3299");
-    			add_location(a1, file$5, 373, 13, 13390);
+    			attr_dev(a1, "class", "svelte-1njucov");
+    			add_location(a1, file$5, 373, 13, 13498);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -75600,8 +75606,8 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			i = element("i");
-    			attr_dev(i, "class", "emptyLineSlot svelte-14p3299");
-    			add_location(i, file$5, 392, 13, 14627);
+    			attr_dev(i, "class", "emptyLineSlot svelte-1njucov");
+    			add_location(i, file$5, 392, 13, 14807);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, i, anchor);
@@ -75671,23 +75677,26 @@ var app = (function () {
     			a1 = element("a");
     			span1 = element("span");
     			t2 = text$2(t2_value);
-    			attr_dev(img, "class", "lineImg svelte-14p3299");
+    			attr_dev(img, "draggable", "false");
+    			attr_dev(img, "class", "lineImg svelte-1njucov");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[13].find(func_5).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[13].find(func_6).name);
     			toggle_class(img, "claimed", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[72]].claimed);
-    			add_location(img, file$5, 387, 43, 14064);
+    			add_location(img, file$5, 387, 61, 14208);
+    			attr_dev(a0, "draggable", "false");
     			attr_dev(a0, "href", "#heroDetailSection");
-    			attr_dev(a0, "class", "svelte-14p3299");
-    			add_location(a0, file$5, 387, 14, 14035);
-    			attr_dev(span0, "class", "coreMark svelte-14p3299");
+    			attr_dev(a0, "class", "svelte-1njucov");
+    			add_location(a0, file$5, 387, 14, 14161);
+    			attr_dev(span0, "class", "coreMark svelte-1njucov");
     			toggle_class(span0, "visible", /*$AppData*/ ctx[0].Comps[/*$AppData*/ ctx[0].selectedComp].heroes[/*hero*/ ctx[72]].core);
-    			add_location(span0, file$5, 388, 14, 14307);
-    			attr_dev(div, "class", "detailImgContainer svelte-14p3299");
-    			add_location(div, file$5, 386, 13, 13987);
-    			add_location(span1, file$5, 390, 42, 14474);
+    			add_location(span0, file$5, 388, 14, 14469);
+    			attr_dev(div, "class", "detailImgContainer svelte-1njucov");
+    			add_location(div, file$5, 386, 13, 14113);
+    			add_location(span1, file$5, 390, 60, 14654);
+    			attr_dev(a1, "draggable", "false");
     			attr_dev(a1, "href", "#heroDetailSection");
-    			attr_dev(a1, "class", "svelte-14p3299");
-    			add_location(a1, file$5, 390, 13, 14445);
+    			attr_dev(a1, "class", "svelte-1njucov");
+    			add_location(a1, file$5, 390, 13, 14607);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -75923,30 +75932,31 @@ var app = (function () {
     			create_component(ascendbox.$$.fragment);
     			t6 = space();
     			if (if_block) if_block.c();
-    			add_location(div0, file$5, 418, 11, 15798);
-    			attr_dev(img, "class", "selectHeroPortrait svelte-14p3299");
+    			add_location(div0, file$5, 418, 11, 15978);
+    			attr_dev(img, "draggable", "false");
+    			attr_dev(img, "class", "selectHeroPortrait svelte-1njucov");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[13].find(/*func_8*/ ctx[47]).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*selectedHero*/ ctx[6]);
     			toggle_class(img, "claimed", /*$AppData*/ ctx[0].MH.List[/*selectedHero*/ ctx[6]].claimed);
-    			add_location(img, file$5, 423, 13, 16119);
-    			attr_dev(span, "class", "coreMark svelte-14p3299");
+    			add_location(img, file$5, 423, 13, 16299);
+    			attr_dev(span, "class", "coreMark svelte-1njucov");
     			toggle_class(span, "visible", /*sortedCompList*/ ctx[11][/*$AppData*/ ctx[0].selectedComp].heroes[/*selectedHero*/ ctx[6]].core);
-    			add_location(span, file$5, 424, 13, 16302);
-    			attr_dev(div1, "class", "portraitContainer svelte-14p3299");
-    			add_location(div1, file$5, 422, 12, 16020);
-    			attr_dev(p, "class", "svelte-14p3299");
-    			add_location(p, file$5, 426, 12, 16446);
-    			attr_dev(div2, "class", "selectPortraitArea svelte-14p3299");
-    			add_location(div2, file$5, 421, 11, 15974);
-    			add_location(div3, file$5, 428, 11, 16534);
-    			attr_dev(div4, "class", "upperSelectCard svelte-14p3299");
-    			add_location(div4, file$5, 417, 10, 15756);
-    			attr_dev(div5, "class", "ascendBoxContainer svelte-14p3299");
-    			add_location(div5, file$5, 433, 11, 16773);
-    			attr_dev(div6, "class", "lowerSelectCard svelte-14p3299");
-    			add_location(div6, file$5, 432, 10, 16731);
-    			attr_dev(div7, "class", "selectedHero svelte-14p3299");
-    			add_location(div7, file$5, 416, 9, 15690);
+    			add_location(span, file$5, 424, 13, 16500);
+    			attr_dev(div1, "class", "portraitContainer svelte-1njucov");
+    			add_location(div1, file$5, 422, 12, 16200);
+    			attr_dev(p, "class", "svelte-1njucov");
+    			add_location(p, file$5, 426, 12, 16644);
+    			attr_dev(div2, "class", "selectPortraitArea svelte-1njucov");
+    			add_location(div2, file$5, 421, 11, 16154);
+    			add_location(div3, file$5, 428, 11, 16732);
+    			attr_dev(div4, "class", "upperSelectCard svelte-1njucov");
+    			add_location(div4, file$5, 417, 10, 15936);
+    			attr_dev(div5, "class", "ascendBoxContainer svelte-1njucov");
+    			add_location(div5, file$5, 433, 11, 16971);
+    			attr_dev(div6, "class", "lowerSelectCard svelte-1njucov");
+    			add_location(div6, file$5, 432, 10, 16929);
+    			attr_dev(div7, "class", "selectedHero svelte-1njucov");
+    			add_location(div7, file$5, 416, 9, 15870);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div7, anchor);
@@ -76071,7 +76081,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "Select hero to see Ascension, SI, Furniture, and Artifact details.";
-    			add_location(span, file$5, 482, 10, 19498);
+    			add_location(span, file$5, 482, 10, 19750);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -76134,16 +76144,16 @@ var app = (function () {
     			if (if_block0) if_block0.c();
     			t5 = space();
     			if (if_block1) if_block1.c();
-    			attr_dev(h5, "class", "svelte-14p3299");
-    			add_location(h5, file$5, 438, 13, 17287);
-    			attr_dev(h6, "class", "svelte-14p3299");
-    			add_location(h6, file$5, 440, 14, 17378);
-    			attr_dev(div0, "class", "artifactArea svelte-14p3299");
-    			add_location(div0, file$5, 441, 14, 17410);
-    			attr_dev(div1, "class", "artifactLine priArtifactLine svelte-14p3299");
-    			add_location(div1, file$5, 439, 13, 17320);
-    			attr_dev(div2, "class", "artifactsContainer svelte-14p3299");
-    			add_location(div2, file$5, 437, 12, 17240);
+    			attr_dev(h5, "class", "svelte-1njucov");
+    			add_location(h5, file$5, 438, 13, 17485);
+    			attr_dev(h6, "class", "svelte-1njucov");
+    			add_location(h6, file$5, 440, 14, 17576);
+    			attr_dev(div0, "class", "artifactArea svelte-1njucov");
+    			add_location(div0, file$5, 441, 14, 17608);
+    			attr_dev(div1, "class", "artifactLine priArtifactLine svelte-1njucov");
+    			add_location(div1, file$5, 439, 13, 17518);
+    			attr_dev(div2, "class", "artifactsContainer svelte-1njucov");
+    			add_location(div2, file$5, 437, 12, 17438);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -76259,14 +76269,15 @@ var app = (function () {
     			p = element("p");
     			t1 = text$2(t1_value);
     			t2 = space();
+    			attr_dev(img, "draggable", "false");
     			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[14][/*artifact*/ ctx[75]].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[14][/*artifact*/ ctx[75]].name);
-    			attr_dev(img, "class", "svelte-14p3299");
-    			add_location(img, file$5, 444, 17, 17669);
-    			attr_dev(p, "class", "svelte-14p3299");
-    			add_location(p, file$5, 445, 17, 17762);
-    			attr_dev(button, "class", "artifactImgContainer svelte-14p3299");
-    			add_location(button, file$5, 443, 16, 17567);
+    			attr_dev(img, "class", "svelte-1njucov");
+    			add_location(img, file$5, 444, 17, 17867);
+    			attr_dev(p, "class", "svelte-1njucov");
+    			add_location(p, file$5, 445, 17, 17978);
+    			attr_dev(button, "class", "artifactImgContainer svelte-1njucov");
+    			add_location(button, file$5, 443, 16, 17765);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -76338,12 +76349,12 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(h6, "class", "svelte-14p3299");
-    			add_location(h6, file$5, 452, 15, 18075);
-    			attr_dev(div0, "class", "artifactArea svelte-14p3299");
-    			add_location(div0, file$5, 453, 15, 18110);
-    			attr_dev(div1, "class", "artifactLine secArtifactLine svelte-14p3299");
-    			add_location(div1, file$5, 451, 14, 18016);
+    			attr_dev(h6, "class", "svelte-1njucov");
+    			add_location(h6, file$5, 452, 15, 18291);
+    			attr_dev(div0, "class", "artifactArea svelte-1njucov");
+    			add_location(div0, file$5, 453, 15, 18326);
+    			attr_dev(div1, "class", "artifactLine secArtifactLine svelte-1njucov");
+    			add_location(div1, file$5, 451, 14, 18232);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
@@ -76423,14 +76434,15 @@ var app = (function () {
     			p = element("p");
     			t1 = text$2(t1_value);
     			t2 = space();
+    			attr_dev(img, "draggable", "false");
     			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[14][/*artifact*/ ctx[75]].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[14][/*artifact*/ ctx[75]].name);
-    			attr_dev(img, "class", "svelte-14p3299");
-    			add_location(img, file$5, 456, 18, 18374);
-    			attr_dev(p, "class", "svelte-14p3299");
-    			add_location(p, file$5, 457, 18, 18468);
-    			attr_dev(button, "class", "artifactImgContainer svelte-14p3299");
-    			add_location(button, file$5, 455, 17, 18271);
+    			attr_dev(img, "class", "svelte-1njucov");
+    			add_location(img, file$5, 456, 18, 18590);
+    			attr_dev(p, "class", "svelte-1njucov");
+    			add_location(p, file$5, 457, 18, 18702);
+    			attr_dev(button, "class", "artifactImgContainer svelte-1njucov");
+    			add_location(button, file$5, 455, 17, 18487);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -76502,12 +76514,12 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(h6, "class", "svelte-14p3299");
-    			add_location(h6, file$5, 465, 15, 18807);
-    			attr_dev(div0, "class", "artifactArea svelte-14p3299");
-    			add_location(div0, file$5, 466, 15, 18844);
-    			attr_dev(div1, "class", "artifactLine sitArtifactLine svelte-14p3299");
-    			add_location(div1, file$5, 464, 14, 18748);
+    			attr_dev(h6, "class", "svelte-1njucov");
+    			add_location(h6, file$5, 465, 15, 19041);
+    			attr_dev(div0, "class", "artifactArea svelte-1njucov");
+    			add_location(div0, file$5, 466, 15, 19078);
+    			attr_dev(div1, "class", "artifactLine sitArtifactLine svelte-1njucov");
+    			add_location(div1, file$5, 464, 14, 18982);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
@@ -76587,14 +76599,15 @@ var app = (function () {
     			p = element("p");
     			t1 = text$2(t1_value);
     			t2 = space();
+    			attr_dev(img, "draggable", "false");
     			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[14][/*artifact*/ ctx[75]].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[14][/*artifact*/ ctx[75]].name);
-    			attr_dev(img, "class", "svelte-14p3299");
-    			add_location(img, file$5, 469, 18, 19110);
-    			attr_dev(p, "class", "svelte-14p3299");
-    			add_location(p, file$5, 470, 18, 19204);
-    			attr_dev(button, "class", "artifactImgContainer svelte-14p3299");
-    			add_location(button, file$5, 468, 17, 19007);
+    			attr_dev(img, "class", "svelte-1njucov");
+    			add_location(img, file$5, 469, 18, 19344);
+    			attr_dev(p, "class", "svelte-1njucov");
+    			add_location(p, file$5, 470, 18, 19456);
+    			attr_dev(button, "class", "artifactImgContainer svelte-1njucov");
+    			add_location(button, file$5, 468, 17, 19241);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -76684,18 +76697,20 @@ var app = (function () {
     			p = element("p");
     			t1 = text$2(t1_value);
     			t2 = space();
-    			attr_dev(img, "class", "subImg svelte-14p3299");
+    			attr_dev(img, "draggable", "false");
+    			attr_dev(img, "class", "subImg svelte-1njucov");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[13].find(func_10).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[13].find(func_11).name);
     			toggle_class(img, "claimed", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[72]].claimed);
-    			add_location(img, file$5, 500, 14, 20384);
-    			attr_dev(p, "class", "svelte-14p3299");
-    			add_location(p, file$5, 501, 14, 20622);
+    			add_location(img, file$5, 500, 14, 20654);
+    			attr_dev(p, "class", "svelte-1njucov");
+    			add_location(p, file$5, 501, 14, 20910);
+    			attr_dev(a, "draggable", "false");
     			attr_dev(a, "href", "#heroDetailSection");
-    			attr_dev(a, "class", "svelte-14p3299");
-    			add_location(a, file$5, 499, 13, 20339);
-    			attr_dev(div, "class", "subHeroContainer svelte-14p3299");
-    			add_location(div, file$5, 498, 12, 20294);
+    			attr_dev(a, "class", "svelte-1njucov");
+    			add_location(a, file$5, 499, 13, 20591);
+    			attr_dev(div, "class", "subHeroContainer svelte-1njucov");
+    			add_location(div, file$5, 498, 12, 20546);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -76782,14 +76797,14 @@ var app = (function () {
     			}
 
     			t2 = space();
-    			attr_dev(span, "class", "svelte-14p3299");
-    			add_location(span, file$5, 495, 37, 20161);
-    			attr_dev(div0, "class", "subGroupTitle svelte-14p3299");
-    			add_location(div0, file$5, 495, 10, 20134);
-    			attr_dev(div1, "class", "subGroupMembers svelte-14p3299");
-    			add_location(div1, file$5, 496, 10, 20207);
+    			attr_dev(span, "class", "svelte-1njucov");
+    			add_location(span, file$5, 495, 37, 20413);
+    			attr_dev(div0, "class", "subGroupTitle svelte-1njucov");
+    			add_location(div0, file$5, 495, 10, 20386);
+    			attr_dev(div1, "class", "subGroupMembers svelte-1njucov");
+    			add_location(div1, file$5, 496, 10, 20459);
     			attr_dev(div2, "class", "subGroup");
-    			add_location(div2, file$5, 494, 9, 20100);
+    			add_location(div2, file$5, 494, 9, 20352);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -76890,25 +76905,25 @@ var app = (function () {
     			t7 = space();
     			button2 = element("button");
     			button2.textContent = "Cancel";
-    			attr_dev(h4, "class", "svelte-14p3299");
-    			add_location(h4, file$5, 530, 6, 21428);
-    			attr_dev(div0, "class", "owTitle svelte-14p3299");
-    			add_location(div0, file$5, 529, 5, 21399);
-    			add_location(span, file$5, 533, 6, 21504);
-    			attr_dev(div1, "class", "owBody svelte-14p3299");
-    			add_location(div1, file$5, 532, 5, 21476);
-    			attr_dev(button0, "class", "owFooterButton owUpdate svelte-14p3299");
-    			add_location(button0, file$5, 536, 6, 21575);
-    			attr_dev(button1, "class", "owFooterButton owNew svelte-14p3299");
-    			add_location(button1, file$5, 537, 6, 21669);
-    			attr_dev(button2, "class", "owFooterButton owCancel svelte-14p3299");
-    			add_location(button2, file$5, 538, 6, 21754);
-    			attr_dev(div2, "class", "owFooter svelte-14p3299");
-    			add_location(div2, file$5, 535, 5, 21545);
-    			attr_dev(div3, "class", "owConfirmWindow svelte-14p3299");
-    			add_location(div3, file$5, 528, 4, 21363);
-    			attr_dev(div4, "class", "owBackground svelte-14p3299");
-    			add_location(div4, file$5, 527, 3, 21331);
+    			attr_dev(h4, "class", "svelte-1njucov");
+    			add_location(h4, file$5, 530, 6, 21716);
+    			attr_dev(div0, "class", "owTitle svelte-1njucov");
+    			add_location(div0, file$5, 529, 5, 21687);
+    			add_location(span, file$5, 533, 6, 21792);
+    			attr_dev(div1, "class", "owBody svelte-1njucov");
+    			add_location(div1, file$5, 532, 5, 21764);
+    			attr_dev(button0, "class", "owFooterButton owUpdate svelte-1njucov");
+    			add_location(button0, file$5, 536, 6, 21863);
+    			attr_dev(button1, "class", "owFooterButton owNew svelte-1njucov");
+    			add_location(button1, file$5, 537, 6, 21957);
+    			attr_dev(button2, "class", "owFooterButton owCancel svelte-1njucov");
+    			add_location(button2, file$5, 538, 6, 22042);
+    			attr_dev(div2, "class", "owFooter svelte-1njucov");
+    			add_location(div2, file$5, 535, 5, 21833);
+    			attr_dev(div3, "class", "owConfirmWindow svelte-1njucov");
+    			add_location(div3, file$5, 528, 4, 21651);
+    			attr_dev(div4, "class", "owBackground svelte-1njucov");
+    			add_location(div4, file$5, 527, 3, 21619);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div4, anchor);
@@ -77076,45 +77091,46 @@ var app = (function () {
     			t10 = space();
     			section3 = element("section");
     			if (if_block2) if_block2.c();
-    			attr_dev(div0, "class", "compScroller svelte-14p3299");
+    			attr_dev(div0, "class", "compScroller svelte-1njucov");
     			add_location(div0, file$5, 293, 2, 9597);
-    			attr_dev(img, "class", "importButtonIcon svelte-14p3299");
+    			attr_dev(img, "draggable", "false");
+    			attr_dev(img, "class", "importButtonIcon svelte-1njucov");
     			if (img.src !== (img_src_value = "./img/utility/import.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Import");
     			add_location(img, file$5, 324, 6, 10469);
-    			attr_dev(div1, "class", "imgContainer svelte-14p3299");
+    			attr_dev(div1, "class", "imgContainer svelte-1njucov");
     			add_location(div1, file$5, 323, 5, 10435);
-    			attr_dev(span0, "class", "svelte-14p3299");
-    			add_location(span0, file$5, 326, 5, 10563);
-    			attr_dev(button0, "class", "newCompOptionButton svelte-14p3299");
+    			attr_dev(span0, "class", "svelte-1njucov");
+    			add_location(span0, file$5, 326, 5, 10581);
+    			attr_dev(button0, "class", "newCompOptionButton svelte-1njucov");
     			add_location(button0, file$5, 322, 4, 10357);
-    			attr_dev(span1, "class", "plusIcon svelte-14p3299");
-    			add_location(span1, file$5, 329, 5, 10678);
-    			attr_dev(span2, "class", "svelte-14p3299");
-    			add_location(span2, file$5, 330, 5, 10716);
-    			attr_dev(button1, "class", "newCompOptionButton svelte-14p3299");
-    			add_location(button1, file$5, 328, 4, 10603);
-    			attr_dev(div2, "class", "newCompOptionsArea svelte-14p3299");
+    			attr_dev(span1, "class", "plusIcon svelte-1njucov");
+    			add_location(span1, file$5, 329, 5, 10696);
+    			attr_dev(span2, "class", "svelte-1njucov");
+    			add_location(span2, file$5, 330, 5, 10734);
+    			attr_dev(button1, "class", "newCompOptionButton svelte-1njucov");
+    			add_location(button1, file$5, 328, 4, 10621);
+    			attr_dev(div2, "class", "newCompOptionsArea svelte-1njucov");
     			add_location(div2, file$5, 321, 3, 10319);
-    			attr_dev(div3, "class", "addButtonArea svelte-14p3299");
+    			attr_dev(div3, "class", "addButtonArea svelte-1njucov");
     			add_location(div3, file$5, 320, 2, 10287);
-    			attr_dev(section0, "class", "sect1 svelte-14p3299");
+    			attr_dev(section0, "class", "sect1 svelte-1njucov");
     			add_location(section0, file$5, 292, 1, 9570);
-    			attr_dev(div4, "class", "compDetails svelte-14p3299");
+    			attr_dev(div4, "class", "compDetails svelte-1njucov");
     			toggle_class(div4, "open", /*openDetail*/ ctx[1]);
-    			add_location(div4, file$5, 336, 2, 10811);
-    			attr_dev(section1, "class", "sect2 svelte-14p3299");
-    			add_location(section1, file$5, 335, 1, 10784);
-    			add_location(span3, file$5, 523, 62, 21186);
-    			attr_dev(div5, "class", "copyConfirm svelte-14p3299");
+    			add_location(div4, file$5, 336, 2, 10829);
+    			attr_dev(section1, "class", "sect2 svelte-1njucov");
+    			add_location(section1, file$5, 335, 1, 10802);
+    			add_location(span3, file$5, 523, 62, 21474);
+    			attr_dev(div5, "class", "copyConfirm svelte-1njucov");
     			toggle_class(div5, "visible", /*copyConfirmVisible*/ ctx[7]);
-    			add_location(div5, file$5, 523, 2, 21126);
-    			attr_dev(section2, "class", "sect3 svelte-14p3299");
-    			add_location(section2, file$5, 522, 1, 21099);
-    			attr_dev(section3, "class", "sect4 svelte-14p3299");
+    			add_location(div5, file$5, 523, 2, 21414);
+    			attr_dev(section2, "class", "sect3 svelte-1njucov");
+    			add_location(section2, file$5, 522, 1, 21387);
+    			attr_dev(section3, "class", "sect4 svelte-1njucov");
     			toggle_class(section3, "visible", /*showowConfirm*/ ctx[8]);
-    			add_location(section3, file$5, 525, 1, 21250);
-    			attr_dev(div6, "class", "CompContainer svelte-14p3299");
+    			add_location(section3, file$5, 525, 1, 21538);
+    			attr_dev(div6, "class", "CompContainer svelte-1njucov");
     			add_location(div6, file$5, 291, 0, 9540);
     		},
     		l: function claim(nodes) {

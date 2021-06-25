@@ -322,7 +322,7 @@
 			<div class="newCompOptionsArea">
 				<button class="newCompOptionButton" on:click={handleImportButtonClick}>
 					<div class="imgContainer">
-						<img class="importButtonIcon" src="./img/utility/import.png" alt="Import">
+						<img draggable="false" class="importButtonIcon" src="./img/utility/import.png" alt="Import">
 					</div>
 					<span>Import</span>
 				</button>
@@ -345,9 +345,9 @@
 						<p class="authorTitle">{$AppData.Comps[$AppData.selectedComp].author}</p>
 					</div>
 					<div class="editContainer">
-						<button class="editDelButton exportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img src="./img/utility/export.png" alt="Export"><span>Export</span></button>
-						<button class="editDelButton editButton" on:click={() => handleEditButtonClick($AppData.selectedComp)}><img src="./img/utility/pencil.png" alt="Edit"><span>Edit</span></button>
-						<button class="editDelButton deleteButton" on:click={() => handleDeleteButtonClick($AppData.selectedComp)}><img src="./img/utility/trashcan.png" alt="Delete"><span>Delete</span></button>
+						<button class="editDelButton exportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/export.png" alt="Export"><span>Export</span></button>
+						<button class="editDelButton editButton" on:click={() => handleEditButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/pencil.png" alt="Edit"><span>Edit</span></button>
+						<button class="editDelButton deleteButton" on:click={() => handleDeleteButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/trashcan.png" alt="Delete"><span>Delete</span></button>
 					</div>
 				</div>
 				<div class="compDetailBody">
@@ -368,10 +368,10 @@
 											{#if i >= 2}
 												{#if $HeroData.some(e => e.id === hero)}
 													<div class="detailImgContainer">
-														<a href="#heroDetailSection"><img on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
+														<a draggable="false" href="#heroDetailSection"><img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
 														<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
 													</div>
-													<a href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
+													<a draggable="false" href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
 												{:else}
 													<i class="emptyLineSlot"></i>
 												{/if}
@@ -385,10 +385,10 @@
 											{#if i < 2}
 												{#if $HeroData.some(e => e.id === hero)}
 													<div class="detailImgContainer">
-														<a href="#heroDetailSection"><img on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
+														<a draggable="false" href="#heroDetailSection"><img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
 														<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
 													</div>
-													<a href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
+													<a draggable="false" href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
 												{:else}
 													<i class="emptyLineSlot"></i>
 												{/if}
@@ -421,7 +421,7 @@
 											</div>
 											<div class="selectPortraitArea">
 												<div class="portraitContainer" on:click={() => handleHeroDetailClick(selectedHero)}>
-													<img class="selectHeroPortrait" class:claimed={$AppData.MH.List[selectedHero].claimed} src="{$HeroData.find(e => e.id === selectedHero).portrait}" alt="{selectedHero}">
+													<img draggable="false" class="selectHeroPortrait" class:claimed={$AppData.MH.List[selectedHero].claimed} src="{$HeroData.find(e => e.id === selectedHero).portrait}" alt="{selectedHero}">
 													<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[selectedHero].core}></span>
 												</div>
 												<p>{$HeroData.find(e => e.id === selectedHero).name}</p>
@@ -442,7 +442,7 @@
 														<div class="artifactArea">
 															{#each sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.primary as artifact}
 																<button on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
-																	<img src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																	<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 																	<p>{$Artifacts[artifact].name}</p>
 																</button>
 															{/each}
@@ -454,7 +454,7 @@
 															<div class="artifactArea">
 																{#each sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.secondary as artifact}
 																	<button on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
-																		<img src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																		<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 																		<p>{$Artifacts[artifact].name}</p>
 																	</button>
 																{/each}
@@ -467,7 +467,7 @@
 															<div class="artifactArea">
 																{#each sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.situational as artifact}
 																	<button on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
-																		<img src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																		<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 																		<p>{$Artifacts[artifact].name}</p>
 																	</button>
 																{/each}
@@ -497,8 +497,8 @@
 										<div class="subGroupMembers">
 											{#each subgroup.heroes as hero}
 												<div class="subHeroContainer">
-													<a href="#heroDetailSection">
-														<img on:click={() => { selectedHero = hero; openHero = true; }} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+													<a draggable="false" href="#heroDetailSection">
+														<img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 														<p on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</p>
 													</a>
 												</div>
@@ -546,11 +546,9 @@
 
 <style lang="scss">
 	img {
-		user-drag: none;
 		user-select: none;
 	}
 	a {
-		user-drag: none;
 		user-select: none;
 	}
 	.CompContainer {
