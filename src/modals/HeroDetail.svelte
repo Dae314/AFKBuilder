@@ -39,7 +39,7 @@
 		<div class="imageContainer">
 			<div class="factionContainer">
 				<div class="attrImgContainer">
-					<img class="attrImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
+					<img draggable="false" class="attrImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
 					<div class="tooltip"><span class="tooltipText">{hero.faction}</span></div>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 				<div class="flipCard">
 					<div class="flipCardInner">
 						<div class="flipCardFront">
-							<img on:click="{() => handlePortraitClick(hero.id)}" class="portrait {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}" src={hero.portrait} alt={hero.name}>
+							<img draggable="false" on:click="{() => handlePortraitClick(hero.id)}" class="portrait {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}" src={hero.portrait} alt={hero.name}>
 						</div>
 						<div class="flipCardBack">
 							<button on:click="{() => handlePortraitClick(hero.id)}" class="claimButton {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}">{$AppData.MH.List[hero.id].claimed ? 'Unclaim' : 'Claim'}</button>
@@ -57,11 +57,11 @@
 			</div>
 			<div class="typeClassContainer">
 				<div class="attrImgContainer">
-					<img class="attrImg" src="./img/types/{hero.type.toLowerCase()}.png" alt="{hero.type}">
+					<img draggable="false" class="attrImg" src="./img/types/{hero.type.toLowerCase()}.png" alt="{hero.type}">
 					<div class="tooltip"><span class="tooltipText">{hero.type}</span></div>
 				</div>
 				<div class="attrImgContainer">
-					<img class="attrImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt="{hero.class}">
+					<img draggable="false" class="attrImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt="{hero.class}">
 					<div class="tooltip"><span class="tooltipText">{hero.class}</span></div>
 				</div>
 			</div>
@@ -85,7 +85,7 @@
 			<div class="skillDisplay">
 				<div class="skillPicker">
 					{#each hero.skills as skill, i}
-					<img class="{skillShown === i ? 'activeSkill' : ''}" on:click={() => skillShown = i} src={skill.image} alt={skill.name}>
+					<img draggable="false" class="{skillShown === i ? 'activeSkill' : ''}" on:click={() => skillShown = i} src={skill.image} alt={skill.name}>
 					{/each}
 				</div>
 				<div class="skillDetails">
@@ -111,7 +111,7 @@
 		<div class="mobileExpander {openSI ? 'isOpen' : '' }">
 			<div class="siFurnArea">
 				<div class="imageArea">
-					<img src={hero.sig_item.image} alt={hero.sig_item.name}>
+					<img draggable="false" src={hero.sig_item.image} alt={hero.sig_item.name}>
 					<h5 class="siFurnName">{hero.sig_item.name}</h5>
 				</div>
 				<p class="siFurnUnlock">Unlocked at +0:</p>
@@ -132,7 +132,7 @@
 		<div class="mobileExpander {openFurn ? 'isOpen' : '' }">
 			<div class="siFurnArea">
 				<div class="imageArea">
-					<img src={hero.furniture.image} alt={hero.furniture.name}>
+					<img draggable="false" src={hero.furniture.image} alt={hero.furniture.name}>
 					<h5 class="siFurnName">{@html hero.furniture.name}</h5>
 				</div>
 				<div class="siFurnUpgrades">
