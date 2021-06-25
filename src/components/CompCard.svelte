@@ -95,7 +95,10 @@
 		padding-right: 5px;
 		padding-top: 8px;
 		.titleAuthorContainer {
-			width: 80%;
+			flex-grow: 1;
+			max-width: 80%;
+			justify-content: flex-start;
+			padding-right: 5px;
 			.compCardTitleContainer {
 				width: 100%;
 				.compCardTitle {
@@ -121,6 +124,8 @@
 		.buttonDraftArea {
 			display: flex;
 			flex-direction: column;
+			justify-content: flex-end;
+			min-width: 80px;
 			width: 20%;
 			.cardButtonsContainer {
 				align-items: center;
