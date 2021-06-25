@@ -9,7 +9,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="scss">
 	.outer {
 		cursor: pointer;
 		height: 25px;
@@ -18,11 +18,48 @@
 		top: -30px;
 		width: 25px;
 		z-index: 1;
+		&:hover {
+			.label {
+				opacity: 1;
+			}
+			.inner {
+				&:before {
+					transform: rotate(0);
+					top: 0;
+				}
+				&:after {
+					transform: rotate(0);
+					bottom: 0;
+				}
+			}
+		}
 	}
 	.inner {
 		height: inherit;
 		text-align: center;
 		width: inherit;
+		&:before {
+			background-color: var(--appBGColor);
+			content: '';
+			height: 2px;
+			left: 0;
+			position: absolute;
+			transition: all 0.3s ease-in;
+			width: inherit;
+			top: 47.5%;
+			transform: rotate(45deg);
+		}
+		&:after {
+			background-color: var(--appBGColor);
+			content: '';
+			height: 2px;
+			left: 0;
+			position: absolute;
+			transition: all 0.3s ease-in;
+			width: inherit;
+			bottom: 47.5%;
+			transform: rotate(-45deg);
+		}
 	}
 	.label {
 		bottom: 20px;
@@ -35,35 +72,6 @@
 		position: relative;
 		text-transform: uppercase;
 		transition: all 0.3s ease-in;
-	}
-	.inner:before, .inner:after {
-		background-color: var(--appBGColor);
-		content: '';
-		height: 2px;
-		left: 0;
-		position: absolute;
-		transition: all 0.3s ease-in;
-		width: inherit;
-	}
-	.inner:before {
-		top: 47.5%;
-		transform: rotate(45deg);
-	}
-	.inner:after {
-		bottom: 47.5%;
-		transform: rotate(-45deg);
-	}
-	.outer:hover .label {
-		opacity: 1;
-	}
-	.outer:hover .inner:before,
-		.outer:hover .inner:after {
-		transform: rotate(0);
-	}
-	.outer:hover .inner:before {
-		top: 0;
-	}
-	.outer:hover .inner:after {
-		bottom: 0;
+		user-select: none;
 	}
 </style>

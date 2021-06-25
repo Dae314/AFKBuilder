@@ -31286,11 +31286,11 @@ var app = (function () {
     			div1 = element("div");
     			div0 = element("div");
     			div0.textContent = "Close";
-    			attr_dev(div0, "class", "label svelte-1qmhxzp");
+    			attr_dev(div0, "class", "label svelte-1hrmmjo");
     			add_location(div0, file$c, 7, 2, 185);
-    			attr_dev(div1, "class", "inner svelte-1qmhxzp");
+    			attr_dev(div1, "class", "inner svelte-1hrmmjo");
     			add_location(div1, file$c, 6, 1, 162);
-    			attr_dev(div2, "class", "outer svelte-1qmhxzp");
+    			attr_dev(div2, "class", "outer svelte-1hrmmjo");
     			add_location(div2, file$c, 5, 0, 121);
     		},
     		l: function claim(nodes) {
