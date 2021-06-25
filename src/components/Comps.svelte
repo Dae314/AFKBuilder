@@ -544,14 +544,14 @@
 	</section>
 </div>
 
-<style>
-	img, a {
-		user-drag: none; 
+<style lang="scss">
+	img {
+		user-drag: none;
 		user-select: none;
-		-moz-user-select: none;
-		-webkit-user-drag: none;
-		-webkit-user-select: none;
-		-ms-user-select: none;
+	}
+	a {
+		user-drag: none;
+		user-select: none;
 	}
 	.CompContainer {
 		display: flex;
@@ -602,9 +602,9 @@
 		display: flex;
 		justify-content: center;
 		padding: 10px;
-	}
-	.owTitle h4 {
-		margin: 0;
+		h4 {
+			margin: 0;
+		}
 	}
 	.owBody {
 		padding: 10px;
@@ -622,9 +622,9 @@
 		margin-right: 10px;
 		outline: none;
 		padding: 5px;
-	}
-	.owFooterButton:last-child {
-		margin-right: 0;
+		&:last-child {
+			margin-right: 0;
+		}
 	}
 	.copyConfirm {
 		background-color: rgba(50, 50, 50, 0.7);
@@ -657,11 +657,9 @@
 		font-size: 3rem;
 		font-weight: bold;
 		left: 0;
-		-ms-user-select: none;
 		position: absolute;
 		text-align: center;
 		text-transform: uppercase;
-		-webkit-user-select: none;
 		width: 100%;
 		user-select: none;
 	}
@@ -691,24 +689,24 @@
 		cursor: pointer;
 		font-size: 1.1rem;
 		width: 100%;
-	}
-	.newCompOptionButton:first-child {
-		border-right: 3px solid var(--appColorPriAccent);
-	}
-	.newCompOptionButton:last-child {
-		border-left: 3px solid var(--appColorPriAccent);
-	}
-	.newCompOptionButton .imgContainer {
-		align-items: center;
-		display: flex;
-		height: 37px;
-		justify-content: center;
-	}
-	.newCompOptionButton img {
-		max-width: 20px;
-	}
-	.newCompOptionButton span {
-		display: block;
+		&:first-child {
+			border-right: 3px solid var(--appColorPriAccent);
+		}
+		&:last-child {
+			border-left: 3px solid var(--appColorPriAccent);
+		}
+		.imgContainer {
+			align-items: center;
+			display: flex;
+			height: 37px;
+			justify-content: center;
+		}
+		img {
+			max-width: 20px;
+		}
+		span {
+			display: block;
+		}
 	}
 	.noSelectedComp {
 		display: none;
@@ -815,9 +813,15 @@
 		justify-content: center;
 		margin: 0px 5px;
 		padding: 5px 8px;
-	}
-	.editDelButton span {
-		display: none;
+		span {
+			display: none;
+		}
+		&:active {
+			box-shadow: none;
+		}
+		img {
+			max-width: 20px;
+		}
 	}
 	.exportButton {
 		display: none;
@@ -825,15 +829,9 @@
 	.deleteButton {
 		background-color: var(--appDelColor);
 		border: 3px solid var(--appDelColor);
-	}
-	.editDelButton:active {
-		box-shadow: none;
-	}
-	.editDelButton img {
-		max-width: 20px;
-	}
-	.deleteButton img {
-		max-width: 16px;
+		img {
+			max-width: 16px;
+		}
 	}
 	.compDetailBody {
 		padding-top: 10px;
@@ -883,8 +881,24 @@
 	}
 	.detailImgContainer {
 		position: relative;
+		+ {
+			a {
+				color: black;
+				font-size: 0.8rem;
+				font-weight: bold;
+				margin: 0;
+				margin-bottom: 5px;
+				margin-top: -8px;
+				overflow: hidden;
+				text-align: center;
+				text-decoration: none;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				width: 80px;
+			}
+		}
 	}
-	.detailFrontline, .detailBackline {
+	.detailFrontline {
 		align-items: center;
 		display: flex;
 		flex-direction: column;
@@ -892,21 +906,12 @@
 		width: 80px;
 	}
 	.detailBackline {
-		margin-right: 10px;
-	}
-	.detailImgContainer + a {
-		color: black;
-		font-size: 0.8rem;
-		font-weight: bold;
-		margin: 0;
-		margin-bottom: 5px;
-		margin-top: -8px;
-		overflow: hidden;
-		text-align: center;
-		text-decoration: none;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 		width: 80px;
+		margin-right: 10px;
 	}
 	.lineImg {
 		border-radius: 50%;
@@ -948,11 +953,9 @@
 	}
 	.expanderArrow.right {
 		transform: rotate(-45deg);
-		-webkit-transform: rotate(-45deg);
 	}
 	.expanderArrow.down {
 		transform: rotate(45deg);
-		-webkit-transform: rotate(45deg);
 	}
 	.selectHeroSection {
 		width: 100%;
@@ -985,14 +988,16 @@
 	.portraitContainer {
 		cursor: pointer;
 		position: relative;
-	}
-	.portraitContainer + p {
-		font-size: 1.1rem;
-		font-weight: bold;
-		margin: 0;
-		margin-bottom: 5px;
-		margin-top: -8px;
-		text-align: center;
+		+ {
+			p {
+				font-size: 1.1rem;
+				font-weight: bold;
+				margin: 0;
+				margin-bottom: 5px;
+				margin-top: -8px;
+				text-align: center;
+			}
+		}
 	}
 	.selectHeroPortrait {
 		border-radius: 50%;
@@ -1033,17 +1038,19 @@
 		flex-direction: column;
 		justify-content: center;
 		width: 100%;
+		h5 {
+			font-size: 1rem;
+			margin: 0;
+			text-align: center;
+		}
 	}
-	.artifactsContainer h5 {
-		font-size: 1rem;
-		margin: 0;
-		text-align: center;
-	}
-	.artifactLine h6 {
-		font-size: 0.9rem;
-		margin: 0;
-		margin-top: 7px;
-		margin-bottom: 3px;
+	.artifactLine {
+		h6 {
+			font-size: 0.9rem;
+			margin: 0;
+			margin-top: 7px;
+			margin-bottom: 3px;
+		}
 	}
 	.artifactArea {
 		background: var(--appBGColorDark);
@@ -1064,21 +1071,21 @@
 		justify-content: center;
 		outline: none;
 		padding: 3px;
-	}
-	.artifactImgContainer img {
-		border-radius: 50%;
-		max-width: 60px;
-	}
-	.artifactImgContainer p {
-		margin: 0;
-		max-width: 80px;
-		-ms-user-select: none;
-		overflow: hidden;
-		text-align: center;
-		text-overflow: ellipsis;
-		user-select: none;
-		-webkit-user-select: none;
-		white-space: nowrap;
+		img {
+			border-radius: 50%;
+			max-width: 60px;
+		}
+		p {
+			margin: 0;
+			max-width: 80px;
+			-ms-user-select: none;
+			overflow: hidden;
+			text-align: center;
+			text-overflow: ellipsis;
+			user-select: none;
+			-webkit-user-select: none;
+			white-space: nowrap;
+		}
 	}
 	.subDisplay {
 		display: flex;
@@ -1094,16 +1101,16 @@
 		padding-bottom: 3px;
 		padding-top: 5px;
 		width: 100%;
-	}
-	.subGroupTitle span {
-		display: inline-block;
-		width: 100%;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-	.subGroupTitle:first-child {
-		padding-top: 0;
+		span {
+			display: inline-block;
+			width: 100%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		&:first-child {
+			padding-top: 0;
+		}
 	}
 	.subGroupMembers {
 		display: flex;
@@ -1115,23 +1122,23 @@
 	.subHeroContainer {
 		margin-right: 8px;
 		margin-bottom: 8px;
-	}
-	.subHeroContainer a {
-		align-items: center;
-		color: black;
-		display: flex;
-		flex-direction: column;
-		text-decoration: none;
-	}
-	.subHeroContainer p {
-		font-size: 0.9rem;
-		font-weight: bold;
-		margin: 0;
-		width: 80px;
-		overflow: hidden;
-		text-align: center;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+		a {
+			align-items: center;
+			color: black;
+			display: flex;
+			flex-direction: column;
+			text-decoration: none;
+		}
+		p {
+			font-size: 0.9rem;
+			font-weight: bold;
+			margin: 0;
+			width: 80px;
+			overflow: hidden;
+			text-align: center;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
 	}
 	.subImg {
 		border-radius: 50%;
@@ -1153,6 +1160,83 @@
 	.descSection.open {
 		padding-left: 5px;
 	}
+	/* description markdown styling */
+	.descText {
+		:global(hr) {
+			border: 1px solid var(--appColorPrimary);
+			margin: 5px 0px;
+		}
+		:global(p) {
+			line-height: 160%;
+			margin: 5px 0px;
+		}
+		:global(a) {
+			color: var(--appColorPrimary);
+		}
+		:global(ul) {
+			margin: 10px 0px;
+			padding-left: 24px;
+		}
+		:global(ol) {
+			margin: 10px 0px;
+			padding-left: 24px;
+		}
+		:global(h1) {
+			margin: 10px 0px;
+			font-size: 1.7rem;
+		}
+		:global(h2) {
+			margin: 10px 0px;
+		}
+		:global(h3) {
+			margin: 10px 0px;
+		}
+		:global(h4) {
+			margin: 5px 0px;
+		}
+		:global(h5) {
+			margin: 5px 0px;
+		}
+		:global(h6) {
+			margin: 5px 0px;
+		}
+		:global(blockquote) {
+			border-left: 5px solid var(--appColorPriOpaque);
+			color: #999;
+			margin-left: 20px;
+			padding-left: 5px;
+		}
+		:global(pre) {
+			background-color: var(--appBGColorDark);
+			color: black;
+			font-family: 'Courier New', Courier, monospace;
+			font-size: 1.0rem;
+			padding: 10px;
+		}
+		:global(table) {
+			border-collapse: collapse;
+		}
+		:global(th) {
+			border-bottom: 2px solid var(--appColorPrimary);
+			padding-top: 7px;
+			padding-bottom: 7px;
+			padding-right: 20px;
+			text-align: left;
+		}
+		:global(td) {
+			border-bottom: 1px solid black;
+			padding-top: 7px;
+			padding-bottom: 7px;
+		}
+		:global(tr) {
+			&:nth-child(even) {
+				background-color: var(--appColorPriOpaque);
+			}
+		}
+		:global(img) {
+			max-width: 100px;
+		}
+	}
 	@media only screen and (min-width: 767px) {
 		.sect1 {
 			width: 21%;
@@ -1161,12 +1245,16 @@
 			max-width: 79%;
 			width: 79%;
 		}
-		.owFooterButton:hover {
-			background-color: var(--appColorPrimary);
-			color: white;
+		.owFooterButton {
+			&:hover {
+				background-color: var(--appColorPrimary);
+				color: white;
+			}
 		}
-		.owCancel:hover {
-			background-color: var(--appColorPriAccent);
+		.owCancel {
+			&:hover {
+				background-color: var(--appColorPriAccent);
+			}
 		}
 		.compScroller {
 			border-right: 3px solid var(--appColorPrimary);
@@ -1180,7 +1268,7 @@
 			position: static;
 			visibility: visible;
 		}
-		.closeButtonContainer { 
+		.closeButtonContainer {
 			visibility: hidden;
 			width: 25%;
 		}
@@ -1193,29 +1281,38 @@
 		.exportButton {
 			display: flex;
 		}
-		.editDelButton span {
-			display: block;
+		.editDelButton {
+			span {
+				display: block;
+			}
+			img {
+				margin-right: 8px;
+				max-width: 15px;
+			}
+			&:hover {
+				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+			}
 		}
-		.editDelButton img {
-			margin-right: 8px;
-			max-width: 15px;
-		}
-		.editDelButton:hover {
-			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-		}
-		.deleteButton img {
-			max-width: 12px;
+		.deleteButton {
+			img {
+				max-width: 12px;
+			}
 		}
 		.addButtonArea {
 			width: 21%;
 		}
-		.newCompOptionButton:hover {
-			background-color: var(--appColorPriAccent);
+		.newCompOptionButton {
+			&:hover {
+				background-color: var(--appColorPriAccent);
+				.plusIcon {
+					transform: rotateZ(180deg);
+				}
+			}
 		}
-		.newCompOptionButton:hover .plusIcon {
-			transform: rotateZ(180deg);
+		.bodyArea1 {
+			display: flex;
 		}
-		.bodyArea1, .bodyArea2 {
+		.bodyArea2 {
 			display: flex;
 		}
 		.noSelectedComp {
@@ -1224,18 +1321,18 @@
 			font-size: 4rem;
 			font-weight: bold;
 			height: 100%;
-			-ms-user-select: none;
 			text-transform: uppercase;
 			user-select: none;
 			visibility: visible;
-			-webkit-user-select: none;
 		}
-		.closeDetailButton:hover {
-			background-color: var(--appColorPrimary);
-			color: white;
-		}
-		.closeDetailButton:hover .arrow {
-			border-color: white;
+		.closeDetailButton {
+			&:hover {
+				background-color: var(--appColorPrimary);
+				color: white;
+				.arrow {
+					border-color: white;
+				}
+			}
 		}
 		.lastUpdate {
 			padding-bottom: 0px;
@@ -1261,9 +1358,9 @@
 		}
 		.lineImg {
 			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-		}
-		.lineImg:hover {
-			transform: scale(1.1);
+			&:hover {
+				transform: scale(1.1);
+			}
 		}
 		.description {
 			width: 100%;
@@ -1315,9 +1412,9 @@
 		}
 		.subImg {
 			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-		}
-		.subImg:hover {
-			transform: scale(1.1);
+			&:hover {
+				transform: scale(1.1);
+			}
 		}
 		.subGroupTitle {
 			padding-top: 0;
@@ -1333,64 +1430,5 @@
 		100% {
 			background-color: transparent;
 		}
-	}
-	/* description markdown styling */
-	.descText :global(hr) {
-		border: 1px solid var(--appColorPrimary);
-		margin: 5px 0px;
-	}
-	.descText :global(p) {
-		line-height: 160%;
-		margin: 5px 0px;
-	}
-	.descText :global(a) {
-		color: var(--appColorPrimary);
-	}
-	.descText :global(ul), .descText :global(ol) {
-		margin: 10px 0px;
-		padding-left: 24px;
-	}
-	.descText :global(h1), .descText :global(h2), .descText :global(h3) {
-		margin: 10px 0px;
-	}
-	.descText :global(h4), .descText :global(h5), .descText :global(h6) {
-		margin: 5px 0px;
-	}
-	.descText :global(h1) {
-		font-size: 1.7rem;
-	}
-	.descText :global(blockquote) {
-		border-left: 5px solid var(--appColorPriOpaque);
-		color: #999;
-		margin-left: 20px;
-		padding-left: 5px;
-	}
-	.descText :global(pre) {
-		background-color: var(--appBGColorDark);
-		color: black;
-		font-family: 'Courier New', Courier, monospace;
-		font-size: 1.0rem;
-		padding: 10px;
-	}
-	.descText :global(table) {
-		border-collapse: collapse;
-	}
-	.descText :global(th) {
-		border-bottom: 2px solid var(--appColorPrimary);
-		padding-top: 7px;
-		padding-bottom: 7px;
-		padding-right: 20px;
-		text-align: left;
-	}
-	.descText :global(td) {
-		border-bottom: 1px solid black;
-		padding-top: 7px;
-		padding-bottom: 7px;
-	}
-	.descText :global(tr):nth-child(even) {
-		background-color: var(--appColorPriOpaque);
-	}
-	.descText :global(img) {
-		max-width: 100px;
 	}
 </style>
