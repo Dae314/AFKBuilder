@@ -146,7 +146,7 @@
 	</section>
 </div>
 
-<style>
+<style lang="scss">
 	.container {
 		position: relative;
 	}
@@ -170,7 +170,14 @@
 		padding-top: 20px;
 		width: 100%;
 	}
-	.factionContainer, .typeClassContainer {
+	.factionContainer {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		width: 28%;
+	}
+	.typeClassContainer {
 		align-items: center;
 		display: flex;
 		flex-direction: column;
@@ -209,9 +216,9 @@
 		max-width: 250px;
 		transition: all 0.2s;
 		width: 100%;
-	}
-	.portrait:active {
-		transform: scale(0.9);
+		&:active {
+			transform: scale(0.9);
+		}
 	}
 	.portrait.owned {
 		border: 10px solid var(--appColorPrimary);
@@ -227,11 +234,11 @@
 		flex-direction: column;
 		padding: 10px;
 		padding-top: 0px;
-	}
-	.benchmarkSection h4 {
-		margin: 0;
-		padding: 0;
-		padding-bottom: 10px;
+		h4 {
+			margin: 0;
+			padding: 0;
+			padding-bottom: 10px;
+		}
 	}
 	.skillsSection {
 		padding-top: 10px;
@@ -244,19 +251,19 @@
 		justify-content: center;
 		padding: 10px;
 		width: 100%;
-	}
-	.skillPicker img {
-		border-radius: 50%;
-		cursor: pointer;
-		margin: 5px 10px;
-		max-width: 70px;
-		transition: all 0.2s;
-	}
-	.skillPicker img:active {
-		transform: scale(0.9);
-	}
-	.skillPicker img.activeSkill {
-		border: 5px solid var(--appColorPrimary);
+		img {
+			border-radius: 50%;
+			cursor: pointer;
+			margin: 5px 10px;
+			max-width: 70px;
+			transition: all 0.2s;
+			&:active {
+				transform: scale(0.9);
+			}
+		}
+		img.activeSkill {
+			border: 5px solid var(--appColorPrimary);
+		}
 	}
 	.skill {
 		display: none;
@@ -281,11 +288,11 @@
 		margin: 0;
 		padding-bottom: 20px;
 		padding-left: 15px;
-	}
-	.skillDesc :global(em) {
-		color: var(--appColorPrimary);
-		font-style: normal;
-		font-weight: bold;
+		:global(em) {
+			color: var(--appColorPrimary);
+			font-style: normal;
+			font-weight: bold;
+		}
 	}
 	.siFurnArea {
 		padding: 10px;
@@ -297,9 +304,9 @@
 		flex-direction: column;
 		justify-content: center;
 		padding-bottom: 10px;
-	}
-	.imageArea img {
-		max-width: 120px;
+		img {
+			max-width: 120px;
+		}
 	}
 	.siFurnName {
 		font-size: 1.3rem;
@@ -317,11 +324,11 @@
 		margin: 0;
 		padding-bottom: 10px;
 		padding-left: 15px;
-	}
-	.siFurnDesc :global(em) {
-		color: var(--appColorPrimary);
-		font-style: normal;
-		font-weight: bold;
+		:global(em) {
+			color: var(--appColorPrimary);
+			font-style: normal;
+			font-weight: bold;
+		}
 	}
 	.expanderButton {
 		background-color: var(--appColorSecondary);
@@ -344,11 +351,9 @@
 	}
 	.right {
 		transform: rotate(-45deg);
-		-webkit-transform: rotate(-45deg);
 	}
 	.down {
 		transform: rotate(45deg);
-		-webkit-transform: rotate(45deg);
 	}
 	.mobileExpander {
 		margin-bottom: 10px;
@@ -362,6 +367,10 @@
 	@media only screen and (min-width: 767px) {
 		.attrImg {
 			max-width: 70px;
+			&:hover+.tooltip {
+				opacity: 1;
+				visibility: visible;
+			}
 		}
 		.tooltip {
 			bottom: -20px;
@@ -375,10 +384,6 @@
 			width: 200px;
 			z-index: 4;
 		}
-		.attrImg:hover+.tooltip {
-			opacity: 1;
-			visibility: visible;
-		}
 		.tooltipText {
 			background-color: var(--appColorPrimary);
 			border-radius: 6px;
@@ -388,8 +393,12 @@
 			user-select: none;
 			-webkit-user-select: none;
 		}
-		.skillPicker img:hover {
-			border: 2px solid var(--appColorPrimary);
+		.skillPicker {
+			img {
+				&:hover {
+					border: 2px solid var(--appColorPrimary);
+				}
+			}
 		}
 	}
 </style>
