@@ -124,7 +124,7 @@
 			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
 			closeOnOuterClick: false,
 		});
-		openNewCompOptions = false;
+		// openNewCompOptions = false;
 	}
 
 	async function handleExportButtonClick(compIdx) {
@@ -145,7 +145,7 @@
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
 					styleWindow: {width: editorWidth,},
 				});
-		openNewCompOptions = false;
+		// openNewCompOptions = false;
 	}
 
 	function handleStarClick(event, comp) {
@@ -225,7 +225,7 @@
 			$AppData.selectedComp = highlightComp;
 			selectedHero = '';
 			selectedLine = 0;
-			openNewCompOptions = false;
+			// openNewCompOptions = false;
 			await tick();
 			document.getElementById(`comp${highlightComp}`).scrollIntoView();
 			setTimeout(() => highlightComp = null, 3000);
