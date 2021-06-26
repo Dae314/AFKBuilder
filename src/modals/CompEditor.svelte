@@ -226,6 +226,7 @@
 			furn: hero.furn,
 			artifacts: hero.artifacts,
 			core: hero.core,
+			notes: hero.notes,
 		}
 		// check if the last reference to the old hero was replaced, and remove it if necessary
 		if(oldHeroID !== '' && oldHeroID !== hero.id) removeHeroesReference(oldHeroID);
@@ -239,6 +240,7 @@
 			furn: hero.furn,
 			artifacts: hero.artifacts,
 			core: hero.core,
+			notes: hero.notes,
 		}
 		// check if the last reference to the old hero was replaced, and remove it if necessary
 		if(oldHeroID !== '' && oldHeroID !== hero.id) removeHeroesReference(oldHeroID);
