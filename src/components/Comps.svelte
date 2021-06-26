@@ -65,10 +65,14 @@
 				// array of tags (trim white space and make lower case)
 				const tags = comp.tags.map(i => i.trim().toLowerCase());
 				for(const term of searchTerms) {
-					if(comp.name.toLowerCase().includes(term)) return true;
-					if(tags.includes(term)) return true;
+					if(term.charAt(0) === '-') {
+						const sterm = term.slice(1, term.length - 1);
+						if(comp.name.toLowerCase().includes(sterm) || tags.some(e => e.toLowerCase().includes(sterm))) return false;
+					} else {
+						if(!comp.name.toLowerCase().includes(term) && !tags.some(e => e.toLowerCase().includes(term))) return false;
+					}
 				}
-				return false;
+				return true;
 			});
 		}
 
