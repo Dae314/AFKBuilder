@@ -639,7 +639,10 @@
 											{#each subgroup.heroes as hero}
 												<div class="subHeroContainer">
 													<a draggable="false" href="#heroDetailSection">
-														<img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+														<div class="subImgContainer">
+															<img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+															<span class="coreMark subCoreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
+														</div>
 														<p on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</p>
 													</a>
 												</div>
@@ -1380,12 +1383,19 @@
 			white-space: nowrap;
 		}
 	}
+	.subImgContainer {
+		position: relative;
+	}
 	.subImg {
 		border-radius: 50%;
 		max-width: 70px;
 	}
 	.subImg.claimed {
 		border: 5px solid var(--appColorPrimary);
+	}
+	.subCoreMark {
+		bottom: 0px;
+		right: -1px;
 	}
 	.mobileExpander {
 		margin-bottom: 10px;
