@@ -6,12 +6,13 @@
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from '../shared/HeroFinder.svelte';
-import { flat } from 'markdown-it/lib/common/html_blocks';
 
 	export let compID = null; // uuid for comp to be edited
 	export let onSuccess = () => {}; // save success callback
 
 	const { close } = getContext('simple-modal');
+
+	$: tagSuggestions = makeTagSuggestions();
 
 	// this will hold the comp as it's edited
 	let comp = {
@@ -35,6 +36,7 @@ import { flat } from 'markdown-it/lib/common/html_blocks';
 	let hfConfig = {};
 	let newTagText = '';
 	let addTagOpen = false;
+	let openSuggestions = false;
 	let autosave;
 	let editor; // ToastUI editor
 
@@ -75,6 +77,26 @@ import { flat } from 'markdown-it/lib/common/html_blocks';
 	onDestroy(async () => {
 		clearTimeout(autosave);
 	});
+
+	function makeTagSuggestions() {
+		let suggestions = [];
+		// start suggestions off as an array of all tags in all comps
+		for(const comp of $AppData.Comps) {
+			for(const tag of comp.tags) {
+				suggestions.push(tag);
+			}
+		}
+		// remove duplicate tags
+		suggestions = [...new Set(suggestions)];
+		// filter suggestions to just strings that match what's already been typed
+		suggestions = suggestions.filter(e => e.toLowerCase().includes(newTagText));
+		// take only the first 10 suggestions
+		suggestions = suggestions.slice(0, 9);
+		// finally, sort suggestions before returning
+		suggestions.sort();
+
+		return suggestions;
+	}
 
 	function deleteLine(lineIdx) {
 		comp.lines = comp.lines.filter((e, i) => i !== lineIdx);
@@ -258,11 +280,27 @@ import { flat } from 'markdown-it/lib/common/html_blocks';
 			comp.tags = [...comp.tags, newTagText];
 			newTagText = '';
 		}
+		openSuggestions = false;
 		addTagOpen = false;
 	}
 	
 	function removeTag(index) {
 		comp.tags = comp.tags.filter((e, i) => i !== index);
+	}
+
+	function handleTagKeyUp(event) {
+		if(event.code === 'Enter') {
+			handleAddTag();
+			return 0;
+		} else {
+			tagSuggestions = makeTagSuggestions();
+		}
+	}
+
+	function takeTagSuggestion(suggestion) {
+		newTagText = suggestion;
+		console.log(suggestion);
+		handleAddTag();
 	}
 </script>
 
@@ -298,15 +336,23 @@ import { flat } from 'markdown-it/lib/common/html_blocks';
 							<span>+</span>
 						</button>
 					{:else}
-						<input
-							id="newTagInput"
-							class="tagInput"
-							class:noMargin={comp.tags.length === 0}
-							type="text"
-							bind:value={newTagText}
-							on:blur={handleAddTag}
-							on:keyup={(e) => { if(e.code === 'Enter') handleAddTag() }}
-							maxlength="20">
+						<div class="newTagInputArea">
+							<input
+								id="newTagInput"
+								class="tagInput"
+								class:noMargin={comp.tags.length === 0}
+								type="text"
+								bind:value={newTagText}
+								on:focus={() => {tagSuggestions = makeTagSuggestions(); openSuggestions = true; }}
+								on:blur={handleAddTag}
+								on:keyup={(e) => handleTagKeyUp(e)}
+								maxlength="20">
+							<div class="suggestions" class:open={openSuggestions}>
+								{#each tagSuggestions as suggestion}
+									<button class="suggestionButton" on:mousedown={() => takeTagSuggestion(suggestion)}><span>{suggestion}</span></button>
+								{/each}
+							</div>
+						</div>
 					{/if}
 				</div>
 			</div>
@@ -519,6 +565,7 @@ import { flat } from 'markdown-it/lib/common/html_blocks';
 		.tag {
 			position: relative;
 			margin: 0px 5px;
+			margin-bottom: 5px;
 		}
 		.tagText {
 			border: 1px solid var(--appColorPrimary);
@@ -545,6 +592,7 @@ import { flat } from 'markdown-it/lib/common/html_blocks';
 			position: absolute;
 			right: -5px;
 			top: 0;
+			user-select: none;
 			width: 10px;
 		}
 		.addTagButton {
@@ -558,8 +606,9 @@ import { flat } from 'markdown-it/lib/common/html_blocks';
 			font-size: 1rem;
 			font-weight: bold;
 			height: 20px;
-			margin-left: 10px;
 			justify-content: center;
+			margin-left: 10px;
+			user-select: none;
 			width: 20px;
 			&:disabled {
 				border-color: var(--appRemoveButtonColor);
@@ -567,11 +616,55 @@ import { flat } from 'markdown-it/lib/common/html_blocks';
 				cursor: default;
 			}
 		}
+		.newTagInputArea {
+			position: relative;
+		}
 		.tagInput {
 			margin-left: 10px;
 		}
 		.addTagButton.noMargin, .tagInput.noMargin {
 			margin: 0;
+		}
+		.suggestions {
+			background-color: white;
+			border: 1px solid var(--appColorPrimary);
+			border-radius: 0px 0px 10px 10px;
+			border-top: 0;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+			display: flex;
+			flex-direction: column;
+			left: 22.5px;
+			opacity: 0;
+			position: absolute;
+			top: 22px;
+			transition: all 0.2s;
+			visibility: hidden;
+			width: 80%;
+			z-index: 5;
+			.suggestionButton {
+				background: transparent;
+				border: 0;
+				border-bottom: 1px solid var(--appColorPrimary);
+				color: var(--appColorPrimary);
+				cursor: pointer;
+				font-size: 1rem;
+				outline: 0;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				&:hover {
+					color: white;
+					background-color: var(--appColorPrimary);
+				}
+				&:last-child {
+					border-bottom: 0;
+					border-radius: 0px 0px 10px 10px;
+				}
+			}
+		}
+		.suggestions.open {
+			visibility: visible;
+			opacity: 1;
 		}
 	}
 	.lineEditorTitle {
@@ -582,7 +675,6 @@ import { flat } from 'markdown-it/lib/common/html_blocks';
 		border-bottom: 1px solid black;
 		display: flex;
 		flex-direction: column;
-		padding-bottom: 5px;
 	}
 	.titleInput {
 		font-size: 1.5rem;
