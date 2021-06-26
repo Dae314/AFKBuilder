@@ -214,6 +214,7 @@ function buildAppData(data) {
 		{name: 'dismissHLSearchInfo', default: false},
 		{name: 'dismissMHSearchInfo', default: false},
 		{name: 'maxDescLen', default: maxDescLen},
+		{name: 'compSearchStr', default: ''},
 		{name: 'HL', default: {}},
 		{name: 'MH', default: {}},
 		{name: 'REC', default: {}},
