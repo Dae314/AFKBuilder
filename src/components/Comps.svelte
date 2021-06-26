@@ -476,7 +476,6 @@
 					</div>
 				</div>
 				<div class="tagsArea">
-					<!-- <h5>Tags</h5> -->
 					<div class="tagDisplay">
 						{#each sortedCompList[$AppData.selectedComp].tags as tag}
 							<div class="tag">
@@ -1033,10 +1032,6 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		h5 {
-			margin: 5px 0px;
-			text-align: center;
-		}
 	}
 	.tagDisplay {
 		align-items: center;
