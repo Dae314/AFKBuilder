@@ -140,7 +140,7 @@
 	function handleEditButtonClick(compIdx) {
 		open(CompEditor,
 				{compID: $AppData.Comps[compIdx].uuid,
-				 onSuccess: () => { sortedCompList = makeSortedCompList(); dispatch('saveData'); }},
+				 onSuccess: () => { sortedCompList = makeSortedCompList(); searchSuggestions = makeSearchSuggestions(); dispatch('saveData'); }},
 				{ closeButton: ModalCloseButton,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
 					styleWindow: {width: editorWidth,},
@@ -183,7 +183,7 @@
 
 	function handleNewButtonClick() {
 		open(CompEditor,
-				{onSuccess: () => { sortedCompList = makeSortedCompList(); dispatch('saveData'); }},
+				{onSuccess: () => { sortedCompList = makeSortedCompList(); searchSuggestions = makeSearchSuggestions(); dispatch('saveData'); }},
 				{ closeButton: ModalCloseButton,
 					closeOnOuterClick: false,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
