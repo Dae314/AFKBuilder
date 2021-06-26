@@ -298,7 +298,6 @@
 			// message should contain a clean hero object now
 			selectedHero = returnObj.message;
 		}
-		console.log(selectedHero);
 		onSuccess(idx, pos, selectedHero, oldHeroID);
 		close();
 	}
