@@ -65,6 +65,7 @@ window.validateComp = async function(data) {
 		{name: 'furn', type: 'number'},
 		{name: 'artifacts', type: 'object'},
 		{name: 'core', type: 'boolean'},
+		{name: 'notes', type: 'string'},
 	];
 	const expectedSubProps = [
 		{name: 'name', type: 'string'},
@@ -381,6 +382,7 @@ function buildCompsData(data) {
 		{name: 'furn', default: 3},
 		{name: 'artifacts', default: {}},
 		{name: 'core', default: false},
+		{name: 'notes', default: ''},
 	];
 	const expectedArtifactsProps = [
 		{name: 'primary', default: []},
