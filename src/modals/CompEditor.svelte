@@ -6,6 +6,7 @@
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from '../shared/HeroFinder.svelte';
+	import SortableList from '../shared/SortableList.svelte';
 
 	export let compID = null; // uuid for comp to be edited
 	export let onSuccess = () => {}; // save success callback
@@ -304,6 +305,14 @@
 		console.log(suggestion);
 		handleAddTag();
 	}
+
+	function handleLineSort(event) {
+		// catch if a user dragged something we weren't expecting and exit
+		if(!Array.isArray(event.detail)) return 0;
+		// don't allow overwrite if there are missing lines
+		if(event.detail.length !== comp.lines.length) return 0;
+		comp.lines = event.detail;
+	}
 </script>
 
 <svelte:window on:popstate={handlePopState} />
@@ -363,12 +372,16 @@
 			<div class="lineEditor">
 				<h4 class="lineEditorTitle">Lines</h4>
 				<div class="lineEditHead">
-					{#each comp.lines as line, i}
+					<SortableList
+						list={comp.lines}
+						on:sort={handleLineSort}
+						let:item={line}
+						let:index={i}>
 						<button class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
 							<span>{line.name}</span>
 							<button class="removeButton" on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
 						</button>
-					{/each}
+					</SortableList>
 					<button class="linePickerOption addLineButton" on:click={addLine}>+</button>
 				</div>
 				<div class="lineEditBody">
@@ -699,6 +712,18 @@
 		flex-wrap: wrap;
 		justify-content: center;
 		width: 100%;
+		:global(ul) {
+			display: flex;
+			flex-wrap: wrap;
+			height: fit-content;
+			justify-content: center;
+			padding: 0;
+		}
+		:global(li) {
+			border: 0;
+			padding: 0;
+			height: fit-content;
+		}
 	}
 	.linePickerOption {
 		align-items: center;
@@ -737,7 +762,8 @@
 		color: white;
 	}
 	.addLineButton {
-		padding: 5px;
+		padding: 3px;
+		user-select: none;
 	}
 	.lineEditBody {
 		align-items: center;
@@ -958,6 +984,9 @@
 		}
 		.lineEditHead {
 			justify-content: flex-start;
+			:global(ul) {
+				justify-content: flex-start;
+			}
 		}
 		.lineEditBody {
 			border-radius: 0px 10px 10px 10px;
