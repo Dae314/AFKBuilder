@@ -4,6 +4,7 @@
 	import { flip } from 'svelte/animate';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
+	import AppData from '../stores/AppData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import FlipButton from '../shared/FlipButton.svelte';
 
@@ -473,6 +474,11 @@
 					<div class="coreArea">
 						<button class="coreButton" class:on={selectedHero.core} on:click={() => selectedHero.core = !selectedHero.core}><span>Core</span></button>
 					</div>
+					<h4>Notes</h4>
+					<div class="notesArea">
+						<textarea class="notesEditor" maxlength={$AppData.maxNoteLen} bind:value={selectedHero.notes}></textarea>
+						<div class="noteLimitArea" class:maxed={selectedHero.notes.length >= $AppData.maxNoteLen}><span>{selectedHero.notes.length}/{$AppData.maxNoteLen}</span></div>
+					</div>
 					<h4>Artifacts</h4>
 					<div class="selectedArtifacts">
 						<div class="gridCell">
@@ -879,6 +885,28 @@
 		background-color: var(--appDelColor);
 		box-shadow: none;
 	}
+	.notesArea {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		width: 100%;
+		.notesEditor {
+			border: 1px solid var(--appColorPrimary);
+			height: 100px;
+			outline: 0;
+			width: 100%;
+		}
+		.noteLimitArea {
+			font-size: 0.8rem;
+			text-align: right;
+			width: 100%;
+		}
+		.noteLimitArea.maxed {
+			color: var(--appDelColor);
+			font-weight: bold;
+		}
+	}
 	.selectedArtifacts {
 		display: grid;
 		grid-gap: 5px 5px;
@@ -1014,6 +1042,14 @@
 		.saveButton {
 			&:hover {
 				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+			}
+		}
+		.notesArea {
+			.notesEditor {
+				width: 75%;
+			}
+			.noteLimitArea {
+				width: 75%;
 			}
 		}
 		.mobileArtifactPicker {

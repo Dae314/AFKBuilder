@@ -67316,68 +67316,68 @@ var app = (function () {
 
     function get_each_context$8(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[90] = list[i];
+    	child_ctx[92] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_3$3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[90] = list[i];
+    	child_ctx[92] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2$3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[90] = list[i];
+    	child_ctx[92] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_5$3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[90] = list[i];
+    	child_ctx[92] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_4$3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[90] = list[i];
+    	child_ctx[92] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_7$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[90] = list[i];
+    	child_ctx[92] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_6$3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[90] = list[i];
-    	child_ctx[105] = i;
+    	child_ctx[92] = list[i];
+    	child_ctx[107] = i;
     	return child_ctx;
     }
 
     function get_each_context_1$4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[93] = list[i];
+    	child_ctx[95] = list[i];
     	return child_ctx;
     }
 
-    // (422:26) 
+    // (423:26) 
     function create_if_block_1$5(ctx) {
-    	let div16;
+    	let div18;
     	let div1;
     	let button0;
     	let span0;
     	let t1;
     	let div0;
-    	let t2_value = /*$HeroData*/ ctx[29].find(/*func*/ ctx[66]).name + "";
+    	let t2_value = /*$HeroData*/ ctx[29].find(/*func*/ ctx[67]).name + "";
     	let t2;
     	let t3;
     	let button1;
     	let span1;
     	let t5;
-    	let div15;
+    	let div17;
     	let div5;
     	let div2;
     	let flipbutton0;
@@ -67397,27 +67397,41 @@ var app = (function () {
     	let button2;
     	let span2;
     	let t11;
-    	let h4;
+    	let h40;
     	let t13;
-    	let div14;
     	let div9;
-    	let h50;
-    	let t15;
+    	let textarea;
+    	let textarea_maxlength_value;
+    	let t14;
     	let div8;
+    	let span3;
+    	let t15_value = /*selectedHero*/ ctx[17].notes.length + "";
+    	let t15;
+    	let t16;
+    	let t17_value = /*$AppData*/ ctx[31].maxNoteLen + "";
+    	let t17;
+    	let t18;
+    	let h41;
+    	let t20;
+    	let div16;
+    	let div11;
+    	let h50;
+    	let t22;
+    	let div10;
     	let current_block_type_index;
     	let if_block0;
-    	let t16;
-    	let div11;
+    	let t23;
+    	let div13;
     	let h51;
-    	let t18;
-    	let div10;
+    	let t25;
+    	let div12;
     	let current_block_type_index_1;
     	let if_block1;
-    	let t19;
-    	let div13;
+    	let t26;
+    	let div15;
     	let h52;
-    	let t21;
-    	let div12;
+    	let t28;
+    	let div14;
     	let current_block_type_index_2;
     	let if_block2;
     	let current;
@@ -67437,7 +67451,7 @@ var app = (function () {
     					"background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;"
     				],
     				curOption: Math.floor(/*selectedHero*/ ctx[17].si / 5),
-    				onClick: /*handleSIChange*/ ctx[33]
+    				onClick: /*handleSIChange*/ ctx[34]
     			},
     			$$inline: true
     		});
@@ -67453,7 +67467,7 @@ var app = (function () {
     				curOption: /*selectedHero*/ ctx[17].furn === 0
     				? 0
     				: /*selectedHero*/ ctx[17].furn === 3 ? 1 : 2,
-    				onClick: /*handleFurnChange*/ ctx[35]
+    				onClick: /*handleFurnChange*/ ctx[36]
     			},
     			$$inline: true
     		});
@@ -67479,7 +67493,7 @@ var app = (function () {
     					"background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 3px solid #B289E8; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;"
     				],
     				curOption: /*selectedHero*/ ctx[17].ascendLv,
-    				onClick: /*handleAscChange*/ ctx[34]
+    				onClick: /*handleAscChange*/ ctx[35]
     			},
     			$$inline: true
     		});
@@ -67517,7 +67531,7 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			div16 = element("div");
+    			div18 = element("div");
     			div1 = element("div");
     			button0 = element("button");
     			span0 = element("span");
@@ -67530,7 +67544,7 @@ var app = (function () {
     			span1 = element("span");
     			span1.textContent = "Save";
     			t5 = space();
-    			div15 = element("div");
+    			div17 = element("div");
     			div5 = element("div");
     			div2 = element("div");
     			create_component(flipbutton0.$$.fragment);
@@ -67549,90 +67563,113 @@ var app = (function () {
     			span2 = element("span");
     			span2.textContent = "Core";
     			t11 = space();
-    			h4 = element("h4");
-    			h4.textContent = "Artifacts";
+    			h40 = element("h4");
+    			h40.textContent = "Notes";
     			t13 = space();
-    			div14 = element("div");
     			div9 = element("div");
+    			textarea = element("textarea");
+    			t14 = space();
+    			div8 = element("div");
+    			span3 = element("span");
+    			t15 = text$2(t15_value);
+    			t16 = text$2("/");
+    			t17 = text$2(t17_value);
+    			t18 = space();
+    			h41 = element("h4");
+    			h41.textContent = "Artifacts";
+    			t20 = space();
+    			div16 = element("div");
+    			div11 = element("div");
     			h50 = element("h5");
     			h50.textContent = "Primary";
-    			t15 = space();
-    			div8 = element("div");
+    			t22 = space();
+    			div10 = element("div");
     			if_block0.c();
-    			t16 = space();
-    			div11 = element("div");
+    			t23 = space();
+    			div13 = element("div");
     			h51 = element("h5");
     			h51.textContent = "Secondary";
-    			t18 = space();
-    			div10 = element("div");
+    			t25 = space();
+    			div12 = element("div");
     			if_block1.c();
-    			t19 = space();
-    			div13 = element("div");
+    			t26 = space();
+    			div15 = element("div");
     			h52 = element("h5");
     			h52.textContent = "Situational";
-    			t21 = space();
-    			div12 = element("div");
+    			t28 = space();
+    			div14 = element("div");
     			if_block2.c();
-    			add_location(span0, file$a, 424, 66, 16682);
-    			attr_dev(button0, "class", "backButton svelte-svyg43");
-    			add_location(button0, file$a, 424, 5, 16621);
-    			attr_dev(div0, "class", "heroName svelte-svyg43");
-    			add_location(div0, file$a, 425, 5, 16722);
-    			add_location(span1, file$a, 426, 60, 16864);
-    			attr_dev(button1, "class", "saveButton svelte-svyg43");
-    			add_location(button1, file$a, 426, 5, 16809);
-    			attr_dev(div1, "class", "heroEditHead svelte-svyg43");
-    			add_location(div1, file$a, 423, 4, 16588);
-    			attr_dev(div2, "class", "siFlipButtonArea svelte-svyg43");
-    			add_location(div2, file$a, 430, 6, 16973);
-    			attr_dev(img, "class", "editorPortrait svelte-svyg43");
-    			if (img.src !== (img_src_value = /*$HeroData*/ ctx[29].find(/*func_1*/ ctx[68]).portrait)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[29].find(/*func_2*/ ctx[69]).name);
-    			add_location(img, file$a, 445, 7, 18343);
-    			attr_dev(div3, "class", "portraitContainer svelte-svyg43");
-    			add_location(div3, file$a, 444, 6, 18303);
-    			attr_dev(div4, "class", "furnFlipButtonArea svelte-svyg43");
-    			add_location(div4, file$a, 447, 6, 18515);
-    			attr_dev(div5, "class", "portraitArea svelte-svyg43");
-    			add_location(div5, file$a, 429, 5, 16939);
-    			attr_dev(div6, "class", "ascFlipButtonArea svelte-svyg43");
-    			add_location(div6, file$a, 458, 5, 19245);
-    			add_location(span2, file$a, 473, 118, 20928);
-    			attr_dev(button2, "class", "coreButton svelte-svyg43");
+    			add_location(span0, file$a, 425, 66, 16728);
+    			attr_dev(button0, "class", "backButton svelte-40ydk1");
+    			add_location(button0, file$a, 425, 5, 16667);
+    			attr_dev(div0, "class", "heroName svelte-40ydk1");
+    			add_location(div0, file$a, 426, 5, 16768);
+    			add_location(span1, file$a, 427, 60, 16910);
+    			attr_dev(button1, "class", "saveButton svelte-40ydk1");
+    			add_location(button1, file$a, 427, 5, 16855);
+    			attr_dev(div1, "class", "heroEditHead svelte-40ydk1");
+    			add_location(div1, file$a, 424, 4, 16634);
+    			attr_dev(div2, "class", "siFlipButtonArea svelte-40ydk1");
+    			add_location(div2, file$a, 431, 6, 17019);
+    			attr_dev(img, "class", "editorPortrait svelte-40ydk1");
+    			if (img.src !== (img_src_value = /*$HeroData*/ ctx[29].find(/*func_1*/ ctx[69]).portrait)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[29].find(/*func_2*/ ctx[70]).name);
+    			add_location(img, file$a, 446, 7, 18389);
+    			attr_dev(div3, "class", "portraitContainer svelte-40ydk1");
+    			add_location(div3, file$a, 445, 6, 18349);
+    			attr_dev(div4, "class", "furnFlipButtonArea svelte-40ydk1");
+    			add_location(div4, file$a, 448, 6, 18561);
+    			attr_dev(div5, "class", "portraitArea svelte-40ydk1");
+    			add_location(div5, file$a, 430, 5, 16985);
+    			attr_dev(div6, "class", "ascFlipButtonArea svelte-40ydk1");
+    			add_location(div6, file$a, 459, 5, 19291);
+    			add_location(span2, file$a, 474, 118, 20974);
+    			attr_dev(button2, "class", "coreButton svelte-40ydk1");
     			toggle_class(button2, "on", /*selectedHero*/ ctx[17].core);
-    			add_location(button2, file$a, 473, 6, 20816);
-    			attr_dev(div7, "class", "coreArea svelte-svyg43");
-    			add_location(div7, file$a, 472, 5, 20786);
-    			attr_dev(h4, "class", "svelte-svyg43");
-    			add_location(h4, file$a, 475, 5, 20974);
-    			attr_dev(h50, "class", "svelte-svyg43");
-    			add_location(h50, file$a, 478, 7, 21069);
-    			attr_dev(div8, "class", "artifactLine priArtifactLine svelte-svyg43");
-    			add_location(div8, file$a, 479, 7, 21094);
-    			attr_dev(div9, "class", "gridCell svelte-svyg43");
-    			add_location(div9, file$a, 477, 6, 21038);
-    			attr_dev(h51, "class", "svelte-svyg43");
-    			add_location(h51, file$a, 506, 7, 22453);
-    			attr_dev(div10, "class", "artifactLine secArtifactLine svelte-svyg43");
-    			add_location(div10, file$a, 507, 7, 22480);
-    			attr_dev(div11, "class", "gridCell svelte-svyg43");
-    			add_location(div11, file$a, 505, 6, 22422);
-    			attr_dev(h52, "class", "svelte-svyg43");
-    			add_location(h52, file$a, 534, 7, 23842);
-    			attr_dev(div12, "class", "artifactLine sitArtifactLine svelte-svyg43");
-    			add_location(div12, file$a, 535, 7, 23871);
-    			attr_dev(div13, "class", "gridCell svelte-svyg43");
-    			add_location(div13, file$a, 533, 6, 23811);
-    			attr_dev(div14, "class", "selectedArtifacts svelte-svyg43");
-    			add_location(div14, file$a, 476, 5, 20999);
-    			attr_dev(div15, "class", "heroEditor svelte-svyg43");
-    			add_location(div15, file$a, 428, 4, 16908);
-    			attr_dev(div16, "class", "section2");
-    			add_location(div16, file$a, 422, 3, 16560);
+    			add_location(button2, file$a, 474, 6, 20862);
+    			attr_dev(div7, "class", "coreArea svelte-40ydk1");
+    			add_location(div7, file$a, 473, 5, 20832);
+    			attr_dev(h40, "class", "svelte-40ydk1");
+    			add_location(h40, file$a, 476, 5, 21020);
+    			attr_dev(textarea, "class", "notesEditor svelte-40ydk1");
+    			attr_dev(textarea, "maxlength", textarea_maxlength_value = /*$AppData*/ ctx[31].maxNoteLen);
+    			add_location(textarea, file$a, 478, 6, 21072);
+    			add_location(span3, file$a, 479, 96, 21275);
+    			attr_dev(div8, "class", "noteLimitArea svelte-40ydk1");
+    			toggle_class(div8, "maxed", /*selectedHero*/ ctx[17].notes.length >= /*$AppData*/ ctx[31].maxNoteLen);
+    			add_location(div8, file$a, 479, 6, 21185);
+    			attr_dev(div9, "class", "notesArea svelte-40ydk1");
+    			add_location(div9, file$a, 477, 5, 21041);
+    			attr_dev(h41, "class", "svelte-40ydk1");
+    			add_location(h41, file$a, 481, 5, 21363);
+    			attr_dev(h50, "class", "svelte-40ydk1");
+    			add_location(h50, file$a, 484, 7, 21458);
+    			attr_dev(div10, "class", "artifactLine priArtifactLine svelte-40ydk1");
+    			add_location(div10, file$a, 485, 7, 21483);
+    			attr_dev(div11, "class", "gridCell svelte-40ydk1");
+    			add_location(div11, file$a, 483, 6, 21427);
+    			attr_dev(h51, "class", "svelte-40ydk1");
+    			add_location(h51, file$a, 512, 7, 22842);
+    			attr_dev(div12, "class", "artifactLine secArtifactLine svelte-40ydk1");
+    			add_location(div12, file$a, 513, 7, 22869);
+    			attr_dev(div13, "class", "gridCell svelte-40ydk1");
+    			add_location(div13, file$a, 511, 6, 22811);
+    			attr_dev(h52, "class", "svelte-40ydk1");
+    			add_location(h52, file$a, 540, 7, 24231);
+    			attr_dev(div14, "class", "artifactLine sitArtifactLine svelte-40ydk1");
+    			add_location(div14, file$a, 541, 7, 24260);
+    			attr_dev(div15, "class", "gridCell svelte-40ydk1");
+    			add_location(div15, file$a, 539, 6, 24200);
+    			attr_dev(div16, "class", "selectedArtifacts svelte-40ydk1");
+    			add_location(div16, file$a, 482, 5, 21388);
+    			attr_dev(div17, "class", "heroEditor svelte-40ydk1");
+    			add_location(div17, file$a, 429, 4, 16954);
+    			attr_dev(div18, "class", "section2");
+    			add_location(div18, file$a, 423, 3, 16606);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div16, anchor);
-    			append_dev(div16, div1);
+    			insert_dev(target, div18, anchor);
+    			append_dev(div18, div1);
     			append_dev(div1, button0);
     			append_dev(button0, span0);
     			append_dev(div1, t1);
@@ -67641,9 +67678,9 @@ var app = (function () {
     			append_dev(div1, t3);
     			append_dev(div1, button1);
     			append_dev(button1, span1);
-    			append_dev(div16, t5);
-    			append_dev(div16, div15);
-    			append_dev(div15, div5);
+    			append_dev(div18, t5);
+    			append_dev(div18, div17);
+    			append_dev(div17, div5);
     			append_dev(div5, div2);
     			mount_component(flipbutton0, div2, null);
     			append_dev(div5, t6);
@@ -67652,57 +67689,70 @@ var app = (function () {
     			append_dev(div5, t7);
     			append_dev(div5, div4);
     			mount_component(flipbutton1, div4, null);
-    			append_dev(div15, t8);
-    			append_dev(div15, div6);
+    			append_dev(div17, t8);
+    			append_dev(div17, div6);
     			mount_component(flipbutton2, div6, null);
-    			append_dev(div15, t9);
-    			append_dev(div15, div7);
+    			append_dev(div17, t9);
+    			append_dev(div17, div7);
     			append_dev(div7, button2);
     			append_dev(button2, span2);
-    			append_dev(div15, t11);
-    			append_dev(div15, h4);
-    			append_dev(div15, t13);
-    			append_dev(div15, div14);
-    			append_dev(div14, div9);
-    			append_dev(div9, h50);
-    			append_dev(div9, t15);
+    			append_dev(div17, t11);
+    			append_dev(div17, h40);
+    			append_dev(div17, t13);
+    			append_dev(div17, div9);
+    			append_dev(div9, textarea);
+    			set_input_value(textarea, /*selectedHero*/ ctx[17].notes);
+    			append_dev(div9, t14);
     			append_dev(div9, div8);
-    			if_blocks[current_block_type_index].m(div8, null);
-    			append_dev(div14, t16);
-    			append_dev(div14, div11);
-    			append_dev(div11, h51);
-    			append_dev(div11, t18);
+    			append_dev(div8, span3);
+    			append_dev(span3, t15);
+    			append_dev(span3, t16);
+    			append_dev(span3, t17);
+    			append_dev(div17, t18);
+    			append_dev(div17, h41);
+    			append_dev(div17, t20);
+    			append_dev(div17, div16);
+    			append_dev(div16, div11);
+    			append_dev(div11, h50);
+    			append_dev(div11, t22);
     			append_dev(div11, div10);
-    			if_blocks_1[current_block_type_index_1].m(div10, null);
-    			append_dev(div14, t19);
-    			append_dev(div14, div13);
-    			append_dev(div13, h52);
-    			append_dev(div13, t21);
+    			if_blocks[current_block_type_index].m(div10, null);
+    			append_dev(div16, t23);
+    			append_dev(div16, div13);
+    			append_dev(div13, h51);
+    			append_dev(div13, t25);
     			append_dev(div13, div12);
-    			if_blocks_2[current_block_type_index_2].m(div12, null);
+    			if_blocks_1[current_block_type_index_1].m(div12, null);
+    			append_dev(div16, t26);
+    			append_dev(div16, div15);
+    			append_dev(div15, h52);
+    			append_dev(div15, t28);
+    			append_dev(div15, div14);
+    			if_blocks_2[current_block_type_index_2].m(div14, null);
     			current = true;
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button0, "click", /*click_handler_20*/ ctx[65], false, false, false),
-    					listen_dev(button1, "click", /*click_handler_21*/ ctx[67], false, false, false),
-    					listen_dev(button2, "click", /*click_handler_22*/ ctx[70], false, false, false)
+    					listen_dev(button0, "click", /*click_handler_20*/ ctx[66], false, false, false),
+    					listen_dev(button1, "click", /*click_handler_21*/ ctx[68], false, false, false),
+    					listen_dev(button2, "click", /*click_handler_22*/ ctx[71], false, false, false),
+    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[72])
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if ((!current || dirty[0] & /*$HeroData, selectedHero*/ 537001984) && t2_value !== (t2_value = /*$HeroData*/ ctx[29].find(/*func*/ ctx[66]).name + "")) set_data_dev(t2, t2_value);
+    			if ((!current || dirty[0] & /*$HeroData, selectedHero*/ 537001984) && t2_value !== (t2_value = /*$HeroData*/ ctx[29].find(/*func*/ ctx[67]).name + "")) set_data_dev(t2, t2_value);
     			const flipbutton0_changes = {};
     			if (dirty[0] & /*selectedHero*/ 131072) flipbutton0_changes.curOption = Math.floor(/*selectedHero*/ ctx[17].si / 5);
     			flipbutton0.$set(flipbutton0_changes);
 
-    			if (!current || dirty[0] & /*$HeroData, selectedHero*/ 537001984 && img.src !== (img_src_value = /*$HeroData*/ ctx[29].find(/*func_1*/ ctx[68]).portrait)) {
+    			if (!current || dirty[0] & /*$HeroData, selectedHero*/ 537001984 && img.src !== (img_src_value = /*$HeroData*/ ctx[29].find(/*func_1*/ ctx[69]).portrait)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (!current || dirty[0] & /*$HeroData, selectedHero*/ 537001984 && img_alt_value !== (img_alt_value = /*$HeroData*/ ctx[29].find(/*func_2*/ ctx[69]).name)) {
+    			if (!current || dirty[0] & /*$HeroData, selectedHero*/ 537001984 && img_alt_value !== (img_alt_value = /*$HeroData*/ ctx[29].find(/*func_2*/ ctx[70]).name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
@@ -67719,6 +67769,21 @@ var app = (function () {
 
     			if (dirty[0] & /*selectedHero*/ 131072) {
     				toggle_class(button2, "on", /*selectedHero*/ ctx[17].core);
+    			}
+
+    			if (!current || dirty[1] & /*$AppData*/ 1 && textarea_maxlength_value !== (textarea_maxlength_value = /*$AppData*/ ctx[31].maxNoteLen)) {
+    				attr_dev(textarea, "maxlength", textarea_maxlength_value);
+    			}
+
+    			if (dirty[0] & /*selectedHero*/ 131072) {
+    				set_input_value(textarea, /*selectedHero*/ ctx[17].notes);
+    			}
+
+    			if ((!current || dirty[0] & /*selectedHero*/ 131072) && t15_value !== (t15_value = /*selectedHero*/ ctx[17].notes.length + "")) set_data_dev(t15, t15_value);
+    			if ((!current || dirty[1] & /*$AppData*/ 1) && t17_value !== (t17_value = /*$AppData*/ ctx[31].maxNoteLen + "")) set_data_dev(t17, t17_value);
+
+    			if (dirty[0] & /*selectedHero*/ 131072 | dirty[1] & /*$AppData*/ 1) {
+    				toggle_class(div8, "maxed", /*selectedHero*/ ctx[17].notes.length >= /*$AppData*/ ctx[31].maxNoteLen);
     			}
 
     			let previous_block_index = current_block_type_index;
@@ -67744,7 +67809,7 @@ var app = (function () {
     				}
 
     				transition_in(if_block0, 1);
-    				if_block0.m(div8, null);
+    				if_block0.m(div10, null);
     			}
 
     			let previous_block_index_1 = current_block_type_index_1;
@@ -67770,7 +67835,7 @@ var app = (function () {
     				}
 
     				transition_in(if_block1, 1);
-    				if_block1.m(div10, null);
+    				if_block1.m(div12, null);
     			}
 
     			let previous_block_index_2 = current_block_type_index_2;
@@ -67796,7 +67861,7 @@ var app = (function () {
     				}
 
     				transition_in(if_block2, 1);
-    				if_block2.m(div12, null);
+    				if_block2.m(div14, null);
     			}
     		},
     		i: function intro(local) {
@@ -67819,7 +67884,7 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div16);
+    			if (detaching) detach_dev(div18);
     			destroy_component(flipbutton0);
     			destroy_component(flipbutton1);
     			destroy_component(flipbutton2);
@@ -67835,14 +67900,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$5.name,
     		type: "if",
-    		source: "(422:26) ",
+    		source: "(423:26) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (345:2) {#if section === 1}
+    // (346:2) {#if section === 1}
     function create_if_block$9(ctx) {
     	let div9;
     	let div0;
@@ -67933,7 +67998,7 @@ var app = (function () {
     	let dispose;
     	let each_value_1 = /*heroes*/ ctx[24];
     	validate_each_argument(each_value_1);
-    	const get_key = ctx => /*hero*/ ctx[93].id;
+    	const get_key = ctx => /*hero*/ ctx[95].id;
     	validate_each_keys(ctx, each_value_1, get_each_context_1$4, get_key);
 
     	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -68020,151 +68085,151 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(i, "class", i_class_value = "arrow " + (/*openFilters*/ ctx[18] ? "open" : "right") + " svelte-svyg43");
-    			add_location(i, file$a, 347, 79, 11583);
-    			add_location(span, file$a, 347, 134, 11638);
-    			attr_dev(button0, "class", "filtersButton svelte-svyg43");
-    			add_location(button0, file$a, 347, 5, 11509);
+    			attr_dev(i, "class", i_class_value = "arrow " + (/*openFilters*/ ctx[18] ? "open" : "right") + " svelte-40ydk1");
+    			add_location(i, file$a, 348, 79, 11629);
+    			add_location(span, file$a, 348, 134, 11684);
+    			attr_dev(button0, "class", "filtersButton svelte-40ydk1");
+    			add_location(button0, file$a, 348, 5, 11555);
     			attr_dev(div0, "class", "mobileExpanderTitle");
-    			add_location(div0, file$a, 346, 4, 11469);
+    			add_location(div0, file$a, 347, 4, 11515);
     			attr_dev(input, "id", "searchBox");
     			attr_dev(input, "type", "search");
     			attr_dev(input, "placeholder", "Search");
-    			attr_dev(input, "class", "svelte-svyg43");
-    			add_location(input, file$a, 352, 7, 11828);
-    			attr_dev(div1, "class", "search svelte-svyg43");
-    			add_location(div1, file$a, 351, 6, 11799);
-    			attr_dev(div2, "class", "searchContainer svelte-svyg43");
-    			add_location(div2, file$a, 350, 5, 11762);
-    			attr_dev(button1, "class", "filterMasterButton svelte-svyg43");
+    			attr_dev(input, "class", "svelte-40ydk1");
+    			add_location(input, file$a, 353, 7, 11874);
+    			attr_dev(div1, "class", "search svelte-40ydk1");
+    			add_location(div1, file$a, 352, 6, 11845);
+    			attr_dev(div2, "class", "searchContainer svelte-40ydk1");
+    			add_location(div2, file$a, 351, 5, 11808);
+    			attr_dev(button1, "class", "filterMasterButton svelte-40ydk1");
     			toggle_class(button1, "filterMasterDisabled", !/*allFactionsEnabled*/ ctx[25]);
-    			add_location(button1, file$a, 357, 7, 12090);
-    			attr_dev(img0, "class", "filterImg svelte-svyg43");
+    			add_location(button1, file$a, 358, 7, 12136);
+    			attr_dev(img0, "class", "filterImg svelte-40ydk1");
     			if (img0.src !== (img0_src_value = "./img/factions/lightbearer.png")) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", "Lightbearer");
     			toggle_class(img0, "filterInactive", !/*showLB*/ ctx[0]);
-    			add_location(img0, file$a, 359, 8, 12355);
-    			attr_dev(button2, "class", "filterButton svelte-svyg43");
-    			add_location(button2, file$a, 358, 7, 12253);
-    			attr_dev(img1, "class", "filterImg svelte-svyg43");
+    			add_location(img0, file$a, 360, 8, 12401);
+    			attr_dev(button2, "class", "filterButton svelte-40ydk1");
+    			add_location(button2, file$a, 359, 7, 12299);
+    			attr_dev(img1, "class", "filterImg svelte-40ydk1");
     			if (img1.src !== (img1_src_value = "./img/factions/mauler.png")) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", "Mauler");
     			toggle_class(img1, "filterInactive", !/*showM*/ ctx[1]);
-    			add_location(img1, file$a, 362, 8, 12592);
-    			attr_dev(button3, "class", "filterButton svelte-svyg43");
-    			add_location(button3, file$a, 361, 7, 12491);
-    			attr_dev(img2, "class", "filterImg svelte-svyg43");
+    			add_location(img1, file$a, 363, 8, 12638);
+    			attr_dev(button3, "class", "filterButton svelte-40ydk1");
+    			add_location(button3, file$a, 362, 7, 12537);
+    			attr_dev(img2, "class", "filterImg svelte-40ydk1");
     			if (img2.src !== (img2_src_value = "./img/factions/wilder.png")) attr_dev(img2, "src", img2_src_value);
     			attr_dev(img2, "alt", "wilder");
     			toggle_class(img2, "filterInactive", !/*showW*/ ctx[2]);
-    			add_location(img2, file$a, 365, 8, 12818);
-    			attr_dev(button4, "class", "filterButton svelte-svyg43");
-    			add_location(button4, file$a, 364, 7, 12717);
-    			attr_dev(img3, "class", "filterImg svelte-svyg43");
+    			add_location(img2, file$a, 366, 8, 12864);
+    			attr_dev(button4, "class", "filterButton svelte-40ydk1");
+    			add_location(button4, file$a, 365, 7, 12763);
+    			attr_dev(img3, "class", "filterImg svelte-40ydk1");
     			if (img3.src !== (img3_src_value = "./img/factions/graveborn.png")) attr_dev(img3, "src", img3_src_value);
     			attr_dev(img3, "alt", "Graveborn");
     			toggle_class(img3, "filterInactive", !/*showGB*/ ctx[3]);
-    			add_location(img3, file$a, 368, 8, 13046);
-    			attr_dev(button5, "class", "filterButton svelte-svyg43");
-    			add_location(button5, file$a, 367, 7, 12943);
-    			attr_dev(img4, "class", "filterImg svelte-svyg43");
+    			add_location(img3, file$a, 369, 8, 13092);
+    			attr_dev(button5, "class", "filterButton svelte-40ydk1");
+    			add_location(button5, file$a, 368, 7, 12989);
+    			attr_dev(img4, "class", "filterImg svelte-40ydk1");
     			if (img4.src !== (img4_src_value = "./img/factions/celestial.png")) attr_dev(img4, "src", img4_src_value);
     			attr_dev(img4, "alt", "Celestial");
     			toggle_class(img4, "filterInactive", !/*showC*/ ctx[4]);
-    			add_location(img4, file$a, 371, 8, 13279);
-    			attr_dev(button6, "class", "filterButton svelte-svyg43");
-    			add_location(button6, file$a, 370, 7, 13178);
-    			attr_dev(img5, "class", "filterImg svelte-svyg43");
+    			add_location(img4, file$a, 372, 8, 13325);
+    			attr_dev(button6, "class", "filterButton svelte-40ydk1");
+    			add_location(button6, file$a, 371, 7, 13224);
+    			attr_dev(img5, "class", "filterImg svelte-40ydk1");
     			if (img5.src !== (img5_src_value = "./img/factions/hypogean.png")) attr_dev(img5, "src", img5_src_value);
     			attr_dev(img5, "alt", "Hypogean");
     			toggle_class(img5, "filterInactive", !/*showH*/ ctx[5]);
-    			add_location(img5, file$a, 374, 8, 13511);
-    			attr_dev(button7, "class", "filterButton svelte-svyg43");
-    			add_location(button7, file$a, 373, 7, 13410);
-    			attr_dev(img6, "class", "filterImg svelte-svyg43");
+    			add_location(img5, file$a, 375, 8, 13557);
+    			attr_dev(button7, "class", "filterButton svelte-40ydk1");
+    			add_location(button7, file$a, 374, 7, 13456);
+    			attr_dev(img6, "class", "filterImg svelte-40ydk1");
     			if (img6.src !== (img6_src_value = "./img/factions/dimensional.png")) attr_dev(img6, "src", img6_src_value);
     			attr_dev(img6, "alt", "Dimensional");
     			toggle_class(img6, "filterInactive", !/*showD*/ ctx[6]);
-    			add_location(img6, file$a, 377, 8, 13741);
-    			attr_dev(button8, "class", "filterButton svelte-svyg43");
-    			add_location(button8, file$a, 376, 7, 13640);
-    			attr_dev(div3, "class", "filterSection svelte-svyg43");
-    			add_location(div3, file$a, 356, 6, 12054);
-    			attr_dev(button9, "class", "filterMasterButton svelte-svyg43");
+    			add_location(img6, file$a, 378, 8, 13787);
+    			attr_dev(button8, "class", "filterButton svelte-40ydk1");
+    			add_location(button8, file$a, 377, 7, 13686);
+    			attr_dev(div3, "class", "filterSection svelte-40ydk1");
+    			add_location(div3, file$a, 357, 6, 12100);
+    			attr_dev(button9, "class", "filterMasterButton svelte-40ydk1");
     			toggle_class(button9, "filterMasterDisabled", !/*allTypesEnabled*/ ctx[26]);
-    			add_location(button9, file$a, 381, 7, 13925);
-    			attr_dev(img7, "class", "filterImg svelte-svyg43");
+    			add_location(button9, file$a, 382, 7, 13971);
+    			attr_dev(img7, "class", "filterImg svelte-40ydk1");
     			if (img7.src !== (img7_src_value = "./img/types/intelligence.png")) attr_dev(img7, "src", img7_src_value);
     			attr_dev(img7, "alt", "Intelligence");
     			toggle_class(img7, "filterInactive", !/*showInt*/ ctx[7]);
-    			add_location(img7, file$a, 383, 8, 14187);
-    			attr_dev(button10, "class", "filterButton svelte-svyg43");
-    			add_location(button10, file$a, 382, 7, 14082);
-    			attr_dev(img8, "class", "filterImg svelte-svyg43");
+    			add_location(img7, file$a, 384, 8, 14233);
+    			attr_dev(button10, "class", "filterButton svelte-40ydk1");
+    			add_location(button10, file$a, 383, 7, 14128);
+    			attr_dev(img8, "class", "filterImg svelte-40ydk1");
     			if (img8.src !== (img8_src_value = "./img/types/agility.png")) attr_dev(img8, "src", img8_src_value);
     			attr_dev(img8, "alt", "Agility");
     			toggle_class(img8, "filterInactive", !/*showAgi*/ ctx[8]);
-    			add_location(img8, file$a, 386, 8, 14428);
-    			attr_dev(button11, "class", "filterButton svelte-svyg43");
-    			add_location(button11, file$a, 385, 7, 14323);
-    			attr_dev(img9, "class", "filterImg svelte-svyg43");
+    			add_location(img8, file$a, 387, 8, 14474);
+    			attr_dev(button11, "class", "filterButton svelte-40ydk1");
+    			add_location(button11, file$a, 386, 7, 14369);
+    			attr_dev(img9, "class", "filterImg svelte-40ydk1");
     			if (img9.src !== (img9_src_value = "./img/types/strength.png")) attr_dev(img9, "src", img9_src_value);
     			attr_dev(img9, "alt", "Strength");
     			toggle_class(img9, "filterInactive", !/*showStr*/ ctx[9]);
-    			add_location(img9, file$a, 389, 8, 14659);
-    			attr_dev(button12, "class", "filterButton svelte-svyg43");
-    			add_location(button12, file$a, 388, 7, 14554);
-    			attr_dev(div4, "class", "filterSection svelte-svyg43");
-    			add_location(div4, file$a, 380, 6, 13889);
-    			attr_dev(button13, "class", "filterMasterButton svelte-svyg43");
+    			add_location(img9, file$a, 390, 8, 14705);
+    			attr_dev(button12, "class", "filterButton svelte-40ydk1");
+    			add_location(button12, file$a, 389, 7, 14600);
+    			attr_dev(div4, "class", "filterSection svelte-40ydk1");
+    			add_location(div4, file$a, 381, 6, 13935);
+    			attr_dev(button13, "class", "filterMasterButton svelte-40ydk1");
     			toggle_class(button13, "filterMasterDisabled", !/*allClassEnabled*/ ctx[27]);
-    			add_location(button13, file$a, 393, 7, 14836);
-    			attr_dev(img10, "class", "filterImg svelte-svyg43");
+    			add_location(button13, file$a, 394, 7, 14882);
+    			attr_dev(img10, "class", "filterImg svelte-40ydk1");
     			if (img10.src !== (img10_src_value = "./img/classes/mage.png")) attr_dev(img10, "src", img10_src_value);
     			attr_dev(img10, "alt", "Mage");
     			toggle_class(img10, "filterInactive", !/*showMage*/ ctx[10]);
-    			add_location(img10, file$a, 395, 8, 15101);
-    			attr_dev(button14, "class", "filterButton svelte-svyg43");
-    			add_location(button14, file$a, 394, 7, 14994);
-    			attr_dev(img11, "class", "filterImg svelte-svyg43");
+    			add_location(img10, file$a, 396, 8, 15147);
+    			attr_dev(button14, "class", "filterButton svelte-40ydk1");
+    			add_location(button14, file$a, 395, 7, 15040);
+    			attr_dev(img11, "class", "filterImg svelte-40ydk1");
     			if (img11.src !== (img11_src_value = "./img/classes/warrior.png")) attr_dev(img11, "src", img11_src_value);
     			attr_dev(img11, "alt", "Warrior");
     			toggle_class(img11, "filterInactive", !/*showWar*/ ctx[11]);
-    			add_location(img11, file$a, 398, 8, 15329);
-    			attr_dev(button15, "class", "filterButton svelte-svyg43");
-    			add_location(button15, file$a, 397, 7, 15224);
-    			attr_dev(img12, "class", "filterImg svelte-svyg43");
+    			add_location(img11, file$a, 399, 8, 15375);
+    			attr_dev(button15, "class", "filterButton svelte-40ydk1");
+    			add_location(button15, file$a, 398, 7, 15270);
+    			attr_dev(img12, "class", "filterImg svelte-40ydk1");
     			if (img12.src !== (img12_src_value = "./img/classes/tank.png")) attr_dev(img12, "src", img12_src_value);
     			attr_dev(img12, "alt", "Tank");
     			toggle_class(img12, "filterInactive", !/*showTank*/ ctx[12]);
-    			add_location(img12, file$a, 401, 8, 15564);
-    			attr_dev(button16, "class", "filterButton svelte-svyg43");
-    			add_location(button16, file$a, 400, 7, 15457);
-    			attr_dev(img13, "class", "filterImg svelte-svyg43");
+    			add_location(img12, file$a, 402, 8, 15610);
+    			attr_dev(button16, "class", "filterButton svelte-40ydk1");
+    			add_location(button16, file$a, 401, 7, 15503);
+    			attr_dev(img13, "class", "filterImg svelte-40ydk1");
     			if (img13.src !== (img13_src_value = "./img/classes/support.png")) attr_dev(img13, "src", img13_src_value);
     			attr_dev(img13, "alt", "Support");
     			toggle_class(img13, "filterInactive", !/*showSup*/ ctx[13]);
-    			add_location(img13, file$a, 404, 8, 15792);
-    			attr_dev(button17, "class", "filterButton svelte-svyg43");
-    			add_location(button17, file$a, 403, 7, 15687);
-    			attr_dev(img14, "class", "filterImg svelte-svyg43");
+    			add_location(img13, file$a, 405, 8, 15838);
+    			attr_dev(button17, "class", "filterButton svelte-40ydk1");
+    			add_location(button17, file$a, 404, 7, 15733);
+    			attr_dev(img14, "class", "filterImg svelte-40ydk1");
     			if (img14.src !== (img14_src_value = "./img/classes/ranger.png")) attr_dev(img14, "src", img14_src_value);
     			attr_dev(img14, "alt", "Ranger");
     			toggle_class(img14, "filterInactive", !/*showRan*/ ctx[14]);
-    			add_location(img14, file$a, 407, 8, 16025);
-    			attr_dev(button18, "class", "filterButton svelte-svyg43");
-    			add_location(button18, file$a, 406, 7, 15920);
-    			attr_dev(div5, "class", "filterSection svelte-svyg43");
-    			add_location(div5, file$a, 392, 6, 14800);
-    			attr_dev(div6, "class", "filters svelte-svyg43");
-    			add_location(div6, file$a, 355, 5, 12025);
-    			attr_dev(div7, "class", "mobileExpander svelte-svyg43");
+    			add_location(img14, file$a, 408, 8, 16071);
+    			attr_dev(button18, "class", "filterButton svelte-40ydk1");
+    			add_location(button18, file$a, 407, 7, 15966);
+    			attr_dev(div5, "class", "filterSection svelte-40ydk1");
+    			add_location(div5, file$a, 393, 6, 14846);
+    			attr_dev(div6, "class", "filters svelte-40ydk1");
+    			add_location(div6, file$a, 356, 5, 12071);
+    			attr_dev(div7, "class", "mobileExpander svelte-40ydk1");
     			toggle_class(div7, "filterOpen", /*openFilters*/ ctx[18]);
-    			add_location(div7, file$a, 349, 4, 11696);
-    			attr_dev(div8, "class", "heroGrid svelte-svyg43");
-    			add_location(div8, file$a, 412, 4, 16187);
+    			add_location(div7, file$a, 350, 4, 11742);
+    			attr_dev(div8, "class", "heroGrid svelte-40ydk1");
+    			add_location(div8, file$a, 413, 4, 16233);
     			attr_dev(div9, "class", "section1");
-    			add_location(div9, file$a, 345, 3, 11441);
+    			add_location(div9, file$a, 346, 3, 11487);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div9, anchor);
@@ -68242,35 +68307,35 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button0, "click", /*click_handler*/ ctx[42], false, false, false),
-    					listen_dev(input, "input", /*input_input_handler*/ ctx[43]),
-    					listen_dev(input, "keyup", /*keyup_handler*/ ctx[44], false, false, false),
-    					listen_dev(input, "search", /*search_handler*/ ctx[45], false, false, false),
-    					listen_dev(button1, "click", /*click_handler_1*/ ctx[46], false, false, false),
-    					listen_dev(button2, "click", /*click_handler_2*/ ctx[47], false, false, false),
-    					listen_dev(button3, "click", /*click_handler_3*/ ctx[48], false, false, false),
-    					listen_dev(button4, "click", /*click_handler_4*/ ctx[49], false, false, false),
-    					listen_dev(button5, "click", /*click_handler_5*/ ctx[50], false, false, false),
-    					listen_dev(button6, "click", /*click_handler_6*/ ctx[51], false, false, false),
-    					listen_dev(button7, "click", /*click_handler_7*/ ctx[52], false, false, false),
-    					listen_dev(button8, "click", /*click_handler_8*/ ctx[53], false, false, false),
-    					listen_dev(button9, "click", /*click_handler_9*/ ctx[54], false, false, false),
-    					listen_dev(button10, "click", /*click_handler_10*/ ctx[55], false, false, false),
-    					listen_dev(button11, "click", /*click_handler_11*/ ctx[56], false, false, false),
-    					listen_dev(button12, "click", /*click_handler_12*/ ctx[57], false, false, false),
-    					listen_dev(button13, "click", /*click_handler_13*/ ctx[58], false, false, false),
-    					listen_dev(button14, "click", /*click_handler_14*/ ctx[59], false, false, false),
-    					listen_dev(button15, "click", /*click_handler_15*/ ctx[60], false, false, false),
-    					listen_dev(button16, "click", /*click_handler_16*/ ctx[61], false, false, false),
-    					listen_dev(button17, "click", /*click_handler_17*/ ctx[62], false, false, false),
-    					listen_dev(button18, "click", /*click_handler_18*/ ctx[63], false, false, false)
+    					listen_dev(button0, "click", /*click_handler*/ ctx[43], false, false, false),
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[44]),
+    					listen_dev(input, "keyup", /*keyup_handler*/ ctx[45], false, false, false),
+    					listen_dev(input, "search", /*search_handler*/ ctx[46], false, false, false),
+    					listen_dev(button1, "click", /*click_handler_1*/ ctx[47], false, false, false),
+    					listen_dev(button2, "click", /*click_handler_2*/ ctx[48], false, false, false),
+    					listen_dev(button3, "click", /*click_handler_3*/ ctx[49], false, false, false),
+    					listen_dev(button4, "click", /*click_handler_4*/ ctx[50], false, false, false),
+    					listen_dev(button5, "click", /*click_handler_5*/ ctx[51], false, false, false),
+    					listen_dev(button6, "click", /*click_handler_6*/ ctx[52], false, false, false),
+    					listen_dev(button7, "click", /*click_handler_7*/ ctx[53], false, false, false),
+    					listen_dev(button8, "click", /*click_handler_8*/ ctx[54], false, false, false),
+    					listen_dev(button9, "click", /*click_handler_9*/ ctx[55], false, false, false),
+    					listen_dev(button10, "click", /*click_handler_10*/ ctx[56], false, false, false),
+    					listen_dev(button11, "click", /*click_handler_11*/ ctx[57], false, false, false),
+    					listen_dev(button12, "click", /*click_handler_12*/ ctx[58], false, false, false),
+    					listen_dev(button13, "click", /*click_handler_13*/ ctx[59], false, false, false),
+    					listen_dev(button14, "click", /*click_handler_14*/ ctx[60], false, false, false),
+    					listen_dev(button15, "click", /*click_handler_15*/ ctx[61], false, false, false),
+    					listen_dev(button16, "click", /*click_handler_16*/ ctx[62], false, false, false),
+    					listen_dev(button17, "click", /*click_handler_17*/ ctx[63], false, false, false),
+    					listen_dev(button18, "click", /*click_handler_18*/ ctx[64], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*openFilters*/ 262144 && i_class_value !== (i_class_value = "arrow " + (/*openFilters*/ ctx[18] ? "open" : "right") + " svelte-svyg43")) {
+    			if (dirty[0] & /*openFilters*/ 262144 && i_class_value !== (i_class_value = "arrow " + (/*openFilters*/ ctx[18] ? "open" : "right") + " svelte-40ydk1")) {
     				attr_dev(i, "class", i_class_value);
     			}
 
@@ -68354,7 +68419,7 @@ var app = (function () {
     				toggle_class(div7, "filterOpen", /*openFilters*/ ctx[18]);
     			}
 
-    			if (dirty[0] & /*heroes, compHeroData*/ 17301504 | dirty[1] & /*selectHero*/ 256) {
+    			if (dirty[0] & /*heroes, compHeroData*/ 17301504 | dirty[1] & /*selectHero*/ 512) {
     				each_value_1 = /*heroes*/ ctx[24];
     				validate_each_argument(each_value_1);
     				for (let i = 0; i < each_blocks.length; i += 1) each_blocks[i].r();
@@ -68381,14 +68446,14 @@ var app = (function () {
     		block,
     		id: create_if_block$9.name,
     		type: "if",
-    		source: "(345:2) {#if section === 1}",
+    		source: "(346:2) {#if section === 1}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (494:8) {:else}
+    // (500:8) {:else}
     function create_else_block_2$3(ctx) {
     	let div;
     	let each_blocks = [];
@@ -68396,7 +68461,7 @@ var app = (function () {
     	let current;
     	let each_value_7 = /*unusedArtifacts*/ ctx[28];
     	validate_each_argument(each_value_7);
-    	const get_key = ctx => /*artifact*/ ctx[90];
+    	const get_key = ctx => /*artifact*/ ctx[92];
     	validate_each_keys(ctx, each_value_7, get_each_context_7$1, get_key);
 
     	for (let i = 0; i < each_value_7.length; i += 1) {
@@ -68413,8 +68478,8 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div, "class", "mobileArtifactPicker svelte-svyg43");
-    			add_location(div, file$a, 494, 9, 21927);
+    			attr_dev(div, "class", "mobileArtifactPicker svelte-40ydk1");
+    			add_location(div, file$a, 500, 9, 22316);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -68426,7 +68491,7 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*unusedArtifacts, $Artifacts*/ 1342177280 | dirty[1] & /*handleAddArtifact*/ 32) {
+    			if (dirty[0] & /*unusedArtifacts, $Artifacts*/ 1342177280 | dirty[1] & /*handleAddArtifact*/ 64) {
     				each_value_7 = /*unusedArtifacts*/ ctx[28];
     				validate_each_argument(each_value_7);
     				group_outros();
@@ -68464,14 +68529,14 @@ var app = (function () {
     		block,
     		id: create_else_block_2$3.name,
     		type: "else",
-    		source: "(494:8) {:else}",
+    		source: "(500:8) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (481:8) {#if !pickArtifactPri}
+    // (487:8) {#if !pickArtifactPri}
     function create_if_block_6$2(ctx) {
     	let each_blocks = [];
     	let each_1_lookup = new Map();
@@ -68479,7 +68544,7 @@ var app = (function () {
     	let if_block_anchor;
     	let each_value_6 = /*selectedHero*/ ctx[17].artifacts.primary;
     	validate_each_argument(each_value_6);
-    	const get_key = ctx => /*artifact*/ ctx[90];
+    	const get_key = ctx => /*artifact*/ ctx[92];
     	validate_each_keys(ctx, each_value_6, get_each_context_6$3, get_key);
 
     	for (let i = 0; i < each_value_6.length; i += 1) {
@@ -68510,7 +68575,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 | dirty[1] & /*handleRemoveArtifact*/ 64) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 | dirty[1] & /*handleRemoveArtifact*/ 128) {
     				each_value_6 = /*selectedHero*/ ctx[17].artifacts.primary;
     				validate_each_argument(each_value_6);
     				validate_each_keys(ctx, each_value_6, get_each_context_6$3, get_key);
@@ -68551,14 +68616,14 @@ var app = (function () {
     		block,
     		id: create_if_block_6$2.name,
     		type: "if",
-    		source: "(481:8) {#if !pickArtifactPri}",
+    		source: "(487:8) {#if !pickArtifactPri}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (496:10) {#each unusedArtifacts as artifact (artifact)}
+    // (502:10) {#each unusedArtifacts as artifact (artifact)}
     function create_each_block_7$1(key_1, ctx) {
     	let button;
     	let img;
@@ -68566,7 +68631,7 @@ var app = (function () {
     	let img_alt_value;
     	let t0;
     	let p;
-    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "";
+    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "";
     	let t1;
     	let t2;
     	let button_transition;
@@ -68575,7 +68640,7 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_25() {
-    		return /*click_handler_25*/ ctx[73](/*artifact*/ ctx[90]);
+    		return /*click_handler_25*/ ctx[75](/*artifact*/ ctx[92]);
     	}
 
     	const block = {
@@ -68588,14 +68653,14 @@ var app = (function () {
     			p = element("p");
     			t1 = text$2(t1_value);
     			t2 = space();
-    			attr_dev(img, "class", "artifactImg svelte-svyg43");
-    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name);
-    			add_location(img, file$a, 497, 12, 22170);
-    			attr_dev(p, "class", "svelte-svyg43");
-    			add_location(p, file$a, 498, 12, 22278);
-    			attr_dev(button, "class", "artifactButton svelte-svyg43");
-    			add_location(button, file$a, 496, 11, 22032);
+    			attr_dev(img, "class", "artifactImg svelte-40ydk1");
+    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
+    			add_location(img, file$a, 503, 12, 22559);
+    			attr_dev(p, "class", "svelte-40ydk1");
+    			add_location(p, file$a, 504, 12, 22667);
+    			attr_dev(button, "class", "artifactButton svelte-40ydk1");
+    			add_location(button, file$a, 502, 11, 22421);
     			this.first = button;
     		},
     		m: function mount(target, anchor) {
@@ -68615,15 +68680,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) {
+    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name)) {
+    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280) && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "")) set_data_dev(t1, t1_value);
+    			if ((!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280) && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "")) set_data_dev(t1, t1_value);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -68652,14 +68717,14 @@ var app = (function () {
     		block,
     		id: create_each_block_7$1.name,
     		type: "each",
-    		source: "(496:10) {#each unusedArtifacts as artifact (artifact)}",
+    		source: "(502:10) {#each unusedArtifacts as artifact (artifact)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (482:9) {#each selectedHero.artifacts.primary as artifact, i (artifact)}
+    // (488:9) {#each selectedHero.artifacts.primary as artifact, i (artifact)}
     function create_each_block_6$3(key_1, ctx) {
     	let div1;
     	let div0;
@@ -68671,14 +68736,14 @@ var app = (function () {
     	let span;
     	let t2;
     	let p;
-    	let t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "";
+    	let t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "";
     	let t3;
     	let div1_intro;
     	let mounted;
     	let dispose;
 
     	function click_handler_23(...args) {
-    		return /*click_handler_23*/ ctx[71](/*artifact*/ ctx[90], ...args);
+    		return /*click_handler_23*/ ctx[73](/*artifact*/ ctx[92], ...args);
     	}
 
     	const block = {
@@ -68695,19 +68760,19 @@ var app = (function () {
     			t2 = space();
     			p = element("p");
     			t3 = text$2(t3_value);
-    			attr_dev(img, "class", "artifactImg listImg svelte-svyg43");
-    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name);
-    			add_location(img, file$a, 484, 12, 21375);
-    			add_location(span, file$a, 485, 127, 21606);
-    			attr_dev(button, "class", "removeButton svelte-svyg43");
-    			add_location(button, file$a, 485, 12, 21491);
-    			attr_dev(div0, "class", "artifactImgContainer svelte-svyg43");
-    			add_location(div0, file$a, 483, 11, 21327);
-    			attr_dev(p, "class", "svelte-svyg43");
-    			add_location(p, file$a, 487, 11, 21661);
-    			attr_dev(div1, "class", "artifactContainer svelte-svyg43");
-    			add_location(div1, file$a, 482, 10, 21255);
+    			attr_dev(img, "class", "artifactImg listImg svelte-40ydk1");
+    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
+    			add_location(img, file$a, 490, 12, 21764);
+    			add_location(span, file$a, 491, 127, 21995);
+    			attr_dev(button, "class", "removeButton svelte-40ydk1");
+    			add_location(button, file$a, 491, 12, 21880);
+    			attr_dev(div0, "class", "artifactImgContainer svelte-40ydk1");
+    			add_location(div0, file$a, 489, 11, 21716);
+    			attr_dev(p, "class", "svelte-40ydk1");
+    			add_location(p, file$a, 493, 11, 22050);
+    			attr_dev(div1, "class", "artifactContainer svelte-40ydk1");
+    			add_location(div1, file$a, 488, 10, 21644);
     			this.first = div1;
     		},
     		m: function mount(target, anchor) {
@@ -68729,15 +68794,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name)) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && t3_value !== (t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "")) set_data_dev(t3, t3_value);
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && t3_value !== (t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "")) set_data_dev(t3, t3_value);
     		},
     		i: function intro(local) {
     			if (!div1_intro) {
@@ -68759,14 +68824,14 @@ var app = (function () {
     		block,
     		id: create_each_block_6$3.name,
     		type: "each",
-    		source: "(482:9) {#each selectedHero.artifacts.primary as artifact, i (artifact)}",
+    		source: "(488:9) {#each selectedHero.artifacts.primary as artifact, i (artifact)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (491:9) {#if unusedArtifacts.length > 0}
+    // (497:9) {#if unusedArtifacts.length > 0}
     function create_if_block_7$2(ctx) {
     	let button;
     	let span;
@@ -68778,16 +68843,16 @@ var app = (function () {
     			button = element("button");
     			span = element("span");
     			span.textContent = "+";
-    			add_location(span, file$a, 491, 84, 21860);
-    			attr_dev(button, "class", "addArtifactButton svelte-svyg43");
-    			add_location(button, file$a, 491, 10, 21786);
+    			add_location(span, file$a, 497, 84, 22249);
+    			attr_dev(button, "class", "addArtifactButton svelte-40ydk1");
+    			add_location(button, file$a, 497, 10, 22175);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
     			append_dev(button, span);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler_24*/ ctx[72], false, false, false);
+    				dispose = listen_dev(button, "click", /*click_handler_24*/ ctx[74], false, false, false);
     				mounted = true;
     			}
     		},
@@ -68803,14 +68868,14 @@ var app = (function () {
     		block,
     		id: create_if_block_7$2.name,
     		type: "if",
-    		source: "(491:9) {#if unusedArtifacts.length > 0}",
+    		source: "(497:9) {#if unusedArtifacts.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (522:8) {:else}
+    // (528:8) {:else}
     function create_else_block_1$3(ctx) {
     	let div;
     	let each_blocks = [];
@@ -68818,7 +68883,7 @@ var app = (function () {
     	let current;
     	let each_value_5 = /*unusedArtifacts*/ ctx[28];
     	validate_each_argument(each_value_5);
-    	const get_key = ctx => /*artifact*/ ctx[90];
+    	const get_key = ctx => /*artifact*/ ctx[92];
     	validate_each_keys(ctx, each_value_5, get_each_context_5$3, get_key);
 
     	for (let i = 0; i < each_value_5.length; i += 1) {
@@ -68835,8 +68900,8 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div, "class", "mobileArtifactPicker svelte-svyg43");
-    			add_location(div, file$a, 522, 9, 23314);
+    			attr_dev(div, "class", "mobileArtifactPicker svelte-40ydk1");
+    			add_location(div, file$a, 528, 9, 23703);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -68848,7 +68913,7 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*unusedArtifacts, $Artifacts*/ 1342177280 | dirty[1] & /*handleAddArtifact*/ 32) {
+    			if (dirty[0] & /*unusedArtifacts, $Artifacts*/ 1342177280 | dirty[1] & /*handleAddArtifact*/ 64) {
     				each_value_5 = /*unusedArtifacts*/ ctx[28];
     				validate_each_argument(each_value_5);
     				group_outros();
@@ -68886,14 +68951,14 @@ var app = (function () {
     		block,
     		id: create_else_block_1$3.name,
     		type: "else",
-    		source: "(522:8) {:else}",
+    		source: "(528:8) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (509:8) {#if !pickArtifactSec}
+    // (515:8) {#if !pickArtifactSec}
     function create_if_block_4$4(ctx) {
     	let each_blocks = [];
     	let each_1_lookup = new Map();
@@ -68901,7 +68966,7 @@ var app = (function () {
     	let if_block_anchor;
     	let each_value_4 = /*selectedHero*/ ctx[17].artifacts.secondary;
     	validate_each_argument(each_value_4);
-    	const get_key = ctx => /*artifact*/ ctx[90];
+    	const get_key = ctx => /*artifact*/ ctx[92];
     	validate_each_keys(ctx, each_value_4, get_each_context_4$3, get_key);
 
     	for (let i = 0; i < each_value_4.length; i += 1) {
@@ -68932,7 +68997,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 | dirty[1] & /*handleRemoveArtifact*/ 64) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 | dirty[1] & /*handleRemoveArtifact*/ 128) {
     				each_value_4 = /*selectedHero*/ ctx[17].artifacts.secondary;
     				validate_each_argument(each_value_4);
     				validate_each_keys(ctx, each_value_4, get_each_context_4$3, get_key);
@@ -68973,14 +69038,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4$4.name,
     		type: "if",
-    		source: "(509:8) {#if !pickArtifactSec}",
+    		source: "(515:8) {#if !pickArtifactSec}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (524:10) {#each unusedArtifacts as artifact (artifact)}
+    // (530:10) {#each unusedArtifacts as artifact (artifact)}
     function create_each_block_5$3(key_1, ctx) {
     	let button;
     	let img;
@@ -68988,7 +69053,7 @@ var app = (function () {
     	let img_alt_value;
     	let t0;
     	let p;
-    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "";
+    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "";
     	let t1;
     	let t2;
     	let button_transition;
@@ -68997,7 +69062,7 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_28() {
-    		return /*click_handler_28*/ ctx[76](/*artifact*/ ctx[90]);
+    		return /*click_handler_28*/ ctx[78](/*artifact*/ ctx[92]);
     	}
 
     	const block = {
@@ -69010,14 +69075,14 @@ var app = (function () {
     			p = element("p");
     			t1 = text$2(t1_value);
     			t2 = space();
-    			attr_dev(img, "class", "artifactImg svelte-svyg43");
-    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name);
-    			add_location(img, file$a, 525, 12, 23559);
-    			attr_dev(p, "class", "svelte-svyg43");
-    			add_location(p, file$a, 526, 12, 23667);
-    			attr_dev(button, "class", "artifactButton svelte-svyg43");
-    			add_location(button, file$a, 524, 11, 23419);
+    			attr_dev(img, "class", "artifactImg svelte-40ydk1");
+    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
+    			add_location(img, file$a, 531, 12, 23948);
+    			attr_dev(p, "class", "svelte-40ydk1");
+    			add_location(p, file$a, 532, 12, 24056);
+    			attr_dev(button, "class", "artifactButton svelte-40ydk1");
+    			add_location(button, file$a, 530, 11, 23808);
     			this.first = button;
     		},
     		m: function mount(target, anchor) {
@@ -69037,15 +69102,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) {
+    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name)) {
+    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280) && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "")) set_data_dev(t1, t1_value);
+    			if ((!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280) && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "")) set_data_dev(t1, t1_value);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -69074,14 +69139,14 @@ var app = (function () {
     		block,
     		id: create_each_block_5$3.name,
     		type: "each",
-    		source: "(524:10) {#each unusedArtifacts as artifact (artifact)}",
+    		source: "(530:10) {#each unusedArtifacts as artifact (artifact)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (510:9) {#each selectedHero.artifacts.secondary as artifact (artifact)}
+    // (516:9) {#each selectedHero.artifacts.secondary as artifact (artifact)}
     function create_each_block_4$3(key_1, ctx) {
     	let div1;
     	let div0;
@@ -69093,14 +69158,14 @@ var app = (function () {
     	let span;
     	let t2;
     	let p;
-    	let t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "";
+    	let t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "";
     	let t3;
     	let div1_intro;
     	let mounted;
     	let dispose;
 
     	function click_handler_26(...args) {
-    		return /*click_handler_26*/ ctx[74](/*artifact*/ ctx[90], ...args);
+    		return /*click_handler_26*/ ctx[76](/*artifact*/ ctx[92], ...args);
     	}
 
     	const block = {
@@ -69117,19 +69182,19 @@ var app = (function () {
     			t2 = space();
     			p = element("p");
     			t3 = text$2(t3_value);
-    			attr_dev(img, "class", "artifactImg listImg svelte-svyg43");
-    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name);
-    			add_location(img, file$a, 512, 12, 22760);
-    			add_location(span, file$a, 513, 129, 22993);
-    			attr_dev(button, "class", "removeButton svelte-svyg43");
-    			add_location(button, file$a, 513, 12, 22876);
-    			attr_dev(div0, "class", "artifactImgContainer svelte-svyg43");
-    			add_location(div0, file$a, 511, 11, 22712);
-    			attr_dev(p, "class", "svelte-svyg43");
-    			add_location(p, file$a, 515, 11, 23048);
-    			attr_dev(div1, "class", "artifactContainer svelte-svyg43");
-    			add_location(div1, file$a, 510, 10, 22640);
+    			attr_dev(img, "class", "artifactImg listImg svelte-40ydk1");
+    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
+    			add_location(img, file$a, 518, 12, 23149);
+    			add_location(span, file$a, 519, 129, 23382);
+    			attr_dev(button, "class", "removeButton svelte-40ydk1");
+    			add_location(button, file$a, 519, 12, 23265);
+    			attr_dev(div0, "class", "artifactImgContainer svelte-40ydk1");
+    			add_location(div0, file$a, 517, 11, 23101);
+    			attr_dev(p, "class", "svelte-40ydk1");
+    			add_location(p, file$a, 521, 11, 23437);
+    			attr_dev(div1, "class", "artifactContainer svelte-40ydk1");
+    			add_location(div1, file$a, 516, 10, 23029);
     			this.first = div1;
     		},
     		m: function mount(target, anchor) {
@@ -69151,15 +69216,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name)) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && t3_value !== (t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "")) set_data_dev(t3, t3_value);
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && t3_value !== (t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "")) set_data_dev(t3, t3_value);
     		},
     		i: function intro(local) {
     			if (!div1_intro) {
@@ -69181,14 +69246,14 @@ var app = (function () {
     		block,
     		id: create_each_block_4$3.name,
     		type: "each",
-    		source: "(510:9) {#each selectedHero.artifacts.secondary as artifact (artifact)}",
+    		source: "(516:9) {#each selectedHero.artifacts.secondary as artifact (artifact)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (519:9) {#if unusedArtifacts.length > 0}
+    // (525:9) {#if unusedArtifacts.length > 0}
     function create_if_block_5$3(ctx) {
     	let button;
     	let span;
@@ -69200,16 +69265,16 @@ var app = (function () {
     			button = element("button");
     			span = element("span");
     			span.textContent = "+";
-    			add_location(span, file$a, 519, 84, 23247);
-    			attr_dev(button, "class", "addArtifactButton svelte-svyg43");
-    			add_location(button, file$a, 519, 10, 23173);
+    			add_location(span, file$a, 525, 84, 23636);
+    			attr_dev(button, "class", "addArtifactButton svelte-40ydk1");
+    			add_location(button, file$a, 525, 10, 23562);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
     			append_dev(button, span);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler_27*/ ctx[75], false, false, false);
+    				dispose = listen_dev(button, "click", /*click_handler_27*/ ctx[77], false, false, false);
     				mounted = true;
     			}
     		},
@@ -69225,14 +69290,14 @@ var app = (function () {
     		block,
     		id: create_if_block_5$3.name,
     		type: "if",
-    		source: "(519:9) {#if unusedArtifacts.length > 0}",
+    		source: "(525:9) {#if unusedArtifacts.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (550:8) {:else}
+    // (556:8) {:else}
     function create_else_block$7(ctx) {
     	let div;
     	let each_blocks = [];
@@ -69240,7 +69305,7 @@ var app = (function () {
     	let current;
     	let each_value_3 = /*unusedArtifacts*/ ctx[28];
     	validate_each_argument(each_value_3);
-    	const get_key = ctx => /*artifact*/ ctx[90];
+    	const get_key = ctx => /*artifact*/ ctx[92];
     	validate_each_keys(ctx, each_value_3, get_each_context_3$3, get_key);
 
     	for (let i = 0; i < each_value_3.length; i += 1) {
@@ -69257,8 +69322,8 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div, "class", "mobileArtifactPicker svelte-svyg43");
-    			add_location(div, file$a, 550, 9, 24709);
+    			attr_dev(div, "class", "mobileArtifactPicker svelte-40ydk1");
+    			add_location(div, file$a, 556, 9, 25098);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -69270,7 +69335,7 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*unusedArtifacts, $Artifacts*/ 1342177280 | dirty[1] & /*handleAddArtifact*/ 32) {
+    			if (dirty[0] & /*unusedArtifacts, $Artifacts*/ 1342177280 | dirty[1] & /*handleAddArtifact*/ 64) {
     				each_value_3 = /*unusedArtifacts*/ ctx[28];
     				validate_each_argument(each_value_3);
     				group_outros();
@@ -69308,14 +69373,14 @@ var app = (function () {
     		block,
     		id: create_else_block$7.name,
     		type: "else",
-    		source: "(550:8) {:else}",
+    		source: "(556:8) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (537:8) {#if !pickArtifactSit}
+    // (543:8) {#if !pickArtifactSit}
     function create_if_block_2$4(ctx) {
     	let each_blocks = [];
     	let each_1_lookup = new Map();
@@ -69323,7 +69388,7 @@ var app = (function () {
     	let if_block_anchor;
     	let each_value_2 = /*selectedHero*/ ctx[17].artifacts.situational;
     	validate_each_argument(each_value_2);
-    	const get_key = ctx => /*artifact*/ ctx[90];
+    	const get_key = ctx => /*artifact*/ ctx[92];
     	validate_each_keys(ctx, each_value_2, get_each_context_2$3, get_key);
 
     	for (let i = 0; i < each_value_2.length; i += 1) {
@@ -69354,7 +69419,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 | dirty[1] & /*handleRemoveArtifact*/ 64) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 | dirty[1] & /*handleRemoveArtifact*/ 128) {
     				each_value_2 = /*selectedHero*/ ctx[17].artifacts.situational;
     				validate_each_argument(each_value_2);
     				validate_each_keys(ctx, each_value_2, get_each_context_2$3, get_key);
@@ -69395,14 +69460,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2$4.name,
     		type: "if",
-    		source: "(537:8) {#if !pickArtifactSit}",
+    		source: "(543:8) {#if !pickArtifactSit}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (552:10) {#each unusedArtifacts as artifact (artifact)}
+    // (558:10) {#each unusedArtifacts as artifact (artifact)}
     function create_each_block_3$3(key_1, ctx) {
     	let button;
     	let img;
@@ -69410,7 +69475,7 @@ var app = (function () {
     	let img_alt_value;
     	let t0;
     	let p;
-    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "";
+    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "";
     	let t1;
     	let t2;
     	let button_transition;
@@ -69419,7 +69484,7 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_31() {
-    		return /*click_handler_31*/ ctx[79](/*artifact*/ ctx[90]);
+    		return /*click_handler_31*/ ctx[81](/*artifact*/ ctx[92]);
     	}
 
     	const block = {
@@ -69432,14 +69497,14 @@ var app = (function () {
     			p = element("p");
     			t1 = text$2(t1_value);
     			t2 = space();
-    			attr_dev(img, "class", "artifactImg svelte-svyg43");
-    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name);
-    			add_location(img, file$a, 553, 12, 24956);
-    			attr_dev(p, "class", "svelte-svyg43");
-    			add_location(p, file$a, 554, 12, 25064);
-    			attr_dev(button, "class", "artifactButton svelte-svyg43");
-    			add_location(button, file$a, 552, 11, 24814);
+    			attr_dev(img, "class", "artifactImg svelte-40ydk1");
+    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
+    			add_location(img, file$a, 559, 12, 25345);
+    			attr_dev(p, "class", "svelte-40ydk1");
+    			add_location(p, file$a, 560, 12, 25453);
+    			attr_dev(button, "class", "artifactButton svelte-40ydk1");
+    			add_location(button, file$a, 558, 11, 25203);
     			this.first = button;
     		},
     		m: function mount(target, anchor) {
@@ -69459,15 +69524,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) {
+    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name)) {
+    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280) && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "")) set_data_dev(t1, t1_value);
+    			if ((!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280) && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "")) set_data_dev(t1, t1_value);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -69496,14 +69561,14 @@ var app = (function () {
     		block,
     		id: create_each_block_3$3.name,
     		type: "each",
-    		source: "(552:10) {#each unusedArtifacts as artifact (artifact)}",
+    		source: "(558:10) {#each unusedArtifacts as artifact (artifact)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (538:9) {#each selectedHero.artifacts.situational as artifact (artifact)}
+    // (544:9) {#each selectedHero.artifacts.situational as artifact (artifact)}
     function create_each_block_2$3(key_1, ctx) {
     	let div1;
     	let div0;
@@ -69515,14 +69580,14 @@ var app = (function () {
     	let span;
     	let t2;
     	let p;
-    	let t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "";
+    	let t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "";
     	let t3;
     	let div1_intro;
     	let mounted;
     	let dispose;
 
     	function click_handler_29(...args) {
-    		return /*click_handler_29*/ ctx[77](/*artifact*/ ctx[90], ...args);
+    		return /*click_handler_29*/ ctx[79](/*artifact*/ ctx[92], ...args);
     	}
 
     	const block = {
@@ -69539,19 +69604,19 @@ var app = (function () {
     			t2 = space();
     			p = element("p");
     			t3 = text$2(t3_value);
-    			attr_dev(img, "class", "artifactImg listImg svelte-svyg43");
-    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name);
-    			add_location(img, file$a, 540, 12, 24153);
-    			add_location(span, file$a, 541, 131, 24388);
-    			attr_dev(button, "class", "removeButton svelte-svyg43");
-    			add_location(button, file$a, 541, 12, 24269);
-    			attr_dev(div0, "class", "artifactImgContainer svelte-svyg43");
-    			add_location(div0, file$a, 539, 11, 24105);
-    			attr_dev(p, "class", "svelte-svyg43");
-    			add_location(p, file$a, 543, 11, 24443);
-    			attr_dev(div1, "class", "artifactContainer svelte-svyg43");
-    			add_location(div1, file$a, 538, 10, 24033);
+    			attr_dev(img, "class", "artifactImg listImg svelte-40ydk1");
+    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
+    			add_location(img, file$a, 546, 12, 24542);
+    			add_location(span, file$a, 547, 131, 24777);
+    			attr_dev(button, "class", "removeButton svelte-40ydk1");
+    			add_location(button, file$a, 547, 12, 24658);
+    			attr_dev(div0, "class", "artifactImgContainer svelte-40ydk1");
+    			add_location(div0, file$a, 545, 11, 24494);
+    			attr_dev(p, "class", "svelte-40ydk1");
+    			add_location(p, file$a, 549, 11, 24832);
+    			attr_dev(div1, "class", "artifactContainer svelte-40ydk1");
+    			add_location(div1, file$a, 544, 10, 24422);
     			this.first = div1;
     		},
     		m: function mount(target, anchor) {
@@ -69573,15 +69638,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name)) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && t3_value !== (t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "")) set_data_dev(t3, t3_value);
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && t3_value !== (t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "")) set_data_dev(t3, t3_value);
     		},
     		i: function intro(local) {
     			if (!div1_intro) {
@@ -69603,14 +69668,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2$3.name,
     		type: "each",
-    		source: "(538:9) {#each selectedHero.artifacts.situational as artifact (artifact)}",
+    		source: "(544:9) {#each selectedHero.artifacts.situational as artifact (artifact)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (547:9) {#if unusedArtifacts.length > 0}
+    // (553:9) {#if unusedArtifacts.length > 0}
     function create_if_block_3$4(ctx) {
     	let button;
     	let span;
@@ -69622,16 +69687,16 @@ var app = (function () {
     			button = element("button");
     			span = element("span");
     			span.textContent = "+";
-    			add_location(span, file$a, 547, 84, 24642);
-    			attr_dev(button, "class", "addArtifactButton svelte-svyg43");
-    			add_location(button, file$a, 547, 10, 24568);
+    			add_location(span, file$a, 553, 84, 25031);
+    			attr_dev(button, "class", "addArtifactButton svelte-40ydk1");
+    			add_location(button, file$a, 553, 10, 24957);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
     			append_dev(button, span);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler_30*/ ctx[78], false, false, false);
+    				dispose = listen_dev(button, "click", /*click_handler_30*/ ctx[80], false, false, false);
     				mounted = true;
     			}
     		},
@@ -69647,21 +69712,21 @@ var app = (function () {
     		block,
     		id: create_if_block_3$4.name,
     		type: "if",
-    		source: "(547:9) {#if unusedArtifacts.length > 0}",
+    		source: "(553:9) {#if unusedArtifacts.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (414:5) {#each heroes as hero (hero.id)}
+    // (415:5) {#each heroes as hero (hero.id)}
     function create_each_block_1$4(key_1, ctx) {
     	let button;
     	let img;
     	let img_src_value;
     	let t0;
     	let p;
-    	let t1_value = /*hero*/ ctx[93].name + "";
+    	let t1_value = /*hero*/ ctx[95].name + "";
     	let t1;
     	let t2;
     	let rect;
@@ -69670,7 +69735,7 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_19() {
-    		return /*click_handler_19*/ ctx[64](/*hero*/ ctx[93]);
+    		return /*click_handler_19*/ ctx[65](/*hero*/ ctx[95]);
     	}
 
     	const block = {
@@ -69683,15 +69748,15 @@ var app = (function () {
     			p = element("p");
     			t1 = text$2(t1_value);
     			t2 = space();
-    			if (img.src !== (img_src_value = /*hero*/ ctx[93].portrait)) attr_dev(img, "src", img_src_value);
+    			if (img.src !== (img_src_value = /*hero*/ ctx[95].portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "hero.name");
-    			attr_dev(img, "class", "svelte-svyg43");
-    			add_location(img, file$a, 415, 7, 16403);
-    			attr_dev(p, "class", "svelte-svyg43");
-    			add_location(p, file$a, 416, 7, 16455);
-    			attr_dev(button, "class", "heroPortrait svelte-svyg43");
-    			toggle_class(button, "active", /*hero*/ ctx[93].id in /*compHeroData*/ ctx[19]);
-    			add_location(button, file$a, 414, 6, 16256);
+    			attr_dev(img, "class", "svelte-40ydk1");
+    			add_location(img, file$a, 416, 7, 16449);
+    			attr_dev(p, "class", "svelte-40ydk1");
+    			add_location(p, file$a, 417, 7, 16501);
+    			attr_dev(button, "class", "heroPortrait svelte-40ydk1");
+    			toggle_class(button, "active", /*hero*/ ctx[95].id in /*compHeroData*/ ctx[19]);
+    			add_location(button, file$a, 415, 6, 16302);
     			this.first = button;
     		},
     		m: function mount(target, anchor) {
@@ -69710,14 +69775,14 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*heroes*/ 16777216 && img.src !== (img_src_value = /*hero*/ ctx[93].portrait)) {
+    			if (dirty[0] & /*heroes*/ 16777216 && img.src !== (img_src_value = /*hero*/ ctx[95].portrait)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty[0] & /*heroes*/ 16777216 && t1_value !== (t1_value = /*hero*/ ctx[93].name + "")) set_data_dev(t1, t1_value);
+    			if (dirty[0] & /*heroes*/ 16777216 && t1_value !== (t1_value = /*hero*/ ctx[95].name + "")) set_data_dev(t1, t1_value);
 
     			if (dirty[0] & /*heroes, compHeroData*/ 17301504) {
-    				toggle_class(button, "active", /*hero*/ ctx[93].id in /*compHeroData*/ ctx[19]);
+    				toggle_class(button, "active", /*hero*/ ctx[95].id in /*compHeroData*/ ctx[19]);
     			}
     		},
     		r: function measure() {
@@ -69742,14 +69807,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$4.name,
     		type: "each",
-    		source: "(414:5) {#each heroes as hero (hero.id)}",
+    		source: "(415:5) {#each heroes as hero (hero.id)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (581:3) {#each unusedArtifacts as artifact (artifact)}
+    // (587:3) {#each unusedArtifacts as artifact (artifact)}
     function create_each_block$8(key_1, ctx) {
     	let button;
     	let img;
@@ -69757,7 +69822,7 @@ var app = (function () {
     	let img_alt_value;
     	let t0;
     	let p;
-    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "";
+    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "";
     	let t1;
     	let t2;
     	let button_transition;
@@ -69766,7 +69831,7 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_33() {
-    		return /*click_handler_33*/ ctx[81](/*artifact*/ ctx[90]);
+    		return /*click_handler_33*/ ctx[83](/*artifact*/ ctx[92]);
     	}
 
     	const block = {
@@ -69779,14 +69844,14 @@ var app = (function () {
     			p = element("p");
     			t1 = text$2(t1_value);
     			t2 = space();
-    			attr_dev(img, "class", "artifactImg svelte-svyg43");
-    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name);
-    			add_location(img, file$a, 586, 5, 26165);
-    			attr_dev(p, "class", "svelte-svyg43");
-    			add_location(p, file$a, 587, 5, 26266);
-    			attr_dev(button, "class", "artifactButton svelte-svyg43");
-    			add_location(button, file$a, 581, 4, 25919);
+    			attr_dev(img, "class", "artifactImg svelte-40ydk1");
+    			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
+    			add_location(img, file$a, 592, 5, 26554);
+    			attr_dev(p, "class", "svelte-40ydk1");
+    			add_location(p, file$a, 593, 5, 26655);
+    			attr_dev(button, "class", "artifactButton svelte-40ydk1");
+    			add_location(button, file$a, 587, 4, 26308);
     			this.first = button;
     		},
     		m: function mount(target, anchor) {
@@ -69806,15 +69871,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].image)) {
+    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name)) {
+    			if (!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280) && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[90]].name + "")) set_data_dev(t1, t1_value);
+    			if ((!current || dirty[0] & /*$Artifacts, unusedArtifacts*/ 1342177280) && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name + "")) set_data_dev(t1, t1_value);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -69843,7 +69908,7 @@ var app = (function () {
     		block,
     		id: create_each_block$8.name,
     		type: "each",
-    		source: "(581:3) {#each unusedArtifacts as artifact (artifact)}",
+    		source: "(587:3) {#each unusedArtifacts as artifact (artifact)}",
     		ctx
     	});
 
@@ -69890,13 +69955,13 @@ var app = (function () {
     	}
 
     	modalclosebutton1 = new ModalCloseButton({
-    			props: { onClose: /*func_3*/ ctx[80] },
+    			props: { onClose: /*func_3*/ ctx[82] },
     			$$inline: true
     		});
 
     	let each_value = /*unusedArtifacts*/ ctx[28];
     	validate_each_argument(each_value);
-    	const get_key = ctx => /*artifact*/ ctx[90];
+    	const get_key = ctx => /*artifact*/ ctx[92];
     	validate_each_keys(ctx, each_value, get_each_context$8, get_key);
 
     	for (let i = 0; i < each_value.length; i += 1) {
@@ -69925,21 +69990,21 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div0, "class", "modalCloseContainer svelte-svyg43");
-    			add_location(div0, file$a, 340, 1, 11257);
-    			attr_dev(div1, "class", "heroFinderContainer svelte-svyg43");
-    			add_location(div1, file$a, 343, 1, 11342);
-    			attr_dev(div2, "class", "background svelte-svyg43");
-    			add_location(div2, file$a, 339, 0, 11213);
-    			attr_dev(div3, "class", "artifactModalCloseContainer svelte-svyg43");
-    			add_location(div3, file$a, 573, 2, 25553);
-    			attr_dev(div4, "class", "artifactPickerWindow svelte-svyg43");
-    			add_location(div4, file$a, 579, 2, 25792);
-    			attr_dev(div5, "class", "background svelte-svyg43");
-    			add_location(div5, file$a, 569, 1, 25371);
-    			attr_dev(div6, "class", "desktopArtifactPicker svelte-svyg43");
+    			attr_dev(div0, "class", "modalCloseContainer svelte-40ydk1");
+    			add_location(div0, file$a, 341, 1, 11303);
+    			attr_dev(div1, "class", "heroFinderContainer svelte-40ydk1");
+    			add_location(div1, file$a, 344, 1, 11388);
+    			attr_dev(div2, "class", "background svelte-40ydk1");
+    			add_location(div2, file$a, 340, 0, 11259);
+    			attr_dev(div3, "class", "artifactModalCloseContainer svelte-40ydk1");
+    			add_location(div3, file$a, 579, 2, 25942);
+    			attr_dev(div4, "class", "artifactPickerWindow svelte-40ydk1");
+    			add_location(div4, file$a, 585, 2, 26181);
+    			attr_dev(div5, "class", "background svelte-40ydk1");
+    			add_location(div5, file$a, 575, 1, 25760);
+    			attr_dev(div6, "class", "desktopArtifactPicker svelte-40ydk1");
     			toggle_class(div6, "open", /*pickArtifactPri*/ ctx[20] || /*pickArtifactSec*/ ctx[21] || /*pickArtifactSit*/ ctx[22]);
-    			add_location(div6, file$a, 568, 0, 25266);
+    			add_location(div6, file$a, 574, 0, 25655);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$5("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -69983,7 +70048,7 @@ var app = (function () {
     						false
     					),
     					listen_dev(div4, "click", click_handler_34, false, false, false),
-    					listen_dev(div5, "click", /*click_handler_35*/ ctx[82], false, false, false)
+    					listen_dev(div5, "click", /*click_handler_35*/ ctx[84], false, false, false)
     				];
 
     				mounted = true;
@@ -70030,10 +70095,10 @@ var app = (function () {
     			}
 
     			const modalclosebutton1_changes = {};
-    			if (dirty[0] & /*pickArtifactPri, pickArtifactSec*/ 3145728) modalclosebutton1_changes.onClose = /*func_3*/ ctx[80];
+    			if (dirty[0] & /*pickArtifactPri, pickArtifactSec*/ 3145728) modalclosebutton1_changes.onClose = /*func_3*/ ctx[82];
     			modalclosebutton1.$set(modalclosebutton1_changes);
 
-    			if (dirty[0] & /*pickArtifactPri, pickArtifactSec, unusedArtifacts, $Artifacts*/ 1345323008 | dirty[1] & /*handleAddArtifact*/ 32) {
+    			if (dirty[0] & /*pickArtifactPri, pickArtifactSec, unusedArtifacts, $Artifacts*/ 1345323008 | dirty[1] & /*handleAddArtifact*/ 64) {
     				each_value = /*unusedArtifacts*/ ctx[28];
     				validate_each_argument(each_value);
     				group_outros();
@@ -70112,10 +70177,13 @@ var app = (function () {
     	let unusedArtifacts;
     	let $HeroData;
     	let $Artifacts;
+    	let $AppData;
     	validate_store(HeroData, "HeroData");
     	component_subscribe($$self, HeroData, $$value => $$invalidate(29, $HeroData = $$value));
     	validate_store(Artifacts, "Artifacts");
     	component_subscribe($$self, Artifacts, $$value => $$invalidate(30, $Artifacts = $$value));
+    	validate_store(AppData$1, "AppData");
+    	component_subscribe($$self, AppData$1, $$value => $$invalidate(31, $AppData = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("HeroFinder", slots, []);
     	let { config = {} } = $$props;
@@ -70611,6 +70679,11 @@ var app = (function () {
     	const func_2 = e => e.id === selectedHero.id;
     	const click_handler_22 = () => $$invalidate(17, selectedHero.core = !selectedHero.core, selectedHero);
 
+    	function textarea_input_handler() {
+    		selectedHero.notes = this.value;
+    		$$invalidate(17, selectedHero);
+    	}
+
     	const click_handler_23 = (artifact, e) => {
     		handleRemoveArtifact(artifact, "primary");
     		e.stopPropagation();
@@ -70660,7 +70733,7 @@ var app = (function () {
     	};
 
     	$$self.$$set = $$props => {
-    		if ("config" in $$props) $$invalidate(41, config = $$props.config);
+    		if ("config" in $$props) $$invalidate(42, config = $$props.config);
     	};
 
     	$$self.$capture_state = () => ({
@@ -70670,6 +70743,7 @@ var app = (function () {
     		flip,
     		HeroData,
     		Artifacts,
+    		AppData: AppData$1,
     		ModalCloseButton,
     		FlipButton,
     		config,
@@ -70720,11 +70794,12 @@ var app = (function () {
     		allClassEnabled,
     		unusedArtifacts,
     		$HeroData,
-    		$Artifacts
+    		$Artifacts,
+    		$AppData
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("config" in $$props) $$invalidate(41, config = $$props.config);
+    		if ("config" in $$props) $$invalidate(42, config = $$props.config);
     		if ("close" in $$props) $$invalidate(15, close = $$props.close);
     		if ("section" in $$props) $$invalidate(16, section = $$props.section);
     		if ("selectedHero" in $$props) $$invalidate(17, selectedHero = $$props.selectedHero);
@@ -70814,6 +70889,7 @@ var app = (function () {
     		unusedArtifacts,
     		$HeroData,
     		$Artifacts,
+    		$AppData,
     		makeHeroList,
     		handleFilterMasterButtonClick,
     		handleSIChange,
@@ -70854,6 +70930,7 @@ var app = (function () {
     		func_1,
     		func_2,
     		click_handler_22,
+    		textarea_input_handler,
     		click_handler_23,
     		click_handler_24,
     		click_handler_25,
@@ -70872,7 +70949,7 @@ var app = (function () {
     class HeroFinder extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$a, create_fragment$a, safe_not_equal, { config: 41 }, [-1, -1, -1, -1]);
+    		init(this, options, instance$a, create_fragment$a, safe_not_equal, { config: 42 }, [-1, -1, -1, -1]);
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
