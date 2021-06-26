@@ -6,6 +6,7 @@
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from '../shared/HeroFinder.svelte';
+import { flat } from 'markdown-it/lib/common/html_blocks';
 
 	export let compID = null; // uuid for comp to be edited
 	export let onSuccess = () => {}; // save success callback
@@ -24,6 +25,7 @@
 				heroes: {},
 				lines: [],
 				subs: [],
+				tags: [],
 	}
 	let openLine = null;
 	let statusMessage = '';
@@ -31,6 +33,8 @@
 	let statusError = false;
 	let heroFinderOpen = false;
 	let hfConfig = {};
+	let newTagText = '';
+	let addTagOpen = false;
 	let autosave;
 	let editor; // ToastUI editor
 
@@ -248,6 +252,18 @@
 	function handlePopState() {
 		close();
 	}
+
+	function handleAddTag() {
+		if(newTagText !== '') {
+			comp.tags = [...comp.tags, newTagText];
+			newTagText = '';
+		}
+		addTagOpen = false;
+	}
+	
+	function removeTag(index) {
+		comp.tags = comp.tags.filter((e, i) => i !== index);
+	}
 </script>
 
 <svelte:window on:popstate={handlePopState} />
@@ -260,6 +276,38 @@
 			{#if comp.draft}
 				<div class="draftContainer"><span class="draftLabel">draft</span></div>
 			{/if}
+			<div class="tagsArea">
+				<h5>Tags</h5>
+				<div class="tagDisplay">
+					{#each comp.tags as tag, i}
+						<div class="tag">
+							<span class="tagText">{tag}</span>
+							<button class="removeTagButton" on:click={(e) => { removeTag(i); e.stopPropagation(); }}><span>x</span></button>
+						</div>
+					{/each}
+					{#if !addTagOpen}
+						<button
+							class="addTagButton"
+							disabled={comp.tags.length >= $AppData.maxCompTags}
+							on:click={async () => {
+								addTagOpen = true;
+								await tick();
+								document.querySelector('#newTagInput').focus();
+							}}>
+							<span>+</span>
+						</button>
+					{:else}
+						<input
+							id="newTagInput"
+							class="tagInput"
+							type="text"
+							bind:value={newTagText}
+							on:blur={handleAddTag}
+							on:keyup={(e) => { if(e.code === 'Enter') handleAddTag() }}
+							maxlength="20">
+					{/if}
+				</div>
+			</div>
 		</div>
 		<div class="row1">
 			<div class="lineEditor">
@@ -448,6 +496,78 @@
 		color: var(--appDelColor);
 		font-weight: bold;
 		font-style: italic;
+	}
+	.tagsArea {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		h5 {
+			margin: 5px 0px;
+			text-align: center;
+		}
+	}
+	.tagDisplay {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin-bottom: 10px;
+		width: 100%;
+		.tag {
+			position: relative;
+			margin: 0px 5px;
+		}
+		.tagText {
+			border: 1px solid var(--appColorPrimary);
+			border-radius: 5px;
+			display: inline-block;
+			background-color: var(--appColorPrimary);
+			color: white;
+			font-size: 0.8rem;
+			padding: 0px 5px;
+			padding-bottom: 4px;
+			text-align: center;
+			user-select: none;
+		}
+		.removeTagButton {
+			align-items: center;
+			background-color: var(--appRemoveButtonColor);
+			border: 0;
+			border-radius: 50%;
+			cursor: pointer;
+			display: flex;
+			font-size: 0.5rem;
+			height: 10px;
+			justify-content: center;
+			position: absolute;
+			right: -5px;
+			top: 0;
+			width: 10px;
+		}
+		.addTagButton {
+			align-items: center;
+			background-color: transparent;
+			border: 3px solid var(--appColorPrimary);
+			border-radius: 50%;
+			color: var(--appColorPrimary);
+			cursor: pointer;
+			display: flex;
+			font-size: 1rem;
+			font-weight: bold;
+			height: 20px;
+			margin-left: 10px;
+			justify-content: center;
+			width: 20px;
+			&:disabled {
+				border-color: var(--appRemoveButtonColor);
+				color: var(--appRemoveButtonColor);
+				cursor: default;
+			}
+		}
+		.tagInput {
+			margin-left: 10px;
+		}
 	}
 	.lineEditorTitle {
 		margin-top: 0;
@@ -713,6 +833,18 @@
 		margin-right: 0;
 	}
 	@media only screen and (min-width: 767px) {
+		.tagDisplay {
+			.addTagButton {
+				&:hover {
+					background-color: var(--appColorPrimary);
+					color: white;
+				}
+				&:disabled:hover {
+					background-color: transparent;
+					color: var(--appRemoveButtonColor);
+				}
+			}
+		}
 		.row1 {
 			display: flex;
 			flex-direction: row;
