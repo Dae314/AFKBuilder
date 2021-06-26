@@ -6,11 +6,14 @@
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from '../shared/HeroFinder.svelte';
+	import SortableList from '../shared/SortableList.svelte';
 
 	export let compID = null; // uuid for comp to be edited
 	export let onSuccess = () => {}; // save success callback
 
 	const { close } = getContext('simple-modal');
+
+	$: tagSuggestions = makeTagSuggestions();
 
 	// this will hold the comp as it's edited
 	let comp = {
@@ -24,6 +27,7 @@
 				heroes: {},
 				lines: [],
 				subs: [],
+				tags: [],
 	}
 	let openLine = null;
 	let statusMessage = '';
@@ -31,6 +35,9 @@
 	let statusError = false;
 	let heroFinderOpen = false;
 	let hfConfig = {};
+	let newTagText = '';
+	let addTagOpen = false;
+	let openSuggestions = false;
 	let autosave;
 	let editor; // ToastUI editor
 
@@ -71,6 +78,26 @@
 	onDestroy(async () => {
 		clearTimeout(autosave);
 	});
+
+	function makeTagSuggestions() {
+		let suggestions = [];
+		// start suggestions off as an array of all tags in all comps
+		for(const comp of $AppData.Comps) {
+			for(const tag of comp.tags) {
+				suggestions.push(tag);
+			}
+		}
+		// remove duplicate tags
+		suggestions = [...new Set(suggestions)];
+		// filter suggestions to just strings that match what's already been typed
+		suggestions = suggestions.filter(e => e.toLowerCase().includes(newTagText));
+		// take only the first 10 suggestions
+		suggestions = suggestions.slice(0, 10);
+		// finally, sort suggestions before returning
+		suggestions.sort();
+
+		return suggestions;
+	}
 
 	function deleteLine(lineIdx) {
 		comp.lines = comp.lines.filter((e, i) => i !== lineIdx);
@@ -134,7 +161,7 @@
 				// adding a new comp
 				$AppData.Comps = [...$AppData.Comps, comp];
 			}
-			onSuccess();
+			onSuccess(comp.uuid);
 			close();
 		}
 	}
@@ -167,7 +194,7 @@
 				$AppData.Comps = [...$AppData.Comps, comp];
 				compID = comp.uuid;
 			}
-			onSuccess();
+			onSuccess(comp.uuid);
 			statusMessage = "Draft saved";
 			showStatusMessage = true;
 			statusError = false;
@@ -184,11 +211,14 @@
 
 	function openHeroFinder(config) {
 		hfConfig = config;
+		clearTimeout(autosave); // turn off autosaving while HeroFinder is open
 		heroFinderOpen = true;
 	}
 
 	function closeHeroFinder() {
 		heroFinderOpen = false;
+		// save and resume autosaving now that HeroFinder is closed
+		if(comp.draft) saveDraft();
 		hfConfig = {};
 	}
 
@@ -200,6 +230,7 @@
 			furn: hero.furn,
 			artifacts: hero.artifacts,
 			core: hero.core,
+			notes: hero.notes,
 		}
 		// check if the last reference to the old hero was replaced, and remove it if necessary
 		if(oldHeroID !== '' && oldHeroID !== hero.id) removeHeroesReference(oldHeroID);
@@ -213,6 +244,7 @@
 			furn: hero.furn,
 			artifacts: hero.artifacts,
 			core: hero.core,
+			notes: hero.notes,
 		}
 		// check if the last reference to the old hero was replaced, and remove it if necessary
 		if(oldHeroID !== '' && oldHeroID !== hero.id) removeHeroesReference(oldHeroID);
@@ -248,6 +280,42 @@
 	function handlePopState() {
 		close();
 	}
+
+	function handleAddTag() {
+		if(newTagText !== '') {
+			comp.tags = [...comp.tags, newTagText];
+			newTagText = '';
+		}
+		openSuggestions = false;
+		addTagOpen = false;
+	}
+	
+	function removeTag(index) {
+		comp.tags = comp.tags.filter((e, i) => i !== index);
+	}
+
+	function handleTagKeyUp(event) {
+		if(event.code === 'Enter') {
+			handleAddTag();
+			return 0;
+		} else {
+			tagSuggestions = makeTagSuggestions();
+		}
+	}
+
+	function takeTagSuggestion(suggestion) {
+		newTagText = suggestion;
+		console.log(suggestion);
+		handleAddTag();
+	}
+
+	function handleLineSort(event) {
+		// catch if a user dragged something we weren't expecting and exit
+		if(!Array.isArray(event.detail)) return 0;
+		// don't allow overwrite if there are missing lines
+		if(event.detail.length !== comp.lines.length) return 0;
+		comp.lines = event.detail;
+	}
 </script>
 
 <svelte:window on:popstate={handlePopState} />
@@ -260,17 +328,63 @@
 			{#if comp.draft}
 				<div class="draftContainer"><span class="draftLabel">draft</span></div>
 			{/if}
+			<div class="tagsArea">
+				<h5>Tags</h5>
+				<div class="tagDisplay">
+					{#each comp.tags as tag, i}
+						<div class="tag">
+							<span class="tagText">{tag}</span>
+							<button class="removeTagButton" on:click={(e) => { removeTag(i); e.stopPropagation(); }}><span>x</span></button>
+						</div>
+					{/each}
+					{#if !addTagOpen}
+						<button
+							class="addTagButton"
+							class:noMargin={comp.tags.length === 0}
+							disabled={comp.tags.length >= $AppData.maxCompTags}
+							on:click={async () => {
+								addTagOpen = true;
+								await tick();
+								document.querySelector('#newTagInput').focus();
+							}}>
+							<span>+</span>
+						</button>
+					{:else}
+						<div class="newTagInputArea">
+							<input
+								id="newTagInput"
+								class="tagInput"
+								class:noMargin={comp.tags.length === 0}
+								type="text"
+								bind:value={newTagText}
+								on:focus={() => {tagSuggestions = makeTagSuggestions(); openSuggestions = true; }}
+								on:blur={handleAddTag}
+								on:keyup={(e) => handleTagKeyUp(e)}
+								maxlength="20">
+							<div class="suggestions" class:open={openSuggestions}>
+								{#each tagSuggestions as suggestion}
+									<button class="suggestionButton" on:mousedown={() => takeTagSuggestion(suggestion)}><span>{suggestion}</span></button>
+								{/each}
+							</div>
+						</div>
+					{/if}
+				</div>
+			</div>
 		</div>
 		<div class="row1">
 			<div class="lineEditor">
 				<h4 class="lineEditorTitle">Lines</h4>
 				<div class="lineEditHead">
-					{#each comp.lines as line, i}
+					<SortableList
+						list={comp.lines}
+						on:sort={handleLineSort}
+						let:item={line}
+						let:index={i}>
 						<button class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
 							<span>{line.name}</span>
 							<button class="removeButton" on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
 						</button>
-					{/each}
+					</SortableList>
 					<button class="linePickerOption addLineButton" on:click={addLine}>+</button>
 				</div>
 				<div class="lineEditBody">
@@ -289,7 +403,7 @@
 									{:else}
 										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<div class="imgContainer">
-												<img src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+												<img draggable="false" src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
 											</div>
@@ -309,7 +423,7 @@
 									{:else}
 										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<div class="imgContainer">
-												<img src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+												<img draggable="false" src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
 											</div>
@@ -344,9 +458,11 @@
 									<div class="subGroupMember">
 										<button class="heroButton" on:click={() => openHeroFinder({idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<img
+												draggable="false"
 												src={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).portrait : './img/portraits/unavailable.png'}
 												alt={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).name : 'Pick a Hero'}>
 											<button class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
+											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 										</button>
 										<p>{$HeroData.find(e => e.id === hero).name}</p>
 									</div>
@@ -449,6 +565,128 @@
 		font-weight: bold;
 		font-style: italic;
 	}
+	.tagsArea {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		h5 {
+			margin: 5px 0px;
+			text-align: center;
+		}
+	}
+	.tagDisplay {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin-bottom: 10px;
+		width: 100%;
+		.tag {
+			position: relative;
+			margin: 0px 5px;
+			margin-bottom: 5px;
+		}
+		.tagText {
+			border: 1px solid var(--appColorPrimary);
+			border-radius: 15px;
+			display: inline-block;
+			background-color: var(--appColorPrimary);
+			color: white;
+			font-size: 0.8rem;
+			padding: 0px 5px;
+			padding-bottom: 4px;
+			text-align: center;
+			user-select: none;
+		}
+		.removeTagButton {
+			align-items: center;
+			background-color: var(--appRemoveButtonColor);
+			border: 0;
+			border-radius: 50%;
+			cursor: pointer;
+			display: flex;
+			font-size: 0.5rem;
+			height: 10px;
+			justify-content: center;
+			position: absolute;
+			right: -5px;
+			top: 0;
+			user-select: none;
+			width: 10px;
+		}
+		.addTagButton {
+			align-items: center;
+			background-color: transparent;
+			border: 3px solid var(--appColorPrimary);
+			border-radius: 50%;
+			color: var(--appColorPrimary);
+			cursor: pointer;
+			display: flex;
+			font-size: 1rem;
+			font-weight: bold;
+			height: 20px;
+			justify-content: center;
+			margin-left: 10px;
+			user-select: none;
+			width: 20px;
+			&:disabled {
+				border-color: var(--appRemoveButtonColor);
+				color: var(--appRemoveButtonColor);
+				cursor: default;
+			}
+		}
+		.newTagInputArea {
+			position: relative;
+		}
+		.tagInput {
+			margin-left: 10px;
+		}
+		.addTagButton.noMargin, .tagInput.noMargin {
+			margin: 0;
+		}
+		.suggestions {
+			background-color: white;
+			border: 1px solid var(--appColorPrimary);
+			border-radius: 0px 0px 10px 10px;
+			border-top: 0;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+			display: flex;
+			flex-direction: column;
+			left: 22.5px;
+			opacity: 0;
+			position: absolute;
+			top: 22px;
+			transition: all 0.2s;
+			visibility: hidden;
+			width: 80%;
+			z-index: 5;
+			.suggestionButton {
+				background: transparent;
+				border: 0;
+				border-bottom: 1px solid var(--appColorPrimary);
+				color: var(--appColorPrimary);
+				cursor: pointer;
+				font-size: 1rem;
+				outline: 0;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				&:hover {
+					color: white;
+					background-color: var(--appColorPrimary);
+				}
+				&:last-child {
+					border-bottom: 0;
+					border-radius: 0px 0px 10px 10px;
+				}
+			}
+		}
+		.suggestions.open {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
 	.lineEditorTitle {
 		margin-top: 0;
 	}
@@ -457,7 +695,6 @@
 		border-bottom: 1px solid black;
 		display: flex;
 		flex-direction: column;
-		padding-bottom: 5px;
 	}
 	.titleInput {
 		font-size: 1.5rem;
@@ -478,6 +715,18 @@
 		flex-wrap: wrap;
 		justify-content: center;
 		width: 100%;
+		:global(ul) {
+			display: flex;
+			flex-wrap: wrap;
+			height: fit-content;
+			justify-content: center;
+			padding: 0;
+		}
+		:global(li) {
+			border: 0;
+			padding: 0;
+			height: fit-content;
+		}
 	}
 	.linePickerOption {
 		align-items: center;
@@ -516,7 +765,8 @@
 		color: white;
 	}
 	.addLineButton {
-		padding: 5px;
+		padding: 3px;
+		user-select: none;
 	}
 	.lineEditBody {
 		align-items: center;
@@ -713,6 +963,18 @@
 		margin-right: 0;
 	}
 	@media only screen and (min-width: 767px) {
+		.tagDisplay {
+			.addTagButton {
+				&:hover {
+					background-color: var(--appColorPrimary);
+					color: white;
+				}
+				&:disabled:hover {
+					background-color: transparent;
+					color: var(--appRemoveButtonColor);
+				}
+			}
+		}
 		.row1 {
 			display: flex;
 			flex-direction: row;
@@ -725,6 +987,9 @@
 		}
 		.lineEditHead {
 			justify-content: flex-start;
+			:global(ul) {
+				justify-content: flex-start;
+			}
 		}
 		.lineEditBody {
 			border-radius: 0px 10px 10px 10px;

@@ -8329,7 +8329,7 @@ const HeroData = readable([
 	},
 	{ id: 'merlin',
 		name: 'Merlin',
-		portrait: './img/portraits/unavailable.png',
+		portrait: './img/portraits/merlin.jpg',
 		class: 'Support',
 		faction: 'Dimensional',
 		type: 'Intelligence',

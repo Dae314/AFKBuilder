@@ -32,14 +32,16 @@
 	});
 	md.use(Emoji);
 
-	$: sortedCompList = $AppData.Comps.sort(sortByStars);
-	$: selectedUUID = $AppData.selectedComp !== null && $AppData.Comps[$AppData.selectedComp].uuid;
+	$: sortedCompList = makeSortedCompList();
+	$: selectedUUID = $AppData.selectedComp !== null && sortedCompList[$AppData.selectedComp].uuid;
 	$: highlightComp = null;
+	$: searchSuggestions = makeSearchSuggestions();
 
 	let openDetail = false;
 	let openDesc = true;
 	let openHero = false;
 	let openSubs = false;
+	let openSuggestions = false;
 	let selectedLine = 0;
 	let selectedHero = '';
 	let copyConfirmVisible = false;
@@ -52,6 +54,55 @@
 		const mediaListener = window.matchMedia("(max-width: 767px)");
 		mediaListener.addEventListener('change', () => adjustEditorWidth(mediaListener));
 	});
+
+	function makeSortedCompList() {
+		let compList = [...$AppData.Comps.sort(sortByStars)];
+
+		if($AppData.compSearchStr !== '') {
+			// array of search terms (separate by , trim white space, and make lower case)
+			let searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim().toLowerCase());
+			compList = compList.filter(comp => {
+				// array of tags (trim white space and make lower case)
+				const tags = comp.tags.map(i => i.trim().toLowerCase());
+				for(const term of searchTerms) {
+					if(term.charAt(0) === '-') {
+						const sterm = term.slice(1, term.length);
+						if(comp.name.toLowerCase().includes(sterm) || tags.some(e => e.toLowerCase().includes(sterm))) return false;
+					} else {
+						if(!comp.name.toLowerCase().includes(term) && !tags.some(e => e.toLowerCase().includes(term))) return false;
+					}
+				}
+				return true;
+			});
+		}
+
+		return compList;
+	}
+
+	function makeSearchSuggestions() {
+		let suggestions = [];
+
+		// first make a list of all tags and comp names
+		for(const comp of $AppData.Comps) {
+			suggestions.push(comp.name);
+			suggestions = [...suggestions, ...comp.tags];
+		}
+		// remove duplicate suggestions
+		suggestions = [...new Set(suggestions)];
+		// filter suggestions for stuff matching the last search term (split by ,)
+		const searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim());
+		let lastTerm = searchTerms[searchTerms.length - 1].toLowerCase();
+		if(lastTerm.charAt(0) === '-') lastTerm = lastTerm.slice(1, lastTerm.length);
+		suggestions = suggestions.filter(e => e.toLowerCase().includes(lastTerm));
+		// if there's only 1 suggestion, return nothing because the filter should already be applied
+		if(suggestions.length === 1) return [];
+		// take only the first 10 suggestions
+		suggestions = suggestions.slice(0, 10);
+		// finally, sort suggestions before returning
+		suggestions.sort();
+
+		return suggestions;
+	}
 
 	function adjustEditorWidth(listener) {
 		if(listener.matches) {
@@ -93,8 +144,9 @@
 
 	function handleEditButtonClick(compIdx) {
 		open(CompEditor,
-				{compID: $AppData.Comps[compIdx].uuid,
-				 onSuccess: () => { sortedCompList = $AppData.Comps.sort(sortByStars); dispatch('saveData'); }},
+				{compID: sortedCompList[compIdx].uuid,
+				 onSuccess: (uuid) => handleCompChangeSuccess(uuid, 'edit'),
+				},
 				{ closeButton: ModalCloseButton,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
 					styleWindow: {width: editorWidth,},
@@ -102,9 +154,34 @@
 				});
 	}
 
+	function handleNewButtonClick() {
+		open(CompEditor,
+				{onSuccess: (uuid) => { $AppData.compSearchStr = ''; handleCompChangeSuccess(uuid, 'new') }},
+				{ closeButton: ModalCloseButton,
+					closeOnOuterClick: false,
+					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
+					styleWindow: {width: editorWidth,},
+				});
+	}
+
+	async function handleCompChangeSuccess(uuid, type) {
+		sortedCompList = makeSortedCompList();
+		searchSuggestions = makeSearchSuggestions();
+		highlightComp = sortedCompList.findIndex(e => e.uuid === uuid);
+		if(type === 'new') {
+			$AppData.selectedComp = highlightComp;
+			selectedHero = '';
+			selectedLine = 0;
+		}
+		await tick();
+		document.getElementById(`comp${highlightComp}`).scrollIntoView();
+		setTimeout(() => highlightComp = null, 2000);
+		dispatch('saveData');
+	}
+
 	function handleDeleteButtonClick(compIdx) {
 		open(Confirm,
-				{onConfirm: handleDelComp, confirmData: compIdx, message: `Delete comp named ${$AppData.Comps[compIdx].name}?`},
+				{onConfirm: handleDelComp, confirmData: compIdx, message: `Delete comp named ${sortedCompList[compIdx].name}?`},
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
@@ -126,7 +203,7 @@
 	}
 
 	async function handleExportButtonClick(compIdx) {
-		const output = await jsurl.compress(JSON.stringify($AppData.Comps[compIdx]));
+		const output = await jsurl.compress(JSON.stringify(sortedCompList[compIdx]));
 		navigator.clipboard.writeText(output).then(() => {
 			copyConfirmVisible = true;
 			setTimeout(() => copyConfirmVisible = false, 1000);
@@ -135,35 +212,25 @@
 		});
 	}
 
-	function handleNewButtonClick() {
-		open(CompEditor,
-				{onSuccess: () => { sortedCompList = $AppData.Comps.sort(sortByStars); dispatch('saveData'); }},
-				{ closeButton: ModalCloseButton,
-					closeOnOuterClick: false,
-					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
-					styleWindow: {width: editorWidth,},
-				});
-	}
-
 	function handleStarClick(event, comp) {
 		comp.starred = !comp.starred;
 		event.stopPropagation();
-		sortedCompList = $AppData.Comps.sort(sortByStars);
+		sortedCompList = makeSortedCompList();
 		dispatch('saveData');
 	}
 
 	function handleDelComp(idx) {
-		$AppData.Comps = $AppData.Comps.filter((e, i) => i !== idx);
-		sortedCompList = $AppData.Comps.sort(sortByStars);
+		const delUUID = sortedCompList[idx].uuid;
+		const selUUID = sortedCompList[$AppData.selectedComp].uuid;
+		$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== delUUID);
+		sortedCompList = makeSortedCompList();
 		if($AppData.selectedComp === idx) {
 			$AppData.selectedComp = null;
 			selectedHero = '';
 			selectedLine = 0;
 			openDetail = false;
 		} else if($AppData.selectedComp > idx) {
-			$AppData.selectedComp--;
-			selectedLine = 0;
-			selectedHero = sortedCompList[$AppData.selectedComp].lines[0].heroes[0];
+			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selUUID);
 		}
 		dispatch('saveData');
 	}
@@ -217,7 +284,8 @@
 				returnObj.message.starred = false;
 				$AppData.Comps = [...$AppData.Comps, returnObj.message];
 			}
-			sortedCompList = $AppData.Comps.sort(sortByStars);
+			$AppData.compSearchStr = ''; // reset any filters
+			sortedCompList = makeSortedCompList();
 			highlightComp = sortedCompList.findIndex(e => e.uuid === returnObj.message.uuid);
 			$AppData.selectedComp = highlightComp;
 			selectedHero = '';
@@ -274,17 +342,53 @@
 	async function handleCardSort(event) {
 		// catch if a user dragged something we weren't expecting and exit
 		if(!Array.isArray(event.detail)) return 0;
+		// don't allow re-ordering when comp list is filtered (could accidently delete comps)
+		if($AppData.compSearchStr !== '') return 0;
+		// don't allow comp overwrite if there are missing comps
+		if(event.detail.length !== $AppData.Comps.length) {
+			throw new Error(`Received invalid Comps array, must be same length as original. ${event.detail}`);
+		}
 		let allCompsValid = true;
 		for(const comp of event.detail) {
 			let returnObj = await validateComp(comp);
 			allCompsValid = allCompsValid && returnObj.retCode === 0;
 		}
 		if(allCompsValid) {
-			sortedCompList = event.detail;
-			$AppData.Comps = sortedCompList;
+			// one last check that all comps are present
+			for(const comp of $AppData.Comps) {
+				if(!event.detail.some(e => e.uuid === comp.uuid)) {
+					throw new Error(`Received invalid Comps array, missing comp with uuid: ${comp.uuid}`);
+				}
+			}
+			$AppData.Comps = event.detail;
+			sortedCompList = makeSortedCompList();
 			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selectedUUID);
 			dispatch('saveData');
 		}
+	}
+
+	function updateSearch() {
+		sortedCompList = makeSortedCompList();
+		if(sortedCompList.some(e => e.uuid === selectedUUID)) {
+			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selectedUUID);
+		} else {
+			$AppData.selectedComp = null;
+		}
+		searchSuggestions = makeSearchSuggestions();
+		openSuggestions = true;
+		dispatch('saveData');
+	}
+
+	function takeSuggestion(suggestion) {
+		let searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim());
+		if(searchTerms[searchTerms.length - 1].charAt(0) === '-') {
+			searchTerms[searchTerms.length - 1] = '-' + suggestion;
+		} else {
+			searchTerms[searchTerms.length - 1] = suggestion;
+		}
+		$AppData.compSearchStr = searchTerms.join(', ');
+		updateSearch();
+		openSuggestions = false;
 	}
 </script>
 
@@ -292,13 +396,33 @@
 
 <div class="CompContainer">
 	<section class="sect1">
+		<div class="searchArea">
+			<input
+				bind:value={$AppData.compSearchStr}
+				on:keyup={updateSearch}
+				on:search={updateSearch}
+				on:focus={() => openSuggestions = true}
+				on:blur={() => openSuggestions = false}
+				class="searchBox"
+				type="search"
+				placeholder="Filter name or tags">
+			<div class="suggestions" class:open={openSuggestions}>
+				{#each searchSuggestions as suggestion}
+					<button class="suggestionButton" on:click={() => takeSuggestion(suggestion)}><span>{suggestion}</span></button>
+				{/each}
+			</div>
+		</div>
 		<div class="compScroller">
 			{#if sortedCompList.length === 0}
-				<div class="noComps">
-					<span>Add or Import a New Comp</span>
-					<div class="noCompsArrow">
-						<span>&#8681;</span>
-					</div>
+				<div class="noComps" class:noSearch={$AppData.compSearchStr !== ''}>
+					{#if $AppData.compSearchStr === ''}
+						<span>Add or Import a New Comp</span>
+						<div class="noCompsArrow">
+							<span>&#8681;</span>
+						</div>
+					{:else}
+						<span>No Comps Found</span>
+					{/if}
 				</div>
 			{:else}
 				<SortableList
@@ -342,8 +466,8 @@
 						<button class="detailButton closeDetailButton" on:click={handleCloseButtonClick}><i class="arrow left"></i>Close</button>
 					</div>
 					<div class="titleContainer">
-						<h3 class="compTitle">{$AppData.Comps[$AppData.selectedComp].name}</h3>
-						<p class="authorTitle">{$AppData.Comps[$AppData.selectedComp].author}</p>
+						<h3 class="compTitle">{sortedCompList[$AppData.selectedComp].name}</h3>
+						<p class="authorTitle">{sortedCompList[$AppData.selectedComp].author}</p>
 					</div>
 					<div class="editContainer">
 						<button class="editDelButton exportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/export.png" alt="Export"><span>Export</span></button>
@@ -351,26 +475,35 @@
 						<button class="editDelButton deleteButton" on:click={() => handleDeleteButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/trashcan.png" alt="Delete"><span>Delete</span></button>
 					</div>
 				</div>
+				<div class="tagsArea">
+					<div class="tagDisplay">
+						{#each sortedCompList[$AppData.selectedComp].tags as tag}
+							<div class="tag">
+								<span class="tagText">{tag}</span>
+							</div>
+						{/each}
+					</div>
+				</div>
 				<div class="compDetailBody">
 					<div class="lastUpdate">
-						<span>Updated: {`${months[$AppData.Comps[$AppData.selectedComp].lastUpdate.getMonth()]} ${$AppData.Comps[$AppData.selectedComp].lastUpdate.getDate()}, ${$AppData.Comps[$AppData.selectedComp].lastUpdate.getFullYear()}`}</span>
+						<span>Updated: {`${months[sortedCompList[$AppData.selectedComp].lastUpdate.getMonth()]} ${sortedCompList[$AppData.selectedComp].lastUpdate.getDate()}, ${sortedCompList[$AppData.selectedComp].lastUpdate.getFullYear()}`}</span>
 					</div>
 					<div class="bodyArea1">
 						<div class="lineExamples">
 							<div class="lineSwitcher">
-								{#each $AppData.Comps[$AppData.selectedComp].lines as line, i}
+								{#each sortedCompList[$AppData.selectedComp].lines as line, i}
 								<button class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}>{line.name}</button>
 								{/each}
 							</div>
 							<div class="lineDisplay">
 								<div class="detailBackline">
-									{#if $AppData.Comps[$AppData.selectedComp].lines.length > 0}
-										{#each $AppData.Comps[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
+									{#if sortedCompList[$AppData.selectedComp].lines.length > 0}
+										{#each sortedCompList[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
 											{#if i >= 2}
 												{#if $HeroData.some(e => e.id === hero)}
 													<div class="detailImgContainer">
 														<a draggable="false" href="#heroDetailSection"><img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
-														<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
+														<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
 													</div>
 													<a draggable="false" href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
 												{:else}
@@ -381,13 +514,13 @@
 									{/if}
 								</div>
 								<div class="detailFrontline">
-									{#if $AppData.Comps[$AppData.selectedComp].lines.length > 0}
-										{#each $AppData.Comps[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
+									{#if sortedCompList[$AppData.selectedComp].lines.length > 0}
+										{#each sortedCompList[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
 											{#if i < 2}
 												{#if $HeroData.some(e => e.id === hero)}
 													<div class="detailImgContainer">
 														<a draggable="false" href="#heroDetailSection"><img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
-														<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
+														<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
 													</div>
 													<a draggable="false" href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
 												{:else}
@@ -404,7 +537,7 @@
 								<button class="expanderButton" on:click={() => openDesc = !openDesc}><i class="expanderArrow {openDesc ? 'down' : 'right' }"></i><span>Description</span></button>
 							</div>
 							<div class="mobileExpander descSection" class:open={openDesc}>
-								<span class="descText">{@html renderMarkdown($AppData.Comps[$AppData.selectedComp].desc)}</span>
+								<span class="descText">{@html renderMarkdown(sortedCompList[$AppData.selectedComp].desc)}</span>
 							</div>
 						</div>
 					</div>
@@ -433,8 +566,15 @@
 										</div>
 										<div class="lowerSelectCard">
 											<div class="ascendBoxContainer">
-												<AscendBox ascendLv="{$AppData.Comps[$AppData.selectedComp].heroes[selectedHero].ascendLv}" />
+												<AscendBox ascendLv="{sortedCompList[$AppData.selectedComp].heroes[selectedHero].ascendLv}" />
 											</div>
+											{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].notes.length > 0}
+												<div class="heroNotesArea">
+													<div class="heroNotes">
+														<span>{sortedCompList[$AppData.selectedComp].heroes[selectedHero].notes}</span>
+													</div>
+												</div>
+											{/if}
 											{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.primary.length > 0 || sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.secondary.length > 0 || sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.situational.length > 0}
 												<div class="artifactsContainer">
 													<h5>Artifacts</h5>
@@ -492,14 +632,17 @@
 							</div>
 							<div class="mobileExpander subGroupExpander" class:open={openSubs}>
 								<div class="subDisplay">
-									{#each $AppData.Comps[$AppData.selectedComp].subs as subgroup}
+									{#each sortedCompList[$AppData.selectedComp].subs as subgroup}
 									<div class="subGroup">
 										<div class="subGroupTitle"><span>{subgroup.name}</span></div>
 										<div class="subGroupMembers">
 											{#each subgroup.heroes as hero}
 												<div class="subHeroContainer">
 													<a draggable="false" href="#heroDetailSection">
-														<img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+														<div class="subImgContainer">
+															<img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+															<span class="coreMark subCoreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
+														</div>
 														<p on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</p>
 													</a>
 												</div>
@@ -640,9 +783,68 @@
 		opacity: 1;
 		visibility: visible;
 	}
+	.searchArea {
+		align-items: center;
+		background-color: var(--appBGColorDark);
+		border-right: 3px solid var(--appColorPrimary);
+		border-bottom: 3px solid var(--appColorPrimary);
+		display: flex;
+		height: 40px;
+		padding: 5px 20px;
+		position: relative;
+		justify-content: center;
+		.searchBox {
+			border: 1px solid var(--appColorPrimary);
+			border-radius: 5px;
+			font-size: 1.1rem;
+			outline: none;
+			width: 100%;
+			&:focus {
+				box-shadow: 0 0 0 2px var(--appColorPrimary);
+			}
+		}
+		.suggestions {
+			background-color: white;
+			border: 1px solid var(--appColorPrimary);
+			border-radius: 0px 0px 10px 10px;
+			border-top: 0;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+			display: flex;
+			flex-direction: column;
+			opacity: 0;
+			position: absolute;
+			top: 30px;
+			transition: all 0.2s;
+			visibility: hidden;
+			width: 80%;
+			z-index: 1;
+			.suggestionButton {
+				background: transparent;
+				border: 0;
+				border-bottom: 1px solid var(--appColorPrimary);
+				color: var(--appColorPrimary);
+				cursor: pointer;
+				font-size: 1rem;
+				outline: 0;
+				user-select: none;
+				&:hover {
+					color: white;
+					background-color: var(--appColorPrimary);
+				}
+				&:last-child {
+					border-bottom: 0;
+					border-radius: 0px 0px 10px 10px;
+				}
+			}
+		}
+		.suggestions.open {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
 	.compScroller {
 		background-color: var(--appBGColorDark);
-		height: calc(100vh - 45px - 80px);
+		height: calc(100vh - 45px - 40px - 80px);
 		overflow-x: hidden;
 		overflow-y: auto;
 		padding: 5px;
@@ -662,8 +864,12 @@
 		width: 100%;
 		user-select: none;
 	}
+	.noComps.noSearch {
+		top: 0;
+	}
 	.addButtonArea {
 		bottom: 0;
+		height: 80px;
 		left: 0;
 		position: fixed;
 		width: 100%;
@@ -732,10 +938,8 @@
 		visibility: visible;
 	}
 	.compDetailHead {
-		border-bottom: 1px solid black;
 		display: flex;
 		flex-direction: row;
-		padding-bottom: 10px;
 		width: 100%;
 	}
 	.closeButtonContainer {
@@ -833,6 +1037,38 @@
 			max-width: 16px;
 		}
 	}
+	.tagsArea {
+		border-bottom: 1px solid black;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+	.tagDisplay {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin-bottom: 5px;
+		width: 100%;
+		.tag {
+			position: relative;
+			margin: 0px 5px;
+			margin-bottom: 5px;
+		}
+		.tagText {
+			border: 1px solid var(--appColorPrimary);
+			border-radius: 15px;
+			display: inline-block;
+			background-color: var(--appColorPrimary);
+			color: white;
+			font-size: 0.8rem;
+			padding: 0px 5px;
+			padding-bottom: 4px;
+			text-align: center;
+			user-select: none;
+		}
+	}
 	.compDetailBody {
 		padding-top: 10px;
 	}
@@ -848,6 +1084,7 @@
 	.lineSwitcher {
 		display: flex;
 		flex-direction: row;
+		flex-wrap: wrap;
 		justify-content: center;
 	}
 	.lineSwitchButton {
@@ -1033,6 +1270,15 @@
 	.ascendBoxContainer {
 		margin-bottom: 10px;
 	}
+	.heroNotesArea {
+		width: 100%;
+		margin-bottom: 10px;
+		.heroNotes {
+			background-color: var(--appBGColorDark);
+			border-radius: 10px;
+			padding: 10px;
+		}
+	}
 	.artifactsContainer {
 		display: flex;
 		flex-direction: column;
@@ -1138,12 +1384,19 @@
 			white-space: nowrap;
 		}
 	}
+	.subImgContainer {
+		position: relative;
+	}
 	.subImg {
 		border-radius: 50%;
 		max-width: 70px;
 	}
 	.subImg.claimed {
 		border: 5px solid var(--appColorPrimary);
+	}
+	.subCoreMark {
+		bottom: 0px;
+		right: -1px;
 	}
 	.mobileExpander {
 		margin-bottom: 10px;
@@ -1416,17 +1669,6 @@
 		}
 		.subGroupTitle {
 			padding-top: 0;
-		}
-	}
-	@keyframes flash {
-		0% {
-			background-color: transparent;
-		}
-		50% {
-			background-color: var(--appColorPriOpaque);
-		}
-		100% {
-			background-color: transparent;
 		}
 	}
 </style>
