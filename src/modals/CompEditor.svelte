@@ -387,7 +387,7 @@
 									{:else}
 										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<div class="imgContainer">
-												<img src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+												<img draggable="false" src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
 											</div>
@@ -407,7 +407,7 @@
 									{:else}
 										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<div class="imgContainer">
-												<img src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+												<img draggable="false" src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
 											</div>
@@ -442,6 +442,7 @@
 									<div class="subGroupMember">
 										<button class="heroButton" on:click={() => openHeroFinder({idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<img
+												draggable="false"
 												src={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).portrait : './img/portraits/unavailable.png'}
 												alt={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).name : 'Pick a Hero'}>
 											<button class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
