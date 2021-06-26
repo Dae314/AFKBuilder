@@ -66,7 +66,7 @@
 				const tags = comp.tags.map(i => i.trim().toLowerCase());
 				for(const term of searchTerms) {
 					if(term.charAt(0) === '-') {
-						const sterm = term.slice(1, term.length - 1);
+						const sterm = term.slice(1, term.length);
 						if(comp.name.toLowerCase().includes(sterm) || tags.some(e => e.toLowerCase().includes(sterm))) return false;
 					} else {
 						if(!comp.name.toLowerCase().includes(term) && !tags.some(e => e.toLowerCase().includes(term))) return false;
@@ -92,12 +92,12 @@
 		// filter suggestions for stuff matching the last search term (split by ,)
 		const searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim());
 		let lastTerm = searchTerms[searchTerms.length - 1].toLowerCase();
-		if(lastTerm.charAt(0) === '-') lastTerm = lastTerm.slice(1, lastTerm.length - 1);
+		if(lastTerm.charAt(0) === '-') lastTerm = lastTerm.slice(1, lastTerm.length);
 		suggestions = suggestions.filter(e => e.toLowerCase().includes(lastTerm));
 		// if there's only 1 suggestion, return nothing because the filter should already be applied
 		if(suggestions.length === 1) return [];
 		// take only the first 10 suggestions
-		suggestions = suggestions.slice(0, 9);
+		suggestions = suggestions.slice(0, 10);
 		// finally, sort suggestions before returning
 		suggestions.sort();
 

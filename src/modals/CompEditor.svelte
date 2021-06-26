@@ -91,7 +91,7 @@
 		// filter suggestions to just strings that match what's already been typed
 		suggestions = suggestions.filter(e => e.toLowerCase().includes(newTagText));
 		// take only the first 10 suggestions
-		suggestions = suggestions.slice(0, 9);
+		suggestions = suggestions.slice(0, 10);
 		// finally, sort suggestions before returning
 		suggestions.sort();
 
