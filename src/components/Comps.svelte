@@ -32,14 +32,16 @@
 	});
 	md.use(Emoji);
 
-	$: sortedCompList = $AppData.Comps.sort(sortByStars);
+	$: sortedCompList = makeSortedCompList();
 	$: selectedUUID = $AppData.selectedComp !== null && $AppData.Comps[$AppData.selectedComp].uuid;
 	$: highlightComp = null;
+	$: searchSuggestions = makeSearchSuggestions();
 
 	let openDetail = false;
 	let openDesc = true;
 	let openHero = false;
 	let openSubs = false;
+	let openSuggestions = false;
 	let selectedLine = 0;
 	let selectedHero = '';
 	let copyConfirmVisible = false;
@@ -52,6 +54,50 @@
 		const mediaListener = window.matchMedia("(max-width: 767px)");
 		mediaListener.addEventListener('change', () => adjustEditorWidth(mediaListener));
 	});
+
+	function makeSortedCompList() {
+		let compList = [...$AppData.Comps.sort(sortByStars)];
+
+		if($AppData.compSearchStr !== '') {
+			// array of search terms (separate by , trim white space, and make lower case)
+			let searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim().toLowerCase());
+			compList = compList.filter(comp => {
+				// array of tags (trim white space and make lower case)
+				const tags = comp.tags.map(i => i.trim().toLowerCase());
+				for(const term of searchTerms) {
+					if(comp.name.toLowerCase().includes(term)) return true;
+					if(tags.includes(term)) return true;
+				}
+				return false;
+			});
+		}
+
+		return compList;
+	}
+
+	function makeSearchSuggestions() {
+		let suggestions = [];
+
+		// first make a list of all tags and comp names
+		for(const comp of $AppData.Comps) {
+			suggestions.push(comp.name);
+			suggestions = [...suggestions, ...comp.tags];
+		}
+		// remove duplicate suggestions
+		suggestions = [...new Set(suggestions)];
+		// filter suggestions for stuff matching the last search term (split by ,)
+		const searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim());
+		const lastTerm = searchTerms[searchTerms.length - 1].toLowerCase();
+		suggestions = suggestions.filter(e => e.toLowerCase().includes(lastTerm));
+		// if there's only 1 suggestion, return nothing because the filter should already be applied
+		if(suggestions.length === 1) return [];
+		// take only the first 10 suggestions
+		suggestions = suggestions.slice(0, 9);
+		// finally, sort suggestions before returning
+		suggestions.sort();
+
+		return suggestions;
+	}
 
 	function adjustEditorWidth(listener) {
 		if(listener.matches) {
@@ -94,7 +140,7 @@
 	function handleEditButtonClick(compIdx) {
 		open(CompEditor,
 				{compID: $AppData.Comps[compIdx].uuid,
-				 onSuccess: () => { sortedCompList = $AppData.Comps.sort(sortByStars); dispatch('saveData'); }},
+				 onSuccess: () => { sortedCompList = makeSortedCompList(); dispatch('saveData'); }},
 				{ closeButton: ModalCloseButton,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
 					styleWindow: {width: editorWidth,},
@@ -137,7 +183,7 @@
 
 	function handleNewButtonClick() {
 		open(CompEditor,
-				{onSuccess: () => { sortedCompList = $AppData.Comps.sort(sortByStars); dispatch('saveData'); }},
+				{onSuccess: () => { sortedCompList = makeSortedCompList(); dispatch('saveData'); }},
 				{ closeButton: ModalCloseButton,
 					closeOnOuterClick: false,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
@@ -148,13 +194,13 @@
 	function handleStarClick(event, comp) {
 		comp.starred = !comp.starred;
 		event.stopPropagation();
-		sortedCompList = $AppData.Comps.sort(sortByStars);
+		sortedCompList = makeSortedCompList();
 		dispatch('saveData');
 	}
 
 	function handleDelComp(idx) {
 		$AppData.Comps = $AppData.Comps.filter((e, i) => i !== idx);
-		sortedCompList = $AppData.Comps.sort(sortByStars);
+		sortedCompList = makeSortedCompList();
 		if($AppData.selectedComp === idx) {
 			$AppData.selectedComp = null;
 			selectedHero = '';
@@ -217,7 +263,7 @@
 				returnObj.message.starred = false;
 				$AppData.Comps = [...$AppData.Comps, returnObj.message];
 			}
-			sortedCompList = $AppData.Comps.sort(sortByStars);
+			sortedCompList = makeSortedCompList();
 			highlightComp = sortedCompList.findIndex(e => e.uuid === returnObj.message.uuid);
 			$AppData.selectedComp = highlightComp;
 			selectedHero = '';
@@ -274,17 +320,34 @@
 	async function handleCardSort(event) {
 		// catch if a user dragged something we weren't expecting and exit
 		if(!Array.isArray(event.detail)) return 0;
+		// don't allow re-ordering when comp list is filtered (could accidently delete comps)
+		if($AppData.compSearchStr !== '') return 0;
 		let allCompsValid = true;
 		for(const comp of event.detail) {
 			let returnObj = await validateComp(comp);
 			allCompsValid = allCompsValid && returnObj.retCode === 0;
 		}
 		if(allCompsValid) {
-			sortedCompList = event.detail;
-			$AppData.Comps = sortedCompList;
+			$AppData.Comps = event.detail;
+			sortedCompList = makeSortedCompList();
 			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selectedUUID);
 			dispatch('saveData');
 		}
+	}
+
+	function updateSearch() {
+		sortedCompList = makeSortedCompList();
+		searchSuggestions = makeSearchSuggestions();
+		openSuggestions = true;
+		dispatch('saveData');
+	}
+
+	function takeSuggestion(suggestion) {
+		let searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim());
+		searchTerms[searchTerms.length - 1] = suggestion;
+		$AppData.compSearchStr = searchTerms.join(', ');
+		updateSearch();
+		openSuggestions = false;
 	}
 </script>
 
@@ -292,13 +355,33 @@
 
 <div class="CompContainer">
 	<section class="sect1">
+		<div class="searchArea">
+			<input
+				bind:value={$AppData.compSearchStr}
+				on:keyup={updateSearch}
+				on:search={updateSearch}
+				on:focus={() => openSuggestions = true}
+				on:blur={() => openSuggestions = false}
+				class="searchBox"
+				type="search"
+				placeholder="Filter name or tags">
+			<div class="suggestions" class:open={openSuggestions}>
+				{#each searchSuggestions as suggestion}
+					<button class="suggestionButton" on:click={() => takeSuggestion(suggestion)}><span>{suggestion}</span></button>
+				{/each}
+			</div>
+		</div>
 		<div class="compScroller">
 			{#if sortedCompList.length === 0}
-				<div class="noComps">
-					<span>Add or Import a New Comp</span>
-					<div class="noCompsArrow">
-						<span>&#8681;</span>
-					</div>
+				<div class="noComps" class:noSearch={$AppData.compSearchStr !== ''}>
+					{#if $AppData.compSearchStr === ''}
+						<span>Add or Import a New Comp</span>
+						<div class="noCompsArrow">
+							<span>&#8681;</span>
+						</div>
+					{:else}
+						<span>No Comps Found</span>
+					{/if}
 				</div>
 			{:else}
 				<SortableList
@@ -640,9 +723,66 @@
 		opacity: 1;
 		visibility: visible;
 	}
+	.searchArea {
+		align-items: center;
+		background-color: var(--appBGColorDark);
+		border-right: 3px solid var(--appColorPrimary);
+		border-bottom: 3px solid var(--appColorPrimary);
+		display: flex;
+		height: 40px;
+		padding: 5px 20px;
+		position: relative;
+		justify-content: center;
+		.searchBox {
+			border: 1px solid var(--appColorPrimary);
+			border-radius: 5px;
+			font-size: 1.1rem;
+			outline: none;
+			width: 100%;
+			&:focus {
+				box-shadow: 0 0 0 2px var(--appColorPrimary);
+			}
+		}
+		.suggestions {
+			background-color: white;
+			border: 1px solid var(--appColorPrimary);
+			border-radius: 0px 0px 10px 10px;
+			border-top: 0;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+			display: flex;
+			flex-direction: column;
+			opacity: 0;
+			position: absolute;
+			top: 30px;
+			transition: all 0.2s;
+			visibility: hidden;
+			width: 80%;
+			z-index: 1;
+			.suggestionButton {
+				border: 0;
+				border-bottom: 1px solid var(--appColorPrimary);
+				color: var(--appColorPrimary);
+				font-size: 1rem;
+				outline: 0;
+				background: transparent;
+				&:hover {
+					color: white;
+					background-color: var(--appColorPrimary);
+				}
+				&:last-child {
+					border-bottom: 0;
+					border-radius: 0px 0px 10px 10px;
+				}
+			}
+		}
+		.suggestions.open {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
 	.compScroller {
 		background-color: var(--appBGColorDark);
-		height: calc(100vh - 45px - 80px);
+		height: calc(100vh - 45px - 40px - 80px);
 		overflow-x: hidden;
 		overflow-y: auto;
 		padding: 5px;
@@ -662,8 +802,12 @@
 		width: 100%;
 		user-select: none;
 	}
+	.noComps.noSearch {
+		top: 0;
+	}
 	.addButtonArea {
 		bottom: 0;
+		height: 80px;
 		left: 0;
 		position: fixed;
 		width: 100%;
