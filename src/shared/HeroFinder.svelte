@@ -338,7 +338,7 @@
 	}
 </script>
 
-<div class="background" on:click={close}>
+<div class="background">
 	<div class="modalCloseContainer">
 		<ModalCloseButton onClose={close} />
 	</div>
