@@ -145,12 +145,38 @@
 	function handleEditButtonClick(compIdx) {
 		open(CompEditor,
 				{compID: sortedCompList[compIdx].uuid,
-				 onSuccess: () => { sortedCompList = makeSortedCompList(); searchSuggestions = makeSearchSuggestions(); dispatch('saveData'); }},
+				 onSuccess: (uuid) => handleCompChangeSuccess(uuid, 'edit'),
+				},
 				{ closeButton: ModalCloseButton,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
 					styleWindow: {width: editorWidth,},
 					closeOnOuterClick: false,
 				});
+	}
+
+	function handleNewButtonClick() {
+		open(CompEditor,
+				{onSuccess: (uuid) => { $AppData.compSearchStr = ''; handleCompChangeSuccess(uuid, 'new') }},
+				{ closeButton: ModalCloseButton,
+					closeOnOuterClick: false,
+					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
+					styleWindow: {width: editorWidth,},
+				});
+	}
+
+	async function handleCompChangeSuccess(uuid, type) {
+		sortedCompList = makeSortedCompList();
+		searchSuggestions = makeSearchSuggestions();
+		highlightComp = sortedCompList.findIndex(e => e.uuid === uuid);
+		if(type === 'new') {
+			$AppData.selectedComp = highlightComp;
+			selectedHero = '';
+			selectedLine = 0;
+		}
+		await tick();
+		document.getElementById(`comp${highlightComp}`).scrollIntoView();
+		setTimeout(() => highlightComp = null, 2000);
+		dispatch('saveData');
 	}
 
 	function handleDeleteButtonClick(compIdx) {
@@ -186,16 +212,6 @@
 		});
 	}
 
-	function handleNewButtonClick() {
-		open(CompEditor,
-				{onSuccess: () => { sortedCompList = makeSortedCompList(); searchSuggestions = makeSearchSuggestions(); dispatch('saveData'); }},
-				{ closeButton: ModalCloseButton,
-					closeOnOuterClick: false,
-					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
-					styleWindow: {width: editorWidth,},
-				});
-	}
-
 	function handleStarClick(event, comp) {
 		comp.starred = !comp.starred;
 		event.stopPropagation();
@@ -204,8 +220,9 @@
 	}
 
 	function handleDelComp(idx) {
-		const uuid = sortedCompList[idx].uuid;
-		$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== uuid);
+		const delUUID = sortedCompList[idx].uuid;
+		const selUUID = sortedCompList[$AppData.selectedComp].uuid;
+		$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== delUUID);
 		sortedCompList = makeSortedCompList();
 		if($AppData.selectedComp === idx) {
 			$AppData.selectedComp = null;
@@ -213,9 +230,7 @@
 			selectedLine = 0;
 			openDetail = false;
 		} else if($AppData.selectedComp > idx) {
-			$AppData.selectedComp--;
-			selectedLine = 0;
-			selectedHero = sortedCompList[$AppData.selectedComp].lines[0].heroes[0];
+			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selUUID);
 		}
 		dispatch('saveData');
 	}
@@ -1588,17 +1603,6 @@
 		}
 		.subGroupTitle {
 			padding-top: 0;
-		}
-	}
-	@keyframes flash {
-		0% {
-			background-color: transparent;
-		}
-		50% {
-			background-color: var(--appColorPriOpaque);
-		}
-		100% {
-			background-color: transparent;
 		}
 	}
 </style>

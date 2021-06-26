@@ -160,7 +160,7 @@
 				// adding a new comp
 				$AppData.Comps = [...$AppData.Comps, comp];
 			}
-			onSuccess();
+			onSuccess(comp.uuid);
 			close();
 		}
 	}
@@ -193,7 +193,7 @@
 				$AppData.Comps = [...$AppData.Comps, comp];
 				compID = comp.uuid;
 			}
-			onSuccess();
+			onSuccess(comp.uuid);
 			statusMessage = "Draft saved";
 			showStatusMessage = true;
 			statusError = false;
