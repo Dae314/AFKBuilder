@@ -568,6 +568,13 @@
 											<div class="ascendBoxContainer">
 												<AscendBox ascendLv="{sortedCompList[$AppData.selectedComp].heroes[selectedHero].ascendLv}" />
 											</div>
+											{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].notes.length > 0}
+												<div class="heroNotesArea">
+													<div class="heroNotes">
+														<span>{sortedCompList[$AppData.selectedComp].heroes[selectedHero].notes}</span>
+													</div>
+												</div>
+											{/if}
 											{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.primary.length > 0 || sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.secondary.length > 0 || sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.situational.length > 0}
 												<div class="artifactsContainer">
 													<h5>Artifacts</h5>
@@ -1258,6 +1265,15 @@
 	}
 	.ascendBoxContainer {
 		margin-bottom: 10px;
+	}
+	.heroNotesArea {
+		width: 100%;
+		margin-bottom: 10px;
+		.heroNotes {
+			background-color: var(--appBGColorDark);
+			border-radius: 10px;
+			padding: 10px;
+		}
 	}
 	.artifactsContainer {
 		display: flex;
