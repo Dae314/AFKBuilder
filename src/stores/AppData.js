@@ -7,6 +7,7 @@ let appdata; // temporary value for editing
 const herodata = get(HeroData); // data from HeroData store
 const maxDescLen = 5000;
 const maxCompTags = 10;
+const maxNoteLen = 280;
 // const testcomps = get(TestComps); // data from TestComps store
 
 // validation function for MH.List
@@ -185,6 +186,8 @@ window.validateComp = async function(data) {
 					return {retCode: 1, message: `Incorrect type for key ${key} in hero named ${hero}, expected ${expectedPropType}`};
 				}
 			}
+			// make sure that hero notes isn't longer than max
+			if(data.heroes[hero].notes.length > maxNoteLen) return {retCode: 1, message: `Hero notes for ${hero} cannot be longer than ${maxNoteLen} characters.`};
 		}
 		// make sure the description isn't longer than max
 		if(data.desc.length > maxDescLen) return {retCode: 1, message: `Description cannot be longer than ${maxDescLen} characters.`};
@@ -219,6 +222,7 @@ function buildAppData(data) {
 		{name: 'dismissMHSearchInfo', default: false},
 		{name: 'maxDescLen', default: maxDescLen},
 		{name: 'maxCompTags', default: maxCompTags},
+		{name: 'maxNoteLen', default: maxNoteLen},
 		{name: 'compSearchStr', default: ''},
 		{name: 'HL', default: {}},
 		{name: 'MH', default: {}},
@@ -282,9 +286,10 @@ function buildAppData(data) {
 	for(let prop in data) {
 		if(!expectedProps.some(e => e.name === prop)) delete data[prop];
 	}
-	// maxDescLen and maxCompTags are special and should always be updated
+	// limits are special and should always be updated
 	data.maxDescLen = expectedProps.find(e => e.name === 'maxDescLen').default;
 	data.maxCompTags = expectedProps.find(e => e.name === 'maxCompTags').default;
+	data.maxNoteLen = expectedProps.find(e => e.name === 'maxNoteLen').default;
 
 	// add HL props as required
 	for(const prop of expectedHLProps) {
