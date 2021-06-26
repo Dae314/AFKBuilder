@@ -47,7 +47,8 @@
 				si: oldHeroData.si,
 				furn: oldHeroData.furn,
 				artifacts: JSON.parse(JSON.stringify(oldHeroData.artifacts)),
-				core: oldHeroData.core
+				core: oldHeroData.core,
+				notes: oldHeroData.notes,
 			}
 			unusedArtifacts = makeUnusedArtifactList();
 		}
@@ -241,6 +242,7 @@
 			{name: 'furn', type: 'number'},
 			{name: 'artifacts', type: 'object'},
 			{name: 'core', type: 'boolean'},
+			{name: 'notes', type: 'string'},
 		];
 
 		// make sure that hero is an object (and nothing else)
@@ -308,6 +310,7 @@
 				furn: compHeroData[heroID].furn,
 				artifacts: JSON.parse(JSON.stringify(compHeroData[heroID].artifacts)),
 				core: compHeroData[heroID].core,
+				notes: compHeroData[heroID].notes,
 			};
 		} else {
 			selectedHero = {
@@ -317,6 +320,7 @@
 				furn: $HeroData.find(e => e.id === heroID).furn_benchmark,
 				artifacts: {primary: [], secondary: [], situational: []},
 				core: false,
+				notes: '',
 			};
 		}
 		changeSection(2);
