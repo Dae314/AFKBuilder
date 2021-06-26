@@ -475,6 +475,16 @@
 						<button class="editDelButton deleteButton" on:click={() => handleDeleteButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/trashcan.png" alt="Delete"><span>Delete</span></button>
 					</div>
 				</div>
+				<div class="tagsArea">
+					<!-- <h5>Tags</h5> -->
+					<div class="tagDisplay">
+						{#each sortedCompList[$AppData.selectedComp].tags as tag}
+							<div class="tag">
+								<span class="tagText">{tag}</span>
+							</div>
+						{/each}
+					</div>
+				</div>
 				<div class="compDetailBody">
 					<div class="lastUpdate">
 						<span>Updated: {`${months[sortedCompList[$AppData.selectedComp].lastUpdate.getMonth()]} ${sortedCompList[$AppData.selectedComp].lastUpdate.getDate()}, ${sortedCompList[$AppData.selectedComp].lastUpdate.getFullYear()}`}</span>
@@ -919,10 +929,8 @@
 		visibility: visible;
 	}
 	.compDetailHead {
-		border-bottom: 1px solid black;
 		display: flex;
 		flex-direction: row;
-		padding-bottom: 10px;
 		width: 100%;
 	}
 	.closeButtonContainer {
@@ -1018,6 +1026,42 @@
 		border: 3px solid var(--appDelColor);
 		img {
 			max-width: 16px;
+		}
+	}
+	.tagsArea {
+		border-bottom: 1px solid black;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		h5 {
+			margin: 5px 0px;
+			text-align: center;
+		}
+	}
+	.tagDisplay {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin-bottom: 5px;
+		width: 100%;
+		.tag {
+			position: relative;
+			margin: 0px 5px;
+			margin-bottom: 5px;
+		}
+		.tagText {
+			border: 1px solid var(--appColorPrimary);
+			border-radius: 15px;
+			display: inline-block;
+			background-color: var(--appColorPrimary);
+			color: white;
+			font-size: 0.8rem;
+			padding: 0px 5px;
+			padding-bottom: 4px;
+			text-align: center;
+			user-select: none;
 		}
 	}
 	.compDetailBody {

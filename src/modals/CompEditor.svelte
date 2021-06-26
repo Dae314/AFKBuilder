@@ -569,7 +569,7 @@
 		}
 		.tagText {
 			border: 1px solid var(--appColorPrimary);
-			border-radius: 5px;
+			border-radius: 15px;
 			display: inline-block;
 			background-color: var(--appColorPrimary);
 			color: white;
