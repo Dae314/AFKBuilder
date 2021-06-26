@@ -91,7 +91,8 @@
 		suggestions = [...new Set(suggestions)];
 		// filter suggestions for stuff matching the last search term (split by ,)
 		const searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim());
-		const lastTerm = searchTerms[searchTerms.length - 1].toLowerCase();
+		let lastTerm = searchTerms[searchTerms.length - 1].toLowerCase();
+		if(lastTerm.charAt(0) === '-') lastTerm = lastTerm.slice(1, lastTerm.length - 1);
 		suggestions = suggestions.filter(e => e.toLowerCase().includes(lastTerm));
 		// if there's only 1 suggestion, return nothing because the filter should already be applied
 		if(suggestions.length === 1) return [];
@@ -358,7 +359,11 @@
 
 	function takeSuggestion(suggestion) {
 		let searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim());
-		searchTerms[searchTerms.length - 1] = suggestion;
+		if(searchTerms[searchTerms.length - 1].charAt(0) === '-') {
+			searchTerms[searchTerms.length - 1] = '-' + suggestion;
+		} else {
+			searchTerms[searchTerms.length - 1] = suggestion;
+		}
 		$AppData.compSearchStr = searchTerms.join(', ');
 		updateSearch();
 		openSuggestions = false;
