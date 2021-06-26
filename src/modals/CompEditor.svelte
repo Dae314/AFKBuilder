@@ -211,11 +211,14 @@
 
 	function openHeroFinder(config) {
 		hfConfig = config;
+		clearTimeout(autosave); // turn off autosaving while HeroFinder is open
 		heroFinderOpen = true;
 	}
 
 	function closeHeroFinder() {
 		heroFinderOpen = false;
+		// save and resume autosaving now that HeroFinder is closed
+		if(comp.draft) saveDraft();
 		hfConfig = {};
 	}
 
