@@ -322,12 +322,22 @@
 		if(!Array.isArray(event.detail)) return 0;
 		// don't allow re-ordering when comp list is filtered (could accidently delete comps)
 		if($AppData.compSearchStr !== '') return 0;
+		// don't allow comp overwrite if there are missing comps
+		if(event.detail.length !== $AppData.Comps.length) {
+			throw new Error(`Received invalid Comps array, must be same length as original. ${event.detail}`);
+		}
 		let allCompsValid = true;
 		for(const comp of event.detail) {
 			let returnObj = await validateComp(comp);
 			allCompsValid = allCompsValid && returnObj.retCode === 0;
 		}
 		if(allCompsValid) {
+			// one last check that all comps are present
+			for(const comp of $AppData.Comps) {
+				if(!event.detail.some(e => e.uuid === comp.uuid)) {
+					throw new Error(`Received invalid Comps array, missing comp with uuid: ${comp.uuid}`);
+				}
+			}
 			$AppData.Comps = event.detail;
 			sortedCompList = makeSortedCompList();
 			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selectedUUID);
