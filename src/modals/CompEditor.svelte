@@ -445,6 +445,7 @@
 												src={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).portrait : './img/portraits/unavailable.png'}
 												alt={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).name : 'Pick a Hero'}>
 											<button class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
+											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 										</button>
 										<p>{$HeroData.find(e => e.id === hero).name}</p>
 									</div>
