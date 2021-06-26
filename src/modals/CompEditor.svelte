@@ -288,6 +288,7 @@ import { flat } from 'markdown-it/lib/common/html_blocks';
 					{#if !addTagOpen}
 						<button
 							class="addTagButton"
+							class:noMargin={comp.tags.length === 0}
 							disabled={comp.tags.length >= $AppData.maxCompTags}
 							on:click={async () => {
 								addTagOpen = true;
@@ -300,6 +301,7 @@ import { flat } from 'markdown-it/lib/common/html_blocks';
 						<input
 							id="newTagInput"
 							class="tagInput"
+							class:noMargin={comp.tags.length === 0}
 							type="text"
 							bind:value={newTagText}
 							on:blur={handleAddTag}
@@ -567,6 +569,9 @@ import { flat } from 'markdown-it/lib/common/html_blocks';
 		}
 		.tagInput {
 			margin-left: 10px;
+		}
+		.addTagButton.noMargin, .tagInput.noMargin {
+			margin: 0;
 		}
 	}
 	.lineEditorTitle {
