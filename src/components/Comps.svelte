@@ -778,12 +778,14 @@
 			width: 80%;
 			z-index: 1;
 			.suggestionButton {
+				background: transparent;
 				border: 0;
 				border-bottom: 1px solid var(--appColorPrimary);
 				color: var(--appColorPrimary);
+				cursor: pointer;
 				font-size: 1rem;
 				outline: 0;
-				background: transparent;
+				user-select: none;
 				&:hover {
 					color: white;
 					background-color: var(--appColorPrimary);
