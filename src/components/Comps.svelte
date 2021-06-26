@@ -33,7 +33,7 @@
 	md.use(Emoji);
 
 	$: sortedCompList = makeSortedCompList();
-	$: selectedUUID = $AppData.selectedComp !== null && $AppData.Comps[$AppData.selectedComp].uuid;
+	$: selectedUUID = $AppData.selectedComp !== null && sortedCompList[$AppData.selectedComp].uuid;
 	$: highlightComp = null;
 	$: searchSuggestions = makeSearchSuggestions();
 
@@ -144,7 +144,7 @@
 
 	function handleEditButtonClick(compIdx) {
 		open(CompEditor,
-				{compID: $AppData.Comps[compIdx].uuid,
+				{compID: sortedCompList[compIdx].uuid,
 				 onSuccess: () => { sortedCompList = makeSortedCompList(); searchSuggestions = makeSearchSuggestions(); dispatch('saveData'); }},
 				{ closeButton: ModalCloseButton,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
@@ -155,7 +155,7 @@
 
 	function handleDeleteButtonClick(compIdx) {
 		open(Confirm,
-				{onConfirm: handleDelComp, confirmData: compIdx, message: `Delete comp named ${$AppData.Comps[compIdx].name}?`},
+				{onConfirm: handleDelComp, confirmData: compIdx, message: `Delete comp named ${sortedCompList[compIdx].name}?`},
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
@@ -177,7 +177,7 @@
 	}
 
 	async function handleExportButtonClick(compIdx) {
-		const output = await jsurl.compress(JSON.stringify($AppData.Comps[compIdx]));
+		const output = await jsurl.compress(JSON.stringify(sortedCompList[compIdx]));
 		navigator.clipboard.writeText(output).then(() => {
 			copyConfirmVisible = true;
 			setTimeout(() => copyConfirmVisible = false, 1000);
@@ -204,7 +204,8 @@
 	}
 
 	function handleDelComp(idx) {
-		$AppData.Comps = $AppData.Comps.filter((e, i) => i !== idx);
+		const uuid = sortedCompList[idx].uuid;
+		$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== uuid);
 		sortedCompList = makeSortedCompList();
 		if($AppData.selectedComp === idx) {
 			$AppData.selectedComp = null;
@@ -268,6 +269,7 @@
 				returnObj.message.starred = false;
 				$AppData.Comps = [...$AppData.Comps, returnObj.message];
 			}
+			$AppData.compSearchStr = ''; // reset any filters
 			sortedCompList = makeSortedCompList();
 			highlightComp = sortedCompList.findIndex(e => e.uuid === returnObj.message.uuid);
 			$AppData.selectedComp = highlightComp;
@@ -352,6 +354,11 @@
 
 	function updateSearch() {
 		sortedCompList = makeSortedCompList();
+		if(sortedCompList.some(e => e.uuid === selectedUUID)) {
+			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selectedUUID);
+		} else {
+			$AppData.selectedComp = null;
+		}
 		searchSuggestions = makeSearchSuggestions();
 		openSuggestions = true;
 		dispatch('saveData');
@@ -444,8 +451,8 @@
 						<button class="detailButton closeDetailButton" on:click={handleCloseButtonClick}><i class="arrow left"></i>Close</button>
 					</div>
 					<div class="titleContainer">
-						<h3 class="compTitle">{$AppData.Comps[$AppData.selectedComp].name}</h3>
-						<p class="authorTitle">{$AppData.Comps[$AppData.selectedComp].author}</p>
+						<h3 class="compTitle">{sortedCompList[$AppData.selectedComp].name}</h3>
+						<p class="authorTitle">{sortedCompList[$AppData.selectedComp].author}</p>
 					</div>
 					<div class="editContainer">
 						<button class="editDelButton exportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/export.png" alt="Export"><span>Export</span></button>
@@ -455,24 +462,24 @@
 				</div>
 				<div class="compDetailBody">
 					<div class="lastUpdate">
-						<span>Updated: {`${months[$AppData.Comps[$AppData.selectedComp].lastUpdate.getMonth()]} ${$AppData.Comps[$AppData.selectedComp].lastUpdate.getDate()}, ${$AppData.Comps[$AppData.selectedComp].lastUpdate.getFullYear()}`}</span>
+						<span>Updated: {`${months[sortedCompList[$AppData.selectedComp].lastUpdate.getMonth()]} ${sortedCompList[$AppData.selectedComp].lastUpdate.getDate()}, ${sortedCompList[$AppData.selectedComp].lastUpdate.getFullYear()}`}</span>
 					</div>
 					<div class="bodyArea1">
 						<div class="lineExamples">
 							<div class="lineSwitcher">
-								{#each $AppData.Comps[$AppData.selectedComp].lines as line, i}
+								{#each sortedCompList[$AppData.selectedComp].lines as line, i}
 								<button class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}>{line.name}</button>
 								{/each}
 							</div>
 							<div class="lineDisplay">
 								<div class="detailBackline">
-									{#if $AppData.Comps[$AppData.selectedComp].lines.length > 0}
-										{#each $AppData.Comps[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
+									{#if sortedCompList[$AppData.selectedComp].lines.length > 0}
+										{#each sortedCompList[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
 											{#if i >= 2}
 												{#if $HeroData.some(e => e.id === hero)}
 													<div class="detailImgContainer">
 														<a draggable="false" href="#heroDetailSection"><img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
-														<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
+														<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
 													</div>
 													<a draggable="false" href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
 												{:else}
@@ -483,13 +490,13 @@
 									{/if}
 								</div>
 								<div class="detailFrontline">
-									{#if $AppData.Comps[$AppData.selectedComp].lines.length > 0}
-										{#each $AppData.Comps[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
+									{#if sortedCompList[$AppData.selectedComp].lines.length > 0}
+										{#each sortedCompList[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
 											{#if i < 2}
 												{#if $HeroData.some(e => e.id === hero)}
 													<div class="detailImgContainer">
 														<a draggable="false" href="#heroDetailSection"><img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
-														<span class="coreMark" class:visible={$AppData.Comps[$AppData.selectedComp].heroes[hero].core}></span>
+														<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
 													</div>
 													<a draggable="false" href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
 												{:else}
@@ -506,7 +513,7 @@
 								<button class="expanderButton" on:click={() => openDesc = !openDesc}><i class="expanderArrow {openDesc ? 'down' : 'right' }"></i><span>Description</span></button>
 							</div>
 							<div class="mobileExpander descSection" class:open={openDesc}>
-								<span class="descText">{@html renderMarkdown($AppData.Comps[$AppData.selectedComp].desc)}</span>
+								<span class="descText">{@html renderMarkdown(sortedCompList[$AppData.selectedComp].desc)}</span>
 							</div>
 						</div>
 					</div>
@@ -535,7 +542,7 @@
 										</div>
 										<div class="lowerSelectCard">
 											<div class="ascendBoxContainer">
-												<AscendBox ascendLv="{$AppData.Comps[$AppData.selectedComp].heroes[selectedHero].ascendLv}" />
+												<AscendBox ascendLv="{sortedCompList[$AppData.selectedComp].heroes[selectedHero].ascendLv}" />
 											</div>
 											{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.primary.length > 0 || sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.secondary.length > 0 || sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.situational.length > 0}
 												<div class="artifactsContainer">
@@ -594,7 +601,7 @@
 							</div>
 							<div class="mobileExpander subGroupExpander" class:open={openSubs}>
 								<div class="subDisplay">
-									{#each $AppData.Comps[$AppData.selectedComp].subs as subgroup}
+									{#each sortedCompList[$AppData.selectedComp].subs as subgroup}
 									<div class="subGroup">
 										<div class="subGroupTitle"><span>{subgroup.name}</span></div>
 										<div class="subGroupMembers">
