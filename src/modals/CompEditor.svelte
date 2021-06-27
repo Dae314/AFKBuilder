@@ -393,96 +393,47 @@
 					{:else}
 						<input type="text" class="lineNameInput" bind:value={comp.lines[openLine].name} placeholder="Line Name" maxlength="30" class:maxed={comp.lines[openLine].name.length >= 30}>
 						<div class="lineDisplay">
-							<div class="backline">
-								{#each comp.lines[openLine].heroes as  hero, i}
-								{#if i >= 2}
-									{#if hero === 'unknown'}
-										<button class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
-											<span>+</span>
-										</button>
-									{:else}
-										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
-											<div class="imgContainer">
-												<img draggable="false" src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
-												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
-												<div class="ascMark">
-													{#if comp.heroes[hero].ascendLv >= 6}
-														<img src="./img/markers/ascended.png" alt="ascended">
-													{:else if comp.heroes[hero].ascendLv >= 4}
-														<img src="./img/markers/mythic.png" alt="mythic">
-													{:else if comp.heroes[hero].ascendLv >= 2}
-														<img src="./img/markers/legendary.png" alt="legendary">
-													{:else}
-														<img src="./img/markers/elite.png" alt="elite">
-													{/if}
-													{#if comp.heroes[hero].si >= 30}
-														<img src="./img/markers/si30.png" alt="si30">
-													{:else if comp.heroes[hero].si >= 20}
-														<img src="./img/markers/si20.png" alt="si20">
-													{:else if comp.heroes[hero].si >= 10}
-														<img src="./img/markers/si10.png" alt="si10">
-													{:else}
-														<img src="./img/markers/si0.png" alt="si0">
-													{/if}
-													{#if comp.heroes[hero].furn >= 9}
-														<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-													{:else if comp.heroes[hero].furn >= 3}
-														<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-													{/if}
-												</div>
+							{#each [...comp.lines[openLine].heroes].reverse() as hero, i}
+								{#if hero === 'unknown'}
+									<button class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
+										<span>+</span>
+									</button>
+								{:else}
+									<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
+										<div class="imgContainer">
+											<img draggable="false" src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
+											<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
+											<div class="ascMark">
+												{#if comp.heroes[hero].ascendLv >= 6}
+													<img src="./img/markers/ascended.png" alt="ascended">
+												{:else if comp.heroes[hero].ascendLv >= 4}
+													<img src="./img/markers/mythic.png" alt="mythic">
+												{:else if comp.heroes[hero].ascendLv >= 2}
+													<img src="./img/markers/legendary.png" alt="legendary">
+												{:else}
+													<img src="./img/markers/elite.png" alt="elite">
+												{/if}
+												{#if comp.heroes[hero].si >= 30}
+													<img src="./img/markers/si30.png" alt="si30">
+												{:else if comp.heroes[hero].si >= 20}
+													<img src="./img/markers/si20.png" alt="si20">
+												{:else if comp.heroes[hero].si >= 10}
+													<img src="./img/markers/si10.png" alt="si10">
+												{:else}
+													<img src="./img/markers/si0.png" alt="si0">
+												{/if}
+												{#if comp.heroes[hero].furn >= 9}
+													<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+												{:else if comp.heroes[hero].furn >= 3}
+													<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+												{/if}
 											</div>
-										</button>
-										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes,})}>{$HeroData.find(e => e.id === hero).name}</p>
-									{/if}
+										</div>
+										<p>{$HeroData.find(e => e.id === hero).name}</p>
+									</button>
 								{/if}
-								{/each}
-							</div>
-							<div class="frontline">
-								{#each comp.lines[openLine].heroes as  hero, i}
-								{#if i < 2}
-									{#if hero === 'unknown'}
-										<button class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
-											<span>+</span>
-										</button>
-									{:else}
-										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
-											<div class="imgContainer">
-												<img draggable="false" src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
-												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
-												<div class="ascMark">
-													{#if comp.heroes[hero].ascendLv >= 6}
-														<img src="./img/markers/ascended.png" alt="ascended">
-													{:else if comp.heroes[hero].ascendLv >= 4}
-														<img src="./img/markers/mythic.png" alt="mythic">
-													{:else if comp.heroes[hero].ascendLv >= 2}
-														<img src="./img/markers/legendary.png" alt="legendary">
-													{:else}
-														<img src="./img/markers/elite.png" alt="elite">
-													{/if}
-													{#if comp.heroes[hero].si >= 30}
-														<img src="./img/markers/si30.png" alt="si30">
-													{:else if comp.heroes[hero].si >= 20}
-														<img src="./img/markers/si20.png" alt="si20">
-													{:else if comp.heroes[hero].si >= 10}
-														<img src="./img/markers/si10.png" alt="si10">
-													{:else}
-														<img src="./img/markers/si0.png" alt="si0">
-													{/if}
-													{#if comp.heroes[hero].furn >= 9}
-														<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-													{:else if comp.heroes[hero].furn >= 3}
-														<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-													{/if}
-												</div>
-											</div>
-										</button>
-										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>{$HeroData.find(e => e.id === hero).name}</p>
-									{/if}
-								{/if}
-								{/each}
-							</div>
+							{/each}
 						</div>
 					{/if}
 				</div>
@@ -869,25 +820,12 @@
 	.lineDisplay {
 		align-items: center;
 		display: flex;
-		flex-direction: row;
+		gap: 10px;
+		width: 160px;
+		flex-direction: column-reverse;
+		height: 280px;
+		flex-wrap: wrap;
 		justify-content: center;
-		padding: 10px;
-		p {
-			margin-bottom: 10px;
-		}
-	}
-	.frontline {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-	.backline {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		margin-right: 10px;
 	}
 	.lineButton {
 		margin: 5px;
@@ -896,11 +834,24 @@
 		background: transparent;
 		border: none;
 		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
 		padding: 0;
 		position: relative;
 		img {
 			border-radius: 50%;
 			max-width: 60px;
+		}
+		p {
+			font-weight: bold;
+			margin: 0;
+			overflow: hidden;
+			text-align: center;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			width: 70px;
 		}
 	}
 	.imgContainer {
