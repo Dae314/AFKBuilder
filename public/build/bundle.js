@@ -67486,10 +67486,10 @@ var app = (function () {
     				optionStyles: [
     					"background-color: #AF3CEA; color: white; border: 3px solid #AF3CEA; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
     					"background-color: #AF3CEA; color: white; border: 3px solid #6D2691; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
-    					"background-color: #F7C331; color: white; border: 3px solid #F7C331; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
-    					"background-color: #F7C331; color: white; border: 3px solid #AD8823; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
-    					"background-color: #FE481A; color: white; border: 3px solid #FE481A; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
-    					"background-color: #FE481A; color: white; border: 3px solid #B33212; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
+    					"background-color: #F7BC19; color: white; border: 3px solid #F7BC19; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
+    					"background-color: #F7BC19; color: white; border: 3px solid #E0920B; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
+    					"background-color: #E60B51; color: white; border: 3px solid #E60B51; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
+    					"background-color: #E60B51; color: white; border: 3px solid #A6083A; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
     					"background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 3px solid #B289E8; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;"
     				],
     				curOption: /*selectedHero*/ ctx[17].ascendLv,
@@ -67623,45 +67623,45 @@ var app = (function () {
     			add_location(div5, file$a, 429, 5, 16938);
     			attr_dev(div6, "class", "ascFlipButtonArea svelte-40ydk1");
     			add_location(div6, file$a, 458, 5, 19244);
-    			add_location(span2, file$a, 473, 118, 20927);
+    			add_location(span2, file$a, 473, 118, 20939);
     			attr_dev(button2, "class", "coreButton svelte-40ydk1");
     			toggle_class(button2, "on", /*selectedHero*/ ctx[17].core);
-    			add_location(button2, file$a, 473, 6, 20815);
+    			add_location(button2, file$a, 473, 6, 20827);
     			attr_dev(div7, "class", "coreArea svelte-40ydk1");
-    			add_location(div7, file$a, 472, 5, 20785);
+    			add_location(div7, file$a, 472, 5, 20797);
     			attr_dev(h40, "class", "svelte-40ydk1");
-    			add_location(h40, file$a, 475, 5, 20973);
+    			add_location(h40, file$a, 475, 5, 20985);
     			attr_dev(textarea, "class", "notesEditor svelte-40ydk1");
     			attr_dev(textarea, "maxlength", textarea_maxlength_value = /*$AppData*/ ctx[31].maxNoteLen);
-    			add_location(textarea, file$a, 477, 6, 21025);
-    			add_location(span3, file$a, 478, 96, 21228);
+    			add_location(textarea, file$a, 477, 6, 21037);
+    			add_location(span3, file$a, 478, 96, 21240);
     			attr_dev(div8, "class", "noteLimitArea svelte-40ydk1");
     			toggle_class(div8, "maxed", /*selectedHero*/ ctx[17].notes.length >= /*$AppData*/ ctx[31].maxNoteLen);
-    			add_location(div8, file$a, 478, 6, 21138);
+    			add_location(div8, file$a, 478, 6, 21150);
     			attr_dev(div9, "class", "notesArea svelte-40ydk1");
-    			add_location(div9, file$a, 476, 5, 20994);
+    			add_location(div9, file$a, 476, 5, 21006);
     			attr_dev(h41, "class", "svelte-40ydk1");
-    			add_location(h41, file$a, 480, 5, 21316);
+    			add_location(h41, file$a, 480, 5, 21328);
     			attr_dev(h50, "class", "svelte-40ydk1");
-    			add_location(h50, file$a, 483, 7, 21411);
+    			add_location(h50, file$a, 483, 7, 21423);
     			attr_dev(div10, "class", "artifactLine priArtifactLine svelte-40ydk1");
-    			add_location(div10, file$a, 484, 7, 21436);
+    			add_location(div10, file$a, 484, 7, 21448);
     			attr_dev(div11, "class", "gridCell svelte-40ydk1");
-    			add_location(div11, file$a, 482, 6, 21380);
+    			add_location(div11, file$a, 482, 6, 21392);
     			attr_dev(h51, "class", "svelte-40ydk1");
-    			add_location(h51, file$a, 511, 7, 22795);
+    			add_location(h51, file$a, 511, 7, 22807);
     			attr_dev(div12, "class", "artifactLine secArtifactLine svelte-40ydk1");
-    			add_location(div12, file$a, 512, 7, 22822);
+    			add_location(div12, file$a, 512, 7, 22834);
     			attr_dev(div13, "class", "gridCell svelte-40ydk1");
-    			add_location(div13, file$a, 510, 6, 22764);
+    			add_location(div13, file$a, 510, 6, 22776);
     			attr_dev(h52, "class", "svelte-40ydk1");
-    			add_location(h52, file$a, 539, 7, 24184);
+    			add_location(h52, file$a, 539, 7, 24196);
     			attr_dev(div14, "class", "artifactLine sitArtifactLine svelte-40ydk1");
-    			add_location(div14, file$a, 540, 7, 24213);
+    			add_location(div14, file$a, 540, 7, 24225);
     			attr_dev(div15, "class", "gridCell svelte-40ydk1");
-    			add_location(div15, file$a, 538, 6, 24153);
+    			add_location(div15, file$a, 538, 6, 24165);
     			attr_dev(div16, "class", "selectedArtifacts svelte-40ydk1");
-    			add_location(div16, file$a, 481, 5, 21341);
+    			add_location(div16, file$a, 481, 5, 21353);
     			attr_dev(div17, "class", "heroEditor svelte-40ydk1");
     			add_location(div17, file$a, 428, 4, 16907);
     			attr_dev(div18, "class", "section2");
@@ -68479,7 +68479,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "mobileArtifactPicker svelte-40ydk1");
-    			add_location(div, file$a, 499, 9, 22269);
+    			add_location(div, file$a, 499, 9, 22281);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -68656,11 +68656,11 @@ var app = (function () {
     			attr_dev(img, "class", "artifactImg svelte-40ydk1");
     			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
-    			add_location(img, file$a, 502, 12, 22512);
+    			add_location(img, file$a, 502, 12, 22524);
     			attr_dev(p, "class", "svelte-40ydk1");
-    			add_location(p, file$a, 503, 12, 22620);
+    			add_location(p, file$a, 503, 12, 22632);
     			attr_dev(button, "class", "artifactButton svelte-40ydk1");
-    			add_location(button, file$a, 501, 11, 22374);
+    			add_location(button, file$a, 501, 11, 22386);
     			this.first = button;
     		},
     		m: function mount(target, anchor) {
@@ -68763,16 +68763,16 @@ var app = (function () {
     			attr_dev(img, "class", "artifactImg listImg svelte-40ydk1");
     			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
-    			add_location(img, file$a, 489, 12, 21717);
-    			add_location(span, file$a, 490, 127, 21948);
+    			add_location(img, file$a, 489, 12, 21729);
+    			add_location(span, file$a, 490, 127, 21960);
     			attr_dev(button, "class", "removeButton svelte-40ydk1");
-    			add_location(button, file$a, 490, 12, 21833);
+    			add_location(button, file$a, 490, 12, 21845);
     			attr_dev(div0, "class", "artifactImgContainer svelte-40ydk1");
-    			add_location(div0, file$a, 488, 11, 21669);
+    			add_location(div0, file$a, 488, 11, 21681);
     			attr_dev(p, "class", "svelte-40ydk1");
-    			add_location(p, file$a, 492, 11, 22003);
+    			add_location(p, file$a, 492, 11, 22015);
     			attr_dev(div1, "class", "artifactContainer svelte-40ydk1");
-    			add_location(div1, file$a, 487, 10, 21597);
+    			add_location(div1, file$a, 487, 10, 21609);
     			this.first = div1;
     		},
     		m: function mount(target, anchor) {
@@ -68843,9 +68843,9 @@ var app = (function () {
     			button = element("button");
     			span = element("span");
     			span.textContent = "+";
-    			add_location(span, file$a, 496, 84, 22202);
+    			add_location(span, file$a, 496, 84, 22214);
     			attr_dev(button, "class", "addArtifactButton svelte-40ydk1");
-    			add_location(button, file$a, 496, 10, 22128);
+    			add_location(button, file$a, 496, 10, 22140);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -68901,7 +68901,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "mobileArtifactPicker svelte-40ydk1");
-    			add_location(div, file$a, 527, 9, 23656);
+    			add_location(div, file$a, 527, 9, 23668);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -69078,11 +69078,11 @@ var app = (function () {
     			attr_dev(img, "class", "artifactImg svelte-40ydk1");
     			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
-    			add_location(img, file$a, 530, 12, 23901);
+    			add_location(img, file$a, 530, 12, 23913);
     			attr_dev(p, "class", "svelte-40ydk1");
-    			add_location(p, file$a, 531, 12, 24009);
+    			add_location(p, file$a, 531, 12, 24021);
     			attr_dev(button, "class", "artifactButton svelte-40ydk1");
-    			add_location(button, file$a, 529, 11, 23761);
+    			add_location(button, file$a, 529, 11, 23773);
     			this.first = button;
     		},
     		m: function mount(target, anchor) {
@@ -69185,16 +69185,16 @@ var app = (function () {
     			attr_dev(img, "class", "artifactImg listImg svelte-40ydk1");
     			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
-    			add_location(img, file$a, 517, 12, 23102);
-    			add_location(span, file$a, 518, 129, 23335);
+    			add_location(img, file$a, 517, 12, 23114);
+    			add_location(span, file$a, 518, 129, 23347);
     			attr_dev(button, "class", "removeButton svelte-40ydk1");
-    			add_location(button, file$a, 518, 12, 23218);
+    			add_location(button, file$a, 518, 12, 23230);
     			attr_dev(div0, "class", "artifactImgContainer svelte-40ydk1");
-    			add_location(div0, file$a, 516, 11, 23054);
+    			add_location(div0, file$a, 516, 11, 23066);
     			attr_dev(p, "class", "svelte-40ydk1");
-    			add_location(p, file$a, 520, 11, 23390);
+    			add_location(p, file$a, 520, 11, 23402);
     			attr_dev(div1, "class", "artifactContainer svelte-40ydk1");
-    			add_location(div1, file$a, 515, 10, 22982);
+    			add_location(div1, file$a, 515, 10, 22994);
     			this.first = div1;
     		},
     		m: function mount(target, anchor) {
@@ -69265,9 +69265,9 @@ var app = (function () {
     			button = element("button");
     			span = element("span");
     			span.textContent = "+";
-    			add_location(span, file$a, 524, 84, 23589);
+    			add_location(span, file$a, 524, 84, 23601);
     			attr_dev(button, "class", "addArtifactButton svelte-40ydk1");
-    			add_location(button, file$a, 524, 10, 23515);
+    			add_location(button, file$a, 524, 10, 23527);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -69323,7 +69323,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "mobileArtifactPicker svelte-40ydk1");
-    			add_location(div, file$a, 555, 9, 25051);
+    			add_location(div, file$a, 555, 9, 25063);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -69500,11 +69500,11 @@ var app = (function () {
     			attr_dev(img, "class", "artifactImg svelte-40ydk1");
     			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
-    			add_location(img, file$a, 558, 12, 25298);
+    			add_location(img, file$a, 558, 12, 25310);
     			attr_dev(p, "class", "svelte-40ydk1");
-    			add_location(p, file$a, 559, 12, 25406);
+    			add_location(p, file$a, 559, 12, 25418);
     			attr_dev(button, "class", "artifactButton svelte-40ydk1");
-    			add_location(button, file$a, 557, 11, 25156);
+    			add_location(button, file$a, 557, 11, 25168);
     			this.first = button;
     		},
     		m: function mount(target, anchor) {
@@ -69607,16 +69607,16 @@ var app = (function () {
     			attr_dev(img, "class", "artifactImg listImg svelte-40ydk1");
     			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
-    			add_location(img, file$a, 545, 12, 24495);
-    			add_location(span, file$a, 546, 131, 24730);
+    			add_location(img, file$a, 545, 12, 24507);
+    			add_location(span, file$a, 546, 131, 24742);
     			attr_dev(button, "class", "removeButton svelte-40ydk1");
-    			add_location(button, file$a, 546, 12, 24611);
+    			add_location(button, file$a, 546, 12, 24623);
     			attr_dev(div0, "class", "artifactImgContainer svelte-40ydk1");
-    			add_location(div0, file$a, 544, 11, 24447);
+    			add_location(div0, file$a, 544, 11, 24459);
     			attr_dev(p, "class", "svelte-40ydk1");
-    			add_location(p, file$a, 548, 11, 24785);
+    			add_location(p, file$a, 548, 11, 24797);
     			attr_dev(div1, "class", "artifactContainer svelte-40ydk1");
-    			add_location(div1, file$a, 543, 10, 24375);
+    			add_location(div1, file$a, 543, 10, 24387);
     			this.first = div1;
     		},
     		m: function mount(target, anchor) {
@@ -69687,9 +69687,9 @@ var app = (function () {
     			button = element("button");
     			span = element("span");
     			span.textContent = "+";
-    			add_location(span, file$a, 552, 84, 24984);
+    			add_location(span, file$a, 552, 84, 24996);
     			attr_dev(button, "class", "addArtifactButton svelte-40ydk1");
-    			add_location(button, file$a, 552, 10, 24910);
+    			add_location(button, file$a, 552, 10, 24922);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -69847,11 +69847,11 @@ var app = (function () {
     			attr_dev(img, "class", "artifactImg svelte-40ydk1");
     			if (img.src !== (img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[92]].name);
-    			add_location(img, file$a, 591, 5, 26507);
+    			add_location(img, file$a, 591, 5, 26519);
     			attr_dev(p, "class", "svelte-40ydk1");
-    			add_location(p, file$a, 592, 5, 26608);
+    			add_location(p, file$a, 592, 5, 26620);
     			attr_dev(button, "class", "artifactButton svelte-40ydk1");
-    			add_location(button, file$a, 586, 4, 26261);
+    			add_location(button, file$a, 586, 4, 26273);
     			this.first = button;
     		},
     		m: function mount(target, anchor) {
@@ -69997,14 +69997,14 @@ var app = (function () {
     			attr_dev(div2, "class", "background svelte-40ydk1");
     			add_location(div2, file$a, 339, 0, 11229);
     			attr_dev(div3, "class", "artifactModalCloseContainer svelte-40ydk1");
-    			add_location(div3, file$a, 578, 2, 25895);
+    			add_location(div3, file$a, 578, 2, 25907);
     			attr_dev(div4, "class", "artifactPickerWindow svelte-40ydk1");
-    			add_location(div4, file$a, 584, 2, 26134);
+    			add_location(div4, file$a, 584, 2, 26146);
     			attr_dev(div5, "class", "background svelte-40ydk1");
-    			add_location(div5, file$a, 574, 1, 25713);
+    			add_location(div5, file$a, 574, 1, 25725);
     			attr_dev(div6, "class", "desktopArtifactPicker svelte-40ydk1");
     			toggle_class(div6, "open", /*pickArtifactPri*/ ctx[20] || /*pickArtifactSec*/ ctx[21] || /*pickArtifactSit*/ ctx[22]);
-    			add_location(div6, file$a, 573, 0, 25608);
+    			add_location(div6, file$a, 573, 0, 25620);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$5("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -83521,10 +83521,10 @@ var app = (function () {
     				optionStyles: [
     					"background-color: #AF3CEA; color: white; border: 3px solid #AF3CEA; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
     					"background-color: #AF3CEA; color: white; border: 3px solid #6D2691; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
-    					"background-color: #F7C331; color: white; border: 3px solid #F7C331; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
-    					"background-color: #F7C331; color: white; border: 3px solid #AD8823; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
-    					"background-color: #FE481A; color: white; border: 3px solid #FE481A; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
-    					"background-color: #FE481A; color: white; border: 3px solid #B33212; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
+    					"background-color: #F7BC19; color: white; border: 3px solid #F7BC19; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
+    					"background-color: #F7BC19; color: white; border: 3px solid #E0920B; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
+    					"background-color: #E60B51; color: white; border: 3px solid #E60B51; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
+    					"background-color: #E60B51; color: white; border: 3px solid #A6083A; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;",
     					"background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 3px solid #B289E8; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;"
     				],
     				curOption: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[54].id].ascendLv,
