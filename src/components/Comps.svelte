@@ -504,6 +504,31 @@
 													<div class="detailImgContainer">
 														<a draggable="false" href="#heroDetailSection"><img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
 														<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
+														<div class="ascMark">
+															{#if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 6}
+																<img src="./img/markers/ascended.png" alt="ascended">
+															{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 4}
+																<img src="./img/markers/mythic.png" alt="mythic">
+															{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 2}
+																<img src="./img/markers/legendary.png" alt="legendary">
+															{:else}
+																<img src="./img/markers/elite.png" alt="elite">
+															{/if}
+															{#if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 30}
+																<img src="./img/markers/si30.png" alt="si30">
+															{:else if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 20}
+																<img src="./img/markers/si20.png" alt="si20">
+															{:else if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 10}
+																<img src="./img/markers/si10.png" alt="si10">
+															{:else}
+																<img src="./img/markers/si0.png" alt="si0">
+															{/if}
+															{#if sortedCompList[$AppData.selectedComp].heroes[hero].furn >= 9}
+																<img class:moveup={sortedCompList[$AppData.selectedComp].heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+															{:else if sortedCompList[$AppData.selectedComp].heroes[hero].furn >= 3}
+																<img class:moveup={sortedCompList[$AppData.selectedComp].heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+															{/if}
+														</div>
 													</div>
 													<a draggable="false" href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
 												{:else}
@@ -521,6 +546,31 @@
 													<div class="detailImgContainer">
 														<a draggable="false" href="#heroDetailSection"><img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
 														<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
+														<div class="ascMark">
+															{#if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 6}
+																<img src="./img/markers/ascended.png" alt="ascended">
+															{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 4}
+																<img src="./img/markers/mythic.png" alt="mythic">
+															{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 2}
+																<img src="./img/markers/legendary.png" alt="legendary">
+															{:else}
+																<img src="./img/markers/elite.png" alt="elite">
+															{/if}
+															{#if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 30}
+																<img src="./img/markers/si30.png" alt="si30">
+															{:else if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 20}
+																<img src="./img/markers/si20.png" alt="si20">
+															{:else if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 10}
+																<img src="./img/markers/si10.png" alt="si10">
+															{:else}
+																<img src="./img/markers/si0.png" alt="si0">
+															{/if}
+															{#if sortedCompList[$AppData.selectedComp].heroes[hero].furn >= 9}
+																<img class:moveup={sortedCompList[$AppData.selectedComp].heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+															{:else if sortedCompList[$AppData.selectedComp].heroes[hero].furn >= 3}
+																<img class:moveup={sortedCompList[$AppData.selectedComp].heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+															{/if}
+														</div>
 													</div>
 													<a draggable="false" href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
 												{:else}
@@ -642,6 +692,31 @@
 														<div class="subImgContainer">
 															<img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 															<span class="coreMark subCoreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
+															<div class="ascMark subAscMark">
+																{#if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 6}
+																	<img src="./img/markers/ascended.png" alt="ascended">
+																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 4}
+																	<img src="./img/markers/mythic.png" alt="mythic">
+																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 2}
+																	<img src="./img/markers/legendary.png" alt="legendary">
+																{:else}
+																	<img src="./img/markers/elite.png" alt="elite">
+																{/if}
+																{#if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 30}
+																	<img src="./img/markers/si30.png" alt="si30">
+																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 20}
+																	<img src="./img/markers/si20.png" alt="si20">
+																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 10}
+																	<img src="./img/markers/si10.png" alt="si10">
+																{:else}
+																	<img src="./img/markers/si0.png" alt="si0">
+																{/if}
+																{#if sortedCompList[$AppData.selectedComp].heroes[hero].furn >= 9}
+																	<img class:moveup={sortedCompList[$AppData.selectedComp].heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].furn >= 3}
+																	<img class:moveup={sortedCompList[$AppData.selectedComp].heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+																{/if}
+															</div>
 														</div>
 														<p on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</p>
 													</a>
@@ -1259,6 +1334,23 @@
 		display: inline-block;
 		pointer-events: none;
 		visibility: visible;
+	}
+	.ascMark {
+		left: -5px;
+		position: absolute;
+		top: -5px;
+		img {
+			left: 0;
+			max-width: 35px;
+			position: absolute;
+			top: 0;
+		}
+		img.moveup {
+			top: -3.5px;
+		}
+	}
+	.subAscMark {
+		left: -10px;
 	}
 	.lowerSelectCard {
 		align-items: center;
