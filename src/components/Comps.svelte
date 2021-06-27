@@ -1336,9 +1336,9 @@
 		visibility: visible;
 	}
 	.ascMark {
-		left: -5px;
+		left: -6px;
 		position: absolute;
-		top: -5px;
+		top: 3px;
 		img {
 			left: 0;
 			max-width: 35px;
@@ -1350,6 +1350,7 @@
 		}
 	}
 	.subAscMark {
+		top: -4px;
 		left: -10px;
 	}
 	.lowerSelectCard {
