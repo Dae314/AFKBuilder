@@ -442,6 +442,7 @@
 		border: 3px solid var(--appColorPrimary);
 		border-radius: 50%;
 		color: var(--appColorPrimary);
+		cursor: pointer;
 		display: flex;
 		font-size: 0.6rem;
 		height: 33px;
