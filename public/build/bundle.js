@@ -71479,7 +71479,7 @@ var app = (function () {
     }
 
     // (328:3) {#if comp.draft}
-    function create_if_block_7$1(ctx) {
+    function create_if_block_31$1(ctx) {
     	let div;
     	let span;
 
@@ -71488,9 +71488,9 @@ var app = (function () {
     			div = element("div");
     			span = element("span");
     			span.textContent = "draft";
-    			attr_dev(span, "class", "draftLabel svelte-i441yx");
+    			attr_dev(span, "class", "draftLabel svelte-1ersdvr");
     			add_location(span, file$8, 328, 32, 9519);
-    			attr_dev(div, "class", "draftContainer svelte-i441yx");
+    			attr_dev(div, "class", "draftContainer svelte-1ersdvr");
     			add_location(div, file$8, 328, 4, 9491);
     		},
     		m: function mount(target, anchor) {
@@ -71504,7 +71504,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_7$1.name,
+    		id: create_if_block_31$1.name,
     		type: "if",
     		source: "(328:3) {#if comp.draft}",
     		ctx
@@ -71538,12 +71538,12 @@ var app = (function () {
     			button = element("button");
     			span1 = element("span");
     			span1.textContent = "x";
-    			attr_dev(span0, "class", "tagText svelte-i441yx");
+    			attr_dev(span0, "class", "tagText svelte-1ersdvr");
     			add_location(span0, file$8, 335, 7, 9716);
     			add_location(span1, file$8, 336, 96, 9848);
-    			attr_dev(button, "class", "removeTagButton svelte-i441yx");
+    			attr_dev(button, "class", "removeTagButton svelte-1ersdvr");
     			add_location(button, file$8, 336, 7, 9759);
-    			attr_dev(div, "class", "tag svelte-i441yx");
+    			attr_dev(div, "class", "tag svelte-1ersdvr");
     			add_location(div, file$8, 334, 6, 9690);
     		},
     		m: function mount(target, anchor) {
@@ -71582,7 +71582,7 @@ var app = (function () {
     }
 
     // (352:5) {:else}
-    function create_else_block_3$1(ctx) {
+    function create_else_block_9$1(ctx) {
     	let div1;
     	let input;
     	let t;
@@ -71609,15 +71609,15 @@ var app = (function () {
     			}
 
     			attr_dev(input, "id", "newTagInput");
-    			attr_dev(input, "class", "tagInput svelte-i441yx");
+    			attr_dev(input, "class", "tagInput svelte-1ersdvr");
     			attr_dev(input, "type", "text");
     			attr_dev(input, "maxlength", "20");
     			toggle_class(input, "noMargin", /*comp*/ ctx[0].tags.length === 0);
     			add_location(input, file$8, 353, 7, 10327);
-    			attr_dev(div0, "class", "suggestions svelte-i441yx");
+    			attr_dev(div0, "class", "suggestions svelte-1ersdvr");
     			toggle_class(div0, "open", /*openSuggestions*/ ctx[9]);
     			add_location(div0, file$8, 363, 7, 10691);
-    			attr_dev(div1, "class", "newTagInputArea svelte-i441yx");
+    			attr_dev(div1, "class", "newTagInputArea svelte-1ersdvr");
     			add_location(div1, file$8, 352, 6, 10289);
     		},
     		m: function mount(target, anchor) {
@@ -71689,7 +71689,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block_3$1.name,
+    		id: create_else_block_9$1.name,
     		type: "else",
     		source: "(352:5) {:else}",
     		ctx
@@ -71699,7 +71699,7 @@ var app = (function () {
     }
 
     // (340:5) {#if !addTagOpen}
-    function create_if_block_6$1(ctx) {
+    function create_if_block_30$1(ctx) {
     	let button;
     	let span;
     	let button_disabled_value;
@@ -71712,7 +71712,7 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "+";
     			add_location(span, file$8, 349, 7, 10236);
-    			attr_dev(button, "class", "addTagButton svelte-i441yx");
+    			attr_dev(button, "class", "addTagButton svelte-1ersdvr");
     			button.disabled = button_disabled_value = /*comp*/ ctx[0].tags.length >= /*$AppData*/ ctx[11].maxCompTags;
     			toggle_class(button, "noMargin", /*comp*/ ctx[0].tags.length === 0);
     			add_location(button, file$8, 340, 6, 9931);
@@ -71744,7 +71744,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_6$1.name,
+    		id: create_if_block_30$1.name,
     		type: "if",
     		source: "(340:5) {#if !addTagOpen}",
     		ctx
@@ -71772,7 +71772,7 @@ var app = (function () {
     			span = element("span");
     			t = text$2(t_value);
     			add_location(span, file$8, 365, 93, 10886);
-    			attr_dev(button, "class", "suggestionButton svelte-i441yx");
+    			attr_dev(button, "class", "suggestionButton svelte-1ersdvr");
     			add_location(button, file$8, 365, 9, 10802);
     		},
     		m: function mount(target, anchor) {
@@ -71834,11 +71834,11 @@ var app = (function () {
     			t1 = space();
     			button0 = element("button");
     			button0.textContent = "x";
-    			attr_dev(span, "class", "svelte-i441yx");
+    			attr_dev(span, "class", "svelte-1ersdvr");
     			add_location(span, file$8, 383, 7, 11368);
-    			attr_dev(button0, "class", "removeButton svelte-i441yx");
+    			attr_dev(button0, "class", "removeButton svelte-1ersdvr");
     			add_location(button0, file$8, 384, 7, 11401);
-    			attr_dev(button1, "class", "linePickerOption svelte-i441yx");
+    			attr_dev(button1, "class", "linePickerOption svelte-1ersdvr");
     			toggle_class(button1, "open", /*openLine*/ ctx[1] === /*i*/ ctx[78]);
     			add_location(button1, file$8, 382, 6, 11268);
     		},
@@ -71885,7 +71885,7 @@ var app = (function () {
     }
 
     // (393:5) {:else}
-    function create_else_block$6(ctx) {
+    function create_else_block_2$2(ctx) {
     	let input;
     	let t0;
     	let div2;
@@ -71929,16 +71929,16 @@ var app = (function () {
     			}
 
     			attr_dev(input, "type", "text");
-    			attr_dev(input, "class", "lineNameInput svelte-i441yx");
+    			attr_dev(input, "class", "lineNameInput svelte-1ersdvr");
     			attr_dev(input, "placeholder", "Line Name");
     			attr_dev(input, "maxlength", "30");
     			toggle_class(input, "maxed", /*comp*/ ctx[0].lines[/*openLine*/ ctx[1]].name.length >= 30);
     			add_location(input, file$8, 393, 6, 11774);
-    			attr_dev(div0, "class", "backline svelte-i441yx");
+    			attr_dev(div0, "class", "backline svelte-1ersdvr");
     			add_location(div0, file$8, 395, 7, 11988);
-    			attr_dev(div1, "class", "frontline svelte-i441yx");
-    			add_location(div1, file$8, 415, 7, 13302);
-    			attr_dev(div2, "class", "lineDisplay svelte-i441yx");
+    			attr_dev(div1, "class", "frontline svelte-1ersdvr");
+    			add_location(div1, file$8, 440, 7, 14585);
+    			attr_dev(div2, "class", "lineDisplay svelte-1ersdvr");
     			add_location(div2, file$8, 394, 6, 11954);
     		},
     		m: function mount(target, anchor) {
@@ -72034,7 +72034,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block$6.name,
+    		id: create_else_block_2$2.name,
     		type: "else",
     		source: "(393:5) {:else}",
     		ctx
@@ -72044,14 +72044,14 @@ var app = (function () {
     }
 
     // (391:5) {#if openLine === null}
-    function create_if_block_1$4(ctx) {
+    function create_if_block_9$1(ctx) {
     	let span;
 
     	const block = {
     		c: function create() {
     			span = element("span");
     			span.textContent = "Select a line to edit.";
-    			attr_dev(span, "class", "noLine svelte-i441yx");
+    			attr_dev(span, "class", "noLine svelte-1ersdvr");
     			add_location(span, file$8, 391, 6, 11702);
     		},
     		m: function mount(target, anchor) {
@@ -72065,7 +72065,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$4.name,
+    		id: create_if_block_9$1.name,
     		type: "if",
     		source: "(391:5) {#if openLine === null}",
     		ctx
@@ -72075,12 +72075,12 @@ var app = (function () {
     }
 
     // (398:8) {#if i >= 2}
-    function create_if_block_4$3(ctx) {
+    function create_if_block_20$1(ctx) {
     	let if_block_anchor;
 
     	function select_block_type_2(ctx, dirty) {
-    		if (/*hero*/ ctx[79] === "unknown") return create_if_block_5$2;
-    		return create_else_block_2$2;
+    		if (/*hero*/ ctx[79] === "unknown") return create_if_block_21$1;
+    		return create_else_block_6$1;
     	}
 
     	let current_block_type = select_block_type_2(ctx);
@@ -72116,7 +72116,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_4$3.name,
+    		id: create_if_block_20$1.name,
     		type: "if",
     		source: "(398:8) {#if i >= 2}",
     		ctx
@@ -72126,9 +72126,9 @@ var app = (function () {
     }
 
     // (403:9) {:else}
-    function create_else_block_2$2(ctx) {
+    function create_else_block_6$1(ctx) {
     	let button1;
-    	let div;
+    	let div1;
     	let img;
     	let img_src_value;
     	let img_alt_value;
@@ -72138,9 +72138,13 @@ var app = (function () {
     	let button0;
     	let span1;
     	let t3;
-    	let p;
-    	let t4_value = /*$HeroData*/ ctx[12].find(func_2).name + "";
+    	let div0;
     	let t4;
+    	let t5;
+    	let t6;
+    	let p;
+    	let t7_value = /*$HeroData*/ ctx[12].find(func_2).name + "";
+    	let t7;
     	let mounted;
     	let dispose;
 
@@ -72155,6 +72159,34 @@ var app = (function () {
     	function click_handler_5() {
     		return /*click_handler_5*/ ctx[49](/*i*/ ctx[78]);
     	}
+
+    	function select_block_type_3(ctx, dirty) {
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].ascendLv >= 6) return create_if_block_27$1;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].ascendLv >= 4) return create_if_block_28$1;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].ascendLv >= 2) return create_if_block_29$1;
+    		return create_else_block_8$1;
+    	}
+
+    	let current_block_type = select_block_type_3(ctx);
+    	let if_block0 = current_block_type(ctx);
+
+    	function select_block_type_4(ctx, dirty) {
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si >= 30) return create_if_block_24$1;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si >= 20) return create_if_block_25$1;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si >= 10) return create_if_block_26$1;
+    		return create_else_block_7$1;
+    	}
+
+    	let current_block_type_1 = select_block_type_4(ctx);
+    	let if_block1 = current_block_type_1(ctx);
+
+    	function select_block_type_5(ctx, dirty) {
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].furn >= 9) return create_if_block_22$1;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].furn >= 3) return create_if_block_23$1;
+    	}
+
+    	let current_block_type_2 = select_block_type_5(ctx);
+    	let if_block2 = current_block_type_2 && current_block_type_2(ctx);
 
     	function click_handler_6() {
     		return /*click_handler_6*/ ctx[50](/*i*/ ctx[78], /*hero*/ ctx[79]);
@@ -72171,7 +72203,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			button1 = element("button");
-    			div = element("div");
+    			div1 = element("div");
     			img = element("img");
     			t0 = space();
     			span0 = element("span");
@@ -72180,38 +72212,54 @@ var app = (function () {
     			span1 = element("span");
     			span1.textContent = "x";
     			t3 = space();
+    			div0 = element("div");
+    			if_block0.c();
+    			t4 = space();
+    			if_block1.c();
+    			t5 = space();
+    			if (if_block2) if_block2.c();
+    			t6 = space();
     			p = element("p");
-    			t4 = text$2(t4_value);
+    			t7 = text$2(t7_value);
     			attr_dev(img, "draggable", "false");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[12].find(func).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[12].find(func_1).name);
-    			attr_dev(img, "class", "svelte-i441yx");
+    			attr_dev(img, "class", "svelte-1ersdvr");
     			add_location(img, file$8, 405, 12, 12626);
-    			attr_dev(span0, "class", "coreMark svelte-i441yx");
+    			attr_dev(span0, "class", "coreMark svelte-1ersdvr");
     			toggle_class(span0, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].core);
     			add_location(span0, file$8, 406, 12, 12759);
     			add_location(span1, file$8, 407, 105, 12935);
-    			attr_dev(button0, "class", "removeHeroButton lineHeroButton svelte-i441yx");
+    			attr_dev(button0, "class", "removeHeroButton lineHeroButton svelte-1ersdvr");
     			add_location(button0, file$8, 407, 12, 12842);
-    			attr_dev(div, "class", "imgContainer svelte-i441yx");
-    			add_location(div, file$8, 404, 11, 12586);
-    			attr_dev(button1, "class", "heroButton svelte-i441yx");
+    			attr_dev(div0, "class", "ascMark svelte-1ersdvr");
+    			add_location(div0, file$8, 408, 12, 12972);
+    			attr_dev(div1, "class", "imgContainer svelte-1ersdvr");
+    			add_location(div1, file$8, 404, 11, 12586);
+    			attr_dev(button1, "class", "heroButton svelte-1ersdvr");
     			add_location(button1, file$8, 403, 10, 12392);
-    			attr_dev(p, "class", "heroButton svelte-i441yx");
-    			add_location(p, file$8, 410, 10, 13010);
+    			attr_dev(p, "class", "heroButton svelte-1ersdvr");
+    			add_location(p, file$8, 435, 10, 14293);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button1, anchor);
-    			append_dev(button1, div);
-    			append_dev(div, img);
-    			append_dev(div, t0);
-    			append_dev(div, span0);
-    			append_dev(div, t1);
-    			append_dev(div, button0);
+    			append_dev(button1, div1);
+    			append_dev(div1, img);
+    			append_dev(div1, t0);
+    			append_dev(div1, span0);
+    			append_dev(div1, t1);
+    			append_dev(div1, button0);
     			append_dev(button0, span1);
-    			insert_dev(target, t3, anchor);
+    			append_dev(div1, t3);
+    			append_dev(div1, div0);
+    			if_block0.m(div0, null);
+    			append_dev(div0, t4);
+    			if_block1.m(div0, null);
+    			append_dev(div0, t5);
+    			if (if_block2) if_block2.m(div0, null);
+    			insert_dev(target, t6, anchor);
     			insert_dev(target, p, anchor);
-    			append_dev(p, t4);
+    			append_dev(p, t7);
 
     			if (!mounted) {
     				dispose = [
@@ -72238,11 +72286,50 @@ var app = (function () {
     				toggle_class(span0, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].core);
     			}
 
-    			if (dirty[0] & /*$HeroData, comp, openLine*/ 4099 && t4_value !== (t4_value = /*$HeroData*/ ctx[12].find(func_2).name + "")) set_data_dev(t4, t4_value);
+    			if (current_block_type !== (current_block_type = select_block_type_3(ctx))) {
+    				if_block0.d(1);
+    				if_block0 = current_block_type(ctx);
+
+    				if (if_block0) {
+    					if_block0.c();
+    					if_block0.m(div0, t4);
+    				}
+    			}
+
+    			if (current_block_type_1 !== (current_block_type_1 = select_block_type_4(ctx))) {
+    				if_block1.d(1);
+    				if_block1 = current_block_type_1(ctx);
+
+    				if (if_block1) {
+    					if_block1.c();
+    					if_block1.m(div0, t5);
+    				}
+    			}
+
+    			if (current_block_type_2 === (current_block_type_2 = select_block_type_5(ctx)) && if_block2) {
+    				if_block2.p(ctx, dirty);
+    			} else {
+    				if (if_block2) if_block2.d(1);
+    				if_block2 = current_block_type_2 && current_block_type_2(ctx);
+
+    				if (if_block2) {
+    					if_block2.c();
+    					if_block2.m(div0, null);
+    				}
+    			}
+
+    			if (dirty[0] & /*$HeroData, comp, openLine*/ 4099 && t7_value !== (t7_value = /*$HeroData*/ ctx[12].find(func_2).name + "")) set_data_dev(t7, t7_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(button1);
-    			if (detaching) detach_dev(t3);
+    			if_block0.d();
+    			if_block1.d();
+
+    			if (if_block2) {
+    				if_block2.d();
+    			}
+
+    			if (detaching) detach_dev(t6);
     			if (detaching) detach_dev(p);
     			mounted = false;
     			run_all(dispose);
@@ -72251,7 +72338,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block_2$2.name,
+    		id: create_else_block_6$1.name,
     		type: "else",
     		source: "(403:9) {:else}",
     		ctx
@@ -72261,7 +72348,7 @@ var app = (function () {
     }
 
     // (399:9) {#if hero === 'unknown'}
-    function create_if_block_5$2(ctx) {
+    function create_if_block_21$1(ctx) {
     	let button;
     	let span;
     	let t1;
@@ -72279,7 +72366,7 @@ var app = (function () {
     			span.textContent = "+";
     			t1 = space();
     			add_location(span, file$8, 400, 11, 12327);
-    			attr_dev(button, "class", "addHeroButton lineButton svelte-i441yx");
+    			attr_dev(button, "class", "addHeroButton lineButton svelte-1ersdvr");
     			add_location(button, file$8, 399, 10, 12136);
     		},
     		m: function mount(target, anchor) {
@@ -72304,9 +72391,341 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_5$2.name,
+    		id: create_if_block_21$1.name,
     		type: "if",
     		source: "(399:9) {#if hero === 'unknown'}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (416:13) {:else}
+    function create_else_block_8$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/elite.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "elite");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 416, 14, 13402);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block_8$1.name,
+    		type: "else",
+    		source: "(416:13) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (414:55) 
+    function create_if_block_29$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/legendary.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "legendary");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 414, 14, 13309);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_29$1.name,
+    		type: "if",
+    		source: "(414:55) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (412:55) 
+    function create_if_block_28$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/mythic.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "mythic");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 412, 14, 13187);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_28$1.name,
+    		type: "if",
+    		source: "(412:55) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (410:13) {#if comp.heroes[hero].ascendLv >= 6}
+    function create_if_block_27$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/ascended.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "ascended");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 410, 14, 13061);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_27$1.name,
+    		type: "if",
+    		source: "(410:13) {#if comp.heroes[hero].ascendLv >= 6}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (425:13) {:else}
+    function create_else_block_7$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/si0.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "si0");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 425, 14, 13841);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block_7$1.name,
+    		type: "else",
+    		source: "(425:13) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (423:50) 
+    function create_if_block_26$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/si10.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "si10");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 423, 14, 13758);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_26$1.name,
+    		type: "if",
+    		source: "(423:50) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (421:50) 
+    function create_if_block_25$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/si20.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "si20");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 421, 14, 13645);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_25$1.name,
+    		type: "if",
+    		source: "(421:50) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (419:13) {#if comp.heroes[hero].si >= 30}
+    function create_if_block_24$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/si30.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "si30");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 419, 14, 13532);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_24$1.name,
+    		type: "if",
+    		source: "(419:13) {#if comp.heroes[hero].si >= 30}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (430:51) 
+    function create_if_block_23$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/3f.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "3f");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			toggle_class(img, "moveup", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si < 10);
+    			add_location(img, file$8, 430, 14, 14119);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*comp, openLine*/ 3) {
+    				toggle_class(img, "moveup", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si < 10);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_23$1.name,
+    		type: "if",
+    		source: "(430:51) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (428:13) {#if comp.heroes[hero].furn >= 9}
+    function create_if_block_22$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/9f.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "9f");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			toggle_class(img, "moveup", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si < 10);
+    			add_location(img, file$8, 428, 14, 13968);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*comp, openLine*/ 3) {
+    				toggle_class(img, "moveup", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si < 10);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_22$1.name,
+    		type: "if",
+    		source: "(428:13) {#if comp.heroes[hero].furn >= 9}",
     		ctx
     	});
 
@@ -72316,7 +72735,7 @@ var app = (function () {
     // (397:8) {#each comp.lines[openLine].heroes as  hero, i}
     function create_each_block_3$2(ctx) {
     	let if_block_anchor;
-    	let if_block = /*i*/ ctx[78] >= 2 && create_if_block_4$3(ctx);
+    	let if_block = /*i*/ ctx[78] >= 2 && create_if_block_20$1(ctx);
 
     	const block = {
     		c: function create() {
@@ -72347,16 +72766,16 @@ var app = (function () {
     	return block;
     }
 
-    // (418:8) {#if i < 2}
-    function create_if_block_2$3(ctx) {
+    // (443:8) {#if i < 2}
+    function create_if_block_10$1(ctx) {
     	let if_block_anchor;
 
-    	function select_block_type_3(ctx, dirty) {
-    		if (/*hero*/ ctx[79] === "unknown") return create_if_block_3$3;
-    		return create_else_block_1$2;
+    	function select_block_type_6(ctx, dirty) {
+    		if (/*hero*/ ctx[79] === "unknown") return create_if_block_11$1;
+    		return create_else_block_3$1;
     	}
 
-    	let current_block_type = select_block_type_3(ctx);
+    	let current_block_type = select_block_type_6(ctx);
     	let if_block = current_block_type(ctx);
 
     	const block = {
@@ -72369,7 +72788,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (current_block_type === (current_block_type = select_block_type_3(ctx)) && if_block) {
+    			if (current_block_type === (current_block_type = select_block_type_6(ctx)) && if_block) {
     				if_block.p(ctx, dirty);
     			} else {
     				if_block.d(1);
@@ -72389,19 +72808,19 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2$3.name,
+    		id: create_if_block_10$1.name,
     		type: "if",
-    		source: "(418:8) {#if i < 2}",
+    		source: "(443:8) {#if i < 2}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (423:9) {:else}
-    function create_else_block_1$2(ctx) {
+    // (448:9) {:else}
+    function create_else_block_3$1(ctx) {
     	let button1;
-    	let div;
+    	let div1;
     	let img;
     	let img_src_value;
     	let img_alt_value;
@@ -72411,9 +72830,13 @@ var app = (function () {
     	let button0;
     	let span1;
     	let t3;
-    	let p;
-    	let t4_value = /*$HeroData*/ ctx[12].find(func_5).name + "";
+    	let div0;
     	let t4;
+    	let t5;
+    	let t6;
+    	let p;
+    	let t7_value = /*$HeroData*/ ctx[12].find(func_5).name + "";
+    	let t7;
     	let mounted;
     	let dispose;
 
@@ -72428,6 +72851,34 @@ var app = (function () {
     	function click_handler_9() {
     		return /*click_handler_9*/ ctx[56](/*i*/ ctx[78]);
     	}
+
+    	function select_block_type_7(ctx, dirty) {
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].ascendLv >= 6) return create_if_block_17$1;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].ascendLv >= 4) return create_if_block_18$1;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].ascendLv >= 2) return create_if_block_19$1;
+    		return create_else_block_5$1;
+    	}
+
+    	let current_block_type = select_block_type_7(ctx);
+    	let if_block0 = current_block_type(ctx);
+
+    	function select_block_type_8(ctx, dirty) {
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si >= 30) return create_if_block_14$1;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si >= 20) return create_if_block_15$1;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si >= 10) return create_if_block_16$1;
+    		return create_else_block_4$1;
+    	}
+
+    	let current_block_type_1 = select_block_type_8(ctx);
+    	let if_block1 = current_block_type_1(ctx);
+
+    	function select_block_type_9(ctx, dirty) {
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].furn >= 9) return create_if_block_12$1;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].furn >= 3) return create_if_block_13$1;
+    	}
+
+    	let current_block_type_2 = select_block_type_9(ctx);
+    	let if_block2 = current_block_type_2 && current_block_type_2(ctx);
 
     	function click_handler_10() {
     		return /*click_handler_10*/ ctx[57](/*i*/ ctx[78], /*hero*/ ctx[79]);
@@ -72444,7 +72895,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			button1 = element("button");
-    			div = element("div");
+    			div1 = element("div");
     			img = element("img");
     			t0 = space();
     			span0 = element("span");
@@ -72453,38 +72904,54 @@ var app = (function () {
     			span1 = element("span");
     			span1.textContent = "x";
     			t3 = space();
+    			div0 = element("div");
+    			if_block0.c();
+    			t4 = space();
+    			if_block1.c();
+    			t5 = space();
+    			if (if_block2) if_block2.c();
+    			t6 = space();
     			p = element("p");
-    			t4 = text$2(t4_value);
+    			t7 = text$2(t7_value);
     			attr_dev(img, "draggable", "false");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[12].find(func_3).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[12].find(func_4).name);
-    			attr_dev(img, "class", "svelte-i441yx");
-    			add_location(img, file$8, 425, 12, 13940);
-    			attr_dev(span0, "class", "coreMark svelte-i441yx");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 450, 12, 15223);
+    			attr_dev(span0, "class", "coreMark svelte-1ersdvr");
     			toggle_class(span0, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].core);
-    			add_location(span0, file$8, 426, 12, 14073);
-    			add_location(span1, file$8, 427, 105, 14249);
-    			attr_dev(button0, "class", "removeHeroButton lineHeroButton svelte-i441yx");
-    			add_location(button0, file$8, 427, 12, 14156);
-    			attr_dev(div, "class", "imgContainer svelte-i441yx");
-    			add_location(div, file$8, 424, 11, 13900);
-    			attr_dev(button1, "class", "heroButton svelte-i441yx");
-    			add_location(button1, file$8, 423, 10, 13706);
-    			attr_dev(p, "class", "heroButton svelte-i441yx");
-    			add_location(p, file$8, 430, 10, 14324);
+    			add_location(span0, file$8, 451, 12, 15356);
+    			add_location(span1, file$8, 452, 105, 15532);
+    			attr_dev(button0, "class", "removeHeroButton lineHeroButton svelte-1ersdvr");
+    			add_location(button0, file$8, 452, 12, 15439);
+    			attr_dev(div0, "class", "ascMark svelte-1ersdvr");
+    			add_location(div0, file$8, 453, 12, 15569);
+    			attr_dev(div1, "class", "imgContainer svelte-1ersdvr");
+    			add_location(div1, file$8, 449, 11, 15183);
+    			attr_dev(button1, "class", "heroButton svelte-1ersdvr");
+    			add_location(button1, file$8, 448, 10, 14989);
+    			attr_dev(p, "class", "heroButton svelte-1ersdvr");
+    			add_location(p, file$8, 480, 10, 16890);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button1, anchor);
-    			append_dev(button1, div);
-    			append_dev(div, img);
-    			append_dev(div, t0);
-    			append_dev(div, span0);
-    			append_dev(div, t1);
-    			append_dev(div, button0);
+    			append_dev(button1, div1);
+    			append_dev(div1, img);
+    			append_dev(div1, t0);
+    			append_dev(div1, span0);
+    			append_dev(div1, t1);
+    			append_dev(div1, button0);
     			append_dev(button0, span1);
-    			insert_dev(target, t3, anchor);
+    			append_dev(div1, t3);
+    			append_dev(div1, div0);
+    			if_block0.m(div0, null);
+    			append_dev(div0, t4);
+    			if_block1.m(div0, null);
+    			append_dev(div0, t5);
+    			if (if_block2) if_block2.m(div0, null);
+    			insert_dev(target, t6, anchor);
     			insert_dev(target, p, anchor);
-    			append_dev(p, t4);
+    			append_dev(p, t7);
 
     			if (!mounted) {
     				dispose = [
@@ -72511,11 +72978,50 @@ var app = (function () {
     				toggle_class(span0, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].core);
     			}
 
-    			if (dirty[0] & /*$HeroData, comp, openLine*/ 4099 && t4_value !== (t4_value = /*$HeroData*/ ctx[12].find(func_5).name + "")) set_data_dev(t4, t4_value);
+    			if (current_block_type !== (current_block_type = select_block_type_7(ctx))) {
+    				if_block0.d(1);
+    				if_block0 = current_block_type(ctx);
+
+    				if (if_block0) {
+    					if_block0.c();
+    					if_block0.m(div0, t4);
+    				}
+    			}
+
+    			if (current_block_type_1 !== (current_block_type_1 = select_block_type_8(ctx))) {
+    				if_block1.d(1);
+    				if_block1 = current_block_type_1(ctx);
+
+    				if (if_block1) {
+    					if_block1.c();
+    					if_block1.m(div0, t5);
+    				}
+    			}
+
+    			if (current_block_type_2 === (current_block_type_2 = select_block_type_9(ctx)) && if_block2) {
+    				if_block2.p(ctx, dirty);
+    			} else {
+    				if (if_block2) if_block2.d(1);
+    				if_block2 = current_block_type_2 && current_block_type_2(ctx);
+
+    				if (if_block2) {
+    					if_block2.c();
+    					if_block2.m(div0, null);
+    				}
+    			}
+
+    			if (dirty[0] & /*$HeroData, comp, openLine*/ 4099 && t7_value !== (t7_value = /*$HeroData*/ ctx[12].find(func_5).name + "")) set_data_dev(t7, t7_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(button1);
-    			if (detaching) detach_dev(t3);
+    			if_block0.d();
+    			if_block1.d();
+
+    			if (if_block2) {
+    				if_block2.d();
+    			}
+
+    			if (detaching) detach_dev(t6);
     			if (detaching) detach_dev(p);
     			mounted = false;
     			run_all(dispose);
@@ -72524,17 +73030,17 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block_1$2.name,
+    		id: create_else_block_3$1.name,
     		type: "else",
-    		source: "(423:9) {:else}",
+    		source: "(448:9) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (419:9) {#if hero === 'unknown'}
-    function create_if_block_3$3(ctx) {
+    // (444:9) {#if hero === 'unknown'}
+    function create_if_block_11$1(ctx) {
     	let button;
     	let span;
     	let t1;
@@ -72551,9 +73057,9 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "+";
     			t1 = space();
-    			add_location(span, file$8, 420, 11, 13641);
-    			attr_dev(button, "class", "addHeroButton lineButton svelte-i441yx");
-    			add_location(button, file$8, 419, 10, 13450);
+    			add_location(span, file$8, 445, 11, 14924);
+    			attr_dev(button, "class", "addHeroButton lineButton svelte-1ersdvr");
+    			add_location(button, file$8, 444, 10, 14733);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -72577,19 +73083,351 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_3$3.name,
+    		id: create_if_block_11$1.name,
     		type: "if",
-    		source: "(419:9) {#if hero === 'unknown'}",
+    		source: "(444:9) {#if hero === 'unknown'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (417:8) {#each comp.lines[openLine].heroes as  hero, i}
+    // (461:13) {:else}
+    function create_else_block_5$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/elite.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "elite");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 461, 14, 15999);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block_5$1.name,
+    		type: "else",
+    		source: "(461:13) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (459:55) 
+    function create_if_block_19$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/legendary.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "legendary");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 459, 14, 15906);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_19$1.name,
+    		type: "if",
+    		source: "(459:55) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (457:55) 
+    function create_if_block_18$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/mythic.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "mythic");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 457, 14, 15784);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_18$1.name,
+    		type: "if",
+    		source: "(457:55) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (455:13) {#if comp.heroes[hero].ascendLv >= 6}
+    function create_if_block_17$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/ascended.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "ascended");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 455, 14, 15658);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_17$1.name,
+    		type: "if",
+    		source: "(455:13) {#if comp.heroes[hero].ascendLv >= 6}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (470:13) {:else}
+    function create_else_block_4$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/si0.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "si0");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 470, 14, 16438);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block_4$1.name,
+    		type: "else",
+    		source: "(470:13) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (468:50) 
+    function create_if_block_16$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/si10.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "si10");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 468, 14, 16355);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_16$1.name,
+    		type: "if",
+    		source: "(468:50) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (466:50) 
+    function create_if_block_15$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/si20.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "si20");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 466, 14, 16242);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_15$1.name,
+    		type: "if",
+    		source: "(466:50) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (464:13) {#if comp.heroes[hero].si >= 30}
+    function create_if_block_14$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/si30.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "si30");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 464, 14, 16129);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_14$1.name,
+    		type: "if",
+    		source: "(464:13) {#if comp.heroes[hero].si >= 30}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (475:51) 
+    function create_if_block_13$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/3f.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "3f");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			toggle_class(img, "moveup", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si < 10);
+    			add_location(img, file$8, 475, 14, 16716);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*comp, openLine*/ 3) {
+    				toggle_class(img, "moveup", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si < 10);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_13$1.name,
+    		type: "if",
+    		source: "(475:51) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (473:13) {#if comp.heroes[hero].furn >= 9}
+    function create_if_block_12$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/9f.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "9f");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			toggle_class(img, "moveup", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si < 10);
+    			add_location(img, file$8, 473, 14, 16565);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*comp, openLine*/ 3) {
+    				toggle_class(img, "moveup", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si < 10);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_12$1.name,
+    		type: "if",
+    		source: "(473:13) {#if comp.heroes[hero].furn >= 9}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (442:8) {#each comp.lines[openLine].heroes as  hero, i}
     function create_each_block_2$2(ctx) {
     	let if_block_anchor;
-    	let if_block = /*i*/ ctx[78] < 2 && create_if_block_2$3(ctx);
+    	let if_block = /*i*/ ctx[78] < 2 && create_if_block_10$1(ctx);
 
     	const block = {
     		c: function create() {
@@ -72613,16 +73451,348 @@ var app = (function () {
     		block,
     		id: create_each_block_2$2.name,
     		type: "each",
-    		source: "(417:8) {#each comp.lines[openLine].heroes as  hero, i}",
+    		source: "(442:8) {#each comp.lines[openLine].heroes as  hero, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (457:8) {#each sub.heroes as hero, j}
+    // (523:12) {:else}
+    function create_else_block_1$2(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/elite.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "elite");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 523, 13, 19293);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block_1$2.name,
+    		type: "else",
+    		source: "(523:12) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (521:54) 
+    function create_if_block_8$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/legendary.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "legendary");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 521, 13, 19202);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_8$1.name,
+    		type: "if",
+    		source: "(521:54) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (519:54) 
+    function create_if_block_7$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/mythic.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "mythic");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 519, 13, 19082);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_7$1.name,
+    		type: "if",
+    		source: "(519:54) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (517:12) {#if comp.heroes[hero].ascendLv >= 6}
+    function create_if_block_6$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/ascended.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "ascended");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 517, 13, 18958);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_6$1.name,
+    		type: "if",
+    		source: "(517:12) {#if comp.heroes[hero].ascendLv >= 6}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (532:12) {:else}
+    function create_else_block$6(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/si0.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "si0");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 532, 13, 19723);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$6.name,
+    		type: "else",
+    		source: "(532:12) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (530:49) 
+    function create_if_block_5$2(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/si10.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "si10");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 530, 13, 19642);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_5$2.name,
+    		type: "if",
+    		source: "(530:49) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (528:49) 
+    function create_if_block_4$3(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/si20.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "si20");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 528, 13, 19531);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_4$3.name,
+    		type: "if",
+    		source: "(528:49) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (526:12) {#if comp.heroes[hero].si >= 30}
+    function create_if_block_3$3(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/si30.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "si30");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 526, 13, 19420);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_3$3.name,
+    		type: "if",
+    		source: "(526:12) {#if comp.heroes[hero].si >= 30}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (537:50) 
+    function create_if_block_2$3(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/3f.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "3f");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			toggle_class(img, "moveup", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si < 10);
+    			add_location(img, file$8, 537, 13, 19996);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*comp*/ 1) {
+    				toggle_class(img, "moveup", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si < 10);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2$3.name,
+    		type: "if",
+    		source: "(537:50) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (535:12) {#if comp.heroes[hero].furn >= 9}
+    function create_if_block_1$4(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (img.src !== (img_src_value = "./img/markers/9f.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "9f");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			toggle_class(img, "moveup", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si < 10);
+    			add_location(img, file$8, 535, 13, 19847);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*comp*/ 1) {
+    				toggle_class(img, "moveup", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si < 10);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$4.name,
+    		type: "if",
+    		source: "(535:12) {#if comp.heroes[hero].furn >= 9}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (507:8) {#each sub.heroes as hero, j}
     function create_each_block_1$3(ctx) {
-    	let div;
+    	let div1;
     	let button1;
     	let img;
     	let img_src_value;
@@ -72633,9 +73803,13 @@ var app = (function () {
     	let t2;
     	let span1;
     	let t3;
-    	let p;
-    	let t4_value = /*$HeroData*/ ctx[12].find(func_10).name + "";
+    	let div0;
     	let t4;
+    	let t5;
+    	let t6;
+    	let p;
+    	let t7_value = /*$HeroData*/ ctx[12].find(func_10).name + "";
+    	let t7;
     	let mounted;
     	let dispose;
 
@@ -72659,6 +73833,34 @@ var app = (function () {
     		return /*click_handler_13*/ ctx[66](/*i*/ ctx[78], /*j*/ ctx[81], ...args);
     	}
 
+    	function select_block_type_10(ctx, dirty) {
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].ascendLv >= 6) return create_if_block_6$1;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].ascendLv >= 4) return create_if_block_7$1;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].ascendLv >= 2) return create_if_block_8$1;
+    		return create_else_block_1$2;
+    	}
+
+    	let current_block_type = select_block_type_10(ctx);
+    	let if_block0 = current_block_type(ctx);
+
+    	function select_block_type_11(ctx, dirty) {
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si >= 30) return create_if_block_3$3;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si >= 20) return create_if_block_4$3;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].si >= 10) return create_if_block_5$2;
+    		return create_else_block$6;
+    	}
+
+    	let current_block_type_1 = select_block_type_11(ctx);
+    	let if_block1 = current_block_type_1(ctx);
+
+    	function select_block_type_12(ctx, dirty) {
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].furn >= 9) return create_if_block_1$4;
+    		if (/*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].furn >= 3) return create_if_block_2$3;
+    	}
+
+    	let current_block_type_2 = select_block_type_12(ctx);
+    	let if_block2 = current_block_type_2 && current_block_type_2(ctx);
+
     	function click_handler_14() {
     		return /*click_handler_14*/ ctx[67](/*i*/ ctx[78], /*j*/ ctx[81], /*hero*/ ctx[79]);
     	}
@@ -72669,7 +73871,7 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			div = element("div");
+    			div1 = element("div");
     			button1 = element("button");
     			img = element("img");
     			t0 = space();
@@ -72679,8 +73881,15 @@ var app = (function () {
     			t2 = space();
     			span1 = element("span");
     			t3 = space();
+    			div0 = element("div");
+    			if_block0.c();
+    			t4 = space();
+    			if_block1.c();
+    			t5 = space();
+    			if (if_block2) if_block2.c();
+    			t6 = space();
     			p = element("p");
-    			t4 = text$2(t4_value);
+    			t7 = text$2(t7_value);
     			attr_dev(img, "draggable", "false");
 
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[12].some(func_6)
@@ -72691,33 +73900,42 @@ var app = (function () {
     			? /*$HeroData*/ ctx[12].find(func_9).name
     			: "Pick a Hero");
 
-    			attr_dev(img, "class", "svelte-i441yx");
-    			add_location(img, file$8, 459, 11, 15768);
-    			add_location(span0, file$8, 463, 122, 16176);
-    			attr_dev(button0, "class", "removeHeroButton subHeroButton svelte-i441yx");
-    			add_location(button0, file$8, 463, 11, 16065);
-    			attr_dev(span1, "class", "coreMark svelte-i441yx");
+    			attr_dev(img, "class", "svelte-1ersdvr");
+    			add_location(img, file$8, 509, 11, 18334);
+    			add_location(span0, file$8, 513, 122, 18742);
+    			attr_dev(button0, "class", "removeHeroButton subHeroButton svelte-1ersdvr");
+    			add_location(button0, file$8, 513, 11, 18631);
+    			attr_dev(span1, "class", "coreMark svelte-1ersdvr");
     			toggle_class(span1, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].core);
-    			add_location(span1, file$8, 464, 11, 16212);
-    			attr_dev(button1, "class", "heroButton svelte-i441yx");
-    			add_location(button1, file$8, 458, 10, 15550);
-    			attr_dev(p, "class", "svelte-i441yx");
-    			add_location(p, file$8, 466, 10, 16314);
-    			attr_dev(div, "class", "subGroupMember svelte-i441yx");
-    			add_location(div, file$8, 457, 9, 15510);
+    			add_location(span1, file$8, 514, 11, 18778);
+    			attr_dev(div0, "class", "ascMark subAscMark svelte-1ersdvr");
+    			add_location(div0, file$8, 515, 11, 18860);
+    			attr_dev(button1, "class", "heroButton svelte-1ersdvr");
+    			add_location(button1, file$8, 508, 10, 18116);
+    			attr_dev(p, "class", "svelte-1ersdvr");
+    			add_location(p, file$8, 541, 10, 20149);
+    			attr_dev(div1, "class", "subGroupMember svelte-1ersdvr");
+    			add_location(div1, file$8, 507, 9, 18076);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, button1);
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, button1);
     			append_dev(button1, img);
     			append_dev(button1, t0);
     			append_dev(button1, button0);
     			append_dev(button0, span0);
     			append_dev(button1, t2);
     			append_dev(button1, span1);
-    			append_dev(div, t3);
-    			append_dev(div, p);
-    			append_dev(p, t4);
+    			append_dev(button1, t3);
+    			append_dev(button1, div0);
+    			if_block0.m(div0, null);
+    			append_dev(div0, t4);
+    			if_block1.m(div0, null);
+    			append_dev(div0, t5);
+    			if (if_block2) if_block2.m(div0, null);
+    			append_dev(div1, t6);
+    			append_dev(div1, p);
+    			append_dev(p, t7);
 
     			if (!mounted) {
     				dispose = [
@@ -72747,10 +73965,49 @@ var app = (function () {
     				toggle_class(span1, "visible", /*comp*/ ctx[0].heroes[/*hero*/ ctx[79]].core);
     			}
 
-    			if (dirty[0] & /*$HeroData, comp*/ 4097 && t4_value !== (t4_value = /*$HeroData*/ ctx[12].find(func_10).name + "")) set_data_dev(t4, t4_value);
+    			if (current_block_type !== (current_block_type = select_block_type_10(ctx))) {
+    				if_block0.d(1);
+    				if_block0 = current_block_type(ctx);
+
+    				if (if_block0) {
+    					if_block0.c();
+    					if_block0.m(div0, t4);
+    				}
+    			}
+
+    			if (current_block_type_1 !== (current_block_type_1 = select_block_type_11(ctx))) {
+    				if_block1.d(1);
+    				if_block1 = current_block_type_1(ctx);
+
+    				if (if_block1) {
+    					if_block1.c();
+    					if_block1.m(div0, t5);
+    				}
+    			}
+
+    			if (current_block_type_2 === (current_block_type_2 = select_block_type_12(ctx)) && if_block2) {
+    				if_block2.p(ctx, dirty);
+    			} else {
+    				if (if_block2) if_block2.d(1);
+    				if_block2 = current_block_type_2 && current_block_type_2(ctx);
+
+    				if (if_block2) {
+    					if_block2.c();
+    					if_block2.m(div0, null);
+    				}
+    			}
+
+    			if (dirty[0] & /*$HeroData, comp*/ 4097 && t7_value !== (t7_value = /*$HeroData*/ ctx[12].find(func_10).name + "")) set_data_dev(t7, t7_value);
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(div1);
+    			if_block0.d();
+    			if_block1.d();
+
+    			if (if_block2) {
+    				if_block2.d();
+    			}
+
     			mounted = false;
     			run_all(dispose);
     		}
@@ -72760,14 +74017,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$3.name,
     		type: "each",
-    		source: "(457:8) {#each sub.heroes as hero, j}",
+    		source: "(507:8) {#each sub.heroes as hero, j}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (450:5) {#each comp.subs as sub, i}
+    // (500:5) {#each comp.subs as sub, i}
     function create_each_block$6(ctx) {
     	let div2;
     	let div0;
@@ -72821,23 +74078,23 @@ var app = (function () {
     			t3 = space();
     			button1 = element("button");
     			button1.textContent = "+";
-    			attr_dev(input, "class", "subTitleInput svelte-i441yx");
+    			attr_dev(input, "class", "subTitleInput svelte-1ersdvr");
     			attr_dev(input, "type", "text");
     			attr_dev(input, "placeholder", "Subgroup Name");
     			attr_dev(input, "maxlength", "50");
     			toggle_class(input, "maxed", /*sub*/ ctx[76].name.length >= 50);
-    			add_location(input, file$8, 452, 8, 15154);
-    			add_location(span, file$8, 453, 94, 15392);
-    			attr_dev(button0, "class", "removeButton svelte-i441yx");
-    			add_location(button0, file$8, 453, 8, 15306);
-    			attr_dev(div0, "class", "subTitle svelte-i441yx");
-    			add_location(div0, file$8, 451, 7, 15122);
-    			attr_dev(button1, "class", "addHeroButton svelte-i441yx");
-    			add_location(button1, file$8, 469, 8, 16406);
-    			attr_dev(div1, "class", "subLine svelte-i441yx");
-    			add_location(div1, file$8, 455, 7, 15439);
-    			attr_dev(div2, "class", "subGroup svelte-i441yx");
-    			add_location(div2, file$8, 450, 6, 15091);
+    			add_location(input, file$8, 502, 8, 17720);
+    			add_location(span, file$8, 503, 94, 17958);
+    			attr_dev(button0, "class", "removeButton svelte-1ersdvr");
+    			add_location(button0, file$8, 503, 8, 17872);
+    			attr_dev(div0, "class", "subTitle svelte-1ersdvr");
+    			add_location(div0, file$8, 501, 7, 17688);
+    			attr_dev(button1, "class", "addHeroButton svelte-1ersdvr");
+    			add_location(button1, file$8, 544, 8, 20241);
+    			attr_dev(div1, "class", "subLine svelte-1ersdvr");
+    			add_location(div1, file$8, 505, 7, 18005);
+    			attr_dev(div2, "class", "subGroup svelte-1ersdvr");
+    			add_location(div2, file$8, 500, 6, 17657);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -72914,14 +74171,14 @@ var app = (function () {
     		block,
     		id: create_each_block$6.name,
     		type: "each",
-    		source: "(450:5) {#each comp.subs as sub, i}",
+    		source: "(500:5) {#each comp.subs as sub, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (487:2) {#if heroFinderOpen}
+    // (562:2) {#if heroFinderOpen}
     function create_if_block$7(ctx) {
     	let herofinder;
     	let current;
@@ -72962,7 +74219,7 @@ var app = (function () {
     		block,
     		id: create_if_block$7.name,
     		type: "if",
-    		source: "(487:2) {#if heroFinderOpen}",
+    		source: "(562:2) {#if heroFinderOpen}",
     		ctx
     	});
 
@@ -73032,7 +74289,7 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block0 = /*comp*/ ctx[0].draft && create_if_block_7$1(ctx);
+    	let if_block0 = /*comp*/ ctx[0].draft && create_if_block_31$1(ctx);
     	let each_value_5 = /*comp*/ ctx[0].tags;
     	validate_each_argument(each_value_5);
     	let each_blocks_1 = [];
@@ -73042,8 +74299,8 @@ var app = (function () {
     	}
 
     	function select_block_type(ctx, dirty) {
-    		if (!/*addTagOpen*/ ctx[8]) return create_if_block_6$1;
-    		return create_else_block_3$1;
+    		if (!/*addTagOpen*/ ctx[8]) return create_if_block_30$1;
+    		return create_else_block_9$1;
     	}
 
     	let current_block_type = select_block_type(ctx);
@@ -73067,8 +74324,8 @@ var app = (function () {
     	sortablelist.$on("sort", /*handleLineSort*/ ctx[32]);
 
     	function select_block_type_1(ctx, dirty) {
-    		if (/*openLine*/ ctx[1] === null) return create_if_block_1$4;
-    		return create_else_block$6;
+    		if (/*openLine*/ ctx[1] === null) return create_if_block_9$1;
+    		return create_else_block_2$2;
     	}
 
     	let current_block_type_1 = select_block_type_1(ctx);
@@ -73165,80 +74422,80 @@ var app = (function () {
     			section2 = element("section");
     			div15 = element("div");
     			t32 = text$2(/*statusMessage*/ ctx[2]);
-    			attr_dev(input0, "class", "titleInput svelte-i441yx");
+    			attr_dev(input0, "class", "titleInput svelte-1ersdvr");
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "placeholder", "Title");
     			attr_dev(input0, "maxlength", "50");
     			toggle_class(input0, "maxed", /*comp*/ ctx[0].name.length >= 50);
     			add_location(input0, file$8, 325, 3, 9187);
-    			attr_dev(input1, "class", "authorInput svelte-i441yx");
+    			attr_dev(input1, "class", "authorInput svelte-1ersdvr");
     			attr_dev(input1, "type", "text");
     			attr_dev(input1, "placeholder", "Author");
     			attr_dev(input1, "maxlength", "50");
     			toggle_class(input1, "maxed", /*comp*/ ctx[0].author.length >= 50);
     			add_location(input1, file$8, 326, 3, 9325);
-    			attr_dev(h5, "class", "svelte-i441yx");
+    			attr_dev(h5, "class", "svelte-1ersdvr");
     			add_location(h5, file$8, 331, 4, 9605);
-    			attr_dev(div0, "class", "tagDisplay svelte-i441yx");
+    			attr_dev(div0, "class", "tagDisplay svelte-1ersdvr");
     			add_location(div0, file$8, 332, 4, 9624);
-    			attr_dev(div1, "class", "tagsArea svelte-i441yx");
+    			attr_dev(div1, "class", "tagsArea svelte-1ersdvr");
     			add_location(div1, file$8, 330, 3, 9577);
-    			attr_dev(div2, "class", "editorHead svelte-i441yx");
+    			attr_dev(div2, "class", "editorHead svelte-1ersdvr");
     			add_location(div2, file$8, 324, 2, 9158);
-    			attr_dev(h40, "class", "lineEditorTitle svelte-i441yx");
+    			attr_dev(h40, "class", "lineEditorTitle svelte-1ersdvr");
     			add_location(h40, file$8, 375, 4, 11068);
-    			attr_dev(button0, "class", "linePickerOption addLineButton svelte-i441yx");
+    			attr_dev(button0, "class", "linePickerOption addLineButton svelte-1ersdvr");
     			add_location(button0, file$8, 387, 5, 11544);
-    			attr_dev(div3, "class", "lineEditHead svelte-i441yx");
+    			attr_dev(div3, "class", "lineEditHead svelte-1ersdvr");
     			add_location(div3, file$8, 376, 4, 11112);
-    			attr_dev(div4, "class", "lineEditBody svelte-i441yx");
+    			attr_dev(div4, "class", "lineEditBody svelte-1ersdvr");
     			add_location(div4, file$8, 389, 4, 11638);
-    			attr_dev(div5, "class", "lineEditor svelte-i441yx");
+    			attr_dev(div5, "class", "lineEditor svelte-1ersdvr");
     			add_location(div5, file$8, 374, 3, 11038);
-    			attr_dev(h41, "class", "svelte-i441yx");
-    			add_location(h41, file$8, 440, 4, 14724);
+    			attr_dev(h41, "class", "svelte-1ersdvr");
+    			add_location(h41, file$8, 490, 4, 17290);
     			attr_dev(div6, "id", "tuieditor");
-    			add_location(div6, file$8, 441, 4, 14750);
-    			add_location(span, file$8, 442, 83, 14861);
-    			attr_dev(div7, "class", "editorLimit svelte-i441yx");
+    			add_location(div6, file$8, 491, 4, 17316);
+    			add_location(span, file$8, 492, 83, 17427);
+    			attr_dev(div7, "class", "editorLimit svelte-1ersdvr");
     			toggle_class(div7, "maxed", /*comp*/ ctx[0].desc.length >= /*$AppData*/ ctx[11].maxDescLen);
-    			add_location(div7, file$8, 442, 4, 14782);
-    			attr_dev(div8, "class", "descEditor svelte-i441yx");
-    			add_location(div8, file$8, 439, 3, 14694);
-    			attr_dev(div9, "class", "row1 svelte-i441yx");
+    			add_location(div7, file$8, 492, 4, 17348);
+    			attr_dev(div8, "class", "descEditor svelte-1ersdvr");
+    			add_location(div8, file$8, 489, 3, 17260);
+    			attr_dev(div9, "class", "row1 svelte-1ersdvr");
     			add_location(div9, file$8, 373, 2, 11015);
-    			attr_dev(h42, "class", "svelte-i441yx");
-    			add_location(h42, file$8, 447, 4, 14997);
-    			attr_dev(button1, "class", "subAddButton svelte-i441yx");
-    			add_location(button1, file$8, 474, 6, 16673);
-    			attr_dev(div10, "class", "newSubArea svelte-i441yx");
-    			add_location(div10, file$8, 473, 5, 16641);
-    			attr_dev(div11, "class", "subContainer svelte-i441yx");
-    			add_location(div11, file$8, 448, 4, 15023);
+    			attr_dev(h42, "class", "svelte-1ersdvr");
+    			add_location(h42, file$8, 497, 4, 17563);
+    			attr_dev(button1, "class", "subAddButton svelte-1ersdvr");
+    			add_location(button1, file$8, 549, 6, 20508);
+    			attr_dev(div10, "class", "newSubArea svelte-1ersdvr");
+    			add_location(div10, file$8, 548, 5, 20476);
+    			attr_dev(div11, "class", "subContainer svelte-1ersdvr");
+    			add_location(div11, file$8, 498, 4, 17589);
     			attr_dev(div12, "class", "subEditor");
-    			add_location(div12, file$8, 446, 3, 14968);
+    			add_location(div12, file$8, 496, 3, 17534);
     			attr_dev(div13, "class", "row2");
-    			add_location(div13, file$8, 445, 2, 14945);
-    			attr_dev(button2, "class", "footerButton draftButton svelte-i441yx");
-    			add_location(button2, file$8, 480, 3, 16823);
-    			attr_dev(button3, "class", "footerButton saveButton svelte-i441yx");
-    			add_location(button3, file$8, 481, 3, 16909);
-    			attr_dev(button4, "class", "footerButton cancelButton svelte-i441yx");
-    			add_location(button4, file$8, 482, 3, 17020);
-    			attr_dev(div14, "class", "footer svelte-i441yx");
-    			add_location(div14, file$8, 479, 2, 16798);
+    			add_location(div13, file$8, 495, 2, 17511);
+    			attr_dev(button2, "class", "footerButton draftButton svelte-1ersdvr");
+    			add_location(button2, file$8, 555, 3, 20658);
+    			attr_dev(button3, "class", "footerButton saveButton svelte-1ersdvr");
+    			add_location(button3, file$8, 556, 3, 20744);
+    			attr_dev(button4, "class", "footerButton cancelButton svelte-1ersdvr");
+    			add_location(button4, file$8, 557, 3, 20855);
+    			attr_dev(div14, "class", "footer svelte-1ersdvr");
+    			add_location(div14, file$8, 554, 2, 20633);
     			attr_dev(section0, "class", "sect1");
     			add_location(section0, file$8, 323, 1, 9131);
-    			attr_dev(section1, "class", "sect2 svelte-i441yx");
+    			attr_dev(section1, "class", "sect2 svelte-1ersdvr");
     			toggle_class(section1, "visible", /*heroFinderOpen*/ ctx[5]);
-    			add_location(section1, file$8, 485, 1, 17125);
-    			attr_dev(div15, "class", "statusMessage svelte-i441yx");
+    			add_location(section1, file$8, 560, 1, 20960);
+    			attr_dev(div15, "class", "statusMessage svelte-1ersdvr");
     			toggle_class(div15, "visible", /*showStatusMessage*/ ctx[3]);
     			toggle_class(div15, "error", /*statusError*/ ctx[4]);
-    			add_location(div15, file$8, 491, 2, 17292);
-    			attr_dev(section2, "class", "sect3 svelte-i441yx");
-    			add_location(section2, file$8, 490, 1, 17265);
-    			attr_dev(div16, "class", "editorContainer svelte-i441yx");
+    			add_location(div15, file$8, 566, 2, 21127);
+    			attr_dev(section2, "class", "sect3 svelte-1ersdvr");
+    			add_location(section2, file$8, 565, 1, 21100);
+    			attr_dev(div16, "class", "editorContainer svelte-1ersdvr");
     			add_location(div16, file$8, 322, 0, 9099);
     		},
     		l: function claim(nodes) {
@@ -73354,7 +74611,7 @@ var app = (function () {
 
     			if (/*comp*/ ctx[0].draft) {
     				if (if_block0) ; else {
-    					if_block0 = create_if_block_7$1(ctx);
+    					if_block0 = create_if_block_31$1(ctx);
     					if_block0.c();
     					if_block0.m(div2, t2);
     				}

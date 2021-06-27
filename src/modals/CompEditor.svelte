@@ -406,6 +406,31 @@
 												<img draggable="false" src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
+												<div class="ascMark">
+													{#if comp.heroes[hero].ascendLv >= 6}
+														<img src="./img/markers/ascended.png" alt="ascended">
+													{:else if comp.heroes[hero].ascendLv >= 4}
+														<img src="./img/markers/mythic.png" alt="mythic">
+													{:else if comp.heroes[hero].ascendLv >= 2}
+														<img src="./img/markers/legendary.png" alt="legendary">
+													{:else}
+														<img src="./img/markers/elite.png" alt="elite">
+													{/if}
+													{#if comp.heroes[hero].si >= 30}
+														<img src="./img/markers/si30.png" alt="si30">
+													{:else if comp.heroes[hero].si >= 20}
+														<img src="./img/markers/si20.png" alt="si20">
+													{:else if comp.heroes[hero].si >= 10}
+														<img src="./img/markers/si10.png" alt="si10">
+													{:else}
+														<img src="./img/markers/si0.png" alt="si0">
+													{/if}
+													{#if comp.heroes[hero].furn >= 9}
+														<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+													{:else if comp.heroes[hero].furn >= 3}
+														<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+													{/if}
+												</div>
 											</div>
 										</button>
 										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes,})}>{$HeroData.find(e => e.id === hero).name}</p>
@@ -426,6 +451,31 @@
 												<img draggable="false" src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
+												<div class="ascMark">
+													{#if comp.heroes[hero].ascendLv >= 6}
+														<img src="./img/markers/ascended.png" alt="ascended">
+													{:else if comp.heroes[hero].ascendLv >= 4}
+														<img src="./img/markers/mythic.png" alt="mythic">
+													{:else if comp.heroes[hero].ascendLv >= 2}
+														<img src="./img/markers/legendary.png" alt="legendary">
+													{:else}
+														<img src="./img/markers/elite.png" alt="elite">
+													{/if}
+													{#if comp.heroes[hero].si >= 30}
+														<img src="./img/markers/si30.png" alt="si30">
+													{:else if comp.heroes[hero].si >= 20}
+														<img src="./img/markers/si20.png" alt="si20">
+													{:else if comp.heroes[hero].si >= 10}
+														<img src="./img/markers/si10.png" alt="si10">
+													{:else}
+														<img src="./img/markers/si0.png" alt="si0">
+													{/if}
+													{#if comp.heroes[hero].furn >= 9}
+														<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+													{:else if comp.heroes[hero].furn >= 3}
+														<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+													{/if}
+												</div>
 											</div>
 										</button>
 										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>{$HeroData.find(e => e.id === hero).name}</p>
@@ -463,6 +513,31 @@
 												alt={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).name : 'Pick a Hero'}>
 											<button class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
 											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
+											<div class="ascMark subAscMark">
+												{#if comp.heroes[hero].ascendLv >= 6}
+													<img src="./img/markers/ascended.png" alt="ascended">
+												{:else if comp.heroes[hero].ascendLv >= 4}
+													<img src="./img/markers/mythic.png" alt="mythic">
+												{:else if comp.heroes[hero].ascendLv >= 2}
+													<img src="./img/markers/legendary.png" alt="legendary">
+												{:else}
+													<img src="./img/markers/elite.png" alt="elite">
+												{/if}
+												{#if comp.heroes[hero].si >= 30}
+													<img src="./img/markers/si30.png" alt="si30">
+												{:else if comp.heroes[hero].si >= 20}
+													<img src="./img/markers/si20.png" alt="si20">
+												{:else if comp.heroes[hero].si >= 10}
+													<img src="./img/markers/si10.png" alt="si10">
+												{:else}
+													<img src="./img/markers/si0.png" alt="si0">
+												{/if}
+												{#if comp.heroes[hero].furn >= 9}
+													<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+												{:else if comp.heroes[hero].furn >= 3}
+													<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+												{/if}
+											</div>
 										</button>
 										<p>{$HeroData.find(e => e.id === hero).name}</p>
 									</div>
@@ -859,6 +934,21 @@
 		right: -6px;
 		top: 0;
 	}
+	.ascMark {
+		left: -11px;
+		position: absolute;
+		top: -5px;
+		img {
+			border-radius: 0;
+			left: 0;
+			max-width: 35px;
+			position: absolute;
+			top: 0;
+		}
+		img.moveup {
+			top: -3.5px;
+		}
+	}
 	.heroButton+p {
 		color: black;
 		font-size: 0.8rem;
@@ -914,6 +1004,7 @@
 		align-items: center;
 		display: flex;
 		flex-direction: column;
+		margin-left: 5px;
 		margin-right: 7px;
 		margin-bottom: 7px;
 	}
