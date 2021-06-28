@@ -3,6 +3,11 @@
 
 	const dispatch = createEventDispatcher();
 
+	// PROPS
+	export let list = [];
+	export let groupID = '';
+	export let validate = () => true;
+
 	// DRAG AND DROP
 	let isOver = null;
 	function getDraggedParent(node) {
@@ -38,11 +43,10 @@
 	function reorder(from, to) {
 		let newList = [...list];
 		newList[from] = [newList[to], (newList[to] = newList[from])][0];
-		dispatch("sort", {newList: newList, from: from, to: to});
+		if(validate(newList)) {
+			dispatch("sort", {newList: newList, from: from, to: to});
+		}
 	}
-	// PROPS
-	export let list = [];
-	export let groupID = '';
 </script>
 
 {#if list && list.length}
@@ -56,7 +60,7 @@
 			on:drop={drop}
 			class:over={i === isOver}
 			class="dataItem">
-			<slot {item} {i}>
+			<slot item={item} i={i}>
 			</slot>
 		</div>
 	{/each}

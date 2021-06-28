@@ -320,18 +320,22 @@
 		handleAddTag();
 	}
 
+	function validateLineEditHead(list) {
+		// catch if a user dragged something we weren't expecting and exit
+		if(!Array.isArray(list)) return false;
+		// don't allow overwrite if there are missing lines
+		if(list.length !== comp.lines.length) return false;
+		for(const item of list) {
+			// don't allow overwrite if list is not a list of objects
+			if(Object.prototype.toString.call(item) !== '[object Object]') return false;
+		}
+		return true;
+	}
+
 	function handleLineSort(event) {
 		const newList = event.detail.newList;
 		const from = parseInt(event.detail.from);
 		const to = parseInt(event.detail.to);
-		// catch if a user dragged something we weren't expecting and exit
-		if(!Array.isArray(newList)) return 0;
-		// don't allow overwrite if there are missing lines
-		if(newList.length !== comp.lines.length) return 0;
-		for(const item of newList) {
-			// don't allow overwrite if list is not a list of objects
-			if(Object.prototype.toString.call(item) !== '[object Object]') return 0;
-		}
 		comp.lines = newList;
 		if(openLine !== null) {
 			if(openLine === from) {
@@ -342,16 +346,20 @@
 		}
 	}
 
+	function validateLineDisplay(list) {
+		// catch if a user dragged something we weren't expecting and exit
+		if(!Array.isArray(list)) return false;
+		// don't allow overwrite if there are missing/additional heroes
+		if(list.length !== 5) return false;
+		for(const item of list) {
+			// don't allow overwrite if hero isn't in HeroData and isn't 'unknown'
+			if(!(item in $HeroData) && !item === 'unknown') return false;
+		}
+		return true;
+	}
+
 	function handleLineDisplaySort(event) {
 		const newList = event.detail.newList.reverse();
-		// catch if a user dragged something we weren't expecting and exit
-		if(!Array.isArray(newList)) return 0;
-		// don't allow overwrite if there are missing/additional heroes
-		if(newList.length !== 5) return 0;
-		for(const item of newList) {
-			// don't allow overwrite if hero isn't in HeroData and isn't 'unknown'
-			if(!(item in $HeroData) && !item === 'unknown') return 0;
-		}
 		comp.lines[openLine].heroes = newList;
 	}
 </script>
@@ -416,6 +424,7 @@
 					<SimpleSortableList
 						list={comp.lines}
 						groupID="lineEditHead"
+						validate={validateLineEditHead}
 						on:sort={handleLineSort}
 						let:item={line}
 						let:i={i}>
@@ -435,6 +444,7 @@
 							<SimpleSortableList
 								list={[...comp.lines[openLine].heroes].reverse()}
 								groupID="lineDisplay"
+								validate={validateLineDisplay}
 								on:sort={handleLineDisplaySort}
 								let:item={hero}
 								let:i={i}>
