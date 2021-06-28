@@ -168,11 +168,9 @@
 		sortedCompList = makeSortedCompList();
 		searchSuggestions = makeSearchSuggestions();
 		highlightComp = sortedCompList.findIndex(e => e.uuid === uuid);
-		if(type === 'new') {
-			$AppData.selectedComp = highlightComp;
-			selectedHero = '';
-			selectedLine = 0;
-		}
+		selectedHero = '';
+		selectedLine = 0;
+		if(type === 'new') $AppData.selectedComp = highlightComp;
 		await tick();
 		document.getElementById(`comp${highlightComp}`).scrollIntoView();
 		setTimeout(() => highlightComp = null, 2000);
