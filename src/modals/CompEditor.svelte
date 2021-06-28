@@ -7,6 +7,7 @@
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from '../shared/HeroFinder.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
+import { loop_guard, stop_propagation } from 'svelte/internal';
 
 	export let compID = null; // uuid for comp to be edited
 	export let onSuccess = () => {}; // save success callback
@@ -235,7 +236,9 @@
 	}
 
 	function updateLineHero(idx, pos, hero, oldHeroID) {
-		comp.lines[idx].heroes[pos] = hero.id;
+		// need to reverse the list to update the right hero due to how the list is displayed
+		let rHeroes = [...comp.lines[idx].heroes].reverse();
+		rHeroes[pos] = hero.id;
 		comp.heroes[hero.id] = {
 			ascendLv: hero.ascendLv,
 			si: hero.si,
@@ -244,6 +247,8 @@
 			core: hero.core,
 			notes: hero.notes,
 		}
+		// reverse it back for storage
+		comp.lines[idx].heroes = rHeroes.reverse();
 		// check if the last reference to the old hero was replaced, and remove it if necessary
 		if(oldHeroID !== '' && oldHeroID !== hero.id) removeHeroesReference(oldHeroID);
 	}
@@ -269,8 +274,12 @@
 	}
 
 	function removeLineHero(lineIdx, heroIdx) {
-		const heroID = comp.lines[lineIdx].heroes[heroIdx];
-		comp.lines[lineIdx].heroes[heroIdx] = 'unknown';
+		// need to reverse the list to remove the right hero due to how the list is displayed
+		let rHeroes = [...comp.lines[lineIdx].heroes].reverse();
+		const heroID = rHeroes[heroIdx];
+		rHeroes[heroIdx] = 'unknown';
+		// reverse it back for storage
+		comp.lines[lineIdx].heroes = rHeroes.reverse();
 		removeHeroesReference(heroID);
 	}
 
@@ -457,7 +466,7 @@
 										<div class="imgContainer">
 											<img draggable="false" src={heroLookup[hero].portrait} alt={heroLookup[hero].name}>
 											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-											<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
+											<button class="removeHeroButton lineHeroButton" on:click={(e) => { removeLineHero(openLine, i); e.stopPropagation(); }}><span>x</span></button>
 											<div class="ascMark">
 												{#if comp.heroes[hero].ascendLv >= 6}
 													<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
