@@ -1,5 +1,7 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
+	import { flip } from 'svelte/animate';
+	import { v4 as uuidv4 } from 'uuid';
 
 	const dispatch = createEventDispatcher();
 
@@ -7,6 +9,26 @@
 	export let list = [];
 	export let groupID = '';
 	export let validate = () => true;
+	let localList = [];
+
+	$: localList = makeLocalList(list);
+
+	function makeLocalList(inputList) {
+		let returnList = [];
+		if(inputList.length !== localList.length) {
+			for(const item of inputList) {
+				returnList.push({id: uuidv4(), value: item});
+			}
+		} else {
+			returnList = [...localList];
+			for(let i = 0; i < returnList.length; i++) {
+				if(returnList[i].value !== inputList[i]) {
+					returnList[i].value = inputList[i];
+				}
+			}
+		}
+		return returnList;
+	}
 
 	// DRAG AND DROP
 	let isOver = null;
@@ -46,13 +68,14 @@
 		let newList = [...list];
 		newList[from] = [newList[to], (newList[to] = newList[from])][0];
 		if(validate(newList)) {
+			localList[from] = [localList[to], (localList[to] = localList[from])][0];
 			dispatch("sort", {newList: newList, from: from, to: to});
 		}
 	}
 </script>
 
-{#if list && list.length}
-	{#each list as item, i (i)}
+{#if localList && localList.length}
+	{#each localList as item, i (item.id)}
 		<div
 			data-index={i}
 			draggable="true"
@@ -60,9 +83,10 @@
 			on:dragover={over}
 			on:dragleave={leave}
 			on:drop={drop}
+			animate:flip={{duration: 300}}
 			class:over={i === isOver}
 			class="dataItem">
-			<slot item={item} i={i}>
+			<slot item={item.value} i={i}>
 			</slot>
 		</div>
 	{/each}
