@@ -310,11 +310,19 @@
 	}
 
 	function handleLineSort(event) {
+		let newList = JSON.parse(JSON.stringify(event.detail)); // make a copy of event.detail to work with
 		// catch if a user dragged something we weren't expecting and exit
-		if(!Array.isArray(event.detail)) return 0;
+		if(!Array.isArray(newList)) return 0;
 		// don't allow overwrite if there are missing lines
-		if(event.detail.length !== comp.lines.length) return 0;
-		comp.lines = event.detail;
+		if(newList.length !== comp.lines.length) return 0;
+		for(const item of newList) {
+			// don't allow overwrite if list is not a list of objects
+			if(Object.prototype.toString.call(item) !== '[object Object]') return 0;
+		}
+		comp.lines = newList;
+	}
+	function handleLineDisplaySort(event) {
+
 	}
 </script>
 
@@ -375,7 +383,13 @@
 			<div class="lineEditor">
 				<h4 class="lineEditorTitle">Lines</h4>
 				<div class="lineEditHead">
-					<SortableList
+					{#each comp.lines as line, i}
+						<button class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
+							<span>{line.name}</span>
+							<button class="removeButton" on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
+						</button>
+					{/each}
+					<!-- <SortableList
 						list={comp.lines}
 						on:sort={handleLineSort}
 						let:item={line}
@@ -384,7 +398,7 @@
 							<span>{line.name}</span>
 							<button class="removeButton" on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
 						</button>
-					</SortableList>
+					</SortableList> -->
 					<button class="linePickerOption addLineButton" on:click={addLine}>+</button>
 				</div>
 				<div class="lineEditBody">

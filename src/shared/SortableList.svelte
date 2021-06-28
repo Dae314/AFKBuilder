@@ -55,8 +55,8 @@
 	// UTILS
 	const getKey = item => (key ? item[key] : item);
 	// PROPS
-	export let list;
-	export let key;
+	export let list = [];
+	export let key = '';
 </script>
 
 {#if list && list.length}
