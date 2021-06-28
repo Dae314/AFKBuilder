@@ -70973,7 +70973,7 @@ var app = (function () {
 
     const get_default_slot_context$1 = ctx => ({ item: /*item*/ ctx[12], i: /*i*/ ctx[14] });
 
-    // (52:0) {#if list && list.length}
+    // (54:0) {#if list && list.length}
     function create_if_block$9(ctx) {
     	let each_blocks = [];
     	let each_1_lookup = new Map();
@@ -71045,14 +71045,14 @@ var app = (function () {
     		block,
     		id: create_if_block$9.name,
     		type: "if",
-    		source: "(52:0) {#if list && list.length}",
+    		source: "(54:0) {#if list && list.length}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (53:1) {#each list as item, i (i)}
+    // (55:1) {#each list as item, i (i)}
     function create_each_block$8(key_1, ctx) {
     	let div;
     	let t;
@@ -71074,7 +71074,7 @@ var app = (function () {
     			attr_dev(div, "draggable", "true");
     			attr_dev(div, "class", "dataItem svelte-1a0hw3l");
     			toggle_class(div, "over", /*i*/ ctx[14] === /*isOver*/ ctx[1]);
-    			add_location(div, file$a, 53, 2, 1502);
+    			add_location(div, file$a, 55, 2, 1551);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -71136,7 +71136,7 @@ var app = (function () {
     		block,
     		id: create_each_block$8.name,
     		type: "each",
-    		source: "(53:1) {#each list as item, i (i)}",
+    		source: "(55:1) {#each list as item, i (i)}",
     		ctx
     	});
 
@@ -71231,7 +71231,7 @@ var app = (function () {
     	let isOver = null;
 
     	function start(event) {
-    		event.dataTransfer.setData("text/plain", JSON.stringify({
+    		event.dataTransfer.setData("source", JSON.stringify({
     			from: event.target.dataset.index,
     			group: groupID
     		}));
@@ -71251,12 +71251,15 @@ var app = (function () {
     	function drop(event) {
     		$$invalidate(1, isOver = null);
     		event.preventDefault();
-    		let dragged = getDraggedParent(event.target);
-    		const dragData = JSON.parse(event.dataTransfer.getData("text/plain"));
-    		const from = dragData.from;
-    		const group = dragData.group;
-    		let to = dragged.index;
-    		if (group === groupID) reorder(from, to);
+
+    		if (event.dataTransfer.getData("source")) {
+    			let dragged = getDraggedParent(event.target);
+    			const dragData = JSON.parse(event.dataTransfer.getData("source"));
+    			const from = dragData.from;
+    			const group = dragData.group;
+    			let to = dragged.index;
+    			if (group === groupID) reorder(from, to);
+    		}
     	}
 
     	// DISPATCH REORDER

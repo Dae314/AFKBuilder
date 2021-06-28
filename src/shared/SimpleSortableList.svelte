@@ -18,7 +18,7 @@
 		}
 	}
 	function start(event) {
-		event.dataTransfer.setData("text/plain", JSON.stringify({from: event.target.dataset.index, group: groupID}));
+		event.dataTransfer.setData("source", JSON.stringify({from: event.target.dataset.index, group: groupID}));
 	}
 	function over(event) {
 		event.preventDefault();
@@ -32,12 +32,14 @@
 	function drop(event) {
 		isOver = null;
 		event.preventDefault();
-		let dragged = getDraggedParent(event.target);
-		const dragData = JSON.parse(event.dataTransfer.getData("text/plain"));
-		const from = dragData.from;
-		const group = dragData.group;
-		let to = dragged.index;
-		if(group === groupID) reorder(from, to);
+		if(event.dataTransfer.getData("source")) {
+			let dragged = getDraggedParent(event.target);
+			const dragData = JSON.parse(event.dataTransfer.getData("source"));
+			const from = dragData.from;
+			const group = dragData.group;
+			let to = dragged.index;
+			if(group === groupID) reorder(from, to);
+		}
 	}
 	// DISPATCH REORDER
 	function reorder(from, to) {
