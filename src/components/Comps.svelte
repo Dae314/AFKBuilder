@@ -1010,6 +1010,7 @@
 	.compDetails.open {
 		max-width: 100%;
 		padding: 10px;
+		width: 100%;
 		visibility: visible;
 	}
 	.compDetailHead {
