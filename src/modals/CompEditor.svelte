@@ -317,7 +317,6 @@
 
 	function takeTagSuggestion(suggestion) {
 		newTagText = suggestion;
-		console.log(suggestion);
 		handleAddTag();
 	}
 
@@ -334,7 +333,6 @@
 			if(Object.prototype.toString.call(item) !== '[object Object]') return 0;
 		}
 		comp.lines = newList;
-		console.log(newList);
 		if(openLine !== null) {
 			if(openLine === from) {
 				openLine = to;
@@ -354,7 +352,6 @@
 			// don't allow overwrite if hero isn't in HeroData and isn't 'unknown'
 			if(!(item in $HeroData) && !item === 'unknown') return 0;
 		}
-		console.log(newList);
 		comp.lines[openLine].heroes = newList;
 	}
 </script>
