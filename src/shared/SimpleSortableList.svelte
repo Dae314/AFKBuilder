@@ -1,6 +1,6 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	
+
 	const dispatch = createEventDispatcher();
 
 	// DRAG AND DROP
@@ -13,7 +13,7 @@
 		}
 	}
 	function start(event) {
-		event.dataTransfer.setData("source", event.target.dataset.index);
+		event.dataTransfer.setData("text/plain", JSON.stringify({from: event.target.dataset.index, group: groupID}));
 	}
 	function over(event) {
 		event.preventDefault();
@@ -28,9 +28,11 @@
 		isOver = null;
 		event.preventDefault();
 		let dragged = getDraggedParent(event.target);
-		let from = event.dataTransfer.getData("source");
+		const dragData = JSON.parse(event.dataTransfer.getData("text/plain"));
+		const from = dragData.from;
+		const group = dragData.group;
 		let to = dragged.index;
-		reorder(from, to);
+		if(group === groupID) reorder(from, to);
 	}
 	// DISPATCH REORDER
 	function reorder(from, to) {
@@ -40,6 +42,7 @@
 	}
 	// PROPS
 	export let list = [];
+	export let groupID = '';
 </script>
 
 {#if list && list.length}

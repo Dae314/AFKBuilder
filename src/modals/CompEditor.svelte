@@ -6,7 +6,7 @@
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from '../shared/HeroFinder.svelte';
-	import SortableList from '../shared/SortableList.svelte';
+	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
 
 	export let compID = null; // uuid for comp to be edited
 	export let onSuccess = () => {}; // save success callback
@@ -40,6 +40,7 @@
 	let openSuggestions = false;
 	let autosave;
 	let editor; // ToastUI editor
+	const heroLookup = makeHeroLookup();
 
 	onMount(async () => {
 		history.pushState({view: $AppData.activeView, modal: true, comp: true}, "Comp Editor", `?view=${$AppData.activeView}&comp=true&modal=true`);
@@ -97,6 +98,17 @@
 		suggestions.sort();
 
 		return suggestions;
+	}
+
+	function makeHeroLookup() {
+		let lookup = {}
+		for(const hero of $HeroData) {
+			lookup[hero.id] = {
+				portrait: hero.portrait,
+				name: hero.name
+			};
+		}
+		return lookup;
 	}
 
 	function deleteLine(lineIdx) {
@@ -310,7 +322,9 @@
 	}
 
 	function handleLineSort(event) {
-		let newList = JSON.parse(JSON.stringify(event.detail)); // make a copy of event.detail to work with
+		const newList = event.detail.newList;
+		const from = parseInt(event.detail.from);
+		const to = parseInt(event.detail.to);
 		// catch if a user dragged something we weren't expecting and exit
 		if(!Array.isArray(newList)) return 0;
 		// don't allow overwrite if there are missing lines
@@ -320,9 +334,28 @@
 			if(Object.prototype.toString.call(item) !== '[object Object]') return 0;
 		}
 		comp.lines = newList;
+		console.log(newList);
+		if(openLine !== null) {
+			if(openLine === from) {
+				openLine = to;
+			} else if(openLine === to) {
+				openLine = from;
+			}
+		}
 	}
-	function handleLineDisplaySort(event) {
 
+	function handleLineDisplaySort(event) {
+		const newList = event.detail.newList.reverse();
+		// catch if a user dragged something we weren't expecting and exit
+		if(!Array.isArray(newList)) return 0;
+		// don't allow overwrite if there are missing/additional heroes
+		if(newList.length !== 5) return 0;
+		for(const item of newList) {
+			// don't allow overwrite if hero isn't in HeroData and isn't 'unknown'
+			if(!(item in $HeroData) && !item === 'unknown') return 0;
+		}
+		console.log(newList);
+		comp.lines[openLine].heroes = newList;
 	}
 </script>
 
@@ -383,22 +416,17 @@
 			<div class="lineEditor">
 				<h4 class="lineEditorTitle">Lines</h4>
 				<div class="lineEditHead">
-					{#each comp.lines as line, i}
-						<button class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
-							<span>{line.name}</span>
-							<button class="removeButton" on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
-						</button>
-					{/each}
-					<!-- <SortableList
+					<SimpleSortableList
 						list={comp.lines}
+						groupID="lineEditHead"
 						on:sort={handleLineSort}
 						let:item={line}
-						let:index={i}>
+						let:i={i}>
 						<button class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
 							<span>{line.name}</span>
 							<button class="removeButton" on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
 						</button>
-					</SortableList> -->
+					</SimpleSortableList>
 					<button class="linePickerOption addLineButton" on:click={addLine}>+</button>
 				</div>
 				<div class="lineEditBody">
@@ -407,7 +435,12 @@
 					{:else}
 						<input type="text" class="lineNameInput" bind:value={comp.lines[openLine].name} placeholder="Line Name" maxlength="30" class:maxed={comp.lines[openLine].name.length >= 30}>
 						<div class="lineDisplay">
-							{#each [...comp.lines[openLine].heroes].reverse() as hero, i}
+							<SimpleSortableList
+								list={[...comp.lines[openLine].heroes].reverse()}
+								groupID="lineDisplay"
+								on:sort={handleLineDisplaySort}
+								let:item={hero}
+								let:i={i}>
 								{#if hero === 'unknown'}
 									<button class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
 										<span>+</span>
@@ -415,39 +448,39 @@
 								{:else}
 									<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
 										<div class="imgContainer">
-											<img draggable="false" src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+											<img draggable="false" src={heroLookup[hero].portrait} alt={heroLookup[hero].name}>
 											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 											<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
 											<div class="ascMark">
 												{#if comp.heroes[hero].ascendLv >= 6}
-													<img src="./img/markers/ascended.png" alt="ascended">
+													<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
 												{:else if comp.heroes[hero].ascendLv >= 4}
-													<img src="./img/markers/mythic.png" alt="mythic">
+													<img draggable="false" src="./img/markers/mythic.png" alt="mythic">
 												{:else if comp.heroes[hero].ascendLv >= 2}
-													<img src="./img/markers/legendary.png" alt="legendary">
+													<img draggable="false" src="./img/markers/legendary.png" alt="legendary">
 												{:else}
-													<img src="./img/markers/elite.png" alt="elite">
+													<img draggable="false" src="./img/markers/elite.png" alt="elite">
 												{/if}
 												{#if comp.heroes[hero].si >= 30}
-													<img src="./img/markers/si30.png" alt="si30">
+													<img draggable="false" src="./img/markers/si30.png" alt="si30">
 												{:else if comp.heroes[hero].si >= 20}
-													<img src="./img/markers/si20.png" alt="si20">
+													<img draggable="false" src="./img/markers/si20.png" alt="si20">
 												{:else if comp.heroes[hero].si >= 10}
-													<img src="./img/markers/si10.png" alt="si10">
+													<img draggable="false" src="./img/markers/si10.png" alt="si10">
 												{:else}
-													<img src="./img/markers/si0.png" alt="si0">
+													<img draggable="false" src="./img/markers/si0.png" alt="si0">
 												{/if}
 												{#if comp.heroes[hero].furn >= 9}
-													<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
 												{:else if comp.heroes[hero].furn >= 3}
-													<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
 												{/if}
 											</div>
 										</div>
-										<p>{$HeroData.find(e => e.id === hero).name}</p>
+										<p>{heroLookup[hero].name}</p>
 									</button>
 								{/if}
-							{/each}
+							</SimpleSortableList>
 						</div>
 					{/if}
 				</div>
@@ -474,8 +507,8 @@
 										<button class="heroButton" on:click={() => openHeroFinder({idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<img
 												draggable="false"
-												src={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).portrait : './img/portraits/unavailable.png'}
-												alt={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).name : 'Pick a Hero'}>
+												src={$HeroData.some(e => e.id === hero) ? heroLookup[hero].portrait : './img/portraits/unavailable.png'}
+												alt={$HeroData.some(e => e.id === hero) ? heroLookup[hero].name : 'Pick a Hero'}>
 											<button class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
 											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 											<div class="ascMark subAscMark">
@@ -504,7 +537,7 @@
 												{/if}
 											</div>
 										</button>
-										<p>{$HeroData.find(e => e.id === hero).name}</p>
+										<p>{heroLookup[hero].name}</p>
 									</div>
 								{/each}
 								<button class="addHeroButton" on:click={() => openHeroFinder({idx: i, pos: sub.heroes.length, onSuccess: updateSubHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>+</button>
@@ -832,14 +865,15 @@
 		text-align: center;
 	}
 	.lineDisplay {
-		align-items: center;
-		display: flex;
-		gap: 10px;
-		width: 160px;
-		flex-direction: column-reverse;
-		height: 280px;
-		flex-wrap: wrap;
-		justify-content: center;
+		:global(ul) {
+			align-items: center;
+			display: flex;
+			width: 170px;
+			flex-direction: column-reverse;
+			height: 300px;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
 	}
 	.lineButton {
 		margin: 5px;
