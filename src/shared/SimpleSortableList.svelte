@@ -46,36 +46,30 @@
 </script>
 
 {#if list && list.length}
-	<ul>
-		{#each list as item, i (i)}
-			<li
-				data-index={i}
-				draggable="true"
-				on:dragstart={start}
-				on:dragover={over}
-				on:dragleave={leave}
-				on:drop={drop}
-				class:over={i === isOver}>
-				<slot {item} {i}>
-				</slot>
-			</li>
-		{/each}
-	</ul>
+	{#each list as item, i (i)}
+		<div
+			data-index={i}
+			draggable="true"
+			on:dragstart={start}
+			on:dragover={over}
+			on:dragleave={leave}
+			on:drop={drop}
+			class:over={i === isOver}
+			class="dataItem">
+			<slot {item} {i}>
+			</slot>
+		</div>
+	{/each}
 {/if}
 
 <style lang="scss">
-	ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-	li {
+	.dataItem {
 		border: 2px dashed transparent;
-		border-radius: 10px;
+		border-radius: 5px;
+		margin: 5px;
 		transition: border 0.1s linear;
-		padding: 5px 5px;
 	}
-	.over {
+	.dataItem.over {
 		border-color: var(--appColorPriAccent);
 	}
 </style>

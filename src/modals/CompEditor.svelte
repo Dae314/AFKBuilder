@@ -785,17 +785,10 @@
 		flex-wrap: wrap;
 		justify-content: center;
 		width: 100%;
-		:global(ul) {
-			display: flex;
-			flex-wrap: wrap;
-			height: fit-content;
-			justify-content: center;
-			padding: 0;
-		}
-		:global(li) {
+		:global(div) {
 			border: 0;
+			margin: 0;
 			padding: 0;
-			height: fit-content;
 		}
 	}
 	.linePickerOption {
@@ -862,15 +855,13 @@
 		text-align: center;
 	}
 	.lineDisplay {
-		:global(ul) {
-			align-items: center;
-			display: flex;
-			width: 170px;
-			flex-direction: column-reverse;
-			height: 300px;
-			flex-wrap: wrap;
-			justify-content: center;
-		}
+		align-items: center;
+		display: flex;
+		width: 170px;
+		flex-direction: column-reverse;
+		height: 300px;
+		flex-wrap: wrap;
+		justify-content: center;
 	}
 	.lineButton {
 		margin: 5px;
@@ -1074,9 +1065,6 @@
 		}
 		.lineEditHead {
 			justify-content: flex-start;
-			:global(ul) {
-				justify-content: flex-start;
-			}
 		}
 		.lineEditBody {
 			border-radius: 0px 10px 10px 10px;
