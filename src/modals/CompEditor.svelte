@@ -949,7 +949,7 @@
 		display: flex;
 		width: 170px;
 		flex-direction: column-reverse;
-		height: 300px;
+		height: 290px;
 		flex-wrap: wrap;
 		justify-content: center;
 	}
