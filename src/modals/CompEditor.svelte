@@ -370,6 +370,20 @@
 		const newList = event.detail.newList.reverse();
 		comp.lines[openLine].heroes = newList;
 	}
+
+	function validateSubLine(list) {
+		// catch if a user dragged something we weren't expecting and exit
+		if(!Array.isArray(list)) return false;
+		for(const item of list) {
+			// don't allow overwrite if hero isn't in HeroData and isn't 'unknown'
+			if(!(item in $HeroData)) return false;
+		}
+		return true;
+	}
+
+	function handleSubSort(event) {
+		console.log(event.detail.newList);
+	}
 </script>
 
 <svelte:window on:popstate={handlePopState} />
@@ -517,7 +531,51 @@
 								<button class="removeButton" on:click={(e) => { deleteSub(i); e.stopPropagation(); }}><span>x</span></button>
 							</div>
 							<div class="subLine">
-								{#each sub.heroes as hero, j}
+								<SimpleSortableList
+									list={sub.heroes}
+									groupID="subLine-{i}"
+									validate={validateSubLine}
+									on:sort={handleSubSort}
+									let:item={hero}
+									let:i={j}>
+									<div class="subGroupMember">
+										<button class="heroButton" on:click={() => openHeroFinder({idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>
+											<img
+												draggable="false"
+												src={$HeroData.some(e => e.id === hero) ? heroLookup[hero].portrait : './img/portraits/unavailable.png'}
+												alt={$HeroData.some(e => e.id === hero) ? heroLookup[hero].name : 'Pick a Hero'}>
+											<button class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
+											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
+											<div class="ascMark subAscMark">
+												{#if comp.heroes[hero].ascendLv >= 6}
+													<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
+												{:else if comp.heroes[hero].ascendLv >= 4}
+													<img draggable="false" src="./img/markers/mythic.png" alt="mythic">
+												{:else if comp.heroes[hero].ascendLv >= 2}
+													<img draggable="false" src="./img/markers/legendary.png" alt="legendary">
+												{:else}
+													<img draggable="false" src="./img/markers/elite.png" alt="elite">
+												{/if}
+												{#if comp.heroes[hero].si >= 30}
+													<img draggable="false" src="./img/markers/si30.png" alt="si30">
+												{:else if comp.heroes[hero].si >= 20}
+													<img draggable="false" src="./img/markers/si20.png" alt="si20">
+												{:else if comp.heroes[hero].si >= 10}
+													<img draggable="false" src="./img/markers/si10.png" alt="si10">
+												{:else}
+													<img draggable="false" src="./img/markers/si0.png" alt="si0">
+												{/if}
+												{#if comp.heroes[hero].furn >= 9}
+													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+												{:else if comp.heroes[hero].furn >= 3}
+													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+												{/if}
+											</div>
+										</button>
+										<p>{heroLookup[hero].name}</p>
+									</div>
+								</SimpleSortableList>
+								<!-- {#each sub.heroes as hero, j}
 									<div class="subGroupMember">
 										<button class="heroButton" on:click={() => openHeroFinder({idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<img
@@ -554,7 +612,7 @@
 										</button>
 										<p>{heroLookup[hero].name}</p>
 									</div>
-								{/each}
+								{/each} -->
 								<button class="addHeroButton" on:click={() => openHeroFinder({idx: i, pos: sub.heroes.length, onSuccess: updateSubHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>+</button>
 							</div>
 						</div>

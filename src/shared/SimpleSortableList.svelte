@@ -96,7 +96,6 @@
 	.dataItem {
 		border: 2px dashed transparent;
 		border-radius: 5px;
-		margin: 5px;
 		transition: border 0.1s linear;
 	}
 	.dataItem.over {
