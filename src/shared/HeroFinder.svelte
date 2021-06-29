@@ -425,10 +425,10 @@
 			<div class="section2">
 				<div class="heroEditHead">
 					<button class="backButton" on:click={() => changeSection(1)}><span>&lt; Heroes</span></button>
-					<div class="heroName">{$HeroData.find(e => e.id === selectedHero.id).name}</div>
 					<button class="saveButton" on:click={() => saveHero()}><span>Save</span></button>
 				</div>
 				<div class="heroEditor">
+					<div class="heroName">{$HeroData.find(e => e.id === selectedHero.id).name}</div>
 					<div class="portraitArea">
 						<div class="siFlipButtonArea">
 							<FlipButton options="{['SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
@@ -776,6 +776,7 @@
 	.heroEditHead {
 		border-bottom: 1px solid black;
 		display: flex;
+		height: 40px;
 		padding: 5px;
 		position: relative;
 		width: 100%;
