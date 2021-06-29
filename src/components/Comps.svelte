@@ -33,7 +33,7 @@
 	md.use(Emoji);
 
 	$: sortedCompList = makeSortedCompList();
-	$: selectedUUID = $AppData.selectedComp !== null && sortedCompList[$AppData.selectedComp].uuid;
+	$: selectedUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : '';
 	$: highlightComp = null;
 	$: searchSuggestions = makeSearchSuggestions();
 
@@ -229,6 +229,7 @@
 			openDetail = false;
 		} else if($AppData.selectedComp > idx) {
 			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selUUID);
+			if($AppData.selectedComp === -1) $AppData.selectedComp = null;
 		}
 		dispatch('saveData');
 	}
@@ -361,6 +362,7 @@
 			$AppData.Comps = event.detail;
 			sortedCompList = makeSortedCompList();
 			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selectedUUID);
+			if($AppData.selectedComp === -1) $AppData.selectedComp = null;
 			dispatch('saveData');
 		}
 	}
