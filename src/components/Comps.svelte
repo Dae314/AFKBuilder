@@ -926,7 +926,7 @@
 		scroll-behavior: smooth;
 	}
 	.noComps {
-		bottom: 0;
+		bottom: 30%;
 		color: rgba(100, 100, 100, 0.3);
 		font-size: 3rem;
 		font-weight: bold;
