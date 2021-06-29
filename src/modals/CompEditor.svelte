@@ -7,7 +7,6 @@
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from '../shared/HeroFinder.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
-import { loop_guard, stop_propagation } from 'svelte/internal';
 
 	export let compID = null; // uuid for comp to be edited
 	export let onSuccess = () => {}; // save success callback
