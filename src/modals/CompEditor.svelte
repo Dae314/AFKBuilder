@@ -405,11 +405,12 @@
 					{#each comp.tags as tag, i}
 						<div class="tag">
 							<span class="tagText">{tag}</span>
-							<button class="removeTagButton" on:click={(e) => { removeTag(i); e.stopPropagation(); }}><span>x</span></button>
+							<button type="button" class="removeTagButton" on:click={(e) => { removeTag(i); e.stopPropagation(); }}><span>x</span></button>
 						</div>
 					{/each}
 					{#if !addTagOpen}
 						<button
+							type="button"
 							class="addTagButton"
 							class:noMargin={comp.tags.length === 0}
 							disabled={comp.tags.length >= $AppData.maxCompTags}
@@ -434,7 +435,7 @@
 								maxlength="20">
 							<div class="suggestions" class:open={openSuggestions}>
 								{#each tagSuggestions as suggestion}
-									<button class="suggestionButton" on:mousedown={() => takeTagSuggestion(suggestion)}><span>{suggestion}</span></button>
+									<button type="button" class="suggestionButton" on:mousedown={() => takeTagSuggestion(suggestion)}><span>{suggestion}</span></button>
 								{/each}
 							</div>
 						</div>
@@ -453,12 +454,12 @@
 						on:sort={handleLineSort}
 						let:item={line}
 						let:i={i}>
-						<button class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
+						<button type="button" class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
 							<span>{line.name}</span>
-							<button class="removeButton" class:open={openLine === i} on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
+							<button type="button" class="removeButton" class:open={openLine === i} on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
 						</button>
 					</SimpleSortableList>
-					<button class="linePickerOption addLineButton" on:click={addLine}>+</button>
+					<button type="button" class="linePickerOption addLineButton" on:click={addLine}>+</button>
 				</div>
 				<div class="lineEditBody">
 					{#if openLine === null}
@@ -474,15 +475,15 @@
 								let:item={hero}
 								let:i={i}>
 								{#if hero === 'unknown'}
-									<button class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
+									<button type="button" class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
 										<span>+</span>
 									</button>
 								{:else}
-									<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
+									<button type="button" class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
 										<div class="imgContainer">
 											<img draggable="false" src={heroLookup[hero].portrait} alt={heroLookup[hero].name}>
 											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-											<button class="removeHeroButton lineHeroButton" on:click={(e) => { removeLineHero(openLine, i); e.stopPropagation(); }}><span>x</span></button>
+											<button type="button" class="removeHeroButton lineHeroButton" on:click={(e) => { removeLineHero(openLine, i); e.stopPropagation(); }}><span>x</span></button>
 											<div class="ascMark">
 												{#if comp.heroes[hero].ascendLv >= 6}
 													<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
@@ -531,7 +532,7 @@
 						<div class="subGroup">
 							<div class="subTitle">
 								<input class="subTitleInput" type="text" bind:value={sub.name} placeholder="Subgroup Name" maxlength="50" class:maxed={sub.name.length >= 50}>
-								<button class="removeButton" on:click={(e) => { deleteSub(i); e.stopPropagation(); }}><span>x</span></button>
+								<button type="button" class="removeButton" on:click={(e) => { deleteSub(i); e.stopPropagation(); }}><span>x</span></button>
 							</div>
 							<div class="subLine">
 								<SimpleSortableList
@@ -542,12 +543,12 @@
 									let:item={hero}
 									let:i={j}>
 									<div class="subGroupMember">
-										<button class="heroButton" on:click={() => openHeroFinder({idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>
+										<button type="button" class="heroButton" on:click={() => openHeroFinder({idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<img
 												draggable="false"
 												src={$HeroData.some(e => e.id === hero) ? heroLookup[hero].portrait : './img/portraits/unavailable.png'}
 												alt={$HeroData.some(e => e.id === hero) ? heroLookup[hero].name : 'Pick a Hero'}>
-											<button class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
+											<button type="button" class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
 											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 											<div class="ascMark subAscMark">
 												{#if comp.heroes[hero].ascendLv >= 6}
@@ -580,12 +581,12 @@
 								</SimpleSortableList>
 								<!-- {#each sub.heroes as hero, j}
 									<div class="subGroupMember">
-										<button class="heroButton" on:click={() => openHeroFinder({idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>
+										<button type="button" class="heroButton" on:click={() => openHeroFinder({idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<img
 												draggable="false"
 												src={$HeroData.some(e => e.id === hero) ? heroLookup[hero].portrait : './img/portraits/unavailable.png'}
 												alt={$HeroData.some(e => e.id === hero) ? heroLookup[hero].name : 'Pick a Hero'}>
-											<button class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
+											<button type="button" class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
 											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 											<div class="ascMark subAscMark">
 												{#if comp.heroes[hero].ascendLv >= 6}
@@ -616,20 +617,20 @@
 										<p>{heroLookup[hero].name}</p>
 									</div>
 								{/each} -->
-								<button class="addHeroButton" on:click={() => openHeroFinder({idx: i, pos: sub.heroes.length, onSuccess: updateSubHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>+</button>
+								<button type="button" class="addHeroButton" on:click={() => openHeroFinder({idx: i, pos: sub.heroes.length, onSuccess: updateSubHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>+</button>
 							</div>
 						</div>
 					{/each}
 					<div class="newSubArea">
-						<button class="subAddButton" on:click={addSub}>Add Substitute Line</button>
+						<button type="button" class="subAddButton" on:click={addSub}>Add Substitute Line</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="footer">
-			<button class="footerButton draftButton" on:click={saveDraft}>Save Draft</button>
-			<button class="footerButton saveButton" on:click={() => { comp.draft = false; saveEdit(); }}>Save</button>
-			<button class="footerButton cancelButton" on:click={cancelEdit}>Cancel</button>
+			<button type="button" class="footerButton draftButton" on:click={saveDraft}>Save Draft</button>
+			<button type="button" class="footerButton saveButton" on:click={() => { comp.draft = false; saveEdit(); }}>Save</button>
+			<button type="button" class="footerButton cancelButton" on:click={cancelEdit}>Cancel</button>
 		</div>
 	</section>
 	<section class="sect2" class:visible={heroFinderOpen}>

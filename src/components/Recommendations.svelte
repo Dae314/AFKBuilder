@@ -149,7 +149,7 @@
 		<ul class="sectionPicker">
 			{#each sections as section, i}
 			<li>
-				<button class="sectionButton" class:active={$AppData.REC.openSection === i} on:click={() => { $AppData.REC.openSection = i; dispatch('saveData');} }>{section}</button>
+				<button type="button" class="sectionButton" class:active={$AppData.REC.openSection === i} on:click={() => { $AppData.REC.openSection = i; dispatch('saveData');} }>{section}</button>
 			</li>
 			{/each}
 		</ul>
@@ -161,11 +161,11 @@
 				{#each recommendations.filter(e => e.type === 'ascend').sort(sortByCore) as rec (rec.id+'_asc')}
 					<div class="recCard" animate:flip="{{duration: 200}}">
 						<div class="claimButtonArea">
-							<button class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'asc')}>&#10004;</button>
+							<button type="button" class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'asc')}>&#10004;</button>
 						</div>
 						<h4>{$HeroData.find(e => e.id === rec.id).name}</h4>
 						<div class="portraitContainer">
-							<button class="portraitButton" on:click={() => handlePortraitClick(rec.id)}>
+							<button type="button" class="portraitButton" on:click={() => handlePortraitClick(rec.id)}>
 								<img class="portrait" src={$HeroData.find(e => e.id === rec.id).portrait} alt={$HeroData.find(e => e.id === rec.id).name}>
 								<span class="coreMark" class:visible={rec.core}></span>
 							</button>
@@ -177,7 +177,7 @@
 							<h5>Used in</h5>
 							<ul>
 							{#each rec.comps as comp}
-								<li><button class="compButton" on:click={() => handleCompClick(comp.id)}>{comp.name}</button></li>
+								<li><button type="button" class="compButton" on:click={() => handleCompClick(comp.id)}>{comp.name}</button></li>
 							{/each}
 							</ul>
 						</div>
@@ -195,11 +195,11 @@
 				{#each recommendations.filter(e => e.type === 'si').sort(sortByCore) as rec (rec.id+'_si')}
 					<div class="recCard" animate:flip="{{duration: 200}}">
 						<div class="claimButtonArea">
-							<button class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'si')}>&#10004;</button>
+							<button type="button" class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'si')}>&#10004;</button>
 						</div>
 						<h4>{$HeroData.find(e => e.id === rec.id).name}</h4>
 						<div class="portraitContainer">
-							<button class="portraitButton" on:click={() => handlePortraitClick(rec.id)}>
+							<button type="button" class="portraitButton" on:click={() => handlePortraitClick(rec.id)}>
 								<img class="portrait" src={$HeroData.find(e => e.id === rec.id).portrait} alt={$HeroData.find(e => e.id === rec.id).name}>
 								<span class="coreMark" class:visible={rec.core}></span>
 							</button>
@@ -211,7 +211,7 @@
 							<h5>Used in</h5>
 							<ul>
 							{#each rec.comps as comp}
-								<li><button class="compButton" on:click={() => handleCompClick(comp.id)}>{comp.name}</button></li>
+								<li><button type="button" class="compButton" on:click={() => handleCompClick(comp.id)}>{comp.name}</button></li>
 							{/each}
 							</ul>
 						</div>
@@ -229,11 +229,11 @@
 				{#each recommendations.filter(e => e.type === 'furn').sort(sortByCore) as rec (rec.id+'_furn')}
 					<div class="recCard" animate:flip="{{duration: 200}}">
 						<div class="claimButtonArea">
-							<button class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'furn')}>&#10004;</button>
+							<button type="button" class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'furn')}>&#10004;</button>
 						</div>
 						<h4>{$HeroData.find(e => e.id === rec.id).name}</h4>
 						<div class="portraitContainer">
-							<button class="portraitButton" on:click={() => handlePortraitClick(rec.id)}>
+							<button type="button" class="portraitButton" on:click={() => handlePortraitClick(rec.id)}>
 								<img class="portrait" src={$HeroData.find(e => e.id === rec.id).portrait} alt={$HeroData.find(e => e.id === rec.id).name}>
 								<span class="coreMark" class:visible={rec.core}></span>
 							</button>
@@ -245,7 +245,7 @@
 							<h5>Used in</h5>
 							<ul>
 							{#each rec.comps as comp}
-								<li><button class="compButton" on:click={() => handleCompClick(comp.id)}>{comp.name}</button></li>
+								<li><button type="button" class="compButton" on:click={() => handleCompClick(comp.id)}>{comp.name}</button></li>
 							{/each}
 							</ul>
 						</div>

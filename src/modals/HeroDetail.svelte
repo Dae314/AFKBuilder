@@ -50,7 +50,7 @@
 							<img draggable="false" on:click="{() => handlePortraitClick(hero.id)}" class="portrait {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}" src={hero.portrait} alt={hero.name}>
 						</div>
 						<div class="flipCardBack">
-							<button on:click="{() => handlePortraitClick(hero.id)}" class="claimButton {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}">{$AppData.MH.List[hero.id].claimed ? 'Unclaim' : 'Claim'}</button>
+							<button type="button" on:click="{() => handlePortraitClick(hero.id)}" class="claimButton {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}">{$AppData.MH.List[hero.id].claimed ? 'Unclaim' : 'Claim'}</button>
 						</div>
 					</div>
 				</div>
@@ -79,7 +79,7 @@
 	</section>
 	<section class="skillsSection">
 		<div class="mobileExpanderTitle">
-			<button class="expanderButton" on:click={() => openSkills = !openSkills}><i class="arrow {openSkills ? 'down' : 'right' }"></i>Skills</button>
+			<button type="button" class="expanderButton" on:click={() => openSkills = !openSkills}><i class="arrow {openSkills ? 'down' : 'right' }"></i>Skills</button>
 		</div>
 		<div class="mobileExpander {openSkills ? 'isOpen' : '' }">
 			<div class="skillDisplay">
@@ -106,7 +106,7 @@
 	</section>
 	<section class="sigItemSection">
 		<div class="mobileExpanderTitle">
-			<button class="expanderButton" on:click={() => openSI = !openSI}><i class="arrow {openSI ? 'down' : 'right' }"></i>Signature Item</button>
+			<button type="button" class="expanderButton" on:click={() => openSI = !openSI}><i class="arrow {openSI ? 'down' : 'right' }"></i>Signature Item</button>
 		</div>
 		<div class="mobileExpander {openSI ? 'isOpen' : '' }">
 			<div class="siFurnArea">
@@ -127,7 +127,7 @@
 	</section>
 	<section class="furnitureSection">
 		<div class="mobileExpanderTitle">
-			<button class="expanderButton" on:click={() => openFurn = !openFurn}><i class="arrow {openFurn ? 'down' : 'right' }"></i>Furniture</button>
+			<button type="button" class="expanderButton" on:click={() => openFurn = !openFurn}><i class="arrow {openFurn ? 'down' : 'right' }"></i>Furniture</button>
 		</div>
 		<div class="mobileExpander {openFurn ? 'isOpen' : '' }">
 			<div class="siFurnArea">

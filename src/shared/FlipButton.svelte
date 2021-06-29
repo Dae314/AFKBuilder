@@ -17,6 +17,7 @@
 </script>
 
 <button
+	type="button"
 	class="flipButton"
 	on:click={handleClick}
 	style="{ Array.isArray(optionStyles) && optionStyles[curOption] !== null ? optionStyles[curOption] : ''}"
