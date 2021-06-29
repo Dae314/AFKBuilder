@@ -439,7 +439,7 @@ import { loop_guard, stop_propagation } from 'svelte/internal';
 						let:i={i}>
 						<button class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
 							<span>{line.name}</span>
-							<button class="removeButton" on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
+							<button class="removeButton" class:open={openLine === i} on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
 						</button>
 					</SimpleSortableList>
 					<button class="linePickerOption addLineButton" on:click={addLine}>+</button>
@@ -839,7 +839,18 @@ import { loop_guard, stop_propagation } from 'svelte/internal';
 			height: 10px;
 			justify-content: center;
 			margin-left: 5px;
+			opacity: 0;
+			transition: opacity 0.2s;
+			visibility: hidden;
 			width: 10px;
+		}
+		&:hover .removeButton {
+			opacity: 1;
+			visibility: visible;
+		}
+		.removeButton.open {
+			opacity: 1;
+			visibility: visible;
 		}
 	}
 	.linePickerOption.open {
