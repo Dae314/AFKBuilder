@@ -681,6 +681,9 @@
 			display: inline-block;
 			visibility: visible;
 		}
+		.heroTable {
+			max-width: 1500px;
+		}
 		table {
 			width: 90%;
 		}
