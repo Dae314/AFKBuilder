@@ -69,7 +69,7 @@
 		newList[from] = [newList[to], (newList[to] = newList[from])][0];
 		if(validate(newList)) {
 			localList[from] = [localList[to], (localList[to] = localList[from])][0];
-			dispatch("sort", {newList: newList, from: from, to: to});
+			dispatch("sort", {newList: newList, from: from, to: to, groupID: groupID,});
 		}
 	}
 </script>

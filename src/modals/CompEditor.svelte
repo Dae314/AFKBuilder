@@ -361,7 +361,7 @@
 		if(list.length !== 5) return false;
 		for(const item of list) {
 			// don't allow overwrite if hero isn't in HeroData and isn't 'unknown'
-			if(!(item in $HeroData) && !item === 'unknown') return false;
+			if(!$HeroData.some(e => e.id === item) && !item === 'unknown') return false;
 		}
 		return true;
 	}
@@ -375,14 +375,17 @@
 		// catch if a user dragged something we weren't expecting and exit
 		if(!Array.isArray(list)) return false;
 		for(const item of list) {
-			// don't allow overwrite if hero isn't in HeroData and isn't 'unknown'
-			if(!(item in $HeroData)) return false;
+			// don't allow overwrite if hero isn't in HeroData
+			if(!$HeroData.some(e => e.id === item)) return false;
 		}
 		return true;
 	}
 
 	function handleSubSort(event) {
-		console.log(event.detail.newList);
+		const newList = event.detail.newList;
+		const group = event.detail.groupID;
+		const subIdx = parseInt(group.slice(8, group.length));
+		comp.subs[subIdx].heroes = newList;
 	}
 </script>
 
