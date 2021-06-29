@@ -334,6 +334,8 @@
 			await tick();
 			document.querySelector('#searchBox').focus();
 		}
+		// scroll back to top
+		document.getElementById('hfContainer').scrollTop = 0;
 	}
 </script>
 
@@ -341,7 +343,7 @@
 	<div class="modalCloseContainer">
 		<ModalCloseButton onClose={close} />
 	</div>
-	<div class="heroFinderContainer" on:click={(e) => e.stopPropagation()}>
+	<div id="hfContainer" class="heroFinderContainer" on:click={(e) => e.stopPropagation()}>
 		{#if section === 1}
 			<div class="section1">
 				<div class="mobileExpanderTitle">
