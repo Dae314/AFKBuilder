@@ -1582,10 +1582,10 @@
 	}
 	@media only screen and (min-width: 767px) {
 		.sect1 {
+			max-width: 375px;
 			width: 21%;
 		}
 		.sect2 {
-			max-width: 79%;
 			width: 79%;
 		}
 		.owFooterButton {
@@ -1604,6 +1604,9 @@
 		}
 		.noComps {
 			font-size: 2.5rem;
+		}
+		.newCompOptionsArea {
+			max-width: 375px;
 		}
 		.compDetails {
 			max-width: 100%;
