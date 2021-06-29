@@ -6,7 +6,7 @@
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from '../shared/HeroFinder.svelte';
-	import SortableList from '../shared/SortableList.svelte';
+	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
 
 	export let compID = null; // uuid for comp to be edited
 	export let onSuccess = () => {}; // save success callback
@@ -40,6 +40,7 @@
 	let openSuggestions = false;
 	let autosave;
 	let editor; // ToastUI editor
+	const heroLookup = makeHeroLookup();
 
 	onMount(async () => {
 		history.pushState({view: $AppData.activeView, modal: true, comp: true}, "Comp Editor", `?view=${$AppData.activeView}&comp=true&modal=true`);
@@ -97,6 +98,17 @@
 		suggestions.sort();
 
 		return suggestions;
+	}
+
+	function makeHeroLookup() {
+		let lookup = {}
+		for(const hero of $HeroData) {
+			lookup[hero.id] = {
+				portrait: hero.portrait,
+				name: hero.name
+			};
+		}
+		return lookup;
 	}
 
 	function deleteLine(lineIdx) {
@@ -223,7 +235,9 @@
 	}
 
 	function updateLineHero(idx, pos, hero, oldHeroID) {
-		comp.lines[idx].heroes[pos] = hero.id;
+		// need to reverse the list to update the right hero due to how the list is displayed
+		let rHeroes = [...comp.lines[idx].heroes].reverse();
+		rHeroes[pos] = hero.id;
 		comp.heroes[hero.id] = {
 			ascendLv: hero.ascendLv,
 			si: hero.si,
@@ -232,6 +246,8 @@
 			core: hero.core,
 			notes: hero.notes,
 		}
+		// reverse it back for storage
+		comp.lines[idx].heroes = rHeroes.reverse();
 		// check if the last reference to the old hero was replaced, and remove it if necessary
 		if(oldHeroID !== '' && oldHeroID !== hero.id) removeHeroesReference(oldHeroID);
 	}
@@ -257,8 +273,12 @@
 	}
 
 	function removeLineHero(lineIdx, heroIdx) {
-		const heroID = comp.lines[lineIdx].heroes[heroIdx];
-		comp.lines[lineIdx].heroes[heroIdx] = 'unknown';
+		// need to reverse the list to remove the right hero due to how the list is displayed
+		let rHeroes = [...comp.lines[lineIdx].heroes].reverse();
+		const heroID = rHeroes[heroIdx];
+		rHeroes[heroIdx] = 'unknown';
+		// reverse it back for storage
+		comp.lines[lineIdx].heroes = rHeroes.reverse();
 		removeHeroesReference(heroID);
 	}
 
@@ -305,16 +325,67 @@
 
 	function takeTagSuggestion(suggestion) {
 		newTagText = suggestion;
-		console.log(suggestion);
 		handleAddTag();
 	}
 
-	function handleLineSort(event) {
+	function validateLineEditHead(list) {
 		// catch if a user dragged something we weren't expecting and exit
-		if(!Array.isArray(event.detail)) return 0;
+		if(!Array.isArray(list)) return false;
 		// don't allow overwrite if there are missing lines
-		if(event.detail.length !== comp.lines.length) return 0;
-		comp.lines = event.detail;
+		if(list.length !== comp.lines.length) return false;
+		for(const item of list) {
+			// don't allow overwrite if list is not a list of objects
+			if(Object.prototype.toString.call(item) !== '[object Object]') return false;
+		}
+		return true;
+	}
+
+	function handleLineSort(event) {
+		const newList = event.detail.newList;
+		const from = parseInt(event.detail.from);
+		const to = parseInt(event.detail.to);
+		comp.lines = newList;
+		if(openLine !== null) {
+			if(openLine === from) {
+				openLine = to;
+			} else if(openLine === to) {
+				openLine = from;
+			}
+		}
+	}
+
+	function validateLineDisplay(list) {
+		// catch if a user dragged something we weren't expecting and exit
+		if(!Array.isArray(list)) return false;
+		// don't allow overwrite if there are missing/additional heroes
+		if(list.length !== 5) return false;
+		for(const item of list) {
+			// don't allow overwrite if hero isn't in HeroData and isn't 'unknown'
+			if(!$HeroData.some(e => e.id === item) && !item === 'unknown') return false;
+		}
+		return true;
+	}
+
+	function handleLineDisplaySort(event) {
+		const newList = event.detail.newList.reverse();
+		comp.lines[openLine].heroes = newList;
+	}
+
+	function validateSubLine(list) {
+		// catch if a user dragged something we weren't expecting and exit
+		if(!Array.isArray(list)) return false;
+		for(const item of list) {
+			// don't allow overwrite if hero isn't in HeroData
+			if(!$HeroData.some(e => e.id === item)) return false;
+		}
+		return true;
+	}
+
+	function handleSubSort(event) {
+		const newList = event.detail.newList;
+		const group = event.detail.groupID;
+		const subIdx = parseInt(group.slice(8, group.length));
+		comp.subs[subIdx].heroes = newList;
 	}
 </script>
 
@@ -375,16 +446,18 @@
 			<div class="lineEditor">
 				<h4 class="lineEditorTitle">Lines</h4>
 				<div class="lineEditHead">
-					<SortableList
+					<SimpleSortableList
 						list={comp.lines}
+						groupID="lineEditHead"
+						validate={validateLineEditHead}
 						on:sort={handleLineSort}
 						let:item={line}
-						let:index={i}>
+						let:i={i}>
 						<button class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
 							<span>{line.name}</span>
-							<button class="removeButton" on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
+							<button class="removeButton" class:open={openLine === i} on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
 						</button>
-					</SortableList>
+					</SimpleSortableList>
 					<button class="linePickerOption addLineButton" on:click={addLine}>+</button>
 				</div>
 				<div class="lineEditBody">
@@ -393,96 +466,53 @@
 					{:else}
 						<input type="text" class="lineNameInput" bind:value={comp.lines[openLine].name} placeholder="Line Name" maxlength="30" class:maxed={comp.lines[openLine].name.length >= 30}>
 						<div class="lineDisplay">
-							<div class="backline">
-								{#each comp.lines[openLine].heroes as  hero, i}
-								{#if i >= 2}
-									{#if hero === 'unknown'}
-										<button class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
-											<span>+</span>
-										</button>
-									{:else}
-										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
-											<div class="imgContainer">
-												<img draggable="false" src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
-												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
-												<div class="ascMark">
-													{#if comp.heroes[hero].ascendLv >= 6}
-														<img src="./img/markers/ascended.png" alt="ascended">
-													{:else if comp.heroes[hero].ascendLv >= 4}
-														<img src="./img/markers/mythic.png" alt="mythic">
-													{:else if comp.heroes[hero].ascendLv >= 2}
-														<img src="./img/markers/legendary.png" alt="legendary">
-													{:else}
-														<img src="./img/markers/elite.png" alt="elite">
-													{/if}
-													{#if comp.heroes[hero].si >= 30}
-														<img src="./img/markers/si30.png" alt="si30">
-													{:else if comp.heroes[hero].si >= 20}
-														<img src="./img/markers/si20.png" alt="si20">
-													{:else if comp.heroes[hero].si >= 10}
-														<img src="./img/markers/si10.png" alt="si10">
-													{:else}
-														<img src="./img/markers/si0.png" alt="si0">
-													{/if}
-													{#if comp.heroes[hero].furn >= 9}
-														<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-													{:else if comp.heroes[hero].furn >= 3}
-														<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-													{/if}
-												</div>
+							<SimpleSortableList
+								list={[...comp.lines[openLine].heroes].reverse()}
+								groupID="lineDisplay"
+								validate={validateLineDisplay}
+								on:sort={handleLineDisplaySort}
+								let:item={hero}
+								let:i={i}>
+								{#if hero === 'unknown'}
+									<button class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
+										<span>+</span>
+									</button>
+								{:else}
+									<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
+										<div class="imgContainer">
+											<img draggable="false" src={heroLookup[hero].portrait} alt={heroLookup[hero].name}>
+											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
+											<button class="removeHeroButton lineHeroButton" on:click={(e) => { removeLineHero(openLine, i); e.stopPropagation(); }}><span>x</span></button>
+											<div class="ascMark">
+												{#if comp.heroes[hero].ascendLv >= 6}
+													<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
+												{:else if comp.heroes[hero].ascendLv >= 4}
+													<img draggable="false" src="./img/markers/mythic.png" alt="mythic">
+												{:else if comp.heroes[hero].ascendLv >= 2}
+													<img draggable="false" src="./img/markers/legendary.png" alt="legendary">
+												{:else}
+													<img draggable="false" src="./img/markers/elite.png" alt="elite">
+												{/if}
+												{#if comp.heroes[hero].si >= 30}
+													<img draggable="false" src="./img/markers/si30.png" alt="si30">
+												{:else if comp.heroes[hero].si >= 20}
+													<img draggable="false" src="./img/markers/si20.png" alt="si20">
+												{:else if comp.heroes[hero].si >= 10}
+													<img draggable="false" src="./img/markers/si10.png" alt="si10">
+												{:else}
+													<img draggable="false" src="./img/markers/si0.png" alt="si0">
+												{/if}
+												{#if comp.heroes[hero].furn >= 9}
+													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+												{:else if comp.heroes[hero].furn >= 3}
+													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+												{/if}
 											</div>
-										</button>
-										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes,})}>{$HeroData.find(e => e.id === hero).name}</p>
-									{/if}
+										</div>
+										<p>{heroLookup[hero].name}</p>
+									</button>
 								{/if}
-								{/each}
-							</div>
-							<div class="frontline">
-								{#each comp.lines[openLine].heroes as  hero, i}
-								{#if i < 2}
-									{#if hero === 'unknown'}
-										<button class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
-											<span>+</span>
-										</button>
-									{:else}
-										<button class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
-											<div class="imgContainer">
-												<img draggable="false" src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
-												<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-												<button class="removeHeroButton lineHeroButton" on:click={() => removeLineHero(openLine, i)}><span>x</span></button>
-												<div class="ascMark">
-													{#if comp.heroes[hero].ascendLv >= 6}
-														<img src="./img/markers/ascended.png" alt="ascended">
-													{:else if comp.heroes[hero].ascendLv >= 4}
-														<img src="./img/markers/mythic.png" alt="mythic">
-													{:else if comp.heroes[hero].ascendLv >= 2}
-														<img src="./img/markers/legendary.png" alt="legendary">
-													{:else}
-														<img src="./img/markers/elite.png" alt="elite">
-													{/if}
-													{#if comp.heroes[hero].si >= 30}
-														<img src="./img/markers/si30.png" alt="si30">
-													{:else if comp.heroes[hero].si >= 20}
-														<img src="./img/markers/si20.png" alt="si20">
-													{:else if comp.heroes[hero].si >= 10}
-														<img src="./img/markers/si10.png" alt="si10">
-													{:else}
-														<img src="./img/markers/si0.png" alt="si0">
-													{/if}
-													{#if comp.heroes[hero].furn >= 9}
-														<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-													{:else if comp.heroes[hero].furn >= 3}
-														<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-													{/if}
-												</div>
-											</div>
-										</button>
-										<p class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>{$HeroData.find(e => e.id === hero).name}</p>
-									{/if}
-								{/if}
-								{/each}
-							</div>
+							</SimpleSortableList>
 						</div>
 					{/if}
 				</div>
@@ -504,13 +534,57 @@
 								<button class="removeButton" on:click={(e) => { deleteSub(i); e.stopPropagation(); }}><span>x</span></button>
 							</div>
 							<div class="subLine">
-								{#each sub.heroes as hero, j}
+								<SimpleSortableList
+									list={sub.heroes}
+									groupID="subLine-{i}"
+									validate={validateSubLine}
+									on:sort={handleSubSort}
+									let:item={hero}
+									let:i={j}>
 									<div class="subGroupMember">
 										<button class="heroButton" on:click={() => openHeroFinder({idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>
 											<img
 												draggable="false"
-												src={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).portrait : './img/portraits/unavailable.png'}
-												alt={$HeroData.some(e => e.id === hero) ? $HeroData.find(e => e.id === hero).name : 'Pick a Hero'}>
+												src={$HeroData.some(e => e.id === hero) ? heroLookup[hero].portrait : './img/portraits/unavailable.png'}
+												alt={$HeroData.some(e => e.id === hero) ? heroLookup[hero].name : 'Pick a Hero'}>
+											<button class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
+											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
+											<div class="ascMark subAscMark">
+												{#if comp.heroes[hero].ascendLv >= 6}
+													<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
+												{:else if comp.heroes[hero].ascendLv >= 4}
+													<img draggable="false" src="./img/markers/mythic.png" alt="mythic">
+												{:else if comp.heroes[hero].ascendLv >= 2}
+													<img draggable="false" src="./img/markers/legendary.png" alt="legendary">
+												{:else}
+													<img draggable="false" src="./img/markers/elite.png" alt="elite">
+												{/if}
+												{#if comp.heroes[hero].si >= 30}
+													<img draggable="false" src="./img/markers/si30.png" alt="si30">
+												{:else if comp.heroes[hero].si >= 20}
+													<img draggable="false" src="./img/markers/si20.png" alt="si20">
+												{:else if comp.heroes[hero].si >= 10}
+													<img draggable="false" src="./img/markers/si10.png" alt="si10">
+												{:else}
+													<img draggable="false" src="./img/markers/si0.png" alt="si0">
+												{/if}
+												{#if comp.heroes[hero].furn >= 9}
+													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+												{:else if comp.heroes[hero].furn >= 3}
+													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+												{/if}
+											</div>
+										</button>
+										<p>{heroLookup[hero].name}</p>
+									</div>
+								</SimpleSortableList>
+								<!-- {#each sub.heroes as hero, j}
+									<div class="subGroupMember">
+										<button class="heroButton" on:click={() => openHeroFinder({idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>
+											<img
+												draggable="false"
+												src={$HeroData.some(e => e.id === hero) ? heroLookup[hero].portrait : './img/portraits/unavailable.png'}
+												alt={$HeroData.some(e => e.id === hero) ? heroLookup[hero].name : 'Pick a Hero'}>
 											<button class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
 											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 											<div class="ascMark subAscMark">
@@ -539,9 +613,9 @@
 												{/if}
 											</div>
 										</button>
-										<p>{$HeroData.find(e => e.id === hero).name}</p>
+										<p>{heroLookup[hero].name}</p>
 									</div>
-								{/each}
+								{/each} -->
 								<button class="addHeroButton" on:click={() => openHeroFinder({idx: i, pos: sub.heroes.length, onSuccess: updateSubHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>+</button>
 							</div>
 						</div>
@@ -790,17 +864,10 @@
 		flex-wrap: wrap;
 		justify-content: center;
 		width: 100%;
-		:global(ul) {
-			display: flex;
-			flex-wrap: wrap;
-			height: fit-content;
-			justify-content: center;
-			padding: 0;
-		}
-		:global(li) {
+		:global(div) {
 			border: 0;
+			margin: 0;
 			padding: 0;
-			height: fit-content;
 		}
 	}
 	.linePickerOption {
@@ -832,7 +899,18 @@
 			height: 10px;
 			justify-content: center;
 			margin-left: 5px;
+			opacity: 0;
+			transition: opacity 0.2s;
+			visibility: hidden;
 			width: 10px;
+		}
+		&:hover .removeButton {
+			opacity: 1;
+			visibility: visible;
+		}
+		.removeButton.open {
+			opacity: 1;
+			visibility: visible;
 		}
 	}
 	.linePickerOption.open {
@@ -869,25 +947,11 @@
 	.lineDisplay {
 		align-items: center;
 		display: flex;
-		flex-direction: row;
+		width: 170px;
+		flex-direction: column-reverse;
+		height: 300px;
+		flex-wrap: wrap;
 		justify-content: center;
-		padding: 10px;
-		p {
-			margin-bottom: 10px;
-		}
-	}
-	.frontline {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-	.backline {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		margin-right: 10px;
 	}
 	.lineButton {
 		margin: 5px;
@@ -896,11 +960,24 @@
 		background: transparent;
 		border: none;
 		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
 		padding: 0;
 		position: relative;
 		img {
 			border-radius: 50%;
 			max-width: 60px;
+		}
+		p {
+			font-weight: bold;
+			margin: 0;
+			overflow: hidden;
+			text-align: center;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			width: 70px;
 		}
 	}
 	.imgContainer {
@@ -1078,9 +1155,6 @@
 		}
 		.lineEditHead {
 			justify-content: flex-start;
-			:global(ul) {
-				justify-content: flex-start;
-			}
 		}
 		.lineEditBody {
 			border-radius: 0px 10px 10px 10px;

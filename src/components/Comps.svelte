@@ -149,7 +149,7 @@
 				},
 				{ closeButton: ModalCloseButton,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
-					styleWindow: {width: editorWidth,},
+					styleWindow: {width: editorWidth, maxWidth: '1200px',},
 					closeOnOuterClick: false,
 				});
 	}
@@ -160,7 +160,7 @@
 				{ closeButton: ModalCloseButton,
 					closeOnOuterClick: false,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
-					styleWindow: {width: editorWidth,},
+					styleWindow: {width: editorWidth, maxWidth: '1200px',},
 				});
 	}
 
@@ -168,11 +168,9 @@
 		sortedCompList = makeSortedCompList();
 		searchSuggestions = makeSearchSuggestions();
 		highlightComp = sortedCompList.findIndex(e => e.uuid === uuid);
-		if(type === 'new') {
-			$AppData.selectedComp = highlightComp;
-			selectedHero = '';
-			selectedLine = 0;
-		}
+		selectedHero = '';
+		selectedLine = 0;
+		if(type === 'new') $AppData.selectedComp = highlightComp;
 		await tick();
 		document.getElementById(`comp${highlightComp}`).scrollIntoView();
 		setTimeout(() => highlightComp = null, 2000);
@@ -928,7 +926,7 @@
 		scroll-behavior: smooth;
 	}
 	.noComps {
-		bottom: 0;
+		bottom: 30%;
 		color: rgba(100, 100, 100, 0.3);
 		font-size: 3rem;
 		font-weight: bold;
@@ -1010,6 +1008,7 @@
 	.compDetails.open {
 		max-width: 100%;
 		padding: 10px;
+		width: 100%;
 		visibility: visible;
 	}
 	.compDetailHead {
@@ -1583,10 +1582,10 @@
 	}
 	@media only screen and (min-width: 767px) {
 		.sect1 {
+			max-width: 375px;
 			width: 21%;
 		}
 		.sect2 {
-			max-width: 79%;
 			width: 79%;
 		}
 		.owFooterButton {
@@ -1605,6 +1604,9 @@
 		}
 		.noComps {
 			font-size: 2.5rem;
+		}
+		.newCompOptionsArea {
+			max-width: 375px;
 		}
 		.compDetails {
 			max-width: 100%;

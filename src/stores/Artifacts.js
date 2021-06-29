@@ -288,6 +288,20 @@ const Artifacts = readable({
 		attributes: ['CA', 'ATK', 'HP'],
 		class: 'Mage',
 	},
+	wingwarden: {
+		name: 'Winged Warden',
+		image: './img/artifacts/wingwarden.jpg',
+		upgrades: [
+			{ unlock: 0,
+				desc: 'When the wielder receives damage from an enemy hero for the first time, the wielder shall steal Health Regeneration and Energy Recovery from the attacker for the following <em>5</em> seconds.',
+			},
+			{ unlock: 3,
+				desc: 'When the wielder receives damage from an enemy hero for the first time, the wielder shall steal Health Regeneration and Energy Recovery from the attacker for the following <em>7</em> seconds.',
+			},
+		],
+		attributes: ['HASTE', 'ATK', 'HP'],
+		class: 'Mage',
+	},
 });
 
 export default Artifacts;
