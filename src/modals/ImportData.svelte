@@ -62,7 +62,7 @@
 			<div class="statusText" class:error={status > 0} class:visible={status >= 0}><span>{statusMsg}</span></div>
 		</div>
 		<div class="submitArea">
-			<button class="submitButton" on:click={handleImport}>Import</button>
+			<button type="button" class="submitButton" on:click={handleImport}>Import</button>
 		</div>
 	</div>
 </div>

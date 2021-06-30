@@ -33,8 +33,8 @@
 <div class="confirmContainer">
 	<div class="text"><span>{message}</span></div>
 	<div class="optionsArea">
-		<button class="optionButton confirmButton" on:click={handleConfirm}>Yes</button>
-		<button class="optionButton cancelButton" on:click={handleCancel}>Cancel</button>
+		<button type="button" class="optionButton confirmButton" on:click={handleConfirm}>Yes</button>
+		<button type="button" class="optionButton cancelButton" on:click={handleCancel}>Cancel</button>
 	</div>
 </div>
 

@@ -408,7 +408,7 @@
 				placeholder="Filter name or tags">
 			<div class="suggestions" class:open={openSuggestions}>
 				{#each searchSuggestions as suggestion}
-					<button class="suggestionButton" on:click={() => takeSuggestion(suggestion)}><span>{suggestion}</span></button>
+					<button type="button" class="suggestionButton" on:click={() => takeSuggestion(suggestion)}><span>{suggestion}</span></button>
 				{/each}
 			</div>
 		</div>
@@ -445,13 +445,13 @@
 		</div>
 		<div class="addButtonArea">
 			<div class="newCompOptionsArea">
-				<button class="newCompOptionButton" on:click={handleImportButtonClick}>
+				<button type="button" class="newCompOptionButton" on:click={handleImportButtonClick}>
 					<div class="imgContainer">
 						<img draggable="false" class="importButtonIcon" src="./img/utility/import.png" alt="Import">
 					</div>
 					<span>Import</span>
 				</button>
-				<button class="newCompOptionButton" on:click={handleNewButtonClick}>
+				<button type="button" class="newCompOptionButton" on:click={handleNewButtonClick}>
 					<span class="plusIcon">+</span>
 					<span>New</span>
 				</button>
@@ -463,16 +463,16 @@
 			{#if $AppData.selectedComp !== null}
 				<div class="compDetailHead">
 					<div class="closeButtonContainer">
-						<button class="detailButton closeDetailButton" on:click={handleCloseButtonClick}><i class="arrow left"></i>Close</button>
+						<button type="button" class="detailButton closeDetailButton" on:click={handleCloseButtonClick}><i class="arrow left"></i>Close</button>
 					</div>
 					<div class="titleContainer">
 						<h3 class="compTitle">{sortedCompList[$AppData.selectedComp].name}</h3>
 						<p class="authorTitle">{sortedCompList[$AppData.selectedComp].author}</p>
 					</div>
 					<div class="editContainer">
-						<button class="editDelButton exportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/export.png" alt="Export"><span>Export</span></button>
-						<button class="editDelButton editButton" on:click={() => handleEditButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/pencil.png" alt="Edit"><span>Edit</span></button>
-						<button class="editDelButton deleteButton" on:click={() => handleDeleteButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/trashcan.png" alt="Delete"><span>Delete</span></button>
+						<button type="button" class="editDelButton exportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/export.png" alt="Export"><span>Export</span></button>
+						<button type="button" class="editDelButton editButton" on:click={() => handleEditButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/pencil.png" alt="Edit"><span>Edit</span></button>
+						<button type="button" class="editDelButton deleteButton" on:click={() => handleDeleteButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/trashcan.png" alt="Delete"><span>Delete</span></button>
 					</div>
 				</div>
 				<div class="tagsArea">
@@ -492,7 +492,7 @@
 						<div class="lineExamples">
 							<div class="lineSwitcher">
 								{#each sortedCompList[$AppData.selectedComp].lines as line, i}
-								<button class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}>{line.name}</button>
+								<button type="button" class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}>{line.name}</button>
 								{/each}
 							</div>
 							<div class="lineDisplay">
@@ -584,7 +584,7 @@
 						</div>
 						<div class="description">
 							<div class="mobileExpanderTitle">
-								<button class="expanderButton" on:click={() => openDesc = !openDesc}><i class="expanderArrow {openDesc ? 'down' : 'right' }"></i><span>Description</span></button>
+								<button type="button" class="expanderButton" on:click={() => openDesc = !openDesc}><i class="expanderArrow {openDesc ? 'down' : 'right' }"></i><span>Description</span></button>
 							</div>
 							<div class="mobileExpander descSection" class:open={openDesc}>
 								<span class="descText">{@html renderMarkdown(sortedCompList[$AppData.selectedComp].desc)}</span>
@@ -594,7 +594,7 @@
 					<div class="bodyArea2">
 						<div class="heroDetails" id="heroDetailSection">
 							<div class="mobileExpanderTitle">
-								<button class="expanderButton" on:click={() => openHero = !openHero}><i class="expanderArrow {openHero ? 'down' : 'right' }"></i><span>Hero Info</span></button>
+								<button type="button" class="expanderButton" on:click={() => openHero = !openHero}><i class="expanderArrow {openHero ? 'down' : 'right' }"></i><span>Hero Info</span></button>
 							</div>
 							<div class="mobileExpander selectHeroSection" class:open={openHero}>
 								{#if selectedHero !== ''}
@@ -632,7 +632,7 @@
 														<h6>Primary</h6>
 														<div class="artifactArea">
 															{#each sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.primary as artifact}
-																<button on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
 																	<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 																	<p>{$Artifacts[artifact].name}</p>
 																</button>
@@ -644,7 +644,7 @@
 															<h6>Secondary</h6>
 															<div class="artifactArea">
 																{#each sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.secondary as artifact}
-																	<button on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																	<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
 																		<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 																		<p>{$Artifacts[artifact].name}</p>
 																	</button>
@@ -657,7 +657,7 @@
 															<h6>Situational</h6>
 															<div class="artifactArea">
 																{#each sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.situational as artifact}
-																	<button on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																	<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
 																		<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 																		<p>{$Artifacts[artifact].name}</p>
 																	</button>
@@ -678,7 +678,7 @@
 						</div>
 						<div class="subGroups">
 							<div class="mobileExpanderTitle">
-								<button class="expanderButton" on:click={() => openSubs = !openSubs}><i class="expanderArrow {openSubs ? 'down' : 'right' }"></i><span>Substitutes</span></button>
+								<button type="button" class="expanderButton" on:click={() => openSubs = !openSubs}><i class="expanderArrow {openSubs ? 'down' : 'right' }"></i><span>Substitutes</span></button>
 							</div>
 							<div class="mobileExpander subGroupExpander" class:open={openSubs}>
 								<div class="subDisplay">
@@ -753,9 +753,9 @@
 						<span>{owText}</span>
 					</div>
 					<div class="owFooter">
-						<button class="owFooterButton owUpdate" on:click={owPromise('update')}>Update</button>
-						<button class="owFooterButton owNew" on:click={owPromise('new')}>New</button>
-						<button class="owFooterButton owCancel" on:click={owPromise('cancel')}>Cancel</button>
+						<button type="button" class="owFooterButton owUpdate" on:click={owPromise('update')}>Update</button>
+						<button type="button" class="owFooterButton owNew" on:click={owPromise('new')}>New</button>
+						<button type="button" class="owFooterButton owCancel" on:click={owPromise('cancel')}>Cancel</button>
 					</div>
 				</div>
 			</div>
@@ -1343,6 +1343,7 @@
 		img {
 			left: 0;
 			max-width: 35px;
+			pointer-events: none;
 			position: absolute;
 			top: 0;
 		}

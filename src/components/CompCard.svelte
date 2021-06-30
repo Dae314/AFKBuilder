@@ -40,11 +40,11 @@
 		<div class="buttonDraftArea">
 			<div class="cardButtonsContainer">
 				<div class="buttonArea">
-					<button class="cardDeleteButton" on:click={(e) => { handleDeleteButtonClick(idx); e.stopPropagation(); }}><img draggable="false" class="deleteIcon" src="./img/utility/trashcan.png" alt="Delete"></button>
+					<button type="button" class="cardDeleteButton" on:click={(e) => { handleDeleteButtonClick(idx); e.stopPropagation(); }}><img draggable="false" class="deleteIcon" src="./img/utility/trashcan.png" alt="Delete"></button>
 					<div class="tooltip deleteTooltip"><span class="tooltipText">Delete</span></div>
 				</div>
 				<div class="buttonArea">
-					<button class="cardExportButton" on:click={(e) => { handleExportButtonClick(idx); e.stopPropagation(); }}><img draggable="false" class="exportIcon" src="./img/utility/export.png" alt="Export"></button>
+					<button type="button" class="cardExportButton" on:click={(e) => { handleExportButtonClick(idx); e.stopPropagation(); }}><img draggable="false" class="exportIcon" src="./img/utility/export.png" alt="Export"></button>
 					<div class="tooltip exportTooltip"><span class="tooltipText">Export</span></div>
 				</div>
 				<i class="star" class:active={comp.starred} on:click={(e) => handleStarClick(e, comp)}></i>

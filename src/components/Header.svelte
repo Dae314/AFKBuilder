@@ -47,11 +47,11 @@
 		</div>
 		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
 			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].toLowerCase())}>
-				<button class="logo"><img src="./img/app/afkbuilder_logo.png" alt="AFKBuilder"></button>
+				<button type="button" class="logo"><img src="./img/app/afkbuilder_logo.png" alt="AFKBuilder"></button>
 			</li>
 			{#each menu as item}
 				<li on:click={() => handleMenuChange(item.toLowerCase())}>
-					<button class="{$AppData.activeView === item.toLowerCase() ? 'selected' : ''}">{item}</button>
+					<button type="button" class="{$AppData.activeView === item.toLowerCase() ? 'selected' : ''}">{item}</button>
 				</li>
 			{/each}
 		</ul>

@@ -347,7 +347,7 @@
 		{#if section === 1}
 			<div class="section1">
 				<div class="mobileExpanderTitle">
-					<button class="filtersButton" on:click={() => openFilters = !openFilters}><i class="arrow {openFilters ? 'open' : 'right' }"></i><span>Search and Filters</span></button>
+					<button type="button" class="filtersButton" on:click={() => openFilters = !openFilters}><i class="arrow {openFilters ? 'open' : 'right' }"></i><span>Search and Filters</span></button>
 				</div>
 				<div class="mobileExpander" class:filterOpen={openFilters}>
 					<div class="searchContainer">
@@ -357,56 +357,56 @@
 					</div>
 					<div class="filters">
 						<div class="filterSection">
-							<button class="filterMasterButton" class:filterMasterDisabled={!allFactionsEnabled} on:click={() => handleFilterMasterButtonClick('faction')}>ALL</button>
-							<button class="filterButton" on:click={() => {showLB = !showLB; heroes = makeHeroList(); }}>
+							<button type="button" class="filterMasterButton" class:filterMasterDisabled={!allFactionsEnabled} on:click={() => handleFilterMasterButtonClick('faction')}>ALL</button>
+							<button type="button" class="filterButton" on:click={() => {showLB = !showLB; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showLB} src="./img/factions/lightbearer.png" alt="Lightbearer">
 							</button>
-							<button class="filterButton" on:click={() => { showM = !showM; heroes = makeHeroList(); }}>
+							<button type="button" class="filterButton" on:click={() => { showM = !showM; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showM} src="./img/factions/mauler.png" alt="Mauler">
 							</button>
-							<button class="filterButton" on:click={() => { showW = !showW; heroes = makeHeroList(); }}>
+							<button type="button" class="filterButton" on:click={() => { showW = !showW; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showW} src="./img/factions/wilder.png" alt="wilder">
 							</button>
-							<button class="filterButton" on:click={() => { showGB = !showGB; heroes = makeHeroList(); }}>
+							<button type="button" class="filterButton" on:click={() => { showGB = !showGB; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showGB} src="./img/factions/graveborn.png" alt="Graveborn">
 							</button>
-							<button class="filterButton" on:click={() => { showC = !showC; heroes = makeHeroList(); }}>
+							<button type="button" class="filterButton" on:click={() => { showC = !showC; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showC} src="./img/factions/celestial.png" alt="Celestial">
 							</button>
-							<button class="filterButton" on:click={() => { showH = !showH; heroes = makeHeroList(); }}>
+							<button type="button" class="filterButton" on:click={() => { showH = !showH; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showH} src="./img/factions/hypogean.png" alt="Hypogean">
 							</button>
-							<button class="filterButton" on:click={() => { showD = !showD; heroes = makeHeroList(); }}>
+							<button type="button" class="filterButton" on:click={() => { showD = !showD; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showD} src="./img/factions/dimensional.png" alt="Dimensional">
 							</button>
 						</div>
 						<div class="filterSection">
-							<button class="filterMasterButton" class:filterMasterDisabled={!allTypesEnabled} on:click={() => handleFilterMasterButtonClick('type')}>ALL</button>
-							<button class="filterButton" on:click={() => { showInt = !showInt; heroes = makeHeroList(); }}>
+							<button type="button" class="filterMasterButton" class:filterMasterDisabled={!allTypesEnabled} on:click={() => handleFilterMasterButtonClick('type')}>ALL</button>
+							<button type="button" class="filterButton" on:click={() => { showInt = !showInt; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showInt} src="./img/types/intelligence.png" alt="Intelligence">
 							</button>
-							<button class="filterButton" on:click={() => { showAgi = !showAgi; heroes = makeHeroList(); }}>
+							<button type="button" class="filterButton" on:click={() => { showAgi = !showAgi; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showAgi} src="./img/types/agility.png" alt="Agility">
 							</button>
-							<button class="filterButton" on:click={() => { showStr = !showStr; heroes = makeHeroList(); }}>
+							<button type="button" class="filterButton" on:click={() => { showStr = !showStr; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showStr} src="./img/types/strength.png" alt="Strength">
 							</button>
 						</div>
 						<div class="filterSection">
-							<button class="filterMasterButton" class:filterMasterDisabled={!allClassEnabled} on:click={() => handleFilterMasterButtonClick('class')}>ALL</button>
-							<button class="filterButton" on:click={() => { showMage = !showMage; heroes = makeHeroList(); }}>
+							<button type="button" class="filterMasterButton" class:filterMasterDisabled={!allClassEnabled} on:click={() => handleFilterMasterButtonClick('class')}>ALL</button>
+							<button type="button" class="filterButton" on:click={() => { showMage = !showMage; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showMage} src="./img/classes/mage.png" alt="Mage">
 							</button>
-							<button class="filterButton" on:click={() => { showWar = !showWar; heroes = makeHeroList(); }}>
+							<button type="button" class="filterButton" on:click={() => { showWar = !showWar; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showWar} src="./img/classes/warrior.png" alt="Warrior">
 							</button>
-							<button class="filterButton" on:click={() => { showTank = !showTank; heroes = makeHeroList(); }}>
+							<button type="button" class="filterButton" on:click={() => { showTank = !showTank; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showTank} src="./img/classes/tank.png" alt="Tank">
 							</button>
-							<button class="filterButton" on:click={() => { showSup = !showSup; heroes = makeHeroList(); }}>
+							<button type="button" class="filterButton" on:click={() => { showSup = !showSup; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showSup} src="./img/classes/support.png" alt="Support">
 							</button>
-							<button class="filterButton" on:click={() => { showRan = !showRan; heroes = makeHeroList(); }}>
+							<button type="button" class="filterButton" on:click={() => { showRan = !showRan; heroes = makeHeroList(); }}>
 								<img class="filterImg" class:filterInactive={!showRan} src="./img/classes/ranger.png" alt="Ranger">
 							</button>
 						</div>
@@ -414,7 +414,7 @@
 				</div>
 				<div class="heroGrid">
 					{#each heroes as hero (hero.id)}
-						<button class="heroPortrait" on:click={() => selectHero(hero.id)} class:active={hero.id in compHeroData} animate:flip="{{duration: 200}}">
+						<button type="button" class="heroPortrait" on:click={() => selectHero(hero.id)} class:active={hero.id in compHeroData} animate:flip="{{duration: 200}}">
 							<img src="{hero.portrait}" alt="hero.name">
 							<p>{hero.name}</p>
 						</button>
@@ -424,8 +424,8 @@
 		{:else if section === 2}
 			<div class="section2">
 				<div class="heroEditHead">
-					<button class="backButton" on:click={() => changeSection(1)}><span>&lt; Heroes</span></button>
-					<button class="saveButton" on:click={() => saveHero()}><span>Save</span></button>
+					<button type="button" class="backButton" on:click={() => changeSection(1)}><span>&lt; Heroes</span></button>
+					<button type="button" class="saveButton" on:click={() => saveHero()}><span>Save</span></button>
 				</div>
 				<div class="heroEditor">
 					<div class="heroName">{$HeroData.find(e => e.id === selectedHero.id).name}</div>
@@ -473,7 +473,7 @@
 								onClick="{handleAscChange}" />
 					</div>
 					<div class="coreArea">
-						<button class="coreButton" class:on={selectedHero.core} on:click={() => selectedHero.core = !selectedHero.core}><span>Core</span></button>
+						<button type="button" class="coreButton" class:on={selectedHero.core} on:click={() => selectedHero.core = !selectedHero.core}><span>Core</span></button>
 					</div>
 					<h4>Notes</h4>
 					<div class="notesArea">
@@ -490,18 +490,18 @@
 										<div class="artifactContainer" in:fade="{{duration: 200}}">
 											<div class="artifactImgContainer">
 												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-												<button class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'primary'); e.stopPropagation(); }}><span>x</span></button>
+												<button type="button" class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'primary'); e.stopPropagation(); }}><span>x</span></button>
 											</div>
 											<p>{$Artifacts[artifact].name}</p>
 										</div>
 									{/each}
 									{#if unusedArtifacts.length > 0}
-										<button class="addArtifactButton" on:click={() => pickArtifactPri = true}><span>+</span></button>
+										<button type="button" class="addArtifactButton" on:click={() => pickArtifactPri = true}><span>+</span></button>
 									{/if}
 								{:else}
 									<div class="mobileArtifactPicker">
 										{#each unusedArtifacts as artifact (artifact)}
-											<button class="artifactButton" on:click={() => handleAddArtifact(artifact, 'primary') } transition:fade="{{duration: 200}}">
+											<button type="button" class="artifactButton" on:click={() => handleAddArtifact(artifact, 'primary') } transition:fade="{{duration: 200}}">
 												<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 												<p>{$Artifacts[artifact].name}</p>
 											</button>
@@ -518,18 +518,18 @@
 										<div class="artifactContainer" in:fade="{{duration: 200}}">
 											<div class="artifactImgContainer">
 												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-												<button class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'secondary'); e.stopPropagation(); }}><span>x</span></button>
+												<button type="button" class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'secondary'); e.stopPropagation(); }}><span>x</span></button>
 											</div>
 											<p>{$Artifacts[artifact].name}</p>
 										</div>
 									{/each}
 									{#if unusedArtifacts.length > 0}
-										<button class="addArtifactButton" on:click={() => pickArtifactSec = true}><span>+</span></button>
+										<button type="button" class="addArtifactButton" on:click={() => pickArtifactSec = true}><span>+</span></button>
 									{/if}
 								{:else}
 									<div class="mobileArtifactPicker">
 										{#each unusedArtifacts as artifact (artifact)}
-											<button class="artifactButton" on:click={() => handleAddArtifact(artifact, 'secondary') } transition:fade="{{duration: 200}}">
+											<button type="button" class="artifactButton" on:click={() => handleAddArtifact(artifact, 'secondary') } transition:fade="{{duration: 200}}">
 												<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 												<p>{$Artifacts[artifact].name}</p>
 											</button>
@@ -546,18 +546,18 @@
 										<div class="artifactContainer" in:fade="{{duration: 200}}">
 											<div class="artifactImgContainer">
 												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-												<button class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'situational'); e.stopPropagation(); }}><span>x</span></button>
+												<button type="button" class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'situational'); e.stopPropagation(); }}><span>x</span></button>
 											</div>
 											<p>{$Artifacts[artifact].name}</p>
 										</div>
 									{/each}
 									{#if unusedArtifacts.length > 0}
-										<button class="addArtifactButton" on:click={() => pickArtifactSit = true}><span>+</span></button>
+										<button type="button" class="addArtifactButton" on:click={() => pickArtifactSit = true}><span>+</span></button>
 									{/if}
 								{:else}
 									<div class="mobileArtifactPicker">
 										{#each unusedArtifacts as artifact (artifact)}
-											<button class="artifactButton" on:click={() => handleAddArtifact(artifact, 'situational') } transition:fade="{{duration: 200}}">
+											<button type="button" class="artifactButton" on:click={() => handleAddArtifact(artifact, 'situational') } transition:fade="{{duration: 200}}">
 												<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 												<p>{$Artifacts[artifact].name}</p>
 											</button>
@@ -586,7 +586,7 @@
 		</div>
 		<div class="artifactPickerWindow" on:click={e => e.stopPropagation()}>
 			{#each unusedArtifacts as artifact (artifact)}
-				<button class="artifactButton"
+				<button type="button" class="artifactButton"
 					on:click={() => {
 						const line = pickArtifactPri ? 'primary' : pickArtifactSec ? 'secondary' : 'situational';
 						handleAddArtifact(artifact, line);

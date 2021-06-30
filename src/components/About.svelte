@@ -113,8 +113,8 @@
 		</div>
 	</section>
 	<section class="config">
-		<button class="configButton clearButton" on:click={handleClearDataButtonClick}><span>Clear Data</span></button>
-		<button class="configButton tutorialButton" on:click={handleTutorialButtonClick}><span>Reset Tutorial</span></button>
+		<button type="button" class="configButton clearButton" on:click={handleClearDataButtonClick}><span>Clear Data</span></button>
+		<button type="button" class="configButton tutorialButton" on:click={handleTutorialButtonClick}><span>Reset Tutorial</span></button>
 	</section>
 </div>
 

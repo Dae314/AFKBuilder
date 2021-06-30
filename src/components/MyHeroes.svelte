@@ -275,63 +275,63 @@
 			</div>
 			<div class="filters">
 				<div class="filterSection">
-					<button class="filterMasterButton { allFactionsEnabled ? '' : 'filterMasterDisabled' }" on:click={() => handleFilterMasterButtonClick('faction')}>ALL</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowLB')}>
+					<button type="button" class="filterMasterButton { allFactionsEnabled ? '' : 'filterMasterDisabled' }" on:click={() => handleFilterMasterButtonClick('faction')}>ALL</button>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowLB')}>
 						<img class="filterImg {$AppData.MH.ShowLB ? '' : 'filterInactive'}" src="./img/factions/lightbearer.png" alt="Lightbearer">
 					</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowM')}>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowM')}>
 						<img class="filterImg {$AppData.MH.ShowM ? '' : 'filterInactive'}" src="./img/factions/mauler.png" alt="Mauler">
 					</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowW')}>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowW')}>
 						<img class="filterImg {$AppData.MH.ShowW ? '' : 'filterInactive'}" src="./img/factions/wilder.png" alt="wilder">
 					</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowGB')}>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowGB')}>
 						<img class="filterImg {$AppData.MH.ShowGB ? '' : 'filterInactive'}" src="./img/factions/graveborn.png" alt="Graveborn">
 					</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowC')}>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowC')}>
 						<img class="filterImg {$AppData.MH.ShowC ? '' : 'filterInactive'}" src="./img/factions/celestial.png" alt="Celestial">
 					</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowH')}>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowH')}>
 						<img class="filterImg {$AppData.MH.ShowH ? '' : 'filterInactive'}" src="./img/factions/hypogean.png" alt="Hypogean">
 					</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowD')}>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowD')}>
 						<img class="filterImg {$AppData.MH.ShowD ? '' : 'filterInactive'}" src="./img/factions/dimensional.png" alt="Dimensional">
 					</button>
 				</div>
 				<div class="filterSection">
-					<button class="filterMasterButton { allTypesEnabled ? '' : 'filterMasterDisabled' }" on:click={() => handleFilterMasterButtonClick('type')}>ALL</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowInt')}>
+					<button type="button" class="filterMasterButton { allTypesEnabled ? '' : 'filterMasterDisabled' }" on:click={() => handleFilterMasterButtonClick('type')}>ALL</button>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowInt')}>
 						<img class="filterImg {$AppData.MH.ShowInt ? '' : 'filterInactive'}" src="./img/types/intelligence.png" alt="Intelligence">
 					</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowAgi')}>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowAgi')}>
 						<img class="filterImg {$AppData.MH.ShowAgi ? '' : 'filterInactive'}" src="./img/types/agility.png" alt="Agility">
 					</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowStr')}>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowStr')}>
 						<img class="filterImg {$AppData.MH.ShowStr ? '' : 'filterInactive'}" src="./img/types/strength.png" alt="Strength">
 					</button>
 				</div>
 				<div class="filterSection">
-					<button class="filterMasterButton { allClassEnabled ? '' : 'filterMasterDisabled' }" on:click={() => handleFilterMasterButtonClick('class')}>ALL</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowMage')}>
+					<button type="button" class="filterMasterButton { allClassEnabled ? '' : 'filterMasterDisabled' }" on:click={() => handleFilterMasterButtonClick('class')}>ALL</button>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowMage')}>
 						<img class="filterImg {$AppData.MH.ShowMage ? '' : 'filterInactive'}" src="./img/classes/mage.png" alt="Mage">
 					</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowWar')}>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowWar')}>
 						<img class="filterImg {$AppData.MH.ShowWar ? '' : 'filterInactive'}" src="./img/classes/warrior.png" alt="Warrior">
 					</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowTank')}>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowTank')}>
 						<img class="filterImg {$AppData.MH.ShowTank ? '' : 'filterInactive'}" src="./img/classes/tank.png" alt="Tank">
 					</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowSup')}>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowSup')}>
 						<img class="filterImg {$AppData.MH.ShowSup ? '' : 'filterInactive'}" src="./img/classes/support.png" alt="Support">
 					</button>
-					<button class="filterButton" on:click={() => updateFilters('ShowRan')}>
+					<button type="button" class="filterButton" on:click={() => updateFilters('ShowRan')}>
 						<img class="filterImg {$AppData.MH.ShowRan ? '' : 'filterInactive'}" src="./img/classes/ranger.png" alt="Ranger">
 					</button>
 				</div>
 			</div>
 		</div>
 		<div class="mobileExpanderTitle">
-			<button class="filtersButton" on:click={() => openFilters = !openFilters}><i class="arrow {openFilters ? 'open' : 'right' }"></i><span>Search and Filters</span></button>
+			<button type="button" class="filtersButton" on:click={() => openFilters = !openFilters}><i class="arrow {openFilters ? 'open' : 'right' }"></i><span>Search and Filters</span></button>
 			<div class="tooltip tooltip-expander"><span class="tooltipText">Filters</span></div>
 		</div>
 	</section>
@@ -354,7 +354,7 @@
 				{#each myHeroList as hero (hero.id)}
 				<div class="heroCard" animate:flip="{{duration: 200}}">
 					<div class="detailArea">
-						<button class="heroDetailButton" on:click={() => handleHeroDetailClick(hero.id)}>
+						<button type="button" class="heroDetailButton" on:click={() => handleHeroDetailClick(hero.id)}>
 							<span>i</span>
 						</button>
 					</div>
@@ -372,7 +372,7 @@
 										<img on:click="{() => handlePortraitClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
 									</div>
 									<div class="flipCardBack">
-										<button on:click="{() => handlePortraitClick(hero.id)}" class="claimButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
+										<button type="button" on:click="{() => handlePortraitClick(hero.id)}" class="claimButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
 									</div>
 								</div>
 							</div>
@@ -440,12 +440,12 @@
 	</section>
 	<section class="sect3">
 		<div class="inOutMenu {openInOutMenu ? 'open' : ''}">
-			<button class="inOutButton" on:click={handleExportData}><img src="./img/utility/export.png" alt="export"></button>
+			<button type="button" class="inOutButton" on:click={handleExportData}><img src="./img/utility/export.png" alt="export"></button>
 			<div class="tooltip tooltip-inOutButton1"><span class="tooltipText">Export Data</span></div>
-			<button class="inOutButton" on:click={handleImportData}><img src="./img/utility/import.png" alt="import"></button>
+			<button type="button" class="inOutButton" on:click={handleImportData}><img src="./img/utility/import.png" alt="import"></button>
 			<div class="tooltip tooltip-inOutButton2"><span class="tooltipText">Import Data</span></div>
 		</div>
-		<button class="inOutMenuButton" on:click={(e) => {openInOutMenu = !openInOutMenu; e.stopPropagation();}}><img src="./img/utility/export_import.png" alt="Import/Export"></button>
+		<button type="button" class="inOutMenuButton" on:click={(e) => {openInOutMenu = !openInOutMenu; e.stopPropagation();}}><img src="./img/utility/export_import.png" alt="Import/Export"></button>
 	</section>
 	<section class="sect4">
 		<div class="copyConfirm" class:visible={copyConfirmVisible}><span>My Hero Data Copied to Clipboard</span></div>
