@@ -1343,6 +1343,7 @@
 		img {
 			left: 0;
 			max-width: 35px;
+			pointer-events: none;
 			position: absolute;
 			top: 0;
 		}
