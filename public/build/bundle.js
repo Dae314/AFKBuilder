@@ -73350,7 +73350,7 @@ var app = (function () {
     			add_location(div0, file$9, 532, 7, 17618);
     			attr_dev(button1, "type", "button");
     			attr_dev(button1, "class", "addHeroButton svelte-17ksnmk");
-    			add_location(button1, file$9, 619, 8, 22709);
+    			add_location(button1, file$9, 581, 8, 20521);
     			attr_dev(div1, "class", "subLine svelte-17ksnmk");
     			add_location(div1, file$9, 536, 7, 17949);
     			attr_dev(div2, "class", "subGroup svelte-17ksnmk");
@@ -73429,7 +73429,7 @@ var app = (function () {
     	return block;
     }
 
-    // (637:2) {#if heroFinderOpen}
+    // (599:2) {#if heroFinderOpen}
     function create_if_block$8(ctx) {
     	let herofinder;
     	let current;
@@ -73470,7 +73470,7 @@ var app = (function () {
     		block,
     		id: create_if_block$8.name,
     		type: "if",
-    		source: "(637:2) {#if heroFinderOpen}",
+    		source: "(599:2) {#if heroFinderOpen}",
     		ctx
     	});
 
@@ -73730,9 +73730,9 @@ var app = (function () {
     			add_location(h42, file$9, 528, 4, 17493);
     			attr_dev(button1, "type", "button");
     			attr_dev(button1, "class", "subAddButton svelte-17ksnmk");
-    			add_location(button1, file$9, 624, 6, 22990);
+    			add_location(button1, file$9, 586, 6, 20802);
     			attr_dev(div10, "class", "newSubArea svelte-17ksnmk");
-    			add_location(div10, file$9, 623, 5, 22958);
+    			add_location(div10, file$9, 585, 5, 20770);
     			attr_dev(div11, "class", "subContainer svelte-17ksnmk");
     			add_location(div11, file$9, 529, 4, 17519);
     			attr_dev(div12, "class", "subEditor");
@@ -73741,26 +73741,26 @@ var app = (function () {
     			add_location(div13, file$9, 526, 2, 17441);
     			attr_dev(button2, "type", "button");
     			attr_dev(button2, "class", "footerButton draftButton svelte-17ksnmk");
-    			add_location(button2, file$9, 630, 3, 23154);
+    			add_location(button2, file$9, 592, 3, 20966);
     			attr_dev(button3, "type", "button");
     			attr_dev(button3, "class", "footerButton saveButton svelte-17ksnmk");
-    			add_location(button3, file$9, 631, 3, 23254);
+    			add_location(button3, file$9, 593, 3, 21066);
     			attr_dev(button4, "type", "button");
     			attr_dev(button4, "class", "footerButton cancelButton svelte-17ksnmk");
-    			add_location(button4, file$9, 632, 3, 23379);
+    			add_location(button4, file$9, 594, 3, 21191);
     			attr_dev(div14, "class", "footer svelte-17ksnmk");
-    			add_location(div14, file$9, 629, 2, 23129);
+    			add_location(div14, file$9, 591, 2, 20941);
     			attr_dev(section0, "class", "sect1");
     			add_location(section0, file$9, 394, 1, 11392);
     			attr_dev(section1, "class", "sect2 svelte-17ksnmk");
     			toggle_class(section1, "visible", /*heroFinderOpen*/ ctx[5]);
-    			add_location(section1, file$9, 635, 1, 23498);
+    			add_location(section1, file$9, 597, 1, 21310);
     			attr_dev(div15, "class", "statusMessage svelte-17ksnmk");
     			toggle_class(div15, "visible", /*showStatusMessage*/ ctx[3]);
     			toggle_class(div15, "error", /*statusError*/ ctx[4]);
-    			add_location(div15, file$9, 641, 2, 23665);
+    			add_location(div15, file$9, 603, 2, 21477);
     			attr_dev(section2, "class", "sect3 svelte-17ksnmk");
-    			add_location(section2, file$9, 640, 1, 23638);
+    			add_location(section2, file$9, 602, 1, 21450);
     			attr_dev(div16, "class", "editorContainer svelte-17ksnmk");
     			add_location(div16, file$9, 393, 0, 11360);
     		},
