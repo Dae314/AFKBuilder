@@ -40,20 +40,13 @@
 			<div class="factionContainer">
 				<div class="attrImgContainer">
 					<img draggable="false" class="attrImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
-					<div class="tooltip"><span class="tooltipText">{hero.faction}</span></div>
+					<div class="tooltip factionTooltip"><span class="tooltipText">{hero.faction}</span></div>
 				</div>
 			</div>
 			<div class="portraitContainer">
-				<div class="flipCard">
-					<div class="flipCardInner">
-						<div class="flipCardFront">
-							<img draggable="false" on:click="{() => handlePortraitClick(hero.id)}" class="portrait {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}" src={hero.portrait} alt={hero.name}>
-						</div>
-						<div class="flipCardBack">
-							<button type="button" on:click="{() => handlePortraitClick(hero.id)}" class="claimButton {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}">{$AppData.MH.List[hero.id].claimed ? 'Unclaim' : 'Claim'}</button>
-						</div>
-					</div>
-				</div>
+				<button type="button" class="portraitButton">
+					<img draggable="false" on:click="{() => handlePortraitClick(hero.id)}" class="portrait {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}" src={hero.portrait} alt={hero.name}>
+				</button>
 			</div>
 			<div class="typeClassContainer">
 				<div class="attrImgContainer">
@@ -164,33 +157,34 @@
 		text-transform: uppercase;
 	}
 	.imageContainer {
-		display: flex;
-		flex-direction: row;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		padding: 0;
 		padding-bottom: 20px;
 		padding-top: 20px;
-		width: 100%;
 	}
 	.factionContainer {
 		align-items: center;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		width: 28%;
 	}
 	.typeClassContainer {
 		align-items: center;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		width: 28%;
 	}
 	.portraitContainer {
-		width: 44%;
+		align-items: center;
+		display: flex;
+		justify-content: center;
 	}
 	.attrImgContainer {
+		align-items: center;
+		display: flex;
+		justify-content: center;
 		position: relative;
-		height: fit-content;
-		width: fit-content;
 	}
 	.attrImg {
 		margin: 10px;
@@ -200,20 +194,18 @@
 	.tooltip {
 		display: none;
 	}
-	.flipCard {
-		cursor: pointer;
-	}
-	.flipCardFront {
+	.portraitButton {
+		background: transparent;
+		border: 0;
 		cursor: pointer;
 		height: 100%;
+		max-width: 250px;
+		outline: 0;
+		padding: 0;
 		width: 100%;
-	}
-	.flipCardBack {
-		display: none;
 	}
 	.portrait {
 		border-radius: 50%;
-		max-width: 250px;
 		transition: all 0.2s;
 		width: 100%;
 		&:active {
@@ -366,23 +358,26 @@
 	}
 	@media only screen and (min-width: 767px) {
 		.attrImg {
-			max-width: 70px;
+			max-width: 80px;
 			&:hover+.tooltip {
 				opacity: 1;
 				visibility: visible;
 			}
 		}
 		.tooltip {
-			bottom: -20px;
+			bottom: -25px;
 			display: flex;
 			justify-content: center;
-			left: -55px;
+			left: -64px;
 			opacity: 0;
 			position: absolute;
 			transition: opacity 0.2s;
 			visibility: hidden;
 			width: 200px;
 			z-index: 4;
+		}
+		.factionTooltip {
+			left: -58px;
 		}
 		.tooltipText {
 			background-color: var(--appColorPrimary);

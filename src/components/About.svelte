@@ -115,6 +115,9 @@
 	<section class="config">
 		<button type="button" class="configButton clearButton" on:click={handleClearDataButtonClick}><span>Clear Data</span></button>
 		<button type="button" class="configButton tutorialButton" on:click={handleTutorialButtonClick}><span>Reset Tutorial</span></button>
+		<form action="https://forms.gle/oKDQj2Jjqmf5DoTCA" target="_blank" rel="noreferrer noopener">
+			<input class="configButton feedbackButton" type="submit" value="Send Feedback" />
+		</form>
 	</section>
 </div>
 
@@ -230,11 +233,15 @@
 			font-weight: bold;
 			outline: none;
 			padding: 10px;
+			transition: all 0.2s;
 		}
 		.clearButton {
 			border-color: var(--appDelColor);
 			color: var(--appDelColor);
 			margin-right: 20px;
+		}
+		form {
+			margin-left: auto;
 		}
 	}
 	@media only screen and (min-width: 767px) {
@@ -261,17 +268,17 @@
 		}
 		.config {
 			justify-content: flex-start;
-		}
-		.clearButton {
-			&:hover {
-				background-color: var(--appDelColor);
-				color: white;
+			.configButton {
+				&:hover {
+					background-color: var(--appColorPrimary);
+					color: white;
+				}
 			}
-		}
-		.tutorialButton {
-			&:hover {
-				background-color: var(--appColorPrimary);
-				color: white;
+			.clearButton {
+				&:hover {
+					background-color: var(--appDelColor);
+					color: white;
+				}
 			}
 		}
 	}
