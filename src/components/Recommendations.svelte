@@ -112,7 +112,13 @@
 
 	function handleCompClick(compID) {
 		$AppData.selectedComp = $AppData.Comps.findIndex(e => e.uuid === compID);
-		if($AppData.selectedComp === -1) $AppData.selectedComp = null;
+		$AppData.selectedUUID = compID;
+		
+		if($AppData.selectedComp === -1) {
+			$AppData.selectedComp = null;
+			$AppData.selectedUUID = null;
+		}
+		
 		$AppData.activeView = 'comps';
 	}
 
