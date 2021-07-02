@@ -217,6 +217,7 @@ function buildAppData(data) {
 	const expectedProps = [
 		{name: 'activeView', default: 'comps'},
 		{name: 'selectedComp', default: null},
+		{name: 'selectedUUID', default: null},
 		{name: 'dismissImportWarn', default: false},
 		{name: 'dismissHLSearchInfo', default: false},
 		{name: 'dismissMHSearchInfo', default: false},

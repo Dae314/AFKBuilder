@@ -76,6 +76,17 @@
 			});
 		}
 
+		// if comp was clicked in Recommendations, selectedUUID will get set
+		if($AppData.selectedUUID !== null) {
+			// try to find the comp
+			$AppData.selectedComp = compList.findIndex(e => e.uuid === $AppData.selectedUUID);
+			// reset selectedUUID regardless of whether it can be found
+			$AppData.selectedUUID = null;
+		}
+
+		// if we couldn't find the comp, set selectedComp to null
+		if($AppData.selectedComp < 0 || $AppData.selectedComp > compList.length - 1) $AppData.selectedComp = null;
+
 		return compList;
 	}
 
