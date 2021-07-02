@@ -87,6 +87,8 @@
 		// if we couldn't find the comp, set selectedComp to null
 		if($AppData.selectedComp < 0 || $AppData.selectedComp > compList.length - 1) $AppData.selectedComp = null;
 
+		searchSuggestions = makeSearchSuggestions();
+
 		return compList;
 	}
 
