@@ -230,7 +230,7 @@
 
 	function handleDelComp(idx) {
 		const delUUID = sortedCompList[idx].uuid;
-		const selUUID = sortedCompList[$AppData.selectedComp].uuid;
+		const selUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : null;
 		$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== delUUID);
 		sortedCompList = makeSortedCompList();
 		if($AppData.selectedComp === idx) {
@@ -239,7 +239,7 @@
 			selectedLine = 0;
 			openDetail = false;
 		} else if($AppData.selectedComp > idx) {
-			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selUUID);
+			$AppData.selectedComp = selUUID !== null ? sortedCompList.findIndex(e => e.uuid === selUUID) : null;
 			if($AppData.selectedComp === -1) $AppData.selectedComp = null;
 		}
 		dispatch('saveData');
