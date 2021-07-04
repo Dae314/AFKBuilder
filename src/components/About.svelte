@@ -11,12 +11,12 @@
 		{ name: 'Dae314',
 			image: './img/contributors/dae314.png',
 			title: 'Maintainer',
-			message: 'Got questions? Find me on the AFKArena Discord! Dae314#2750',
+			message: 'Got questions? Find me on the AFK Arena Discord! <em>Dae314#2750</em>',
 			website: '',
 		},
 		{ name: 'Wyatt Rice',
 			image: './img/contributors/wyatt.jpg',
-			title: 'Design Consultant',
+			title: 'Designer',
 			message: 'Open for commissions!',
 			website: 'https://www.twitter.com/wyattjrice',
 		},
@@ -51,27 +51,41 @@
 	</div>
 	<section class="aboutApp">
 		<div class="generalDesc">
-			AFKBuilder is a tool designed to help players build, share, and use community made team compositions for AFKArena.
-			<br/>
-			<br/>
-			AFKBuilder runs entirely on your browser. None of your information is shared outside of the application. Your data is saved on your browser's local storage. Be sure to make a backup of your comps and hero list before clearing your browser data.
+			<p>AFKBuilder is an <a href="https://github.com/Dae314/AFKBuilder" target="_blank" rel="noreferrer noopener">open source</a> tool designed to help players build, share, and use community made team compositions for AFK Arena.</p>
+			<p>AFKBuilder runs entirely on your browser, and your data is stored in its local storage. None of your information is shared outside of the application. <em>Be sure to make a backup of your comps and hero list before clearing your browser data.</em></p>
 		</div>
 		<div class="areaDesc">
-			<div class="compDesc">
+			<div class="compDesc areaDescSect">
 				<h2>Comps</h2>
-				<div class="text">The Comp area of the app is where you can manage your list of compositions. Importing comps, editing comps, making new comps, and exporting comps for sharing and backup are all done here. Starred comps are comps that you are interested in or aiming for. Star your favorite comps to get customized recommendations based on their hero compositions.</div>
+				<div class="text">
+					<p>
+						The Comps area of the app is where you can manage your list of compositions. Importing, editing, creating, and exporting comps for sharing and backup are all done here. Starred comps are ones that you are interested in or are aiming for. Star your favorite comps to get customized recommendations based on their hero compositions. Comps can be filtered by their title or tags using the filter search box. For desktop users, drag and drop is enabled for your comp list as well as in the comp editor for hero lines, heroes within lines, and heroes within substitute lines.
+					</p>
+				</div>
 			</div>
-			<div class="heroListDesc">
-				<h2>Hero List</h2>
-				<div class="text">The Hero List area of the app is a reference list for all of the heroes in the game as well as their recommended Signature Item and furniture benchmarks. Come here if you want to look up information about a specific hero. You can also claim heroes from this list as your own so you can customize them in the My Heroes area and receive customized recommendations about them.</div>
-			</div>
-			<div class="myHeroesDesc">
-				<h2>My Heroes</h2>
-				<div class="text">The My Heroes area of the app is where you can customize the heroes you claimed from the Hero List. Specify your hero's Ascension, Signature Item, and Furniture to get customized recommendations in the Recommendations area.</div>
-			</div>
-			<div class="recommendationsDesc">
+			<div class="recommendationsDesc areaDescSect">
 				<h2>Recommendations</h2>
-				<div class="text">The Recommendations area of the app is where you can get customized progression recommendations based on the data from My Heroes and your starred comps. Hereos who are core to your starred comps are listed first with customized Ascension, Signature Item, and Furniture recommendations.</div>
+				<div class="text">
+					<p>
+						The Recommendations area of the app is where you can get customized progression recommendations based on the data from My Heroes and your starred comps. Hereos who are core to your starred comps are listed first, and heroes are ordered by their frequency of appearance in the comps. Adding a hero to your My Heroes list either by checkmarking them in the Ascension tab or claiming them from the Hero List will allow you to see their customized Signature Item and Furniture recommendations.
+					</p>
+				</div>
+			</div>
+			<div class="myHeroesDesc areaDescSect">
+				<h2>My Heroes</h2>
+				<div class="text">
+					<p>
+						The My Heroes area of the app is where you can customize the heroes you claimed from the Hero List or Recommendations area. This should represent the heroes you own in the AFK Arena app. You can specify each hero's Ascension, Signature Item, and Furniture. Once a hero is added to your My Heroes list, you will be able to see their Signature Item and Furniture recommendations in the Recommendations area.
+					</p>
+				</div>
+			</div>
+			<div class="heroListDesc areaDescSect">
+				<h2>Hero List</h2>
+				<div class="text">
+					<p>
+						The Hero List area of the app is a reference list for all of the heroes in the game as well as their recommended Signature Item and Furniture benchmarks. Come here to look up information about a specific hero. You can also claim heroes from this list to add them to the My Heroes area.
+					</p>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -89,7 +103,7 @@
 					</div>
 					<div class="right">
 						<h3>{person.title}</h3>
-						<div class="message"><span>{person.message}</span></div>
+						<div class="message"><span>{@html person.message}</span></div>
 					</div>
 				</div>
 				{:else}
@@ -100,7 +114,7 @@
 					</div>
 					<div class="right">
 						<h3>{person.title}</h3>
-						<div class="message"><span>{person.message}</span></div>
+						<div class="message"><span>{@html person.message}</span></div>
 					</div>
 				</div>
 				{/if}
@@ -149,10 +163,24 @@
 	}
 	.generalDesc {
 		text-align: center;
+		p {
+			margin-top: 0;
+		}
+		a {
+			&:link {
+				color: var(--appColorPrimary);
+			}
+			&:visited {
+				color: var(--appColorPrimary);
+			}
+		}
 	}
 	.areaDesc {
 		.text {
 			text-align: center;
+			p {
+				margin-top: 0;
+			}
 		}
 	}
 	.contributorGrid {
@@ -204,7 +232,7 @@
 	}
 	.affiliate {
 		padding-top: 10px;
-		.disclaimer {
+		div {
 			font-size: 0.6rem;
 			text-align: center;
 			a {
@@ -220,8 +248,10 @@
 	.config {
 		border-top: 1px solid black;
 		display: flex;
+		flex-wrap: wrap;
+		gap: 20px;
 		justify-content: center;
-		margin-top: 20px;
+		margin-top: 10px;
 		padding: 15px;
 		.configButton {
 			background-color: transparent;
@@ -238,11 +268,12 @@
 		.clearButton {
 			border-color: var(--appDelColor);
 			color: var(--appDelColor);
-			margin-right: 20px;
 		}
-		form {
-			margin-left: auto;
-		}
+	}
+	em, :global(em) {
+		color: var(--appColorPrimary);
+		font-style: normal;
+		font-weight: bold;
 	}
 	@media only screen and (min-width: 767px) {
 		.generalDesc {
@@ -254,6 +285,9 @@
 			grid-gap: 20px;
 			grid-template-columns: 1fr 1fr;
 			grid-template-rows: 1fr 1fr;
+			.areaDescSect {
+				padding: 0px 20px;
+			}
 			h2 {
 				text-align: center;
 			}
@@ -279,6 +313,9 @@
 					background-color: var(--appDelColor);
 					color: white;
 				}
+			}
+			form {
+				margin-left: auto;
 			}
 		}
 	}

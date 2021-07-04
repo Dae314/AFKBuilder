@@ -1,7 +1,7 @@
 # AFKBuilder
 <sup>version: 0.13.47</sup>
 
-AFKBuilder is a tool designed to help players build, share, and use community made team compositions for AFKArena.
+AFKBuilder is a tool designed to help players build, share, and use community made team compositions for AFK Arena.
 
 ## Getting Started
 
@@ -76,5 +76,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 * PurpleBooth - for the [README.md](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) and [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) templates
-* [Stefan Taubert](https://www.iconfinder.com/stefantaubert) - for the export, import, and pencil icons
-* [BomSymbols](https://www.iconfinder.com/korawan_m) - for the trashcan icon
