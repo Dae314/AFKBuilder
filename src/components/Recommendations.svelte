@@ -119,6 +119,7 @@
 			$AppData.selectedUUID = null;
 		}
 		
+		history.pushState({view: 'comps', modal: false}, 'comps', `?view=comps`);
 		$AppData.activeView = 'comps';
 	}
 

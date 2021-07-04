@@ -84979,7 +84979,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (156:3) {#each sections as section, i}
+    // (157:3) {#each sections as section, i}
     function create_each_block_6(ctx) {
     	let li;
     	let button;
@@ -85002,8 +85002,8 @@ var app = (function () {
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "sectionButton svelte-14bgiha");
     			toggle_class(button, "active", /*$AppData*/ ctx[1].REC.openSection === /*i*/ ctx[45]);
-    			add_location(button, file$2, 157, 4, 4339);
-    			add_location(li, file$2, 156, 3, 4329);
+    			add_location(button, file$2, 158, 4, 4416);
+    			add_location(li, file$2, 157, 3, 4406);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -85034,14 +85034,14 @@ var app = (function () {
     		block,
     		id: create_each_block_6.name,
     		type: "each",
-    		source: "(156:3) {#each sections as section, i}",
+    		source: "(157:3) {#each sections as section, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (231:42) 
+    // (232:42) 
     function create_if_block_4$1(ctx) {
     	let section;
     	let div;
@@ -85067,9 +85067,9 @@ var app = (function () {
     			div = element("div");
     			if_block.c();
     			attr_dev(div, "class", "recArea svelte-14bgiha");
-    			add_location(div, file$2, 232, 2, 7562);
+    			add_location(div, file$2, 233, 2, 7639);
     			attr_dev(section, "class", "recSection furnSection svelte-14bgiha");
-    			add_location(section, file$2, 231, 1, 7518);
+    			add_location(section, file$2, 232, 1, 7595);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
@@ -85123,14 +85123,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4$1.name,
     		type: "if",
-    		source: "(231:42) ",
+    		source: "(232:42) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (197:42) 
+    // (198:42) 
     function create_if_block_2$1(ctx) {
     	let section;
     	let div;
@@ -85156,9 +85156,9 @@ var app = (function () {
     			div = element("div");
     			if_block.c();
     			attr_dev(div, "class", "recArea svelte-14bgiha");
-    			add_location(div, file$2, 198, 2, 6085);
+    			add_location(div, file$2, 199, 2, 6162);
     			attr_dev(section, "class", "recSection siSection svelte-14bgiha");
-    			add_location(section, file$2, 197, 1, 6043);
+    			add_location(section, file$2, 198, 1, 6120);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
@@ -85212,14 +85212,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2$1.name,
     		type: "if",
-    		source: "(197:42) ",
+    		source: "(198:42) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (163:1) {#if $AppData.REC.openSection === 0}
+    // (164:1) {#if $AppData.REC.openSection === 0}
     function create_if_block$2(ctx) {
     	let section;
     	let div;
@@ -85245,9 +85245,9 @@ var app = (function () {
     			div = element("div");
     			if_block.c();
     			attr_dev(div, "class", "recArea svelte-14bgiha");
-    			add_location(div, file$2, 164, 2, 4647);
+    			add_location(div, file$2, 165, 2, 4724);
     			attr_dev(section, "class", "recSection buildSection svelte-14bgiha");
-    			add_location(section, file$2, 163, 1, 4602);
+    			add_location(section, file$2, 164, 1, 4679);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
@@ -85301,14 +85301,14 @@ var app = (function () {
     		block,
     		id: create_if_block$2.name,
     		type: "if",
-    		source: "(163:1) {#if $AppData.REC.openSection === 0}",
+    		source: "(164:1) {#if $AppData.REC.openSection === 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (260:3) {:else}
+    // (261:3) {:else}
     function create_else_block_2(ctx) {
     	let div;
     	let span;
@@ -85319,9 +85319,9 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "No Furniture Recommendations";
     			attr_dev(span, "class", "svelte-14bgiha");
-    			add_location(span, file$2, 260, 23, 8840);
+    			add_location(span, file$2, 261, 23, 8917);
     			attr_dev(div, "class", "noRec svelte-14bgiha");
-    			add_location(div, file$2, 260, 4, 8821);
+    			add_location(div, file$2, 261, 4, 8898);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -85339,14 +85339,14 @@ var app = (function () {
     		block,
     		id: create_else_block_2.name,
     		type: "else",
-    		source: "(260:3) {:else}",
+    		source: "(261:3) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (234:3) {#if recommendations.filter(e => e.type === 'furn').length > 0}
+    // (235:3) {#if recommendations.filter(e => e.type === 'furn').length > 0}
     function create_if_block_5(ctx) {
     	let each_blocks = [];
     	let each_1_lookup = new Map();
@@ -85420,14 +85420,14 @@ var app = (function () {
     		block,
     		id: create_if_block_5.name,
     		type: "if",
-    		source: "(234:3) {#if recommendations.filter(e => e.type === 'furn').length > 0}",
+    		source: "(235:3) {#if recommendations.filter(e => e.type === 'furn').length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (253:7) {#each rec.comps as comp}
+    // (254:7) {#each rec.comps as comp}
     function create_each_block_5(ctx) {
     	let li;
     	let button;
@@ -85447,9 +85447,9 @@ var app = (function () {
     			t = text$2(t_value);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "compButton svelte-14bgiha");
-    			add_location(button, file$2, 253, 12, 8625);
+    			add_location(button, file$2, 254, 12, 8702);
     			attr_dev(li, "class", "svelte-14bgiha");
-    			add_location(li, file$2, 253, 8, 8621);
+    			add_location(li, file$2, 254, 8, 8698);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -85476,14 +85476,14 @@ var app = (function () {
     		block,
     		id: create_each_block_5.name,
     		type: "each",
-    		source: "(253:7) {#each rec.comps as comp}",
+    		source: "(254:7) {#each rec.comps as comp}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (235:4) {#each recommendations.filter(e => e.type === 'furn').sort(sortByCore) as rec (rec.id+'_furn')}
+    // (236:4) {#each recommendations.filter(e => e.type === 'furn').sort(sortByCore) as rec (rec.id+'_furn')}
     function create_each_block_4(key_1, ctx) {
     	let div4;
     	let div0;
@@ -85578,33 +85578,33 @@ var app = (function () {
     			t9 = space();
     			attr_dev(button0, "type", "button");
     			attr_dev(button0, "class", "claimButton svelte-14bgiha");
-    			add_location(button0, file$2, 237, 7, 7859);
+    			add_location(button0, file$2, 238, 7, 7936);
     			attr_dev(div0, "class", "claimButtonArea svelte-14bgiha");
-    			add_location(div0, file$2, 236, 6, 7821);
+    			add_location(div0, file$2, 237, 6, 7898);
     			attr_dev(h4, "class", "svelte-14bgiha");
-    			add_location(h4, file$2, 239, 6, 7995);
+    			add_location(h4, file$2, 240, 6, 8072);
     			attr_dev(img, "class", "portrait svelte-14bgiha");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[2].find(func_13).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[2].find(func_14).name);
-    			add_location(img, file$2, 242, 8, 8195);
+    			add_location(img, file$2, 243, 8, 8272);
     			attr_dev(span, "class", "coreMark svelte-14bgiha");
     			toggle_class(span, "visible", /*rec*/ ctx[29].core);
-    			add_location(span, file$2, 243, 8, 8327);
+    			add_location(span, file$2, 244, 8, 8404);
     			attr_dev(button1, "type", "button");
     			attr_dev(button1, "class", "portraitButton svelte-14bgiha");
-    			add_location(button1, file$2, 241, 7, 8095);
+    			add_location(button1, file$2, 242, 7, 8172);
     			attr_dev(div1, "class", "portraitContainer svelte-14bgiha");
-    			add_location(div1, file$2, 240, 6, 8055);
+    			add_location(div1, file$2, 241, 6, 8132);
     			attr_dev(div2, "class", "recText svelte-14bgiha");
-    			add_location(div2, file$2, 246, 6, 8422);
+    			add_location(div2, file$2, 247, 6, 8499);
     			attr_dev(h5, "class", "svelte-14bgiha");
-    			add_location(h5, file$2, 250, 7, 8548);
+    			add_location(h5, file$2, 251, 7, 8625);
     			attr_dev(ul, "class", "svelte-14bgiha");
-    			add_location(ul, file$2, 251, 7, 8573);
+    			add_location(ul, file$2, 252, 7, 8650);
     			attr_dev(div3, "class", "compArea svelte-14bgiha");
-    			add_location(div3, file$2, 249, 6, 8517);
+    			add_location(div3, file$2, 250, 6, 8594);
     			attr_dev(div4, "class", "recCard svelte-14bgiha");
-    			add_location(div4, file$2, 235, 5, 7759);
+    			add_location(div4, file$2, 236, 5, 7836);
     			this.first = div4;
     		},
     		m: function mount(target, anchor) {
@@ -85731,14 +85731,14 @@ var app = (function () {
     		block,
     		id: create_each_block_4.name,
     		type: "each",
-    		source: "(235:4) {#each recommendations.filter(e => e.type === 'furn').sort(sortByCore) as rec (rec.id+'_furn')}",
+    		source: "(236:4) {#each recommendations.filter(e => e.type === 'furn').sort(sortByCore) as rec (rec.id+'_furn')}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (226:3) {:else}
+    // (227:3) {:else}
     function create_else_block_1(ctx) {
     	let div;
     	let span;
@@ -85749,9 +85749,9 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "No Signature Item Recommendations";
     			attr_dev(span, "class", "svelte-14bgiha");
-    			add_location(span, file$2, 226, 23, 7386);
+    			add_location(span, file$2, 227, 23, 7463);
     			attr_dev(div, "class", "noRec svelte-14bgiha");
-    			add_location(div, file$2, 226, 4, 7367);
+    			add_location(div, file$2, 227, 4, 7444);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -85769,14 +85769,14 @@ var app = (function () {
     		block,
     		id: create_else_block_1.name,
     		type: "else",
-    		source: "(226:3) {:else}",
+    		source: "(227:3) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (200:3) {#if recommendations.filter(e => e.type === 'si').length > 0}
+    // (201:3) {#if recommendations.filter(e => e.type === 'si').length > 0}
     function create_if_block_3$1(ctx) {
     	let each_blocks = [];
     	let each_1_lookup = new Map();
@@ -85850,14 +85850,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3$1.name,
     		type: "if",
-    		source: "(200:3) {#if recommendations.filter(e => e.type === 'si').length > 0}",
+    		source: "(201:3) {#if recommendations.filter(e => e.type === 'si').length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (219:7) {#each rec.comps as comp}
+    // (220:7) {#each rec.comps as comp}
     function create_each_block_3(ctx) {
     	let li;
     	let button;
@@ -85877,9 +85877,9 @@ var app = (function () {
     			t = text$2(t_value);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "compButton svelte-14bgiha");
-    			add_location(button, file$2, 219, 12, 7171);
+    			add_location(button, file$2, 220, 12, 7248);
     			attr_dev(li, "class", "svelte-14bgiha");
-    			add_location(li, file$2, 219, 8, 7167);
+    			add_location(li, file$2, 220, 8, 7244);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -85906,14 +85906,14 @@ var app = (function () {
     		block,
     		id: create_each_block_3.name,
     		type: "each",
-    		source: "(219:7) {#each rec.comps as comp}",
+    		source: "(220:7) {#each rec.comps as comp}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (201:4) {#each recommendations.filter(e => e.type === 'si').sort(sortByCore) as rec (rec.id+'_si')}
+    // (202:4) {#each recommendations.filter(e => e.type === 'si').sort(sortByCore) as rec (rec.id+'_si')}
     function create_each_block_2(key_1, ctx) {
     	let div4;
     	let div0;
@@ -86013,33 +86013,33 @@ var app = (function () {
     			t9 = space();
     			attr_dev(button0, "type", "button");
     			attr_dev(button0, "class", "claimButton svelte-14bgiha");
-    			add_location(button0, file$2, 203, 7, 6376);
+    			add_location(button0, file$2, 204, 7, 6453);
     			attr_dev(div0, "class", "claimButtonArea svelte-14bgiha");
-    			add_location(div0, file$2, 202, 6, 6338);
+    			add_location(div0, file$2, 203, 6, 6415);
     			attr_dev(h4, "class", "svelte-14bgiha");
-    			add_location(h4, file$2, 205, 6, 6510);
+    			add_location(h4, file$2, 206, 6, 6587);
     			attr_dev(img, "class", "portrait svelte-14bgiha");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[2].find(func_9).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[2].find(func_10).name);
-    			add_location(img, file$2, 208, 8, 6710);
+    			add_location(img, file$2, 209, 8, 6787);
     			attr_dev(span, "class", "coreMark svelte-14bgiha");
     			toggle_class(span, "visible", /*rec*/ ctx[29].core);
-    			add_location(span, file$2, 209, 8, 6842);
+    			add_location(span, file$2, 210, 8, 6919);
     			attr_dev(button1, "type", "button");
     			attr_dev(button1, "class", "portraitButton svelte-14bgiha");
-    			add_location(button1, file$2, 207, 7, 6610);
+    			add_location(button1, file$2, 208, 7, 6687);
     			attr_dev(div1, "class", "portraitContainer svelte-14bgiha");
-    			add_location(div1, file$2, 206, 6, 6570);
+    			add_location(div1, file$2, 207, 6, 6647);
     			attr_dev(div2, "class", "recText svelte-14bgiha");
-    			add_location(div2, file$2, 212, 6, 6937);
+    			add_location(div2, file$2, 213, 6, 7014);
     			attr_dev(h5, "class", "svelte-14bgiha");
-    			add_location(h5, file$2, 216, 7, 7094);
+    			add_location(h5, file$2, 217, 7, 7171);
     			attr_dev(ul, "class", "svelte-14bgiha");
-    			add_location(ul, file$2, 217, 7, 7119);
+    			add_location(ul, file$2, 218, 7, 7196);
     			attr_dev(div3, "class", "compArea svelte-14bgiha");
-    			add_location(div3, file$2, 215, 6, 7063);
+    			add_location(div3, file$2, 216, 6, 7140);
     			attr_dev(div4, "class", "recCard svelte-14bgiha");
-    			add_location(div4, file$2, 201, 5, 6276);
+    			add_location(div4, file$2, 202, 5, 6353);
     			this.first = div4;
     		},
     		m: function mount(target, anchor) {
@@ -86166,14 +86166,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(201:4) {#each recommendations.filter(e => e.type === 'si').sort(sortByCore) as rec (rec.id+'_si')}",
+    		source: "(202:4) {#each recommendations.filter(e => e.type === 'si').sort(sortByCore) as rec (rec.id+'_si')}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (192:3) {:else}
+    // (193:3) {:else}
     function create_else_block$2(ctx) {
     	let div;
     	let span;
@@ -86184,9 +86184,9 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "No Build Recommendations";
     			attr_dev(span, "class", "svelte-14bgiha");
-    			add_location(span, file$2, 192, 23, 5920);
+    			add_location(span, file$2, 193, 23, 5997);
     			attr_dev(div, "class", "noRec svelte-14bgiha");
-    			add_location(div, file$2, 192, 4, 5901);
+    			add_location(div, file$2, 193, 4, 5978);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -86204,14 +86204,14 @@ var app = (function () {
     		block,
     		id: create_else_block$2.name,
     		type: "else",
-    		source: "(192:3) {:else}",
+    		source: "(193:3) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (166:3) {#if recommendations.filter(e => e.type === 'ascend').length > 0}
+    // (167:3) {#if recommendations.filter(e => e.type === 'ascend').length > 0}
     function create_if_block_1$1(ctx) {
     	let each_blocks = [];
     	let each_1_lookup = new Map();
@@ -86285,14 +86285,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$1.name,
     		type: "if",
-    		source: "(166:3) {#if recommendations.filter(e => e.type === 'ascend').length > 0}",
+    		source: "(167:3) {#if recommendations.filter(e => e.type === 'ascend').length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (185:7) {#each rec.comps as comp}
+    // (186:7) {#each rec.comps as comp}
     function create_each_block_1(ctx) {
     	let li;
     	let button;
@@ -86312,9 +86312,9 @@ var app = (function () {
     			t = text$2(t_value);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "compButton svelte-14bgiha");
-    			add_location(button, file$2, 185, 12, 5705);
+    			add_location(button, file$2, 186, 12, 5782);
     			attr_dev(li, "class", "svelte-14bgiha");
-    			add_location(li, file$2, 185, 8, 5701);
+    			add_location(li, file$2, 186, 8, 5778);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -86341,14 +86341,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(185:7) {#each rec.comps as comp}",
+    		source: "(186:7) {#each rec.comps as comp}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (167:4) {#each recommendations.filter(e => e.type === 'ascend').sort(sortByCore) as rec (rec.id+'_asc')}
+    // (168:4) {#each recommendations.filter(e => e.type === 'ascend').sort(sortByCore) as rec (rec.id+'_asc')}
     function create_each_block$1(key_1, ctx) {
     	let div4;
     	let div0;
@@ -86443,33 +86443,33 @@ var app = (function () {
     			t9 = space();
     			attr_dev(button0, "type", "button");
     			attr_dev(button0, "class", "claimButton svelte-14bgiha");
-    			add_location(button0, file$2, 169, 7, 4947);
+    			add_location(button0, file$2, 170, 7, 5024);
     			attr_dev(div0, "class", "claimButtonArea svelte-14bgiha");
-    			add_location(div0, file$2, 168, 6, 4909);
+    			add_location(div0, file$2, 169, 6, 4986);
     			attr_dev(h4, "class", "svelte-14bgiha");
-    			add_location(h4, file$2, 171, 6, 5082);
+    			add_location(h4, file$2, 172, 6, 5159);
     			attr_dev(img, "class", "portrait svelte-14bgiha");
     			if (img.src !== (img_src_value = /*$HeroData*/ ctx[2].find(func_5).portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[2].find(func_6).name);
-    			add_location(img, file$2, 174, 8, 5282);
+    			add_location(img, file$2, 175, 8, 5359);
     			attr_dev(span, "class", "coreMark svelte-14bgiha");
     			toggle_class(span, "visible", /*rec*/ ctx[29].core);
-    			add_location(span, file$2, 175, 8, 5414);
+    			add_location(span, file$2, 176, 8, 5491);
     			attr_dev(button1, "type", "button");
     			attr_dev(button1, "class", "portraitButton svelte-14bgiha");
-    			add_location(button1, file$2, 173, 7, 5182);
+    			add_location(button1, file$2, 174, 7, 5259);
     			attr_dev(div1, "class", "portraitContainer svelte-14bgiha");
-    			add_location(div1, file$2, 172, 6, 5142);
+    			add_location(div1, file$2, 173, 6, 5219);
     			attr_dev(div2, "class", "recText svelte-14bgiha");
-    			add_location(div2, file$2, 178, 6, 5509);
+    			add_location(div2, file$2, 179, 6, 5586);
     			attr_dev(h5, "class", "svelte-14bgiha");
-    			add_location(h5, file$2, 182, 7, 5628);
+    			add_location(h5, file$2, 183, 7, 5705);
     			attr_dev(ul, "class", "svelte-14bgiha");
-    			add_location(ul, file$2, 183, 7, 5653);
+    			add_location(ul, file$2, 184, 7, 5730);
     			attr_dev(div3, "class", "compArea svelte-14bgiha");
-    			add_location(div3, file$2, 181, 6, 5597);
+    			add_location(div3, file$2, 182, 6, 5674);
     			attr_dev(div4, "class", "recCard svelte-14bgiha");
-    			add_location(div4, file$2, 167, 5, 4847);
+    			add_location(div4, file$2, 168, 5, 4924);
     			this.first = div4;
     		},
     		m: function mount(target, anchor) {
@@ -86596,7 +86596,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(167:4) {#each recommendations.filter(e => e.type === 'ascend').sort(sortByCore) as rec (rec.id+'_asc')}",
+    		source: "(168:4) {#each recommendations.filter(e => e.type === 'ascend').sort(sortByCore) as rec (rec.id+'_asc')}",
     		ctx
     	});
 
@@ -86646,11 +86646,11 @@ var app = (function () {
     			t = space();
     			if (if_block) if_block.c();
     			attr_dev(ul, "class", "sectionPicker svelte-14bgiha");
-    			add_location(ul, file$2, 154, 2, 4263);
+    			add_location(ul, file$2, 155, 2, 4340);
     			attr_dev(div0, "class", "sectionPickerSection svelte-14bgiha");
-    			add_location(div0, file$2, 153, 1, 4225);
+    			add_location(div0, file$2, 154, 1, 4302);
     			attr_dev(div1, "class", "recContainer svelte-14bgiha");
-    			add_location(div1, file$2, 152, 0, 4196);
+    			add_location(div1, file$2, 153, 0, 4273);
     		},
     		l: function claim(nodes) {
     			throw new Error_1("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -86898,6 +86898,7 @@ var app = (function () {
     			set_store_value(AppData$1, $AppData.selectedUUID = null, $AppData);
     		}
 
+    		history.pushState({ view: "comps", modal: false }, "comps", `?view=comps`);
     		set_store_value(AppData$1, $AppData.activeView = "comps", $AppData);
     	}
 
