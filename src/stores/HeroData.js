@@ -4367,10 +4367,10 @@ const HeroData = readable([
 				desc: 'During battles, damage dealt to all allied heroes from Intelligence-based enemies is reduced by <em>15%</em>.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'During battles, damage dealt to all allied heroes from Intelligence-based enemies is reduced by an additional <em>15%</em>.',
+					{ desc: 'During battles, damage dealt to allied Graveborn heroes from Intelligence-based enemies is reduced by an additional <em>15%</em>.',
 						unlock: 141,
 					},
-					{ desc: 'During battles, damage dealt to all allied heroes from Intelligence-based enemies is reduced by an additional <em>20%</em>.',
+					{ desc: 'During battles, damage dealt to all allied heroes from Intelligence-based enemies is reduced by <em>20%</em>.',
 						unlock: 221,
 					},
 				],
