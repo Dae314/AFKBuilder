@@ -843,6 +843,8 @@
 		display: flex;
 		justify-content: center;
 		max-width: 100px;
+		min-width: 40px;
+		min-height: 26px;
 		padding: 3px;
 		span {
 			display: inline-block;
@@ -862,18 +864,8 @@
 			height: 10px;
 			justify-content: center;
 			margin-left: 5px;
-			opacity: 0;
 			transition: opacity 0.2s;
-			visibility: hidden;
 			width: 10px;
-		}
-		&:hover .removeButton {
-			opacity: 1;
-			visibility: visible;
-		}
-		.removeButton.open {
-			opacity: 1;
-			visibility: visible;
 		}
 	}
 	.linePickerOption.open {
@@ -881,6 +873,7 @@
 		color: white;
 	}
 	.addLineButton {
+		min-width: 20px;
 		padding: 3px;
 		user-select: none;
 	}
@@ -1119,6 +1112,21 @@
 		}
 		.lineEditHead {
 			justify-content: flex-start;
+		}
+		.linePickerOption {
+			.removeButton {
+				opacity: 0;
+				transition: opacity 0.2s;
+				visibility: hidden;
+			}
+			&:hover .removeButton {
+				opacity: 1;
+				visibility: visible;
+			}
+			.removeButton.open {
+				opacity: 1;
+				visibility: visible;
+			}
 		}
 		.lineEditBody {
 			border-radius: 0px 10px 10px 10px;
