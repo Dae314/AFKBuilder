@@ -1187,6 +1187,8 @@
 		font-size: 1.0rem;
 		margin-right: 5px;
 		max-width: 100px;
+		min-height: 26px;
+		min-width: 30px;
 		overflow: hidden;
 		padding: 3px;
 		text-overflow: ellipsis;
