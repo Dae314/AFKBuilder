@@ -1226,6 +1226,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
+		min-height: 295px;
 		width: 100%;
 	}
 	.detailImgContainer {
