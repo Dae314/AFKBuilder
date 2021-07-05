@@ -295,6 +295,7 @@
 				// comp not in list yet, add it to the list
 				returnObj.message.starred = false;
 				$AppData.Comps = [...$AppData.Comps, returnObj.message];
+				statusMsg = 'Data import successful';
 			}
 			$AppData.compSearchStr = ''; // reset any filters
 			sortedCompList = makeSortedCompList();
