@@ -843,6 +843,8 @@
 		display: flex;
 		justify-content: center;
 		max-width: 100px;
+		min-width: 40px;
+		min-height: 26px;
 		padding: 3px;
 		span {
 			display: inline-block;
@@ -881,6 +883,7 @@
 		color: white;
 	}
 	.addLineButton {
+		min-width: 20px;
 		padding: 3px;
 		user-select: none;
 	}
