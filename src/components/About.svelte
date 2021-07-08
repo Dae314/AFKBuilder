@@ -11,7 +11,7 @@
 		{ name: 'Dae314',
 			image: './img/contributors/dae314.png',
 			title: 'Maintainer',
-			message: 'Got questions? Find me on the AFK Arena Discord! <em>Dae314#2750</em>',
+			message: 'Got questions? Find me on the <a href="https://discord.com/invite/afkarena" target="_blank" rel="noreferrer noopener">AFK Arena Discord</a>!',
 			website: '',
 		},
 		{ name: 'Wyatt Rice',
@@ -228,6 +228,16 @@
 		h3 {
 			margin: 0;
 			margin-bottom: 5px;
+		}
+		.message {
+			:global(a) {
+				&:link {
+					color: var(--appColorPrimary);
+				}
+				&:visited {
+					color: var(--appColorPrimary);
+				}
+			}
 		}
 	}
 	.affiliate {
