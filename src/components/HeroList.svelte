@@ -1,6 +1,5 @@
 <script>
 	import { getContext, onMount, createEventDispatcher } from 'svelte';
-	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
@@ -13,6 +12,7 @@
 	const dispatch = createEventDispatcher();
 	let displayList = [];
 	let openFilters = false;
+	let modalHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
 	$: allFactionsEnabled = $AppData.HL.ShowLB && $AppData.HL.ShowM && $AppData.HL.ShowW && $AppData.HL.ShowGB && $AppData.HL.ShowC && $AppData.HL.ShowH && $AppData.HL.ShowD;
 	$: allTypesEnabled = $AppData.HL.ShowInt && $AppData.HL.ShowAgi && $AppData.HL.ShowStr;
 	$: allClassEnabled = $AppData.HL.ShowMage && $AppData.HL.ShowWar && $AppData.HL.ShowTank && $AppData.HL.ShowSup && $AppData.HL.ShowRan;
@@ -114,7 +114,7 @@
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
+			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
 		});
 	}
 
@@ -292,7 +292,7 @@
 	</section>
 	<section class="sect2">
 		{#if !$AppData.dismissHLSearchInfo}
-			<div class="searchInfo" transition:fade="{{duration: 200}}">
+			<div class="searchInfo">
 				<div class="tutorialBoxContainer">
 					<TutorialBox clickable={true} onClick={() => {$AppData.dismissHLSearchInfo = true; dispatch('saveData');}}>
 						Just start typing to search! Pressing tab will also open and close the filter area.

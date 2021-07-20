@@ -18,7 +18,8 @@
 		"Ascension",
 		"Signature Item",
 		"Furniture",
-	]
+	];
+	let modalHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
 
 	// loop through the hero list for every starred comp and compile a list of all of them
 	function buildCompHeroes() {
@@ -127,7 +128,7 @@
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
+			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
 		});
 	}
 
