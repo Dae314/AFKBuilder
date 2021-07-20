@@ -627,7 +627,7 @@
 	.heroFinderContainer {
 		background: var(--appBGColor);
 		border-radius: 10px;
-		height: 80%;
+		height: 70%;
 		overflow-x: hidden;
 		overflow-y: auto;
 		position: relative;
