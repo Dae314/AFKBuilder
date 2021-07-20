@@ -88417,7 +88417,7 @@ var app = (function () {
 
     const app = new App({
     	target: document.body,
-    	props: {version: '1.0.13'}
+    	props: {version: '1.0.16'}
     });
 
     return app;
