@@ -1,6 +1,5 @@
 <script>
 	import { getContext, createEventDispatcher } from 'svelte';
-	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import JSONURL from 'json-url';
 	import AppData from '../stores/AppData.js';
@@ -343,7 +342,7 @@
 			</div>
 		{:else}
 			{#if !$AppData.dismissMHSearchInfo}
-				<div class="searchInfo" transition:fade="{{duration: 200}}">
+				<div class="searchInfo">
 					<div class="tutorialBoxContainer">
 						<TutorialBox clickable={true} onClick={() => {$AppData.dismissMHSearchInfo = true; dispatch('saveData');}}>
 							Just start typing to search! Pressing tab will also open and close the filter area.

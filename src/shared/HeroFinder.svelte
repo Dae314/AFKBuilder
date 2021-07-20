@@ -1,6 +1,5 @@
 <script>
 	import { onMount, tick } from 'svelte';
-	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
@@ -487,7 +486,7 @@
 							<div class="artifactLine priArtifactLine">
 								{#if !pickArtifactPri}
 									{#each selectedHero.artifacts.primary as artifact, i (artifact)}
-										<div class="artifactContainer" in:fade="{{duration: 200}}">
+										<div class="artifactContainer">
 											<div class="artifactImgContainer">
 												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 												<button type="button" class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'primary'); e.stopPropagation(); }}><span>x</span></button>
@@ -501,7 +500,7 @@
 								{:else}
 									<div class="mobileArtifactPicker">
 										{#each unusedArtifacts as artifact (artifact)}
-											<button type="button" class="artifactButton" on:click={() => handleAddArtifact(artifact, 'primary') } transition:fade="{{duration: 200}}">
+											<button type="button" class="artifactButton" on:click={() => handleAddArtifact(artifact, 'primary') }>
 												<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 												<p>{$Artifacts[artifact].name}</p>
 											</button>
@@ -515,7 +514,7 @@
 							<div class="artifactLine secArtifactLine">
 								{#if !pickArtifactSec}
 									{#each selectedHero.artifacts.secondary as artifact (artifact)}
-										<div class="artifactContainer" in:fade="{{duration: 200}}">
+										<div class="artifactContainer">
 											<div class="artifactImgContainer">
 												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 												<button type="button" class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'secondary'); e.stopPropagation(); }}><span>x</span></button>
@@ -529,7 +528,7 @@
 								{:else}
 									<div class="mobileArtifactPicker">
 										{#each unusedArtifacts as artifact (artifact)}
-											<button type="button" class="artifactButton" on:click={() => handleAddArtifact(artifact, 'secondary') } transition:fade="{{duration: 200}}">
+											<button type="button" class="artifactButton" on:click={() => handleAddArtifact(artifact, 'secondary') }>
 												<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 												<p>{$Artifacts[artifact].name}</p>
 											</button>
@@ -543,7 +542,7 @@
 							<div class="artifactLine sitArtifactLine">
 								{#if !pickArtifactSit}
 									{#each selectedHero.artifacts.situational as artifact (artifact)}
-										<div class="artifactContainer" in:fade="{{duration: 200}}">
+										<div class="artifactContainer">
 											<div class="artifactImgContainer">
 												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 												<button type="button" class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'situational'); e.stopPropagation(); }}><span>x</span></button>
@@ -557,7 +556,7 @@
 								{:else}
 									<div class="mobileArtifactPicker">
 										{#each unusedArtifacts as artifact (artifact)}
-											<button type="button" class="artifactButton" on:click={() => handleAddArtifact(artifact, 'situational') } transition:fade="{{duration: 200}}">
+											<button type="button" class="artifactButton" on:click={() => handleAddArtifact(artifact, 'situational') }>
 												<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 												<p>{$Artifacts[artifact].name}</p>
 											</button>
@@ -590,7 +589,7 @@
 					on:click={() => {
 						const line = pickArtifactPri ? 'primary' : pickArtifactSec ? 'secondary' : 'situational';
 						handleAddArtifact(artifact, line);
-					}} transition:fade="{{duration: 200}}">
+					}}>
 					<img class="artifactImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 					<p>{$Artifacts[artifact].name}</p>
 				</button>
