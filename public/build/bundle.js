@@ -81174,7 +81174,6 @@ var app = (function () {
     		: null;
 
     		set_store_value(AppData$1, $AppData.Comps = $AppData.Comps.filter(e => e.uuid !== delUUID), $AppData);
-    		$$invalidate(0, sortedCompList = makeSortedCompList());
 
     		if ($AppData.selectedComp === idx) {
     			set_store_value(AppData$1, $AppData.selectedComp = null, $AppData);
@@ -81193,6 +81192,7 @@ var app = (function () {
     			if ($AppData.selectedComp === -1) set_store_value(AppData$1, $AppData.selectedComp = null, $AppData);
     		}
 
+    		$$invalidate(0, sortedCompList = makeSortedCompList());
     		dispatch("saveData");
     	}
 

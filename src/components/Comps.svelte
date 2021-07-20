@@ -235,7 +235,6 @@
 		const delUUID = sortedCompList[idx].uuid;
 		const selUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : null;
 		$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== delUUID);
-		sortedCompList = makeSortedCompList();
 		if($AppData.selectedComp === idx) {
 			$AppData.selectedComp = null;
 			selectedHero = '';
@@ -245,6 +244,7 @@
 			$AppData.selectedComp = selUUID !== null ? sortedCompList.findIndex(e => e.uuid === selUUID) : null;
 			if($AppData.selectedComp === -1) $AppData.selectedComp = null;
 		}
+		sortedCompList = makeSortedCompList();
 		dispatch('saveData');
 	}
 
