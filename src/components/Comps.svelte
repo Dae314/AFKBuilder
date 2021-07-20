@@ -14,7 +14,7 @@
 	import HeroDetail from '../modals/HeroDetail.svelte';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import CompEditor from '../modals/CompEditor.svelte';
-	import ArtifactDtail from '../modals/ArtifactDetail.svelte';
+	import ArtifactDetail from '../modals/ArtifactDetail.svelte';
 	import SIFurnBox from '../shared/SIFurnBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import AscendBox from '../shared/AscendBox.svelte';
@@ -49,6 +49,7 @@
 	let owText = '';
 	let owPromise;
 	let editorWidth = window.matchMedia("(max-width: 767px)").matches ? '100%' : '75%';
+	let editorHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
 
 	onMount(async () => {
 		const mediaListener = window.matchMedia("(max-width: 767px)");
@@ -161,7 +162,7 @@
 				 onSuccess: (uuid) => handleCompChangeSuccess(uuid, 'edit'),
 				},
 				{ closeButton: ModalCloseButton,
-					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
+					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 					styleWindow: {width: editorWidth, maxWidth: '1200px',},
 					closeOnOuterClick: false,
 				});
@@ -172,7 +173,7 @@
 				{onSuccess: (uuid) => { $AppData.compSearchStr = ''; handleCompChangeSuccess(uuid, 'new') }},
 				{ closeButton: ModalCloseButton,
 					closeOnOuterClick: false,
-					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',},
+					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 					styleWindow: {width: editorWidth, maxWidth: '1200px',},
 				});
 	}
@@ -208,7 +209,7 @@
 			title: 'Paste Composition:',
 		},
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
+			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 			closeOnOuterClick: false,
 		});
 	}
@@ -331,15 +332,15 @@
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
+			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 		});
 	}
 
 	function openArtifactDetail(artifactID) {
-		open(ArtifactDtail, 
+		open(ArtifactDetail, 
 		{ artifactID: artifactID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
+			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 		});
 	}
 

@@ -22,6 +22,7 @@
 	let openFilters = false;
 	let openInOutMenu = false;
 	let copyConfirmVisible = false;
+	let modalHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
 
 	function makeMyHeroList(herolist) {
 		let buffer = [];
@@ -213,7 +214,7 @@
 			title: 'Paste My Hero Data:',
 		},
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
+			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
 		});
 	}
 
@@ -258,7 +259,7 @@
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
+			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
 		});
 	}
 </script>
