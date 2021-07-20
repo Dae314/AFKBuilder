@@ -510,7 +510,9 @@
 								{/each}
 							</div>
 							<div class="lineDisplay">
-								<div class="lineTitle"><span>{sortedCompList[$AppData.selectedComp].lines[selectedLine].name}</span></div>
+								{#if sortedCompList[$AppData.selectedComp].lines.length > 0}
+									<div class="lineTitle"><span>{sortedCompList[$AppData.selectedComp].lines[selectedLine].name}</span></div>
+								{/if}
 								<div class="lineMembers">
 									<div class="detailBackline">
 										{#if sortedCompList[$AppData.selectedComp].lines.length > 0}
