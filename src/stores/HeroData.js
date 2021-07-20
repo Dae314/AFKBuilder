@@ -6700,7 +6700,7 @@ const HeroData = readable([
 				],
 			},
 			{
-				name: 'Cosmic Fustion',
+				name: 'Cosmic Fusion',
 				image: './img/skills/morael3.png',
 				desc: 'Morael charges her Star Core with cosmic power, causing it to explode, dealing <em>240%</em> damage to nearby enemies.',
 				unlock: 41,
