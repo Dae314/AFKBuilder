@@ -3024,7 +3024,7 @@ const HeroData = readable([
 		furn_benchmark: 3,
 		furniture: {
 			name: 'Heart of Fire',
-			image: './img/furniture/unavailable.png',
+			image: './img/furniture/thali.png',
 			upgrades: [
 				{ desc: 'Each time Thali enters a frenzy, all non-summoned allies have their Attack Ratings increased by <em>20%</em> and their Haste increased by <em>20</em> points for <em>7</em> seconds.',
 					unlock: 3,
