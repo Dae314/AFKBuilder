@@ -11,7 +11,7 @@
 	import FlipButton from '../shared/FlipButton.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 
-	$: myHeroList = makeMyHeroList();
+	$: myHeroList = makeMyHeroList($AppData.MH.List);
 	$: allFactionsEnabled = $AppData.MH.ShowLB && $AppData.MH.ShowM && $AppData.MH.ShowW && $AppData.MH.ShowGB && $AppData.MH.ShowC && $AppData.MH.ShowH && $AppData.MH.ShowD;
 	$: allTypesEnabled = $AppData.MH.ShowInt && $AppData.MH.ShowAgi && $AppData.MH.ShowStr;
 	$: allClassEnabled = $AppData.MH.ShowMage && $AppData.MH.ShowWar && $AppData.MH.ShowTank && $AppData.MH.ShowSup && $AppData.MH.ShowRan;
@@ -23,12 +23,12 @@
 	let openInOutMenu = false;
 	let copyConfirmVisible = false;
 
-	function makeMyHeroList() {
+	function makeMyHeroList(herolist) {
 		let buffer = [];
 		let hero;
-		for(let key in $AppData.MH.List) {
+		for(let key in herolist) {
 			hero = $HeroData.find(e => e.id === key);
-			if(!$AppData.MH.List[key].claimed) continue;
+			if(!herolist[key].claimed) continue;
 			if(!$AppData.MH.ShowLB && hero.faction.toLowerCase() === 'lightbearer') continue;
 			if(!$AppData.MH.ShowM && hero.faction.toLowerCase() === 'mauler') continue;
 			if(!$AppData.MH.ShowW && hero.faction.toLowerCase() === 'wilder') continue;
@@ -76,13 +76,13 @@
 	}
 
 	function updateSearch() {
-		myHeroList = makeMyHeroList();
+		myHeroList = makeMyHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
 
 	function updateFilters(filter) {
 		$AppData.MH[filter] = !$AppData.MH[filter];
-		myHeroList = makeMyHeroList();
+		myHeroList = makeMyHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
 
@@ -136,13 +136,13 @@
 			default:
 				throw new Error(`Invalid category given to handleFilterMasterButtonClick(): ${category}`);
 		}
-		myHeroList = makeMyHeroList();
+		myHeroList = makeMyHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
 
 	function handlePortraitClick(heroID) {
 		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed
-		myHeroList = makeMyHeroList();
+		myHeroList = makeMyHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
 
@@ -200,7 +200,7 @@
 		} else {
 			// message should contain a clean MH.List data object now
 			$AppData.MH.List = returnObj.message;
-			myHeroList = makeMyHeroList();
+			myHeroList = makeMyHeroList($AppData.MH.List);
 			dispatch('saveData');
 			return { retCode: 0, message: 'Data import successful' }
 		}
