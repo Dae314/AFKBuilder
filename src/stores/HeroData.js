@@ -6760,7 +6760,7 @@ const HeroData = readable([
 		},
 	},
 	{ id: 'titus',
-		name: 'titus',
+		name: 'Titus',
 		portrait: './img/portraits/titus.jpg',
 		class: 'Tank',
 		faction: 'Celestial',
