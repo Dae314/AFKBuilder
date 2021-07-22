@@ -5381,7 +5381,7 @@ const HeroData = readable([
 				{ desc: 'Izold\'s Attack Rating is increased by <em>1%</em> and his attack frequency increased by <em>3%</em> until the end of the battle every time he loses <em>1%</em> of his max health.',
 					unlock: 3,
 				},
-				{ desc: 'The effects of the ability Hypodermic Healing become permanent after this ability has been stacked <em>45</em> times and does not need to be manually activated again.',
+				{ desc: 'The effects of the ability "Hypodermic Healing" become permanent after this ability has been stacked <em>45</em> times and does not need to be manually activated again.',
 					unlock: 9,
 				},
 			],
