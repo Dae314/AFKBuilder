@@ -141,7 +141,12 @@
 	}
 
 	function handlePortraitClick(heroID) {
-		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed
+		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed;
+		if(!$AppData.MH.List[heroID].claimed) {
+			$AppData.MH.List[heroID].ascendLv = 6;
+			$AppData.MH.List[heroID].si = -1;
+			$AppData.MH.List[heroID].furn = 0;
+		}
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
@@ -155,9 +160,13 @@
 	}
 
 	function handleSIChange(heroID) {
-		$AppData.MH.List[heroID].si += 5;
-		if($AppData.MH.List[heroID].si > 30) {
+		if($AppData.MH.List[heroID].si < 0) {
 			$AppData.MH.List[heroID].si = 0;
+		} else {
+			$AppData.MH.List[heroID].si += 5;
+		}
+		if($AppData.MH.List[heroID].si > 30) {
+			$AppData.MH.List[heroID].si = -1;
 		}
 		dispatch('saveData');
 	}
@@ -408,7 +417,7 @@
 						</div>
 						<div class="siFurnButtonArea">
 							<div class="flipButtonArea">
-								<FlipButton options="{['SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
+								<FlipButton options="{['SI OFF', 'SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
 									optionStyles="{[
 										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
 										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
@@ -417,8 +426,9 @@
 										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
 										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
 										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
 										]}"
-										curOption="{Math.floor($AppData.MH.List[hero.id].si/5)}"
+										curOption="{$AppData.MH.List[hero.id].si === -1 ? 0 : Math.floor($AppData.MH.List[hero.id].si/5) + 1}"
 										onClick="{() => handleSIChange(hero.id)}" />
 							</div>
 							<div class="flipButtonArea">

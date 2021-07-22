@@ -187,7 +187,11 @@
 
 	function handlePortraitClick(heroID) {
 		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed;
-		if($AppData.MH.List[heroID].claimed) $AppData.MH.List[heroID].ascendLv = 6;
+		if($AppData.MH.List[heroID].claimed) {
+			$AppData.MH.List[heroID].ascendLv = 6;
+			$AppData.MH.List[heroID].si = -1;
+			$AppData.MH.List[heroID].furn = 0;
+		}
 		dispatch('saveData');
 	}
 

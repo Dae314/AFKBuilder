@@ -178,9 +178,13 @@
 	}
 
 	function handleSIChange() {
-		selectedHero.si+=5;
-		if(selectedHero.si > 30) {
+		if(selectedHero.si < 0) {
 			selectedHero.si = 0;
+		} else {
+			selectedHero.si+=5;
+		}
+		if(selectedHero.si > 30) {
+			selectedHero.si = -1;
 		}
 	}
 
@@ -430,7 +434,7 @@
 					<div class="heroName">{$HeroData.find(e => e.id === selectedHero.id).name}</div>
 					<div class="portraitArea">
 						<div class="siFlipButtonArea">
-							<FlipButton options="{['SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
+							<FlipButton options="{['SI OFF', 'SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
 								optionStyles="{[
 									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
 									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
@@ -439,8 +443,9 @@
 									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
 									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
 									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
+									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
 									]}"
-									curOption="{Math.floor(selectedHero.si/5)}"
+									curOption="{selectedHero.si === -1 ? 0 : Math.floor(selectedHero.si/5) + 1}"
 									onClick="{handleSIChange}" />
 						</div>
 						<div class="portraitContainer">
