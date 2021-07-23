@@ -1,11 +1,14 @@
 <script>
 	import { getContext, createEventDispatcher } from 'svelte';
 	import Confirm from '../modals/Confirm.svelte';
+	import ChangeLog from '../modals/ChangeLog.svelte';
+	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 
 	export let version = '';
 
 	const dispatch = createEventDispatcher();
 	const { open } = getContext('simple-modal');
+	let modalHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
 
 	const contributors = [
 		{ name: 'Dae314',
@@ -40,11 +43,21 @@
 	function clearData() {
 		dispatch('clearData');
 	}
+
+	function openChangeLog() {
+		open(ChangeLog,
+		{},
+		{ closeButton: ModalCloseButton,
+			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
+		});
+	}
 </script>
 
 <div class="aboutContainer">
 	<div class="versionContainer">
-		<span>Version: {version}</span>
+		<button type="button" class="versionButton" on:click={openChangeLog}>
+			<span>Version: {version}</span>
+		</button>
 	</div>
 	<div class="titleContainer">
 		<h1>AFKBuilder</h1>
@@ -146,6 +159,12 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-end;
+	}
+	.versionButton {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		outline: none;
 	}
 	.titleContainer {
 		padding-bottom: 10px;
