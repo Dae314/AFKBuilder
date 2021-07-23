@@ -74,6 +74,7 @@
 			usageStatistics: false,
 			useDefaultHTMLSanitizer: true,
 		});
+		setTimeout(() => editor.blur(), 5);
 	});
 
 	onDestroy(async () => {

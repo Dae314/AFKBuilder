@@ -15,10 +15,11 @@
 	$: allClassEnabled = showMage && showWar && showTank && showSup && showRan;
 	$: unusedArtifacts = makeUnusedArtifactList();
 
+	let isMobileWidth = window.matchMedia("(max-width: 767px)").matches;
 	let close = () => {};
 	let section = 1;
 	let selectedHero = {};
-	let openFilters = true;
+	let openFilters = !isMobileWidth;
 	let idx = 0;
 	let pos = 0;
 	let onSuccess = () => {};
@@ -55,7 +56,7 @@
 		heroes = makeHeroList();
 		if(section === 1) {
 			await tick();
-			document.querySelector('#searchBox').focus();
+			if(!isMobileWidth) document.querySelector('#searchBox').focus();
 		}
 	});
 
