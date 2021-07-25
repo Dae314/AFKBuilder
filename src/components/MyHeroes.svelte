@@ -569,7 +569,7 @@
 		left: 0;
 		position: fixed;
 		width: 100%;
-		z-index: 1;
+		z-index: 3;
 	}
 	.sect2 {
 		padding: 10px;
@@ -580,6 +580,7 @@
 		position: fixed;
 		right: 20px;
 		width: 60px;
+		z-index: 2;
 	}
 	.sect4 {
 		left: 50%;
