@@ -610,14 +610,14 @@
 		}
 		.mobileExpander {
 			background-color: var(--appBGColor);
-			max-height: max-content;
+			max-height: 465px;
 			max-width: 0;
 			overflow: none;
 			transition: max-width 0.2s ease;
 		}
 		.mobileExpander.filterOpen {
 			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-			max-height: max-content;
+			max-height: 465px;
 			max-width: 100%;
 			padding: 10px;
 		}
@@ -639,11 +639,13 @@
 		.filters {
 			display: flex;
 			flex-direction: row;
+			height: fit-content;
 			padding-top: 10px;
 		}
 		.filterSection {
 			border: 0;
 			display: block;
+			height: fit-content;
 			padding: 0;
 			width: 33%;
 			.filterMasterButton {
