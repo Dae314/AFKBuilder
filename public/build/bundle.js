@@ -1144,7 +1144,7 @@ var app = (function () {
     				],
     			},
     		],
-    		si_benchmark: 30,
+    		si_benchmark: 0,
     		sig_item: {
     			name: 'In Command',
     			image: './img/si/estrilda.png',
@@ -1242,7 +1242,7 @@ var app = (function () {
     				],
     			},
     		],
-    		si_benchmark: 5,
+    		si_benchmark: 0,
     		sig_item: {
     			name: 'Gift of Heaven',
     			image: './img/si/belinda.png',
@@ -1259,7 +1259,7 @@ var app = (function () {
     				},
     			],
     		},
-    		furn_benchmark: 0,
+    		furn_benchmark: 3,
     		furniture: {
     			name: 'Focused Light',
     			image: './img/furniture/belinda.png',
@@ -1651,7 +1651,7 @@ var app = (function () {
     				},
     			],
     		},
-    		furn_benchmark: 3,
+    		furn_benchmark: 9,
     		furniture: {
     			name: 'Swift Death',
     			image: './img/furniture/thane.png',
@@ -1732,7 +1732,7 @@ var app = (function () {
     				],
     			},
     		],
-    		si_benchmark: 30,
+    		si_benchmark: 0,
     		sig_item: {
     			name: 'Purged Perseverance',
     			image: './img/si/fawkes.png',
@@ -1830,7 +1830,7 @@ var app = (function () {
     				],
     			},
     		],
-    		si_benchmark: 10,
+    		si_benchmark: 20,
     		sig_item: {
     			name: 'Steadfast',
     			image: './img/si/hendrik.png',
@@ -1847,7 +1847,7 @@ var app = (function () {
     				},
     			],
     		},
-    		furn_benchmark: 3,
+    		furn_benchmark: 0,
     		furniture: {
     			name: 'Defensive Stance',
     			image: './img/furniture/hendrik.png',
@@ -2124,7 +2124,7 @@ var app = (function () {
     				],
     			},
     		],
-    		si_benchmark: 30,
+    		si_benchmark: 10,
     		sig_item: {
     			name: 'Fiery Demise',
     			image: './img/si/rigby.png',
@@ -2141,7 +2141,7 @@ var app = (function () {
     				},
     			],
     		},
-    		furn_benchmark: 0,
+    		furn_benchmark: 3,
     		furniture: {
     			name: 'Drunken Rage',
     			image: './img/furniture/rigby.png',
@@ -2810,7 +2810,7 @@ var app = (function () {
     				],
     			},
     		],
-    		si_benchmark: 30,
+    		si_benchmark: 0,
     		sig_item: {
     			name: 'Precision',
     			image: './img/si/khasos.png',
@@ -3006,7 +3006,7 @@ var app = (function () {
     				],
     			},
     		],
-    		si_benchmark: 15,
+    		si_benchmark: 30,
     		sig_item: {
     			name: 'Totem Master',
     			image: './img/si/numisu.png',
@@ -3202,7 +3202,7 @@ var app = (function () {
     				],
     			},
     		],
-    		si_benchmark: 30,
+    		si_benchmark: 20,
     		sig_item: {
     			name: 'Beast Rider',
     			image: './img/si/skreg.png',
@@ -5652,7 +5652,7 @@ var app = (function () {
     				],
     			},
     		],
-    		si_benchmark: 30,
+    		si_benchmark: 0,
     		sig_item: {
     			name: 'Twisted Torture',
     			image: './img/si/shemira.png',
@@ -5669,7 +5669,7 @@ var app = (function () {
     				},
     			],
     		},
-    		furn_benchmark: 0,
+    		furn_benchmark: 3,
     		furniture: {
     			name: 'Inner Yearning',
     			image: './img/furniture/shemira.png',
@@ -7041,7 +7041,7 @@ var app = (function () {
     				},
     			],
     		},
-    		furn_benchmark: 9,
+    		furn_benchmark: 3,
     		furniture: {
     			name: 'Heaven\'s Justice',
     			image: './img/furniture/athalia.png',
@@ -8119,7 +8119,7 @@ var app = (function () {
     				},
     			],
     		},
-    		furn_benchmark: 9,
+    		furn_benchmark: 0,
     		furniture: {
     			name: 'Vicious Friends',
     			image: './img/furniture/mehira.png',

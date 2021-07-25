@@ -64,7 +64,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'In Command',
 			image: './img/si/estrilda.png',
@@ -162,7 +162,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 5,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Gift of Heaven',
 			image: './img/si/belinda.png',
@@ -179,7 +179,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 0,
+		furn_benchmark: 3,
 		furniture: {
 			name: 'Focused Light',
 			image: './img/furniture/belinda.png',
@@ -571,7 +571,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 3,
+		furn_benchmark: 9,
 		furniture: {
 			name: 'Swift Death',
 			image: './img/furniture/thane.png',
@@ -652,7 +652,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Purged Perseverance',
 			image: './img/si/fawkes.png',
@@ -750,7 +750,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 10,
+		si_benchmark: 20,
 		sig_item: {
 			name: 'Steadfast',
 			image: './img/si/hendrik.png',
@@ -767,7 +767,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 3,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Defensive Stance',
 			image: './img/furniture/hendrik.png',
@@ -1044,7 +1044,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 10,
 		sig_item: {
 			name: 'Fiery Demise',
 			image: './img/si/rigby.png',
@@ -1061,7 +1061,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 0,
+		furn_benchmark: 3,
 		furniture: {
 			name: 'Drunken Rage',
 			image: './img/furniture/rigby.png',
@@ -1730,7 +1730,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Precision',
 			image: './img/si/khasos.png',
@@ -1926,7 +1926,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 15,
+		si_benchmark: 30,
 		sig_item: {
 			name: 'Totem Master',
 			image: './img/si/numisu.png',
@@ -2122,7 +2122,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 20,
 		sig_item: {
 			name: 'Beast Rider',
 			image: './img/si/skreg.png',
@@ -4572,7 +4572,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Twisted Torture',
 			image: './img/si/shemira.png',
@@ -4589,7 +4589,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 0,
+		furn_benchmark: 3,
 		furniture: {
 			name: 'Inner Yearning',
 			image: './img/furniture/shemira.png',
@@ -5961,7 +5961,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 3,
 		furniture: {
 			name: 'Heaven\'s Justice',
 			image: './img/furniture/athalia.png',
@@ -7039,7 +7039,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Vicious Friends',
 			image: './img/furniture/mehira.png',
