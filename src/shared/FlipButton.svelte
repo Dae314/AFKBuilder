@@ -1,24 +1,28 @@
 <script>
 	export let options = ['on', 'off'];
 	export let curOption = 0;
-	export let optionStyles;
-	export let onClick;
+	export let optionStyles = [];
+	export let onClick = () => {};
+	export let disabled = false;
 
 	let playAni = false;
 
 	function handleClick() {
-		playAni = true;
-		if(++curOption >= options.length) {
-			curOption = 0;
+		if(!disabled) {
+			playAni = true;
+			if(++curOption >= options.length) {
+				curOption = 0;
+			}
+			setTimeout(() => playAni = false, 400)
+			onClick();
 		}
-		setTimeout(() => playAni = false, 400)
-		onClick();
 	}
 </script>
 
 <button
 	type="button"
 	class="flipButton"
+	class:disabled={disabled}
 	on:click={handleClick}
 	style="{ Array.isArray(optionStyles) && optionStyles[curOption] !== null ? optionStyles[curOption] : ''}"
 	>
@@ -36,12 +40,14 @@
 		padding: 7px;
 		text-decoration: none;
 		transition: all .3s;
-		&:active {
-			box-shadow: none;
-		}
 		span {
 			user-select: none;
 		}
+	}
+	.flipButton.disabled {
+		background-color: var(--appRemoveButtonColor);
+		border-color: var(--appRemoveButtonColor);
+		color: white;
 	}
 	.playAni {
 		animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
@@ -51,6 +57,14 @@
 		.flipButton {
 			&:hover {
 				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+			}
+			&:active {
+				box-shadow: none;
+			}
+		}
+		.flipButton.disabled {
+			&:hover {
+				box-shadow: none;
 			}
 		}
 	}

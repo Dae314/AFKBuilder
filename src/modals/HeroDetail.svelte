@@ -17,15 +17,6 @@
 		history.pushState({view: $AppData.activeView, modal: true}, "Hero Detail", `?view=${$AppData.activeView}&modal=true`);
 	});
 
-	function saveAppData() {
-		window.localStorage.setItem('appData', JSON.stringify($AppData));
-	}
-
-	function handlePortraitClick(heroID) {
-		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed;
-		saveAppData();
-	}
-
 	function handlePopState() {
 		close();
 	}
@@ -44,9 +35,7 @@
 				</div>
 			</div>
 			<div class="portraitContainer">
-				<button type="button" class="portraitButton">
-					<img draggable="false" on:click="{() => handlePortraitClick(hero.id)}" class="portrait {$AppData.MH.List[hero.id].claimed ? 'owned' : ''}" src={hero.portrait} alt={hero.name}>
-				</button>
+				<img draggable="false" class="portrait" src={hero.portrait} alt={hero.name}>
 			</div>
 			<div class="typeClassContainer">
 				<div class="attrImgContainer">
@@ -194,26 +183,10 @@
 	.tooltip {
 		display: none;
 	}
-	.portraitButton {
-		background: transparent;
-		border: 0;
-		cursor: pointer;
-		height: 100%;
-		max-width: 250px;
-		outline: 0;
-		padding: 0;
-		width: 100%;
-	}
 	.portrait {
 		border-radius: 50%;
 		transition: all 0.2s;
 		width: 100%;
-		&:active {
-			transform: scale(0.9);
-		}
-	}
-	.portrait.owned {
-		border: 10px solid var(--appColorPrimary);
 	}
 	.siFurnSection {
 		display: flex;

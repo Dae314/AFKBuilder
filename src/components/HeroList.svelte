@@ -185,16 +185,6 @@
 		dispatch('saveData');
 	}
 
-	function handlePortraitClick(heroID) {
-		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed;
-		if($AppData.MH.List[heroID].claimed) {
-			$AppData.MH.List[heroID].ascendLv = 6;
-			$AppData.MH.List[heroID].si = -1;
-			$AppData.MH.List[heroID].furn = 0;
-		}
-		dispatch('saveData');
-	}
-
 	function isCharacterKeyPress(event) {
 		let keycode = event.keyCode;
 		let valid = 
@@ -316,7 +306,7 @@
 				{#each displayList as hero (hero.id)}
 				<tr class="heroRow" on:click={() => handleHeroClick(hero.id)} animate:flip="{{duration: 200}}">
 					<td>
-						<img on:click={(e) => { handlePortraitClick(hero.id); e.stopPropagation();} } class="portrait" class:owned={$AppData.MH.List[hero.id].claimed} src={hero.portrait} alt={hero.name}>
+						<img class="portrait" src={hero.portrait} alt={hero.name}>
 						<p class="heroName">{hero.name}</p>
 					</td>
 					<td class="attrArea">
@@ -539,15 +529,8 @@
 	}
 	.portrait {
 		border-radius: 50%;
-		cursor: pointer;
 		max-width: 70px;
 		transition: all 0.2s cubic-bezier(0.2, 0, 0.4, 0);
-		&:active {
-			transform: scale(0.9);
-		}
-	}
-	.portrait.owned {
-		border: 5px solid var(--appColorPrimary);
 	}
 	.heroName {
 		font-weight: bold;

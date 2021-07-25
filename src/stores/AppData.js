@@ -270,6 +270,7 @@ function buildAppData(data) {
 		{name: 'ShowSup', default: true},
 		{name: 'ShowRan', default: true},
 		{name: 'List', default: {}},
+		{name: 'openSection', default: 0},
 	];
 	const expectedRECProps = [
 		{name: 'openSection', default: 0},
