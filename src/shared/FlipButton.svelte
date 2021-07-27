@@ -45,8 +45,8 @@
 		}
 	}
 	.flipButton.disabled {
-		background-color: var(--appRemoveButtonColor);
-		border-color: var(--appRemoveButtonColor);
+		background-color: #BEBEBE;
+		border-color: #BEBEBE;
 		color: white;
 	}
 	.playAni {

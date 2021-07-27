@@ -891,7 +891,7 @@
 			grid-template-columns: repeat(auto-fit, minmax(290px, 290px));
 		}
 		.heroCard {
-			border-color: var(--appRemoveButtonColor);
+			border-color: #BEBEBE;
 		}
 		.portrait {
 			filter: grayscale(1);

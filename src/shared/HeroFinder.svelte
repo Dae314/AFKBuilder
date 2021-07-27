@@ -992,7 +992,7 @@
 		max-width: 60px;
 	}
 	.removeButton {
-		background-color: var(--appRemoveButtonColor);
+		background-color: var(--appDelColor);
 		border: none;
 		border-radius: 50%;
 		cursor: pointer;

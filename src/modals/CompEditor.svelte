@@ -7,6 +7,7 @@
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from '../shared/HeroFinder.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
+	import XButton from '../shared/XButton.svelte';
 
 	export let compID = null; // uuid for comp to be edited
 	export let onSuccess = () => {}; // save success callback
@@ -406,7 +407,9 @@
 					{#each comp.tags as tag, i}
 						<div class="tag">
 							<span class="tagText">{tag}</span>
-							<button type="button" class="removeTagButton" on:click={(e) => { removeTag(i); e.stopPropagation(); }}><span>x</span></button>
+							<div class="removeTagButtonContainer">
+								<XButton clickCallback={() => removeTag(i)} size="small" hoverable={false} />
+							</div>
 						</div>
 					{/each}
 					{#if !addTagOpen}
@@ -457,7 +460,9 @@
 						let:i={i}>
 						<button type="button" class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
 							<span>{line.name}</span>
-							<button type="button" class="removeButton" class:open={openLine === i} on:click={(e) => { deleteLine(i); e.stopPropagation(); }}>x</button>
+							<div class="removeButtonContainer" class:open={openLine === i}>
+								<XButton clickCallback={() => deleteLine(i)} size="small" hoverable={false} />
+							</div>
 						</button>
 					</SimpleSortableList>
 					<button type="button" class="linePickerOption addLineButton" on:click={addLine}>+</button>
@@ -484,7 +489,9 @@
 										<div class="imgContainer">
 											<img draggable="false" src={heroLookup[hero].portrait} alt={heroLookup[hero].name}>
 											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-											<button type="button" class="removeHeroButton lineHeroButton" on:click={(e) => { removeLineHero(openLine, i); e.stopPropagation(); }}><span>x</span></button>
+											<div class="removeHeroButtonContainer">
+												<XButton clickCallback={() => removeLineHero(openLine, i)} size="medium" hoverable={false} />
+											</div>
 											<div class="ascMark">
 												{#if comp.heroes[hero].ascendLv >= 6}
 													<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
@@ -533,7 +540,9 @@
 						<div class="subGroup">
 							<div class="subTitle">
 								<input class="subTitleInput" type="text" bind:value={sub.name} placeholder="Subgroup Name" maxlength="50" class:maxed={sub.name.length >= 50}>
-								<button type="button" class="removeButton" on:click={(e) => { deleteSub(i); e.stopPropagation(); }}><span>x</span></button>
+								<div class="removeButtonContainer">
+									<XButton clickCallback={() => deleteSub(i)} size="large" hoverable={true} />
+								</div>
 							</div>
 							<div class="subLine">
 								<SimpleSortableList
@@ -549,7 +558,9 @@
 												draggable="false"
 												src={$HeroData.some(e => e.id === hero) ? heroLookup[hero].portrait : './img/portraits/unavailable.png'}
 												alt={$HeroData.some(e => e.id === hero) ? heroLookup[hero].name : 'Pick a Hero'}>
-											<button type="button" class="removeHeroButton subHeroButton" on:click={(e) => { removeSubHero(i, j); e.stopPropagation(); }}><span>x</span></button>
+											<div class="removeHeroButtonContainer">
+												<XButton clickCallback={() => removeSubHero(i, j)} size="medium" hoverable={false} />
+											</div>
 											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 											<div class="ascMark subAscMark">
 												{#if comp.heroes[hero].ascendLv >= 6}
@@ -712,21 +723,10 @@
 			text-align: center;
 			user-select: none;
 		}
-		.removeTagButton {
-			align-items: center;
-			background-color: var(--appRemoveButtonColor);
-			border: 0;
-			border-radius: 50%;
-			cursor: pointer;
-			display: flex;
-			font-size: 0.5rem;
-			height: 10px;
-			justify-content: center;
+		.removeTagButtonContainer {
 			position: absolute;
 			right: -5px;
 			top: 0;
-			user-select: none;
-			width: 10px;
 		}
 		.addTagButton {
 			align-items: center;
@@ -744,8 +744,8 @@
 			user-select: none;
 			width: 20px;
 			&:disabled {
-				border-color: var(--appRemoveButtonColor);
-				color: var(--appRemoveButtonColor);
+				border-color: #BEBEBE;
+				color: #BEBEBE;
 				cursor: default;
 			}
 		}
@@ -854,19 +854,8 @@
 			text-overflow: ellipsis;
 			white-space: nowrap;
 		}
-		.removeButton {
-			align-items: center;
-			background-color: var(--appRemoveButtonColor);
-			border: none;
-			border-radius: 50%;
-			cursor: pointer;
-			display: flex;
-			font-size: 0.5rem;
-			height: 10px;
-			justify-content: center;
-			margin-left: 5px;
-			transition: opacity 0.2s;
-			width: 10px;
+		.removeButtonContainer {
+			margin-left: 3px;
 		}
 	}
 	.linePickerOption.open {
@@ -958,8 +947,13 @@
 		pointer-events: none;
 		visibility: visible;
 	}
+	.removeHeroButtonContainer {
+		position: absolute;
+		right: -6px;
+		top: 0;
+	}
 	.removeHeroButton {
-		background-color: var(--appRemoveButtonColor);
+		background-color: var(--appDelColor);
 		border: none;
 		border-radius: 50%;
 		cursor: pointer;
@@ -1021,18 +1015,8 @@
 		flex-direction: row;
 		margin-bottom: 5px;
 		padding: 5px;
-		.removeButton {
-			align-items: center;
-			background-color: var(--appRemoveButtonColor);
-			border: none;
-			border-radius: 50%;
-			cursor: pointer;
-			display: flex;
-			font-size: 1rem;
-			height: 25px;
-			justify-content: center;
+		.removeButtonContainer {
 			margin-left: 5px;
-			width: 25px;
 		}
 	}
 	.subGroupMember {
@@ -1097,7 +1081,7 @@
 				}
 				&:disabled:hover {
 					background-color: transparent;
-					color: var(--appRemoveButtonColor);
+					color: #BEBEBE;
 				}
 			}
 		}
@@ -1115,16 +1099,16 @@
 			justify-content: flex-start;
 		}
 		.linePickerOption {
-			.removeButton {
+			.removeButtonContainer {
 				opacity: 0;
 				transition: opacity 0.2s;
 				visibility: hidden;
 			}
-			&:hover .removeButton {
+			&:hover .removeButtonContainer {
 				opacity: 1;
 				visibility: visible;
 			}
-			.removeButton.open {
+			.removeButtonContainer.open {
 				opacity: 1;
 				visibility: visible;
 			}
