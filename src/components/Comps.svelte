@@ -1361,15 +1361,16 @@
 		border: 5px solid var(--appColorPrimary);
 	}
 	.coreMark {
-		background-color: var(--appDelColor);
+		background-color: var(--legendColor);
+		border: 3px solid var(--appBGColor);
 		border-radius: 50%;
-		bottom: 7px;
+		bottom: 5px;
 		display: none;
-		height: 20px;
+		height: 22px;
 		position: absolute;
-		right: 2px;
+		right: 4px;
 		visibility: hidden;
-		width: 20px;
+		width: 22px;
 	}
 	.coreMark.visible {
 		display: inline-block;

@@ -889,7 +889,7 @@
 		padding: 5px;
 	}
 	.coreButton.on {
-		background-color: var(--appDelColor);
+		background-color: var(--legendColor);
 		box-shadow: none;
 	}
 	.notesArea {

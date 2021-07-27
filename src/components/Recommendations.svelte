@@ -381,15 +381,16 @@
 			}
 		}
 		.coreMark {
-			background-color: var(--appDelColor);
+			background-color: var(--legendColor);
+			border: 4px solid var(--appBGColor);
 			border-radius: 50%;
-			bottom: 5px;
+			bottom: 2px;
 			display: none;
-			height: 25px;
+			height: 28px;
 			position: absolute;
-			right: 65px;
+			right: 62px;
 			visibility: hidden;
-			width: 25px;
+			width: 28px;
 		}
 		.coreMark.visible {
 			display: inline-block;

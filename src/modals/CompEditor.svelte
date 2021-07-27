@@ -932,15 +932,16 @@
 		width: fit-content;
 	}
 	.coreMark {
-		background-color: var(--appDelColor);
+		background-color: var(--legendColor);
+		border: 3px solid var(--appBGColor);
 		border-radius: 50%;
 		bottom: 0px;
 		display: none;
-		height: 20px;
+		height: 22px;
 		position: absolute;
 		right: -4px;
 		visibility: hidden;
-		width: 20px;
+		width: 22px;
 	}
 	.coreMark.visible {
 		display: inline-block;

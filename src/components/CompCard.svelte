@@ -210,22 +210,22 @@
 						transform: rotate(35deg);
 					}
 					&:active {
-						border-bottom-color: #F7BC19;
+						border-bottom-color: var(--legendColor);
 						&:before {
-							border-bottom-color: #F7BC19;
+							border-bottom-color: var(--legendColor);
 						}
 						&:after {
-							border-bottom-color: #F7BC19;
+							border-bottom-color: var(--legendColor);
 						}
 					}
 				}
 				.star.active {
-					border-bottom-color: #F7BC19;
+					border-bottom-color: var(--legendColor);
 					&:before {
-						border-bottom-color: #F7BC19;
+						border-bottom-color: var(--legendColor);
 					}
 					&:after {
-						border-bottom-color: #F7BC19;
+						border-bottom-color: var(--legendColor);
 					}
 				}
 			}
@@ -341,12 +341,12 @@
 			}
 			.star.active {
 				&:hover {
-					border-bottom-color: #F7BC19;
+					border-bottom-color: var(--legendColor);
 					&:before {
-						border-bottom-color: #F7BC19;
+						border-bottom-color: var(--legendColor);
 					}
 					&:after {
-						border-bottom-color: #F7BC19;
+						border-bottom-color: var(--legendColor);
 					}
 				}
 			}
