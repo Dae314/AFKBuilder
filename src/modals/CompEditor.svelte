@@ -953,16 +953,6 @@
 		right: -6px;
 		top: 0;
 	}
-	.removeHeroButton {
-		background-color: var(--appDelColor);
-		border: none;
-		border-radius: 50%;
-		cursor: pointer;
-		outline: none;
-		position: absolute;
-		right: -6px;
-		top: 0;
-	}
 	.ascMark {
 		left: -11px;
 		position: absolute;
