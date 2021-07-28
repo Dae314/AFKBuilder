@@ -9,6 +9,7 @@
 	import HeroDetail from '../modals/HeroDetail.svelte';
 	import FlipButton from '../shared/FlipButton.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
+	import XButton from '../shared/XButton.svelte';
 
 	$: myHeroList = makeMyHeroList($AppData.MH.List);
 	$: unownedHeroList = makeUnownedHeroList($AppData.MH.List);
@@ -177,9 +178,19 @@
 		dispatch('saveData');
 	}
 
-	function handlePortraitClick(heroID) {
-		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed;
-		!$AppData.MH.List[heroID].claimed ? $AppData.MH.List[heroID].ascendLv = 0 : $AppData.MH.List[heroID].ascendLv = 6;
+	function handleHeroClaim(heroID) {
+		$AppData.MH.List[heroID].claimed = true;
+		$AppData.MH.List[heroID].ascendLv = 6;
+		$AppData.MH.List[heroID].si = -1;
+		$AppData.MH.List[heroID].furn = 0;
+		myHeroList = makeMyHeroList($AppData.MH.List);
+		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
+		dispatch('saveData');
+	}
+
+	function handleHeroUnclaim(heroID) {
+		$AppData.MH.List[heroID].claimed = false;
+		$AppData.MH.List[heroID].ascendLv = 0;
 		$AppData.MH.List[heroID].si = -1;
 		$AppData.MH.List[heroID].furn = 0;
 		myHeroList = makeMyHeroList($AppData.MH.List);
@@ -410,10 +421,10 @@
 					<div class="MHGrid">
 						{#each myHeroList as hero (hero.id)}
 						<div class="heroCard" animate:flip="{{duration: 200}}">
-							<div class="detailArea">
-								<button type="button" class="heroDetailButton" on:click={() => handleHeroDetailClick(hero.id)}>
-									<span>i</span>
-								</button>
+							<div class="removeArea">
+								<div class="removeHeroButtonContainer">
+									<XButton clickCallback={() => handleHeroUnclaim(hero.id)} size="large" hoverable={true} />
+								</div>
 							</div>
 							<div class="heroHeader">
 								<div class="headArea">
@@ -426,10 +437,10 @@
 									<div class="flipCard" on:click={(e) => e.stopPropagation()}>
 										<div class="flipCardInner">
 											<div class="flipCardFront">
-												<img on:click="{() => handlePortraitClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
+												<img on:click="{() => handleHeroDetailClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
 											</div>
 											<div class="flipCardBack">
-												<button type="button" on:click="{() => handlePortraitClick(hero.id)}" class="claimButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
+												<button type="button" on:click="{() => handleHeroDetailClick(hero.id)}" class="portraitButton" class:owned={$AppData.MH.List[hero.id].claimed}>Info</button>
 											</div>
 										</div>
 									</div>
@@ -505,7 +516,7 @@
 				{:else}
 					<div class="MHGrid">
 						{#each unownedHeroList as hero (hero.id)}
-						<div class="heroCard" animate:flip="{{duration: 200}}" on:click={(e) => { handlePortraitClick(hero.id); e.stopPropagation(); }}>
+						<div class="heroCard" animate:flip="{{duration: 200}}" on:click={(e) => { handleHeroClaim(hero.id); e.stopPropagation(); }}>
 							<div class="heroHeader">
 								<div class="headArea">
 									<div class="attrImgContainer">
@@ -520,7 +531,7 @@
 												<img class="portrait" src={hero.portrait} alt={hero.name}>
 											</div>
 											<div class="flipCardBack">
-												<button type="button" class="claimButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
+												<button type="button" class="portraitButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
 											</div>
 										</div>
 									</div>
@@ -793,32 +804,13 @@
 		padding-top: 20px;
 		position: relative;
 	}
-	.detailArea {
+	.removeArea {
 		z-index: 1;
 	}
-	.heroDetailButton {
-		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 50%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		margin: 0;
-		font-weight: bold;
-		font-family: 'Times New Roman';
-		font-size: 1rem;
-		flex-shrink: 0;
-		flex-grow: 0;
-		height: 25px;
-		padding: 3px;
+	.removeHeroButtonContainer {
 		position: absolute;
 		top: 5px;
 		right: 5px;
-		outline: 0;
-		width: 25px;
-		text-align: center;
 	}
 	.heroHeader {
 		display: flex;
@@ -841,7 +833,7 @@
 			transform: scale(0.9);
 		}
 	}
-	.claimButton {
+	.portraitButton {
 		display: none;
 	}
 	.heroName {
@@ -1206,7 +1198,7 @@
 				position: absolute;
 				top: 0px;
 				transform: rotateY(180deg);
-				.claimButton {
+				.portraitButton {
 					background-color: var(--appColorPrimary);
 					border: 3px solid var(--appColorPrimary);
 					border-radius: 50%;
@@ -1223,7 +1215,7 @@
 						transform: scale(0.9);
 					}
 				}
-				.claimButton.owned {
+				.portraitButton.owned {
 					background-color: transparent;
 					border: 3px solid var(--appColorPrimary);
 					color: var(--appColorPrimary);
