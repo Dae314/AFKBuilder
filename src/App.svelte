@@ -29,9 +29,7 @@
 		}
 		history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 		saveAppData();
-		document.body.requestFullscreen();
-		let vh = window.innerHeight * 0.01;
-		document.documentElement.style.setProperty('--vh', `${vh}px`);
+		handleWindowResize();
 	});
 
 	function saveAppData() {
@@ -121,7 +119,6 @@
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-		min-height: 100vh;
 		width: 100%;
 		padding: 0px;
 		margin: 0px;

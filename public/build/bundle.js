@@ -89237,7 +89237,7 @@ var app = (function () {
     const { document: document_1, window: window_1 } = globals;
     const file = "src\\App.svelte";
 
-    // (110:5) {:else}
+    // (108:5) {:else}
     function create_else_block(ctx) {
     	let h2;
 
@@ -89245,7 +89245,7 @@ var app = (function () {
     		c: function create() {
     			h2 = element("h2");
     			h2.textContent = "you shouldn't be able to get here";
-    			add_location(h2, file, 110, 6, 3745);
+    			add_location(h2, file, 108, 6, 3627);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h2, anchor);
@@ -89262,14 +89262,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(110:5) {:else}",
+    		source: "(108:5) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (108:48) 
+    // (106:48) 
     function create_if_block_4(ctx) {
     	let about;
     	let current;
@@ -89313,14 +89313,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(108:48) ",
+    		source: "(106:48) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (106:52) 
+    // (104:52) 
     function create_if_block_3(ctx) {
     	let herolist;
     	let current;
@@ -89354,14 +89354,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(106:52) ",
+    		source: "(104:52) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (104:51) 
+    // (102:51) 
     function create_if_block_2(ctx) {
     	let myheroes;
     	let current;
@@ -89395,14 +89395,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(104:51) ",
+    		source: "(102:51) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (102:57) 
+    // (100:57) 
     function create_if_block_1(ctx) {
     	let recommendations;
     	let current;
@@ -89436,14 +89436,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(102:57) ",
+    		source: "(100:57) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (100:5) {#if $AppData.activeView === 'comps'}
+    // (98:5) {#if $AppData.activeView === 'comps'}
     function create_if_block(ctx) {
     	let comps;
     	let current;
@@ -89477,14 +89477,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(100:5) {#if $AppData.activeView === 'comps'}",
+    		source: "(98:5) {#if $AppData.activeView === 'comps'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (94:0) <Modal on:closed={handleModalClosed}>
+    // (92:0) <Modal on:closed={handleModalClosed}>
     function create_default_slot(ctx) {
     	let div2;
     	let header;
@@ -89536,13 +89536,13 @@ var app = (function () {
     			div0 = element("div");
     			if_block.c();
     			attr_dev(div0, "id", "currentDisplay");
-    			add_location(div0, file, 98, 4, 3154);
-    			attr_dev(div1, "class", "MainWindow svelte-1puejdn");
-    			add_location(div1, file, 97, 3, 3124);
-    			attr_dev(main, "class", "svelte-1puejdn");
-    			add_location(main, file, 96, 2, 3113);
-    			attr_dev(div2, "class", "AppContainer svelte-1puejdn");
-    			add_location(div2, file, 94, 1, 3026);
+    			add_location(div0, file, 96, 4, 3036);
+    			attr_dev(div1, "class", "MainWindow svelte-1n3crwh");
+    			add_location(div1, file, 95, 3, 3006);
+    			attr_dev(main, "class", "svelte-1n3crwh");
+    			add_location(main, file, 94, 2, 2995);
+    			attr_dev(div2, "class", "AppContainer svelte-1n3crwh");
+    			add_location(div2, file, 92, 1, 2908);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -89603,7 +89603,7 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(94:0) <Modal on:closed={handleModalClosed}>",
+    		source: "(92:0) <Modal on:closed={handleModalClosed}>",
     		ctx
     	});
 
@@ -89638,10 +89638,10 @@ var app = (function () {
     			document_1.title = "AFKBuilder";
     			attr_dev(link0, "rel", "preconnect");
     			attr_dev(link0, "href", "https://fonts.gstatic.com");
-    			add_location(link0, file, 87, 1, 2726);
+    			add_location(link0, file, 85, 1, 2608);
     			attr_dev(link1, "href", "https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap");
     			attr_dev(link1, "rel", "stylesheet");
-    			add_location(link1, file, 88, 1, 2785);
+    			add_location(link1, file, 86, 1, 2667);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -89742,9 +89742,7 @@ var app = (function () {
 
     		history.replaceState({ view: $AppData.activeView, modal: false }, $AppData.activeView, `?view=${$AppData.activeView}`);
     		saveAppData();
-    		document.body.requestFullscreen();
-    		let vh = window.innerHeight * 0.01;
-    		document.documentElement.style.setProperty("--vh", `${vh}px`);
+    		handleWindowResize();
     	});
 
     	function saveAppData() {
