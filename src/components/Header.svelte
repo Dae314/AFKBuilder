@@ -62,8 +62,8 @@
 	nav {
 		background-color: var(--appColorTertiary);
 		font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-		height: 45px;
-		min-height: 45px;
+		height: var(--headerHeight);
+		min-height: var(--headerHeight);
 		padding: 5px;
 		position: fixed;
 		top: 0;
@@ -198,7 +198,7 @@
 		background-color: rgba(0, 0, 0, 0.8);
 		bottom: 0;
 		display: block;
-		height: calc(100% - 45px);
+		height: calc(100% - var(--headerHeight));
 		left: 0;
 		position: fixed;
 	}

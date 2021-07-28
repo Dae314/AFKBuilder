@@ -269,7 +269,8 @@
 
 <style lang="scss">
 	.recContainer {
-		height: calc(100vh - 45px);
+		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		padding: 10px;
 		overflow-y: auto;
 		width: 100%;

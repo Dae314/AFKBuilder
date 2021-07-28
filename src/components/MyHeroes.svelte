@@ -571,7 +571,8 @@
 
 <style lang="scss">
 	.MHContainer {
-		height: calc(100vh - 85px);
+		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight) - 40px); /* gymnastics to set height for mobile browsers */
 		overflow-y: auto;
 		padding: 10px;
 	}
@@ -986,7 +987,8 @@
 		.MHContainer {
 			display: flex;
 			flex-direction: column;
-			height: calc(100vh - 45px);
+			height: 100%;
+			height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 			padding: 0px;
 		}
 		.sect1 {

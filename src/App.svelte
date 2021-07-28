@@ -29,6 +29,9 @@
 		}
 		history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 		saveAppData();
+		document.body.requestFullscreen();
+		let vh = window.innerHeight * 0.01;
+		document.documentElement.style.setProperty('--vh', `${vh}px`);
 	});
 
 	function saveAppData() {
@@ -72,6 +75,12 @@
 		}
 		history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 	}
+
+	function handleWindowResize() {
+		// gymnastics to set height for mobile browsers
+		let vh = window.innerHeight * 0.01;
+		document.documentElement.style.setProperty('--vh', `${vh}px`);
+	}
 </script>
 
 <svelte:head>
@@ -80,7 +89,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
 </svelte:head>
 
-<svelte:window on:popstate={handlePopState} />
+<svelte:window on:popstate={handlePopState} on:resize={handleWindowResize} />
 
 <Modal on:closed={handleModalClosed}>
 	<div class="AppContainer">
@@ -121,7 +130,7 @@
 	main {
 		display: flex;
 		height: 100%;
-		padding-top: 45px;
+		padding-top: var(--headerHeight);
 		width: 100%;
 	}
 	.MainWindow {

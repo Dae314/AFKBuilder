@@ -795,11 +795,15 @@
 		flex-direction: row;
 	}
 	.sect1 {
+		display: flex;
+		flex-direction: column;
 		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		width: 100%;
 	}
 	.sect2 {
 		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 	}
 	.sect3 {
 		left: 50%;
@@ -939,7 +943,7 @@
 	}
 	.compScroller {
 		background-color: var(--appBGColorDark);
-		height: calc(100vh - 45px - 40px - 80px);
+		height: calc(100vh - var(--headerHeight) - 40px - 80px);
 		overflow-x: hidden;
 		overflow-y: auto;
 		padding: 5px;
@@ -966,14 +970,15 @@
 		bottom: 0;
 		height: 80px;
 		left: 0;
-		position: fixed;
 		width: 100%;
 	}
 	.plusIcon {
 		display: block;
 		font-size: 2rem;
 		font-weight: bold;
+		margin: 0 auto;
 		transition: transform 0.7s;
+		width: fit-content;
 	}
 	.newCompOptionsArea {
 		background-color: var(--appColorPrimary);
@@ -1016,19 +1021,20 @@
 		background-color: var(--appBGColor);
 		display: flex;
 		flex-direction: column;
-		height: calc(100vh - 45px);
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		max-width: 0px;
 		overflow-x: hidden;
-		overflow-y: auto;
+		overflow-y: hidden;
 		position: fixed;
 		right: 0;
 		scroll-behavior: smooth;
-		top: 45px;
+		top: var(--headerHeight);
 		transition: all 0.3s ease-out;
 		visibility: hidden;
 	}
 	.compDetails.open {
 		max-width: 100%;
+		overflow-y: auto;
 		padding: 10px;
 		width: 100%;
 		visibility: visible;
@@ -1656,6 +1662,7 @@
 			max-width: 100%;
 			padding: 10px;
 			position: static;
+			overflow-y: auto;
 			visibility: visible;
 		}
 		.closeButtonContainer {
@@ -1687,9 +1694,6 @@
 			img {
 				max-width: 12px;
 			}
-		}
-		.addButtonArea {
-			width: 21%;
 		}
 		.newCompOptionButton {
 			&:hover {
