@@ -1,5 +1,6 @@
 <script>
 	import {onMount} from 'svelte';
+	import {debounce} from 'lodash';
 	import AppData from './stores/AppData.js';
 	import Modal from 'svelte-simple-modal';
 
@@ -87,7 +88,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
 </svelte:head>
 
-<svelte:window on:popstate={handlePopState} on:resize={handleWindowResize} />
+<svelte:window on:popstate={handlePopState} on:resize={debounce(handleWindowResize, 100)} />
 
 <Modal on:closed={handleModalClosed}>
 	<div class="AppContainer">
