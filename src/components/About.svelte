@@ -5,11 +5,10 @@
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 
 	export let version = '';
+	export let isMobile = false;
 
 	const dispatch = createEventDispatcher();
 	const { open } = getContext('simple-modal');
-	let modalHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
-
 	const contributors = [
 		{ name: 'Dae314',
 			image: './img/contributors/dae314.png',
@@ -24,6 +23,8 @@
 			website: 'https://www.twitter.com/wyattjrice',
 		},
 	];
+	
+	$: modalHeight = isMobile ? '75vh' : '80vh';
 
 	function handleClearDataButtonClick() {
 		open(Confirm,

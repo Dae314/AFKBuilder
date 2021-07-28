@@ -14,6 +14,7 @@
 	export let version = '';
 	const menuItems = [ 'Comps', 'Recommendations', 'My Heroes', 'Hero List', 'About' ];
 	const defaultView = 'comps';
+	let isMobile = window.matchMedia("(max-width: 767px)").matches;
 
 	onMount(async () => {
 		const queryString = window.location.search;
@@ -79,6 +80,9 @@
 		// gymnastics to set height for mobile browsers
 		let vh = window.innerHeight * 0.01;
 		document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+		// convienence variable to track if window is mobile width or desktop width
+		isMobile = window.matchMedia("(max-width: 767px)").matches;
 	}
 </script>
 
@@ -97,15 +101,15 @@
 			<div class="MainWindow">
 				<div id="currentDisplay">
 					{#if $AppData.activeView === 'comps'}
-						<Comps on:saveData={saveAppData} />
+						<Comps isMobile={isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'recommendations'}
-						<Recommendations on:saveData={saveAppData} />
+						<Recommendations isMobile={isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'my heroes'}
 						<MyHeroes on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'hero list' }
-						<HeroList on:saveData={saveAppData} />
+						<HeroList isMobile={isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'about' }
-						<About version={version} on:clearData={clearAppData} on:resetTutorial={resetTutorial} />
+						<About version={version} isMobile={isMobile} on:clearData={clearAppData} on:resetTutorial={resetTutorial} />
 					{:else}
 						<h2>you shouldn't be able to get here</h2>
 					{/if}

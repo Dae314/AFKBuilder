@@ -8,14 +8,18 @@
 	import SIFurnBox from '../shared/SIFurnBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 
+	export let isMobile = false;
+
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
-	let displayList = [];
-	let openFilters = false;
-	let modalHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
+
+	$: modalHeight = isMobile ? '75vh' : '80vh';
 	$: allFactionsEnabled = $AppData.HL.ShowLB && $AppData.HL.ShowM && $AppData.HL.ShowW && $AppData.HL.ShowGB && $AppData.HL.ShowC && $AppData.HL.ShowH && $AppData.HL.ShowD;
 	$: allTypesEnabled = $AppData.HL.ShowInt && $AppData.HL.ShowAgi && $AppData.HL.ShowStr;
 	$: allClassEnabled = $AppData.HL.ShowMage && $AppData.HL.ShowWar && $AppData.HL.ShowTank && $AppData.HL.ShowSup && $AppData.HL.ShowRan;
+
+	let displayList = [];
+	let openFilters = false;
 
 	onMount(async () => {
 		displayList = sortDisplayList($AppData.HL.Sort, $AppData.HL.Order, makeDisplayList());

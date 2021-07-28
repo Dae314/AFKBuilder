@@ -11,19 +11,22 @@
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import XButton from '../shared/XButton.svelte';
 
+	export let isMobile = false;
+
+	const dispatch = createEventDispatcher();
+	const jsurl = JSONURL('lzma'); // json-url compressor
+	const { open } = getContext('simple-modal');
+
 	$: myHeroList = makeMyHeroList($AppData.MH.List);
 	$: unownedHeroList = makeUnownedHeroList($AppData.MH.List);
 	$: allFactionsEnabled = $AppData.MH.ShowLB && $AppData.MH.ShowM && $AppData.MH.ShowW && $AppData.MH.ShowGB && $AppData.MH.ShowC && $AppData.MH.ShowH && $AppData.MH.ShowD;
 	$: allTypesEnabled = $AppData.MH.ShowInt && $AppData.MH.ShowAgi && $AppData.MH.ShowStr;
 	$: allClassEnabled = $AppData.MH.ShowMage && $AppData.MH.ShowWar && $AppData.MH.ShowTank && $AppData.MH.ShowSup && $AppData.MH.ShowRan;
+	$: modalHeight = isMobile ? '75vh' : '80vh';
 
-	const dispatch = createEventDispatcher();
-	const jsurl = JSONURL('lzma'); // json-url compressor
-	const { open } = getContext('simple-modal');
 	let openFilters = false;
 	let openInOutMenu = false;
 	let copyConfirmVisible = false;
-	let modalHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
 	let sections = ['Owned', 'Unowned']
 
 	function makeMyHeroList(herolist) {

@@ -8,6 +8,7 @@
 	import FlipButton from '../shared/FlipButton.svelte';
 
 	export let config = {};
+	export let isMobile = false;
 
 	$: heroes = makeHeroList();
 	$: allFactionsEnabled = showLB && showM && showW && showGB && showC && showH && showD;
@@ -15,11 +16,10 @@
 	$: allClassEnabled = showMage && showWar && showTank && showSup && showRan;
 	$: unusedArtifacts = makeUnusedArtifactList();
 
-	let isMobileWidth = window.matchMedia("(max-width: 767px)").matches;
 	let close = () => {};
 	let section = 1;
 	let selectedHero = {};
-	let openFilters = !isMobileWidth;
+	let openFilters = !isMobile;
 	let idx = 0;
 	let pos = 0;
 	let onSuccess = () => {};
@@ -56,7 +56,7 @@
 		heroes = makeHeroList();
 		if(section === 1) {
 			await tick();
-			if(!isMobileWidth) document.querySelector('#searchBox').focus();
+			if(!isMobile) document.querySelector('#searchBox').focus();
 		}
 	});
 

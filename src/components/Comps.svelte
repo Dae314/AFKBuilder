@@ -1,5 +1,5 @@
 <script>
-	import { onMount, getContext, createEventDispatcher, tick } from 'svelte';
+	import { getContext, createEventDispatcher, tick } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import MarkdownIt from 'markdown-it';
 	import Emoji from 'markdown-it-emoji';
@@ -20,6 +20,8 @@
 	import AscendBox from '../shared/AscendBox.svelte';
 	import SortableList from '../shared/SortableList.svelte';
 
+	export let isMobile = false;
+
 	const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",];
 	const jsurl = JSONURL('lzma'); // json-url compressor
 	const dispatch = createEventDispatcher();
@@ -36,6 +38,8 @@
 	$: selectedUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : '';
 	$: highlightComp = null;
 	$: searchSuggestions = makeSearchSuggestions();
+	$: editorWidth = isMobile ? '100%' : '75%';
+	$: editorHeight = isMobile ? '75vh' : '80vh';
 
 	let openDetail = false;
 	let openDesc = true;
@@ -48,13 +52,6 @@
 	let showowConfirm = false;
 	let owText = '';
 	let owPromise;
-	let editorWidth = window.matchMedia("(max-width: 767px)").matches ? '100%' : '75%';
-	let editorHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
-
-	onMount(async () => {
-		const mediaListener = window.matchMedia("(max-width: 767px)");
-		mediaListener.addEventListener('change', () => adjustEditorWidth(mediaListener));
-	});
 
 	function makeSortedCompList() {
 		let compList = [...$AppData.Comps.sort(sortByStars)];
@@ -118,14 +115,6 @@
 		return suggestions;
 	}
 
-	function adjustEditorWidth(listener) {
-		if(listener.matches) {
-			editorWidth = '100%';
-		} else {
-			editorWidth = '75%';
-		}
-	}
-
 	function sortByStars(a, b) {
 		// if(a.starred && !b.starred) {
 		// 	return -1;
@@ -160,6 +149,7 @@
 		open(CompEditor,
 				{compID: sortedCompList[compIdx].uuid,
 				 onSuccess: (uuid) => handleCompChangeSuccess(uuid, 'edit'),
+				 isMobile: isMobile,
 				},
 				{ closeButton: ModalCloseButton,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
@@ -170,7 +160,9 @@
 
 	function handleNewButtonClick() {
 		open(CompEditor,
-				{onSuccess: (uuid) => { $AppData.compSearchStr = ''; handleCompChangeSuccess(uuid, 'new') }},
+				{onSuccess: (uuid) => { $AppData.compSearchStr = ''; handleCompChangeSuccess(uuid, 'new') },
+				 isMobile: isMobile,
+				},
 				{ closeButton: ModalCloseButton,
 					closeOnOuterClick: false,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},

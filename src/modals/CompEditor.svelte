@@ -11,6 +11,7 @@
 
 	export let compID = null; // uuid for comp to be edited
 	export let onSuccess = () => {}; // save success callback
+	export let isMobile = false;
 
 	const { close } = getContext('simple-modal');
 
@@ -609,7 +610,7 @@
 	</section>
 	<section class="sect2" class:visible={heroFinderOpen}>
 		{#if heroFinderOpen}
-			<HeroFinder config={hfConfig} />
+			<HeroFinder config={hfConfig} isMobile={isMobile} />
 		{/if}
 	</section>
 	<section class="sect3">

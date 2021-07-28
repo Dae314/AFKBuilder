@@ -11,6 +11,8 @@
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
 
+	export let isMobile = false;
+
 	const starredComps = $AppData.Comps.filter(e => e.starred);
 	const compHeroes = buildCompHeroes();
 	let recommendations = buildRecs();
@@ -19,7 +21,8 @@
 		"Signature Item",
 		"Furniture",
 	];
-	let modalHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
+	
+	$: modalHeight = isMobile ? '75vh' : '80vh';
 
 	// loop through the hero list for every starred comp and compile a list of all of them
 	function buildCompHeroes() {
