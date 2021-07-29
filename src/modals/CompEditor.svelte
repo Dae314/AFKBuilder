@@ -742,7 +742,9 @@
 			height: 20px;
 			justify-content: center;
 			margin-left: 10px;
+			padding: 0;
 			user-select: none;
+			-webkit-appearance: none;
 			width: 20px;
 			&:disabled {
 				border-color: #BEBEBE;
@@ -1060,6 +1062,7 @@
 		cursor: pointer;
 		font-size: 1.05rem;
 		margin-right: 10px;
+		padding: 5px;
 	}
 	.cancelButton {
 		margin-right: 0;
