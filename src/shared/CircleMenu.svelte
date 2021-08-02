@@ -63,7 +63,7 @@
 		transition: opacity 0.2s;
 		visibility: hidden;
 		width: 100vw;
-		z-index: 1;
+		z-index: 3;
 		&.menu-open {
 			opacity: 1;
 			visibility: visible;
@@ -72,7 +72,7 @@
 	.menu {
 		align-items: center;
 		display: flex;
-		height: 80px;
+		height: 30px;
 		justify-content: center;
 		text-align: center;
 		width: 80px;
@@ -97,7 +97,7 @@
 		transition: transform ease-out 180ms;
 		visibility: hidden;
 		width: 50px;
-		z-index: 1;
+		z-index: 4;
 	}
 	.menu-open-button {
 		border: 2px solid #333;
@@ -106,13 +106,13 @@
 		font-weight: bold;
 		height: fit-content;
 		line-height: 1.1rem;
+		padding: 5px;
 		transition: all 0.2s;
 		transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 		transform: scale(1.1, 1.1) translate3d(0, 0, 0);
 		width: fit-content;
-		z-index: 2;
 		.lines {
-			background: #333;
+			background: white;
 			display: block;
 			height: 3px;
 			left: 50%;
@@ -140,6 +140,7 @@
 			transition-timing-function: linear;
 			transform: scale(0.8, 0.8) translate3d(0, 0, 0);
 			width: 50px;
+			z-index: 4;
 			~ .menu-item {
 				opacity: 1;
 				visibility: visible;

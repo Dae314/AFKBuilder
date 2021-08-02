@@ -10,6 +10,7 @@
 	import FlipButton from '../shared/FlipButton.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import XButton from '../shared/XButton.svelte';
+	import AscensionMenu from '../shared/AscensionMenu.svelte';
 
 	export let isMobile = false;
 
@@ -201,11 +202,12 @@
 		dispatch('saveData');
 	}
 
-	function handleAscChange(heroID) {
-		$AppData.MH.List[heroID].ascendLv++;
-		if($AppData.MH.List[heroID].ascendLv > 6) {
-			$AppData.MH.List[heroID].ascendLv = 0;
-		}
+	function handleAscChange(heroID, level) {
+		// $AppData.MH.List[heroID].ascendLv++;
+		// if($AppData.MH.List[heroID].ascendLv > 6) {
+		// 	$AppData.MH.List[heroID].ascendLv = 0;
+		// }
+		$AppData.MH.List[heroID].ascendLv = level;
 		dispatch('saveData')
 	}
 
@@ -463,7 +465,7 @@
 							<div class="flipButtonContainer">
 								<div class="ascButtonArea">
 									<div class="flipButtonArea">
-										<FlipButton options="{['Elite', 'Elite+', 'Legendary', 'Legendary+', 'Mythic', 'Mythic+', 'Ascended']}"
+										<!-- <FlipButton options="{['Elite', 'Elite+', 'Legendary', 'Legendary+', 'Mythic', 'Mythic+', 'Ascended']}"
 											optionStyles="{[
 												'background-color: #AF3CEA; color: white; border: 3px solid #AF3CEA; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
 												'background-color: #AF3CEA; color: white; border: 3px solid #6D2691; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
@@ -474,7 +476,8 @@
 												'background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 3px solid #B289E8; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
 												]}"
 												curOption="{$AppData.MH.List[hero.id].ascendLv}"
-												onClick="{() => handleAscChange(hero.id)}" />
+												onClick="{() => handleAscChange(hero.id)}" /> -->
+											<AscensionMenu menuItemChangeCallback={(index) => handleAscChange(hero.id, index)} activeItem={$AppData.MH.List[hero.id].ascendLv} />
 									</div>
 								</div>
 								<div class="siFurnButtonArea">
