@@ -477,7 +477,11 @@
 												]}"
 												curOption="{$AppData.MH.List[hero.id].ascendLv}"
 												onClick="{() => handleAscChange(hero.id)}" /> -->
-											<AscensionMenu menuItemChangeCallback={(index) => handleAscChange(hero.id, index)} activeItem={$AppData.MH.List[hero.id].ascendLv} />
+											<AscensionMenu
+												menuItemChangeCallback={(index) => handleAscChange(hero.id, index)}
+												activeItem={$AppData.MH.List[hero.id].ascendLv} 
+												zIndexBase=2
+											/>
 									</div>
 								</div>
 								<div class="siFurnButtonArea">
@@ -911,7 +915,6 @@
 		justify-content: center;
 		transition: transform 0.3s ease-out;
 		width: 50px;
-		z-index: 1;
 		img {
 			max-width: 40px;
 		}
@@ -1005,7 +1008,6 @@
 			position: fixed;
 			top: 150px;
 			width: max-content;
-			z-index: 1;
 		}
 		.sect2 {
 			padding-left: 50px;

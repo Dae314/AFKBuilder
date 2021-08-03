@@ -9,6 +9,7 @@
 	export let fullItemsStyle = [];
 	export let activeItem = 0;
 	export let menuItemClickCallback = () => {};
+	export let zIndexBase = 1;
 
 	let menuOpen = false;
 
@@ -30,14 +31,23 @@
 	}
 </script>
 
-<div class="background" class:menu-open={menuOpen} on:click={e => {e.stopPropagation(); menuOpen = false;}}></div>
-<div class="menu" style="width: {containerWidth}; height: {containerHeight};">
+<div
+	class="background"
+	class:menu-open={menuOpen}
+	on:click={e => {e.stopPropagation(); menuOpen = false;}}
+	style="z-index: {zIndexBase+1}"
+>
+</div>
+<div
+	class="menu"
+	class:menu-open={menuOpen}
+	style="width: {containerWidth}; height: {containerHeight}; z-index: {menuOpen ? zIndexBase+1 : zIndexBase};">
 	<button
 		type="button"
 		class="menu-open-button menu-len-{menuItems.length}"
 		class:menu-open={menuOpen}
 		on:click={handleMenuClick}
-		style={fullItemsStyle[activeItem]}
+		style="{fullItemsStyle[activeItem]};"
 		>
 		{#if menuOpen}
 			<span class="lines line-1"></span>
@@ -49,7 +59,14 @@
 	</button>
 
 	{#each menuItems as item, i}
-		<button type="button" class="menu-item" on:click={e => handleOptionClick(e, i)} style={menuItemsStyle[i]}>{item}</button>
+		<button
+			type="button"
+			class="menu-item"
+			on:click={e => handleOptionClick(e, i)}
+			style={menuItemsStyle[i]}
+		>
+			{item}
+		</button>
 	{/each}
 </div>
 
@@ -65,7 +82,6 @@
 		transition: opacity 0.2s;
 		visibility: hidden;
 		width: 100vw;
-		z-index: 3;
 		&.menu-open {
 			opacity: 1;
 			visibility: visible;
@@ -78,6 +94,12 @@
 		justify-content: center;
 		text-align: center;
 		width: 80px;
+		&.menu-open {
+			position: fixed;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+		}
 	}
 	.menu-item {
 		align-items: center;
@@ -99,11 +121,11 @@
 		transition: transform ease-out 180ms;
 		visibility: hidden;
 		width: 50px;
-		z-index: 4;
 	}
 	.menu-open-button {
 		border: 2px solid #333;
 		border-radius: 10px;
+		cursor: pointer;
 		font-size: 1.1rem;
 		font-weight: bold;
 		height: fit-content;
@@ -142,7 +164,6 @@
 			transition-timing-function: linear;
 			transform: scale(0.8, 0.8) translate3d(0, 0, 0);
 			width: 50px;
-			z-index: 4;
 			~ .menu-item {
 				opacity: 1;
 				visibility: visible;
