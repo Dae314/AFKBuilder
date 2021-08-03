@@ -101,15 +101,15 @@
 			<div class="MainWindow">
 				<div id="currentDisplay">
 					{#if $AppData.activeView === 'comps'}
-						<Comps isMobile={isMobile} on:saveData={saveAppData} />
+						<Comps {isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'recommendations'}
-						<Recommendations isMobile={isMobile} on:saveData={saveAppData} />
+						<Recommendations {isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'my heroes'}
-						<MyHeroes isMobile={isMobile} on:saveData={saveAppData} />
+						<MyHeroes {isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'hero list' }
-						<HeroList isMobile={isMobile} on:saveData={saveAppData} />
+						<HeroList {isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'about' }
-						<About version={version} isMobile={isMobile} on:clearData={clearAppData} on:resetTutorial={resetTutorial} />
+						<About {version} {isMobile} on:clearData={clearAppData} on:resetTutorial={resetTutorial} />
 					{:else}
 						<h2>you shouldn't be able to get here</h2>
 					{/if}
