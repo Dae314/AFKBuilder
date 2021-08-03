@@ -100977,7 +100977,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			t = text$2(t_value);
-    			add_location(span, file$5, 46, 3, 1516);
+    			add_location(span, file$5, 46, 3, 1543);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -101018,11 +101018,11 @@ var app = (function () {
     			t1 = space();
     			span2 = element("span");
     			attr_dev(span0, "class", "lines line-1 svelte-1eqctzy");
-    			add_location(span0, file$5, 42, 3, 1388);
+    			add_location(span0, file$5, 42, 3, 1415);
     			attr_dev(span1, "class", "lines line-2 svelte-1eqctzy");
-    			add_location(span1, file$5, 43, 3, 1427);
+    			add_location(span1, file$5, 43, 3, 1454);
     			attr_dev(span2, "class", "lines line-3 svelte-1eqctzy");
-    			add_location(span2, file$5, 44, 3, 1466);
+    			add_location(span2, file$5, 44, 3, 1493);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span0, anchor);
@@ -101072,7 +101072,7 @@ var app = (function () {
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "menu-item svelte-1eqctzy");
     			attr_dev(button, "style", button_style_value = /*menuItemsStyle*/ ctx[3][/*i*/ ctx[15]]);
-    			add_location(button, file$5, 51, 2, 1610);
+    			add_location(button, file$5, 51, 2, 1637);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -101155,10 +101155,11 @@ var app = (function () {
     			attr_dev(button, "class", button_class_value = "menu-open-button menu-len-" + /*menuItems*/ ctx[2].length + " svelte-1eqctzy");
     			attr_dev(button, "style", button_style_value = /*fullItemsStyle*/ ctx[5][/*activeItem*/ ctx[6]]);
     			toggle_class(button, "menu-open", /*menuOpen*/ ctx[7]);
-    			add_location(button, file$5, 34, 1, 1182);
+    			add_location(button, file$5, 34, 1, 1209);
     			attr_dev(div1, "class", "menu svelte-1eqctzy");
     			set_style(div1, "width", /*containerWidth*/ ctx[0]);
     			set_style(div1, "height", /*containerHeight*/ ctx[1]);
+    			toggle_class(div1, "menu-open", /*menuOpen*/ ctx[7]);
     			add_location(div1, file$5, 33, 0, 1101);
     		},
     		l: function claim(nodes) {
@@ -101244,6 +101245,10 @@ var app = (function () {
 
     			if (dirty & /*containerHeight*/ 2) {
     				set_style(div1, "height", /*containerHeight*/ ctx[1]);
+    			}
+
+    			if (dirty & /*menuOpen*/ 128) {
+    				toggle_class(div1, "menu-open", /*menuOpen*/ ctx[7]);
     			}
     		},
     		i: noop$1,
@@ -107629,7 +107634,7 @@ var app = (function () {
     		c: function create() {
     			h2 = element("h2");
     			h2.textContent = "you shouldn't be able to get here";
-    			add_location(h2, file, 113, 6, 3967);
+    			add_location(h2, file, 113, 6, 3987);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h2, anchor);
@@ -107762,7 +107767,12 @@ var app = (function () {
     function create_if_block_2(ctx) {
     	let myheroes;
     	let current;
-    	myheroes = new MyHeroes({ $$inline: true });
+
+    	myheroes = new MyHeroes({
+    			props: { isMobile: /*isMobile*/ ctx[1] },
+    			$$inline: true
+    		});
+
     	myheroes.$on("saveData", /*saveAppData*/ ctx[4]);
 
     	const block = {
@@ -107773,7 +107783,11 @@ var app = (function () {
     			mount_component(myheroes, target, anchor);
     			current = true;
     		},
-    		p: noop$1,
+    		p: function update(ctx, dirty) {
+    			const myheroes_changes = {};
+    			if (dirty & /*isMobile*/ 2) myheroes_changes.isMobile = /*isMobile*/ ctx[1];
+    			myheroes.$set(myheroes_changes);
+    		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(myheroes.$$.fragment, local);

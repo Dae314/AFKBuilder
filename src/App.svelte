@@ -105,7 +105,7 @@
 					{:else if $AppData.activeView === 'recommendations'}
 						<Recommendations isMobile={isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'my heroes'}
-						<MyHeroes on:saveData={saveAppData} />
+						<MyHeroes isMobile={isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'hero list' }
 						<HeroList isMobile={isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'about' }
