@@ -1,6 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
 
+	export let containerWidth = '80px';
+	export let containerHeight = '80px';
 	export let menuItems = [];
 	export let menuItemsStyle = [];
 	export let fullItems = [];
@@ -29,7 +31,7 @@
 </script>
 
 <div class="background" class:menu-open={menuOpen} on:click={e => {e.stopPropagation(); menuOpen = false;}}></div>
-<div class="menu">
+<div class="menu" style="width: {containerWidth}; height: {containerHeight};">
 	<button
 		type="button"
 		class="menu-open-button menu-len-{menuItems.length}"
@@ -72,7 +74,7 @@
 	.menu {
 		align-items: center;
 		display: flex;
-		height: 30px;
+		height: 80px;
 		justify-content: center;
 		text-align: center;
 		width: 80px;

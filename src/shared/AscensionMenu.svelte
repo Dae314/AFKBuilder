@@ -37,6 +37,8 @@
 	{fullItems}
 	{fullItemsStyle}
 	{activeItem}
+	containerWidth="80px"
+	containerHeight="30px"
 	menuItemClickCallback={handleMenuItemClick}
 />
 

@@ -100962,29 +100962,29 @@ var app = (function () {
 
     function get_each_context$4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[11] = list[i];
-    	child_ctx[13] = i;
+    	child_ctx[13] = list[i];
+    	child_ctx[15] = i;
     	return child_ctx;
     }
 
-    // (44:2) {:else}
+    // (46:2) {:else}
     function create_else_block$4(ctx) {
     	let span;
-    	let t_value = /*fullItems*/ ctx[2][/*activeItem*/ ctx[4]] + "";
+    	let t_value = /*fullItems*/ ctx[4][/*activeItem*/ ctx[6]] + "";
     	let t;
 
     	const block = {
     		c: function create() {
     			span = element("span");
     			t = text$2(t_value);
-    			add_location(span, file$5, 44, 3, 1379);
+    			add_location(span, file$5, 46, 3, 1516);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
     			append_dev(span, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*fullItems, activeItem*/ 20 && t_value !== (t_value = /*fullItems*/ ctx[2][/*activeItem*/ ctx[4]] + "")) set_data_dev(t, t_value);
+    			if (dirty & /*fullItems, activeItem*/ 80 && t_value !== (t_value = /*fullItems*/ ctx[4][/*activeItem*/ ctx[6]] + "")) set_data_dev(t, t_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(span);
@@ -100995,14 +100995,14 @@ var app = (function () {
     		block,
     		id: create_else_block$4.name,
     		type: "else",
-    		source: "(44:2) {:else}",
+    		source: "(46:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (40:2) {#if menuOpen}
+    // (42:2) {#if menuOpen}
     function create_if_block$4(ctx) {
     	let span0;
     	let t0;
@@ -101017,12 +101017,12 @@ var app = (function () {
     			span1 = element("span");
     			t1 = space();
     			span2 = element("span");
-    			attr_dev(span0, "class", "lines line-1 svelte-l6jbhr");
-    			add_location(span0, file$5, 40, 3, 1251);
-    			attr_dev(span1, "class", "lines line-2 svelte-l6jbhr");
-    			add_location(span1, file$5, 41, 3, 1290);
-    			attr_dev(span2, "class", "lines line-3 svelte-l6jbhr");
-    			add_location(span2, file$5, 42, 3, 1329);
+    			attr_dev(span0, "class", "lines line-1 svelte-1eqctzy");
+    			add_location(span0, file$5, 42, 3, 1388);
+    			attr_dev(span1, "class", "lines line-2 svelte-1eqctzy");
+    			add_location(span1, file$5, 43, 3, 1427);
+    			attr_dev(span2, "class", "lines line-3 svelte-1eqctzy");
+    			add_location(span2, file$5, 44, 3, 1466);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span0, anchor);
@@ -101045,24 +101045,24 @@ var app = (function () {
     		block,
     		id: create_if_block$4.name,
     		type: "if",
-    		source: "(40:2) {#if menuOpen}",
+    		source: "(42:2) {#if menuOpen}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (49:1) {#each menuItems as item, i}
+    // (51:1) {#each menuItems as item, i}
     function create_each_block$4(ctx) {
     	let button;
-    	let t_value = /*item*/ ctx[11] + "";
+    	let t_value = /*item*/ ctx[13] + "";
     	let t;
     	let button_style_value;
     	let mounted;
     	let dispose;
 
     	function click_handler_1(...args) {
-    		return /*click_handler_1*/ ctx[10](/*i*/ ctx[13], ...args);
+    		return /*click_handler_1*/ ctx[12](/*i*/ ctx[15], ...args);
     	}
 
     	const block = {
@@ -101070,9 +101070,9 @@ var app = (function () {
     			button = element("button");
     			t = text$2(t_value);
     			attr_dev(button, "type", "button");
-    			attr_dev(button, "class", "menu-item svelte-l6jbhr");
-    			attr_dev(button, "style", button_style_value = /*menuItemsStyle*/ ctx[1][/*i*/ ctx[13]]);
-    			add_location(button, file$5, 49, 2, 1473);
+    			attr_dev(button, "class", "menu-item svelte-1eqctzy");
+    			attr_dev(button, "style", button_style_value = /*menuItemsStyle*/ ctx[3][/*i*/ ctx[15]]);
+    			add_location(button, file$5, 51, 2, 1610);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -101085,9 +101085,9 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty & /*menuItems*/ 1 && t_value !== (t_value = /*item*/ ctx[11] + "")) set_data_dev(t, t_value);
+    			if (dirty & /*menuItems*/ 4 && t_value !== (t_value = /*item*/ ctx[13] + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*menuItemsStyle*/ 2 && button_style_value !== (button_style_value = /*menuItemsStyle*/ ctx[1][/*i*/ ctx[13]])) {
+    			if (dirty & /*menuItemsStyle*/ 8 && button_style_value !== (button_style_value = /*menuItemsStyle*/ ctx[3][/*i*/ ctx[15]])) {
     				attr_dev(button, "style", button_style_value);
     			}
     		},
@@ -101102,7 +101102,7 @@ var app = (function () {
     		block,
     		id: create_each_block$4.name,
     		type: "each",
-    		source: "(49:1) {#each menuItems as item, i}",
+    		source: "(51:1) {#each menuItems as item, i}",
     		ctx
     	});
 
@@ -101121,13 +101121,13 @@ var app = (function () {
     	let dispose;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*menuOpen*/ ctx[5]) return create_if_block$4;
+    		if (/*menuOpen*/ ctx[7]) return create_if_block$4;
     		return create_else_block$4;
     	}
 
     	let current_block_type = select_block_type(ctx);
     	let if_block = current_block_type(ctx);
-    	let each_value = /*menuItems*/ ctx[0];
+    	let each_value = /*menuItems*/ ctx[2];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -101148,16 +101148,18 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div0, "class", "background svelte-l6jbhr");
-    			toggle_class(div0, "menu-open", /*menuOpen*/ ctx[5]);
-    			add_location(div0, file$5, 30, 0, 908);
+    			attr_dev(div0, "class", "background svelte-1eqctzy");
+    			toggle_class(div0, "menu-open", /*menuOpen*/ ctx[7]);
+    			add_location(div0, file$5, 32, 0, 985);
     			attr_dev(button, "type", "button");
-    			attr_dev(button, "class", button_class_value = "menu-open-button menu-len-" + /*menuItems*/ ctx[0].length + " svelte-l6jbhr");
-    			attr_dev(button, "style", button_style_value = /*fullItemsStyle*/ ctx[3][/*activeItem*/ ctx[4]]);
-    			toggle_class(button, "menu-open", /*menuOpen*/ ctx[5]);
-    			add_location(button, file$5, 32, 1, 1045);
-    			attr_dev(div1, "class", "menu svelte-l6jbhr");
-    			add_location(div1, file$5, 31, 0, 1024);
+    			attr_dev(button, "class", button_class_value = "menu-open-button menu-len-" + /*menuItems*/ ctx[2].length + " svelte-1eqctzy");
+    			attr_dev(button, "style", button_style_value = /*fullItemsStyle*/ ctx[5][/*activeItem*/ ctx[6]]);
+    			toggle_class(button, "menu-open", /*menuOpen*/ ctx[7]);
+    			add_location(button, file$5, 34, 1, 1182);
+    			attr_dev(div1, "class", "menu svelte-1eqctzy");
+    			set_style(div1, "width", /*containerWidth*/ ctx[0]);
+    			set_style(div1, "height", /*containerHeight*/ ctx[1]);
+    			add_location(div1, file$5, 33, 0, 1101);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$2("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -101176,16 +101178,16 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(div0, "click", /*click_handler*/ ctx[9], false, false, false),
-    					listen_dev(button, "click", /*handleMenuClick*/ ctx[6], false, false, false)
+    					listen_dev(div0, "click", /*click_handler*/ ctx[11], false, false, false),
+    					listen_dev(button, "click", /*handleMenuClick*/ ctx[8], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*menuOpen*/ 32) {
-    				toggle_class(div0, "menu-open", /*menuOpen*/ ctx[5]);
+    			if (dirty & /*menuOpen*/ 128) {
+    				toggle_class(div0, "menu-open", /*menuOpen*/ ctx[7]);
     			}
 
     			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
@@ -101200,20 +101202,20 @@ var app = (function () {
     				}
     			}
 
-    			if (dirty & /*menuItems*/ 1 && button_class_value !== (button_class_value = "menu-open-button menu-len-" + /*menuItems*/ ctx[0].length + " svelte-l6jbhr")) {
+    			if (dirty & /*menuItems*/ 4 && button_class_value !== (button_class_value = "menu-open-button menu-len-" + /*menuItems*/ ctx[2].length + " svelte-1eqctzy")) {
     				attr_dev(button, "class", button_class_value);
     			}
 
-    			if (dirty & /*fullItemsStyle, activeItem*/ 24 && button_style_value !== (button_style_value = /*fullItemsStyle*/ ctx[3][/*activeItem*/ ctx[4]])) {
+    			if (dirty & /*fullItemsStyle, activeItem*/ 96 && button_style_value !== (button_style_value = /*fullItemsStyle*/ ctx[5][/*activeItem*/ ctx[6]])) {
     				attr_dev(button, "style", button_style_value);
     			}
 
-    			if (dirty & /*menuItems, menuOpen*/ 33) {
-    				toggle_class(button, "menu-open", /*menuOpen*/ ctx[5]);
+    			if (dirty & /*menuItems, menuOpen*/ 132) {
+    				toggle_class(button, "menu-open", /*menuOpen*/ ctx[7]);
     			}
 
-    			if (dirty & /*menuItemsStyle, handleOptionClick, menuItems*/ 131) {
-    				each_value = /*menuItems*/ ctx[0];
+    			if (dirty & /*menuItemsStyle, handleOptionClick, menuItems*/ 524) {
+    				each_value = /*menuItems*/ ctx[2];
     				validate_each_argument(each_value);
     				let i;
 
@@ -101234,6 +101236,14 @@ var app = (function () {
     				}
 
     				each_blocks.length = each_value.length;
+    			}
+
+    			if (dirty & /*containerWidth*/ 1) {
+    				set_style(div1, "width", /*containerWidth*/ ctx[0]);
+    			}
+
+    			if (dirty & /*containerHeight*/ 2) {
+    				set_style(div1, "height", /*containerHeight*/ ctx[1]);
     			}
     		},
     		i: noop$1,
@@ -101263,6 +101273,8 @@ var app = (function () {
     function instance$6($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('CircleMenu', slots, []);
+    	let { containerWidth = '80px' } = $$props;
+    	let { containerHeight = '80px' } = $$props;
     	let { menuItems = [] } = $$props;
     	let { menuItemsStyle = [] } = $$props;
     	let { fullItems = [] } = $$props;
@@ -101283,16 +101295,18 @@ var app = (function () {
 
     	function handleMenuClick(event) {
     		event.stopPropagation();
-    		$$invalidate(5, menuOpen = !menuOpen);
+    		$$invalidate(7, menuOpen = !menuOpen);
     	}
 
     	function handleOptionClick(event, index) {
     		event.stopPropagation();
-    		$$invalidate(5, menuOpen = false);
+    		$$invalidate(7, menuOpen = false);
     		menuItemClickCallback(index);
     	}
 
     	const writable_props = [
+    		'containerWidth',
+    		'containerHeight',
     		'menuItems',
     		'menuItemsStyle',
     		'fullItems',
@@ -101307,22 +101321,26 @@ var app = (function () {
 
     	const click_handler = e => {
     		e.stopPropagation();
-    		$$invalidate(5, menuOpen = false);
+    		$$invalidate(7, menuOpen = false);
     	};
 
     	const click_handler_1 = (i, e) => handleOptionClick(e, i);
 
     	$$self.$$set = $$props => {
-    		if ('menuItems' in $$props) $$invalidate(0, menuItems = $$props.menuItems);
-    		if ('menuItemsStyle' in $$props) $$invalidate(1, menuItemsStyle = $$props.menuItemsStyle);
-    		if ('fullItems' in $$props) $$invalidate(2, fullItems = $$props.fullItems);
-    		if ('fullItemsStyle' in $$props) $$invalidate(3, fullItemsStyle = $$props.fullItemsStyle);
-    		if ('activeItem' in $$props) $$invalidate(4, activeItem = $$props.activeItem);
-    		if ('menuItemClickCallback' in $$props) $$invalidate(8, menuItemClickCallback = $$props.menuItemClickCallback);
+    		if ('containerWidth' in $$props) $$invalidate(0, containerWidth = $$props.containerWidth);
+    		if ('containerHeight' in $$props) $$invalidate(1, containerHeight = $$props.containerHeight);
+    		if ('menuItems' in $$props) $$invalidate(2, menuItems = $$props.menuItems);
+    		if ('menuItemsStyle' in $$props) $$invalidate(3, menuItemsStyle = $$props.menuItemsStyle);
+    		if ('fullItems' in $$props) $$invalidate(4, fullItems = $$props.fullItems);
+    		if ('fullItemsStyle' in $$props) $$invalidate(5, fullItemsStyle = $$props.fullItemsStyle);
+    		if ('activeItem' in $$props) $$invalidate(6, activeItem = $$props.activeItem);
+    		if ('menuItemClickCallback' in $$props) $$invalidate(10, menuItemClickCallback = $$props.menuItemClickCallback);
     	};
 
     	$$self.$capture_state = () => ({
     		onMount,
+    		containerWidth,
+    		containerHeight,
     		menuItems,
     		menuItemsStyle,
     		fullItems,
@@ -101335,13 +101353,15 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('menuItems' in $$props) $$invalidate(0, menuItems = $$props.menuItems);
-    		if ('menuItemsStyle' in $$props) $$invalidate(1, menuItemsStyle = $$props.menuItemsStyle);
-    		if ('fullItems' in $$props) $$invalidate(2, fullItems = $$props.fullItems);
-    		if ('fullItemsStyle' in $$props) $$invalidate(3, fullItemsStyle = $$props.fullItemsStyle);
-    		if ('activeItem' in $$props) $$invalidate(4, activeItem = $$props.activeItem);
-    		if ('menuItemClickCallback' in $$props) $$invalidate(8, menuItemClickCallback = $$props.menuItemClickCallback);
-    		if ('menuOpen' in $$props) $$invalidate(5, menuOpen = $$props.menuOpen);
+    		if ('containerWidth' in $$props) $$invalidate(0, containerWidth = $$props.containerWidth);
+    		if ('containerHeight' in $$props) $$invalidate(1, containerHeight = $$props.containerHeight);
+    		if ('menuItems' in $$props) $$invalidate(2, menuItems = $$props.menuItems);
+    		if ('menuItemsStyle' in $$props) $$invalidate(3, menuItemsStyle = $$props.menuItemsStyle);
+    		if ('fullItems' in $$props) $$invalidate(4, fullItems = $$props.fullItems);
+    		if ('fullItemsStyle' in $$props) $$invalidate(5, fullItemsStyle = $$props.fullItemsStyle);
+    		if ('activeItem' in $$props) $$invalidate(6, activeItem = $$props.activeItem);
+    		if ('menuItemClickCallback' in $$props) $$invalidate(10, menuItemClickCallback = $$props.menuItemClickCallback);
+    		if ('menuOpen' in $$props) $$invalidate(7, menuOpen = $$props.menuOpen);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -101349,6 +101369,8 @@ var app = (function () {
     	}
 
     	return [
+    		containerWidth,
+    		containerHeight,
     		menuItems,
     		menuItemsStyle,
     		fullItems,
@@ -101368,12 +101390,14 @@ var app = (function () {
     		super(options);
 
     		init(this, options, instance$6, create_fragment$6, safe_not_equal, {
-    			menuItems: 0,
-    			menuItemsStyle: 1,
-    			fullItems: 2,
-    			fullItemsStyle: 3,
-    			activeItem: 4,
-    			menuItemClickCallback: 8
+    			containerWidth: 0,
+    			containerHeight: 1,
+    			menuItems: 2,
+    			menuItemsStyle: 3,
+    			fullItems: 4,
+    			fullItemsStyle: 5,
+    			activeItem: 6,
+    			menuItemClickCallback: 10
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -101382,6 +101406,22 @@ var app = (function () {
     			options,
     			id: create_fragment$6.name
     		});
+    	}
+
+    	get containerWidth() {
+    		throw new Error_1$2("<CircleMenu>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set containerWidth(value) {
+    		throw new Error_1$2("<CircleMenu>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get containerHeight() {
+    		throw new Error_1$2("<CircleMenu>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set containerHeight(value) {
+    		throw new Error_1$2("<CircleMenu>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	get menuItems() {
@@ -101446,6 +101486,8 @@ var app = (function () {
     				fullItems: /*fullItems*/ ctx[2],
     				fullItemsStyle: /*fullItemsStyle*/ ctx[4],
     				activeItem: /*activeItem*/ ctx[0],
+    				containerWidth: "80px",
+    				containerHeight: "30px",
     				menuItemClickCallback: /*handleMenuItemClick*/ ctx[5]
     			},
     			$$inline: true
