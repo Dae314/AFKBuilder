@@ -12,6 +12,9 @@
 	export let zIndexBase = 1;
 
 	let menuOpen = false;
+	let xOffset = 0; // px
+	let yOffset = 0; // px
+	const menuMaxRadius = 125; // px
 
 	onMount(async () => {
 		if(menuItems.length !== fullItems.length) throw new Error('menuItems must be the same length as fullItems.');
@@ -19,9 +22,32 @@
 		if(fullItemsStyle.length !== fullItems.length) throw new Error('fullItemsStyle must be the same length as fullItems.');
 	});
 
+	function calculateOffset(node) {
+		const rect = node.getBoundingClientRect();
+		const h = window.innerHeight;
+		const w = window.innerWidth;
+
+		if(rect.top < menuMaxRadius) {
+			// offset from top if menu is too close to the top
+			yOffset = (menuMaxRadius + 45) - rect.top; // 45px for nav bar
+		} else if(h - rect.bottom < menuMaxRadius) {
+			// offset from bottom if menu is too close to the bottom
+			yOffset = -1 * ((menuMaxRadius + 45) - (h - rect.bottom)); // 45px for bottom filters
+		}
+
+		if(rect.left < menuMaxRadius) {
+			// offset from left if menu is too close to the left
+			xOffset = menuMaxRadius - rect.left;
+		} else if(w - rect.right < menuMaxRadius) {
+			// offset from right if menu is too close to the right
+			xOffset = -1 * (menuMaxRadius - (w - rect.right));
+		}
+	}
+
 	function handleMenuClick(event) {
 		event.stopPropagation();
 		menuOpen = !menuOpen;
+		calculateOffset(event.target);
 	}
 
 	function handleOptionClick(event, index) {
@@ -41,7 +67,13 @@
 <div
 	class="menu"
 	class:menu-open={menuOpen}
-	style="width: {containerWidth}; height: {containerHeight}; z-index: {menuOpen ? zIndexBase+1 : zIndexBase};">
+	style="
+		width: {containerWidth};
+		height: {containerHeight};
+		z-index: {menuOpen ? zIndexBase+1 : zIndexBase};
+		top: {yOffset}px;
+		left: {xOffset}px;
+	">
 	<button
 		type="button"
 		class="menu-open-button menu-len-{menuItems.length}"
@@ -95,15 +127,11 @@
 		text-align: center;
 		width: 80px;
 		&.menu-open {
-			position: fixed;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%, -50%);
+			position: relative;
 		}
 	}
 	.menu-item {
 		align-items: center;
-		background: #EEEEEE;
 		border: 2px solid #333;
 		border-radius: 50%;
 		color: #333;

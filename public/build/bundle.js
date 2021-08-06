@@ -100962,12 +100962,12 @@ var app = (function () {
 
     function get_each_context$4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[14] = list[i];
-    	child_ctx[16] = i;
+    	child_ctx[17] = list[i];
+    	child_ctx[19] = i;
     	return child_ctx;
     }
 
-    // (56:2) {:else}
+    // (88:2) {:else}
     function create_else_block$4(ctx) {
     	let span;
     	let t_value = /*fullItems*/ ctx[4][/*activeItem*/ ctx[6]] + "";
@@ -100977,7 +100977,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			t = text$2(t_value);
-    			add_location(span, file$5, 56, 3, 1674);
+    			add_location(span, file$5, 88, 3, 2664);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -100995,14 +100995,14 @@ var app = (function () {
     		block,
     		id: create_else_block$4.name,
     		type: "else",
-    		source: "(56:2) {:else}",
+    		source: "(88:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (52:2) {#if menuOpen}
+    // (84:2) {#if menuOpen}
     function create_if_block$4(ctx) {
     	let span0;
     	let t0;
@@ -101017,12 +101017,12 @@ var app = (function () {
     			span1 = element("span");
     			t1 = space();
     			span2 = element("span");
-    			attr_dev(span0, "class", "lines line-1 svelte-12j39lw");
-    			add_location(span0, file$5, 52, 3, 1546);
-    			attr_dev(span1, "class", "lines line-2 svelte-12j39lw");
-    			add_location(span1, file$5, 53, 3, 1585);
-    			attr_dev(span2, "class", "lines line-3 svelte-12j39lw");
-    			add_location(span2, file$5, 54, 3, 1624);
+    			attr_dev(span0, "class", "lines line-1 svelte-18tustg");
+    			add_location(span0, file$5, 84, 3, 2536);
+    			attr_dev(span1, "class", "lines line-2 svelte-18tustg");
+    			add_location(span1, file$5, 85, 3, 2575);
+    			attr_dev(span2, "class", "lines line-3 svelte-18tustg");
+    			add_location(span2, file$5, 86, 3, 2614);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span0, anchor);
@@ -101045,17 +101045,17 @@ var app = (function () {
     		block,
     		id: create_if_block$4.name,
     		type: "if",
-    		source: "(52:2) {#if menuOpen}",
+    		source: "(84:2) {#if menuOpen}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (61:1) {#each menuItems as item, i}
+    // (93:1) {#each menuItems as item, i}
     function create_each_block$4(ctx) {
     	let button;
-    	let t0_value = /*item*/ ctx[14] + "";
+    	let t0_value = /*item*/ ctx[17] + "";
     	let t0;
     	let t1;
     	let button_style_value;
@@ -101063,7 +101063,7 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_1(...args) {
-    		return /*click_handler_1*/ ctx[13](/*i*/ ctx[16], ...args);
+    		return /*click_handler_1*/ ctx[15](/*i*/ ctx[19], ...args);
     	}
 
     	const block = {
@@ -101072,9 +101072,9 @@ var app = (function () {
     			t0 = text$2(t0_value);
     			t1 = space();
     			attr_dev(button, "type", "button");
-    			attr_dev(button, "class", "menu-item svelte-12j39lw");
-    			attr_dev(button, "style", button_style_value = /*menuItemsStyle*/ ctx[3][/*i*/ ctx[16]]);
-    			add_location(button, file$5, 61, 2, 1768);
+    			attr_dev(button, "class", "menu-item svelte-18tustg");
+    			attr_dev(button, "style", button_style_value = /*menuItemsStyle*/ ctx[3][/*i*/ ctx[19]]);
+    			add_location(button, file$5, 93, 2, 2758);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -101088,9 +101088,9 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty & /*menuItems*/ 4 && t0_value !== (t0_value = /*item*/ ctx[14] + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*menuItems*/ 4 && t0_value !== (t0_value = /*item*/ ctx[17] + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty & /*menuItemsStyle*/ 8 && button_style_value !== (button_style_value = /*menuItemsStyle*/ ctx[3][/*i*/ ctx[16]])) {
+    			if (dirty & /*menuItemsStyle*/ 8 && button_style_value !== (button_style_value = /*menuItemsStyle*/ ctx[3][/*i*/ ctx[19]])) {
     				attr_dev(button, "style", button_style_value);
     			}
     		},
@@ -101105,7 +101105,7 @@ var app = (function () {
     		block,
     		id: create_each_block$4.name,
     		type: "each",
-    		source: "(61:1) {#each menuItems as item, i}",
+    		source: "(93:1) {#each menuItems as item, i}",
     		ctx
     	});
 
@@ -101151,16 +101151,16 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div0, "class", "background svelte-12j39lw");
+    			attr_dev(div0, "class", "background svelte-18tustg");
     			set_style(div0, "z-index", /*zIndexBase*/ ctx[7] + 1);
     			toggle_class(div0, "menu-open", /*menuOpen*/ ctx[8]);
-    			add_location(div0, file$5, 33, 0, 1014);
+    			add_location(div0, file$5, 59, 0, 1948);
     			attr_dev(button, "type", "button");
-    			attr_dev(button, "class", button_class_value = "menu-open-button menu-len-" + /*menuItems*/ ctx[2].length + " svelte-12j39lw");
+    			attr_dev(button, "class", button_class_value = "menu-open-button menu-len-" + /*menuItems*/ ctx[2].length + " svelte-18tustg");
     			attr_dev(button, "style", button_style_value = "" + (/*fullItemsStyle*/ ctx[5][/*activeItem*/ ctx[6]] + ";"));
     			toggle_class(button, "menu-open", /*menuOpen*/ ctx[8]);
-    			add_location(button, file$5, 44, 1, 1337);
-    			attr_dev(div1, "class", "menu svelte-12j39lw");
+    			add_location(button, file$5, 76, 1, 2327);
+    			attr_dev(div1, "class", "menu svelte-18tustg");
     			set_style(div1, "width", /*containerWidth*/ ctx[0]);
     			set_style(div1, "height", /*containerHeight*/ ctx[1]);
 
@@ -101168,8 +101168,10 @@ var app = (function () {
     			? /*zIndexBase*/ ctx[7] + 1
     			: /*zIndexBase*/ ctx[7]);
 
+    			set_style(div1, "top", /*yOffset*/ ctx[10] + "px");
+    			set_style(div1, "left", /*xOffset*/ ctx[9] + "px");
     			toggle_class(div1, "menu-open", /*menuOpen*/ ctx[8]);
-    			add_location(div1, file$5, 40, 0, 1174);
+    			add_location(div1, file$5, 66, 0, 2108);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$2("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -101188,8 +101190,8 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(div0, "click", /*click_handler*/ ctx[12], false, false, false),
-    					listen_dev(button, "click", /*handleMenuClick*/ ctx[9], false, false, false)
+    					listen_dev(div0, "click", /*click_handler*/ ctx[14], false, false, false),
+    					listen_dev(button, "click", /*handleMenuClick*/ ctx[11], false, false, false)
     				];
 
     				mounted = true;
@@ -101216,7 +101218,7 @@ var app = (function () {
     				}
     			}
 
-    			if (dirty & /*menuItems*/ 4 && button_class_value !== (button_class_value = "menu-open-button menu-len-" + /*menuItems*/ ctx[2].length + " svelte-12j39lw")) {
+    			if (dirty & /*menuItems*/ 4 && button_class_value !== (button_class_value = "menu-open-button menu-len-" + /*menuItems*/ ctx[2].length + " svelte-18tustg")) {
     				attr_dev(button, "class", button_class_value);
     			}
 
@@ -101228,7 +101230,7 @@ var app = (function () {
     				toggle_class(button, "menu-open", /*menuOpen*/ ctx[8]);
     			}
 
-    			if (dirty & /*menuItemsStyle, handleOptionClick, menuItems*/ 1036) {
+    			if (dirty & /*menuItemsStyle, handleOptionClick, menuItems*/ 4108) {
     				each_value = /*menuItems*/ ctx[2];
     				validate_each_argument(each_value);
     				let i;
@@ -101266,6 +101268,14 @@ var app = (function () {
     				: /*zIndexBase*/ ctx[7]);
     			}
 
+    			if (dirty & /*yOffset*/ 1024) {
+    				set_style(div1, "top", /*yOffset*/ ctx[10] + "px");
+    			}
+
+    			if (dirty & /*xOffset*/ 512) {
+    				set_style(div1, "left", /*xOffset*/ ctx[9] + "px");
+    			}
+
     			if (dirty & /*menuOpen*/ 256) {
     				toggle_class(div1, "menu-open", /*menuOpen*/ ctx[8]);
     			}
@@ -101294,6 +101304,8 @@ var app = (function () {
     	return block;
     }
 
+    const menuMaxRadius = 125; // px
+
     function instance$6($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('CircleMenu', slots, []);
@@ -101311,6 +101323,8 @@ var app = (function () {
 
     	let { zIndexBase = 1 } = $$props;
     	let menuOpen = false;
+    	let xOffset = 0; // px
+    	let yOffset = 0; // px
 
     	onMount(async () => {
     		if (menuItems.length !== fullItems.length) throw new Error('menuItems must be the same length as fullItems.');
@@ -101318,9 +101332,32 @@ var app = (function () {
     		if (fullItemsStyle.length !== fullItems.length) throw new Error('fullItemsStyle must be the same length as fullItems.');
     	});
 
+    	function calculateOffset(node) {
+    		const rect = node.getBoundingClientRect();
+    		const h = window.innerHeight;
+    		const w = window.innerWidth;
+
+    		if (rect.top < menuMaxRadius) {
+    			// offset from top if menu is too close to the top
+    			$$invalidate(10, yOffset = menuMaxRadius + 45 - rect.top); // 45px for nav bar
+    		} else if (h - rect.bottom < menuMaxRadius) {
+    			// offset from bottom if menu is too close to the bottom
+    			$$invalidate(10, yOffset = -1 * (menuMaxRadius + 45 - (h - rect.bottom))); // 45px for bottom filters
+    		}
+
+    		if (rect.left < menuMaxRadius) {
+    			// offset from left if menu is too close to the left
+    			$$invalidate(9, xOffset = menuMaxRadius - rect.left);
+    		} else if (w - rect.right < menuMaxRadius) {
+    			// offset from right if menu is too close to the right
+    			$$invalidate(9, xOffset = -1 * (menuMaxRadius - (w - rect.right)));
+    		}
+    	}
+
     	function handleMenuClick(event) {
     		event.stopPropagation();
     		$$invalidate(8, menuOpen = !menuOpen);
+    		calculateOffset(event.target);
     	}
 
     	function handleOptionClick(event, index) {
@@ -101360,7 +101397,7 @@ var app = (function () {
     		if ('fullItems' in $$props) $$invalidate(4, fullItems = $$props.fullItems);
     		if ('fullItemsStyle' in $$props) $$invalidate(5, fullItemsStyle = $$props.fullItemsStyle);
     		if ('activeItem' in $$props) $$invalidate(6, activeItem = $$props.activeItem);
-    		if ('menuItemClickCallback' in $$props) $$invalidate(11, menuItemClickCallback = $$props.menuItemClickCallback);
+    		if ('menuItemClickCallback' in $$props) $$invalidate(13, menuItemClickCallback = $$props.menuItemClickCallback);
     		if ('zIndexBase' in $$props) $$invalidate(7, zIndexBase = $$props.zIndexBase);
     	};
 
@@ -101376,6 +101413,10 @@ var app = (function () {
     		menuItemClickCallback,
     		zIndexBase,
     		menuOpen,
+    		xOffset,
+    		yOffset,
+    		menuMaxRadius,
+    		calculateOffset,
     		handleMenuClick,
     		handleOptionClick
     	});
@@ -101388,9 +101429,11 @@ var app = (function () {
     		if ('fullItems' in $$props) $$invalidate(4, fullItems = $$props.fullItems);
     		if ('fullItemsStyle' in $$props) $$invalidate(5, fullItemsStyle = $$props.fullItemsStyle);
     		if ('activeItem' in $$props) $$invalidate(6, activeItem = $$props.activeItem);
-    		if ('menuItemClickCallback' in $$props) $$invalidate(11, menuItemClickCallback = $$props.menuItemClickCallback);
+    		if ('menuItemClickCallback' in $$props) $$invalidate(13, menuItemClickCallback = $$props.menuItemClickCallback);
     		if ('zIndexBase' in $$props) $$invalidate(7, zIndexBase = $$props.zIndexBase);
     		if ('menuOpen' in $$props) $$invalidate(8, menuOpen = $$props.menuOpen);
+    		if ('xOffset' in $$props) $$invalidate(9, xOffset = $$props.xOffset);
+    		if ('yOffset' in $$props) $$invalidate(10, yOffset = $$props.yOffset);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -101407,6 +101450,8 @@ var app = (function () {
     		activeItem,
     		zIndexBase,
     		menuOpen,
+    		xOffset,
+    		yOffset,
     		handleMenuClick,
     		handleOptionClick,
     		menuItemClickCallback,
@@ -101427,7 +101472,7 @@ var app = (function () {
     			fullItems: 4,
     			fullItemsStyle: 5,
     			activeItem: 6,
-    			menuItemClickCallback: 11,
+    			menuItemClickCallback: 13,
     			zIndexBase: 7
     		});
 
