@@ -771,7 +771,7 @@
 		display: grid;
 		grid-gap: 5px 5px;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
-		grid-template-rows: repeat(auto-fit, minmax(255px, 257px));
+		grid-template-rows: repeat(auto-fit, minmax(240px, 241px));
 		justify-content: space-evenly;
 	}
 	.heroCard {
