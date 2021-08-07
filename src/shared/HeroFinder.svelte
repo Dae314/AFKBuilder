@@ -200,19 +200,32 @@
 		selectedHero.ascendLv = level;
 	}
 
-	function handleFurnChange() {
-		switch(selectedHero.furn) {
+	function handleFurnChange(level) {
+		// switch(selectedHero.furn) {
+		// 	case 0:
+		// 		selectedHero.furn = 3;
+		// 		break;
+		// 	case 3:
+		// 		selectedHero.furn = 9;
+		// 		break;
+		// 	case 9:
+		// 		selectedHero.furn = 0;
+		// 		break;
+		// 	default:
+		// 		throw new Error(`Error in handleFurnChange, selectedHero.furn is an invalid level: ${selectedHero.furn}`);
+		// }
+		switch(level) {
 			case 0:
-				selectedHero.furn = 3;
-				break;
-			case 3:
-				selectedHero.furn = 9;
-				break;
-			case 9:
 				selectedHero.furn = 0;
 				break;
+			case 1:
+				selectedHero.furn = 3;
+				break;
+			case 2:
+				selectedHero.furn = 9;
+				break;
 			default:
-				throw new Error(`Error in handleFurnChange, selectedHero.furn is an invalid level: ${selectedHero.furn}`);
+				throw new Error(`Invalid furniture level for ${heroID}: ${selectedHero.furn}`);
 		}
 	}
 
@@ -464,14 +477,20 @@
 							<img class="editorPortrait" src="{$HeroData.find(e => e.id === selectedHero.id).portrait}" alt="{$HeroData.find(e => e.id === selectedHero.id).name}">
 						</div>
 						<div class="furnFlipButtonArea">
-							<FlipButton options="{['0f', '3f', '9f']}"
+							<!-- <FlipButton options="{['0f', '3f', '9f']}"
 								optionStyles="{[
 									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
 									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
 									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
 								]}"
 								curOption="{selectedHero.furn === 0 ? 0 : selectedHero.furn === 3 ? 1 : 2 }"
-								onClick="{handleFurnChange}" />
+								onClick="{handleFurnChange}" /> -->
+							<FurnMenu
+								menuItemChangeCallback={(index) => handleFurnChange(index)}
+								activeItem={selectedHero.furn === 0 ? 0 : selectedHero.furn === 3 ? 1 : 2}
+								centerMenu={true}
+								zIndexBase=4
+							/>
 						</div>
 					</div>
 					<div class="ascFlipButtonArea">
