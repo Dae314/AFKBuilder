@@ -5,7 +5,6 @@
 	import Artifacts from '../stores/Artifacts.js';
 	import AppData from '../stores/AppData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
-	import FlipButton from '../shared/FlipButton.svelte';
 	import AscensionMenu from '../shared/AscensionMenu.svelte';
 	import SIMenu from '../shared/SIMenu.svelte';
 	import FurnMenu from '../shared/FurnMenu.svelte';
@@ -182,38 +181,14 @@
 	}
 
 	function handleSIChange(level) {
-		// if(selectedHero.si < 0) {
-		// 	selectedHero.si = 0;
-		// } else {
-		// 	selectedHero.si+=5;
-		// }
-		// if(selectedHero.si > 30) {
-		// 	selectedHero.si = -1;
-		// }
 		selectedHero.si = level === 0 ? -1 : (level - 1) * 5;
 	}
 
 	function handleAscChange(level) {
-		// if(++selectedHero.ascendLv > 6) {
-		// 	selectedHero.ascendLv = 0;
-		// }
 		selectedHero.ascendLv = level;
 	}
 
 	function handleFurnChange(level) {
-		// switch(selectedHero.furn) {
-		// 	case 0:
-		// 		selectedHero.furn = 3;
-		// 		break;
-		// 	case 3:
-		// 		selectedHero.furn = 9;
-		// 		break;
-		// 	case 9:
-		// 		selectedHero.furn = 0;
-		// 		break;
-		// 	default:
-		// 		throw new Error(`Error in handleFurnChange, selectedHero.furn is an invalid level: ${selectedHero.furn}`);
-		// }
 		switch(level) {
 			case 0:
 				selectedHero.furn = 0;
@@ -453,19 +428,6 @@
 					<div class="heroName">{$HeroData.find(e => e.id === selectedHero.id).name}</div>
 					<div class="portraitArea">
 						<div class="siFlipButtonArea">
-							<!-- <FlipButton options="{['SI OFF', 'SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
-								optionStyles="{[
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-									]}"
-									curOption="{selectedHero.si === -1 ? 0 : Math.floor(selectedHero.si/5) + 1}"
-									onClick="{handleSIChange}" /> -->
 							<SIMenu
 								menuItemChangeCallback={(index) => handleSIChange(index)}
 								activeItem={selectedHero.si === -1 ? 0 : Math.floor(selectedHero.si/5) + 1}
@@ -477,14 +439,6 @@
 							<img class="editorPortrait" src="{$HeroData.find(e => e.id === selectedHero.id).portrait}" alt="{$HeroData.find(e => e.id === selectedHero.id).name}">
 						</div>
 						<div class="furnFlipButtonArea">
-							<!-- <FlipButton options="{['0f', '3f', '9f']}"
-								optionStyles="{[
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-									'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-								]}"
-								curOption="{selectedHero.furn === 0 ? 0 : selectedHero.furn === 3 ? 1 : 2 }"
-								onClick="{handleFurnChange}" /> -->
 							<FurnMenu
 								menuItemChangeCallback={(index) => handleFurnChange(index)}
 								activeItem={selectedHero.furn === 0 ? 0 : selectedHero.furn === 3 ? 1 : 2}
@@ -494,18 +448,6 @@
 						</div>
 					</div>
 					<div class="ascFlipButtonArea">
-						<!-- <FlipButton options="{['Elite', 'Elite+', 'Legendary', 'Legendary+', 'Mythic', 'Mythic+', 'Ascended']}"
-							optionStyles="{[
-								'background-color: #AF3CEA; color: white; border: 3px solid #AF3CEA; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-										'background-color: #AF3CEA; color: white; border: 3px solid #6D2691; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-										'background-color: #F7BC19; color: white; border: 3px solid #F7BC19; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-										'background-color: #F7BC19; color: white; border: 3px solid #E0920B; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-										'background-color: #E60B51; color: white; border: 3px solid #E60B51; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-										'background-color: #E60B51; color: white; border: 3px solid #A6083A; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-										'background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 3px solid #B289E8; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-								]}"
-								curOption="{selectedHero.ascendLv}"
-								onClick="{handleAscChange}" /> -->
 						<AscensionMenu
 							menuItemChangeCallback={(index) => handleAscChange(index)}
 							activeItem={selectedHero.ascendLv}
