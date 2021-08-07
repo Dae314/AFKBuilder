@@ -6,6 +6,9 @@
 	import AppData from '../stores/AppData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import FlipButton from '../shared/FlipButton.svelte';
+	import AscensionMenu from '../shared/AscensionMenu.svelte';
+	import SIMenu from '../shared/SIMenu.svelte';
+	import FurnMenu from '../shared/FurnMenu.svelte';
 
 	export let config = {};
 	export let isMobile = false;
@@ -189,10 +192,11 @@
 		}
 	}
 
-	function handleAscChange() {
-		if(++selectedHero.ascendLv > 6) {
-			selectedHero.ascendLv = 0;
-		}
+	function handleAscChange(level) {
+		// if(++selectedHero.ascendLv > 6) {
+		// 	selectedHero.ascendLv = 0;
+		// }
+		selectedHero.ascendLv = level;
 	}
 
 	function handleFurnChange() {
@@ -464,7 +468,7 @@
 						</div>
 					</div>
 					<div class="ascFlipButtonArea">
-						<FlipButton options="{['Elite', 'Elite+', 'Legendary', 'Legendary+', 'Mythic', 'Mythic+', 'Ascended']}"
+						<!-- <FlipButton options="{['Elite', 'Elite+', 'Legendary', 'Legendary+', 'Mythic', 'Mythic+', 'Ascended']}"
 							optionStyles="{[
 								'background-color: #AF3CEA; color: white; border: 3px solid #AF3CEA; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
 										'background-color: #AF3CEA; color: white; border: 3px solid #6D2691; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
@@ -475,7 +479,13 @@
 										'background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 3px solid #B289E8; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
 								]}"
 								curOption="{selectedHero.ascendLv}"
-								onClick="{handleAscChange}" />
+								onClick="{handleAscChange}" /> -->
+						<AscensionMenu
+							menuItemChangeCallback={(index) => handleAscChange(index)}
+							activeItem={selectedHero.ascendLv}
+							centerMenu={true}
+							zIndexBase=4
+						/>
 					</div>
 					<div class="coreArea">
 						<button type="button" class="coreButton" class:on={selectedHero.core} on:click={() => selectedHero.core = !selectedHero.core}><span>Core</span></button>
