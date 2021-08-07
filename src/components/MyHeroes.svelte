@@ -11,6 +11,7 @@
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import XButton from '../shared/XButton.svelte';
 	import AscensionMenu from '../shared/AscensionMenu.svelte';
+	import SIMenu from '../shared/SIMenu.svelte';
 
 	export let isMobile = false;
 
@@ -211,15 +212,16 @@
 		dispatch('saveData')
 	}
 
-	function handleSIChange(heroID) {
-		if($AppData.MH.List[heroID].si < 0) {
-			$AppData.MH.List[heroID].si = 0;
-		} else {
-			$AppData.MH.List[heroID].si += 5;
-		}
-		if($AppData.MH.List[heroID].si > 30) {
-			$AppData.MH.List[heroID].si = -1;
-		}
+	function handleSIChange(heroID, level) {
+		// if($AppData.MH.List[heroID].si < 0) {
+		// 	$AppData.MH.List[heroID].si = 0;
+		// } else {
+		// 	$AppData.MH.List[heroID].si += 5;
+		// }
+		// if($AppData.MH.List[heroID].si > 30) {
+		// 	$AppData.MH.List[heroID].si = -1;
+		// }
+		$AppData.MH.List[heroID].si = level === 0 ? -1 : level * 5 - 5;
 		dispatch('saveData');
 	}
 
@@ -486,7 +488,7 @@
 								</div>
 								<div class="siFurnButtonArea">
 									<div class="flipButtonArea">
-										<FlipButton options="{['SI OFF', 'SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
+										<!-- <FlipButton options="{['SI OFF', 'SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
 											optionStyles="{[
 												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
 												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
@@ -498,7 +500,12 @@
 												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
 												]}"
 												curOption="{$AppData.MH.List[hero.id].si === -1 ? 0 : Math.floor($AppData.MH.List[hero.id].si/5) + 1}"
-												onClick="{() => handleSIChange(hero.id)}" />
+												onClick="{() => handleSIChange(hero.id)}" /> -->
+										<SIMenu
+											menuItemChangeCallback={(index) => handleSIChange(hero.id, index)}
+											activeItem={$AppData.MH.List[hero.id].si === -1 ? 0 : Math.floor($AppData.MH.List[hero.id].si/5) + 1}
+											zIndexBase=2
+										/>
 									</div>
 									<div class="flipButtonArea">
 										<FlipButton options="{['0f', '3f', '9f']}"
