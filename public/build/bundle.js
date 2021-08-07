@@ -102036,7 +102036,7 @@ var app = (function () {
 
     	let { activeItem = 0 } = $$props;
     	let { zIndexBase = 1 } = $$props;
-    	let menuItems = ['0F', '3F', '9F', '36F'];
+    	let menuItems = ['0F', '3F', '9F'];
     	let fullItems = ['0 Furn', '3 Furn', '9 Furn'];
 
     	let menuItemsStyle = [
