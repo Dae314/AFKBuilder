@@ -47167,7 +47167,7 @@ var app = (function () {
     const { Error: Error_1$7 } = globals;
     const file$h = "src\\shared\\SIFurnBox.svelte";
 
-    // (52:1) {:else}
+    // (54:1) {:else}
     function create_else_block_2$4(ctx) {
     	let p;
     	let t0;
@@ -47179,7 +47179,7 @@ var app = (function () {
     			t0 = text$2(/*num*/ ctx[0]);
     			t1 = text$2("f");
     			attr_dev(p, "class", "num svelte-fa0944");
-    			add_location(p, file$h, 52, 2, 1300);
+    			add_location(p, file$h, 54, 2, 1350);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -47198,14 +47198,14 @@ var app = (function () {
     		block,
     		id: create_else_block_2$4.name,
     		type: "else",
-    		source: "(52:1) {:else}",
+    		source: "(54:1) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (38:1) {#if type === 'si'}
+    // (40:1) {#if type === 'si'}
     function create_if_block$c(ctx) {
     	let if_block_anchor;
 
@@ -47250,14 +47250,14 @@ var app = (function () {
     		block,
     		id: create_if_block$c.name,
     		type: "if",
-    		source: "(38:1) {#if type === 'si'}",
+    		source: "(40:1) {#if type === 'si'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (48:3) {:else}
+    // (50:3) {:else}
     function create_else_block_1$5(ctx) {
     	let p;
     	let t0;
@@ -47269,7 +47269,7 @@ var app = (function () {
     			t0 = text$2("+");
     			t1 = text$2(/*num*/ ctx[0]);
     			attr_dev(p, "class", "num svelte-fa0944");
-    			add_location(p, file$h, 48, 3, 1242);
+    			add_location(p, file$h, 50, 3, 1292);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -47288,14 +47288,14 @@ var app = (function () {
     		block,
     		id: create_else_block_1$5.name,
     		type: "else",
-    		source: "(48:3) {:else}",
+    		source: "(50:3) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (46:3) {#if num < 0}
+    // (48:3) {#if num < 0}
     function create_if_block_3$6(ctx) {
     	let p;
 
@@ -47304,7 +47304,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "OFF";
     			attr_dev(p, "class", "num svelte-fa0944");
-    			add_location(p, file$h, 46, 4, 1203);
+    			add_location(p, file$h, 48, 4, 1253);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -47319,14 +47319,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3$6.name,
     		type: "if",
-    		source: "(46:3) {#if num < 0}",
+    		source: "(48:3) {#if num < 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (39:2) {#if fullName}
+    // (41:2) {#if fullName}
     function create_if_block_1$6(ctx) {
     	let if_block_anchor;
 
@@ -47370,14 +47370,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$6.name,
     		type: "if",
-    		source: "(39:2) {#if fullName}",
+    		source: "(41:2) {#if fullName}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (42:3) {:else}
+    // (44:3) {:else}
     function create_else_block$9(ctx) {
     	let p;
     	let t0;
@@ -47389,7 +47389,7 @@ var app = (function () {
     			t0 = text$2("SI +");
     			t1 = text$2(/*num*/ ctx[0]);
     			attr_dev(p, "class", "num svelte-fa0944");
-    			add_location(p, file$h, 42, 4, 1130);
+    			add_location(p, file$h, 44, 4, 1180);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -47408,14 +47408,14 @@ var app = (function () {
     		block,
     		id: create_else_block$9.name,
     		type: "else",
-    		source: "(42:3) {:else}",
+    		source: "(44:3) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (40:3) {#if num < 0}
+    // (42:3) {#if num < 0}
     function create_if_block_2$6(ctx) {
     	let p;
 
@@ -47424,7 +47424,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "SI OFF";
     			attr_dev(p, "class", "num svelte-fa0944");
-    			add_location(p, file$h, 40, 4, 1087);
+    			add_location(p, file$h, 42, 4, 1137);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -47439,7 +47439,7 @@ var app = (function () {
     		block,
     		id: create_if_block_2$6.name,
     		type: "if",
-    		source: "(40:3) {#if num < 0}",
+    		source: "(42:3) {#if num < 0}",
     		ctx
     	});
 
@@ -47466,7 +47466,7 @@ var app = (function () {
     			set_style(div, "max-width", /*maxWidth*/ ctx[2]);
     			set_style(div, "font-size", /*fontSize*/ ctx[3]);
     			set_style(div, "width", /*maxWidth*/ ctx[2]);
-    			add_location(div, file$h, 36, 0, 892);
+    			add_location(div, file$h, 38, 0, 942);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$7("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -47551,8 +47551,12 @@ var app = (function () {
     					break;
     				case 30:
     					break;
+    				case 35:
+    					break;
+    				case 40:
+    					break;
     				default:
-    					throw new Error(`Invalid num specfified for SIFurnBox of si type: ${num}. Must be -1, 0, 5, 10, 15, 20, 25, or 30`);
+    					throw new Error(`Invalid num specfified for SIFurnBox of si type: ${num}. Must be -1, 0, 5, 10, 15, 20, 25, 30, 35, or 40`);
     			}
     			break;
     		case 'furn':

@@ -16,8 +16,10 @@
 				case 20: break;
 				case 25: break;
 				case 30: break;
+				case 35: break;
+				case 40: break;
 				default:
-					throw new Error(`Invalid num specfified for SIFurnBox of si type: ${num}. Must be -1, 0, 5, 10, 15, 20, 25, or 30`);
+					throw new Error(`Invalid num specfified for SIFurnBox of si type: ${num}. Must be -1, 0, 5, 10, 15, 20, 25, 30, 35, or 40`);
 			}
 			break;
 		case 'furn':
