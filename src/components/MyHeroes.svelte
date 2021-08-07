@@ -227,7 +227,6 @@
 			default:
 				throw new Error(`Invalid furniture level for ${heroID}: ${$AppData.MH.List[heroID].furn}`);
 		}
-		console.log($AppData.MH.List[heroID].furn);
 		dispatch('saveData');
 	}
 
