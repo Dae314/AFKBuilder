@@ -210,7 +210,7 @@
 		// 	$AppData.MH.List[heroID].ascendLv = 0;
 		// }
 		$AppData.MH.List[heroID].ascendLv = level;
-		dispatch('saveData')
+		dispatch('saveData');
 	}
 
 	function handleSIChange(heroID, level) {
@@ -222,7 +222,13 @@
 		// if($AppData.MH.List[heroID].si > 30) {
 		// 	$AppData.MH.List[heroID].si = -1;
 		// }
-		$AppData.MH.List[heroID].si = level === 0 ? -1 : level * 5 - 5;
+		if(level === 0) {
+			$AppData.MH.List[heroID].si = -1
+		}else if(level > 0 && level !== 8) {
+			$AppData.MH.List[heroID].si = level * 5 - 5;
+		} else {
+			$AppData.MH.List[heroID].si = 40;
+		}
 		dispatch('saveData');
 	}
 
@@ -247,15 +253,16 @@
 			case 1:
 				$AppData.MH.List[heroID].furn = 3;
 				break;
-			case 1:
+			case 2:
 				$AppData.MH.List[heroID].furn = 9;
 				break;
-			case 1:
+			case 3:
 				$AppData.MH.List[heroID].furn = 36;
 				break;
 			default:
 				throw new Error(`Invalid furniture level for ${heroID}: ${$AppData.MH.List[heroID].furn}`);
 		}
+		console.log($AppData.MH.List[heroID].furn);
 		dispatch('saveData');
 	}
 
@@ -520,7 +527,7 @@
 												onClick="{() => handleSIChange(hero.id)}" /> -->
 										<SIMenu
 											menuItemChangeCallback={(index) => handleSIChange(hero.id, index)}
-											activeItem={$AppData.MH.List[hero.id].si === -1 ? 0 : Math.floor($AppData.MH.List[hero.id].si/5) + 1}
+											activeItem={$AppData.MH.List[hero.id].si === -1 ? 0 : $AppData.MH.List[hero.id].si === 40 ? 8 : Math.floor($AppData.MH.List[hero.id].si/5) + 1}
 											zIndexBase=2
 										/>
 									</div>
