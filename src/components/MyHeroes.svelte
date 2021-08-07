@@ -12,6 +12,7 @@
 	import XButton from '../shared/XButton.svelte';
 	import AscensionMenu from '../shared/AscensionMenu.svelte';
 	import SIMenu from '../shared/SIMenu.svelte';
+	import FurnMenu from '../shared/FurnMenu.svelte';
 
 	export let isMobile = false;
 
@@ -225,16 +226,32 @@
 		dispatch('saveData');
 	}
 
-	function handleFurnChange(heroID) {
-		switch($AppData.MH.List[heroID].furn) {
+	function handleFurnChange(heroID, level) {
+		// switch($AppData.MH.List[heroID].furn) {
+		// 	case 0:
+		// 		$AppData.MH.List[heroID].furn = 3;
+		// 		break;
+		// 	case 3:
+		// 		$AppData.MH.List[heroID].furn = 9;
+		// 		break;
+		// 	case 9:
+		// 		$AppData.MH.List[heroID].furn = 0;
+		// 		break;
+		// 	default:
+		// 		throw new Error(`Invalid furniture level for ${heroID}: ${$AppData.MH.List[heroID].furn}`);
+		// }
+		switch(level) {
 			case 0:
+				$AppData.MH.List[heroID].furn = 0;
+				break;
+			case 1:
 				$AppData.MH.List[heroID].furn = 3;
 				break;
-			case 3:
+			case 1:
 				$AppData.MH.List[heroID].furn = 9;
 				break;
-			case 9:
-				$AppData.MH.List[heroID].furn = 0;
+			case 1:
+				$AppData.MH.List[heroID].furn = 36;
 				break;
 			default:
 				throw new Error(`Invalid furniture level for ${heroID}: ${$AppData.MH.List[heroID].furn}`);
@@ -508,14 +525,19 @@
 										/>
 									</div>
 									<div class="flipButtonArea">
-										<FlipButton options="{['0f', '3f', '9f']}"
+										<!-- <FlipButton options="{['0f', '3f', '9f']}"
 											optionStyles="{[
 												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
 												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
 												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
 											]}"
 											curOption="{$AppData.MH.List[hero.id].furn === 0 ? 0 : $AppData.MH.List[hero.id].furn === 3 ? 1 : 2 }"
-											onClick="{() => handleFurnChange(hero.id)}" />
+											onClick="{() => handleFurnChange(hero.id)}" /> -->
+										<FurnMenu
+											menuItemChangeCallback={(index) => handleFurnChange(hero.id, index)}
+											activeItem={$AppData.MH.List[hero.id].furn === 0 ? 0 : $AppData.MH.List[hero.id].furn === 3 ? 1 : $AppData.MH.List[hero.id].furn === 9 ? 2 : 3}
+											zIndexBase=2
+										/>
 									</div>
 								</div>
 							</div>
