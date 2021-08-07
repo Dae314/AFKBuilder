@@ -137,10 +137,11 @@
 		color: #333;
 		cursor: pointer;
 		display: flex;
+		font-size: 1.05rem;
 		font-weight: bold;
-		height: 50px;
+		height: 55px;
 		justify-content: center;
-		line-height: 50px;
+		line-height: 55px;
 		outline: none;
 		padding: 0;
 		position: absolute;
@@ -148,7 +149,7 @@
 		text-align: center;
 		transition: transform ease-out 180ms;
 		visibility: hidden;
-		width: 50px;
+		width: 55px;
 	}
 	.menu-open-button {
 		border: 2px solid #333;
@@ -186,12 +187,12 @@
 		}
 		&.menu-open {
 			border-radius: 50%;
-			height: 50px;
-			line-height: 50px;
+			height: 55px;
+			line-height: 55px;
 			transition-duration: 200ms;
 			transition-timing-function: linear;
-			transform: scale(0.8, 0.8) translate3d(0, 0, 0);
-			width: 50px;
+			transform: scale(0.9, 0.9) translate3d(0, 0, 0);
+			width: 55px;
 			~ .menu-item {
 				opacity: 1;
 				visibility: visible;
