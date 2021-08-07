@@ -10,6 +10,7 @@
 	export let activeItem = 0;
 	export let menuItemClickCallback = () => {};
 	export let zIndexBase = 1;
+	export let centerMenu = false;
 
 	let menuOpen = false;
 	let xOffset = 0; // px
@@ -23,24 +24,32 @@
 	});
 
 	function calculateOffset(node) {
-		const rect = node.getBoundingClientRect();
-		const h = window.innerHeight;
-		const w = window.innerWidth;
+		if(centerMenu) {
+			xOffset = '50%';
+			yOffset = '50%';
+		} else {
+			const rect = node.getBoundingClientRect();
+			const h = window.innerHeight;
+			const w = window.innerWidth;
 
-		if(rect.top < menuMaxRadius) {
-			// offset from top if menu is too close to the top
-			yOffset = (menuMaxRadius + 45) - rect.top; // 45px for nav bar
-		} else if(h - rect.bottom < menuMaxRadius) {
-			// offset from bottom if menu is too close to the bottom
-			yOffset = -1 * ((menuMaxRadius + 45) - (h - rect.bottom)); // 45px for bottom filters
-		}
+			if(rect.top < menuMaxRadius) {
+				// offset from top if menu is too close to the top
+				yOffset = (menuMaxRadius + 45) - rect.top; // 45px for nav bar
+			} else if(h - rect.bottom < menuMaxRadius) {
+				// offset from bottom if menu is too close to the bottom
+				yOffset = -1 * ((menuMaxRadius + 45) - (h - rect.bottom)); // 45px for bottom filters
+			}
 
-		if(rect.left < menuMaxRadius) {
-			// offset from left if menu is too close to the left
-			xOffset = menuMaxRadius - rect.left;
-		} else if(w - rect.right < menuMaxRadius) {
-			// offset from right if menu is too close to the right
-			xOffset = -1 * (menuMaxRadius - (w - rect.right));
+			if(rect.left < menuMaxRadius) {
+				// offset from left if menu is too close to the left
+				xOffset = menuMaxRadius - rect.left;
+			} else if(w - rect.right < menuMaxRadius) {
+				// offset from right if menu is too close to the right
+				xOffset = -1 * (menuMaxRadius - (w - rect.right));
+			}
+
+			xOffset = xOffset + 'px';
+			yOffset = yOffset + 'px';
 		}
 	}
 
@@ -50,8 +59,8 @@
 		if(menuOpen) {
 			calculateOffset(event.target);
 		} else {
-			xOffset = 0;
-			yOffset = 0;
+			xOffset = '0px';
+			yOffset = '0px';
 		}
 	}
 
@@ -66,18 +75,19 @@
 	class="background"
 	class:menu-open={menuOpen}
 	on:click={e => {e.stopPropagation(); menuOpen = false;}}
-	style="z-index: {zIndexBase+1}"
+	style="z-index: {parseInt(zIndexBase)+1}"
 >
 </div>
 <div
 	class="menu"
 	class:menu-open={menuOpen}
+	class:center-menu={centerMenu}
 	style="
 		width: {containerWidth};
 		height: {containerHeight};
-		z-index: {menuOpen ? zIndexBase+1 : zIndexBase};
-		top: {yOffset}px;
-		left: {xOffset}px;
+		z-index: {menuOpen ? parseInt(zIndexBase)+1 : parseInt(zIndexBase)};
+		top: {yOffset};
+		left: {xOffset};
 	">
 	<button
 		type="button"
@@ -133,6 +143,10 @@
 		width: 80px;
 		&.menu-open {
 			position: relative;
+		}
+		&.menu-open.center-menu {
+			position: fixed;
+			transform: translate(-50%, -50%);
 		}
 	}
 	.menu-item {

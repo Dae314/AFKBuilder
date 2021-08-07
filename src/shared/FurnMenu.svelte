@@ -4,6 +4,7 @@
 	export let menuItemChangeCallback = () => {};
 	export let activeItem = 0;
 	export let zIndexBase = 1;
+	export let centerMenu = false;
 
 	let menuItems = ['0F', '3F', '9F'];
 	let fullItems = ['0 Furn', '3 Furn', '9 Furn'];
@@ -31,6 +32,7 @@
 	{fullItemsStyle}
 	{activeItem}
 	{zIndexBase}
+	{centerMenu}
 	containerWidth="80px"
 	containerHeight="30px"
 	menuItemClickCallback={handleMenuItemClick}
