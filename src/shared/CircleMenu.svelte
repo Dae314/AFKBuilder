@@ -47,7 +47,12 @@
 	function handleMenuClick(event) {
 		event.stopPropagation();
 		menuOpen = !menuOpen;
-		calculateOffset(event.target);
+		if(menuOpen) {
+			calculateOffset(event.target);
+		} else {
+			xOffset = 0;
+			yOffset = 0;
+		}
 	}
 
 	function handleOptionClick(event, index) {

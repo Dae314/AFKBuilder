@@ -100967,7 +100967,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (88:2) {:else}
+    // (93:2) {:else}
     function create_else_block$4(ctx) {
     	let span;
     	let t_value = /*fullItems*/ ctx[4][/*activeItem*/ ctx[6]] + "";
@@ -100977,7 +100977,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			t = text$2(t_value);
-    			add_location(span, file$5, 88, 3, 2664);
+    			add_location(span, file$5, 93, 3, 2734);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -100995,14 +100995,14 @@ var app = (function () {
     		block,
     		id: create_else_block$4.name,
     		type: "else",
-    		source: "(88:2) {:else}",
+    		source: "(93:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (84:2) {#if menuOpen}
+    // (89:2) {#if menuOpen}
     function create_if_block$4(ctx) {
     	let span0;
     	let t0;
@@ -101018,11 +101018,11 @@ var app = (function () {
     			t1 = space();
     			span2 = element("span");
     			attr_dev(span0, "class", "lines line-1 svelte-7hqu64");
-    			add_location(span0, file$5, 84, 3, 2536);
+    			add_location(span0, file$5, 89, 3, 2606);
     			attr_dev(span1, "class", "lines line-2 svelte-7hqu64");
-    			add_location(span1, file$5, 85, 3, 2575);
+    			add_location(span1, file$5, 90, 3, 2645);
     			attr_dev(span2, "class", "lines line-3 svelte-7hqu64");
-    			add_location(span2, file$5, 86, 3, 2614);
+    			add_location(span2, file$5, 91, 3, 2684);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span0, anchor);
@@ -101045,14 +101045,14 @@ var app = (function () {
     		block,
     		id: create_if_block$4.name,
     		type: "if",
-    		source: "(84:2) {#if menuOpen}",
+    		source: "(89:2) {#if menuOpen}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (93:1) {#each menuItems as item, i}
+    // (98:1) {#each menuItems as item, i}
     function create_each_block$4(ctx) {
     	let button;
     	let t0_value = /*item*/ ctx[17] + "";
@@ -101074,7 +101074,7 @@ var app = (function () {
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "menu-item svelte-7hqu64");
     			attr_dev(button, "style", button_style_value = /*menuItemsStyle*/ ctx[3][/*i*/ ctx[19]]);
-    			add_location(button, file$5, 93, 2, 2758);
+    			add_location(button, file$5, 98, 2, 2828);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -101105,7 +101105,7 @@ var app = (function () {
     		block,
     		id: create_each_block$4.name,
     		type: "each",
-    		source: "(93:1) {#each menuItems as item, i}",
+    		source: "(98:1) {#each menuItems as item, i}",
     		ctx
     	});
 
@@ -101154,12 +101154,12 @@ var app = (function () {
     			attr_dev(div0, "class", "background svelte-7hqu64");
     			set_style(div0, "z-index", /*zIndexBase*/ ctx[7] + 1);
     			toggle_class(div0, "menu-open", /*menuOpen*/ ctx[8]);
-    			add_location(div0, file$5, 59, 0, 1948);
+    			add_location(div0, file$5, 64, 0, 2018);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", button_class_value = "menu-open-button menu-len-" + /*menuItems*/ ctx[2].length + " svelte-7hqu64");
     			attr_dev(button, "style", button_style_value = "" + (/*fullItemsStyle*/ ctx[5][/*activeItem*/ ctx[6]] + ";"));
     			toggle_class(button, "menu-open", /*menuOpen*/ ctx[8]);
-    			add_location(button, file$5, 76, 1, 2327);
+    			add_location(button, file$5, 81, 1, 2397);
     			attr_dev(div1, "class", "menu svelte-7hqu64");
     			set_style(div1, "width", /*containerWidth*/ ctx[0]);
     			set_style(div1, "height", /*containerHeight*/ ctx[1]);
@@ -101171,7 +101171,7 @@ var app = (function () {
     			set_style(div1, "top", /*yOffset*/ ctx[10] + "px");
     			set_style(div1, "left", /*xOffset*/ ctx[9] + "px");
     			toggle_class(div1, "menu-open", /*menuOpen*/ ctx[8]);
-    			add_location(div1, file$5, 66, 0, 2108);
+    			add_location(div1, file$5, 71, 0, 2178);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$2("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -101357,7 +101357,13 @@ var app = (function () {
     	function handleMenuClick(event) {
     		event.stopPropagation();
     		$$invalidate(8, menuOpen = !menuOpen);
-    		calculateOffset(event.target);
+
+    		if (menuOpen) {
+    			calculateOffset(event.target);
+    		} else {
+    			$$invalidate(9, xOffset = 0);
+    			$$invalidate(10, yOffset = 0);
+    		}
     	}
 
     	function handleOptionClick(event, index) {
