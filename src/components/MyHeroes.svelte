@@ -7,7 +7,6 @@
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import ImportData from '../modals/ImportData.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
-	import FlipButton from '../shared/FlipButton.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import XButton from '../shared/XButton.svelte';
 	import AscensionMenu from '../shared/AscensionMenu.svelte';
@@ -205,41 +204,16 @@
 	}
 
 	function handleAscChange(heroID, level) {
-		// $AppData.MH.List[heroID].ascendLv++;
-		// if($AppData.MH.List[heroID].ascendLv > 6) {
-		// 	$AppData.MH.List[heroID].ascendLv = 0;
-		// }
 		$AppData.MH.List[heroID].ascendLv = level;
 		dispatch('saveData');
 	}
 
 	function handleSIChange(heroID, level) {
-		// if($AppData.MH.List[heroID].si < 0) {
-		// 	$AppData.MH.List[heroID].si = 0;
-		// } else {
-		// 	$AppData.MH.List[heroID].si += 5;
-		// }
-		// if($AppData.MH.List[heroID].si > 30) {
-		// 	$AppData.MH.List[heroID].si = -1;
-		// }
 		$AppData.MH.List[heroID].si = level === 0 ? -1 : (level - 1) * 5;
 		dispatch('saveData');
 	}
 
 	function handleFurnChange(heroID, level) {
-		// switch($AppData.MH.List[heroID].furn) {
-		// 	case 0:
-		// 		$AppData.MH.List[heroID].furn = 3;
-		// 		break;
-		// 	case 3:
-		// 		$AppData.MH.List[heroID].furn = 9;
-		// 		break;
-		// 	case 9:
-		// 		$AppData.MH.List[heroID].furn = 0;
-		// 		break;
-		// 	default:
-		// 		throw new Error(`Invalid furniture level for ${heroID}: ${$AppData.MH.List[heroID].furn}`);
-		// }
 		switch(level) {
 			case 0:
 				$AppData.MH.List[heroID].furn = 0;
@@ -482,40 +456,15 @@
 							<div class="flipButtonContainer">
 								<div class="ascButtonArea">
 									<div class="flipButtonArea">
-										<!-- <FlipButton options="{['Elite', 'Elite+', 'Legendary', 'Legendary+', 'Mythic', 'Mythic+', 'Ascended']}"
-											optionStyles="{[
-												'background-color: #AF3CEA; color: white; border: 3px solid #AF3CEA; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-												'background-color: #AF3CEA; color: white; border: 3px solid #6D2691; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-												'background-color: #F7BC19; color: white; border: 3px solid #F7BC19; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-												'background-color: #F7BC19; color: white; border: 3px solid #E0920B; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-												'background-color: #E60B51; color: white; border: 3px solid #E60B51; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-												'background-color: #E60B51; color: white; border: 3px solid #A6083A; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-												'background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 3px solid #B289E8; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-												]}"
-												curOption="{$AppData.MH.List[hero.id].ascendLv}"
-												onClick="{() => handleAscChange(hero.id)}" /> -->
-											<AscensionMenu
-												menuItemChangeCallback={(index) => handleAscChange(hero.id, index)}
-												activeItem={$AppData.MH.List[hero.id].ascendLv} 
-												zIndexBase=2
-											/>
+										<AscensionMenu
+											menuItemChangeCallback={(index) => handleAscChange(hero.id, index)}
+											activeItem={$AppData.MH.List[hero.id].ascendLv} 
+											zIndexBase=2
+										/>
 									</div>
 								</div>
 								<div class="siFurnButtonArea">
 									<div class="flipButtonArea">
-										<!-- <FlipButton options="{['SI OFF', 'SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
-											optionStyles="{[
-												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-												]}"
-												curOption="{$AppData.MH.List[hero.id].si === -1 ? 0 : Math.floor($AppData.MH.List[hero.id].si/5) + 1}"
-												onClick="{() => handleSIChange(hero.id)}" /> -->
 										<SIMenu
 											menuItemChangeCallback={(index) => handleSIChange(hero.id, index)}
 											activeItem={$AppData.MH.List[hero.id].si === -1 ? 0 : Math.floor($AppData.MH.List[hero.id].si/5) + 1}
@@ -523,14 +472,6 @@
 										/>
 									</div>
 									<div class="flipButtonArea">
-										<!-- <FlipButton options="{['0f', '3f', '9f']}"
-											optionStyles="{[
-												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-												'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-											]}"
-											curOption="{$AppData.MH.List[hero.id].furn === 0 ? 0 : $AppData.MH.List[hero.id].furn === 3 ? 1 : 2 }"
-											onClick="{() => handleFurnChange(hero.id)}" /> -->
 										<FurnMenu
 											menuItemChangeCallback={(index) => handleFurnChange(hero.id, index)}
 											activeItem={$AppData.MH.List[hero.id].furn === 0 ? 0 : $AppData.MH.List[hero.id].furn === 3 ? 1 : 2}
@@ -1072,12 +1013,6 @@
 			&:hover+.tooltip {
 				opacity: 1;
 				visibility: visible;
-			}
-		}
-		.heroDetailButton {
-			&:hover {
-				background-color: var(--appColorPrimary);
-				color: white;
 			}
 		}
 		.tooltip {
