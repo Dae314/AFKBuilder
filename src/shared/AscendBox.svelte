@@ -63,7 +63,7 @@
 		border: 3px solid var(--mythicColorAccent);
 	}
 	.ascLv-6 {
-		background: linear-gradient(var(--ascColor1), transparent), linear-gradient(-45deg, var(--ascColor2), transparent), linear-gradient(45deg, var(--ascColor3), transparent);
+		background: linear-gradient(var(--ascColor1), var(--ascColor1Alpha)), linear-gradient(-45deg, var(--ascColor2), var(--ascColor2Alpha)), linear-gradient(45deg, var(--ascColor3), var(--ascColor3Alpha));
 		background-blend-mode: multiply;
 		border: 3px solid var(--ascColorAccent);
 	}

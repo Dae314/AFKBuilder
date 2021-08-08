@@ -30,8 +30,11 @@ html {
 	--mythicColor: #E60B51;
 	--mythicColorAccent: #A6083A;
 	--ascColor1: #91BDFF;
+	--ascColor1Alpha: rgba(145, 189, 255, 0);
 	--ascColor2: #E196FF;
+	--ascColor2Alpha: rgba(225, 150, 255, 0);
 	--ascColor3: #B1A3FE;
+	--ascColor3Alpha: rgba(177, 163, 254, 0);
 	--ascColorAccent: #B289E8;
 
 	--headerHeight: 45px;

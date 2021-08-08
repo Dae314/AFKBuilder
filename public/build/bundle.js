@@ -85690,7 +85690,7 @@ var app = (function () {
     		'background-color: #F7BC19; color: white; border: 2px solid #E0920B;',
     		'background-color: #E60B51; color: white; border: 2px solid #E60B51;',
     		'background-color: #E60B51; color: white; border: 2px solid #A6083A;',
-    		'background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 2px solid #B289E8;'
+    		'background: linear-gradient(#91BDFF, rgba(145, 189, 255, 0)), linear-gradient(-45deg, #E196FF, rgba(225, 150, 255, 0)), linear-gradient(45deg, #B1A3FE, rgba(177, 163, 254, 0)); background-blend-mode: multiply; color: white; border: 2px solid #B289E8;'
     	];
 
     	let fullItemsStyle = [
@@ -85700,7 +85700,7 @@ var app = (function () {
     		'background-color: #F7BC19; color: white; border: 2px solid #E0920B;',
     		'background-color: #E60B51; color: white; border: 2px solid #E60B51;',
     		'background-color: #E60B51; color: white; border: 2px solid #A6083A;',
-    		'background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 2px solid #B289E8;'
+    		'background: linear-gradient(#91BDFF, rgba(145, 189, 255, 0)), linear-gradient(-45deg, #E196FF, rgba(225, 150, 255, 0)), linear-gradient(45deg, #B1A3FE, rgba(177, 163, 254, 0)); background-blend-mode: multiply; color: white; border: 2px solid #B289E8;'
     	];
 
     	function handleMenuItemClick(index) {
@@ -94275,9 +94275,9 @@ var app = (function () {
     			div = element("div");
     			span = element("span");
     			t = text$2(t_value);
-    			attr_dev(span, "class", "svelte-5lyazj");
+    			attr_dev(span, "class", "svelte-5ieygv");
     			add_location(span, file$8, 26, 1, 436);
-    			attr_dev(div, "class", div_class_value = "ascendBox ascLv-" + /*ascendLv*/ ctx[0] + " svelte-5lyazj");
+    			attr_dev(div, "class", div_class_value = "ascendBox ascLv-" + /*ascendLv*/ ctx[0] + " svelte-5ieygv");
     			add_location(div, file$8, 25, 0, 393);
     		},
     		l: function claim(nodes) {
@@ -94291,7 +94291,7 @@ var app = (function () {
     		p: function update(ctx, [dirty]) {
     			if (dirty & /*ascendLv*/ 1 && t_value !== (t_value = /*getHeroAscendText*/ ctx[1](/*ascendLv*/ ctx[0]) + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*ascendLv*/ 1 && div_class_value !== (div_class_value = "ascendBox ascLv-" + /*ascendLv*/ ctx[0] + " svelte-5lyazj")) {
+    			if (dirty & /*ascendLv*/ 1 && div_class_value !== (div_class_value = "ascendBox ascLv-" + /*ascendLv*/ ctx[0] + " svelte-5ieygv")) {
     				attr_dev(div, "class", div_class_value);
     			}
     		},
