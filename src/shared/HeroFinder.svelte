@@ -181,7 +181,7 @@
 	}
 
 	function handleSIChange(level) {
-		selectedHero.si = level === 0 ? -1 : (level - 1) * 5;
+		selectedHero.si = level;
 	}
 
 	function handleAscChange(level) {
@@ -189,19 +189,7 @@
 	}
 
 	function handleFurnChange(level) {
-		switch(level) {
-			case 0:
-				selectedHero.furn = 0;
-				break;
-			case 1:
-				selectedHero.furn = 3;
-				break;
-			case 2:
-				selectedHero.furn = 9;
-				break;
-			default:
-				throw new Error(`Invalid furniture level for ${heroID}: ${selectedHero.furn}`);
-		}
+		selectedHero.furn = level;
 	}
 
 	function handleAddArtifact(artifact, line) {

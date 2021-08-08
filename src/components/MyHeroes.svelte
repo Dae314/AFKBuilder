@@ -209,24 +209,12 @@
 	}
 
 	function handleSIChange(heroID, level) {
-		$AppData.MH.List[heroID].si = level === 0 ? -1 : (level - 1) * 5;
+		$AppData.MH.List[heroID].si = level;
 		dispatch('saveData');
 	}
 
 	function handleFurnChange(heroID, level) {
-		switch(level) {
-			case 0:
-				$AppData.MH.List[heroID].furn = 0;
-				break;
-			case 1:
-				$AppData.MH.List[heroID].furn = 3;
-				break;
-			case 2:
-				$AppData.MH.List[heroID].furn = 9;
-				break;
-			default:
-				throw new Error(`Invalid furniture level for ${heroID}: ${$AppData.MH.List[heroID].furn}`);
-		}
+		$AppData.MH.List[heroID].furn = level;
 		dispatch('saveData');
 	}
 

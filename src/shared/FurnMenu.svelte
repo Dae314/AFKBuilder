@@ -21,7 +21,21 @@
 
 	function handleMenuItemClick(index) {
 		activeItem = index;
-		menuItemChangeCallback(index);
+		let trueFurn = 0;
+		switch(index) {
+			case 0:
+				trueFurn = 0;
+				break;
+			case 1:
+				trueFurn = 3;
+				break;
+			case 2:
+				trueFurn = 9;
+				break;
+			default:
+				throw new Error(`Invalid furniture level provided: ${index}`);
+		}
+		menuItemChangeCallback(trueFurn);
 	}
 </script>
 

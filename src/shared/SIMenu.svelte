@@ -35,7 +35,8 @@
 
 	function handleMenuItemClick(index) {
 		activeItem = index;
-		menuItemChangeCallback(index);
+		let trueSI = index === 0 ? -1 : (index - 1) * 5;
+		menuItemChangeCallback(trueSI);
 	}
 </script>
 
