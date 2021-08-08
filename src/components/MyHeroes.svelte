@@ -456,6 +456,7 @@
 											menuItemChangeCallback={(index) => handleSIChange(hero.id, index)}
 											activeItem={$AppData.MH.List[hero.id].si === -1 ? 0 : Math.floor($AppData.MH.List[hero.id].si/5) + 1}
 											zIndexBase=2
+											si40={$HeroData.find(e => e.id === hero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === hero.id).faction === 'Celestial' || $HeroData.find(e => e.id === hero.id).faction === 'Hypogean'}
 										/>
 									</div>
 									<div class="flipButtonArea">

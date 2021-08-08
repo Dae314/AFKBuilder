@@ -421,6 +421,7 @@
 								activeItem={selectedHero.si === -1 ? 0 : Math.floor(selectedHero.si/5) + 1}
 								centerMenu={true}
 								zIndexBase=4
+								si40={$HeroData.find(e => e.id === selectedHero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Celestial' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Hypogean'}
 							/>
 						</div>
 						<div class="portraitContainer">

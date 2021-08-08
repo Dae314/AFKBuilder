@@ -85849,6 +85849,10 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			const circlemenu_changes = {};
+    			if (dirty & /*menuItems*/ 8) circlemenu_changes.menuItems = /*menuItems*/ ctx[3];
+    			if (dirty & /*menuItemsStyle*/ 32) circlemenu_changes.menuItemsStyle = /*menuItemsStyle*/ ctx[5];
+    			if (dirty & /*fullItems*/ 16) circlemenu_changes.fullItems = /*fullItems*/ ctx[4];
+    			if (dirty & /*fullItemsStyle*/ 64) circlemenu_changes.fullItemsStyle = /*fullItemsStyle*/ ctx[6];
     			if (dirty & /*activeItem*/ 1) circlemenu_changes.activeItem = /*activeItem*/ ctx[0];
     			if (dirty & /*zIndexBase*/ 2) circlemenu_changes.zIndexBase = /*zIndexBase*/ ctx[1];
     			if (dirty & /*centerMenu*/ 4) circlemenu_changes.centerMenu = /*centerMenu*/ ctx[2];
@@ -85890,46 +85894,79 @@ var app = (function () {
     	let { activeItem = 0 } = $$props;
     	let { zIndexBase = 1 } = $$props;
     	let { centerMenu = false } = $$props;
-    	let menuItems = ['OFF', '+0', '+5', '+10', '+15', '+20', '+25', '+30', '+35', '+40'];
+    	let { si40 = true } = $$props;
+    	let menuItems = [];
+    	let fullItems = [];
+    	let menuItemsStyle = [];
+    	let fullItemsStyle = [];
 
-    	let fullItems = [
-    		'SI OFF',
-    		'SI +0',
-    		'SI +5',
-    		'SI +10',
-    		'SI +15',
-    		'SI +20',
-    		'SI +25',
-    		'SI +30',
-    		'SI +35',
-    		'SI +40'
-    	];
+    	if (si40) {
+    		menuItems = ['OFF', '+0', '+5', '+10', '+15', '+20', '+25', '+30', '+35', '+40'];
 
-    	let menuItemsStyle = [
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;'
-    	];
+    		fullItems = [
+    			'SI OFF',
+    			'SI +0',
+    			'SI +5',
+    			'SI +10',
+    			'SI +15',
+    			'SI +20',
+    			'SI +25',
+    			'SI +30',
+    			'SI +35',
+    			'SI +40'
+    		];
 
-    	let fullItemsStyle = [
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
-    		'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;'
-    	];
+    		menuItemsStyle = [
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;'
+    		];
+
+    		fullItemsStyle = [
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;'
+    		];
+    	} else {
+    		menuItems = ['OFF', '+0', '+5', '+10', '+15', '+20', '+25', '+30'];
+    		fullItems = ['SI OFF', 'SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30'];
+
+    		menuItemsStyle = [
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;'
+    		];
+
+    		fullItemsStyle = [
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;',
+    			'background-color: #6B8DF2; color: white; border: 2px solid #6B8DF2;'
+    		];
+    	}
 
     	function handleMenuItemClick(index) {
     		$$invalidate(0, activeItem = index);
@@ -85937,7 +85974,7 @@ var app = (function () {
     		menuItemChangeCallback(trueSI);
     	}
 
-    	const writable_props = ['menuItemChangeCallback', 'activeItem', 'zIndexBase', 'centerMenu'];
+    	const writable_props = ['menuItemChangeCallback', 'activeItem', 'zIndexBase', 'centerMenu', 'si40'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<SIMenu> was created with unknown prop '${key}'`);
@@ -85948,6 +85985,7 @@ var app = (function () {
     		if ('activeItem' in $$props) $$invalidate(0, activeItem = $$props.activeItem);
     		if ('zIndexBase' in $$props) $$invalidate(1, zIndexBase = $$props.zIndexBase);
     		if ('centerMenu' in $$props) $$invalidate(2, centerMenu = $$props.centerMenu);
+    		if ('si40' in $$props) $$invalidate(9, si40 = $$props.si40);
     	};
 
     	$$self.$capture_state = () => ({
@@ -85956,6 +85994,7 @@ var app = (function () {
     		activeItem,
     		zIndexBase,
     		centerMenu,
+    		si40,
     		menuItems,
     		fullItems,
     		menuItemsStyle,
@@ -85968,6 +86007,7 @@ var app = (function () {
     		if ('activeItem' in $$props) $$invalidate(0, activeItem = $$props.activeItem);
     		if ('zIndexBase' in $$props) $$invalidate(1, zIndexBase = $$props.zIndexBase);
     		if ('centerMenu' in $$props) $$invalidate(2, centerMenu = $$props.centerMenu);
+    		if ('si40' in $$props) $$invalidate(9, si40 = $$props.si40);
     		if ('menuItems' in $$props) $$invalidate(3, menuItems = $$props.menuItems);
     		if ('fullItems' in $$props) $$invalidate(4, fullItems = $$props.fullItems);
     		if ('menuItemsStyle' in $$props) $$invalidate(5, menuItemsStyle = $$props.menuItemsStyle);
@@ -85987,7 +86027,8 @@ var app = (function () {
     		menuItemsStyle,
     		fullItemsStyle,
     		handleMenuItemClick,
-    		menuItemChangeCallback
+    		menuItemChangeCallback,
+    		si40
     	];
     }
 
@@ -85999,7 +86040,8 @@ var app = (function () {
     			menuItemChangeCallback: 8,
     			activeItem: 0,
     			zIndexBase: 1,
-    			centerMenu: 2
+    			centerMenu: 2,
+    			si40: 9
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -86039,6 +86081,14 @@ var app = (function () {
     	}
 
     	set centerMenu(value) {
+    		throw new Error("<SIMenu>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get si40() {
+    		throw new Error("<SIMenu>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set si40(value) {
     		throw new Error("<SIMenu>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
@@ -86270,50 +86320,50 @@ var app = (function () {
 
     function get_each_context$a(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[96] = list[i];
+    	child_ctx[99] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_3$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[96] = list[i];
+    	child_ctx[99] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2$4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[96] = list[i];
+    	child_ctx[99] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_5$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[96] = list[i];
+    	child_ctx[99] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_4$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[96] = list[i];
+    	child_ctx[99] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_7$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[96] = list[i];
+    	child_ctx[99] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_6$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[96] = list[i];
-    	child_ctx[111] = i;
+    	child_ctx[99] = list[i];
+    	child_ctx[114] = i;
     	return child_ctx;
     }
 
     function get_each_context_1$6(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[99] = list[i];
+    	child_ctx[102] = list[i];
     	return child_ctx;
     }
 
@@ -86393,14 +86443,15 @@ var app = (function () {
     				? 0
     				: Math.floor(/*selectedHero*/ ctx[17].si / 5) + 1,
     				centerMenu: true,
-    				zIndexBase: "4"
+    				zIndexBase: "4",
+    				si40: /*$HeroData*/ ctx[29].find(/*func_2*/ ctx[71]).faction === 'Dimensional' || /*$HeroData*/ ctx[29].find(/*func_3*/ ctx[72]).faction === 'Celestial' || /*$HeroData*/ ctx[29].find(/*func_4*/ ctx[73]).faction === 'Hypogean'
     			},
     			$$inline: true
     		});
 
     	furnmenu = new FurnMenu({
     			props: {
-    				menuItemChangeCallback: /*func_4*/ ctx[73],
+    				menuItemChangeCallback: /*func_7*/ ctx[76],
     				activeItem: /*selectedHero*/ ctx[17].furn === 0
     				? 0
     				: /*selectedHero*/ ctx[17].furn === 3 ? 1 : 2,
@@ -86412,7 +86463,7 @@ var app = (function () {
 
     	ascensionmenu = new AscensionMenu({
     			props: {
-    				menuItemChangeCallback: /*func_5*/ ctx[74],
+    				menuItemChangeCallback: /*func_8*/ ctx[77],
     				activeItem: /*selectedHero*/ ctx[17].ascendLv,
     				centerMenu: true,
     				zIndexBase: "4"
@@ -86529,57 +86580,57 @@ var app = (function () {
     			attr_dev(div2, "class", "siFlipButtonArea svelte-1sbefv2");
     			add_location(div2, file$d, 417, 6, 17125);
     			attr_dev(img, "class", "editorPortrait svelte-1sbefv2");
-    			if (!src_url_equal(img.src, img_src_value = /*$HeroData*/ ctx[29].find(/*func_2*/ ctx[71]).portrait)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[29].find(/*func_3*/ ctx[72]).name);
-    			add_location(img, file$d, 426, 7, 17445);
+    			if (!src_url_equal(img.src, img_src_value = /*$HeroData*/ ctx[29].find(/*func_5*/ ctx[74]).portrait)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$HeroData*/ ctx[29].find(/*func_6*/ ctx[75]).name);
+    			add_location(img, file$d, 427, 7, 17678);
     			attr_dev(div3, "class", "portraitContainer svelte-1sbefv2");
-    			add_location(div3, file$d, 425, 6, 17405);
+    			add_location(div3, file$d, 426, 6, 17638);
     			attr_dev(div4, "class", "furnFlipButtonArea svelte-1sbefv2");
-    			add_location(div4, file$d, 428, 6, 17617);
+    			add_location(div4, file$d, 429, 6, 17850);
     			attr_dev(div5, "class", "portraitArea svelte-1sbefv2");
     			add_location(div5, file$d, 416, 5, 17091);
     			attr_dev(div6, "class", "ascFlipButtonArea svelte-1sbefv2");
-    			add_location(div6, file$d, 437, 5, 17914);
-    			add_location(span2, file$d, 446, 132, 18310);
+    			add_location(div6, file$d, 438, 5, 18147);
+    			add_location(span2, file$d, 447, 132, 18543);
     			attr_dev(button2, "type", "button");
     			attr_dev(button2, "class", "coreButton svelte-1sbefv2");
     			toggle_class(button2, "on", /*selectedHero*/ ctx[17].core);
-    			add_location(button2, file$d, 446, 6, 18184);
+    			add_location(button2, file$d, 447, 6, 18417);
     			attr_dev(div7, "class", "coreArea svelte-1sbefv2");
-    			add_location(div7, file$d, 445, 5, 18154);
+    			add_location(div7, file$d, 446, 5, 18387);
     			attr_dev(h40, "class", "svelte-1sbefv2");
-    			add_location(h40, file$d, 448, 5, 18356);
+    			add_location(h40, file$d, 449, 5, 18589);
     			attr_dev(textarea, "class", "notesEditor svelte-1sbefv2");
     			attr_dev(textarea, "maxlength", textarea_maxlength_value = /*$AppData*/ ctx[31].maxNoteLen);
-    			add_location(textarea, file$d, 450, 6, 18408);
-    			add_location(span3, file$d, 451, 96, 18611);
+    			add_location(textarea, file$d, 451, 6, 18641);
+    			add_location(span3, file$d, 452, 96, 18844);
     			attr_dev(div8, "class", "noteLimitArea svelte-1sbefv2");
     			toggle_class(div8, "maxed", /*selectedHero*/ ctx[17].notes.length >= /*$AppData*/ ctx[31].maxNoteLen);
-    			add_location(div8, file$d, 451, 6, 18521);
+    			add_location(div8, file$d, 452, 6, 18754);
     			attr_dev(div9, "class", "notesArea svelte-1sbefv2");
-    			add_location(div9, file$d, 449, 5, 18377);
+    			add_location(div9, file$d, 450, 5, 18610);
     			attr_dev(h41, "class", "svelte-1sbefv2");
-    			add_location(h41, file$d, 453, 5, 18699);
+    			add_location(h41, file$d, 454, 5, 18932);
     			attr_dev(h50, "class", "svelte-1sbefv2");
-    			add_location(h50, file$d, 456, 7, 18794);
+    			add_location(h50, file$d, 457, 7, 19027);
     			attr_dev(div10, "class", "artifactLine priArtifactLine svelte-1sbefv2");
-    			add_location(div10, file$d, 457, 7, 18819);
+    			add_location(div10, file$d, 458, 7, 19052);
     			attr_dev(div11, "class", "gridCell svelte-1sbefv2");
-    			add_location(div11, file$d, 455, 6, 18763);
+    			add_location(div11, file$d, 456, 6, 18996);
     			attr_dev(h51, "class", "svelte-1sbefv2");
-    			add_location(h51, file$d, 484, 7, 20156);
+    			add_location(h51, file$d, 485, 7, 20389);
     			attr_dev(div12, "class", "artifactLine secArtifactLine svelte-1sbefv2");
-    			add_location(div12, file$d, 485, 7, 20183);
+    			add_location(div12, file$d, 486, 7, 20416);
     			attr_dev(div13, "class", "gridCell svelte-1sbefv2");
-    			add_location(div13, file$d, 483, 6, 20125);
+    			add_location(div13, file$d, 484, 6, 20358);
     			attr_dev(h52, "class", "svelte-1sbefv2");
-    			add_location(h52, file$d, 512, 7, 21523);
+    			add_location(h52, file$d, 513, 7, 21756);
     			attr_dev(div14, "class", "artifactLine sitArtifactLine svelte-1sbefv2");
-    			add_location(div14, file$d, 513, 7, 21552);
+    			add_location(div14, file$d, 514, 7, 21785);
     			attr_dev(div15, "class", "gridCell svelte-1sbefv2");
-    			add_location(div15, file$d, 511, 6, 21492);
+    			add_location(div15, file$d, 512, 6, 21725);
     			attr_dev(div16, "class", "selectedArtifacts svelte-1sbefv2");
-    			add_location(div16, file$d, 454, 5, 18724);
+    			add_location(div16, file$d, 455, 5, 18957);
     			attr_dev(div17, "class", "heroEditor svelte-1sbefv2");
     			add_location(div17, file$d, 414, 4, 16973);
     			attr_dev(div18, "class", "section2");
@@ -86653,8 +86704,8 @@ var app = (function () {
     				dispose = [
     					listen_dev(button0, "click", /*click_handler_20*/ ctx[67], false, false, false),
     					listen_dev(button1, "click", /*click_handler_21*/ ctx[68], false, false, false),
-    					listen_dev(button2, "click", /*click_handler_22*/ ctx[75], false, false, false),
-    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[76])
+    					listen_dev(button2, "click", /*click_handler_22*/ ctx[78], false, false, false),
+    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[79])
     				];
 
     				mounted = true;
@@ -86668,13 +86719,14 @@ var app = (function () {
     			? 0
     			: Math.floor(/*selectedHero*/ ctx[17].si / 5) + 1;
 
+    			if (dirty[0] & /*$HeroData, selectedHero*/ 537001984) simenu_changes.si40 = /*$HeroData*/ ctx[29].find(/*func_2*/ ctx[71]).faction === 'Dimensional' || /*$HeroData*/ ctx[29].find(/*func_3*/ ctx[72]).faction === 'Celestial' || /*$HeroData*/ ctx[29].find(/*func_4*/ ctx[73]).faction === 'Hypogean';
     			simenu.$set(simenu_changes);
 
-    			if (!current || dirty[0] & /*$HeroData, selectedHero*/ 537001984 && !src_url_equal(img.src, img_src_value = /*$HeroData*/ ctx[29].find(/*func_2*/ ctx[71]).portrait)) {
+    			if (!current || dirty[0] & /*$HeroData, selectedHero*/ 537001984 && !src_url_equal(img.src, img_src_value = /*$HeroData*/ ctx[29].find(/*func_5*/ ctx[74]).portrait)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (!current || dirty[0] & /*$HeroData, selectedHero*/ 537001984 && img_alt_value !== (img_alt_value = /*$HeroData*/ ctx[29].find(/*func_3*/ ctx[72]).name)) {
+    			if (!current || dirty[0] & /*$HeroData, selectedHero*/ 537001984 && img_alt_value !== (img_alt_value = /*$HeroData*/ ctx[29].find(/*func_6*/ ctx[75]).name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
@@ -86872,7 +86924,7 @@ var app = (function () {
     	let dispose;
     	let each_value_1 = /*heroes*/ ctx[25];
     	validate_each_argument(each_value_1);
-    	const get_key = ctx => /*hero*/ ctx[99].id;
+    	const get_key = ctx => /*hero*/ ctx[102].id;
     	validate_each_keys(ctx, each_value_1, get_each_context_1$6, get_key);
 
     	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -87346,14 +87398,14 @@ var app = (function () {
     	return block;
     }
 
-    // (472:8) {:else}
+    // (473:8) {:else}
     function create_else_block_2$3(ctx) {
     	let div;
     	let each_blocks = [];
     	let each_1_lookup = new Map();
     	let each_value_7 = /*unusedArtifacts*/ ctx[24];
     	validate_each_argument(each_value_7);
-    	const get_key = ctx => /*artifact*/ ctx[96];
+    	const get_key = ctx => /*artifact*/ ctx[99];
     	validate_each_keys(ctx, each_value_7, get_each_context_7$1, get_key);
 
     	for (let i = 0; i < each_value_7.length; i += 1) {
@@ -87371,7 +87423,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "mobileArtifactPicker svelte-1sbefv2");
-    			add_location(div, file$d, 472, 9, 19652);
+    			add_location(div, file$d, 473, 9, 19885);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -87401,14 +87453,14 @@ var app = (function () {
     		block,
     		id: create_else_block_2$3.name,
     		type: "else",
-    		source: "(472:8) {:else}",
+    		source: "(473:8) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (459:8) {#if !pickArtifactPri}
+    // (460:8) {#if !pickArtifactPri}
     function create_if_block_6$2(ctx) {
     	let each_blocks = [];
     	let each_1_lookup = new Map();
@@ -87416,7 +87468,7 @@ var app = (function () {
     	let if_block_anchor;
     	let each_value_6 = /*selectedHero*/ ctx[17].artifacts.primary;
     	validate_each_argument(each_value_6);
-    	const get_key = ctx => /*artifact*/ ctx[96];
+    	const get_key = ctx => /*artifact*/ ctx[99];
     	validate_each_keys(ctx, each_value_6, get_each_context_6$2, get_key);
 
     	for (let i = 0; i < each_value_6.length; i += 1) {
@@ -87482,14 +87534,14 @@ var app = (function () {
     		block,
     		id: create_if_block_6$2.name,
     		type: "if",
-    		source: "(459:8) {#if !pickArtifactPri}",
+    		source: "(460:8) {#if !pickArtifactPri}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (474:10) {#each unusedArtifacts as artifact (artifact)}
+    // (475:10) {#each unusedArtifacts as artifact (artifact)}
     function create_each_block_7$1(key_1, ctx) {
     	let button;
     	let img;
@@ -87497,14 +87549,14 @@ var app = (function () {
     	let img_alt_value;
     	let t0;
     	let p;
-    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "";
+    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "";
     	let t1;
     	let t2;
     	let mounted;
     	let dispose;
 
     	function click_handler_25() {
-    		return /*click_handler_25*/ ctx[79](/*artifact*/ ctx[96]);
+    		return /*click_handler_25*/ ctx[82](/*artifact*/ ctx[99]);
     	}
 
     	const block = {
@@ -87518,14 +87570,14 @@ var app = (function () {
     			t1 = text$2(t1_value);
     			t2 = space();
     			attr_dev(img, "class", "artifactImg svelte-1sbefv2");
-    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name);
-    			add_location(img, file$d, 475, 12, 19873);
+    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name);
+    			add_location(img, file$d, 476, 12, 20106);
     			attr_dev(p, "class", "svelte-1sbefv2");
-    			add_location(p, file$d, 476, 12, 19981);
+    			add_location(p, file$d, 477, 12, 20214);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "artifactButton svelte-1sbefv2");
-    			add_location(button, file$d, 474, 11, 19757);
+    			add_location(button, file$d, 475, 11, 19990);
     			this.first = button;
     		},
     		m: function mount(target, anchor) {
@@ -87544,15 +87596,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) {
+    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name)) {
+    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "")) set_data_dev(t1, t1_value);
+    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "")) set_data_dev(t1, t1_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(button);
@@ -87565,14 +87617,14 @@ var app = (function () {
     		block,
     		id: create_each_block_7$1.name,
     		type: "each",
-    		source: "(474:10) {#each unusedArtifacts as artifact (artifact)}",
+    		source: "(475:10) {#each unusedArtifacts as artifact (artifact)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (460:9) {#each selectedHero.artifacts.primary as artifact, i (artifact)}
+    // (461:9) {#each selectedHero.artifacts.primary as artifact, i (artifact)}
     function create_each_block_6$2(key_1, ctx) {
     	let div1;
     	let div0;
@@ -87584,13 +87636,13 @@ var app = (function () {
     	let span;
     	let t2;
     	let p;
-    	let t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "";
+    	let t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "";
     	let t3;
     	let mounted;
     	let dispose;
 
     	function click_handler_23(...args) {
-    		return /*click_handler_23*/ ctx[77](/*artifact*/ ctx[96], ...args);
+    		return /*click_handler_23*/ ctx[80](/*artifact*/ ctx[99], ...args);
     	}
 
     	const block = {
@@ -87608,19 +87660,19 @@ var app = (function () {
     			p = element("p");
     			t3 = text$2(t3_value);
     			attr_dev(img, "class", "artifactImg listImg svelte-1sbefv2");
-    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name);
-    			add_location(img, file$d, 462, 12, 19072);
-    			add_location(span, file$d, 463, 141, 19317);
+    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name);
+    			add_location(img, file$d, 463, 12, 19305);
+    			add_location(span, file$d, 464, 141, 19550);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "removeButton svelte-1sbefv2");
-    			add_location(button, file$d, 463, 12, 19188);
+    			add_location(button, file$d, 464, 12, 19421);
     			attr_dev(div0, "class", "artifactImgContainer svelte-1sbefv2");
-    			add_location(div0, file$d, 461, 11, 19024);
+    			add_location(div0, file$d, 462, 11, 19257);
     			attr_dev(p, "class", "svelte-1sbefv2");
-    			add_location(p, file$d, 465, 11, 19372);
+    			add_location(p, file$d, 466, 11, 19605);
     			attr_dev(div1, "class", "artifactContainer svelte-1sbefv2");
-    			add_location(div1, file$d, 460, 10, 18980);
+    			add_location(div1, file$d, 461, 10, 19213);
     			this.first = div1;
     		},
     		m: function mount(target, anchor) {
@@ -87642,15 +87694,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name)) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && t3_value !== (t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "")) set_data_dev(t3, t3_value);
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && t3_value !== (t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "")) set_data_dev(t3, t3_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div1);
@@ -87663,14 +87715,14 @@ var app = (function () {
     		block,
     		id: create_each_block_6$2.name,
     		type: "each",
-    		source: "(460:9) {#each selectedHero.artifacts.primary as artifact, i (artifact)}",
+    		source: "(461:9) {#each selectedHero.artifacts.primary as artifact, i (artifact)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (469:9) {#if unusedArtifacts.length > 0}
+    // (470:9) {#if unusedArtifacts.length > 0}
     function create_if_block_7$2(ctx) {
     	let button;
     	let span;
@@ -87682,17 +87734,17 @@ var app = (function () {
     			button = element("button");
     			span = element("span");
     			span.textContent = "+";
-    			add_location(span, file$d, 469, 98, 19585);
+    			add_location(span, file$d, 470, 98, 19818);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "addArtifactButton svelte-1sbefv2");
-    			add_location(button, file$d, 469, 10, 19497);
+    			add_location(button, file$d, 470, 10, 19730);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
     			append_dev(button, span);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler_24*/ ctx[78], false, false, false);
+    				dispose = listen_dev(button, "click", /*click_handler_24*/ ctx[81], false, false, false);
     				mounted = true;
     			}
     		},
@@ -87708,21 +87760,21 @@ var app = (function () {
     		block,
     		id: create_if_block_7$2.name,
     		type: "if",
-    		source: "(469:9) {#if unusedArtifacts.length > 0}",
+    		source: "(470:9) {#if unusedArtifacts.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (500:8) {:else}
+    // (501:8) {:else}
     function create_else_block_1$4(ctx) {
     	let div;
     	let each_blocks = [];
     	let each_1_lookup = new Map();
     	let each_value_5 = /*unusedArtifacts*/ ctx[24];
     	validate_each_argument(each_value_5);
-    	const get_key = ctx => /*artifact*/ ctx[96];
+    	const get_key = ctx => /*artifact*/ ctx[99];
     	validate_each_keys(ctx, each_value_5, get_each_context_5$2, get_key);
 
     	for (let i = 0; i < each_value_5.length; i += 1) {
@@ -87740,7 +87792,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "mobileArtifactPicker svelte-1sbefv2");
-    			add_location(div, file$d, 500, 9, 21017);
+    			add_location(div, file$d, 501, 9, 21250);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -87770,14 +87822,14 @@ var app = (function () {
     		block,
     		id: create_else_block_1$4.name,
     		type: "else",
-    		source: "(500:8) {:else}",
+    		source: "(501:8) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (487:8) {#if !pickArtifactSec}
+    // (488:8) {#if !pickArtifactSec}
     function create_if_block_4$5(ctx) {
     	let each_blocks = [];
     	let each_1_lookup = new Map();
@@ -87785,7 +87837,7 @@ var app = (function () {
     	let if_block_anchor;
     	let each_value_4 = /*selectedHero*/ ctx[17].artifacts.secondary;
     	validate_each_argument(each_value_4);
-    	const get_key = ctx => /*artifact*/ ctx[96];
+    	const get_key = ctx => /*artifact*/ ctx[99];
     	validate_each_keys(ctx, each_value_4, get_each_context_4$2, get_key);
 
     	for (let i = 0; i < each_value_4.length; i += 1) {
@@ -87851,14 +87903,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4$5.name,
     		type: "if",
-    		source: "(487:8) {#if !pickArtifactSec}",
+    		source: "(488:8) {#if !pickArtifactSec}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (502:10) {#each unusedArtifacts as artifact (artifact)}
+    // (503:10) {#each unusedArtifacts as artifact (artifact)}
     function create_each_block_5$2(key_1, ctx) {
     	let button;
     	let img;
@@ -87866,14 +87918,14 @@ var app = (function () {
     	let img_alt_value;
     	let t0;
     	let p;
-    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "";
+    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "";
     	let t1;
     	let t2;
     	let mounted;
     	let dispose;
 
     	function click_handler_28() {
-    		return /*click_handler_28*/ ctx[82](/*artifact*/ ctx[96]);
+    		return /*click_handler_28*/ ctx[85](/*artifact*/ ctx[99]);
     	}
 
     	const block = {
@@ -87887,14 +87939,14 @@ var app = (function () {
     			t1 = text$2(t1_value);
     			t2 = space();
     			attr_dev(img, "class", "artifactImg svelte-1sbefv2");
-    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name);
-    			add_location(img, file$d, 503, 12, 21240);
+    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name);
+    			add_location(img, file$d, 504, 12, 21473);
     			attr_dev(p, "class", "svelte-1sbefv2");
-    			add_location(p, file$d, 504, 12, 21348);
+    			add_location(p, file$d, 505, 12, 21581);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "artifactButton svelte-1sbefv2");
-    			add_location(button, file$d, 502, 11, 21122);
+    			add_location(button, file$d, 503, 11, 21355);
     			this.first = button;
     		},
     		m: function mount(target, anchor) {
@@ -87913,15 +87965,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) {
+    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name)) {
+    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "")) set_data_dev(t1, t1_value);
+    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "")) set_data_dev(t1, t1_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(button);
@@ -87934,14 +87986,14 @@ var app = (function () {
     		block,
     		id: create_each_block_5$2.name,
     		type: "each",
-    		source: "(502:10) {#each unusedArtifacts as artifact (artifact)}",
+    		source: "(503:10) {#each unusedArtifacts as artifact (artifact)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (488:9) {#each selectedHero.artifacts.secondary as artifact (artifact)}
+    // (489:9) {#each selectedHero.artifacts.secondary as artifact (artifact)}
     function create_each_block_4$2(key_1, ctx) {
     	let div1;
     	let div0;
@@ -87953,13 +88005,13 @@ var app = (function () {
     	let span;
     	let t2;
     	let p;
-    	let t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "";
+    	let t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "";
     	let t3;
     	let mounted;
     	let dispose;
 
     	function click_handler_26(...args) {
-    		return /*click_handler_26*/ ctx[80](/*artifact*/ ctx[96], ...args);
+    		return /*click_handler_26*/ ctx[83](/*artifact*/ ctx[99], ...args);
     	}
 
     	const block = {
@@ -87977,19 +88029,19 @@ var app = (function () {
     			p = element("p");
     			t3 = text$2(t3_value);
     			attr_dev(img, "class", "artifactImg listImg svelte-1sbefv2");
-    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name);
-    			add_location(img, file$d, 490, 12, 20435);
-    			add_location(span, file$d, 491, 143, 20682);
+    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name);
+    			add_location(img, file$d, 491, 12, 20668);
+    			add_location(span, file$d, 492, 143, 20915);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "removeButton svelte-1sbefv2");
-    			add_location(button, file$d, 491, 12, 20551);
+    			add_location(button, file$d, 492, 12, 20784);
     			attr_dev(div0, "class", "artifactImgContainer svelte-1sbefv2");
-    			add_location(div0, file$d, 489, 11, 20387);
+    			add_location(div0, file$d, 490, 11, 20620);
     			attr_dev(p, "class", "svelte-1sbefv2");
-    			add_location(p, file$d, 493, 11, 20737);
+    			add_location(p, file$d, 494, 11, 20970);
     			attr_dev(div1, "class", "artifactContainer svelte-1sbefv2");
-    			add_location(div1, file$d, 488, 10, 20343);
+    			add_location(div1, file$d, 489, 10, 20576);
     			this.first = div1;
     		},
     		m: function mount(target, anchor) {
@@ -88011,15 +88063,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name)) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && t3_value !== (t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "")) set_data_dev(t3, t3_value);
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && t3_value !== (t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "")) set_data_dev(t3, t3_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div1);
@@ -88032,14 +88084,14 @@ var app = (function () {
     		block,
     		id: create_each_block_4$2.name,
     		type: "each",
-    		source: "(488:9) {#each selectedHero.artifacts.secondary as artifact (artifact)}",
+    		source: "(489:9) {#each selectedHero.artifacts.secondary as artifact (artifact)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (497:9) {#if unusedArtifacts.length > 0}
+    // (498:9) {#if unusedArtifacts.length > 0}
     function create_if_block_5$3(ctx) {
     	let button;
     	let span;
@@ -88051,17 +88103,17 @@ var app = (function () {
     			button = element("button");
     			span = element("span");
     			span.textContent = "+";
-    			add_location(span, file$d, 497, 98, 20950);
+    			add_location(span, file$d, 498, 98, 21183);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "addArtifactButton svelte-1sbefv2");
-    			add_location(button, file$d, 497, 10, 20862);
+    			add_location(button, file$d, 498, 10, 21095);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
     			append_dev(button, span);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler_27*/ ctx[81], false, false, false);
+    				dispose = listen_dev(button, "click", /*click_handler_27*/ ctx[84], false, false, false);
     				mounted = true;
     			}
     		},
@@ -88077,21 +88129,21 @@ var app = (function () {
     		block,
     		id: create_if_block_5$3.name,
     		type: "if",
-    		source: "(497:9) {#if unusedArtifacts.length > 0}",
+    		source: "(498:9) {#if unusedArtifacts.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (528:8) {:else}
+    // (529:8) {:else}
     function create_else_block$7(ctx) {
     	let div;
     	let each_blocks = [];
     	let each_1_lookup = new Map();
     	let each_value_3 = /*unusedArtifacts*/ ctx[24];
     	validate_each_argument(each_value_3);
-    	const get_key = ctx => /*artifact*/ ctx[96];
+    	const get_key = ctx => /*artifact*/ ctx[99];
     	validate_each_keys(ctx, each_value_3, get_each_context_3$2, get_key);
 
     	for (let i = 0; i < each_value_3.length; i += 1) {
@@ -88109,7 +88161,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "mobileArtifactPicker svelte-1sbefv2");
-    			add_location(div, file$d, 528, 9, 22390);
+    			add_location(div, file$d, 529, 9, 22623);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -88139,14 +88191,14 @@ var app = (function () {
     		block,
     		id: create_else_block$7.name,
     		type: "else",
-    		source: "(528:8) {:else}",
+    		source: "(529:8) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (515:8) {#if !pickArtifactSit}
+    // (516:8) {#if !pickArtifactSit}
     function create_if_block_2$5(ctx) {
     	let each_blocks = [];
     	let each_1_lookup = new Map();
@@ -88154,7 +88206,7 @@ var app = (function () {
     	let if_block_anchor;
     	let each_value_2 = /*selectedHero*/ ctx[17].artifacts.situational;
     	validate_each_argument(each_value_2);
-    	const get_key = ctx => /*artifact*/ ctx[96];
+    	const get_key = ctx => /*artifact*/ ctx[99];
     	validate_each_keys(ctx, each_value_2, get_each_context_2$4, get_key);
 
     	for (let i = 0; i < each_value_2.length; i += 1) {
@@ -88220,14 +88272,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2$5.name,
     		type: "if",
-    		source: "(515:8) {#if !pickArtifactSit}",
+    		source: "(516:8) {#if !pickArtifactSit}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (530:10) {#each unusedArtifacts as artifact (artifact)}
+    // (531:10) {#each unusedArtifacts as artifact (artifact)}
     function create_each_block_3$2(key_1, ctx) {
     	let button;
     	let img;
@@ -88235,14 +88287,14 @@ var app = (function () {
     	let img_alt_value;
     	let t0;
     	let p;
-    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "";
+    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "";
     	let t1;
     	let t2;
     	let mounted;
     	let dispose;
 
     	function click_handler_31() {
-    		return /*click_handler_31*/ ctx[85](/*artifact*/ ctx[96]);
+    		return /*click_handler_31*/ ctx[88](/*artifact*/ ctx[99]);
     	}
 
     	const block = {
@@ -88256,14 +88308,14 @@ var app = (function () {
     			t1 = text$2(t1_value);
     			t2 = space();
     			attr_dev(img, "class", "artifactImg svelte-1sbefv2");
-    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name);
-    			add_location(img, file$d, 531, 12, 22615);
+    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name);
+    			add_location(img, file$d, 532, 12, 22848);
     			attr_dev(p, "class", "svelte-1sbefv2");
-    			add_location(p, file$d, 532, 12, 22723);
+    			add_location(p, file$d, 533, 12, 22956);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "artifactButton svelte-1sbefv2");
-    			add_location(button, file$d, 530, 11, 22495);
+    			add_location(button, file$d, 531, 11, 22728);
     			this.first = button;
     		},
     		m: function mount(target, anchor) {
@@ -88282,15 +88334,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) {
+    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name)) {
+    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "")) set_data_dev(t1, t1_value);
+    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "")) set_data_dev(t1, t1_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(button);
@@ -88303,14 +88355,14 @@ var app = (function () {
     		block,
     		id: create_each_block_3$2.name,
     		type: "each",
-    		source: "(530:10) {#each unusedArtifacts as artifact (artifact)}",
+    		source: "(531:10) {#each unusedArtifacts as artifact (artifact)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (516:9) {#each selectedHero.artifacts.situational as artifact (artifact)}
+    // (517:9) {#each selectedHero.artifacts.situational as artifact (artifact)}
     function create_each_block_2$4(key_1, ctx) {
     	let div1;
     	let div0;
@@ -88322,13 +88374,13 @@ var app = (function () {
     	let span;
     	let t2;
     	let p;
-    	let t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "";
+    	let t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "";
     	let t3;
     	let mounted;
     	let dispose;
 
     	function click_handler_29(...args) {
-    		return /*click_handler_29*/ ctx[83](/*artifact*/ ctx[96], ...args);
+    		return /*click_handler_29*/ ctx[86](/*artifact*/ ctx[99], ...args);
     	}
 
     	const block = {
@@ -88346,19 +88398,19 @@ var app = (function () {
     			p = element("p");
     			t3 = text$2(t3_value);
     			attr_dev(img, "class", "artifactImg listImg svelte-1sbefv2");
-    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name);
-    			add_location(img, file$d, 518, 12, 21806);
-    			add_location(span, file$d, 519, 145, 22055);
+    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name);
+    			add_location(img, file$d, 519, 12, 22039);
+    			add_location(span, file$d, 520, 145, 22288);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "removeButton svelte-1sbefv2");
-    			add_location(button, file$d, 519, 12, 21922);
+    			add_location(button, file$d, 520, 12, 22155);
     			attr_dev(div0, "class", "artifactImgContainer svelte-1sbefv2");
-    			add_location(div0, file$d, 517, 11, 21758);
+    			add_location(div0, file$d, 518, 11, 21991);
     			attr_dev(p, "class", "svelte-1sbefv2");
-    			add_location(p, file$d, 521, 11, 22110);
+    			add_location(p, file$d, 522, 11, 22343);
     			attr_dev(div1, "class", "artifactContainer svelte-1sbefv2");
-    			add_location(div1, file$d, 516, 10, 21714);
+    			add_location(div1, file$d, 517, 10, 21947);
     			this.first = div1;
     		},
     		m: function mount(target, anchor) {
@@ -88380,15 +88432,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name)) {
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && t3_value !== (t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "")) set_data_dev(t3, t3_value);
+    			if (dirty[0] & /*$Artifacts, selectedHero*/ 1073872896 && t3_value !== (t3_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "")) set_data_dev(t3, t3_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div1);
@@ -88401,14 +88453,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2$4.name,
     		type: "each",
-    		source: "(516:9) {#each selectedHero.artifacts.situational as artifact (artifact)}",
+    		source: "(517:9) {#each selectedHero.artifacts.situational as artifact (artifact)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (525:9) {#if unusedArtifacts.length > 0}
+    // (526:9) {#if unusedArtifacts.length > 0}
     function create_if_block_3$5(ctx) {
     	let button;
     	let span;
@@ -88420,17 +88472,17 @@ var app = (function () {
     			button = element("button");
     			span = element("span");
     			span.textContent = "+";
-    			add_location(span, file$d, 525, 98, 22323);
+    			add_location(span, file$d, 526, 98, 22556);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "addArtifactButton svelte-1sbefv2");
-    			add_location(button, file$d, 525, 10, 22235);
+    			add_location(button, file$d, 526, 10, 22468);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
     			append_dev(button, span);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler_30*/ ctx[84], false, false, false);
+    				dispose = listen_dev(button, "click", /*click_handler_30*/ ctx[87], false, false, false);
     				mounted = true;
     			}
     		},
@@ -88446,7 +88498,7 @@ var app = (function () {
     		block,
     		id: create_if_block_3$5.name,
     		type: "if",
-    		source: "(525:9) {#if unusedArtifacts.length > 0}",
+    		source: "(526:9) {#if unusedArtifacts.length > 0}",
     		ctx
     	});
 
@@ -88460,7 +88512,7 @@ var app = (function () {
     	let img_src_value;
     	let t0;
     	let p;
-    	let t1_value = /*hero*/ ctx[99].name + "";
+    	let t1_value = /*hero*/ ctx[102].name + "";
     	let t1;
     	let t2;
     	let rect;
@@ -88469,7 +88521,7 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_19() {
-    		return /*click_handler_19*/ ctx[66](/*hero*/ ctx[99]);
+    		return /*click_handler_19*/ ctx[66](/*hero*/ ctx[102]);
     	}
 
     	const block = {
@@ -88482,7 +88534,7 @@ var app = (function () {
     			p = element("p");
     			t1 = text$2(t1_value);
     			t2 = space();
-    			if (!src_url_equal(img.src, img_src_value = /*hero*/ ctx[99].portrait)) attr_dev(img, "src", img_src_value);
+    			if (!src_url_equal(img.src, img_src_value = /*hero*/ ctx[102].portrait)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "hero.name");
     			attr_dev(img, "class", "svelte-1sbefv2");
     			add_location(img, file$d, 402, 7, 16527);
@@ -88490,7 +88542,7 @@ var app = (function () {
     			add_location(p, file$d, 403, 7, 16579);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "heroPortrait svelte-1sbefv2");
-    			toggle_class(button, "active", /*hero*/ ctx[99].id in /*compHeroData*/ ctx[19]);
+    			toggle_class(button, "active", /*hero*/ ctx[102].id in /*compHeroData*/ ctx[19]);
     			add_location(button, file$d, 401, 6, 16366);
     			this.first = button;
     		},
@@ -88510,14 +88562,14 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*heroes*/ 33554432 && !src_url_equal(img.src, img_src_value = /*hero*/ ctx[99].portrait)) {
+    			if (dirty[0] & /*heroes*/ 33554432 && !src_url_equal(img.src, img_src_value = /*hero*/ ctx[102].portrait)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty[0] & /*heroes*/ 33554432 && t1_value !== (t1_value = /*hero*/ ctx[99].name + "")) set_data_dev(t1, t1_value);
+    			if (dirty[0] & /*heroes*/ 33554432 && t1_value !== (t1_value = /*hero*/ ctx[102].name + "")) set_data_dev(t1, t1_value);
 
     			if (dirty[0] & /*heroes, compHeroData*/ 34078720) {
-    				toggle_class(button, "active", /*hero*/ ctx[99].id in /*compHeroData*/ ctx[19]);
+    				toggle_class(button, "active", /*hero*/ ctx[102].id in /*compHeroData*/ ctx[19]);
     			}
     		},
     		r: function measure() {
@@ -88549,7 +88601,7 @@ var app = (function () {
     	return block;
     }
 
-    // (559:3) {#each unusedArtifacts as artifact (artifact)}
+    // (560:3) {#each unusedArtifacts as artifact (artifact)}
     function create_each_block$a(key_1, ctx) {
     	let button;
     	let img;
@@ -88557,14 +88609,14 @@ var app = (function () {
     	let img_alt_value;
     	let t0;
     	let p;
-    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "";
+    	let t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "";
     	let t1;
     	let t2;
     	let mounted;
     	let dispose;
 
     	function click_handler_33() {
-    		return /*click_handler_33*/ ctx[87](/*artifact*/ ctx[96]);
+    		return /*click_handler_33*/ ctx[90](/*artifact*/ ctx[99]);
     	}
 
     	const block = {
@@ -88578,14 +88630,14 @@ var app = (function () {
     			t1 = text$2(t1_value);
     			t2 = space();
     			attr_dev(img, "class", "artifactImg svelte-1sbefv2");
-    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name);
-    			add_location(img, file$d, 564, 5, 23802);
+    			if (!src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name);
+    			add_location(img, file$d, 565, 5, 24035);
     			attr_dev(p, "class", "svelte-1sbefv2");
-    			add_location(p, file$d, 565, 5, 23903);
+    			add_location(p, file$d, 566, 5, 24136);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "artifactButton svelte-1sbefv2");
-    			add_location(button, file$d, 559, 4, 23578);
+    			add_location(button, file$d, 560, 4, 23811);
     			this.first = button;
     		},
     		m: function mount(target, anchor) {
@@ -88604,15 +88656,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].image)) {
+    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && !src_url_equal(img.src, img_src_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name)) {
+    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && img_alt_value !== (img_alt_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[96]].name + "")) set_data_dev(t1, t1_value);
+    			if (dirty[0] & /*$Artifacts, unusedArtifacts*/ 1090519040 && t1_value !== (t1_value = /*$Artifacts*/ ctx[30][/*artifact*/ ctx[99]].name + "")) set_data_dev(t1, t1_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(button);
@@ -88625,7 +88677,7 @@ var app = (function () {
     		block,
     		id: create_each_block$a.name,
     		type: "each",
-    		source: "(559:3) {#each unusedArtifacts as artifact (artifact)}",
+    		source: "(560:3) {#each unusedArtifacts as artifact (artifact)}",
     		ctx
     	});
 
@@ -88672,13 +88724,13 @@ var app = (function () {
     	}
 
     	modalclosebutton1 = new ModalCloseButton({
-    			props: { onClose: /*func_6*/ ctx[86] },
+    			props: { onClose: /*func_9*/ ctx[89] },
     			$$inline: true
     		});
 
     	let each_value = /*unusedArtifacts*/ ctx[24];
     	validate_each_argument(each_value);
-    	const get_key = ctx => /*artifact*/ ctx[96];
+    	const get_key = ctx => /*artifact*/ ctx[99];
     	validate_each_keys(ctx, each_value, get_each_context$a, get_key);
 
     	for (let i = 0; i < each_value.length; i += 1) {
@@ -88715,14 +88767,14 @@ var app = (function () {
     			attr_dev(div2, "class", "background svelte-1sbefv2");
     			add_location(div2, file$d, 326, 0, 11057);
     			attr_dev(div3, "class", "artifactModalCloseContainer svelte-1sbefv2");
-    			add_location(div3, file$d, 551, 2, 23212);
+    			add_location(div3, file$d, 552, 2, 23445);
     			attr_dev(div4, "class", "artifactPickerWindow svelte-1sbefv2");
-    			add_location(div4, file$d, 557, 2, 23451);
+    			add_location(div4, file$d, 558, 2, 23684);
     			attr_dev(div5, "class", "background svelte-1sbefv2");
-    			add_location(div5, file$d, 547, 1, 23030);
+    			add_location(div5, file$d, 548, 1, 23263);
     			attr_dev(div6, "class", "desktopArtifactPicker svelte-1sbefv2");
     			toggle_class(div6, "open", /*pickArtifactPri*/ ctx[20] || /*pickArtifactSec*/ ctx[21] || /*pickArtifactSit*/ ctx[22]);
-    			add_location(div6, file$d, 546, 0, 22925);
+    			add_location(div6, file$d, 547, 0, 23158);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$5("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -88756,7 +88808,7 @@ var app = (function () {
     				dispose = [
     					listen_dev(div1, "click", click_handler_32, false, false, false),
     					listen_dev(div4, "click", click_handler_34, false, false, false),
-    					listen_dev(div5, "click", /*click_handler_35*/ ctx[88], false, false, false)
+    					listen_dev(div5, "click", /*click_handler_35*/ ctx[91], false, false, false)
     				];
 
     				mounted = true;
@@ -88802,7 +88854,7 @@ var app = (function () {
     			}
 
     			const modalclosebutton1_changes = {};
-    			if (dirty[0] & /*pickArtifactPri, pickArtifactSec*/ 3145728) modalclosebutton1_changes.onClose = /*func_6*/ ctx[86];
+    			if (dirty[0] & /*pickArtifactPri, pickArtifactSec*/ 3145728) modalclosebutton1_changes.onClose = /*func_9*/ ctx[89];
     			modalclosebutton1.$set(modalclosebutton1_changes);
 
     			if (dirty[0] & /*pickArtifactPri, pickArtifactSec, unusedArtifacts, $Artifacts*/ 1093664768 | dirty[1] & /*handleAddArtifact*/ 64) {
@@ -89358,8 +89410,11 @@ var app = (function () {
     	const func_1 = index => handleSIChange(index);
     	const func_2 = e => e.id === selectedHero.id;
     	const func_3 = e => e.id === selectedHero.id;
-    	const func_4 = index => handleFurnChange(index);
-    	const func_5 = index => handleAscChange(index);
+    	const func_4 = e => e.id === selectedHero.id;
+    	const func_5 = e => e.id === selectedHero.id;
+    	const func_6 = e => e.id === selectedHero.id;
+    	const func_7 = index => handleFurnChange(index);
+    	const func_8 = index => handleAscChange(index);
     	const click_handler_22 = () => $$invalidate(17, selectedHero.core = !selectedHero.core, selectedHero);
 
     	function textarea_input_handler() {
@@ -89391,7 +89446,7 @@ var app = (function () {
     	const click_handler_30 = () => $$invalidate(22, pickArtifactSit = true);
     	const click_handler_31 = artifact => handleAddArtifact(artifact, 'situational');
 
-    	const func_6 = () => {
+    	const func_9 = () => {
     		const line = pickArtifactPri
     		? 'primary'
     		: pickArtifactSec ? 'secondary' : 'situational';
@@ -89620,6 +89675,9 @@ var app = (function () {
     		func_3,
     		func_4,
     		func_5,
+    		func_6,
+    		func_7,
+    		func_8,
     		click_handler_22,
     		textarea_input_handler,
     		click_handler_23,
@@ -89631,7 +89689,7 @@ var app = (function () {
     		click_handler_29,
     		click_handler_30,
     		click_handler_31,
-    		func_6,
+    		func_9,
     		click_handler_33,
     		click_handler_35
     	];
@@ -102000,20 +102058,20 @@ var app = (function () {
 
     function get_each_context_1$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[62] = list[i];
+    	child_ctx[65] = list[i];
     	return child_ctx;
     }
 
     function get_each_context$3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[62] = list[i];
+    	child_ctx[65] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[67] = list[i];
-    	child_ctx[69] = i;
+    	child_ctx[70] = list[i];
+    	child_ctx[72] = i;
     	return child_ctx;
     }
 
@@ -102027,7 +102085,7 @@ var app = (function () {
     	tutorialbox = new TutorialBox({
     			props: {
     				clickable: true,
-    				onClick: /*func*/ ctx[44],
+    				onClick: /*func*/ ctx[45],
     				$$slots: { default: [create_default_slot$1] },
     				$$scope: { ctx }
     			},
@@ -102052,9 +102110,9 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const tutorialbox_changes = {};
-    			if (dirty[0] & /*$AppData*/ 1) tutorialbox_changes.onClick = /*func*/ ctx[44];
+    			if (dirty[0] & /*$AppData*/ 1) tutorialbox_changes.onClick = /*func*/ ctx[45];
 
-    			if (dirty[2] & /*$$scope*/ 256) {
+    			if (dirty[2] & /*$$scope*/ 2048) {
     				tutorialbox_changes.$$scope = { dirty, ctx };
     			}
 
@@ -102117,14 +102175,14 @@ var app = (function () {
     function create_each_block_2$1(ctx) {
     	let li;
     	let button;
-    	let t0_value = /*section*/ ctx[67] + "";
+    	let t0_value = /*section*/ ctx[70] + "";
     	let t0;
     	let t1;
     	let mounted;
     	let dispose;
 
     	function click_handler_19() {
-    		return /*click_handler_19*/ ctx[45](/*i*/ ctx[69]);
+    		return /*click_handler_19*/ ctx[46](/*i*/ ctx[72]);
     	}
 
     	const block = {
@@ -102135,7 +102193,7 @@ var app = (function () {
     			t1 = space();
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "sectionButton svelte-igip78");
-    			toggle_class(button, "active", /*$AppData*/ ctx[0].MH.openSection === /*i*/ ctx[69]);
+    			toggle_class(button, "active", /*$AppData*/ ctx[0].MH.openSection === /*i*/ ctx[72]);
     			add_location(button, file$4, 391, 5, 17226);
     			add_location(li, file$4, 390, 4, 17215);
     		},
@@ -102154,7 +102212,7 @@ var app = (function () {
     			ctx = new_ctx;
 
     			if (dirty[0] & /*$AppData*/ 1) {
-    				toggle_class(button, "active", /*$AppData*/ ctx[0].MH.openSection === /*i*/ ctx[69]);
+    				toggle_class(button, "active", /*$AppData*/ ctx[0].MH.openSection === /*i*/ ctx[72]);
     			}
     		},
     		d: function destroy(detaching) {
@@ -102175,7 +102233,7 @@ var app = (function () {
     	return block;
     }
 
-    // (475:42) 
+    // (476:42) 
     function create_if_block_2$2(ctx) {
     	let section;
 
@@ -102192,7 +102250,7 @@ var app = (function () {
     			section = element("section");
     			if_block.c();
     			attr_dev(section, "class", "MHSection unownedSection svelte-igip78");
-    			add_location(section, file$4, 475, 3, 20780);
+    			add_location(section, file$4, 476, 3, 20992);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
@@ -102223,7 +102281,7 @@ var app = (function () {
     		block,
     		id: create_if_block_2$2.name,
     		type: "if",
-    		source: "(475:42) ",
+    		source: "(476:42) ",
     		ctx
     	});
 
@@ -102312,14 +102370,14 @@ var app = (function () {
     	return block;
     }
 
-    // (481:4) {:else}
+    // (482:4) {:else}
     function create_else_block_1$1(ctx) {
     	let div;
     	let each_blocks = [];
     	let each_1_lookup = new Map();
     	let each_value_1 = /*unownedHeroList*/ ctx[4];
     	validate_each_argument(each_value_1);
-    	const get_key = ctx => /*hero*/ ctx[62].id;
+    	const get_key = ctx => /*hero*/ ctx[65].id;
     	validate_each_keys(ctx, each_value_1, get_each_context_1$2, get_key);
 
     	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -102337,7 +102395,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "MHGrid svelte-igip78");
-    			add_location(div, file$4, 481, 5, 20976);
+    			add_location(div, file$4, 482, 5, 21188);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -102347,7 +102405,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*handleHeroClaim, unownedHeroList, $AppData*/ 16401) {
+    			if (dirty[0] & /*handleHeroClaim, unownedHeroList, $AppData*/ 32785) {
     				each_value_1 = /*unownedHeroList*/ ctx[4];
     				validate_each_argument(each_value_1);
     				for (let i = 0; i < each_blocks.length; i += 1) each_blocks[i].r();
@@ -102369,14 +102427,14 @@ var app = (function () {
     		block,
     		id: create_else_block_1$1.name,
     		type: "else",
-    		source: "(481:4) {:else}",
+    		source: "(482:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (477:4) {#if unownedHeroList.length === 0}
+    // (478:4) {#if unownedHeroList.length === 0}
     function create_if_block_3$2(ctx) {
     	let div;
     	let span;
@@ -102386,9 +102444,9 @@ var app = (function () {
     			div = element("div");
     			span = element("span");
     			span.textContent = "You own every hero in the game!";
-    			add_location(span, file$4, 478, 6, 20899);
+    			add_location(span, file$4, 479, 6, 21111);
     			attr_dev(div, "class", "noHeroes svelte-igip78");
-    			add_location(div, file$4, 477, 5, 20869);
+    			add_location(div, file$4, 478, 5, 21081);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -102404,14 +102462,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3$2.name,
     		type: "if",
-    		source: "(477:4) {#if unownedHeroList.length === 0}",
+    		source: "(478:4) {#if unownedHeroList.length === 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (483:6) {#each unownedHeroList as hero (hero.id)}
+    // (484:6) {#each unownedHeroList as hero (hero.id)}
     function create_each_block_1$2(key_1, ctx) {
     	let div14;
     	let div13;
@@ -102423,7 +102481,7 @@ var app = (function () {
     	let t0;
     	let div0;
     	let span0;
-    	let t1_value = /*hero*/ ctx[62].faction + "";
+    	let t1_value = /*hero*/ ctx[65].faction + "";
     	let t1;
     	let t2;
     	let div7;
@@ -102437,7 +102495,7 @@ var app = (function () {
     	let div4;
     	let button;
 
-    	let t4_value = (/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].claimed
+    	let t4_value = (/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].claimed
     	? 'Remove'
     	: 'Add') + "";
 
@@ -102451,7 +102509,7 @@ var app = (function () {
     	let t6;
     	let div8;
     	let span1;
-    	let t7_value = /*hero*/ ctx[62].type + "";
+    	let t7_value = /*hero*/ ctx[65].type + "";
     	let t7;
     	let t8;
     	let div11;
@@ -102461,11 +102519,11 @@ var app = (function () {
     	let t9;
     	let div10;
     	let span2;
-    	let t10_value = /*hero*/ ctx[62].class + "";
+    	let t10_value = /*hero*/ ctx[65].class + "";
     	let t10;
     	let t11;
     	let p;
-    	let t12_value = /*hero*/ ctx[62].name + "";
+    	let t12_value = /*hero*/ ctx[65].name + "";
     	let t12;
     	let t13;
     	let rect;
@@ -102474,7 +102532,7 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_23(...args) {
-    		return /*click_handler_23*/ ctx[52](/*hero*/ ctx[62], ...args);
+    		return /*click_handler_23*/ ctx[56](/*hero*/ ctx[65], ...args);
     	}
 
     	const block = {
@@ -102520,63 +102578,63 @@ var app = (function () {
     			t12 = text$2(t12_value);
     			t13 = space();
     			attr_dev(img0, "class", "attrImage factionImg svelte-igip78");
-    			if (!src_url_equal(img0.src, img0_src_value = "./img/factions/" + /*hero*/ ctx[62].faction.toLowerCase() + ".png")) attr_dev(img0, "src", img0_src_value);
-    			attr_dev(img0, "alt", img0_alt_value = /*hero*/ ctx[62].faction);
-    			add_location(img0, file$4, 487, 10, 21295);
+    			if (!src_url_equal(img0.src, img0_src_value = "./img/factions/" + /*hero*/ ctx[65].faction.toLowerCase() + ".png")) attr_dev(img0, "src", img0_src_value);
+    			attr_dev(img0, "alt", img0_alt_value = /*hero*/ ctx[65].faction);
+    			add_location(img0, file$4, 488, 10, 21507);
     			attr_dev(span0, "class", "tooltipText svelte-igip78");
-    			add_location(span0, file$4, 488, 47, 21453);
+    			add_location(span0, file$4, 489, 47, 21665);
     			attr_dev(div0, "class", "tooltip tooltip-faction svelte-igip78");
-    			add_location(div0, file$4, 488, 10, 21416);
+    			add_location(div0, file$4, 489, 10, 21628);
     			attr_dev(div1, "class", "attrImgContainer svelte-igip78");
-    			add_location(div1, file$4, 486, 9, 21253);
+    			add_location(div1, file$4, 487, 9, 21465);
     			attr_dev(div2, "class", "headArea svelte-igip78");
-    			add_location(div2, file$4, 485, 8, 21220);
+    			add_location(div2, file$4, 486, 8, 21432);
     			attr_dev(img1, "class", "portrait svelte-igip78");
-    			if (!src_url_equal(img1.src, img1_src_value = /*hero*/ ctx[62].portrait)) attr_dev(img1, "src", img1_src_value);
-    			attr_dev(img1, "alt", img1_alt_value = /*hero*/ ctx[62].name);
-    			add_location(img1, file$4, 495, 12, 21697);
+    			if (!src_url_equal(img1.src, img1_src_value = /*hero*/ ctx[65].portrait)) attr_dev(img1, "src", img1_src_value);
+    			attr_dev(img1, "alt", img1_alt_value = /*hero*/ ctx[65].name);
+    			add_location(img1, file$4, 496, 12, 21909);
     			attr_dev(div3, "class", "flipCardFront svelte-igip78");
-    			add_location(div3, file$4, 494, 11, 21656);
+    			add_location(div3, file$4, 495, 11, 21868);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "portraitButton svelte-igip78");
-    			toggle_class(button, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].claimed);
-    			add_location(button, file$4, 498, 12, 21827);
+    			toggle_class(button, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].claimed);
+    			add_location(button, file$4, 499, 12, 22039);
     			attr_dev(div4, "class", "flipCardBack svelte-igip78");
-    			add_location(div4, file$4, 497, 11, 21787);
+    			add_location(div4, file$4, 498, 11, 21999);
     			attr_dev(div5, "class", "flipCardInner svelte-igip78");
-    			add_location(div5, file$4, 493, 10, 21616);
+    			add_location(div5, file$4, 494, 10, 21828);
     			attr_dev(div6, "class", "flipCard svelte-igip78");
-    			add_location(div6, file$4, 492, 9, 21582);
+    			add_location(div6, file$4, 493, 9, 21794);
     			attr_dev(div7, "class", "headArea svelte-igip78");
-    			add_location(div7, file$4, 491, 8, 21549);
+    			add_location(div7, file$4, 492, 8, 21761);
     			attr_dev(img2, "class", "attrImage typeImg svelte-igip78");
-    			if (!src_url_equal(img2.src, img2_src_value = "./img/types/" + /*hero*/ ctx[62].type.toLowerCase() + ".png")) attr_dev(img2, "src", img2_src_value);
-    			attr_dev(img2, "alt", img2_alt_value = /*hero*/ ctx[62].type);
-    			add_location(img2, file$4, 505, 10, 22138);
+    			if (!src_url_equal(img2.src, img2_src_value = "./img/types/" + /*hero*/ ctx[65].type.toLowerCase() + ".png")) attr_dev(img2, "src", img2_src_value);
+    			attr_dev(img2, "alt", img2_alt_value = /*hero*/ ctx[65].type);
+    			add_location(img2, file$4, 506, 10, 22350);
     			attr_dev(span1, "class", "tooltipText svelte-igip78");
-    			add_location(span1, file$4, 506, 44, 22279);
+    			add_location(span1, file$4, 507, 44, 22491);
     			attr_dev(div8, "class", "tooltip tooltip-type svelte-igip78");
-    			add_location(div8, file$4, 506, 10, 22245);
+    			add_location(div8, file$4, 507, 10, 22457);
     			attr_dev(div9, "class", "attrImgContainer svelte-igip78");
-    			add_location(div9, file$4, 504, 9, 22096);
+    			add_location(div9, file$4, 505, 9, 22308);
     			attr_dev(img3, "class", "attrImage classImg svelte-igip78");
-    			if (!src_url_equal(img3.src, img3_src_value = "./img/classes/" + /*hero*/ ctx[62].class.toLowerCase() + ".png")) attr_dev(img3, "src", img3_src_value);
-    			attr_dev(img3, "alt", img3_alt_value = /*hero*/ ctx[62].class);
-    			add_location(img3, file$4, 509, 10, 22399);
+    			if (!src_url_equal(img3.src, img3_src_value = "./img/classes/" + /*hero*/ ctx[65].class.toLowerCase() + ".png")) attr_dev(img3, "src", img3_src_value);
+    			attr_dev(img3, "alt", img3_alt_value = /*hero*/ ctx[65].class);
+    			add_location(img3, file$4, 510, 10, 22611);
     			attr_dev(span2, "class", "tooltipText svelte-igip78");
-    			add_location(span2, file$4, 510, 45, 22546);
+    			add_location(span2, file$4, 511, 45, 22758);
     			attr_dev(div10, "class", "tooltip tooltip-class svelte-igip78");
-    			add_location(div10, file$4, 510, 10, 22511);
+    			add_location(div10, file$4, 511, 10, 22723);
     			attr_dev(div11, "class", "attrImgContainer svelte-igip78");
-    			add_location(div11, file$4, 508, 9, 22357);
+    			add_location(div11, file$4, 509, 9, 22569);
     			attr_dev(div12, "class", "headArea svelte-igip78");
-    			add_location(div12, file$4, 503, 8, 22063);
+    			add_location(div12, file$4, 504, 8, 22275);
     			attr_dev(div13, "class", "heroHeader svelte-igip78");
-    			add_location(div13, file$4, 484, 7, 21186);
+    			add_location(div13, file$4, 485, 7, 21398);
     			attr_dev(p, "class", "heroName svelte-igip78");
-    			add_location(p, file$4, 514, 7, 22654);
+    			add_location(p, file$4, 515, 7, 22866);
     			attr_dev(div14, "class", "heroCard svelte-igip78");
-    			add_location(div14, file$4, 483, 6, 21053);
+    			add_location(div14, file$4, 484, 6, 21265);
     			this.first = div14;
     		},
     		m: function mount(target, anchor) {
@@ -102627,52 +102685,52 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*unownedHeroList*/ 16 && !src_url_equal(img0.src, img0_src_value = "./img/factions/" + /*hero*/ ctx[62].faction.toLowerCase() + ".png")) {
+    			if (dirty[0] & /*unownedHeroList*/ 16 && !src_url_equal(img0.src, img0_src_value = "./img/factions/" + /*hero*/ ctx[65].faction.toLowerCase() + ".png")) {
     				attr_dev(img0, "src", img0_src_value);
     			}
 
-    			if (dirty[0] & /*unownedHeroList*/ 16 && img0_alt_value !== (img0_alt_value = /*hero*/ ctx[62].faction)) {
+    			if (dirty[0] & /*unownedHeroList*/ 16 && img0_alt_value !== (img0_alt_value = /*hero*/ ctx[65].faction)) {
     				attr_dev(img0, "alt", img0_alt_value);
     			}
 
-    			if (dirty[0] & /*unownedHeroList*/ 16 && t1_value !== (t1_value = /*hero*/ ctx[62].faction + "")) set_data_dev(t1, t1_value);
+    			if (dirty[0] & /*unownedHeroList*/ 16 && t1_value !== (t1_value = /*hero*/ ctx[65].faction + "")) set_data_dev(t1, t1_value);
 
-    			if (dirty[0] & /*unownedHeroList*/ 16 && !src_url_equal(img1.src, img1_src_value = /*hero*/ ctx[62].portrait)) {
+    			if (dirty[0] & /*unownedHeroList*/ 16 && !src_url_equal(img1.src, img1_src_value = /*hero*/ ctx[65].portrait)) {
     				attr_dev(img1, "src", img1_src_value);
     			}
 
-    			if (dirty[0] & /*unownedHeroList*/ 16 && img1_alt_value !== (img1_alt_value = /*hero*/ ctx[62].name)) {
+    			if (dirty[0] & /*unownedHeroList*/ 16 && img1_alt_value !== (img1_alt_value = /*hero*/ ctx[65].name)) {
     				attr_dev(img1, "alt", img1_alt_value);
     			}
 
-    			if (dirty[0] & /*$AppData, unownedHeroList*/ 17 && t4_value !== (t4_value = (/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].claimed
+    			if (dirty[0] & /*$AppData, unownedHeroList*/ 17 && t4_value !== (t4_value = (/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].claimed
     			? 'Remove'
     			: 'Add') + "")) set_data_dev(t4, t4_value);
 
     			if (dirty[0] & /*$AppData, unownedHeroList*/ 17) {
-    				toggle_class(button, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].claimed);
+    				toggle_class(button, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].claimed);
     			}
 
-    			if (dirty[0] & /*unownedHeroList*/ 16 && !src_url_equal(img2.src, img2_src_value = "./img/types/" + /*hero*/ ctx[62].type.toLowerCase() + ".png")) {
+    			if (dirty[0] & /*unownedHeroList*/ 16 && !src_url_equal(img2.src, img2_src_value = "./img/types/" + /*hero*/ ctx[65].type.toLowerCase() + ".png")) {
     				attr_dev(img2, "src", img2_src_value);
     			}
 
-    			if (dirty[0] & /*unownedHeroList*/ 16 && img2_alt_value !== (img2_alt_value = /*hero*/ ctx[62].type)) {
+    			if (dirty[0] & /*unownedHeroList*/ 16 && img2_alt_value !== (img2_alt_value = /*hero*/ ctx[65].type)) {
     				attr_dev(img2, "alt", img2_alt_value);
     			}
 
-    			if (dirty[0] & /*unownedHeroList*/ 16 && t7_value !== (t7_value = /*hero*/ ctx[62].type + "")) set_data_dev(t7, t7_value);
+    			if (dirty[0] & /*unownedHeroList*/ 16 && t7_value !== (t7_value = /*hero*/ ctx[65].type + "")) set_data_dev(t7, t7_value);
 
-    			if (dirty[0] & /*unownedHeroList*/ 16 && !src_url_equal(img3.src, img3_src_value = "./img/classes/" + /*hero*/ ctx[62].class.toLowerCase() + ".png")) {
+    			if (dirty[0] & /*unownedHeroList*/ 16 && !src_url_equal(img3.src, img3_src_value = "./img/classes/" + /*hero*/ ctx[65].class.toLowerCase() + ".png")) {
     				attr_dev(img3, "src", img3_src_value);
     			}
 
-    			if (dirty[0] & /*unownedHeroList*/ 16 && img3_alt_value !== (img3_alt_value = /*hero*/ ctx[62].class)) {
+    			if (dirty[0] & /*unownedHeroList*/ 16 && img3_alt_value !== (img3_alt_value = /*hero*/ ctx[65].class)) {
     				attr_dev(img3, "alt", img3_alt_value);
     			}
 
-    			if (dirty[0] & /*unownedHeroList*/ 16 && t10_value !== (t10_value = /*hero*/ ctx[62].class + "")) set_data_dev(t10, t10_value);
-    			if (dirty[0] & /*unownedHeroList*/ 16 && t12_value !== (t12_value = /*hero*/ ctx[62].name + "")) set_data_dev(t12, t12_value);
+    			if (dirty[0] & /*unownedHeroList*/ 16 && t10_value !== (t10_value = /*hero*/ ctx[65].class + "")) set_data_dev(t10, t10_value);
+    			if (dirty[0] & /*unownedHeroList*/ 16 && t12_value !== (t12_value = /*hero*/ ctx[65].name + "")) set_data_dev(t12, t12_value);
     		},
     		r: function measure() {
     			rect = div14.getBoundingClientRect();
@@ -102696,7 +102754,7 @@ var app = (function () {
     		block,
     		id: create_each_block_1$2.name,
     		type: "each",
-    		source: "(483:6) {#each unownedHeroList as hero (hero.id)}",
+    		source: "(484:6) {#each unownedHeroList as hero (hero.id)}",
     		ctx
     	});
 
@@ -102711,7 +102769,7 @@ var app = (function () {
     	let current;
     	let each_value = /*myHeroList*/ ctx[5];
     	validate_each_argument(each_value);
-    	const get_key = ctx => /*hero*/ ctx[62].id;
+    	const get_key = ctx => /*hero*/ ctx[65].id;
     	validate_each_keys(ctx, each_value, get_each_context$3, get_key);
 
     	for (let i = 0; i < each_value.length; i += 1) {
@@ -102741,7 +102799,7 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*handleFurnChange, myHeroList, $AppData, handleSIChange, handleAscChange, handleHeroDetailClick, handleHeroUnclaim*/ 4685857) {
+    			if (dirty[0] & /*handleFurnChange, myHeroList, $AppData, handleSIChange, $HeroData, handleAscChange, handleHeroDetailClick, handleHeroUnclaim*/ 9372193) {
     				each_value = /*myHeroList*/ ctx[5];
     				validate_each_argument(each_value);
     				group_outros();
@@ -102841,7 +102899,7 @@ var app = (function () {
     	let t1;
     	let div2;
     	let span0;
-    	let t2_value = /*hero*/ ctx[62].faction + "";
+    	let t2_value = /*hero*/ ctx[65].faction + "";
     	let t2;
     	let t3;
     	let div9;
@@ -102863,7 +102921,7 @@ var app = (function () {
     	let t7;
     	let div10;
     	let span1;
-    	let t8_value = /*hero*/ ctx[62].type + "";
+    	let t8_value = /*hero*/ ctx[65].type + "";
     	let t8;
     	let t9;
     	let div13;
@@ -102873,11 +102931,11 @@ var app = (function () {
     	let t10;
     	let div12;
     	let span2;
-    	let t11_value = /*hero*/ ctx[62].class + "";
+    	let t11_value = /*hero*/ ctx[65].class + "";
     	let t11;
     	let t12;
     	let p;
-    	let t13_value = /*hero*/ ctx[62].name + "";
+    	let t13_value = /*hero*/ ctx[65].name + "";
     	let t13;
     	let t14;
     	let div21;
@@ -102899,7 +102957,7 @@ var app = (function () {
     	let dispose;
 
     	function func_1() {
-    		return /*func_1*/ ctx[46](/*hero*/ ctx[62]);
+    		return /*func_1*/ ctx[47](/*hero*/ ctx[65]);
     	}
 
     	xbutton = new XButton({
@@ -102912,51 +102970,64 @@ var app = (function () {
     		});
 
     	function click_handler_20() {
-    		return /*click_handler_20*/ ctx[47](/*hero*/ ctx[62]);
+    		return /*click_handler_20*/ ctx[48](/*hero*/ ctx[65]);
     	}
 
     	function click_handler_21() {
-    		return /*click_handler_21*/ ctx[48](/*hero*/ ctx[62]);
+    		return /*click_handler_21*/ ctx[49](/*hero*/ ctx[65]);
     	}
 
     	function func_2(...args) {
-    		return /*func_2*/ ctx[49](/*hero*/ ctx[62], ...args);
+    		return /*func_2*/ ctx[50](/*hero*/ ctx[65], ...args);
     	}
 
     	ascensionmenu = new AscensionMenu({
     			props: {
     				menuItemChangeCallback: func_2,
-    				activeItem: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].ascendLv,
+    				activeItem: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].ascendLv,
     				zIndexBase: "2"
     			},
     			$$inline: true
     		});
 
     	function func_3(...args) {
-    		return /*func_3*/ ctx[50](/*hero*/ ctx[62], ...args);
+    		return /*func_3*/ ctx[51](/*hero*/ ctx[65], ...args);
+    	}
+
+    	function func_4(...args) {
+    		return /*func_4*/ ctx[52](/*hero*/ ctx[65], ...args);
+    	}
+
+    	function func_5(...args) {
+    		return /*func_5*/ ctx[53](/*hero*/ ctx[65], ...args);
+    	}
+
+    	function func_6(...args) {
+    		return /*func_6*/ ctx[54](/*hero*/ ctx[65], ...args);
     	}
 
     	simenu = new SIMenu({
     			props: {
     				menuItemChangeCallback: func_3,
-    				activeItem: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].si === -1
+    				activeItem: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].si === -1
     				? 0
-    				: Math.floor(/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].si / 5) + 1,
-    				zIndexBase: "2"
+    				: Math.floor(/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].si / 5) + 1,
+    				zIndexBase: "2",
+    				si40: /*$HeroData*/ ctx[9].find(func_4).faction === 'Dimensional' || /*$HeroData*/ ctx[9].find(func_5).faction === 'Celestial' || /*$HeroData*/ ctx[9].find(func_6).faction === 'Hypogean'
     			},
     			$$inline: true
     		});
 
-    	function func_4(...args) {
-    		return /*func_4*/ ctx[51](/*hero*/ ctx[62], ...args);
+    	function func_7(...args) {
+    		return /*func_7*/ ctx[55](/*hero*/ ctx[65], ...args);
     	}
 
     	furnmenu = new FurnMenu({
     			props: {
-    				menuItemChangeCallback: func_4,
-    				activeItem: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].furn === 0
+    				menuItemChangeCallback: func_7,
+    				activeItem: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].furn === 0
     				? 0
-    				: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].furn === 3
+    				: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].furn === 3
     					? 1
     					: 2,
     				zIndexBase: "2"
@@ -103027,8 +103098,8 @@ var app = (function () {
     			attr_dev(div1, "class", "removeArea svelte-igip78");
     			add_location(div1, file$4, 406, 7, 17813);
     			attr_dev(img0, "class", "attrImage factionImg svelte-igip78");
-    			if (!src_url_equal(img0.src, img0_src_value = "./img/factions/" + /*hero*/ ctx[62].faction.toLowerCase() + ".png")) attr_dev(img0, "src", img0_src_value);
-    			attr_dev(img0, "alt", img0_alt_value = /*hero*/ ctx[62].faction);
+    			if (!src_url_equal(img0.src, img0_src_value = "./img/factions/" + /*hero*/ ctx[65].faction.toLowerCase() + ".png")) attr_dev(img0, "src", img0_src_value);
+    			attr_dev(img0, "alt", img0_alt_value = /*hero*/ ctx[65].faction);
     			add_location(img0, file$4, 414, 10, 18136);
     			attr_dev(span0, "class", "tooltipText svelte-igip78");
     			add_location(span0, file$4, 415, 47, 18294);
@@ -103039,14 +103110,14 @@ var app = (function () {
     			attr_dev(div4, "class", "headArea svelte-igip78");
     			add_location(div4, file$4, 412, 8, 18061);
     			attr_dev(img1, "class", "portrait svelte-igip78");
-    			if (!src_url_equal(img1.src, img1_src_value = /*hero*/ ctx[62].portrait)) attr_dev(img1, "src", img1_src_value);
-    			attr_dev(img1, "alt", img1_alt_value = /*hero*/ ctx[62].name);
+    			if (!src_url_equal(img1.src, img1_src_value = /*hero*/ ctx[65].portrait)) attr_dev(img1, "src", img1_src_value);
+    			attr_dev(img1, "alt", img1_alt_value = /*hero*/ ctx[65].name);
     			add_location(img1, file$4, 422, 12, 18576);
     			attr_dev(div5, "class", "flipCardFront svelte-igip78");
     			add_location(div5, file$4, 421, 11, 18535);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "portraitButton svelte-igip78");
-    			toggle_class(button, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].claimed);
+    			toggle_class(button, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].claimed);
     			add_location(button, file$4, 425, 12, 18756);
     			attr_dev(div6, "class", "flipCardBack svelte-igip78");
     			add_location(div6, file$4, 424, 11, 18716);
@@ -103057,8 +103128,8 @@ var app = (function () {
     			attr_dev(div9, "class", "headArea svelte-igip78");
     			add_location(div9, file$4, 418, 8, 18390);
     			attr_dev(img2, "class", "attrImage typeImg svelte-igip78");
-    			if (!src_url_equal(img2.src, img2_src_value = "./img/types/" + /*hero*/ ctx[62].type.toLowerCase() + ".png")) attr_dev(img2, "src", img2_src_value);
-    			attr_dev(img2, "alt", img2_alt_value = /*hero*/ ctx[62].type);
+    			if (!src_url_equal(img2.src, img2_src_value = "./img/types/" + /*hero*/ ctx[65].type.toLowerCase() + ".png")) attr_dev(img2, "src", img2_src_value);
+    			attr_dev(img2, "alt", img2_alt_value = /*hero*/ ctx[65].type);
     			add_location(img2, file$4, 432, 10, 19067);
     			attr_dev(span1, "class", "tooltipText svelte-igip78");
     			add_location(span1, file$4, 433, 44, 19208);
@@ -103067,8 +103138,8 @@ var app = (function () {
     			attr_dev(div11, "class", "attrImgContainer svelte-igip78");
     			add_location(div11, file$4, 431, 9, 19025);
     			attr_dev(img3, "class", "attrImage classImg svelte-igip78");
-    			if (!src_url_equal(img3.src, img3_src_value = "./img/classes/" + /*hero*/ ctx[62].class.toLowerCase() + ".png")) attr_dev(img3, "src", img3_src_value);
-    			attr_dev(img3, "alt", img3_alt_value = /*hero*/ ctx[62].class);
+    			if (!src_url_equal(img3.src, img3_src_value = "./img/classes/" + /*hero*/ ctx[65].class.toLowerCase() + ".png")) attr_dev(img3, "src", img3_src_value);
+    			attr_dev(img3, "alt", img3_alt_value = /*hero*/ ctx[65].class);
     			add_location(img3, file$4, 436, 10, 19328);
     			attr_dev(span2, "class", "tooltipText svelte-igip78");
     			add_location(span2, file$4, 437, 45, 19475);
@@ -103089,7 +103160,7 @@ var app = (function () {
     			attr_dev(div18, "class", "flipButtonArea svelte-igip78");
     			add_location(div18, file$4, 453, 9, 20026);
     			attr_dev(div19, "class", "flipButtonArea svelte-igip78");
-    			add_location(div19, file$4, 460, 9, 20333);
+    			add_location(div19, file$4, 461, 9, 20545);
     			attr_dev(div20, "class", "siFurnButtonArea svelte-igip78");
     			add_location(div20, file$4, 452, 8, 19985);
     			attr_dev(div21, "class", "flipButtonContainer svelte-igip78");
@@ -103170,66 +103241,67 @@ var app = (function () {
     			if (dirty[0] & /*myHeroList*/ 32) xbutton_changes.clickCallback = func_1;
     			xbutton.$set(xbutton_changes);
 
-    			if (!current || dirty[0] & /*myHeroList*/ 32 && !src_url_equal(img0.src, img0_src_value = "./img/factions/" + /*hero*/ ctx[62].faction.toLowerCase() + ".png")) {
+    			if (!current || dirty[0] & /*myHeroList*/ 32 && !src_url_equal(img0.src, img0_src_value = "./img/factions/" + /*hero*/ ctx[65].faction.toLowerCase() + ".png")) {
     				attr_dev(img0, "src", img0_src_value);
     			}
 
-    			if (!current || dirty[0] & /*myHeroList*/ 32 && img0_alt_value !== (img0_alt_value = /*hero*/ ctx[62].faction)) {
+    			if (!current || dirty[0] & /*myHeroList*/ 32 && img0_alt_value !== (img0_alt_value = /*hero*/ ctx[65].faction)) {
     				attr_dev(img0, "alt", img0_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*myHeroList*/ 32) && t2_value !== (t2_value = /*hero*/ ctx[62].faction + "")) set_data_dev(t2, t2_value);
+    			if ((!current || dirty[0] & /*myHeroList*/ 32) && t2_value !== (t2_value = /*hero*/ ctx[65].faction + "")) set_data_dev(t2, t2_value);
 
-    			if (!current || dirty[0] & /*myHeroList*/ 32 && !src_url_equal(img1.src, img1_src_value = /*hero*/ ctx[62].portrait)) {
+    			if (!current || dirty[0] & /*myHeroList*/ 32 && !src_url_equal(img1.src, img1_src_value = /*hero*/ ctx[65].portrait)) {
     				attr_dev(img1, "src", img1_src_value);
     			}
 
-    			if (!current || dirty[0] & /*myHeroList*/ 32 && img1_alt_value !== (img1_alt_value = /*hero*/ ctx[62].name)) {
+    			if (!current || dirty[0] & /*myHeroList*/ 32 && img1_alt_value !== (img1_alt_value = /*hero*/ ctx[65].name)) {
     				attr_dev(img1, "alt", img1_alt_value);
     			}
 
     			if (dirty[0] & /*$AppData, myHeroList*/ 33) {
-    				toggle_class(button, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].claimed);
+    				toggle_class(button, "owned", /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].claimed);
     			}
 
-    			if (!current || dirty[0] & /*myHeroList*/ 32 && !src_url_equal(img2.src, img2_src_value = "./img/types/" + /*hero*/ ctx[62].type.toLowerCase() + ".png")) {
+    			if (!current || dirty[0] & /*myHeroList*/ 32 && !src_url_equal(img2.src, img2_src_value = "./img/types/" + /*hero*/ ctx[65].type.toLowerCase() + ".png")) {
     				attr_dev(img2, "src", img2_src_value);
     			}
 
-    			if (!current || dirty[0] & /*myHeroList*/ 32 && img2_alt_value !== (img2_alt_value = /*hero*/ ctx[62].type)) {
+    			if (!current || dirty[0] & /*myHeroList*/ 32 && img2_alt_value !== (img2_alt_value = /*hero*/ ctx[65].type)) {
     				attr_dev(img2, "alt", img2_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*myHeroList*/ 32) && t8_value !== (t8_value = /*hero*/ ctx[62].type + "")) set_data_dev(t8, t8_value);
+    			if ((!current || dirty[0] & /*myHeroList*/ 32) && t8_value !== (t8_value = /*hero*/ ctx[65].type + "")) set_data_dev(t8, t8_value);
 
-    			if (!current || dirty[0] & /*myHeroList*/ 32 && !src_url_equal(img3.src, img3_src_value = "./img/classes/" + /*hero*/ ctx[62].class.toLowerCase() + ".png")) {
+    			if (!current || dirty[0] & /*myHeroList*/ 32 && !src_url_equal(img3.src, img3_src_value = "./img/classes/" + /*hero*/ ctx[65].class.toLowerCase() + ".png")) {
     				attr_dev(img3, "src", img3_src_value);
     			}
 
-    			if (!current || dirty[0] & /*myHeroList*/ 32 && img3_alt_value !== (img3_alt_value = /*hero*/ ctx[62].class)) {
+    			if (!current || dirty[0] & /*myHeroList*/ 32 && img3_alt_value !== (img3_alt_value = /*hero*/ ctx[65].class)) {
     				attr_dev(img3, "alt", img3_alt_value);
     			}
 
-    			if ((!current || dirty[0] & /*myHeroList*/ 32) && t11_value !== (t11_value = /*hero*/ ctx[62].class + "")) set_data_dev(t11, t11_value);
-    			if ((!current || dirty[0] & /*myHeroList*/ 32) && t13_value !== (t13_value = /*hero*/ ctx[62].name + "")) set_data_dev(t13, t13_value);
+    			if ((!current || dirty[0] & /*myHeroList*/ 32) && t11_value !== (t11_value = /*hero*/ ctx[65].class + "")) set_data_dev(t11, t11_value);
+    			if ((!current || dirty[0] & /*myHeroList*/ 32) && t13_value !== (t13_value = /*hero*/ ctx[65].name + "")) set_data_dev(t13, t13_value);
     			const ascensionmenu_changes = {};
     			if (dirty[0] & /*myHeroList*/ 32) ascensionmenu_changes.menuItemChangeCallback = func_2;
-    			if (dirty[0] & /*$AppData, myHeroList*/ 33) ascensionmenu_changes.activeItem = /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].ascendLv;
+    			if (dirty[0] & /*$AppData, myHeroList*/ 33) ascensionmenu_changes.activeItem = /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].ascendLv;
     			ascensionmenu.$set(ascensionmenu_changes);
     			const simenu_changes = {};
     			if (dirty[0] & /*myHeroList*/ 32) simenu_changes.menuItemChangeCallback = func_3;
 
-    			if (dirty[0] & /*$AppData, myHeroList*/ 33) simenu_changes.activeItem = /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].si === -1
+    			if (dirty[0] & /*$AppData, myHeroList*/ 33) simenu_changes.activeItem = /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].si === -1
     			? 0
-    			: Math.floor(/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].si / 5) + 1;
+    			: Math.floor(/*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].si / 5) + 1;
 
+    			if (dirty[0] & /*$HeroData, myHeroList*/ 544) simenu_changes.si40 = /*$HeroData*/ ctx[9].find(func_4).faction === 'Dimensional' || /*$HeroData*/ ctx[9].find(func_5).faction === 'Celestial' || /*$HeroData*/ ctx[9].find(func_6).faction === 'Hypogean';
     			simenu.$set(simenu_changes);
     			const furnmenu_changes = {};
-    			if (dirty[0] & /*myHeroList*/ 32) furnmenu_changes.menuItemChangeCallback = func_4;
+    			if (dirty[0] & /*myHeroList*/ 32) furnmenu_changes.menuItemChangeCallback = func_7;
 
-    			if (dirty[0] & /*$AppData, myHeroList*/ 33) furnmenu_changes.activeItem = /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].furn === 0
+    			if (dirty[0] & /*$AppData, myHeroList*/ 33) furnmenu_changes.activeItem = /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].furn === 0
     			? 0
-    			: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[62].id].furn === 3
+    			: /*$AppData*/ ctx[0].MH.List[/*hero*/ ctx[65].id].furn === 3
     				? 1
     				: 2;
 
@@ -103428,7 +103500,7 @@ var app = (function () {
     	let mounted;
     	let dispose;
     	let if_block0 = !/*$AppData*/ ctx[0].dismissMHSearchInfo && create_if_block_4$2(ctx);
-    	let each_value_2 = /*sections*/ ctx[10];
+    	let each_value_2 = /*sections*/ ctx[11];
     	validate_each_argument(each_value_2);
     	let each_blocks = [];
 
@@ -103723,42 +103795,42 @@ var app = (function () {
     			if (!src_url_equal(img15.src, img15_src_value = "./img/utility/export.png")) attr_dev(img15, "src", img15_src_value);
     			attr_dev(img15, "alt", "export");
     			attr_dev(img15, "class", "svelte-igip78");
-    			add_location(img15, file$4, 524, 73, 22937);
+    			add_location(img15, file$4, 525, 73, 23149);
     			attr_dev(button19, "type", "button");
     			attr_dev(button19, "class", "inOutButton svelte-igip78");
-    			add_location(button19, file$4, 524, 3, 22867);
+    			add_location(button19, file$4, 525, 3, 23079);
     			attr_dev(span2, "class", "tooltipText svelte-igip78");
-    			add_location(span2, file$4, 525, 45, 23042);
+    			add_location(span2, file$4, 526, 45, 23254);
     			attr_dev(div10, "class", "tooltip tooltip-inOutButton1 svelte-igip78");
-    			add_location(div10, file$4, 525, 3, 23000);
+    			add_location(div10, file$4, 526, 3, 23212);
     			if (!src_url_equal(img16.src, img16_src_value = "./img/utility/import.png")) attr_dev(img16, "src", img16_src_value);
     			attr_dev(img16, "alt", "import");
     			attr_dev(img16, "class", "svelte-igip78");
-    			add_location(img16, file$4, 526, 73, 23167);
+    			add_location(img16, file$4, 527, 73, 23379);
     			attr_dev(button20, "type", "button");
     			attr_dev(button20, "class", "inOutButton svelte-igip78");
-    			add_location(button20, file$4, 526, 3, 23097);
+    			add_location(button20, file$4, 527, 3, 23309);
     			attr_dev(span3, "class", "tooltipText svelte-igip78");
-    			add_location(span3, file$4, 527, 45, 23272);
+    			add_location(span3, file$4, 528, 45, 23484);
     			attr_dev(div11, "class", "tooltip tooltip-inOutButton2 svelte-igip78");
-    			add_location(div11, file$4, 527, 3, 23230);
+    			add_location(div11, file$4, 528, 3, 23442);
     			attr_dev(div12, "class", div12_class_value = "inOutMenu " + (/*openInOutMenu*/ ctx[2] ? 'open' : '') + " svelte-igip78");
-    			add_location(div12, file$4, 523, 2, 22809);
+    			add_location(div12, file$4, 524, 2, 23021);
     			if (!src_url_equal(img17.src, img17_src_value = "./img/utility/export_import.png")) attr_dev(img17, "src", img17_src_value);
     			attr_dev(img17, "alt", "Import/Export");
     			attr_dev(img17, "class", "svelte-igip78");
-    			add_location(img17, file$4, 529, 121, 23455);
+    			add_location(img17, file$4, 530, 121, 23667);
     			attr_dev(button21, "type", "button");
     			attr_dev(button21, "class", "inOutMenuButton svelte-igip78");
-    			add_location(button21, file$4, 529, 2, 23336);
+    			add_location(button21, file$4, 530, 2, 23548);
     			attr_dev(section2, "class", "sect3 svelte-igip78");
-    			add_location(section2, file$4, 522, 1, 22782);
-    			add_location(span4, file$4, 532, 62, 23630);
+    			add_location(section2, file$4, 523, 1, 22994);
+    			add_location(span4, file$4, 533, 62, 23842);
     			attr_dev(div13, "class", "copyConfirm svelte-igip78");
     			toggle_class(div13, "visible", /*copyConfirmVisible*/ ctx[3]);
-    			add_location(div13, file$4, 532, 2, 23570);
+    			add_location(div13, file$4, 533, 2, 23782);
     			attr_dev(section3, "class", "sect4 svelte-igip78");
-    			add_location(section3, file$4, 531, 1, 23543);
+    			add_location(section3, file$4, 532, 1, 23755);
     			attr_dev(div14, "class", "MHContainer svelte-igip78");
     			add_location(div14, file$4, 307, 0, 11814);
     		},
@@ -103881,33 +103953,33 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(window, "keyup", /*dynamicSearch*/ ctx[21], false, false, false),
-    					listen_dev(input, "input", /*input_input_handler*/ ctx[24]),
-    					listen_dev(input, "keyup", /*updateSearch*/ ctx[11], false, false, false),
-    					listen_dev(input, "search", /*updateSearch*/ ctx[11], false, false, false),
-    					listen_dev(button0, "click", /*click_handler*/ ctx[25], false, false, false),
-    					listen_dev(button1, "click", /*click_handler_1*/ ctx[26], false, false, false),
-    					listen_dev(button2, "click", /*click_handler_2*/ ctx[27], false, false, false),
-    					listen_dev(button3, "click", /*click_handler_3*/ ctx[28], false, false, false),
-    					listen_dev(button4, "click", /*click_handler_4*/ ctx[29], false, false, false),
-    					listen_dev(button5, "click", /*click_handler_5*/ ctx[30], false, false, false),
-    					listen_dev(button6, "click", /*click_handler_6*/ ctx[31], false, false, false),
-    					listen_dev(button7, "click", /*click_handler_7*/ ctx[32], false, false, false),
-    					listen_dev(button8, "click", /*click_handler_8*/ ctx[33], false, false, false),
-    					listen_dev(button9, "click", /*click_handler_9*/ ctx[34], false, false, false),
-    					listen_dev(button10, "click", /*click_handler_10*/ ctx[35], false, false, false),
-    					listen_dev(button11, "click", /*click_handler_11*/ ctx[36], false, false, false),
-    					listen_dev(button12, "click", /*click_handler_12*/ ctx[37], false, false, false),
-    					listen_dev(button13, "click", /*click_handler_13*/ ctx[38], false, false, false),
-    					listen_dev(button14, "click", /*click_handler_14*/ ctx[39], false, false, false),
-    					listen_dev(button15, "click", /*click_handler_15*/ ctx[40], false, false, false),
-    					listen_dev(button16, "click", /*click_handler_16*/ ctx[41], false, false, false),
-    					listen_dev(button17, "click", /*click_handler_17*/ ctx[42], false, false, false),
-    					listen_dev(button18, "click", /*click_handler_18*/ ctx[43], false, false, false),
-    					listen_dev(button19, "click", /*handleExportData*/ ctx[20], false, false, false),
-    					listen_dev(button20, "click", /*handleImportData*/ ctx[19], false, false, false),
-    					listen_dev(button21, "click", /*click_handler_24*/ ctx[53], false, false, false),
-    					listen_dev(div14, "click", /*click_handler_25*/ ctx[54], false, false, false)
+    					listen_dev(window, "keyup", /*dynamicSearch*/ ctx[22], false, false, false),
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[25]),
+    					listen_dev(input, "keyup", /*updateSearch*/ ctx[12], false, false, false),
+    					listen_dev(input, "search", /*updateSearch*/ ctx[12], false, false, false),
+    					listen_dev(button0, "click", /*click_handler*/ ctx[26], false, false, false),
+    					listen_dev(button1, "click", /*click_handler_1*/ ctx[27], false, false, false),
+    					listen_dev(button2, "click", /*click_handler_2*/ ctx[28], false, false, false),
+    					listen_dev(button3, "click", /*click_handler_3*/ ctx[29], false, false, false),
+    					listen_dev(button4, "click", /*click_handler_4*/ ctx[30], false, false, false),
+    					listen_dev(button5, "click", /*click_handler_5*/ ctx[31], false, false, false),
+    					listen_dev(button6, "click", /*click_handler_6*/ ctx[32], false, false, false),
+    					listen_dev(button7, "click", /*click_handler_7*/ ctx[33], false, false, false),
+    					listen_dev(button8, "click", /*click_handler_8*/ ctx[34], false, false, false),
+    					listen_dev(button9, "click", /*click_handler_9*/ ctx[35], false, false, false),
+    					listen_dev(button10, "click", /*click_handler_10*/ ctx[36], false, false, false),
+    					listen_dev(button11, "click", /*click_handler_11*/ ctx[37], false, false, false),
+    					listen_dev(button12, "click", /*click_handler_12*/ ctx[38], false, false, false),
+    					listen_dev(button13, "click", /*click_handler_13*/ ctx[39], false, false, false),
+    					listen_dev(button14, "click", /*click_handler_14*/ ctx[40], false, false, false),
+    					listen_dev(button15, "click", /*click_handler_15*/ ctx[41], false, false, false),
+    					listen_dev(button16, "click", /*click_handler_16*/ ctx[42], false, false, false),
+    					listen_dev(button17, "click", /*click_handler_17*/ ctx[43], false, false, false),
+    					listen_dev(button18, "click", /*click_handler_18*/ ctx[44], false, false, false),
+    					listen_dev(button19, "click", /*handleExportData*/ ctx[21], false, false, false),
+    					listen_dev(button20, "click", /*handleImportData*/ ctx[20], false, false, false),
+    					listen_dev(button21, "click", /*click_handler_24*/ ctx[57], false, false, false),
+    					listen_dev(div14, "click", /*click_handler_25*/ ctx[58], false, false, false)
     				];
 
     				mounted = true;
@@ -104023,8 +104095,8 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if (dirty[0] & /*$AppData, dispatch, sections*/ 1537) {
-    				each_value_2 = /*sections*/ ctx[10];
+    			if (dirty[0] & /*$AppData, dispatch, sections*/ 3073) {
+    				each_value_2 = /*sections*/ ctx[11];
     				validate_each_argument(each_value_2);
     				let i;
 
@@ -104180,7 +104252,7 @@ var app = (function () {
     	validate_store(AppData$1, 'AppData');
     	component_subscribe($$self, AppData$1, $$value => $$invalidate(0, $AppData = $$value));
     	validate_store(HeroData, 'HeroData');
-    	component_subscribe($$self, HeroData, $$value => $$invalidate(56, $HeroData = $$value));
+    	component_subscribe($$self, HeroData, $$value => $$invalidate(9, $HeroData = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('MyHeroes', slots, []);
     	let { isMobile = false } = $$props;
@@ -104509,7 +104581,10 @@ var app = (function () {
     	const click_handler_21 = hero => handleHeroDetailClick(hero.id);
     	const func_2 = (hero, index) => handleAscChange(hero.id, index);
     	const func_3 = (hero, index) => handleSIChange(hero.id, index);
-    	const func_4 = (hero, index) => handleFurnChange(hero.id, index);
+    	const func_4 = (hero, e) => e.id === hero.id;
+    	const func_5 = (hero, e) => e.id === hero.id;
+    	const func_6 = (hero, e) => e.id === hero.id;
+    	const func_7 = (hero, index) => handleFurnChange(hero.id, index);
 
     	const click_handler_23 = (hero, e) => {
     		handleHeroClaim(hero.id);
@@ -104524,7 +104599,7 @@ var app = (function () {
     	const click_handler_25 = () => $$invalidate(2, openInOutMenu = false);
 
     	$$self.$$set = $$props => {
-    		if ('isMobile' in $$props) $$invalidate(23, isMobile = $$props.isMobile);
+    		if ('isMobile' in $$props) $$invalidate(24, isMobile = $$props.isMobile);
     	};
 
     	$$self.$capture_state = () => ({
@@ -104578,11 +104653,11 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('isMobile' in $$props) $$invalidate(23, isMobile = $$props.isMobile);
+    		if ('isMobile' in $$props) $$invalidate(24, isMobile = $$props.isMobile);
     		if ('openFilters' in $$props) $$invalidate(1, openFilters = $$props.openFilters);
     		if ('openInOutMenu' in $$props) $$invalidate(2, openInOutMenu = $$props.openInOutMenu);
     		if ('copyConfirmVisible' in $$props) $$invalidate(3, copyConfirmVisible = $$props.copyConfirmVisible);
-    		if ('sections' in $$props) $$invalidate(10, sections = $$props.sections);
+    		if ('sections' in $$props) $$invalidate(11, sections = $$props.sections);
     		if ('modalHeight' in $$props) modalHeight = $$props.modalHeight;
     		if ('unownedHeroList' in $$props) $$invalidate(4, unownedHeroList = $$props.unownedHeroList);
     		if ('myHeroList' in $$props) $$invalidate(5, myHeroList = $$props.myHeroList);
@@ -104616,7 +104691,7 @@ var app = (function () {
     			$$invalidate(6, allClassEnabled = $AppData.MH.ShowMage && $AppData.MH.ShowWar && $AppData.MH.ShowTank && $AppData.MH.ShowSup && $AppData.MH.ShowRan);
     		}
 
-    		if ($$self.$$.dirty[0] & /*isMobile*/ 8388608) {
+    		if ($$self.$$.dirty[0] & /*isMobile*/ 16777216) {
     			modalHeight = isMobile ? '75vh' : '80vh';
     		}
     	};
@@ -104631,6 +104706,7 @@ var app = (function () {
     		allClassEnabled,
     		allTypesEnabled,
     		allFactionsEnabled,
+    		$HeroData,
     		dispatch,
     		sections,
     		updateSearch,
@@ -104674,6 +104750,9 @@ var app = (function () {
     		func_2,
     		func_3,
     		func_4,
+    		func_5,
+    		func_6,
+    		func_7,
     		click_handler_23,
     		click_handler_24,
     		click_handler_25
@@ -104683,7 +104762,7 @@ var app = (function () {
     class MyHeroes extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$4, create_fragment$4, safe_not_equal, { isMobile: 23 }, null, [-1, -1, -1]);
+    		init(this, options, instance$4, create_fragment$4, safe_not_equal, { isMobile: 24 }, null, [-1, -1, -1]);
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
