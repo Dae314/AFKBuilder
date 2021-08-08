@@ -39,7 +39,7 @@
 	$: highlightComp = null;
 	$: searchSuggestions = makeSearchSuggestions();
 	$: editorWidth = isMobile ? '100%' : '75%';
-	$: editorHeight = isMobile ? '75vh' : '80vh';
+	$: editorHeight = isMobile ? '70vh' : '80vh';
 
 	let openDetail = false;
 	let openDesc = true;

@@ -100410,7 +100410,7 @@ var app = (function () {
     		}
 
     		if ($$self.$$.dirty[1] & /*isMobile*/ 4) {
-    			editorHeight = isMobile ? '75vh' : '80vh';
+    			editorHeight = isMobile ? '70vh' : '80vh';
     		}
     	};
 
