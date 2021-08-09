@@ -19962,7 +19962,7 @@ var app = (function () {
     			{
     				name: 'Last Gasp',
     				image: './img/skills/brutus4.png',
-    				desc: 'When Brutus is dealt a fatal blow he is able to retain <em>1</em> health point and is immune to all subsequent damage for <em>7</em> seconds. Ability can only be used once.',
+    				desc: 'When Brutus is dealt a fatal blow he is able to retain <em>1</em> health point and is immune to all subsequent damage for <em>4</em> seconds. Ability can only be used once.',
     				unlock: 61,
     				upgrades: [
     					{ desc: 'Brutus is immune to damage for <em>7</em> seconds.',
