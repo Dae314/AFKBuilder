@@ -18357,9 +18357,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Raises all allies\' Attack Ratings by <em>7%</em> and Defense Ratings by <em>14%</em> for every non-summoned enemy that falls in combat while Estrilda is alive, up until the end of the battle. This ability may be stacked up to <em>3</em> times.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'All of Estrilda\'s allies will recover <em>60</em> Energy points for every non-summoned enemy that she defeats in battle while she is alive.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -18370,12 +18372,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>210%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'For every enemy that Estrilda successfully hits, she will receive a shield that is able to mitigate <em>70%</em> damage.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>220%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -18386,9 +18391,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Estrilda and her allies recover <em>100</em> Energy.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Energy restored increased by up to <em>150</em> points.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -18399,9 +18406,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'AoE damage is raised to <em>70%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'AoE damage is raised to <em>80%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -18452,9 +18461,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increases for every successive hit that lands.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Hits enemies up to <em>5</em> times.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -18466,12 +18477,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>180%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Reduces the Accuracy of all enemy targets that take damage.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>210%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -18483,9 +18497,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Every time Belinda inflicts a critical strike on an enemy, will cause subsequent damage they receive to be increased by <em>3%</em>. Ability can be stacked <em>8</em> times.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Crit Rating is raised to <em>18%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -18497,9 +18513,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Belinda blesses <em>2</em> allies with the highest Attack Rating.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Attack Rating increased <em>20%</em> and Crit Rating increased <em>20%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -18550,9 +18568,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Bounty Mark exist for <em>12</em> seconds and the damage received by marked enemies is increased to <em>20%</em>. When a marked enemy is slain, their killer\'s Crit Rating is increased by <em>100%</em> for <em>10</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Bounty Mark\'s duration increased to <em>16</em> seconds.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -18564,12 +18584,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'The final attack against the enemy with the lowest health deals extra damage that is equal to <em>15%</em> of the health which they have already lost but shall not exceed <em>360%</em> of Raine\'s Attack Rating.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'The final attack against the enemy with the highest Attack Rating knocks them down and stuns them for <em>1</em> second.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage dealt to lowest health enemy is increased to <em>70%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -18581,9 +18604,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Allied heroes that deal damage to the marked enemy target shall receive a one-time heal from Raine, that is equal to <em>40%</em> of her Attack Rating. Ability may only heal each allied hero once every <em>5</em> seconds.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Attack speed is increased by <em>30</em> points, Crit Rating is increased by <em>30%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -18595,9 +18620,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Increases allies\' damage by up to <em>15%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Raine\'s allies damage can be raised up to <em>30%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -18648,9 +18675,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Raises the Attack Rating of the ally being followed by <em>40%</em> for <em>4</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Raises the Attack Rating of the ally being followed by <em>60%</em> for <em>4</em> seconds.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -18662,12 +18691,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Increases the quantity of crockery up to <em>3</em> pieces.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Rosaline now throws an additional fork that deals additional damage equal to <em>20%</em> of the target\'s current health.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Rosaline now throws an additional saucer that causes all damage that the target receives to be increased by <em>40%</em> for <em>4</em> seconds.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -18679,9 +18711,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'The effects of this ability are increased by <em>25%</em> each time it is successfully used, up until it reaches <em>150%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Health Recovery increased by up to <em>170%</em> of Attack Rating.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -18693,9 +18727,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>100%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>120%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -18746,9 +18782,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Shield lasts for <em>10</em> seconds. Shield is able to restore allies\' health over time.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Value of shield is increased to <em>550%</em> of Attack Rating value.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -18760,12 +18798,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>150%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is reduced by <em>20%</em> for every enemy that is knocked over. Ability lasts for <em>8</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>160%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -18777,9 +18818,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Health Recovery Rate is increased by up to <em>75%</em> the lower an ally\'s health falls.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Health recovery increased by up to <em>220%</em> of Attack Rating.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -18791,9 +18834,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Lucius recovers <em>200%</em> more Energy when attacked while using Blessed Shield.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage received while using Blessed Shield is reduced by <em>75%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -18844,9 +18889,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Number of attacks are increased once for every critical strike landed until the amount of attack reach a total of <em>8</em> attacks.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Basic attack an be dealt up to <em>9</em> times.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -18858,12 +18905,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Uses a defensive shield which can offset up to <em>70%</em> damage after the ability is used.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>130%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>140%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -18875,9 +18925,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Final attack damage increased to <em>90%</em> damage.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Additional damage dealt equals <em>18%</em> of the target\'s max HP.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -18889,9 +18941,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'For each successful critical strike, Thane recovers <em>6%</em> of the HP that has already been lost and also regains <em>25</em> Energy points.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Thane raises his own Crit Rating by <em>17%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -18942,9 +18996,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Removes majority of de-buffs from allied heroes.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>140%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -18956,12 +19012,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemy\'s attack speed reduced by <em>45%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Enemy\'s Energy regeneration reduced by <em>60%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Effects are increased to <em>7.5</em> seconds.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -18973,9 +19032,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Duration is extended up to <em>8</em> seconds.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Duration is extended up to <em>9</em> seconds.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -18987,9 +19048,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Restores <em>40</em> Energy per hit.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Normal Attack damage increased to <em>30%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -19040,9 +19103,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>160%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>180%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -19054,12 +19119,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>150%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Enemy\'s damage is reduced by <em>40%</em> for <em>5</em> seconds after stun effect wears off.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>180%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -19071,9 +19139,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage taken while protecting teammate is reduced by <em>40%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage taken while protecting teammate is reduced by <em>60%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -19085,9 +19155,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Ability lasts for a total of <em>13</em> seconds.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Ability restores <em>7%</em> of max health per second.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -19138,9 +19210,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Allies recover <em>60</em> Energy points.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Allies recover <em>70</em> Energy points.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -19152,12 +19226,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>70%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Steals <em>120</em> Energy points.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>80%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -19169,9 +19246,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'After all health potions have been consumed, Rowan will call in for more supplies.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Restores <em>40%</em> of max health.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -19183,9 +19262,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Rowan recovers <em>20</em> Energy per second.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Energy lost when using ability reduced to <em>50</em> Energy points.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -19236,9 +19317,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>240%</em>, Enemy\'s Accuracy is reduced by <em>120</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>270%</em>, Enemy\'s Accuracy is reduced by <em>150</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -19250,12 +19333,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemy\'s health recovery is reduced by <em>30%</em> while burning.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Normal Attacks have a <em>70%</em> chance to become flaming arrows, burning effect deals <em>60%</em> damage per second.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Enemy\'s health recovery is reduced by <em>50%</em> while burning.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -19267,9 +19353,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Normal Attacks have a <em>70%</em> to become lightning arrows.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Stuns target enemy and any enemies hit by lightning.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -19281,9 +19369,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Accuracy is raised by <em>120</em> and Critical Strike damage is raised by <em>25%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Accuracy is raised by <em>160</em> and Critical Strike damage is raised to <em>30%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -19334,9 +19424,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Explosion damage is increased to <em>250%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Explosion damage is increased to <em>300%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -19348,12 +19440,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>150%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Enemies\' Accuracy is reduced for <em>7</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>180%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -19365,9 +19460,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is reduced by <em>30%</em> each time ability is stacked.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Crit Rating is increased by <em>30%</em> each time ability is stacked.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -19379,9 +19476,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Rigby\'s Health Recovery Rate is Increased by <em>50%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Rigby\'s Health Recovery Rate is increased by <em>80%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -19432,9 +19531,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>300%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>320%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -19446,12 +19547,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Ability\'s cooldown time is ignored every time a Normal Attack produces a critical strike.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage of each attack is raised to <em>80%</em> damage per attack.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage of each attack is raised to <em>90%</em> damage per attack.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -19463,9 +19567,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemies that kill an allied hero are marked with <em>3</em> "Symbols of Sin".',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage of each attack is raised to <em>100%</em> damage per attack.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -19477,9 +19583,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>240%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>260%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -19530,9 +19638,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Duration is extended up to <em>13</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Duration is extended up to <em>15</em> seconds.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -19544,12 +19654,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>220%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Ability causes enemy to become stunned for <em>2</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>260%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -19561,9 +19674,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>240%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>270%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -19575,9 +19690,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Crit Rating is increased by <em>35</em> points.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Dodge Rating is increased by <em>135</em> points.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -19628,9 +19745,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Divine Shield\'s value is equal to <em>220%</em> of Eluard\'s max health.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Divine Shield\'s value is equal to <em>260%</em> of Eluard\'s max health.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -19642,12 +19761,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage received when Eluard is not protected by his Divine Shield is equal to <em>300%</em> of the initial damage.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage received when Eluard is not protected by his Divine Shield is equal to <em>250%</em> of the initial damage.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Duration Eluard is stunned for after his Divine Shield breaks is reduced to <em>5</em> seconds.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -19659,9 +19781,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage immunity effect lasts for <em>3</em> seconds even after the recitation ends or is interrupted.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Most debuffs affecting the target ally are removed when Eluard begins his recitation.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -19673,9 +19797,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Deals <em>260%</em> damage after recitation ends.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Enemies that slay allied heroes will be dealt <em>80%</em> more damage for each that they slay.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -19726,9 +19852,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Guard possesses <em>100%</em> of Peggy\'s attributes.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Guard possesses <em>120%</em> of Peggy\'s attributes.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -19740,12 +19868,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Amount of health recovered is equal to <em>250%</em> of Peggy\'s Attack Rating.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Amount of health recovered is equal to <em>280%</em> of Peggy\'s Attack Rating.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Peggy\'s scroll is able to heal <em>2</em> allied heroes.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -19757,9 +19888,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Peggy\'s guard uses his weapon to attack an enemy in front of him for <em>180%</em> damage and then uses his shield to bash them into the air, stunning them for <em>2.5</em> seconds, dealing a further <em>230%</em> damage to the target.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Peggy\'s guard uses his weapon to attack an enemy in front of him for <em>230%</em> damage and then uses his shield to bash them into the air, stunning them for <em>3.1</em> seconds, dealing a further <em>280%</em> damage to the target.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -19771,9 +19904,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Each Marksman\'s damage is increased by <em>80%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Each Marksman\'s damage is increased by <em>90%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -19824,9 +19959,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'The chance for a shotgun shell to deal a Critical Strike is additionally increased by <em>30%</em> while the Ultimate ability is active.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Additional damage dealt by pellets is additionally increased by <em>25%</em> while the Ultimate ability is active.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -19838,12 +19975,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'The damage dealt by smacking an enemy with the shotgun is increased to <em>160%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'The damage dealt by smacking an enemy with the shotgun is increased to <em>180%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'When an enemy is knocked down and shot, they are fatally injured, reducing the damage they deal by <em>40%</em> for <em>6</em> seconds.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -19855,9 +19995,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Number of enemies that can be targeted is increased up to <em>3</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Every time an enemy is killed by this ability, Walker receives a shield that has a value equal to <em>40%</em> of his own health, which lasts for <em>8</em> seconds.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -19869,9 +20011,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Crit Amplification is increased to additional <em>2.5</em> points.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Crit Amplification is increased to additional <em>3</em> points.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -19922,9 +20066,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Brutus is immune to Magic Damage while spinning.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: '<em>35%</em> of total damage dealt is converted into health.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -19936,12 +20082,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Physical Damage received by enemies is increased by up to <em>30%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Physical Damage received by enemies is increased by up to <em>40%</em> and attacks cannot be dodged.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Physical Damage received by enemies is increased by up to <em>50%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -19953,9 +20102,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Brutus\' Haste can be increased by up to <em>25%</em> when his health is low.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Attack Rating increased by up to <em>100%</em> and Haste increased by up to <em>25%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -19967,9 +20118,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Brutus is immune to damage for <em>7</em> seconds.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Brutus is immune to damage for <em>8</em> seconds.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -20020,9 +20173,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>240%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>260%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -20034,12 +20189,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Increases Defense Rating by <em>25%</em>. Increases Attack Rating by <em>12%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Increases Defense Rating by <em>35%</em>. Increases Attack Rating by <em>16%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Increases Defense Rating by <em>45%</em>. Increases Attack Rating by <em>20%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -20051,9 +20209,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased by up to <em>145%</em>. Recovers a small amount of Energy if the war axe is caught by Khasos.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>160%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -20065,9 +20225,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Raises life-leech attributes of Mauler heroes by an additional <em>10</em> points.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Increases life-leech attributes of all allies by <em>18</em> points.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -20118,9 +20280,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>110%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>120%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -20132,12 +20296,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>170%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'When this ability deals damage against enemies that are poisoned as a result of Vurk\'s "Poison Vial" ability, Vurk\'s Attack Speed will be increased by <em>60</em> for <em>3</em> seconds. This ability cannot be stacked.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'For every poisoned enemy that this ability deals damage against, Vurk shall recover an additional <em>40</em> Energy.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -20149,9 +20316,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Poisoned enemies lose health equal to <em>60%</em> of Vurk\'s Attack Rating per second.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Poisoned enemies lose health equal to <em>70%</em> of Vurk\'s Attack Rating per second.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -20163,9 +20332,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemies are stunned for <em>4</em> seconds.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Enemies are stunned for <em>5</em> seconds.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -20216,9 +20387,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Recovery effects are increased to <em>440%</em> of Attack Rating.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Recovery effects are increased to <em>480%</em> of Attack Rating.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -20230,12 +20403,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Heals <em>110%</em> of total Attack Rating value.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Heals <em>120%</em> of total Attack Rating value.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Heals <em>130%</em> of total Attack Rating value.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -20247,9 +20423,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Offensive Totem heals itself for <em>10%</em> health per second.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>150%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -20261,9 +20439,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Haste increased to <em>50</em>, Normal Attack speed increased to <em>30%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Effects are increased to <em>12</em> seconds.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -20314,9 +20494,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>80%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage received is reduced by <em>80%</em> when using this ability.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -20328,12 +20510,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is raised by up to <em>180%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Thrown enemy receives <em>30%</em> more damage for <em>10</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Thrown enemy receives <em>80%</em> more damage for <em>10</em> seconds.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -20345,9 +20530,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'After removing all negative effects, Warek forms a shield around himself that mitigates <em>250%</em> of the damage inflicted upon him.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Shield\'s damage mitigation effect is strengthened by <em>350%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -20359,9 +20546,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Warek regenerates Energy over time once ability is fully stacked and his Life Leech attributes are greatly increased.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage is raised up to <em>4%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -20412,9 +20601,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Energy expediture reduced to <em>60</em> per second.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased to <em>50%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -20426,12 +20617,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Skreg beats his drum and rides his iron-jaw into nearby enemies, dealing <em>110%</em> damage multiple times to hem, also causing them to be knocked back.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>150%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>160%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -20443,9 +20637,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage reduction is increased by up to <em>50%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage reduction is increased by up to <em>60%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -20457,9 +20653,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>165%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>180%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -20510,9 +20708,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Maximum orb damage raised to <em>600%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Maximum orb damage raised to <em>660%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -20524,12 +20724,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>190%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Splits into <em>3</em> orbs on impact.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>210%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -20541,9 +20744,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>80%</em> per second.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>90%</em> per second.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -20555,9 +20760,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased to <em>20%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased to <em>24%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -20608,9 +20815,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>220%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>240%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -20622,12 +20831,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>130%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: '<em>25%</em> of damage is converted into health.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>140%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -20639,9 +20851,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Fireseeds cause the enemy to be stunned for <em>2.5</em> seconds after they explode.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Fireseed explosion damage is increased to <em>330%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -20653,9 +20867,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Burning enemies lose a value of health equal to <em>39%</em> of Satrana\'s Attack Rating.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Burning enemies lose a value of health equal to <em>43%</em> of Satrana\'s Attack Rating.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -20706,9 +20922,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Final attack deals <em>220%</em> damage.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Final attack deals <em>250%</em> damage.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -20720,12 +20938,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemy is marked for <em>5</em> seconds.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Enemy is marked for <em>6</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Enemy is marked for <em>7</em> seconds.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -20737,9 +20958,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>210%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>240%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -20751,9 +20974,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>210%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>240%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -20804,9 +21029,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Final pounce deals <em>200%</em> damage.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Final pounce deals <em>220%</em> damage.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -20818,12 +21045,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage of each attack is raised to <em>70%</em> damage per attack.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Blood loss lasts for <em>12</em> seconds when moving.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage of each attack is raised to <em>80%</em> damage per attack.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -20835,9 +21065,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Attack Rating is increased up to <em>30%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Nearby allies also receive a movement speed and Attack Rating increase.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -20849,9 +21081,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Life Leech level is raised by <em>40</em> while pursuing a weakened enemy.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Attack Rating is increased up to <em>50%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -20902,9 +21136,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>75%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>80%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -20916,12 +21152,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>170%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>180%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>185%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -20933,9 +21172,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Skriath deals <em>20%</em> more damage to enemies that are standing within the sandstorm.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Duration is extended up to <em>15</em> seconds.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -20947,9 +21188,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Max limit of Crit Rating is increased to <em>20</em> points.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Raises Crit Rating by <em>0.8</em> points per second.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -21000,9 +21243,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemies suffer <em>140%</em> damage when thrown into the air.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Enemies suffer <em>160%</em> damage when thrown into the air.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -21014,12 +21259,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Final stomp deals <em>130%</em> damage to enemies.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Final stomp causes enemies to lose <em>25</em> Haste points for <em>5</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Final stomp deals <em>140%</em> damage to enemies.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -21031,9 +21279,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Attack Rating is raised by <em>9%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Attack Rating is raised by <em>10%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -21045,9 +21295,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Shield\'s value is equal to <em>25%</em> of Anoki\'s max health.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Shield\'s value is equal to <em>30%</em> of Anoki\'s max health.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -21098,9 +21350,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'If the target dies during this time, <em>400</em> Energy is restored.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'If the target dies during this time, <em>700</em> Energy is restored.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -21112,12 +21366,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>230%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>240%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>250%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -21129,9 +21386,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'After returning to the battlefield, Drez\'s Attack Rating is increased by <em>25%</em> and his Life Leech is increased by <em>40</em> points for <em>15</em> seconds.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'After returning to the battlefield, Drez\'s Attack Rating is increased by <em>40%</em> and his Life Leech is increased by <em>40</em> points for <em>15</em> seconds.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -21143,9 +21402,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Drez\'s Crit Amplification is increased by <em>45</em> points and his Attack Speed is increased by <em>15</em> points. During the use of his ultimate ability "Deadly Ambush", Drez receives an additional <em>30</em> Attack Speed points.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Drez\'s Crit Amplification is increased by <em>50</em> points and his Attack Speed is increased by <em>20</em> points. During the use of his ultimate ability "Deadly Ambush", Drez receives an additional <em>30</em> Attack Speed points.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -21196,9 +21457,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>200%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>220%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -21210,12 +21473,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Crit Rating is increased by <em>30</em> points.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Crit Rating is increased by <em>35</em> points.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Crit Rating is increased by <em>40</em> points.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -21227,9 +21493,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>340%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Each landmine that explodes increases Kren\'s Attack Rating by <em>15%</em> up until the end of battle. This ability can be stacked <em>3</em> times.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -21241,9 +21509,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>270%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>300%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -21294,9 +21564,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Frenzy lasts for <em>14</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Attack Rating is increased by <em>40%</em>, Haste is increased by <em>60</em> points.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -21308,12 +21580,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>240%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Attack Rating is increased to <em>300%</em> while in a frenzy.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Deals <em>1.5</em> times the value of sacrificed health as damage.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -21325,9 +21600,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>180%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>190%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -21339,9 +21616,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'While Thali is in a frenzy, the ability will ignore the proportion of current health and will always be at its most powerful state.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Thali may receive a maximum increase of <em>60%</em> Damage Reduction and <em>40</em> Life Leech Points.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -21392,9 +21671,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Allies with health lower than <em>20%</em> regenerate health <em>30%</em> faster.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Increases the Defense Rating of allies by <em>15%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -21406,12 +21687,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>110%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Entranced enemies now use all abilities excluding their ultimate abilities to attack.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Entranced enemy\'s Attack Rating increased by <em>30%</em> while entranced.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -21423,9 +21707,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: '<em>50%</em> of the overflowing health that exceeds a hero\'s maximum health is converted into a protective shield.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Health regeneration increased by <em>20%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -21437,9 +21723,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Gradually restores a total of <em>150</em> Energy points to her ally.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Total amount of health restored increased to <em>40%</em> of maximum health.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -21490,9 +21778,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Targets the enemy with the lowest health.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Attack Rating is permanently increased by <em>20%</em> for the remainder of the battle if this ability kills an enemy target.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -21504,12 +21794,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>110%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased by up to <em>120%</em>. Dodge Rating is increased by <em>60</em> points while striking enemy.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>130%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -21521,9 +21814,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Dodges enemy attacks once every <em>8</em> seconds and throws a dart back at the enemy, causing <em>200%</em> damage to them.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Dart damage deals up to <em>220%</em> damage.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -21535,9 +21830,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Recovers <em>25</em> Energy points for every successful dodge.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Dodge rating is increased by <em>100</em> points.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -21588,9 +21885,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>240%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>260%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -21602,12 +21901,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>130%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: '<em>35%</em> of damage is converted into health.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: '<em>45%</em> of damage is converted tinto health.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -21619,9 +21921,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Regenerates <em>70</em> Energy points for Lyca and her allies.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Energy restored increased by up to <em>100</em> points.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -21633,9 +21937,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Defense Rating is decreased by <em>20%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Defense Rating is decreased by <em>25%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -21686,9 +21992,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Energy required to strengthen Normal Attack is reduced to <em>30%</em> of max Energy.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Attack Rating is raised by <em>50%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -21700,12 +22008,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>125%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>130%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>135%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -21717,9 +22028,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Shield restores <em>4%</em> of lost HP per second while active.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Value of shield is increased to <em>220%</em> of Attack Rating value.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -21731,9 +22044,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Weakest ally also receives this ability\'s effects.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Restores <em>5%</em> of lost HP per second.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -21784,9 +22099,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Taunt duration is increased to <em>6</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Proportion of damage deflected is increased to <em>90%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -21798,12 +22115,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Stun duration increased is to <em>2.5</em> seconds.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>190%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>210%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -21815,9 +22135,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Hammer is charged up every <em>6</em> seconds.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Stun duration increased is to <em>3</em> seconds.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -21829,9 +22151,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Shield duration increased to <em>8</em> seconds.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Shield equals <em>50%</em> of Gorvo\'s max health.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -21882,9 +22206,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Ice tornado lasts for <em>7</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>300%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -21896,12 +22222,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Ice blade damage increased to <em>160%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Wind blade damage is increased to <em>220%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Ice blade damage increased to <em>170%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -21913,9 +22242,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>150%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is inceased to <em>160%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -21927,9 +22258,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: '<em>50%</em> chance to ignore enemy Defense Ratings.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Increases Attack Rating by <em>20%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -21980,9 +22313,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Duration is extended up to <em>5</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage dealt after waking is increased to <em>30%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -21994,12 +22329,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage and healing values are raised by up to <em>60%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Effects are increased to <em>13</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage and healing values are raised by up to <em>65%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -22011,9 +22349,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Steals <em>40%</em> of the target\'s Attack Rating while they are banished.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Duration is extended up to <em>6</em> seconds.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -22025,9 +22365,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Cooldown time is reduced each time Tasi is struck.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>170%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -22078,9 +22420,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>75%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>80%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -22092,12 +22436,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>130%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Targets <em>3</em> nearest enemies.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>140%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -22109,9 +22456,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage of Normal Attacks raised up to <em>200%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage of Normal Attack raised up to <em>220%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -22123,9 +22472,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage less than <em>9%</em> of Seirus\' maximum health is reduced.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage less than <em>10%</em> of Seirus\' maximum health is reduced.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -22176,9 +22527,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Final explosion causes nearby enemies to lose <em>50%</em> of their Energy.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Final explosion damage is increased up to <em>250%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -22190,12 +22543,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>220%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Stuns a marked enemy for <em>1.5</em> seconds within <em>4</em> seconds of an allied hero using their ultimate ability against the marked enemy.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>270%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -22207,9 +22563,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'If a linked enemy dies, the other surviving linked enemy will be stunned for <em>5</em> seconds.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Transferred damage received by linked enemies is increased up to <em>120%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -22221,9 +22579,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Allies currently protected by the shield will have their dodge increased by <em>90</em> points. If the ally being protected is a Wilder hero, the shield\'s value will be increased a further <em>20%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Value of shield is increased to <em>300%</em> of Attack Rating value.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -22274,9 +22634,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>330%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>380%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -22288,12 +22650,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>215%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Stun effect lasts for up to <em>3</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>230%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -22305,9 +22670,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'When an enemy attacks the Floral Specter, it will deflect <em>50%</em> of the damage it receives back onto the enemy.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'When an enemy attacks the Floral Specter, it will deflect <em>80%</em> of the damage it receives back onto the enemy.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -22319,9 +22686,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Blessing effects persist while "Blossom Fall" is occurring on the battlefield.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Allies using this blessing will receive <em>25%</em> less damage.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -22372,9 +22741,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enabling phase form creates a shield around Saurus that is able to mitigate <em>500%</em> of the damage he receives, which persists until the phased version of Saurus disappears.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Enabling phase form creates a shield around Saurus that is able to mitigate <em>700%</em> of the damage he receives, which persists until the phased version of Saurus disappears.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -22386,12 +22757,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'AoE damage is raised to <em>180%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Stun effect lasts for up to <em>3</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'AoE damage is raised to <em>200%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -22403,9 +22777,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Each attack deals additional damage that is equal to <em>6%</em> of the target\'s current health.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>110%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -22417,9 +22793,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'All of Saurus\' allies receive a Defense and Attack Rating increase that is worth <em>80%</em> of Saurus\' own increased Attack and Defense Ratings.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'All of Saurus\' allies receive a Defense and Attack Rating increase that is worth <em>100%</em> of Saurus\' own increased Attack and Defense Ratings.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -22470,9 +22848,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Imitates level <em>2</em> effects of either Nemora\'s, Arden\'s or Tasi\'s Ultimate ability.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Imitates level <em>3</em> effects of either Nemora\'s, Arden\'s or Tasi\'s Ultimate ability.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -22484,12 +22864,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Pippa has a <em>25%</em> chance to fire a yellow magic orb that deals damage and simultaneously reduces its target\'s Energy points by <em>70</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Pippa has a <em>25%</em> chance to fire a blue magic orb that deals damage and simultaneously reduces its target\'s Haste by <em>60</em> points for <em>4</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Pippa has a <em>25%</em> chance to fire a green magic orb that deals damage to its target, of which <em>100%</em> of the damage is converted into Pippa\'s health.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -22501,9 +22884,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Pippa gains <em>100</em> Dodge points while she is in a transformed state.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Pippa gains <em>200</em> Dodge points while she is in a transformed state.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -22515,9 +22900,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Pippa cannot fail to cast this ability when she is positioned at the center of the backline.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Any enemies within range are stunned for <em>4</em> seconds.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -22568,9 +22955,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage dealt by manifested Wind Swallows is increased to <em>120%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage dealt by manifested Wind Swallows is increased to <em>150%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -22582,12 +22971,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>250%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Enemies that are encircled by a Wind Swallow have their Accuracy reduced by <em>80</em> points and Haste reduced by <em>25</em> points.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>280%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -22599,9 +22991,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>260%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>280%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -22613,9 +23007,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Shield\'s value is equal to <em>20%</em> of Respen\'s max health.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Shield\'s value is equal to <em>22%</em> of Respen\'s max health.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -22666,9 +23062,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Additional damage dealt is equal to <em>60%</em> of the health already lost by the enemy target.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Additional damage dealt is equal to <em>65%</em> of the health already lost by the enemy target.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -22680,12 +23078,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>240%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>260%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>280%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -22697,9 +23098,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Raku\'s Attack Rating is raised by <em>40%</em> and Haste is raised by <em>40</em> points while the ability is active.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Raku\'s Attack Rating is raised by <em>50%</em> and Haste is raised by <em>50</em> points while the ability is active.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -22711,9 +23114,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage dealt to any enemies under the effects of a control ability is increased by <em>40%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage dealt to any enemies under the effects of a control ability is increased by <em>45%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -22764,9 +23169,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased up to <em>140%</em>. Skeletal warrior can now use its own special abilities.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased by up to <em>150%</em>. Summons <em>2</em> Skeletal warriors.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -22778,12 +23185,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>90%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'While stealing the enemy\'s power, Grezhul\'s Attack Rating is increased by a value equal to <em>75%</em> of the enemy\'s Attack Rating. While calculating the value of the Attack Rating increase, its value will change in real-time according to the enemy\'s Attack Rating value, and any Attack Rating debuffs that the enemy suffers will be temporarily ignored.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>100%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -22795,9 +23205,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Shield\'s armor increased by up to <em>200%</em> and damage is increased by up to <em>150%</em>. Reduces enemies\' Energy by <em>100</em> Energy points.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased by up to <em>200%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -22809,9 +23221,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'During battles, damage dealt to allied Graveborn heroes from Intelligence-based enemies is reduced by an additional <em>15%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'During battles, damage dealt to all allied heroes from Intelligence-based enemies is reduced by <em>20%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -22862,9 +23276,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased by up to <em>80%</em>. <em>100%</em> of the ability\'s total damage is converted into health.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased by up to <em>90%</em>. Restores <em>25%</em> health when dealing damage and gradually restores health after the ability has finished.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -22876,12 +23292,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased up to <em>50%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased by up to <em>55%</em> and gradually increases over time.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>60%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -22893,9 +23312,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased by up to <em>130%</em>. The time the enemy is prevented from attacking is extended (time extension based on Shemira\'s HP).',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>150%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -22907,9 +23328,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Crit Rating increases up to an additional <em>30%</em> (based on Shemira\'s HP).',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased by up to <em>40%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -22960,9 +23383,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemies cannot recover any Energy for <em>5</em> seconds after this ability is used against them.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Additional damage dealt to the enemy is increased to <em>1.5%</em> for every <em>1%</em> of Energy the enemy target has.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -22974,12 +23399,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased to <em>190%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Recovers an additional <em>50</em> Energy points for every enemy struck.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased to <em>200%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -22991,9 +23419,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased to <em>200%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased to <em>220%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -23005,9 +23435,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Oden\'s Attack Rating is increased by <em>10%</em> and his Casting Speed is increased by <em>10%</em> each time he opens another eye.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Oden\'s Attack Rating is increased by <em>15%</em> and his Casting Speed is increased by <em>15%</em> each time he opens another eye.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -23058,9 +23490,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is raised by up to <em>250%</em>. Isabella is immune to control abilities for <em>3</em> seconds while casting this spell.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Each orb cast increases the damage of the following orb by <em>20%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -23072,12 +23506,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>175%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is raised by <em>12%</em> each time incantation is successfully cast. Damage can be stacked by up to <em>3</em> times. If interrupted while casting, this ability\'s stacked damage will be nullified.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Base damage is raised by up to <em>190%</em>. Damage is raised by <em>15%</em> for each successful cast.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -23089,9 +23526,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'If Isabella finished casting her spell without being interrupted, she permanently steals <em>20</em> points of the enemy target\'s Crit Rating.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage taken by Isabella while spell-casting is reduced by <em>60%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -23103,9 +23542,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Casting speed is increased by <em>20%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Casting speed is further increased by <em>15%</em> for the first <em>10</em> seconds of battle.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -23156,9 +23597,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Spirits\' attack speeds are increased for <em>6</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>220%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -23170,12 +23613,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>170%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Any spirits which are summoned due to one of Ferael\'s abilities will deduct <em>15</em> of their target\'s Energy points per attack.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Any spirits which are summoned due to one of Ferael\'s abilities have a chance to interrupt their enemies\' attacks each time they attack them.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -23187,9 +23633,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Terrifies up to <em>3</em> enemies.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Stun effect lasts for up to <em>3</em> seconds.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -23201,9 +23649,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Any spirits which are summoned due to one of Ferael\'s abilities will remain on the battlefield for <em>3</em> seconds.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Any spirits which are summoned due to one of Ferael\'s abilities will remain on the battlefield for <em>5</em> seconds.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -23254,9 +23704,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>160%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Recovers <em>40%</em> of damage dealt to enemies as health.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -23268,12 +23720,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>140%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: '<em>80%</em> of damage is converted into health.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>160%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -23285,9 +23740,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'After being resurrected, nearby enemies are stunned for <em>3</em> seconds.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: '<em>75%</em> of max HP is restored.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -23299,9 +23756,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Duration is extended up to <em>25</em> seconds.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Cursed enemy loses health equal to <em>75%</em> of the damage Thoran receives.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -23352,9 +23811,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: '<em>70%</em> of final attack damage dealt is returned to Kelthur as health.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Final attack damage is increased up to <em>220%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -23366,12 +23827,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>170%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'After counter-attacking, Kelthur\'s Haste is increased by <em>60%</em> for <em>4</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Ability is activated every <em>8</em> seconds.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -23383,9 +23847,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage received by enemy is increased by <em>35%</em> for <em>10</em> seconds.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage received by enemy is increased by <em>50%</em> for <em>10</em> seconds.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -23397,9 +23863,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: '<em>40%</em> of Kelthur\'s health is restored while in spectral form when any non-summoned enemy is slain.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: '<em>60%</em> of Kelthur\'s health is restored while in spectral form when any non-summoned enemy is slain.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -23450,9 +23918,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Restores an additional <em>250</em> Energy if enemy target is slain. If a summoned entity is slain, the amount of additional Energy points that are recovered is increased to <em>700</em> points.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Activates a shield that can mitigate <em>350%</em> damage if enemy target is slain.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -23464,12 +23934,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Fifth attack deals additional damage equal to <em>25%</em> of the target\'s current health.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Fifth attack deals additional damage equal to <em>30%</em> of the target\'s current health.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Fifth attack deals additional damage equal to <em>35%</em> of the target\'s current health.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -23481,9 +23954,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'The targeted enemy bleeds after being impaled which causes <em>60%</em> damage per second for <em>8</em> seconds.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'The targeted enemy bleeds after being impaled which causes <em>65%</em> damage per second for <em>8</em> seconds.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -23495,9 +23970,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Energy lost by attackers is raised to <em>100</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Energy lost by attackers is raised to <em>110</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -23548,9 +24025,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Baden summons an additional phantom.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage dealt to the phantom is reduced to <em>130%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -23562,12 +24041,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>190%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Phantom\'s Attack Rating and health is increased to <em>80%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>200%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -23579,9 +24061,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'When Baden or his phantom use this ability damage dealt to enemies will be increased by <em>10%</em> for <em>7</em> seconds. This ability can be stacked up to <em>5</em> times.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>150%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -23593,9 +24077,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Attack Ratings of all phantoms are increased up to <em>4%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Attack Ratings of all phantoms are increased up to <em>5%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -23646,9 +24132,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Effects are increased to <em>15</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Effects are increased to <em>18</em> seconds.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -23660,12 +24148,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'A noxious explosion occurs every <em>6</em> seconds, dealing <em>190%</em> damage to nearby enemies, leaving them stunned for <em>3</em> seconds.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Explosive damage is raised to <em>270%</em> damage.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Explosive damage is raised to <em>340%</em> damage.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -23677,9 +24168,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Final attack damage increased to <em>270%</em> damage.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Final attack damage increased to <em>340%</em> damage.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -23691,9 +24184,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Restores <em>18%</em> of lost HP per second.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Restores <em>20%</em> of lost HP per second.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -23744,9 +24239,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Bone spikes protrude from the battlefield for <em>9</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Bone spikes protrude from the battlefield for <em>10</em> seconds.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -23758,12 +24255,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>290%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>320%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>350%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -23775,9 +24275,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>190%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>200%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -23789,9 +24291,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: '<em>35%</em> of max HP is restored.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: '<em>40%</em> of max HP is restored.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -23842,9 +24346,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: '"Blood Shield" now targets <em>3</em> enemies.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>300%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -23856,12 +24362,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Percentage of max health stolen from enemies is increased to <em>20%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Percentage of max health stolen from enemies is increased to <em>23%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Percentage of max health stolen from enemies is increased to <em>26%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -23873,9 +24382,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'After every <em>9</em> seconds, Stitchy converts <em>100%</em> of the damage he received during the previous <em>9</em> seconds into health for Daimon.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'After every <em>9</em> seconds, Stitchy converts <em>150%</em> of the damage he received during the previous <em>9</em> seconds into health for Daimon.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -23887,9 +24398,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage dealt to the enemy is increased to <em>280%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage dealt to the enemy is increased to <em>300%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -23940,9 +24453,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage dealt to enemies when Specters pass through them is increased to <em>170%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage dealt to enemies when Specters pass through them is increased to <em>190%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -23954,12 +24469,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage dealt to enemy is increased to <em>150%</em> after Theowyn has finished enshrouding them.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: '<em>100%</em> of the health which should have been recovered by the enemy target while enshrouded is transferred to Theowyn.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage dealt to enemy is increased to <em>170%</em> after Theowyn has finished enshrouding them.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -23971,9 +24489,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage dealt to enemies when Specters pass through them is increased to <em>150%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage dealt to enemies when Specters pass through them is increased to <em>170%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -23985,9 +24505,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Exceeding damage is reduced by <em>60%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Exceeding damage is reduced by <em>65%</em>.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -24038,9 +24560,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Duration is extended up to <em>9</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Duration is extended up to <em>10</em> seconds.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -24052,12 +24576,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Duration of healing over time effect is increased to <em>9</em> seconds.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Duration of healing over time effect is increased to <em>10</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Duration of healing over time effect is increased to <em>11</em> seconds.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -24069,9 +24596,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Reduces the Health Recovery Rate of enemies within the gas cloud by <em>35%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Gas cloud deals damage equal to <em>70%</em> of Silas\' Attack Rating per second to enemies.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -24083,9 +24612,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'The total amount of health that may be recovered is equal to <em>600%</em> of Silas\' Attack Rating.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'The total amount of health that may be recovered is equal to <em>700%</em> of Silas\' Attack Rating.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -24136,9 +24667,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'The value of health which allied heroes recover is equal to <em>150%</em> of Desira\'s Attack Rating. Health restoration value cannot exceed <em>375%</em> of Desira\'s Attack Rating.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Allies that trigger the restoring effect in advance are immune to damage and control effects for the following <em>2</em> seconds.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -24150,12 +24683,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>150%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>170%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Each "Mark of Hatred" reduces enemy targets\' Attack Rating by <em>12%</em> and Accuracy by <em>35</em> points.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -24167,9 +24703,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'The most injured ally gradually restores <em>24%</em> of Desira\'s max health.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'The most injured ally immediately recovers <em>1.75</em> times the amount of remaining health.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -24181,9 +24719,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Amount of health recovered is equal to <em>18%</em> of Desira\'s Attack Rating.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Amount of health recovered is equal to <em>20%</em> of Desira\'s Attack Rating.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -24234,9 +24774,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemies are additionally terrified for <em>3.5</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>360%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -24248,12 +24790,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>260%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'If an enemy has already had their soul siphoned, they will be additionally stunned for <em>3</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>280%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -24265,9 +24810,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>260%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Allied heroes within range have their Defense Ratings increased by <em>30%</em> and Attack Ratings increased by <em>30%</em>.',
     						unlock: 201,
+    						type: 'level',
     					},
     				],
     			},
@@ -24279,9 +24826,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage equal to <em>35%</em> of Hodgkin\'s max health can be blocked.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Deals damage up to <em>20%</em> of the target\'s max health.',
     						unlock: 221,
+    						type: 'level',
     					},
     				],
     			},
@@ -24332,9 +24881,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemies that are struck more than once are dealt an additional <em>50%</em> damage.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>190%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -24346,12 +24897,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>290%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Targeted enemy cannot regenerate Energy from attacks for <em>5</em> seconds after initial attack.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>310%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -24363,9 +24917,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Stun effect lasts for up to <em>3</em> seconds.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Final attack damage increased to <em>170%</em> damage.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Final attack damage increased to <em>180%</em> damage.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -24377,9 +24937,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Each living ally raises Athalia\'s damage by <em>3%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Each living ally raises Athalia\'s damage by <em>4%</em>.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'For the first <em>8</em> seconds of battle, the stat increase received by this ability is multiplied by <em>1.5</em> times.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -24430,9 +24996,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Ability removes all negative effects from all allied heroes and prevents them from being controlled by enemies for <em>4</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Haste increase persists for <em>10</em> seconds.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -24444,12 +25012,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Elijah restores <em>140%</em> of his ally\'s health, Lailah restores <em>50</em> of her ally\'s Energy points.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Elijah restores <em>150%</em> of his ally\'s health, Lailah restores <em>60</em> of her ally\'s Energy points.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Elijah restores <em>160%</em> of his ally\'s health, Lailah restores <em>70</em> of her ally\'s Energy points.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -24461,9 +25032,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Value of shield cast by Elijah is increased to <em>320%</em>, Lailah\'s knockback effect stuns enemies for <em>2.5</em> seconds.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Value of shield cast by Elijah is increased to <em>360%</em>, Lailah\'s knockback effect stuns enemies for <em>4</em> seconds.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Value of shield cast by Elijah is increased to <em>380%</em>. When Lailah knocks back an enemy, the damage dealt is increased to <em>200%</em>.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -24475,9 +25052,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Attack and Defense Ratings for the two heroes in a state of union are both increased by <em>20%</em> of the other union hero\'s own rating values.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Attack, defense, crit ratings, dodge, accuracy and life leech attributes are all increased by <em>15%</em> of the other union hero\'s own attribute values.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'When one ally that is in a state of Unity dies, the surviving hero will receive <em>40%</em> of the dead hero\'s remaining Energy.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -24528,9 +25111,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>220%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>240%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -24542,12 +25127,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>114%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>118%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>122%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -24559,9 +25147,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'After inflicting damage upon an enemy, the little bird grants each ally that it passes a protective shield which lasts for <em>5</em> seconds. The shield is able to mitigate an amount of damage equal to <em>65%</em> of the health that Flora sacrificed.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage dealt is equal to <em>60%</em> of the health value sacrificed by Flora.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'After inflicting damage upon an enemy, the little bird grants each ally that it passes a protective shield which lasts for <em>5</em> seconds. The shield is able to mitigate an amount of damage equal to <em>75%</em> of the health that Flora sacrificed.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -24573,9 +25167,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Recovers <em>0.8%</em> of own max health per second.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Recovers <em>1%</em> of own max health per second.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Recovers <em>1.2%</em> of own max health per second.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -24626,9 +25226,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>70%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>80%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -24640,12 +25242,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>360%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Enemies injured by the explosion are stunned for <em>3</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>400%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -24657,9 +25262,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased by up to <em>220%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased by up to <em>240%</em>.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage is increased to <em>250%</em>.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -24671,9 +25282,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'After <em>15</em> seconds of battle, Orthros will recover <em>3%</em> of his max health per second.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'After <em>30</em> seconds of battle, Orthros will become immune to control abilities.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Orthros\' max health is increased by <em>3%</em> per second until it reaches <em>150%</em>.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -24724,9 +25341,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'When in \Phoenix Form\', Talene\'s Normal Attacks shall deal additional damage that is equal to <em>20%</em> of the remaining shield values produced by her shield abilities.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Additional shield is equal to <em>25%</em> of Talene\'s max health.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -24738,12 +25357,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased to <em>240%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: '<em>30%</em> of damage is converted into health.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>280%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -24755,9 +25377,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased to <em>250%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased to <em>300%</em>.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage increased to <em>320%</em>.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -24769,9 +25397,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Health recovery increased by up to <em>200%</em> of Attack Rating.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Health recovery increased by up to <em>250%</em> of Attack Rating.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Health recovery increased by up to <em>270%</em> of Attack Rating.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -24822,9 +25456,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Clones receive <em>200%</em> damage.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Clones receive <em>180%</em> damage.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -24836,12 +25472,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased to <em>200%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'This ability cannot be dodged.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased to <em>220%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -24853,9 +25492,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased to <em>300%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased to <em>330%</em>.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage increased to <em>350%</em>.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -24867,9 +25512,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Ability is activated every <em>10</em> seconds.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Ability is activated every <em>9</em> seconds.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Once triggered, Wu Kong\'s Haste is increased by <em>20</em> points for <em>5</em> seconds.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -24920,9 +25571,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>190%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>200%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -24934,12 +25587,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>160%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'The thundercloud deals additional damage equal to <em>5%</em> of the enemy target\'s max health (additional damage cannot exceed <em>200%</em> of Zaphrael\'s Attack Rating).',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>170%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -24951,9 +25607,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Value of the shield is increased to <em>700%</em> of Attack Rating value.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>250%</em>.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage is increased to <em>260%</em>.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -24965,9 +25627,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Electric transfer now occurs when damage exceeds <em>10%</em> of the enemy\'s max health.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Enemy that is affected by transferred electric loses health equal to <em>50%</em> of the initial attack\'s damage.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Electric transfer now occurs when damage exceeds <em>8%</em> of the enemy\'s max health.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25018,9 +25686,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>360%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>380%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -25032,12 +25702,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage dealt is increased by <em>1%</em> of the enemy\'s max health whenever their Haste is reduced by <em>3</em> points.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage dealt is equal to <em>12%</em> of the enemy\'s max health.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage dealt is equal to <em>14%</em> of the enemy\'s max health.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -25049,9 +25722,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Effects last for <em>8</em> seconds.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Effects last for <em>9</em> seconds.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Nearby enemies lose <em>320</em> Dodge points.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25063,9 +25742,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>220%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>250%</em>.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage is increased to <em>270%</em>.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25116,9 +25801,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Cosmic Field exists for <em>7</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Cosmic Field exists for <em>8</em> seconds.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -25130,12 +25817,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>65%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>70%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>75%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -25147,9 +25837,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>260%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>280%</em>.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage is increased to <em>290%</em>.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25161,9 +25857,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'The Star Core respectively transfers <em>160</em> Energy points to Morael and her allies.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Transferring energy also grants Morael and her allies a shield, which has a value equal to <em>180%</em> of Morael\'s Attack Rating, that exists for <em>6</em> seconds.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'The Star Core respectively transfers <em>180</em> Energy Points to Morael and her allies.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25214,9 +25916,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Once activated, Titus deals one attack to inflict <em>300%</em> damage on all enemies, simultaneously stunning them for <em>2</em> seconds.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Once activated, Titus deals one attack to inflict <em>350%</em> damage on all enemies, simultaneously stunning them for <em>2</em> seconds.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -25228,12 +25932,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'After absorbing <em>4</em> Energy Orbs from Strength based heroes, the percentage of damage that Titus receives is reduced by <em>15%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'After absorbing <em>4</em> Energy Orbs from Agility based heroes, Titus\' Crit Rating is increased by <em>30%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'After absorbing <em>4</em> Energy Orbs from Intelligence based heroes, Titus recovers <em>20%</em> of his max health. This effect can only be triggered once.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -25245,9 +25952,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>200%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>220%</em>.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage is increased to <em>230%</em>.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25259,9 +25972,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Mitigates damage equal to <em>1500%</em> of Titus\' Attack Rating.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Mitigates damage equal to <em>1800%</em> of Titus\' Attack Rating.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage up to <em>1900%</em> of Titus\' Attack Rating can be mitigated. The duration of the defensive shield is extended to <em>8</em> seconds.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25312,9 +26031,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Reduces the Attack Ratings of enemies standing on the burning ground by <em>40%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased to <em>220%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -25326,12 +26047,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage increased to <em>220%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Enemy\'s Attack Rating is reduced by <em>30%</em> for <em>5</em> seconds after being dealt damage.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased to <em>230%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -25343,9 +26067,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Prevents enemies using ultimate abilities for <em>2</em> seconds every time one of Ezizh\'s teammates uses an ultimate ability.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage increased to <em>180%</em>.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage increased to <em>190%</em>.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25357,9 +26087,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Ezizh\'s teammates are able to regain Energy after his death, however the effect\'s efficiency is reduced by <em>30%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Allies recover <em>50</em> Energy points every <em>3</em> seconds.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'During battle and while Ezizh is alive, his allies shall receive an additional <em>100</em> Energy Points when they kill an enemy target.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25410,9 +26146,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'While entranced, enemies will not recover Energy when attacked.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Duration is extended up to <em>5</em> seconds.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -25424,12 +26162,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>125%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: '<em>50%</em> of the damage inflicted by this ability is converted into health for Mehira.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>130%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -25441,9 +26182,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Duration is extended up to <em>12</em> seconds.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>80%</em>.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Mehira will leech <em>4%</em> of the enemy\'s current health to restore her own.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25455,9 +26202,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>70%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>75%</em>.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Current amount of health sacrificed is reduced to <em>30%</em>.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25508,9 +26261,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Zolrath ignores fatal damage the first time it is dealt to him and immediately uses his ultimate ability, ignoring its Energy requirement.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Ability restores <em>9%</em> of max health per second.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -25522,12 +26277,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage of final <em>2</em> attacks is increased up to <em>200%</em> each.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage of final <em>2</em> attacks is increased up to <em>230%</em> each.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage of final <em>2</em> attacks is increased up to <em>250%</em> each.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -25539,9 +26297,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'After <em>45</em> seconds Zolrath\'s Normal Attack becomes more powerful, allowing him to strike at surrounding enemies in a three-stage attack for <em>230%</em> damage per attack. Zolrath\'s first <em>2</em> attacks are able to knock-back enemies, with the final attack causing the enemy to become temporarily stunned.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Zolrath\'s Attack Rating increases by <em>1%</em> per second until it reaches <em>70%</em>.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Zolrath\'s Attack Rating increases by <em>1.2%</em> per second until it reaches <em>80%</em>.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25553,9 +26317,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'From the start of the battle, Zolrath steals <em>15%</em> of his non-summoned allies\' Defense Ratings to strengthen himself, up until the ability is used or the battle ends, from which point the attributes are returned to his allies.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'After time has been turned back, Zolrath\'s Haste will be increased by <em>40</em> points for the first <em>12</em> seconds.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'After time has been turned back, Zolrath is immune to control effects for the following <em>12</em> seconds.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25606,9 +26376,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemies\' Health Recovery Rates are reduced by <em>70%</em> when "Frozen Mist" has enveloped the battlefield.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Duration of "Frozen Mist" ability effects are increased to <em>16</em> seconds.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -25620,12 +26392,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>170%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Fires <em>5</em> Glacial Shards.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Fires <em>7</em> Glacial Shards.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -25637,9 +26412,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>250%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>270%</em>.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Time enemy is frozen is increased to <em>4</em> seconds.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25651,9 +26432,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'When Khazard uses his "Glacial Shards" ability his "Frost Serpent" will deal an additional attack to the nearest enemy target, knocking them backwards, dealing <em>200%</em> damage to them.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'As the effects of "Frost Beam" are about to wear off, Khazard\'s "Frost Serpent" will smash the frozen enemy target, dealing damage equal to <em>20%</em> of the health that they have already lost.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'While there is "Frozen Mist" present on the battlefield, Khazard\'s "Frost Serpent" attacks an enemy with its ice breath, dealing <em>180%</em> damage to them, causing them to become frozen for <em>2</em> seconds.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25704,9 +26491,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Imprisoned enemies lose health equal to <em>80%</em> of Mezoth\'s Attack Rating per second.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Imprisoned enemies lose health equal to <em>90%</em> of Mezoth\'s Attack Rating per second.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -25718,12 +26507,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>80%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'If the enemy is slain by this ability, Mezoth recovers a proportion of health equal to <em>30%</em> of the enemy\'s max health.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>85%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -25735,9 +26527,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Shield value is equal to <em>12%</em> of Mezoth\'s max health.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Shield value is equal to <em>12%</em> of Mezoth\'s max health.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Shield value is equal to <em>16%</em> of Mezoth\'s max health.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25749,9 +26547,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Mezoth\'s Defense Rating can be increased by up to an additional <em>100%</em>, based upon the current percentage of his max health. A higher health ratio results in a higher Defense Rating.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Mezoth\'s Defense Rating can be increased by up to an additional <em>180%</em>, based upon the current percentage of his max health. A higher health ratio results in a higher Defense Rating.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Max health value is increased by <em>100%</em>.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25802,9 +26606,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>300%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>320%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -25816,12 +26622,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>70%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage Lucretia receives while flames are present is reduced by <em>20%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>90%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -25833,9 +26642,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage to hunted enemy is increased by <em>40%</em> during the hunting phase.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'The damage Lucretia receives is reduced by <em>20%</em> for the first <em>5</em> seconds of the hunting phase.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'The damage Lucretia receives is reduced by <em>20%</em> for the first <em>7</em> seconds of the hunting phase.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25847,9 +26662,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'When on the frontline, activating the Skull of Treachery raises Lucretia\'s Dodge by <em>80</em> and Tenacity by <em>30</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'When on the backline, activating the Skull of Destruction raises Lucretia\'s Attack Speed by <em>25</em> and Crit Amplification by <em>35</em>.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'When on the frontline, activating the Skull of Treachery raises Lucretia\'s Dodge by <em>100</em> points and Tenacity by <em>35</em>.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25900,9 +26721,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Allies are granted <em>35%</em> of their Attack Rating and <em>35</em> Attack Speed points.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Allies are granted <em>40%</em> of their Attack Rating and <em>40</em> Attack Speed points.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -25914,12 +26737,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Normal Attacks now also steal <em>50</em> Energy points from the enemy.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Normal Attacks steal <em>6%</em> of the enemy\'s current health and <em>15%</em> of their current shield value.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Normal Attacks steal <em>8%</em> of the enemy\'s current health and <em>20%</em> of their current shield value.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -25931,9 +26757,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Heals most injured ally for <em>3</em> times worth the amount of health which was consumed.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Heals most injured ally for <em>4</em> times worth the amount of health which was consumed.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Heals most injured ally for <em>4.5</em> times worth the amount of health which was consumed.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25945,9 +26777,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemy recovers <em>10%</em> of their max health.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Effects are increased to <em>25</em> seconds.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Enemy loses <em>30</em> Haste points while effect is occurring.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -25959,13 +26797,13 @@ var app = (function () {
     			desc: 'When a Normal Attack deals a Critical Strike, another enemy is additionally struck, however, the damage dealt is reduced by <em>70%</em> and the additional attack does not trigger any effects.',
     			upgrades: [
     				{ desc: 'When a Normal Attack deals a Critical Strike, another enemy is additionally struck, however, the damage dealt is reduced by <em>50%</em> and the additional attack does not trigger any effects.',
-    					weight: 1,
+    					unlock: 10,
     				},
     				{ desc: 'Normal Attacks that are buffed by "Greed" now have a small Area of Effect.',
-    					weight: 1,
+    					unlock: 20,
     				},
     				{ desc: 'When a Normal Attack deals a Critical Strike, another enemy is additionally struck, however, the damage dealt is reduced by <em>20%</em> and the additional attack does not trigger any effects.',
-    					weight: 1,
+    					unlock: 30,
     				},
     			],
     		},
@@ -25998,9 +26836,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'If the "Shadow Mastiff" is destroyed before its timer ends, the attacking enemy will permanently lose <em>22%</em> of their Attack Rating. If the "Shadow Mastiff" is not destroyed before its timer ends, it shall deal <em>320%</em> damage when it ends.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'If the "Shadow Mastiff" is destroyed before its timer ends, the attacking enemy will permanently lose <em>25%</em> of their Attack Rating. If the "Shadow Mastiff" is not destroyed before its timer ends, it shall deal <em>350%</em> damage when it ends.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -26012,12 +26852,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>300%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>350%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Any enemies that were dealt damage shall have their Energy Recovery reduced by <em>70%</em> for the following <em>5</em> seconds.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -26029,9 +26872,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Terrified enemies lose <em>30%</em> of their respective Attack Rating.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Terrified enemies lose <em>40%</em> of their respective Attack Rating.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Terrified enemies lose <em>45%</em> of their respective Attack Rating.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26043,9 +26892,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'While immune, <em>70%</em> of the damage dealt by the injured ally is converted into their own health.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'While immune, <em>90%</em> of the damage dealt by the injured ally is converted into their own health.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Ally\'s Crit Rating is raised by <em>20%</em>.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26096,9 +26951,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>430%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>480%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -26110,12 +26967,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>220%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>240%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>260%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -26127,9 +26987,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Value of shield is increased to <em>440%</em> of Attack Rating value.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Value of shield is increased to <em>480%</em> of Attack Rating value.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage is increased to <em>240%</em>.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26141,9 +27007,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Attacks that strike Arthur face on deal <em>60%</em> less damage to him.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Attacks that strike Arthur face on deal <em>70%</em> less damage to him.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Critical Strikes that strike Arthur face on deal <em>30%</em> less damage to him, and the amount of damage that is reduced is dealt back to the attacker.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26194,9 +27066,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>490%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>520%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -26208,12 +27082,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>200%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: '<em>40%</em> of the damage caused by this ability will be recovered as Nakoruru\'s health.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>210%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -26225,9 +27102,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Ability is activated once every <em>5</em> seconds.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Ability is activated once every <em>4</em> seconds.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage is increased to <em>240%</em>.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26239,9 +27122,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>300%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>320%</em>.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage is increased to <em>330%</em>.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26292,9 +27181,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>80%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>90%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -26306,12 +27197,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>75%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>80%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>85%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -26323,9 +27217,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>190%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>200%</em>.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage is increased to <em>210%</em>.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26337,9 +27237,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: '<em>60%</em> of the damage caused by this ability will be recovered as Ukyo\'s health.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>290%</em>.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage is increased to <em>320%</em>.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26390,9 +27296,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemies marked with an \'Execution Threshold\' marker receive <em>45%</em> more damage from Ezio\'s attacks.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Enemies marked with an \'Execution Threshold\' marker receive <em>65%</em> more damage from Ezio\'s attacks.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -26404,12 +27312,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Ability can be activated every <em>8</em> seconds.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Ability can be activated every <em>7</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Ability can be activated every <em>6</em> seconds.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -26421,9 +27332,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemies now lose <em>120</em> Accuracy points.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Enemies now lose <em>135</em> Accuracy points.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Enemies now lose <em>145</em> Accuracy points.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26435,9 +27352,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Ezio has the chance to regain <em>6%</em> of his max health whenever he successfully dodges enemy attacks. This ability can be activated once every <em>2</em> seconds.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Ezio has the chance to regain <em>8%</em> of his max health whenever he successfully dodges enemy attacks. This ability can be activated once every <em>2</em> seconds.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Ezio receives <em>6</em> dodge points every <em>1</em> seconds during battles until <em>150</em> points are reached.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26488,9 +27411,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>520%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>580%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -26502,12 +27427,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Call Greater Thunder damage is increased to <em>270%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Gravity Maelstrom damage is increased to <em>230%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'True Dark prevents the enemy target from using their Ultimate ability for <em>8</em> seconds.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -26519,9 +27447,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemies lose <em>40%</em> of their current health.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Enemies lose <em>50%</em> of their current health.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Enemies lose <em>55%</em> of their current health.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26533,9 +27467,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Attack Rating is increased by <em>6%</em> per second, and Defense Rating is increased by <em>10%</em> per second.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Once Ainz\' attributes have been increased <em>6</em> times, he receives an additional <em>50</em> Crit Amplification points and <em>30</em> Attack Speed points.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Attack Rating is increased by <em>7%</em> per second, and Defense Rating is increased by <em>12%</em> per second.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26586,9 +27526,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: '<em>55%</em> of the total damage dealt to her enemies is converted into Albedo\'s shield.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: '<em>65%</em> of the total damage dealt to her enemies is converted into Albedo\'s shield.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -26600,12 +27542,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Albedo\'s shield value is increased to <em>270%</em> of her Attack Rating.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage received by Albedo while shield is active is reduced by <em>40%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage received by Albedo while shield is active is reduced by <em>60%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -26617,9 +27562,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damaged is increased to <em>250%</em>.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damaged is increased to <em>280%</em>.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Damaged is increased to <em>300%</em>.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26631,9 +27582,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Albedo\'s Crit Resistance is increased by <em>50</em> points.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'If Albedo is dealt a Critical Strike, the attacker\'s Attack Rating is reduced by <em>50%</em>.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'If Albedo is dealt a Critical Strike, the attacker\'s Attack Rating is reduced by <em>70%</em>.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26684,9 +27641,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>280%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>300%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -26698,12 +27657,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Combat Target is knocked to the ground for <em>2.5</em> seconds.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Combat Target is knocked to the ground for <em>3</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Enemies that have a factional advantage over JOKER have their factional damage bonuses reduced to <em>15%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -26715,9 +27677,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Deals <em>210%</em> damage to Combat Target.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Each time JOKER has used his Normal Attack <em>3</em> times he will use his gun against the Combat Target.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Deals <em>220%</em> damate to Combat Target.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26729,9 +27697,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Deals <em>320%</em> damage to all enemies.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Deals <em>340%</em> damage to all enemies.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Deals <em>360%</em> damage to all enemies.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26782,9 +27756,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Final attack deals <em>220%</em> AoE damage.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Final attack deals <em>250%</em> AoE damage.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -26796,12 +27772,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Nuclear effect lasts for <em>6</em> seconds.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Nuclear effect lasts for <em>7</em> seconds.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Nuclear effect lasts for <em>8</em> seconds.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -26813,9 +27792,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'QUEEN\'s Crit Rating is increased by <em>8%</em> and her Defense Rating is increased by <em>25%</em> each time her attributes are increased.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'QUEEN\'s Crit Rating is increased by <em>10%</em> and her Defense Rating is increased by <em>30%</em> each time her attributes are increased.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'QUEEN\'s Crit Rating is increased by <em>10%</em> and her Defense Rating is increased by <em>35%</em> each time her attributes are increased.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26827,9 +27812,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>180%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>200%</em>.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage is increased to <em>220%</em>.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26880,9 +27871,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>230%</em>.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>250%</em>.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -26894,12 +27887,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage is increased to <em>170%</em>.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>190%</em>.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Damage is increased to <em>210%</em>.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -26911,9 +27907,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage dealt is equal to <em>12%</em> of enemies\' max health, but cannot exceed <em>320%</em> of Prince\'s Attack Rating.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Damage dealt is equal to <em>15%</em> of enemies\' max health, but cannot exceed <em>350%</em> of Prince\'s Attack Rating.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage dealt is equal to <em>18%</em> of enemies\' max health, but cannot exceed <em>380%</em> of Prince\'s Attack Rating.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26925,9 +27927,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Recovers up to <em>50</em> Energy points.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Recovers up to <em>60</em> Energy points.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Recovers up to <em>65</em> Energy points.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -26978,9 +27986,11 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'All damage received by allied heroes is reduced by <em>30%</em> while Merlin\'s premonition is in effect.',
     						unlock: 81,
+    						type: 'level',
     					},
     					{ desc: 'All damage received by allied heroes is reduced by <em>35%</em> while Merlin\'s premonition is in effect.',
     						unlock: 161,
+    						type: 'level',
     					},
     				],
     			},
@@ -26992,12 +28002,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Heals <em>5%</em> max health per second.',
     						unlock: 21,
+    						type: 'level',
     					},
     					{ desc: 'Heals <em>5.5%</em> max health per second.',
     						unlock: 101,
+    						type: 'level',
     					},
     					{ desc: 'Heals <em>6%</em> max health per second.',
     						unlock: 181,
+    						type: 'level',
     					},
     				],
     			},
@@ -27009,9 +28022,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Enemy loses health equal to <em>170%</em> of Merlin\'s Attack Rating every second.',
     						unlock: 121,
+    						type: 'level',
     					},
     					{ desc: 'Ability can be triggered once every <em>6</em> seconds.',
     						unlock: 201,
+    						type: 'level',
+    					},
+    					{ desc: 'Enemy loses health equal to <em>180%</em> of Merlin\'s Attack Rating every second.',
+    						unlock: 30,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -27023,9 +28042,15 @@ var app = (function () {
     				upgrades: [
     					{ desc: 'Damage received by ally while Merlin is in spirit form is reduced by <em>30%</em>.',
     						unlock: 141,
+    						type: 'level',
     					},
     					{ desc: 'Value of health recovered per second is increased to <em>15%</em>.',
     						unlock: 221,
+    						type: 'level',
+    					},
+    					{ desc: 'Damage received by ally while Merlin is in spirit form is reduced by <em>40%</em>.',
+    						unlock: 60,
+    						type: 'engraving',
     					},
     				],
     			},
@@ -27709,7 +28734,7 @@ var app = (function () {
     const file$n = "node_modules\\svelte-simple-modal\\src\\Modal.svelte";
 
     // (328:0) {#if Component}
-    function create_if_block$g(ctx) {
+    function create_if_block$h(ctx) {
     	let div3;
     	let div2;
     	let div1;
@@ -27721,7 +28746,7 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block = /*state*/ ctx[0].closeButton && create_if_block_1$9(ctx);
+    	let if_block = /*state*/ ctx[0].closeButton && create_if_block_1$a(ctx);
     	var switch_value = /*Component*/ ctx[1];
 
     	function switch_props(ctx) {
@@ -27833,7 +28858,7 @@ var app = (function () {
     						transition_in(if_block, 1);
     					}
     				} else {
-    					if_block = create_if_block_1$9(ctx);
+    					if_block = create_if_block_1$a(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
     					if_block.m(div1, t);
@@ -27928,7 +28953,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$g.name,
+    		id: create_if_block$h.name,
     		type: "if",
     		source: "(328:0) {#if Component}",
     		ctx
@@ -27938,7 +28963,7 @@ var app = (function () {
     }
 
     // (350:8) {#if state.closeButton}
-    function create_if_block_1$9(ctx) {
+    function create_if_block_1$a(ctx) {
     	let show_if;
     	let current_block_type_index;
     	let if_block;
@@ -28010,7 +29035,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$9.name,
+    		id: create_if_block_1$a.name,
     		type: "if",
     		source: "(350:8) {#if state.closeButton}",
     		ctx
@@ -28150,7 +29175,7 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block = /*Component*/ ctx[1] && create_if_block$g(ctx);
+    	let if_block = /*Component*/ ctx[1] && create_if_block$h(ctx);
     	const default_slot_template = /*#slots*/ ctx[37].default;
     	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[36], null);
 
@@ -28187,7 +29212,7 @@ var app = (function () {
     						transition_in(if_block, 1);
     					}
     				} else {
-    					if_block = create_if_block$g(ctx);
+    					if_block = create_if_block$h(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
     					if_block.m(t.parentNode, t);
@@ -45276,7 +46301,7 @@ var app = (function () {
     }
 
     // (58:2) {#if comp.lines.length > 0}
-    function create_if_block$f(ctx) {
+    function create_if_block$g(ctx) {
     	let each_1_anchor;
     	let each_value = /*comp*/ ctx[0].lines[0].heroes;
     	validate_each_argument(each_value);
@@ -45334,7 +46359,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$f.name,
+    		id: create_if_block$g.name,
     		type: "if",
     		source: "(58:2) {#if comp.lines.length > 0}",
     		ctx
@@ -45374,7 +46399,7 @@ var app = (function () {
     }
 
     // (60:4) {#if $HeroData.some(e => e.id === hero)}
-    function create_if_block_1$8(ctx) {
+    function create_if_block_1$9(ctx) {
     	let img;
     	let img_src_value;
     	let img_alt_value;
@@ -45422,7 +46447,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$8.name,
+    		id: create_if_block_1$9.name,
     		type: "if",
     		source: "(60:4) {#if $HeroData.some(e => e.id === hero)}",
     		ctx
@@ -45442,7 +46467,7 @@ var app = (function () {
 
     	function select_block_type_1(ctx, dirty) {
     		if (show_if == null || dirty & /*$HeroData, comp*/ 17) show_if = !!/*$HeroData*/ ctx[4].some(func);
-    		if (show_if) return create_if_block_1$8;
+    		if (show_if) return create_if_block_1$9;
     		return create_else_block$b;
     	}
 
@@ -45534,7 +46559,7 @@ var app = (function () {
     	let dispose;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*comp*/ ctx[0].lines.length > 0) return create_if_block$f;
+    		if (/*comp*/ ctx[0].lines.length > 0) return create_if_block$g;
     		return create_else_block_1$6;
     	}
 
@@ -46539,7 +47564,7 @@ var app = (function () {
     }
 
     // (16:19) 
-    function create_if_block_1$7(ctx) {
+    function create_if_block_1$8(ctx) {
     	let span;
 
     	const block = {
@@ -46558,7 +47583,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$7.name,
+    		id: create_if_block_1$8.name,
     		type: "if",
     		source: "(16:19) ",
     		ctx
@@ -46568,7 +47593,7 @@ var app = (function () {
     }
 
     // (14:1) {#if error}
-    function create_if_block$e(ctx) {
+    function create_if_block$f(ctx) {
     	let span;
 
     	const block = {
@@ -46588,7 +47613,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$e.name,
+    		id: create_if_block$f.name,
     		type: "if",
     		source: "(14:1) {#if error}",
     		ctx
@@ -46607,8 +47632,8 @@ var app = (function () {
     	let dispose;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*error*/ ctx[2]) return create_if_block$e;
-    		if (/*warning*/ ctx[1]) return create_if_block_1$7;
+    		if (/*error*/ ctx[2]) return create_if_block$f;
+    		if (/*warning*/ ctx[1]) return create_if_block_1$8;
     		return create_else_block$a;
     	}
 
@@ -46848,7 +47873,7 @@ var app = (function () {
     const file$i = "src\\modals\\ImportData.svelte";
 
     // (51:1) {#if !$AppData.dismissImportWarn}
-    function create_if_block$d(ctx) {
+    function create_if_block$e(ctx) {
     	let tutorialbox;
     	let current;
 
@@ -46896,7 +47921,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$d.name,
+    		id: create_if_block$e.name,
     		type: "if",
     		source: "(51:1) {#if !$AppData.dismissImportWarn}",
     		ctx
@@ -46952,7 +47977,7 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block = !/*$AppData*/ ctx[4].dismissImportWarn && create_if_block$d(ctx);
+    	let if_block = !/*$AppData*/ ctx[4].dismissImportWarn && create_if_block$e(ctx);
 
     	const block = {
     		c: function create() {
@@ -47041,7 +48066,7 @@ var app = (function () {
     						transition_in(if_block, 1);
     					}
     				} else {
-    					if_block = create_if_block$d(ctx);
+    					if_block = create_if_block$e(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
     					if_block.m(div5, t0);
@@ -47304,11 +48329,11 @@ var app = (function () {
     }
 
     // (40:1) {#if type === 'si'}
-    function create_if_block$c(ctx) {
+    function create_if_block$d(ctx) {
     	let if_block_anchor;
 
     	function select_block_type_1(ctx, dirty) {
-    		if (/*fullName*/ ctx[4]) return create_if_block_1$6;
+    		if (/*fullName*/ ctx[4]) return create_if_block_1$7;
     		if (/*num*/ ctx[0] < 0) return create_if_block_3$6;
     		return create_else_block_1$5;
     	}
@@ -47346,7 +48371,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$c.name,
+    		id: create_if_block$d.name,
     		type: "if",
     		source: "(40:1) {#if type === 'si'}",
     		ctx
@@ -47425,7 +48450,7 @@ var app = (function () {
     }
 
     // (41:2) {#if fullName}
-    function create_if_block_1$6(ctx) {
+    function create_if_block_1$7(ctx) {
     	let if_block_anchor;
 
     	function select_block_type_2(ctx, dirty) {
@@ -47466,7 +48491,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$6.name,
+    		id: create_if_block_1$7.name,
     		type: "if",
     		source: "(41:2) {#if fullName}",
     		ctx
@@ -47549,7 +48574,7 @@ var app = (function () {
     	let div_class_value;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*type*/ ctx[1] === 'si') return create_if_block$c;
+    		if (/*type*/ ctx[1] === 'si') return create_if_block$d;
     		return create_else_block_2$4;
     	}
 
@@ -47819,7 +48844,7 @@ var app = (function () {
 
     			attr_dev(img, "class", img_class_value = "" + (null_to_empty(/*skillShown*/ ctx[3] === /*i*/ ctx[21]
     			? 'activeSkill'
-    			: '') + " svelte-12rj2a7"));
+    			: '') + " svelte-rkvvtv"));
 
     			if (!src_url_equal(img.src, img_src_value = /*skill*/ ctx[19].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*skill*/ ctx[19].name);
@@ -47838,7 +48863,7 @@ var app = (function () {
 
     			if (dirty & /*skillShown*/ 8 && img_class_value !== (img_class_value = "" + (null_to_empty(/*skillShown*/ ctx[3] === /*i*/ ctx[21]
     			? 'activeSkill'
-    			: '') + " svelte-12rj2a7"))) {
+    			: '') + " svelte-rkvvtv"))) {
     				attr_dev(img, "class", img_class_value);
     			}
     		},
@@ -47860,44 +48885,124 @@ var app = (function () {
     	return block;
     }
 
-    // (79:6) {#each skill.upgrades as upgrade}
-    function create_each_block_3$3(ctx) {
-    	let p0;
+    // (82:46) 
+    function create_if_block_1$6(ctx) {
+    	let p;
     	let t0;
     	let t1_value = /*upgrade*/ ctx[14].unlock + "";
     	let t1;
     	let t2;
-    	let t3;
-    	let p1;
-    	let raw_value = /*upgrade*/ ctx[14].desc + "";
 
     	const block = {
     		c: function create() {
-    			p0 = element("p");
-    			t0 = text$2("lv ");
+    			p = element("p");
+    			t0 = text$2("Engraving lv ");
     			t1 = text$2(t1_value);
     			t2 = text$2(":");
-    			t3 = space();
-    			p1 = element("p");
-    			attr_dev(p0, "class", "skillUnlock svelte-12rj2a7");
-    			add_location(p0, file$g, 79, 7, 3055);
-    			attr_dev(p1, "class", "skillDesc svelte-12rj2a7");
-    			add_location(p1, file$g, 80, 7, 3111);
+    			attr_dev(p, "class", "skillUnlock engraveUnlock svelte-rkvvtv");
+    			add_location(p, file$g, 82, 8, 3200);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, p0, anchor);
-    			append_dev(p0, t0);
-    			append_dev(p0, t1);
-    			append_dev(p0, t2);
-    			insert_dev(target, t3, anchor);
-    			insert_dev(target, p1, anchor);
-    			p1.innerHTML = raw_value;
+    			insert_dev(target, p, anchor);
+    			append_dev(p, t0);
+    			append_dev(p, t1);
+    			append_dev(p, t2);
     		},
     		p: noop$1,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(p0);
-    			if (detaching) detach_dev(t3);
-    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(p);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$6.name,
+    		type: "if",
+    		source: "(82:46) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (80:7) {#if upgrade.type === 'level'}
+    function create_if_block$c(ctx) {
+    	let p;
+    	let t0;
+    	let t1_value = /*upgrade*/ ctx[14].unlock + "";
+    	let t1;
+    	let t2;
+
+    	const block = {
+    		c: function create() {
+    			p = element("p");
+    			t0 = text$2("lv ");
+    			t1 = text$2(t1_value);
+    			t2 = text$2(":");
+    			attr_dev(p, "class", "skillUnlock svelte-rkvvtv");
+    			add_location(p, file$g, 80, 8, 3095);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, p, anchor);
+    			append_dev(p, t0);
+    			append_dev(p, t1);
+    			append_dev(p, t2);
+    		},
+    		p: noop$1,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(p);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$c.name,
+    		type: "if",
+    		source: "(80:7) {#if upgrade.type === 'level'}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (79:6) {#each skill.upgrades as upgrade}
+    function create_each_block_3$3(ctx) {
+    	let t;
+    	let p;
+    	let raw_value = /*upgrade*/ ctx[14].desc + "";
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*upgrade*/ ctx[14].type === 'level') return create_if_block$c;
+    		if (/*upgrade*/ ctx[14].type === 'engraving') return create_if_block_1$6;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type && current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			t = space();
+    			p = element("p");
+    			attr_dev(p, "class", "skillDesc svelte-rkvvtv");
+    			add_location(p, file$g, 84, 7, 3294);
+    		},
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, t, anchor);
+    			insert_dev(target, p, anchor);
+    			p.innerHTML = raw_value;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (if_block) if_block.p(ctx, dirty);
+    		},
+    		d: function destroy(detaching) {
+    			if (if_block) {
+    				if_block.d(detaching);
+    			}
+
+    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(p);
     		}
     	};
 
@@ -47957,16 +49062,16 @@ var app = (function () {
     			}
 
     			t7 = space();
-    			attr_dev(h5, "class", "skillName svelte-12rj2a7");
+    			attr_dev(h5, "class", "skillName svelte-rkvvtv");
     			add_location(h5, file$g, 75, 6, 2862);
-    			attr_dev(p0, "class", "skillUnlock svelte-12rj2a7");
+    			attr_dev(p0, "class", "skillUnlock svelte-rkvvtv");
     			add_location(p0, file$g, 76, 6, 2909);
-    			attr_dev(p1, "class", "skillDesc svelte-12rj2a7");
+    			attr_dev(p1, "class", "skillDesc svelte-rkvvtv");
     			add_location(p1, file$g, 77, 6, 2962);
 
     			attr_dev(div, "class", div_class_value = "skill " + (/*skillShown*/ ctx[3] === /*i*/ ctx[21]
     			? 'skillVisible'
-    			: '') + " svelte-12rj2a7");
+    			: '') + " svelte-rkvvtv");
 
     			add_location(div, file$g, 74, 5, 2793);
     		},
@@ -48017,7 +49122,7 @@ var app = (function () {
 
     			if (dirty & /*skillShown*/ 8 && div_class_value !== (div_class_value = "skill " + (/*skillShown*/ ctx[3] === /*i*/ ctx[21]
     			? 'skillVisible'
-    			: '') + " svelte-12rj2a7")) {
+    			: '') + " svelte-rkvvtv")) {
     				attr_dev(div, "class", div_class_value);
     			}
     		},
@@ -48038,7 +49143,7 @@ var app = (function () {
     	return block;
     }
 
-    // (102:5) {#each hero.sig_item.upgrades as upgrade}
+    // (106:5) {#each hero.sig_item.upgrades as upgrade}
     function create_each_block_1$7(ctx) {
     	let p0;
     	let t0;
@@ -48057,10 +49162,10 @@ var app = (function () {
     			t2 = text$2(":");
     			t3 = space();
     			p1 = element("p");
-    			attr_dev(p0, "class", "siFurnUnlock svelte-12rj2a7");
-    			add_location(p0, file$g, 102, 6, 3944);
-    			attr_dev(p1, "class", "siFurnDesc svelte-12rj2a7");
-    			add_location(p1, file$g, 103, 6, 4010);
+    			attr_dev(p0, "class", "siFurnUnlock svelte-rkvvtv");
+    			add_location(p0, file$g, 106, 6, 4127);
+    			attr_dev(p1, "class", "siFurnDesc svelte-rkvvtv");
+    			add_location(p1, file$g, 107, 6, 4193);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
@@ -48083,14 +49188,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$7.name,
     		type: "each",
-    		source: "(102:5) {#each hero.sig_item.upgrades as upgrade}",
+    		source: "(106:5) {#each hero.sig_item.upgrades as upgrade}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (121:5) {#each hero.furniture.upgrades as upgrade}
+    // (125:5) {#each hero.furniture.upgrades as upgrade}
     function create_each_block$c(ctx) {
     	let p0;
     	let t0;
@@ -48109,10 +49214,10 @@ var app = (function () {
     			t2 = text$2(":");
     			t3 = space();
     			p1 = element("p");
-    			attr_dev(p0, "class", "siFurnUnlock svelte-12rj2a7");
-    			add_location(p0, file$g, 121, 6, 4724);
-    			attr_dev(p1, "class", "siFurnDesc svelte-12rj2a7");
-    			add_location(p1, file$g, 122, 6, 4789);
+    			attr_dev(p0, "class", "siFurnUnlock svelte-rkvvtv");
+    			add_location(p0, file$g, 125, 6, 4907);
+    			attr_dev(p1, "class", "siFurnDesc svelte-rkvvtv");
+    			add_location(p1, file$g, 126, 6, 4972);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
@@ -48135,7 +49240,7 @@ var app = (function () {
     		block,
     		id: create_each_block$c.name,
     		type: "each",
-    		source: "(121:5) {#each hero.furniture.upgrades as upgrade}",
+    		source: "(125:5) {#each hero.furniture.upgrades as upgrade}",
     		ctx
     	});
 
@@ -48409,136 +49514,136 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(h3, "class", "heroName svelte-12rj2a7");
+    			attr_dev(h3, "class", "heroName svelte-rkvvtv");
     			add_location(h3, file$g, 28, 2, 751);
     			attr_dev(img0, "draggable", "false");
-    			attr_dev(img0, "class", "attrImg svelte-12rj2a7");
+    			attr_dev(img0, "class", "attrImg svelte-rkvvtv");
     			if (!src_url_equal(img0.src, img0_src_value = "./img/factions/" + /*hero*/ ctx[4].faction.toLowerCase() + ".png")) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", /*hero*/ ctx[4].faction);
     			add_location(img0, file$g, 32, 5, 898);
-    			attr_dev(span0, "class", "tooltipText svelte-12rj2a7");
+    			attr_dev(span0, "class", "tooltipText svelte-rkvvtv");
     			add_location(span0, file$g, 33, 41, 1055);
-    			attr_dev(div0, "class", "tooltip factionTooltip svelte-12rj2a7");
+    			attr_dev(div0, "class", "tooltip factionTooltip svelte-rkvvtv");
     			add_location(div0, file$g, 33, 5, 1019);
-    			attr_dev(div1, "class", "attrImgContainer svelte-12rj2a7");
+    			attr_dev(div1, "class", "attrImgContainer svelte-rkvvtv");
     			add_location(div1, file$g, 31, 4, 861);
-    			attr_dev(div2, "class", "factionContainer svelte-12rj2a7");
+    			attr_dev(div2, "class", "factionContainer svelte-rkvvtv");
     			add_location(div2, file$g, 30, 3, 825);
     			attr_dev(img1, "draggable", "false");
-    			attr_dev(img1, "class", "portrait svelte-12rj2a7");
+    			attr_dev(img1, "class", "portrait svelte-rkvvtv");
     			if (!src_url_equal(img1.src, img1_src_value = /*hero*/ ctx[4].portrait)) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", /*hero*/ ctx[4].name);
     			add_location(img1, file$g, 37, 4, 1173);
-    			attr_dev(div3, "class", "portraitContainer svelte-12rj2a7");
+    			attr_dev(div3, "class", "portraitContainer svelte-rkvvtv");
     			add_location(div3, file$g, 36, 3, 1136);
     			attr_dev(img2, "draggable", "false");
-    			attr_dev(img2, "class", "attrImg svelte-12rj2a7");
+    			attr_dev(img2, "class", "attrImg svelte-rkvvtv");
     			if (!src_url_equal(img2.src, img2_src_value = "./img/types/" + /*hero*/ ctx[4].type.toLowerCase() + ".png")) attr_dev(img2, "src", img2_src_value);
     			attr_dev(img2, "alt", /*hero*/ ctx[4].type);
     			add_location(img2, file$g, 41, 5, 1340);
-    			attr_dev(span1, "class", "tooltipText svelte-12rj2a7");
+    			attr_dev(span1, "class", "tooltipText svelte-rkvvtv");
     			add_location(span1, file$g, 42, 26, 1473);
-    			attr_dev(div4, "class", "tooltip svelte-12rj2a7");
+    			attr_dev(div4, "class", "tooltip svelte-rkvvtv");
     			add_location(div4, file$g, 42, 5, 1452);
-    			attr_dev(div5, "class", "attrImgContainer svelte-12rj2a7");
+    			attr_dev(div5, "class", "attrImgContainer svelte-rkvvtv");
     			add_location(div5, file$g, 40, 4, 1303);
     			attr_dev(img3, "draggable", "false");
-    			attr_dev(img3, "class", "attrImg svelte-12rj2a7");
+    			attr_dev(img3, "class", "attrImg svelte-rkvvtv");
     			if (!src_url_equal(img3.src, img3_src_value = "./img/classes/" + /*hero*/ ctx[4].class.toLowerCase() + ".png")) attr_dev(img3, "src", img3_src_value);
     			attr_dev(img3, "alt", /*hero*/ ctx[4].class);
     			add_location(img3, file$g, 45, 5, 1578);
-    			attr_dev(span2, "class", "tooltipText svelte-12rj2a7");
+    			attr_dev(span2, "class", "tooltipText svelte-rkvvtv");
     			add_location(span2, file$g, 46, 26, 1715);
-    			attr_dev(div6, "class", "tooltip svelte-12rj2a7");
+    			attr_dev(div6, "class", "tooltip svelte-rkvvtv");
     			add_location(div6, file$g, 46, 5, 1694);
-    			attr_dev(div7, "class", "attrImgContainer svelte-12rj2a7");
+    			attr_dev(div7, "class", "attrImgContainer svelte-rkvvtv");
     			add_location(div7, file$g, 44, 4, 1541);
-    			attr_dev(div8, "class", "typeClassContainer svelte-12rj2a7");
+    			attr_dev(div8, "class", "typeClassContainer svelte-rkvvtv");
     			add_location(div8, file$g, 39, 3, 1265);
-    			attr_dev(div9, "class", "imageContainer svelte-12rj2a7");
+    			attr_dev(div9, "class", "imageContainer svelte-rkvvtv");
     			add_location(div9, file$g, 29, 2, 792);
     			attr_dev(section0, "class", "headerSection");
     			add_location(section0, file$g, 27, 1, 716);
-    			attr_dev(h40, "class", "svelte-12rj2a7");
+    			attr_dev(h40, "class", "svelte-rkvvtv");
     			add_location(h40, file$g, 53, 3, 1885);
-    			attr_dev(div10, "class", "benchmarkSection svelte-12rj2a7");
+    			attr_dev(div10, "class", "benchmarkSection svelte-rkvvtv");
     			add_location(div10, file$g, 52, 2, 1850);
-    			attr_dev(h41, "class", "svelte-12rj2a7");
+    			attr_dev(h41, "class", "svelte-rkvvtv");
     			add_location(h41, file$g, 57, 3, 2023);
-    			attr_dev(div11, "class", "benchmarkSection svelte-12rj2a7");
+    			attr_dev(div11, "class", "benchmarkSection svelte-rkvvtv");
     			add_location(div11, file$g, 56, 2, 1988);
-    			attr_dev(section1, "class", "siFurnSection svelte-12rj2a7");
+    			attr_dev(section1, "class", "siFurnSection svelte-rkvvtv");
     			add_location(section1, file$g, 51, 1, 1815);
-    			attr_dev(i0, "class", i0_class_value = "arrow " + (/*openSkills*/ ctx[0] ? 'down' : 'right') + " svelte-12rj2a7");
+    			attr_dev(i0, "class", i0_class_value = "arrow " + (/*openSkills*/ ctx[0] ? 'down' : 'right') + " svelte-rkvvtv");
     			add_location(i0, file$g, 63, 90, 2304);
     			attr_dev(button0, "type", "button");
-    			attr_dev(button0, "class", "expanderButton svelte-12rj2a7");
+    			attr_dev(button0, "class", "expanderButton svelte-rkvvtv");
     			add_location(button0, file$g, 63, 3, 2217);
     			attr_dev(div12, "class", "mobileExpanderTitle");
     			add_location(div12, file$g, 62, 2, 2179);
-    			attr_dev(div13, "class", "skillPicker svelte-12rj2a7");
+    			attr_dev(div13, "class", "skillPicker svelte-rkvvtv");
     			add_location(div13, file$g, 67, 4, 2482);
     			attr_dev(div14, "class", "skillDetails");
     			add_location(div14, file$g, 72, 4, 2722);
     			attr_dev(div15, "class", "skillDisplay");
     			add_location(div15, file$g, 66, 3, 2450);
-    			attr_dev(div16, "class", div16_class_value = "mobileExpander " + (/*openSkills*/ ctx[0] ? 'isOpen' : '') + " svelte-12rj2a7");
+    			attr_dev(div16, "class", div16_class_value = "mobileExpander " + (/*openSkills*/ ctx[0] ? 'isOpen' : '') + " svelte-rkvvtv");
     			add_location(div16, file$g, 65, 2, 2387);
-    			attr_dev(section2, "class", "skillsSection svelte-12rj2a7");
+    			attr_dev(section2, "class", "skillsSection svelte-rkvvtv");
     			add_location(section2, file$g, 61, 1, 2144);
-    			attr_dev(i1, "class", i1_class_value = "arrow " + (/*openSI*/ ctx[1] ? 'down' : 'right') + " svelte-12rj2a7");
-    			add_location(i1, file$g, 90, 82, 3400);
+    			attr_dev(i1, "class", i1_class_value = "arrow " + (/*openSI*/ ctx[1] ? 'down' : 'right') + " svelte-rkvvtv");
+    			add_location(i1, file$g, 94, 82, 3583);
     			attr_dev(button1, "type", "button");
-    			attr_dev(button1, "class", "expanderButton svelte-12rj2a7");
-    			add_location(button1, file$g, 90, 3, 3321);
+    			attr_dev(button1, "class", "expanderButton svelte-rkvvtv");
+    			add_location(button1, file$g, 94, 3, 3504);
     			attr_dev(div17, "class", "mobileExpanderTitle");
-    			add_location(div17, file$g, 89, 2, 3283);
+    			add_location(div17, file$g, 93, 2, 3466);
     			attr_dev(img4, "draggable", "false");
     			if (!src_url_equal(img4.src, img4_src_value = /*hero*/ ctx[4].sig_item.image)) attr_dev(img4, "src", img4_src_value);
     			attr_dev(img4, "alt", /*hero*/ ctx[4].sig_item.name);
-    			attr_dev(img4, "class", "svelte-12rj2a7");
-    			add_location(img4, file$g, 95, 5, 3606);
-    			attr_dev(h50, "class", "siFurnName svelte-12rj2a7");
-    			add_location(h50, file$g, 96, 5, 3687);
-    			attr_dev(div18, "class", "imageArea svelte-12rj2a7");
-    			add_location(div18, file$g, 94, 4, 3576);
-    			attr_dev(p0, "class", "siFurnUnlock svelte-12rj2a7");
-    			add_location(p0, file$g, 98, 4, 3753);
-    			attr_dev(p1, "class", "siFurnDesc svelte-12rj2a7");
-    			add_location(p1, file$g, 99, 4, 3802);
+    			attr_dev(img4, "class", "svelte-rkvvtv");
+    			add_location(img4, file$g, 99, 5, 3789);
+    			attr_dev(h50, "class", "siFurnName svelte-rkvvtv");
+    			add_location(h50, file$g, 100, 5, 3870);
+    			attr_dev(div18, "class", "imageArea svelte-rkvvtv");
+    			add_location(div18, file$g, 98, 4, 3759);
+    			attr_dev(p0, "class", "siFurnUnlock svelte-rkvvtv");
+    			add_location(p0, file$g, 102, 4, 3936);
+    			attr_dev(p1, "class", "siFurnDesc svelte-rkvvtv");
+    			add_location(p1, file$g, 103, 4, 3985);
     			attr_dev(div19, "class", "siFurnUpgrades");
-    			add_location(div19, file$g, 100, 4, 3860);
-    			attr_dev(div20, "class", "siFurnArea svelte-12rj2a7");
-    			add_location(div20, file$g, 93, 3, 3546);
-    			attr_dev(div21, "class", div21_class_value = "mobileExpander " + (/*openSI*/ ctx[1] ? 'isOpen' : '') + " svelte-12rj2a7");
-    			add_location(div21, file$g, 92, 2, 3487);
+    			add_location(div19, file$g, 104, 4, 4043);
+    			attr_dev(div20, "class", "siFurnArea svelte-rkvvtv");
+    			add_location(div20, file$g, 97, 3, 3729);
+    			attr_dev(div21, "class", div21_class_value = "mobileExpander " + (/*openSI*/ ctx[1] ? 'isOpen' : '') + " svelte-rkvvtv");
+    			add_location(div21, file$g, 96, 2, 3670);
     			attr_dev(section3, "class", "sigItemSection");
-    			add_location(section3, file$g, 88, 1, 3247);
-    			attr_dev(i2, "class", i2_class_value = "arrow " + (/*openFurn*/ ctx[2] ? 'down' : 'right') + " svelte-12rj2a7");
-    			add_location(i2, file$g, 111, 86, 4278);
+    			add_location(section3, file$g, 92, 1, 3430);
+    			attr_dev(i2, "class", i2_class_value = "arrow " + (/*openFurn*/ ctx[2] ? 'down' : 'right') + " svelte-rkvvtv");
+    			add_location(i2, file$g, 115, 86, 4461);
     			attr_dev(button2, "type", "button");
-    			attr_dev(button2, "class", "expanderButton svelte-12rj2a7");
-    			add_location(button2, file$g, 111, 3, 4195);
+    			attr_dev(button2, "class", "expanderButton svelte-rkvvtv");
+    			add_location(button2, file$g, 115, 3, 4378);
     			attr_dev(div22, "class", "mobileExpanderTitle");
-    			add_location(div22, file$g, 110, 2, 4157);
+    			add_location(div22, file$g, 114, 2, 4340);
     			attr_dev(img5, "draggable", "false");
     			if (!src_url_equal(img5.src, img5_src_value = /*hero*/ ctx[4].furniture.image)) attr_dev(img5, "src", img5_src_value);
     			attr_dev(img5, "alt", /*hero*/ ctx[4].furniture.name);
-    			attr_dev(img5, "class", "svelte-12rj2a7");
-    			add_location(img5, file$g, 116, 5, 4483);
-    			attr_dev(h51, "class", "siFurnName svelte-12rj2a7");
-    			add_location(h51, file$g, 117, 5, 4566);
-    			attr_dev(div23, "class", "imageArea svelte-12rj2a7");
-    			add_location(div23, file$g, 115, 4, 4453);
+    			attr_dev(img5, "class", "svelte-rkvvtv");
+    			add_location(img5, file$g, 120, 5, 4666);
+    			attr_dev(h51, "class", "siFurnName svelte-rkvvtv");
+    			add_location(h51, file$g, 121, 5, 4749);
+    			attr_dev(div23, "class", "imageArea svelte-rkvvtv");
+    			add_location(div23, file$g, 119, 4, 4636);
     			attr_dev(div24, "class", "siFurnUpgrades");
-    			add_location(div24, file$g, 119, 4, 4639);
-    			attr_dev(div25, "class", "siFurnArea svelte-12rj2a7");
-    			add_location(div25, file$g, 114, 3, 4423);
-    			attr_dev(div26, "class", div26_class_value = "mobileExpander " + (/*openFurn*/ ctx[2] ? 'isOpen' : '') + " svelte-12rj2a7");
-    			add_location(div26, file$g, 113, 2, 4362);
+    			add_location(div24, file$g, 123, 4, 4822);
+    			attr_dev(div25, "class", "siFurnArea svelte-rkvvtv");
+    			add_location(div25, file$g, 118, 3, 4606);
+    			attr_dev(div26, "class", div26_class_value = "mobileExpander " + (/*openFurn*/ ctx[2] ? 'isOpen' : '') + " svelte-rkvvtv");
+    			add_location(div26, file$g, 117, 2, 4545);
     			attr_dev(section4, "class", "furnitureSection");
-    			add_location(section4, file$g, 109, 1, 4119);
-    			attr_dev(div27, "class", "container svelte-12rj2a7");
+    			add_location(section4, file$g, 113, 1, 4302);
+    			attr_dev(div27, "class", "container svelte-rkvvtv");
     			add_location(div27, file$g, 26, 0, 690);
     		},
     		l: function claim(nodes) {
@@ -48665,7 +49770,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (!current || dirty & /*openSkills*/ 1 && i0_class_value !== (i0_class_value = "arrow " + (/*openSkills*/ ctx[0] ? 'down' : 'right') + " svelte-12rj2a7")) {
+    			if (!current || dirty & /*openSkills*/ 1 && i0_class_value !== (i0_class_value = "arrow " + (/*openSkills*/ ctx[0] ? 'down' : 'right') + " svelte-rkvvtv")) {
     				attr_dev(i0, "class", i0_class_value);
     			}
 
@@ -48717,11 +49822,11 @@ var app = (function () {
     				each_blocks_2.length = each_value_2.length;
     			}
 
-    			if (!current || dirty & /*openSkills*/ 1 && div16_class_value !== (div16_class_value = "mobileExpander " + (/*openSkills*/ ctx[0] ? 'isOpen' : '') + " svelte-12rj2a7")) {
+    			if (!current || dirty & /*openSkills*/ 1 && div16_class_value !== (div16_class_value = "mobileExpander " + (/*openSkills*/ ctx[0] ? 'isOpen' : '') + " svelte-rkvvtv")) {
     				attr_dev(div16, "class", div16_class_value);
     			}
 
-    			if (!current || dirty & /*openSI*/ 2 && i1_class_value !== (i1_class_value = "arrow " + (/*openSI*/ ctx[1] ? 'down' : 'right') + " svelte-12rj2a7")) {
+    			if (!current || dirty & /*openSI*/ 2 && i1_class_value !== (i1_class_value = "arrow " + (/*openSI*/ ctx[1] ? 'down' : 'right') + " svelte-rkvvtv")) {
     				attr_dev(i1, "class", i1_class_value);
     			}
 
@@ -48749,11 +49854,11 @@ var app = (function () {
     				each_blocks_1.length = each_value_1.length;
     			}
 
-    			if (!current || dirty & /*openSI*/ 2 && div21_class_value !== (div21_class_value = "mobileExpander " + (/*openSI*/ ctx[1] ? 'isOpen' : '') + " svelte-12rj2a7")) {
+    			if (!current || dirty & /*openSI*/ 2 && div21_class_value !== (div21_class_value = "mobileExpander " + (/*openSI*/ ctx[1] ? 'isOpen' : '') + " svelte-rkvvtv")) {
     				attr_dev(div21, "class", div21_class_value);
     			}
 
-    			if (!current || dirty & /*openFurn*/ 4 && i2_class_value !== (i2_class_value = "arrow " + (/*openFurn*/ ctx[2] ? 'down' : 'right') + " svelte-12rj2a7")) {
+    			if (!current || dirty & /*openFurn*/ 4 && i2_class_value !== (i2_class_value = "arrow " + (/*openFurn*/ ctx[2] ? 'down' : 'right') + " svelte-rkvvtv")) {
     				attr_dev(i2, "class", i2_class_value);
     			}
 
@@ -48781,7 +49886,7 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (!current || dirty & /*openFurn*/ 4 && div26_class_value !== (div26_class_value = "mobileExpander " + (/*openFurn*/ ctx[2] ? 'isOpen' : '') + " svelte-12rj2a7")) {
+    			if (!current || dirty & /*openFurn*/ 4 && div26_class_value !== (div26_class_value = "mobileExpander " + (/*openFurn*/ ctx[2] ? 'isOpen' : '') + " svelte-rkvvtv")) {
     				attr_dev(div26, "class", div26_class_value);
     			}
     		},

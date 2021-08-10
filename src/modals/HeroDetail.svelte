@@ -77,7 +77,11 @@
 						<p class="skillUnlock">lv {skill.unlock}:</p>
 						<p class="skillDesc">{@html skill.desc}</p>
 						{#each skill.upgrades as upgrade}
-							<p class="skillUnlock">lv {upgrade.unlock}:</p>
+							{#if upgrade.type === 'level'}
+								<p class="skillUnlock">lv {upgrade.unlock}:</p>
+							{:else if upgrade.type === 'engraving'}
+								<p class="skillUnlock engraveUnlock">Engraving lv {upgrade.unlock}:</p>
+							{/if}
 							<p class="skillDesc">{@html upgrade.desc}</p>
 						{/each}
 					</div>
@@ -248,6 +252,9 @@
 		font-weight: bold;
 		margin: 0;
 		padding-bottom: 5px;
+	}
+	.engraveUnlock {
+		color: var(--appColorPrimary);
 	}
 	.skillDesc {
 		margin: 0;
