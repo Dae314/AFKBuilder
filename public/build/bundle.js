@@ -108381,7 +108381,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			li = element("li");
-    			add_location(li, file$2, 58, 3, 2212);
+    			add_location(li, file$2, 58, 3, 2217);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -108433,9 +108433,9 @@ var app = (function () {
 
     			t2 = space();
     			attr_dev(h4, "class", "svelte-1s63iq");
-    			add_location(h4, file$2, 55, 2, 2142);
+    			add_location(h4, file$2, 55, 2, 2147);
     			attr_dev(ul, "class", "svelte-1s63iq");
-    			add_location(ul, file$2, 56, 2, 2169);
+    			add_location(ul, file$2, 56, 2, 2174);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h4, anchor);
@@ -108514,7 +108514,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "container svelte-1s63iq");
-    			add_location(div, file$2, 53, 0, 2087);
+    			add_location(div, file$2, 53, 0, 2092);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -108591,7 +108591,7 @@ var app = (function () {
     			changes: [
     				'<em>Completely overhauled the My Heroes area.</em>',
     				'<em>New radial menu used to select SI and Furn.</em>',
-    				'<em>Added Hodgkin to the hero database.',
+    				'<em>Added Hodgkin to the hero database.</em>',
     				'<em>Added engraving skill details to all CHaD heroes in detail popup.</em>',
     				'Converted Hero Finder filter logic to exclude all categories aside from the one that was clicked. My Heroes and Hero List remain unchanged.',
     				'Added mobile export button to comp detail and remove buttons from comp cards (too hard to touch)',

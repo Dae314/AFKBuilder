@@ -9,7 +9,7 @@
 			changes: [
 				'<em>Completely overhauled the My Heroes area.</em>',
 				'<em>New radial menu used to select SI and Furn.</em>',
-				'<em>Added Hodgkin to the hero database.',
+				'<em>Added Hodgkin to the hero database.</em>',
 				'<em>Added engraving skill details to all CHaD heroes in detail popup.</em>',
 				'Converted Hero Finder filter logic to exclude all categories aside from the one that was clicked. My Heroes and Hero List remain unchanged.',
 				'Added mobile export button to comp detail and remove buttons from comp cards (too hard to touch)',
