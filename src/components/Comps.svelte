@@ -773,6 +773,11 @@
 			</div>
 		{/if}
 	</section>
+	{#if openDetail}
+		<section class="sect5" class:open={openDetail}>
+			<button type="button" class="mobileExportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/export.png" alt="Export"></button>
+		</section>
+	{/if}
 </div>
 
 <style lang="scss">
@@ -813,9 +818,20 @@
 		width: 100%;
 		visibility: hidden;
 		z-index: 1001;
+		&.visible {
+			visibility: visible;
+		}
 	}
-	.sect4.visible {
-		visibility: visible;
+	.sect5 {
+		display: none;
+		visibility: hidden;
+		&.open {
+			bottom: 20px;
+			display: block;
+			position: fixed;
+			right: 20px;
+			visibility: visible;
+		}
 	}
 	.owBackground {
 		align-items: center;
@@ -1622,6 +1638,22 @@
 			max-width: 100px;
 		}
 	}
+	.mobileExportButton {
+		align-items: center;
+		background-color: var(--appColorPrimary);
+		border: 2px solid var(--appColorPrimary);
+		border-radius: 50%;
+		box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+		cursor: pointer;
+		display: flex;
+		height: 50px;
+		justify-content: center;
+		transition: transform 0.3s ease-out;
+		width: 50px;
+		img {
+			max-width: 25px;
+		}
+	}
 	@media only screen and (min-width: 767px) {
 		.sect1 {
 			max-width: 375px;
@@ -1629,6 +1661,14 @@
 		}
 		.sect2 {
 			width: 79%;
+		}
+		.sect5 {
+			display: none;
+			visibility: hidden;
+			&.open {
+				display: none;
+				visibility: hidden;
+			}
 		}
 		.owFooterButton {
 			&:hover {
