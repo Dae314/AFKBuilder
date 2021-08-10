@@ -19,7 +19,6 @@ html {
 	--appBGColorDark: #e2e2e2;
 	--appDelColor: #F26B6B;
 	--appDelColorOpaque: rgba(242, 107, 107, 0.90);
-	--appRemoveButtonColor: #BEBEBE;
 	--appColorSecondary: #8AA7FF;
 	--appColorTertiary: #3854A6;
 	--appColorQuaternary: #94C6F2;
@@ -31,9 +30,14 @@ html {
 	--mythicColor: #E60B51;
 	--mythicColorAccent: #A6083A;
 	--ascColor1: #91BDFF;
+	--ascColor1Alpha: rgba(145, 189, 255, 0);
 	--ascColor2: #E196FF;
+	--ascColor2Alpha: rgba(225, 150, 255, 0);
 	--ascColor3: #B1A3FE;
+	--ascColor3Alpha: rgba(177, 163, 254, 0);
 	--ascColorAccent: #B289E8;
+
+	--headerHeight: 45px;
 }
 
 body {
@@ -41,10 +45,16 @@ body {
 	margin: 0px;
 	padding: 0px;
 	box-sizing: border-box;
+	min-height: 100vh;
+	min-height: -webkit-fill-available; /* mobile viewport bug fix */
 	width: 100%;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	scrollbar-width: thin;
 	scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+
+html {
+	height: -webkit-fill-available; /* mobile viewport bug fix */
 }
 
 ::-webkit-scrollbar {
