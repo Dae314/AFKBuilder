@@ -8,14 +8,18 @@
 	import SIFurnBox from '../shared/SIFurnBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 
+	export let isMobile = false;
+
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
-	let displayList = [];
-	let openFilters = false;
-	let modalHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
+
+	$: modalHeight = isMobile ? '75vh' : '80vh';
 	$: allFactionsEnabled = $AppData.HL.ShowLB && $AppData.HL.ShowM && $AppData.HL.ShowW && $AppData.HL.ShowGB && $AppData.HL.ShowC && $AppData.HL.ShowH && $AppData.HL.ShowD;
 	$: allTypesEnabled = $AppData.HL.ShowInt && $AppData.HL.ShowAgi && $AppData.HL.ShowStr;
 	$: allClassEnabled = $AppData.HL.ShowMage && $AppData.HL.ShowWar && $AppData.HL.ShowTank && $AppData.HL.ShowSup && $AppData.HL.ShowRan;
+
+	let displayList = [];
+	let openFilters = false;
 
 	onMount(async () => {
 		displayList = sortDisplayList($AppData.HL.Sort, $AppData.HL.Order, makeDisplayList());
@@ -185,11 +189,6 @@
 		dispatch('saveData');
 	}
 
-	function handlePortraitClick(heroID) {
-		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed;
-		dispatch('saveData');
-	}
-
 	function isCharacterKeyPress(event) {
 		let keycode = event.keyCode;
 		let valid = 
@@ -311,7 +310,7 @@
 				{#each displayList as hero (hero.id)}
 				<tr class="heroRow" on:click={() => handleHeroClick(hero.id)} animate:flip="{{duration: 200}}">
 					<td>
-						<img on:click={(e) => { handlePortraitClick(hero.id); e.stopPropagation();} } class="portrait" class:owned={$AppData.MH.List[hero.id].claimed} src={hero.portrait} alt={hero.name}>
+						<img class="portrait" src={hero.portrait} alt={hero.name}>
 						<p class="heroName">{hero.name}</p>
 					</td>
 					<td class="attrArea">
@@ -349,7 +348,8 @@
 	.HLContainer {
 		display: flex;
 		flex-direction: column;
-		height: calc(100vh - 85px);
+		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight) - 40px); /* gymnastics to set height for mobile browsers */
 		padding-top: 10px;
 		overflow-y: auto;
 		width: 100%;
@@ -534,15 +534,8 @@
 	}
 	.portrait {
 		border-radius: 50%;
-		cursor: pointer;
 		max-width: 70px;
 		transition: all 0.2s cubic-bezier(0.2, 0, 0.4, 0);
-		&:active {
-			transform: scale(0.9);
-		}
-	}
-	.portrait.owned {
-		border: 5px solid var(--appColorPrimary);
 	}
 	.heroName {
 		font-weight: bold;
@@ -578,7 +571,8 @@
 		.HLContainer {
 			display: flex;
 			flex-direction: row;
-			height: calc(100vh - 45px);
+			height: 100%;
+			height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		}
 		.sect1 {
 			display: flex;
@@ -622,14 +616,14 @@
 		}
 		.mobileExpander {
 			background-color: var(--appBGColor);
-			max-height: max-content;
+			max-height: 465px;
 			max-width: 0;
 			overflow: none;
 			transition: max-width 0.2s ease;
 		}
 		.mobileExpander.filterOpen {
 			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-			max-height: max-content;
+			max-height: 465px;
 			max-width: 100%;
 			padding: 10px;
 		}
@@ -651,11 +645,13 @@
 		.filters {
 			display: flex;
 			flex-direction: row;
+			height: fit-content;
 			padding-top: 10px;
 		}
 		.filterSection {
 			border: 0;
 			display: block;
+			height: fit-content;
 			padding: 0;
 			width: 33%;
 			.filterMasterButton {

@@ -1,5 +1,5 @@
 <script>
-	import { onMount, getContext, createEventDispatcher, tick } from 'svelte';
+	import { getContext, createEventDispatcher, tick } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import MarkdownIt from 'markdown-it';
 	import Emoji from 'markdown-it-emoji';
@@ -20,6 +20,8 @@
 	import AscendBox from '../shared/AscendBox.svelte';
 	import SortableList from '../shared/SortableList.svelte';
 
+	export let isMobile = false;
+
 	const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",];
 	const jsurl = JSONURL('lzma'); // json-url compressor
 	const dispatch = createEventDispatcher();
@@ -36,6 +38,8 @@
 	$: selectedUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : '';
 	$: highlightComp = null;
 	$: searchSuggestions = makeSearchSuggestions();
+	$: editorWidth = isMobile ? '100%' : '75%';
+	$: editorHeight = isMobile ? '70vh' : '80vh';
 
 	let openDetail = false;
 	let openDesc = true;
@@ -48,13 +52,6 @@
 	let showowConfirm = false;
 	let owText = '';
 	let owPromise;
-	let editorWidth = window.matchMedia("(max-width: 767px)").matches ? '100%' : '75%';
-	let editorHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
-
-	onMount(async () => {
-		const mediaListener = window.matchMedia("(max-width: 767px)");
-		mediaListener.addEventListener('change', () => adjustEditorWidth(mediaListener));
-	});
 
 	function makeSortedCompList() {
 		let compList = [...$AppData.Comps.sort(sortByStars)];
@@ -118,14 +115,6 @@
 		return suggestions;
 	}
 
-	function adjustEditorWidth(listener) {
-		if(listener.matches) {
-			editorWidth = '100%';
-		} else {
-			editorWidth = '75%';
-		}
-	}
-
 	function sortByStars(a, b) {
 		// if(a.starred && !b.starred) {
 		// 	return -1;
@@ -160,6 +149,7 @@
 		open(CompEditor,
 				{compID: sortedCompList[compIdx].uuid,
 				 onSuccess: (uuid) => handleCompChangeSuccess(uuid, 'edit'),
+				 isMobile: isMobile,
 				},
 				{ closeButton: ModalCloseButton,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
@@ -170,7 +160,9 @@
 
 	function handleNewButtonClick() {
 		open(CompEditor,
-				{onSuccess: (uuid) => { $AppData.compSearchStr = ''; handleCompChangeSuccess(uuid, 'new') }},
+				{onSuccess: (uuid) => { $AppData.compSearchStr = ''; handleCompChangeSuccess(uuid, 'new') },
+				 isMobile: isMobile,
+				},
 				{ closeButton: ModalCloseButton,
 					closeOnOuterClick: false,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
@@ -781,6 +773,11 @@
 			</div>
 		{/if}
 	</section>
+	{#if openDetail}
+		<section class="sect5" class:open={openDetail}>
+			<button type="button" class="mobileExportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/export.png" alt="Export"></button>
+		</section>
+	{/if}
 </div>
 
 <style lang="scss">
@@ -795,11 +792,15 @@
 		flex-direction: row;
 	}
 	.sect1 {
+		display: flex;
+		flex-direction: column;
 		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		width: 100%;
 	}
 	.sect2 {
 		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 	}
 	.sect3 {
 		left: 50%;
@@ -817,9 +818,20 @@
 		width: 100%;
 		visibility: hidden;
 		z-index: 1001;
+		&.visible {
+			visibility: visible;
+		}
 	}
-	.sect4.visible {
-		visibility: visible;
+	.sect5 {
+		display: none;
+		visibility: hidden;
+		&.open {
+			bottom: 20px;
+			display: block;
+			position: fixed;
+			right: 20px;
+			visibility: visible;
+		}
 	}
 	.owBackground {
 		align-items: center;
@@ -939,7 +951,7 @@
 	}
 	.compScroller {
 		background-color: var(--appBGColorDark);
-		height: calc(100vh - 45px - 40px - 80px);
+		height: calc(100vh - var(--headerHeight) - 40px - 80px);
 		overflow-x: hidden;
 		overflow-y: auto;
 		padding: 5px;
@@ -966,14 +978,15 @@
 		bottom: 0;
 		height: 80px;
 		left: 0;
-		position: fixed;
 		width: 100%;
 	}
 	.plusIcon {
 		display: block;
 		font-size: 2rem;
 		font-weight: bold;
+		margin: 0 auto;
 		transition: transform 0.7s;
+		width: fit-content;
 	}
 	.newCompOptionsArea {
 		background-color: var(--appColorPrimary);
@@ -1016,19 +1029,20 @@
 		background-color: var(--appBGColor);
 		display: flex;
 		flex-direction: column;
-		height: calc(100vh - 45px);
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		max-width: 0px;
 		overflow-x: hidden;
-		overflow-y: auto;
+		overflow-y: hidden;
 		position: fixed;
 		right: 0;
 		scroll-behavior: smooth;
-		top: 45px;
+		top: var(--headerHeight);
 		transition: all 0.3s ease-out;
 		visibility: hidden;
 	}
 	.compDetails.open {
 		max-width: 100%;
+		overflow-y: auto;
 		padding: 10px;
 		width: 100%;
 		visibility: visible;
@@ -1361,15 +1375,16 @@
 		border: 5px solid var(--appColorPrimary);
 	}
 	.coreMark {
-		background-color: var(--appDelColor);
+		background-color: var(--legendColor);
+		border: 3px solid var(--appBGColor);
 		border-radius: 50%;
-		bottom: 7px;
+		bottom: 5px;
 		display: none;
-		height: 20px;
+		height: 22px;
 		position: absolute;
-		right: 2px;
+		right: 4px;
 		visibility: hidden;
-		width: 20px;
+		width: 22px;
 	}
 	.coreMark.visible {
 		display: inline-block;
@@ -1623,6 +1638,22 @@
 			max-width: 100px;
 		}
 	}
+	.mobileExportButton {
+		align-items: center;
+		background-color: var(--appColorPrimary);
+		border: 2px solid var(--appColorPrimary);
+		border-radius: 50%;
+		box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+		cursor: pointer;
+		display: flex;
+		height: 50px;
+		justify-content: center;
+		transition: transform 0.3s ease-out;
+		width: 50px;
+		img {
+			max-width: 25px;
+		}
+	}
 	@media only screen and (min-width: 767px) {
 		.sect1 {
 			max-width: 375px;
@@ -1630,6 +1661,14 @@
 		}
 		.sect2 {
 			width: 79%;
+		}
+		.sect5 {
+			display: none;
+			visibility: hidden;
+			&.open {
+				display: none;
+				visibility: hidden;
+			}
 		}
 		.owFooterButton {
 			&:hover {
@@ -1655,6 +1694,7 @@
 			max-width: 100%;
 			padding: 10px;
 			position: static;
+			overflow-y: auto;
 			visibility: visible;
 		}
 		.closeButtonContainer {
@@ -1686,9 +1726,6 @@
 			img {
 				max-width: 12px;
 			}
-		}
-		.addButtonArea {
-			width: 21%;
 		}
 		.newCompOptionButton {
 			&:hover {

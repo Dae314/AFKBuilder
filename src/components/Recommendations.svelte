@@ -11,6 +11,8 @@
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
 
+	export let isMobile = false;
+
 	const starredComps = $AppData.Comps.filter(e => e.starred);
 	const compHeroes = buildCompHeroes();
 	let recommendations = buildRecs();
@@ -19,7 +21,8 @@
 		"Signature Item",
 		"Furniture",
 	];
-	let modalHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
+	
+	$: modalHeight = isMobile ? '75vh' : '80vh';
 
 	// loop through the hero list for every starred comp and compile a list of all of them
 	function buildCompHeroes() {
@@ -269,7 +272,8 @@
 
 <style lang="scss">
 	.recContainer {
-		height: calc(100vh - 45px);
+		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		padding: 10px;
 		overflow-y: auto;
 		width: 100%;
@@ -381,15 +385,16 @@
 			}
 		}
 		.coreMark {
-			background-color: var(--appDelColor);
+			background-color: var(--legendColor);
+			border: 4px solid var(--appBGColor);
 			border-radius: 50%;
-			bottom: 5px;
+			bottom: 2px;
 			display: none;
-			height: 25px;
+			height: 28px;
 			position: absolute;
-			right: 65px;
+			right: 62px;
 			visibility: hidden;
-			width: 25px;
+			width: 28px;
 		}
 		.coreMark.visible {
 			display: inline-block;

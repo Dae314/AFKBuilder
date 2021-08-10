@@ -1,5 +1,6 @@
 <script>
 	import {onMount} from 'svelte';
+	import {debounce} from 'lodash';
 	import AppData from './stores/AppData.js';
 	import Modal from 'svelte-simple-modal';
 
@@ -13,6 +14,7 @@
 	export let version = '';
 	const menuItems = [ 'Comps', 'Recommendations', 'My Heroes', 'Hero List', 'About' ];
 	const defaultView = 'comps';
+	let isMobile = window.matchMedia("(max-width: 767px)").matches;
 
 	onMount(async () => {
 		const queryString = window.location.search;
@@ -29,6 +31,7 @@
 		}
 		history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 		saveAppData();
+		handleWindowResize();
 	});
 
 	function saveAppData() {
@@ -72,6 +75,15 @@
 		}
 		history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 	}
+
+	function handleWindowResize() {
+		// gymnastics to set height for mobile browsers
+		let vh = window.innerHeight * 0.01;
+		document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+		// convienence variable to track if window is mobile width or desktop width
+		isMobile = window.matchMedia("(max-width: 767px)").matches;
+	}
 </script>
 
 <svelte:head>
@@ -80,7 +92,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
 </svelte:head>
 
-<svelte:window on:popstate={handlePopState} />
+<svelte:window on:popstate={handlePopState} on:resize={debounce(handleWindowResize, 100)} />
 
 <Modal on:closed={handleModalClosed}>
 	<div class="AppContainer">
@@ -89,15 +101,15 @@
 			<div class="MainWindow">
 				<div id="currentDisplay">
 					{#if $AppData.activeView === 'comps'}
-						<Comps on:saveData={saveAppData} />
+						<Comps {isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'recommendations'}
-						<Recommendations on:saveData={saveAppData} />
+						<Recommendations {isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'my heroes'}
-						<MyHeroes on:saveData={saveAppData} />
+						<MyHeroes {isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'hero list' }
-						<HeroList on:saveData={saveAppData} />
+						<HeroList {isMobile} on:saveData={saveAppData} />
 					{:else if $AppData.activeView === 'about' }
-						<About version={version} on:clearData={clearAppData} on:resetTutorial={resetTutorial} />
+						<About {version} {isMobile} on:clearData={clearAppData} on:resetTutorial={resetTutorial} />
 					{:else}
 						<h2>you shouldn't be able to get here</h2>
 					{/if}
@@ -112,7 +124,6 @@
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-		min-height: 100vh;
 		width: 100%;
 		padding: 0px;
 		margin: 0px;
@@ -121,7 +132,7 @@
 	main {
 		display: flex;
 		height: 100%;
-		padding-top: 45px;
+		padding-top: var(--headerHeight);
 		width: 100%;
 	}
 	.MainWindow {

@@ -270,6 +270,7 @@ function buildAppData(data) {
 		{name: 'ShowSup', default: true},
 		{name: 'ShowRan', default: true},
 		{name: 'List', default: {}},
+		{name: 'openSection', default: 0},
 	];
 	const expectedRECProps = [
 		{name: 'openSection', default: 0},
@@ -344,7 +345,7 @@ function buildMyHeroData(data) {
 	for(let i = 0; i < herodata.length; i++) {
 		if(!(herodata[i].id in data)) {
 			// add a hero key to data if it's missing
-			data[herodata[i].id] = { claimed: false, ascendLv: 0, furn: 0, si: 0, };
+			data[herodata[i].id] = { claimed: false, ascendLv: 0, furn: 0, si: -1, };
 		} else {
 			// add properties to heroes if they're missing
 			for(const prop of expectedProps) {
@@ -352,6 +353,12 @@ function buildMyHeroData(data) {
 					data[herodata[i].id][prop.name] = prop.default;
 				}
 			}
+		}
+		// reset ascendLv, SI, and Furn if the hero is unclaimed
+		if(!data[herodata[i].id].claimed) {
+			data[herodata[i].id].ascendLv = 0;
+			data[herodata[i].id].furn = 0;
+			data[herodata[i].id].si = -1;
 		}
 	}
 	for(const key in data) {

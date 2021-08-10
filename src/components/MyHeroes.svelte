@@ -7,21 +7,29 @@
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import ImportData from '../modals/ImportData.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
-	import FlipButton from '../shared/FlipButton.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
+	import XButton from '../shared/XButton.svelte';
+	import AscensionMenu from '../shared/AscensionMenu.svelte';
+	import SIMenu from '../shared/SIMenu.svelte';
+	import FurnMenu from '../shared/FurnMenu.svelte';
 
-	$: myHeroList = makeMyHeroList($AppData.MH.List);
-	$: allFactionsEnabled = $AppData.MH.ShowLB && $AppData.MH.ShowM && $AppData.MH.ShowW && $AppData.MH.ShowGB && $AppData.MH.ShowC && $AppData.MH.ShowH && $AppData.MH.ShowD;
-	$: allTypesEnabled = $AppData.MH.ShowInt && $AppData.MH.ShowAgi && $AppData.MH.ShowStr;
-	$: allClassEnabled = $AppData.MH.ShowMage && $AppData.MH.ShowWar && $AppData.MH.ShowTank && $AppData.MH.ShowSup && $AppData.MH.ShowRan;
+	export let isMobile = false;
 
 	const dispatch = createEventDispatcher();
 	const jsurl = JSONURL('lzma'); // json-url compressor
 	const { open } = getContext('simple-modal');
+
+	$: myHeroList = makeMyHeroList($AppData.MH.List);
+	$: unownedHeroList = makeUnownedHeroList($AppData.MH.List);
+	$: allFactionsEnabled = $AppData.MH.ShowLB && $AppData.MH.ShowM && $AppData.MH.ShowW && $AppData.MH.ShowGB && $AppData.MH.ShowC && $AppData.MH.ShowH && $AppData.MH.ShowD;
+	$: allTypesEnabled = $AppData.MH.ShowInt && $AppData.MH.ShowAgi && $AppData.MH.ShowStr;
+	$: allClassEnabled = $AppData.MH.ShowMage && $AppData.MH.ShowWar && $AppData.MH.ShowTank && $AppData.MH.ShowSup && $AppData.MH.ShowRan;
+	$: modalHeight = isMobile ? '75vh' : '80vh';
+
 	let openFilters = false;
 	let openInOutMenu = false;
 	let copyConfirmVisible = false;
-	let modalHeight = window.matchMedia("(max-width: 767px)").matches ? '75vh' : '80vh';
+	let sections = ['Owned', 'Unowned']
 
 	function makeMyHeroList(herolist) {
 		let buffer = [];
@@ -29,6 +37,38 @@
 		for(let key in herolist) {
 			hero = $HeroData.find(e => e.id === key);
 			if(!herolist[key].claimed) continue;
+			if(!$AppData.MH.ShowLB && hero.faction.toLowerCase() === 'lightbearer') continue;
+			if(!$AppData.MH.ShowM && hero.faction.toLowerCase() === 'mauler') continue;
+			if(!$AppData.MH.ShowW && hero.faction.toLowerCase() === 'wilder') continue;
+			if(!$AppData.MH.ShowGB && hero.faction.toLowerCase() === 'graveborn') continue;
+			if(!$AppData.MH.ShowC && hero.faction.toLowerCase() === 'celestial') continue;
+			if(!$AppData.MH.ShowH && hero.faction.toLowerCase() === 'hypogean') continue;
+			if(!$AppData.MH.ShowD && hero.faction.toLowerCase() === 'dimensional') continue;
+			if(!$AppData.MH.ShowInt && hero.type.toLowerCase() === 'intelligence') continue;
+			if(!$AppData.MH.ShowAgi && hero.type.toLowerCase() === 'agility') continue;
+			if(!$AppData.MH.ShowStr && hero.type.toLowerCase() === 'strength') continue;
+			if(!$AppData.MH.ShowMage && hero.class.toLowerCase() === 'mage') continue;
+			if(!$AppData.MH.ShowWar && hero.class.toLowerCase() === 'warrior') continue;
+			if(!$AppData.MH.ShowTank && hero.class.toLowerCase() === 'tank') continue;
+			if(!$AppData.MH.ShowSup && hero.class.toLowerCase() === 'support') continue;
+			if(!$AppData.MH.ShowRan && hero.class.toLowerCase() === 'ranger') continue;
+			if($AppData.MH.SearchStr !== '' &&
+				 !hero.name.toLowerCase().includes($AppData.MH.SearchStr.toLowerCase()) &&
+				 !hero.class.toLowerCase().includes($AppData.MH.SearchStr.toLowerCase()) &&
+				 !hero.faction.toLowerCase().includes($AppData.MH.SearchStr.toLowerCase()) &&
+				 !hero.type.toLowerCase().includes($AppData.MH.SearchStr.toLowerCase())
+				) continue;
+			buffer.push(hero);
+		}
+		return buffer.length > 0 ? buffer.sort(compareValues('name', 'asc')) : buffer;
+	}
+
+	function makeUnownedHeroList(herolist) {
+		let buffer = [];
+		let hero;
+		for(let key in herolist) {
+			hero = $HeroData.find(e => e.id === key);
+			if(herolist[key].claimed) continue;
 			if(!$AppData.MH.ShowLB && hero.faction.toLowerCase() === 'lightbearer') continue;
 			if(!$AppData.MH.ShowM && hero.faction.toLowerCase() === 'mauler') continue;
 			if(!$AppData.MH.ShowW && hero.faction.toLowerCase() === 'wilder') continue;
@@ -77,12 +117,14 @@
 
 	function updateSearch() {
 		myHeroList = makeMyHeroList($AppData.MH.List);
+		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
 
 	function updateFilters(filter) {
 		$AppData.MH[filter] = !$AppData.MH[filter];
 		myHeroList = makeMyHeroList($AppData.MH.List);
+		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
 
@@ -137,45 +179,42 @@
 				throw new Error(`Invalid category given to handleFilterMasterButtonClick(): ${category}`);
 		}
 		myHeroList = makeMyHeroList($AppData.MH.List);
+		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
 
-	function handlePortraitClick(heroID) {
-		$AppData.MH.List[heroID].claimed = !$AppData.MH.List[heroID].claimed
+	function handleHeroClaim(heroID) {
+		$AppData.MH.List[heroID].claimed = true;
+		$AppData.MH.List[heroID].ascendLv = 6;
+		$AppData.MH.List[heroID].si = -1;
+		$AppData.MH.List[heroID].furn = 0;
 		myHeroList = makeMyHeroList($AppData.MH.List);
+		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
 
-	function handleAscChange(heroID) {
-		$AppData.MH.List[heroID].ascendLv++;
-		if($AppData.MH.List[heroID].ascendLv > 6) {
-			$AppData.MH.List[heroID].ascendLv = 0;
-		}
-		dispatch('saveData')
-	}
-
-	function handleSIChange(heroID) {
-		$AppData.MH.List[heroID].si += 5;
-		if($AppData.MH.List[heroID].si > 30) {
-			$AppData.MH.List[heroID].si = 0;
-		}
+	function handleHeroUnclaim(heroID) {
+		$AppData.MH.List[heroID].claimed = false;
+		$AppData.MH.List[heroID].ascendLv = 0;
+		$AppData.MH.List[heroID].si = -1;
+		$AppData.MH.List[heroID].furn = 0;
+		myHeroList = makeMyHeroList($AppData.MH.List);
+		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
 
-	function handleFurnChange(heroID) {
-		switch($AppData.MH.List[heroID].furn) {
-			case 0:
-				$AppData.MH.List[heroID].furn = 3;
-				break;
-			case 3:
-				$AppData.MH.List[heroID].furn = 9;
-				break;
-			case 9:
-				$AppData.MH.List[heroID].furn = 0;
-				break;
-			default:
-				throw new Error(`Invalid furniture level for ${heroID}: ${$AppData.MH.List[heroID].furn}`);
-		}
+	function handleAscChange(heroID, level) {
+		$AppData.MH.List[heroID].ascendLv = level;
+		dispatch('saveData');
+	}
+
+	function handleSIChange(heroID, level) {
+		$AppData.MH.List[heroID].si = level;
+		dispatch('saveData');
+	}
+
+	function handleFurnChange(heroID, level) {
+		$AppData.MH.List[heroID].furn = level;
 		dispatch('saveData');
 	}
 
@@ -201,6 +240,7 @@
 			// message should contain a clean MH.List data object now
 			$AppData.MH.List = returnObj.message;
 			myHeroList = makeMyHeroList($AppData.MH.List);
+			unownedHeroList = makeUnownedHeroList($AppData.MH.List);
 			dispatch('saveData');
 			return { retCode: 0, message: 'Data import successful' }
 		}
@@ -336,106 +376,149 @@
 		</div>
 	</section>
 	<section class="sect2">
-		{#if myHeroList.length === 0}
-			<div class="noHeroes">
-				<span>Heroes you own will appear here</span>
-			</div>
-		{:else}
-			{#if !$AppData.dismissMHSearchInfo}
-				<div class="searchInfo">
-					<div class="tutorialBoxContainer">
-						<TutorialBox clickable={true} onClick={() => {$AppData.dismissMHSearchInfo = true; dispatch('saveData');}}>
-							Just start typing to search! Pressing tab will also open and close the filter area.
-						</TutorialBox>
-					</div>
+		{#if !$AppData.dismissMHSearchInfo}
+			<div class="searchInfo">
+				<div class="tutorialBoxContainer">
+					<TutorialBox clickable={true} onClick={() => {$AppData.dismissMHSearchInfo = true; dispatch('saveData');}}>
+						Just start typing to search! Pressing tab will also open and close the filter area.
+					</TutorialBox>
 				</div>
-			{/if}
-			<div class="MHGrid">
-				{#each myHeroList as hero (hero.id)}
-				<div class="heroCard" animate:flip="{{duration: 200}}">
-					<div class="detailArea">
-						<button type="button" class="heroDetailButton" on:click={() => handleHeroDetailClick(hero.id)}>
-							<span>i</span>
-						</button>
+			</div>
+		{/if}
+		<div class="sectionPickerSection">
+			<ul class="sectionPicker">
+				{#each sections as section, i}
+				<li>
+					<button type="button" class="sectionButton" class:active={$AppData.MH.openSection === i} on:click={() => { $AppData.MH.openSection = i; dispatch('saveData');} }>{section}</button>
+				</li>
+				{/each}
+			</ul>
+		</div>
+		{#if $AppData.MH.openSection === 0}
+			<section class="MHSection">
+				{#if myHeroList.length === 0}
+					<div class="noHeroes">
+						<span>Claim some heroes from the unowned tab!</span>
 					</div>
-					<div class="heroHeader">
-						<div class="headArea">
-							<div class="attrImgContainer">
-								<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
-								<div class="tooltip tooltip-faction"><span class="tooltipText">{hero.faction}</span></div>
+				{:else}
+					<div class="MHGrid">
+						{#each myHeroList as hero (hero.id)}
+						<div class="heroCard" animate:flip="{{duration: 200}}">
+							<div class="removeArea">
+								<div class="removeHeroButtonContainer">
+									<XButton clickCallback={() => handleHeroUnclaim(hero.id)} size="large" hoverable={true} />
+								</div>
 							</div>
-						</div>
-						<div class="headArea">
-							<div class="flipCard" on:click={(e) => e.stopPropagation()}>
-								<div class="flipCardInner">
-									<div class="flipCardFront">
-										<img on:click="{() => handlePortraitClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
+							<div class="heroHeader">
+								<div class="headArea">
+									<div class="attrImgContainer">
+										<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
+										<div class="tooltip tooltip-faction"><span class="tooltipText">{hero.faction}</span></div>
 									</div>
-									<div class="flipCardBack">
-										<button type="button" on:click="{() => handlePortraitClick(hero.id)}" class="claimButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
+								</div>
+								<div class="headArea">
+									<div class="flipCard" on:click={(e) => e.stopPropagation()}>
+										<div class="flipCardInner">
+											<div class="flipCardFront">
+												<img on:click="{() => handleHeroDetailClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
+											</div>
+											<div class="flipCardBack">
+												<button type="button" on:click="{() => handleHeroDetailClick(hero.id)}" class="portraitButton" class:owned={$AppData.MH.List[hero.id].claimed}>Info</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="headArea">
+									<div class="attrImgContainer">
+										<img class="attrImage typeImg" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
+										<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
+									</div>
+									<div class="attrImgContainer">
+										<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
+										<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
+									</div>
+								</div>
+							</div>
+							<p class="heroName">{hero.name}</p>
+							<div class="flipButtonContainer">
+								<div class="ascButtonArea">
+									<div class="flipButtonArea">
+										<AscensionMenu
+											menuItemChangeCallback={(index) => handleAscChange(hero.id, index)}
+											activeItem={$AppData.MH.List[hero.id].ascendLv} 
+											zIndexBase=2
+										/>
+									</div>
+								</div>
+								<div class="siFurnButtonArea">
+									<div class="flipButtonArea">
+										<SIMenu
+											menuItemChangeCallback={(index) => handleSIChange(hero.id, index)}
+											activeItem={$AppData.MH.List[hero.id].si === -1 ? 0 : Math.floor($AppData.MH.List[hero.id].si/5) + 1}
+											zIndexBase=2
+											si40={$HeroData.find(e => e.id === hero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === hero.id).faction === 'Celestial' || $HeroData.find(e => e.id === hero.id).faction === 'Hypogean'}
+										/>
+									</div>
+									<div class="flipButtonArea">
+										<FurnMenu
+											menuItemChangeCallback={(index) => handleFurnChange(hero.id, index)}
+											activeItem={$AppData.MH.List[hero.id].furn === 0 ? 0 : $AppData.MH.List[hero.id].furn === 3 ? 1 : 2}
+											zIndexBase=2
+										/>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="headArea">
-							<div class="attrImgContainer">
-								<img class="attrImage typeImg" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
-								<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
-							</div>
-							<div class="attrImgContainer">
-								<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
-								<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
-							</div>
-						</div>
+						{/each}
 					</div>
-					<p class="heroName">{hero.name}</p>
-					<div class="flipButtonContainer">
-						<div class="ascButtonArea">
-							<div class="flipButtonArea">
-								<FlipButton options="{['Elite', 'Elite+', 'Legendary', 'Legendary+', 'Mythic', 'Mythic+', 'Ascended']}"
-									optionStyles="{[
-										'background-color: #AF3CEA; color: white; border: 3px solid #AF3CEA; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-										'background-color: #AF3CEA; color: white; border: 3px solid #6D2691; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-										'background-color: #F7BC19; color: white; border: 3px solid #F7BC19; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-										'background-color: #F7BC19; color: white; border: 3px solid #E0920B; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-										'background-color: #E60B51; color: white; border: 3px solid #E60B51; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-										'background-color: #E60B51; color: white; border: 3px solid #A6083A; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-										'background: linear-gradient(#91BDFF, transparent), linear-gradient(-45deg, #E196FF, transparent), linear-gradient(45deg, #B1A3FE, transparent); background-blend-mode: multiply; color: white; border: 3px solid #B289E8; border-radius: 10px; padding: 7px 20px; font-size: 1.1rem; font-weight: bold;',
-										]}"
-										curOption="{$AppData.MH.List[hero.id].ascendLv}"
-										onClick="{() => handleAscChange(hero.id)}" />
-							</div>
-						</div>
-						<div class="siFurnButtonArea">
-							<div class="flipButtonArea">
-								<FlipButton options="{['SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30']}"
-									optionStyles="{[
-										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 75px; font-size: 1.05rem;',
-										]}"
-										curOption="{Math.floor($AppData.MH.List[hero.id].si/5)}"
-										onClick="{() => handleSIChange(hero.id)}" />
-							</div>
-							<div class="flipButtonArea">
-								<FlipButton options="{['0f', '3f', '9f']}"
-									optionStyles="{[
-										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-										'background-color: #6B8DF2; color: white; border: 3px solid #6B8DF2; border-radius: 10px; padding: 5px; width: 50px; font-size: 1.05rem;',
-									]}"
-									curOption="{$AppData.MH.List[hero.id].furn === 0 ? 0 : $AppData.MH.List[hero.id].furn === 3 ? 1 : 2 }"
-									onClick="{() => handleFurnChange(hero.id)}" />
-							</div>
-						</div>
+				{/if}
+			</section>
+		{:else if $AppData.MH.openSection === 1}
+			<section class="MHSection unownedSection">
+				{#if unownedHeroList.length === 0}
+					<div class="noHeroes">
+						<span>You own every hero in the game!</span>
 					</div>
-				</div>
-				{/each}
-			</div>
+				{:else}
+					<div class="MHGrid">
+						{#each unownedHeroList as hero (hero.id)}
+						<div class="heroCard" animate:flip="{{duration: 200}}" on:click={(e) => { handleHeroClaim(hero.id); e.stopPropagation(); }}>
+							<div class="heroHeader">
+								<div class="headArea">
+									<div class="attrImgContainer">
+										<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
+										<div class="tooltip tooltip-faction"><span class="tooltipText">{hero.faction}</span></div>
+									</div>
+								</div>
+								<div class="headArea">
+									<div class="flipCard">
+										<div class="flipCardInner">
+											<div class="flipCardFront">
+												<img class="portrait" src={hero.portrait} alt={hero.name}>
+											</div>
+											<div class="flipCardBack">
+												<button type="button" class="portraitButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="headArea">
+									<div class="attrImgContainer">
+										<img class="attrImage typeImg" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
+										<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
+									</div>
+									<div class="attrImgContainer">
+										<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
+										<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
+									</div>
+								</div>
+							</div>
+							<p class="heroName">{hero.name}</p>
+						</div>
+						{/each}
+					</div>
+				{/if}
+			</section>
 		{/if}
 	</section>
 	<section class="sect3">
@@ -454,7 +537,8 @@
 
 <style lang="scss">
 	.MHContainer {
-		height: calc(100vh - 85px);
+		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight) - 40px); /* gymnastics to set height for mobile browsers */
 		overflow-y: auto;
 		padding: 10px;
 	}
@@ -463,7 +547,7 @@
 		left: 0;
 		position: fixed;
 		width: 100%;
-		z-index: 1;
+		z-index: 3;
 	}
 	.sect2 {
 		padding: 10px;
@@ -474,6 +558,7 @@
 		position: fixed;
 		right: 20px;
 		width: 60px;
+		z-index: 2;
 	}
 	.sect4 {
 		left: 50%;
@@ -481,6 +566,41 @@
 		top: 80px;
 		transform: translate(-50%, 0);
 		width: fit-content;
+	}
+	.sectionPickerSection {
+		margin: 0;
+		width: 100%;
+	}
+	.sectionPicker {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		.sectionButton {
+			background-color: transparent;
+			border: 3px solid var(--appColorPrimary);
+			border-bottom: none;
+			border-radius: 10px 10px 0px 0px;
+			color: var(--appColorPrimary);
+			cursor: pointer;
+			font-size: 1rem;
+			margin-right: 15px;
+			outline: none;
+			padding: 5px;
+		}
+		.sectionButton.active {
+			background-color: var(--appColorPrimary);
+			color: white;
+		}
+	}
+	.MHSection {
+		border: 3px solid var(--appColorPrimary);
+		border-radius: 10px;
+		padding: 10px;
+		width: 100%;
 	}
 	input {
 		border: 1px solid var(--appColorPrimary);
@@ -639,7 +759,7 @@
 		display: grid;
 		grid-gap: 5px 5px;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
-		grid-template-rows: repeat(auto-fit, minmax(255px, 257px));
+		grid-template-rows: repeat(auto-fit, minmax(240px, 241px));
 		justify-content: space-evenly;
 	}
 	.heroCard {
@@ -651,32 +771,13 @@
 		padding-top: 20px;
 		position: relative;
 	}
-	.detailArea {
+	.removeArea {
 		z-index: 1;
 	}
-	.heroDetailButton {
-		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 50%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		margin: 0;
-		font-weight: bold;
-		font-family: 'Times New Roman';
-		font-size: 1rem;
-		flex-shrink: 0;
-		flex-grow: 0;
-		height: 25px;
-		padding: 3px;
+	.removeHeroButtonContainer {
 		position: absolute;
 		top: 5px;
 		right: 5px;
-		outline: 0;
-		width: 25px;
-		text-align: center;
 	}
 	.heroHeader {
 		display: flex;
@@ -699,7 +800,7 @@
 			transform: scale(0.9);
 		}
 	}
-	.claimButton {
+	.portraitButton {
 		display: none;
 	}
 	.heroName {
@@ -743,6 +844,21 @@
 			}
 		}
 	}
+	.unownedSection {
+		.MHGrid {
+			grid-template-rows: repeat(auto-fit, minmax(170px, 170px));
+			grid-template-columns: repeat(auto-fit, minmax(290px, 290px));
+		}
+		.heroCard {
+			border-color: #BEBEBE;
+		}
+		.portrait {
+			filter: grayscale(1);
+		}
+		.attrImage {
+			filter: grayscale(1);
+		}
+	}
 	.inOutMenuButton {
 		align-items: center;
 		background-color: var(--appColorPrimary);
@@ -755,7 +871,6 @@
 		justify-content: center;
 		transition: transform 0.3s ease-out;
 		width: 50px;
-		z-index: 1;
 		img {
 			max-width: 40px;
 		}
@@ -837,22 +952,31 @@
 		.MHContainer {
 			display: flex;
 			flex-direction: column;
-			height: calc(100vh - 45px);
+			height: 100%;
+			height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 			padding: 0px;
 		}
 		.sect1 {
 			display: flex;
 			flex-direction: row;
+			height: fit-content;
 			left: 0;
-			max-height: max-content;
 			position: fixed;
 			top: 150px;
 			width: max-content;
-			z-index: 1;
 		}
 		.sect2 {
 			padding-left: 50px;
 			padding-right: 50px;
+		}
+		.sectionPicker {
+			justify-content: flex-start;
+		}
+		.sectionButton {
+			margin-right: 0px;
+		}
+		.MHSection {
+			border-radius: 0px 10px 10px 10px;
 		}
 		.searchInfo {
 			display: flex;
@@ -877,12 +1001,6 @@
 			&:hover+.tooltip {
 				opacity: 1;
 				visibility: visible;
-			}
-		}
-		.heroDetailButton {
-			&:hover {
-				background-color: var(--appColorPrimary);
-				color: white;
 			}
 		}
 		.tooltip {
@@ -945,14 +1063,14 @@
 		}
 		.mobileExpander {
 			background-color: var(--appBGColor);
-			max-height: max-content;
+			max-height: 465px;
 			max-width: 0;
 			overflow: none;
 			transition: max-width 0.2s ease;
 		}
 		.mobileExpander.filterOpen {
 			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-			max-height: max-content;
+			max-height: 465px;
 			max-width: 100%;
 			padding: 10px;
 		}
@@ -980,6 +1098,7 @@
 		.filters {
 			display: flex;
 			flex-direction: row;
+			height: fit-content;
 			padding-top: 10px;
 		}
 		.filterSection {
@@ -987,6 +1106,7 @@
 			display: block;
 			padding: 0;
 			width: 33%;
+			height: fit-content;
 			.filterMasterButton {
 				&:hover {
 					background-color: var(--appColorPrimary);
@@ -1038,7 +1158,7 @@
 				position: absolute;
 				top: 0px;
 				transform: rotateY(180deg);
-				.claimButton {
+				.portraitButton {
 					background-color: var(--appColorPrimary);
 					border: 3px solid var(--appColorPrimary);
 					border-radius: 50%;
@@ -1055,11 +1175,21 @@
 						transform: scale(0.9);
 					}
 				}
-				.claimButton.owned {
+				.portraitButton.owned {
 					background-color: transparent;
 					border: 3px solid var(--appColorPrimary);
 					color: var(--appColorPrimary);
 					font-size: 0.9rem;
+				}
+			}
+		}
+		.unownedSection {
+			.heroCard {
+				cursor: pointer;
+				&:hover .flipCard {
+					.flipCardInner {
+						transform: rotateY(180deg);
+					}
 				}
 			}
 		}

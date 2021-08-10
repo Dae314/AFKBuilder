@@ -56,7 +56,7 @@
 	<div class="titleContainer">
 		<h3 class="title">{title}</h3>
 	</div>
-	<textarea autofocus class="dataInput" bind:value={data}></textarea>
+	<textarea class="dataInput" bind:value={data}></textarea>
 	<div class="footer">
 		<div class="status">
 			<div class="statusText" class:error={status > 0} class:visible={status >= 0}><span>{statusMsg}</span></div>

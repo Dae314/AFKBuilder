@@ -145,6 +145,7 @@
 					background-color: transparent;
 					border: 0;
 					cursor: pointer;
+					display: none;
 					height: fit-content;
 					margin: 0;
 					outline: 0;
@@ -159,6 +160,7 @@
 					background-color: transparent;
 					border: 0;
 					cursor: pointer;
+					display: none;
 					height: fit-content;
 					margin: 0;
 					outline: 0;
@@ -210,22 +212,22 @@
 						transform: rotate(35deg);
 					}
 					&:active {
-						border-bottom-color: #F7BC19;
+						border-bottom-color: var(--legendColor);
 						&:before {
-							border-bottom-color: #F7BC19;
+							border-bottom-color: var(--legendColor);
 						}
 						&:after {
-							border-bottom-color: #F7BC19;
+							border-bottom-color: var(--legendColor);
 						}
 					}
 				}
 				.star.active {
-					border-bottom-color: #F7BC19;
+					border-bottom-color: var(--legendColor);
 					&:before {
-						border-bottom-color: #F7BC19;
+						border-bottom-color: var(--legendColor);
 					}
 					&:after {
-						border-bottom-color: #F7BC19;
+						border-bottom-color: var(--legendColor);
 					}
 				}
 			}
@@ -307,6 +309,18 @@
 			border: 5px solid var(--appColorPrimary);
 			transform: scale(1.03);
 		}
+		.compCardHead {
+			.buttonDraftArea {
+				.cardButtonsContainer {
+					.cardDeleteButton {
+						display: block;
+					}
+					.cardExportButton {
+						display: block;
+					}
+				}
+			}
+		}
 		.titleAuthorContainer {
 			width: 70%;
 		}
@@ -341,12 +355,12 @@
 			}
 			.star.active {
 				&:hover {
-					border-bottom-color: #F7BC19;
+					border-bottom-color: var(--legendColor);
 					&:before {
-						border-bottom-color: #F7BC19;
+						border-bottom-color: var(--legendColor);
 					}
 					&:after {
-						border-bottom-color: #F7BC19;
+						border-bottom-color: var(--legendColor);
 					}
 				}
 			}

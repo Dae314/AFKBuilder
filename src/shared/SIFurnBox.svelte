@@ -8,6 +8,7 @@
 	switch(type.toLowerCase()) {
 		case 'si':
 			switch(num) {
+				case -1: break;
 				case 0: break;
 				case 5: break;
 				case 10: break;
@@ -15,8 +16,10 @@
 				case 20: break;
 				case 25: break;
 				case 30: break;
+				case 35: break;
+				case 40: break;
 				default:
-					throw new Error(`Invalid num specfified for SIFurnBox of si type: ${num}. Must be 0, 5, 10, 15, 20, 25, or 30`);
+					throw new Error(`Invalid num specfified for SIFurnBox of si type: ${num}. Must be -1, 0, 5, 10, 15, 20, 25, 30, 35, or 40`);
 			}
 			break;
 		case 'furn':
@@ -36,9 +39,17 @@
 <div class="box {type === 'si' ? 'si' : 'furn'} lv-{num}" style="max-width: {maxWidth}; font-size: {fontSize}; width: {maxWidth};">
 	{#if type === 'si'}
 		{#if fullName}
-			<p class="num">SI +{num}</p>
+			{#if num < 0}
+				<p class="num">SI OFF</p>
+			{:else}
+				<p class="num">SI +{num}</p>
+			{/if}
 		{:else}
+			{#if num < 0}
+				<p class="num">OFF</p>
+			{:else}
 			<p class="num">+{num}</p>
+			{/if}
 		{/if}
 	{:else}
 		<p class="num">{num}f</p>
