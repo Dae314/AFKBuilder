@@ -5,11 +5,37 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.7.15 - Cherry Berry',
+			changes: [
+				'<em>Completely overhauled the My Heroes area.</em>',
+				'<em>New radial menu used to select SI and Furn.</em>',
+				'<em>Added Hodgkin to the hero database.',
+				'<em>Added engraving skill details to all CHaD heroes in detail popup.</em>',
+				'Converted Hero Finder filter logic to exclude all categories aside from the one that was clicked. My Heroes and Hero List remain unchanged.',
+				'Added mobile export button to comp detail and remove buttons from comp cards (too hard to touch)',
+				'Added SI OFF to indicate SI isn\'t activated at all.',
+				'Added changelog to the About page if you click version number.',
+				'Newly claimed heroes are now ascended with 0SI and 0F.',
+				'Added lodash to debounce some listeners.',
+				'Standardized delete button design.',
+				'Standardized mobile viewport listener.',
+				'Disabled autofocus in the comp editor.',
+				'Updated benchmark numbers for several heroes (thanks Bob!)',
+				'Changed design of core marks.',
+				'Updated all NPM packages.',
+				'Fixed desktop filters display on My Heroes and Hero List.',
+				'Fixed info icon displaying above filters in My Heroes.',
+				'Fixed scrolling issue on mobile with URL bar open.',
+				'Fixed weird button padding on iOS Safari.',
+				'Fixed iOS Safari gradient display.',
+				'Fixed various typos in hero data.',
+			]
+		},
 		{ version: 'v1.0.16',
 			changes: [
-				'Restrict height on modals.',
-				'Fix display bug when moving from Hero List or My Heroes to Comps.',
-				'Fix comp detail not closing when comp is deleted.',
+				'Restricted height on modals.',
+				'Fixed display bug when moving from Hero List or My Heroes to Comps.',
+				'Fixed comp detail not closing when comp is deleted.',
 			],
 		},
 	]
@@ -47,5 +73,10 @@
 	}
 	ul {
 		margin: 0;
+	}
+	em, :global(em) {
+		color: var(--appColorPrimary);
+		font-style: normal;
+		font-weight: bold;
 	}
 </style>

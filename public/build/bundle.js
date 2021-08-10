@@ -108373,7 +108373,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (32:2) {#each item.changes as change}
+    // (58:2) {#each item.changes as change}
     function create_each_block_1(ctx) {
     	let li;
     	let raw_value = /*change*/ ctx[7] + "";
@@ -108381,7 +108381,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			li = element("li");
-    			add_location(li, file$2, 32, 3, 792);
+    			add_location(li, file$2, 58, 3, 2212);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -108397,14 +108397,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(32:2) {#each item.changes as change}",
+    		source: "(58:2) {#each item.changes as change}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (29:1) {#each changelog as item}
+    // (55:1) {#each changelog as item}
     function create_each_block$1(ctx) {
     	let h4;
     	let t0_value = /*item*/ ctx[4].version + "";
@@ -108432,10 +108432,10 @@ var app = (function () {
     			}
 
     			t2 = space();
-    			attr_dev(h4, "class", "svelte-1jm4rgp");
-    			add_location(h4, file$2, 29, 2, 722);
-    			attr_dev(ul, "class", "svelte-1jm4rgp");
-    			add_location(ul, file$2, 30, 2, 749);
+    			attr_dev(h4, "class", "svelte-1s63iq");
+    			add_location(h4, file$2, 55, 2, 2142);
+    			attr_dev(ul, "class", "svelte-1s63iq");
+    			add_location(ul, file$2, 56, 2, 2169);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h4, anchor);
@@ -108486,7 +108486,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(29:1) {#each changelog as item}",
+    		source: "(55:1) {#each changelog as item}",
     		ctx
     	});
 
@@ -108513,8 +108513,8 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div, "class", "container svelte-1jm4rgp");
-    			add_location(div, file$2, 27, 0, 667);
+    			attr_dev(div, "class", "container svelte-1s63iq");
+    			add_location(div, file$2, 53, 0, 2087);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -108587,11 +108587,38 @@ var app = (function () {
 
     	const changelog = [
     		{
+    			version: 'v1.7.15 - Cherry Berry',
+    			changes: [
+    				'<em>Completely overhauled the My Heroes area.</em>',
+    				'<em>New radial menu used to select SI and Furn.</em>',
+    				'<em>Added Hodgkin to the hero database.',
+    				'<em>Added engraving skill details to all CHaD heroes in detail popup.</em>',
+    				'Converted Hero Finder filter logic to exclude all categories aside from the one that was clicked. My Heroes and Hero List remain unchanged.',
+    				'Added mobile export button to comp detail and remove buttons from comp cards (too hard to touch)',
+    				'Added SI OFF to indicate SI isn\'t activated at all.',
+    				'Added changelog to the About page if you click version number.',
+    				'Newly claimed heroes are now ascended with 0SI and 0F.',
+    				'Added lodash to debounce some listeners.',
+    				'Standardized delete button design.',
+    				'Standardized mobile viewport listener.',
+    				'Disabled autofocus in the comp editor.',
+    				'Updated benchmark numbers for several heroes (thanks Bob!)',
+    				'Changed design of core marks.',
+    				'Updated all NPM packages.',
+    				'Fixed desktop filters display on My Heroes and Hero List.',
+    				'Fixed info icon displaying above filters in My Heroes.',
+    				'Fixed scrolling issue on mobile with URL bar open.',
+    				'Fixed weird button padding on iOS Safari.',
+    				'Fixed iOS Safari gradient display.',
+    				'Fixed various typos in hero data.'
+    			]
+    		},
+    		{
     			version: 'v1.0.16',
     			changes: [
-    				'Restrict height on modals.',
-    				'Fix display bug when moving from Hero List or My Heroes to Comps.',
-    				'Fix comp detail not closing when comp is deleted.'
+    				'Restricted height on modals.',
+    				'Fixed display bug when moving from Hero List or My Heroes to Comps.',
+    				'Fixed comp detail not closing when comp is deleted.'
     			]
     		}
     	];
