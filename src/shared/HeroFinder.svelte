@@ -130,52 +130,149 @@
 	function handleFilterMasterButtonClick(category) {
 		switch(category) {
 			case 'faction':
-				if(allFactionsEnabled) {
-					showLB = false;
-					showM = false;
-					showW = false;
-					showGB = false;
-					showC = false;
-					showH = false;
-					showD = false;
-				} else {
-					showLB = true;
-					showM = true;
-					showW = true;
-					showGB = true;
-					showC = true;
-					showH = true;
-					showD = true;
-				}
+				showLB = true;
+				showM = true;
+				showW = true;
+				showGB = true;
+				showC = true;
+				showH = true;
+				showD = true;
 				break;
 			case 'type':
-				if(allTypesEnabled) {
-					showInt = false;
-					showAgi = false;
-					showStr = false;
-				} else {
-					showInt = true;
-					showAgi = true;
-					showStr = true;
-				}
+				showInt = true;
+				showAgi = true;
+				showStr = true;
 				break;
 			case 'class':
-				if(allClassEnabled) {
-					showMage = false;
-					showWar = false;
-					showTank = false;
-					showSup = false;
-					showRan = false;
-				} else {
-					showMage = true;
-					showWar = true;
-					showTank = true;
-					showSup = true;
-					showRan = true;
-				}
+				showMage = true;
+				showWar = true;
+				showTank = true;
+				showSup = true;
+				showRan = true;
 				break;
 			default:
 				throw new Error(`Invalid category given to handleFilterMasterButtonClick(): ${category}`);
+		}
+		heroes = makeHeroList();
+	}
+
+	function handleFilterButtonClick(category) {
+		switch(category) {
+			case 'LB':
+				showLB = true;
+				showM = false;
+				showW = false;
+				showGB = false;
+				showC = false;
+				showH = false;
+				showD = false;
+				break;
+			case 'M':
+				showLB = false;
+				showM = true;
+				showW = false;
+				showGB = false;
+				showC = false;
+				showH = false;
+				showD = false;
+				break;
+			case 'W':
+				showLB = false;
+				showM = false;
+				showW = true;
+				showGB = false;
+				showC = false;
+				showH = false;
+				showD = false;
+				break;
+			case 'GB':
+				showLB = false;
+				showM = false;
+				showW = false;
+				showGB = true;
+				showC = false;
+				showH = false;
+				showD = false;
+				break;
+			case 'C':
+				showLB = false;
+				showM = false;
+				showW = false;
+				showGB = false;
+				showC = true;
+				showH = false;
+				showD = false;
+				break;
+			case 'H':
+				showLB = false;
+				showM = false;
+				showW = false;
+				showGB = false;
+				showC = false;
+				showH = true;
+				showD = false;
+				break;
+			case 'D':
+				showLB = false;
+				showM = false;
+				showW = false;
+				showGB = false;
+				showC = false;
+				showH = false;
+				showD = true;
+				break;
+			case 'Int':
+				showInt = true;
+				showAgi = false;
+				showStr = false;
+				break;
+			case 'Agi':
+				showInt = false;
+				showAgi = true;
+				showStr = false;
+				break;
+			case 'Str':
+				showInt = false;
+				showAgi = false;
+				showStr = true;
+				break;
+			case 'Mage':
+				showMage = true;
+				showWar = false;
+				showTank = false;
+				showSup = false;
+				showRan = false;
+				break;
+			case 'War':
+				showMage = false;
+				showWar = true;
+				showTank = false;
+				showSup = false;
+				showRan = false;
+				break;
+			case 'Tank':
+				showMage = false;
+				showWar = false;
+				showTank = true;
+				showSup = false;
+				showRan = false;
+				break;
+			case 'Sup':
+				showMage = false;
+				showWar = false;
+				showTank = false;
+				showSup = true;
+				showRan = false;
+				break;
+			case 'Ran':
+				showMage = false;
+				showWar = false;
+				showTank = false;
+				showSup = false;
+				showRan = true;
+				break;
+			default:
+				throw new Error(`Invalid category given to handleFilterButtonClick(): ${category}`);
 		}
 		heroes = makeHeroList();
 	}
@@ -343,56 +440,56 @@
 					<div class="filters">
 						<div class="filterSection">
 							<button type="button" class="filterMasterButton" class:filterMasterDisabled={!allFactionsEnabled} on:click={() => handleFilterMasterButtonClick('faction')}>ALL</button>
-							<button type="button" class="filterButton" on:click={() => {showLB = !showLB; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showLB} src="./img/factions/lightbearer.png" alt="Lightbearer">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('LB')}}>
+								<img class="filterImg" class:filterSelected={showLB && !allFactionsEnabled} class:filterInactive={!showLB} src="./img/factions/lightbearer.png" alt="Lightbearer">
 							</button>
-							<button type="button" class="filterButton" on:click={() => { showM = !showM; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showM} src="./img/factions/mauler.png" alt="Mauler">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('M')}}>
+								<img class="filterImg" class:filterSelected={showM && !allFactionsEnabled} class:filterInactive={!showM} src="./img/factions/mauler.png" alt="Mauler">
 							</button>
-							<button type="button" class="filterButton" on:click={() => { showW = !showW; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showW} src="./img/factions/wilder.png" alt="wilder">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('W')}}>
+								<img class="filterImg" class:filterSelected={showW && !allFactionsEnabled} class:filterInactive={!showW} src="./img/factions/wilder.png" alt="wilder">
 							</button>
-							<button type="button" class="filterButton" on:click={() => { showGB = !showGB; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showGB} src="./img/factions/graveborn.png" alt="Graveborn">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('GB')}}>
+								<img class="filterImg" class:filterSelected={showGB && !allFactionsEnabled} class:filterInactive={!showGB} src="./img/factions/graveborn.png" alt="Graveborn">
 							</button>
-							<button type="button" class="filterButton" on:click={() => { showC = !showC; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showC} src="./img/factions/celestial.png" alt="Celestial">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('C')}}>
+								<img class="filterImg" class:filterSelected={showC && !allFactionsEnabled} class:filterInactive={!showC} src="./img/factions/celestial.png" alt="Celestial">
 							</button>
-							<button type="button" class="filterButton" on:click={() => { showH = !showH; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showH} src="./img/factions/hypogean.png" alt="Hypogean">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('H')}}>
+								<img class="filterImg" class:filterSelected={showH && !allFactionsEnabled} class:filterInactive={!showH} src="./img/factions/hypogean.png" alt="Hypogean">
 							</button>
-							<button type="button" class="filterButton" on:click={() => { showD = !showD; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showD} src="./img/factions/dimensional.png" alt="Dimensional">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('D')}}>
+								<img class="filterImg" class:filterSelected={showD && !allFactionsEnabled} class:filterInactive={!showD} src="./img/factions/dimensional.png" alt="Dimensional">
 							</button>
 						</div>
 						<div class="filterSection">
 							<button type="button" class="filterMasterButton" class:filterMasterDisabled={!allTypesEnabled} on:click={() => handleFilterMasterButtonClick('type')}>ALL</button>
-							<button type="button" class="filterButton" on:click={() => { showInt = !showInt; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showInt} src="./img/types/intelligence.png" alt="Intelligence">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('Int')}}>
+								<img class="filterImg" class:filterSelected={showInt && !allTypesEnabled} class:filterInactive={!showInt} src="./img/types/intelligence.png" alt="Intelligence">
 							</button>
-							<button type="button" class="filterButton" on:click={() => { showAgi = !showAgi; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showAgi} src="./img/types/agility.png" alt="Agility">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('Agi')}}>
+								<img class="filterImg" class:filterSelected={showAgi && !allTypesEnabled} class:filterInactive={!showAgi} src="./img/types/agility.png" alt="Agility">
 							</button>
-							<button type="button" class="filterButton" on:click={() => { showStr = !showStr; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showStr} src="./img/types/strength.png" alt="Strength">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('Str')}}>
+								<img class="filterImg" class:filterSelected={showStr && !allTypesEnabled} class:filterInactive={!showStr} src="./img/types/strength.png" alt="Strength">
 							</button>
 						</div>
 						<div class="filterSection">
 							<button type="button" class="filterMasterButton" class:filterMasterDisabled={!allClassEnabled} on:click={() => handleFilterMasterButtonClick('class')}>ALL</button>
-							<button type="button" class="filterButton" on:click={() => { showMage = !showMage; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showMage} src="./img/classes/mage.png" alt="Mage">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('Mage')}}>
+								<img class="filterImg" class:filterSelected={showMage && !allClassEnabled} class:filterInactive={!showMage} src="./img/classes/mage.png" alt="Mage">
 							</button>
-							<button type="button" class="filterButton" on:click={() => { showWar = !showWar; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showWar} src="./img/classes/warrior.png" alt="Warrior">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('War')}}>
+								<img class="filterImg" class:filterSelected={showWar && !allClassEnabled} class:filterInactive={!showWar} src="./img/classes/warrior.png" alt="Warrior">
 							</button>
-							<button type="button" class="filterButton" on:click={() => { showTank = !showTank; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showTank} src="./img/classes/tank.png" alt="Tank">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('Tank')}}>
+								<img class="filterImg" class:filterSelected={showTank && !allClassEnabled} class:filterInactive={!showTank} src="./img/classes/tank.png" alt="Tank">
 							</button>
-							<button type="button" class="filterButton" on:click={() => { showSup = !showSup; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showSup} src="./img/classes/support.png" alt="Support">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('Sup')}}>
+								<img class="filterImg" class:filterSelected={showSup && !allClassEnabled} class:filterInactive={!showSup} src="./img/classes/support.png" alt="Support">
 							</button>
-							<button type="button" class="filterButton" on:click={() => { showRan = !showRan; heroes = makeHeroList(); }}>
-								<img class="filterImg" class:filterInactive={!showRan} src="./img/classes/ranger.png" alt="Ranger">
+							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('Ran')}}>
+								<img class="filterImg" class:filterSelected={showRan && !allClassEnabled} class:filterInactive={!showRan} src="./img/classes/ranger.png" alt="Ranger">
 							</button>
 						</div>
 					</div>
@@ -717,6 +814,10 @@
 	}
 	.filterInactive {
 		filter: grayscale(100%);
+	}
+	.filterSelected {
+		border-radius: 50%;
+		box-shadow: 0 0 7px 2px var(--appColorPrimary);
 	}
 	.heroGrid {
 		display: grid;
