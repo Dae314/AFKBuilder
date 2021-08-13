@@ -5,12 +5,13 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
-		{ version: 'v1.7.15 - Cherry Berry',
+		{ version: 'v1.7.16 - Cherry Berry',
 			changes: [
 				'<em>Completely overhauled the My Heroes area.</em>',
 				'<em>New radial menu used to select SI and Furn.</em>',
 				'<em>Added Hodgkin to the hero database.</em>',
 				'<em>Added engraving skill details to all CHaD heroes in detail popup.</em>',
+				'<em>Added link to new Discord for sharing comps!</em>',
 				'Converted Hero Finder filter logic to exclude all categories aside from the one that was clicked. My Heroes and Hero List remain unchanged.',
 				'Added mobile export button to comp detail and remove buttons from comp cards (too hard to touch)',
 				'Added SI OFF to indicate SI isn\'t activated at all.',

@@ -108420,7 +108420,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (58:2) {#each item.changes as change}
+    // (59:2) {#each item.changes as change}
     function create_each_block_1(ctx) {
     	let li;
     	let raw_value = /*change*/ ctx[7] + "";
@@ -108428,7 +108428,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			li = element("li");
-    			add_location(li, file$2, 58, 3, 2217);
+    			add_location(li, file$2, 59, 3, 2279);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -108444,14 +108444,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(58:2) {#each item.changes as change}",
+    		source: "(59:2) {#each item.changes as change}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (55:1) {#each changelog as item}
+    // (56:1) {#each changelog as item}
     function create_each_block$1(ctx) {
     	let h4;
     	let t0_value = /*item*/ ctx[4].version + "";
@@ -108480,9 +108480,9 @@ var app = (function () {
 
     			t2 = space();
     			attr_dev(h4, "class", "svelte-1s63iq");
-    			add_location(h4, file$2, 55, 2, 2147);
+    			add_location(h4, file$2, 56, 2, 2209);
     			attr_dev(ul, "class", "svelte-1s63iq");
-    			add_location(ul, file$2, 56, 2, 2174);
+    			add_location(ul, file$2, 57, 2, 2236);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h4, anchor);
@@ -108533,7 +108533,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(55:1) {#each changelog as item}",
+    		source: "(56:1) {#each changelog as item}",
     		ctx
     	});
 
@@ -108561,7 +108561,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "container svelte-1s63iq");
-    			add_location(div, file$2, 53, 0, 2092);
+    			add_location(div, file$2, 54, 0, 2154);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -108634,12 +108634,13 @@ var app = (function () {
 
     	const changelog = [
     		{
-    			version: 'v1.7.15 - Cherry Berry',
+    			version: 'v1.7.16 - Cherry Berry',
     			changes: [
     				'<em>Completely overhauled the My Heroes area.</em>',
     				'<em>New radial menu used to select SI and Furn.</em>',
     				'<em>Added Hodgkin to the hero database.</em>',
     				'<em>Added engraving skill details to all CHaD heroes in detail popup.</em>',
+    				'<em>Added link to new Discord for sharing comps!</em>',
     				'Converted Hero Finder filter logic to exclude all categories aside from the one that was clicked. My Heroes and Hero List remain unchanged.',
     				'Added mobile export button to comp detail and remove buttons from comp cards (too hard to touch)',
     				'Added SI OFF to indicate SI isn\'t activated at all.',
@@ -110189,7 +110190,7 @@ var app = (function () {
 
     const app = new App({
     	target: document.body,
-    	props: {version: '1.7.15'}
+    	props: {version: '1.7.16'}
     });
 
     return app;
