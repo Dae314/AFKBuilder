@@ -54,7 +54,11 @@
 					<button type="button" class="{$AppData.activeView === item.toLowerCase() ? 'selected' : ''}">{item}</button>
 				</li>
 			{/each}
+			<li class="discordMobileButton" on:click={() => window.open('https://discord.com/invite/sjxgnmkvSf', '_blank')}>
+				<div><img src="./img/app/discord-logo-white.png" alt="Discord"><span>Join the Discord!</span></div>
+			</li>
 		</ul>
+		<a href="https://discord.com/invite/sjxgnmkvSf" class="discordButton" target="_blank" rel="noreferrer noopener"><img src="./img/app/discord-logo-white.png" alt="Discord"></a>
 	</div>
 </nav>
 
@@ -75,7 +79,6 @@
 		box-sizing: border-box;
 		display: flex;
 		height: 100%;
-		max-width: 980px;
 		padding-left: 20px;
 		padding-right: 20px;
 	}
@@ -174,6 +177,31 @@
 					color: rgba(240, 240, 242, 1.0);
 				}
 			}
+			&:last-child {
+				font-size: 20px;
+				padding-left: 30px;
+				div {
+					color: rgba(240, 240, 242, 0.7);
+					text-decoration: none;
+				}
+				span {
+					padding-left: 10px;
+					position: relative;
+					top: -10px;
+				}
+				img {
+					max-width: 30px;
+					opacity: 0.7;
+				}
+				&:hover {
+					div {
+						color: rgba(240, 240, 242, 1.0);
+					}
+					img {
+						opacity: 1.0;
+					}
+				}
+			}
 		}
 		button {
 			background: none;
@@ -202,6 +230,15 @@
 		left: 0;
 		position: fixed;
 	}
+	.discordButton {
+		align-items: center;
+		display: none;
+		justify-content: center;
+		margin-left: auto;
+		img {
+			max-width: 30px;
+		}
+	}
 	@media only screen and (min-width: 767px) {
 		.mobile-icon {
 			display: none;
@@ -211,9 +248,7 @@
 			position: static;
 		}
 		.inner {
-			max-width: 75%;
 			min-height: 100%;
-			padding-left: 10px;
 		}
 		.navbar-list {
 			display: flex;
@@ -236,6 +271,9 @@
 					}
 				}
 				&:before {
+					display: none;
+				}
+				&:last-child {
 					display: none;
 				}
 			}
@@ -271,6 +309,9 @@
 					transform: rotateZ(360deg);
 				}
 			}
+		}
+		.discordButton {
+			display: flex;
 		}
 	}
 </style>
