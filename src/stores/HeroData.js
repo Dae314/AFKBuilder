@@ -6642,7 +6642,7 @@ const HeroData = readable([
 	{ id: 'twins',
 		name: 'Elijah & Lailah',
 		portrait: './img/portraits/twins.jpg',
-		class: 'support',
+		class: 'Support',
 		faction: 'Celestial',
 		type: 'Intelligence',
 		skills: [
