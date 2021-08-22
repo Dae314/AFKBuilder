@@ -108691,7 +108691,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (59:2) {#each item.changes as change}
+    // (68:2) {#each item.changes as change}
     function create_each_block_1(ctx) {
     	let li;
     	let raw_value = /*change*/ ctx[7] + "";
@@ -108699,7 +108699,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			li = element("li");
-    			add_location(li, file$2, 59, 3, 2279);
+    			add_location(li, file$2, 68, 3, 2563);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -108715,14 +108715,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(59:2) {#each item.changes as change}",
+    		source: "(68:2) {#each item.changes as change}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (56:1) {#each changelog as item}
+    // (65:1) {#each changelog as item}
     function create_each_block$1(ctx) {
     	let h4;
     	let t0_value = /*item*/ ctx[4].version + "";
@@ -108751,9 +108751,9 @@ var app = (function () {
 
     			t2 = space();
     			attr_dev(h4, "class", "svelte-1s63iq");
-    			add_location(h4, file$2, 56, 2, 2209);
+    			add_location(h4, file$2, 65, 2, 2493);
     			attr_dev(ul, "class", "svelte-1s63iq");
-    			add_location(ul, file$2, 57, 2, 2236);
+    			add_location(ul, file$2, 66, 2, 2520);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h4, anchor);
@@ -108804,7 +108804,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(56:1) {#each changelog as item}",
+    		source: "(65:1) {#each changelog as item}",
     		ctx
     	});
 
@@ -108832,7 +108832,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "container svelte-1s63iq");
-    			add_location(div, file$2, 54, 0, 2154);
+    			add_location(div, file$2, 63, 0, 2438);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -108904,6 +108904,16 @@ var app = (function () {
     	const { close } = getContext('simple-modal');
 
     	const changelog = [
+    		{
+    			version: 'v1.7.21',
+    			changes: [
+    				'Added the Oceanic Strings artifact',
+    				'Fixed typo on Twins\' class',
+    				'Changed artifact remove buttons to match the rest of the app',
+    				'Added Morrow to hero database',
+    				'Adjusted Raku\'s furn benchmark to 3'
+    			]
+    		},
     		{
     			version: 'v1.7.16 - Cherry Berry',
     			changes: [

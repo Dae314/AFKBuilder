@@ -5,6 +5,15 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.7.21',
+			changes: [
+				'Added the Oceanic Strings artifact',
+				'Fixed typo on Twins\' class',
+				'Changed artifact remove buttons to match the rest of the app',
+				'Added Morrow to hero database',
+				'Adjusted Raku\'s furn benchmark to 3',
+			],
+		},
 		{ version: 'v1.7.16 - Cherry Berry',
 			changes: [
 				'<em>Completely overhauled the My Heroes area.</em>',
