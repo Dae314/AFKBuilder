@@ -23247,7 +23247,7 @@ var app = (function () {
     				},
     			],
     		},
-    		furn_benchmark: 9,
+    		furn_benchmark: 3,
     		furniture: {
     			name: 'Earnest Lad',
     			image: './img/furniture/raku.png',
