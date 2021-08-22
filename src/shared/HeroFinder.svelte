@@ -8,6 +8,7 @@
 	import AscensionMenu from '../shared/AscensionMenu.svelte';
 	import SIMenu from '../shared/SIMenu.svelte';
 	import FurnMenu from '../shared/FurnMenu.svelte';
+	import XButton from '../shared/XButton.svelte';
 
 	export let config = {};
 	export let isMobile = false;
@@ -559,7 +560,9 @@
 										<div class="artifactContainer">
 											<div class="artifactImgContainer">
 												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-												<button type="button" class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'primary'); e.stopPropagation(); }}><span>x</span></button>
+												<div class="removeArtifactButtonContainer">
+													<XButton clickCallback={() => handleRemoveArtifact(artifact, 'primary')} size="medium" hoverable={false} />
+												</div>
 											</div>
 											<p>{$Artifacts[artifact].name}</p>
 										</div>
@@ -587,7 +590,9 @@
 										<div class="artifactContainer">
 											<div class="artifactImgContainer">
 												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-												<button type="button" class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'secondary'); e.stopPropagation(); }}><span>x</span></button>
+												<div class="removeArtifactButtonContainer">
+													<XButton clickCallback={() => handleRemoveArtifact(artifact, 'secondary')} size="medium" hoverable={false} />
+												</div>
 											</div>
 											<p>{$Artifacts[artifact].name}</p>
 										</div>
@@ -615,7 +620,9 @@
 										<div class="artifactContainer">
 											<div class="artifactImgContainer">
 												<img class="artifactImg listImg" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-												<button type="button" class="removeButton" on:click={(e) => { handleRemoveArtifact(artifact, 'situational'); e.stopPropagation(); }}><span>x</span></button>
+												<div class="removeArtifactButtonContainer">
+													<XButton clickCallback={() => handleRemoveArtifact(artifact, 'situational')} size="medium" hoverable={false} />
+												</div>
 											</div>
 											<p>{$Artifacts[artifact].name}</p>
 										</div>
@@ -1059,13 +1066,7 @@
 		border-radius: 50%;
 		max-width: 60px;
 	}
-	.removeButton {
-		background-color: var(--appDelColor);
-		border: none;
-		border-radius: 50%;
-		cursor: pointer;
-		font-weight: normal;
-		outline: none;
+	.removeArtifactButtonContainer {
 		position: absolute;
 		right: -3px;
 		top: 0;

@@ -302,6 +302,20 @@ const Artifacts = readable({
 		attributes: ['HASTE', 'ATK', 'HP'],
 		class: 'Mage',
 	},
+	strings: {
+		name: 'Oceanic Strings',
+		image: './img/artifacts/strings.jpg',
+		upgrades: [
+			{ unlock: 0,
+				desc: 'Each time a Normal Attack or Ability (excluding Ultimate) is used, the harp is played, healing the most injured allied hero for a value equal to <em>35%</em> of the wielder\'s Attack Rating. When the harp is played <em>4</em> times, all allied heroes recover health equal to <em>140%</em> of the wielder\'s Attack Rating.',
+			},
+			{ unlock: 3,
+				desc: 'Each time a Normal Attack or Ability (excluding Ultimate) is used, the harp is played, healing the most injured allied hero for a value equal to <em>50%</em> of the wielder\'s Attack Rating. When the harp is played <em>4</em> times, all allied heroes recover health equal to <em>200%</em> of the wielder\'s Attack Rating.',
+			},
+		],
+		attributes: ['HASTE', 'HR'],
+		class: 'Support',
+	},
 });
 
 export default Artifacts;
