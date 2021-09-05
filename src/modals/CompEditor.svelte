@@ -124,6 +124,11 @@
 	}
 
 	function deleteSub(subIdx) {
+		let subHeroes = comp.subs[subIdx].heroes;
+		comp.subs[subIdx].heroes = [];
+		for(let hero of subHeroes) {
+			removeHeroesReference(hero);
+		}
 		comp.subs = comp.subs.filter((e, i) => i !== subIdx);
 	}
 
