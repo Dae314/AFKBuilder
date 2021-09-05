@@ -6569,7 +6569,7 @@ const HeroData = readable([
 			},
 			{
 				name: 'Jolly Roger',
-				image: './img/skills/Hodgkin3.png',
+				image: './img/skills/hodgkin3.png',
 				desc: 'Hodgkin summons down a Jolly Roger flag that deals <em>230%</em> AoE damage to nearby enemies. Allied heroes that are within range have their Defense Ratings increased by <em>20%</em> and their Attack Ratings increased by <em>20%</em> for the following <em>10</em> seconds. If an enemy within range has had their soul siphoned, the flag shall be strengthened, with its duration being extended by <em>3</em> seconds. After the flag has been strengthened, any allied heroes within range shall have their Haste additionally increased by <em>35</em> points.',
 				unlock: 41,
 				upgrades: [
