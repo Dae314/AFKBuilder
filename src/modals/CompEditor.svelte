@@ -115,6 +115,11 @@
 	}
 
 	function deleteLine(lineIdx) {
+		let lineHeroes = comp.lines[lineIdx].heroes;
+		comp.lines[lineIdx].heroes = ['unknown', 'unknown', 'unknown', 'unknown', 'unknown'];
+		for(let hero of lineHeroes) {
+			if(hero !== 'unknown') removeHeroesReference(hero);
+		}
 		comp.lines = comp.lines.filter((e, i) => i !== lineIdx);
 		if(openLine === lineIdx) {
 			openLine = null;
