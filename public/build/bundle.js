@@ -110722,7 +110722,7 @@ var app = (function () {
 
     const app = new App({
     	target: document.body,
-    	props: {version: '1.7.21'}
+    	props: {version: '1.7.26'}
     });
 
     return app;
