@@ -5,6 +5,15 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.7.26',
+			changes: [
+				'Added Zikis',
+				'Added Wilder engraving info',
+				'All heroes in a line or sub-line are now cleaned up when the line or sub-line is deleted',
+				'Fixed Hogkin\'s third skill image',
+				'Fixed code blocks displaying in description without linebreaks',
+			],
+		},
 		{ version: 'v1.7.21',
 			changes: [
 				'Added the Oceanic Strings artifact',

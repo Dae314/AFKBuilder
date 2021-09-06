@@ -1613,6 +1613,7 @@
 			font-family: 'Courier New', Courier, monospace;
 			font-size: 1.0rem;
 			padding: 10px;
+			white-space: break-spaces;
 		}
 		:global(table) {
 			border-collapse: collapse;
