@@ -108932,7 +108932,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (68:2) {#each item.changes as change}
+    // (77:2) {#each item.changes as change}
     function create_each_block_1(ctx) {
     	let li;
     	let raw_value = /*change*/ ctx[7] + "";
@@ -108940,7 +108940,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			li = element("li");
-    			add_location(li, file$2, 68, 3, 2563);
+    			add_location(li, file$2, 77, 3, 2882);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -108956,14 +108956,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(68:2) {#each item.changes as change}",
+    		source: "(77:2) {#each item.changes as change}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (65:1) {#each changelog as item}
+    // (74:1) {#each changelog as item}
     function create_each_block$1(ctx) {
     	let h4;
     	let t0_value = /*item*/ ctx[4].version + "";
@@ -108992,9 +108992,9 @@ var app = (function () {
 
     			t2 = space();
     			attr_dev(h4, "class", "svelte-1s63iq");
-    			add_location(h4, file$2, 65, 2, 2493);
+    			add_location(h4, file$2, 74, 2, 2812);
     			attr_dev(ul, "class", "svelte-1s63iq");
-    			add_location(ul, file$2, 66, 2, 2520);
+    			add_location(ul, file$2, 75, 2, 2839);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h4, anchor);
@@ -109045,7 +109045,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(65:1) {#each changelog as item}",
+    		source: "(74:1) {#each changelog as item}",
     		ctx
     	});
 
@@ -109073,7 +109073,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "container svelte-1s63iq");
-    			add_location(div, file$2, 63, 0, 2438);
+    			add_location(div, file$2, 72, 0, 2757);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -109145,6 +109145,16 @@ var app = (function () {
     	const { close } = getContext('simple-modal');
 
     	const changelog = [
+    		{
+    			version: 'v1.7.26',
+    			changes: [
+    				'Added Zikis',
+    				'Added Wilder engraving info',
+    				'All heroes in a line or sub-line are now cleaned up when the line or sub-line is deleted',
+    				'Fixed Hogkin\'s third skill image',
+    				'Fixed code blocks displaying in description without linebreaks'
+    			]
+    		},
     		{
     			version: 'v1.7.21',
     			changes: [
