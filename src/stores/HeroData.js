@@ -1802,7 +1802,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 3,
 		furniture: {
 			name: 'Devilish Pact',
 			image: './img/furniture/morrow.png',
@@ -2855,7 +2855,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 20,
 		sig_item: {
 			name: 'Battle Hardened',
 			image: './img/si/tidus.png',
@@ -3039,7 +3039,7 @@ const HeroData = readable([
 			{
 				name: 'Born to Lead',
 				image: './img/skills/anoki3.png',
-				desc: 'Anoki manifests an aura around himself that lasts for <em>8</em> seconds. While the aura is present, all allies including Anoki have their Attack Ratings increased by <em>8%</em>, the damage they receive is reduced by <em>1%</em> and the frequency of their Normal Attacks is increased by <em>15%</em>. Melee heroes receive an extra increase of <em>150%</em> for all of the preceding attributes.',
+				desc: 'Anoki manifests an aura around himself that lasts for <em>8</em> seconds. While the aura is present, all allies including Anoki have their Attack Ratings increased by <em>8%</em>, the damage they receive is reduced by <em>10%</em> and the frequency of their Normal Attacks is increased by <em>15%</em>. Melee heroes receive an extra increase of <em>150%</em> for all of the preceding attributes.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'Attack Rating is raised by <em>9%</em>.',
@@ -3752,7 +3752,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Multi Shot',
 			image: './img/furniture/lyca.png',
@@ -6712,7 +6712,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 20,
 		sig_item: {
 			name: 'Pirate\'s Greed',
 			image: './img/si/hodgkin.png',
@@ -8224,7 +8224,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 3,
 		furniture: {
 			name: 'Postponement',
 			image: './img/furniture/zolrath.png',
@@ -8897,7 +8897,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 20,
 		sig_item: {
 			name: 'Bewilderment',
 			image: './img/si/zikis.png',
@@ -9357,7 +9357,7 @@ const HeroData = readable([
 				],
 			},
 		],
-		si_benchmark: 25,
+		si_benchmark: 20,
 		sig_item: {
 			name: 'Assassin\'s Target',
 			image: './img/si/ezio.png',
