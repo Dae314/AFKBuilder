@@ -1917,7 +1917,7 @@ const HeroData = readable([
 				{ desc: 'The duration of the ability "Last Gasp" is extended by <em>2</em> seconds.',
 					unlock: 3,
 				},
-				{ desc: 'The ability "Last Gasp" is extended by <em>2</em> seconds for each non-summoned ally that dies before or during the use of it.',
+				{ desc: 'The ability "Last Gasp" is extended by <em>2</em> seconds for each non-summoned enemy that dies before or during the use of it.',
 					unlock: 9,
 				},
 			],
