@@ -1159,6 +1159,7 @@
 	}
 	:global(.toastui-editor-contents) {
 		padding: 10px !important;
+		z-index: 4 !important;
 		:global(hr) {
 			border: 1px solid var(--appColorPrimary) !important;
 			margin: 5px 0px !important;
