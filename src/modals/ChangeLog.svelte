@@ -5,6 +5,15 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.7.31',
+			changes: [
+				'Added new hero Granit',
+				'Added Lightbearer engraving information',
+				'Hero benchmarks changed: Ezio 209, Hodgkin 209, Lyca 200, Tidus 203, Zol 203, Zikis, 209, Morrow 203',
+				'Updated NPM packages',
+				'Fixed various typos',
+			],
+		},
 		{ version: 'v1.7.26',
 			changes: [
 				'Added Zikis',
