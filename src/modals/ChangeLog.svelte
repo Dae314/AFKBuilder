@@ -5,11 +5,12 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
-		{ version: 'v1.7.31',
+		{ version: 'v1.7.32',
 			changes: [
 				'Added new hero Granit',
 				'Added Lightbearer engraving information',
 				'Hero benchmarks changed: Ezio 209, Hodgkin 209, Lyca 200, Tidus 203, Zol 203, Zikis, 209, Morrow 203',
+				'Fix ToastUI editor z-index value was too high',
 				'Updated NPM packages',
 				'Fixed various typos',
 			],
