@@ -410,25 +410,11 @@
 								</div>
 							</div>
 							<div class="heroHeader">
-								<div class="headArea">
+								<div class="attrArea">
 									<div class="attrImgContainer">
 										<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
 										<div class="tooltip tooltip-faction"><span class="tooltipText">{hero.faction}</span></div>
 									</div>
-								</div>
-								<div class="headArea">
-									<div class="flipCard" on:click={(e) => e.stopPropagation()}>
-										<div class="flipCardInner">
-											<div class="flipCardFront">
-												<img on:click="{() => handleHeroDetailClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
-											</div>
-											<div class="flipCardBack">
-												<button type="button" on:click="{() => handleHeroDetailClick(hero.id)}" class="portraitButton" class:owned={$AppData.MH.List[hero.id].claimed}>Info</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="headArea">
 									<div class="attrImgContainer">
 										<img class="attrImage typeImg" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
 										<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
@@ -437,6 +423,19 @@
 										<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
 										<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
 									</div>
+								</div>
+								<div class="portraitArea">
+									<img on:click="{() => handleHeroDetailClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
+									<!-- <div class="flipCard" on:click={(e) => e.stopPropagation()}>
+										<div class="flipCardInner">
+											<div class="flipCardFront">
+												<img on:click="{() => handleHeroDetailClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
+											</div>
+											<div class="flipCardBack">
+												<button type="button" on:click="{() => handleHeroDetailClick(hero.id)}" class="portraitButton" class:owned={$AppData.MH.List[hero.id].claimed}>Info</button>
+											</div>
+										</div>
+									</div> -->
 								</div>
 							</div>
 							<p class="heroName">{hero.name}</p>
@@ -494,7 +493,7 @@
 									<div class="flipCard">
 										<div class="flipCardInner">
 											<div class="flipCardFront">
-												<img class="portrait" src={hero.portrait} alt={hero.name}>
+												<img class="unownedPortrait" src={hero.portrait} alt={hero.name}>
 											</div>
 											<div class="flipCardBack">
 												<button type="button" class="portraitButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
@@ -757,9 +756,9 @@
 	}
 	.MHGrid {
 		display: grid;
-		grid-gap: 5px 5px;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
-		grid-template-rows: repeat(auto-fit, minmax(240px, 241px));
+		grid-gap: 10px 5px;
+		grid-template-columns: repeat(auto-fill, minmax(360px, 360px));
+		grid-auto-rows: 360px;
 		justify-content: space-evenly;
 	}
 	.heroCard {
@@ -768,7 +767,6 @@
 		display: flex;
 		flex-direction: column;
 		padding: 10px;
-		padding-top: 20px;
 		position: relative;
 	}
 	.removeArea {
@@ -783,22 +781,21 @@
 		display: flex;
 		flex-direction: row;
 	}
-	.headArea {
-		align-items: center;
+	.portraitArea {
+		width: 100.7%;
+		height: 57.5%;
+		position: absolute;
+		left: -1px;
+		top: -1px;
 		display: flex;
-		flex-direction: column;
 		justify-content: center;
-		width: 100%;
-		position: relative;
+		overflow: hidden;
+		border-radius: 10px 10px 0px 0px;
 	}
 	.portrait {
-		border-radius: 50%;
 		cursor: pointer;
-		max-width: 100px;
-		transition: transform 0.2s;
-		&:active {
-			transform: scale(0.9);
-		}
+		transform: scale(3);
+		mask-image: linear-gradient(180deg, rgba(240,240,242,1) 20%, rgba(240,240,242,1) 35%, rgba(255,255,255,0) 65%);
 	}
 	.portraitButton {
 		display: none;
@@ -811,16 +808,18 @@
 		padding-bottom: 10px;
 		width: 100%;
 	}
+	.attrArea {
+		background-color: var(--appColorPrimary);
+		height: fit-content;
+		border-radius: 10px;
+		padding: 5px;
+		position: relative;
+		z-index: 1;
+	}
 	.attrImgContainer {
 		position: relative;
 		.attrImage {
-			max-width: 40px;
-		}
-		.factionImg {
-			max-width: 60px;
-		}
-		.typeImg {
-			margin-bottom: 10px;
+			max-width: 25px;
 		}
 	}
 	.tooltip {
@@ -852,11 +851,39 @@
 		.heroCard {
 			border-color: #BEBEBE;
 		}
-		.portrait {
-			filter: grayscale(1);
+		.headArea {
+			align-items: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			width: 100%;
+			position: relative;
 		}
-		.attrImage {
+		.unownedPortrait {
+			border-radius: 50%;
+			cursor: pointer;
 			filter: grayscale(1);
+			max-width: 100px;
+			transition: transform 0.2s;
+			&:active {
+				transform: scale(0.9);
+			}
+		}
+		.portraitButton {
+			display: none;
+		}
+		.attrImgContainer {
+			position: relative;
+			.attrImage {
+				filter: grayscale(1);
+				max-width: 40px;
+			}
+			.factionImg {
+				max-width: 60px;
+			}
+			.typeImg {
+				margin-bottom: 10px;
+			}
 		}
 	}
 	.inOutMenuButton {
