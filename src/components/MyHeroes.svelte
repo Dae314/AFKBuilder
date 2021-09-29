@@ -426,16 +426,6 @@
 								</div>
 								<div class="portraitArea">
 									<img on:click="{() => handleHeroDetailClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
-									<!-- <div class="flipCard" on:click={(e) => e.stopPropagation()}>
-										<div class="flipCardInner">
-											<div class="flipCardFront">
-												<img on:click="{() => handleHeroDetailClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
-											</div>
-											<div class="flipCardBack">
-												<button type="button" on:click="{() => handleHeroDetailClick(hero.id)}" class="portraitButton" class:owned={$AppData.MH.List[hero.id].claimed}>Info</button>
-											</div>
-										</div>
-									</div> -->
 								</div>
 							</div>
 							<p class="heroName">{hero.name}</p>
@@ -782,44 +772,47 @@
 		flex-direction: row;
 	}
 	.portraitArea {
-		width: 100.7%;
-		height: 57.5%;
-		position: absolute;
-		left: -1px;
-		top: -1px;
-		display: flex;
-		justify-content: center;
-		overflow: hidden;
 		border-radius: 10px 10px 0px 0px;
+		display: flex;
+		height: 57.5%;
+		justify-content: center;
+		left: -1px;
+		overflow: hidden;
+		position: absolute;
+		top: -1px;
+		width: 100.7%;
 	}
 	.portrait {
 		cursor: pointer;
-		transform: scale(3);
 		mask-image: linear-gradient(180deg, rgba(240,240,242,1) 20%, rgba(240,240,242,1) 35%, rgba(255,255,255,0) 65%);
+		transform: scale(3);
 	}
 	.portraitButton {
 		display: none;
 	}
 	.heroName {
 		display: flex;
+		font-size: 1.7rem;
 		font-weight: bold;
 		justify-content: center;
 		margin: 0;
+		margin-top: 45px;
 		padding-bottom: 10px;
 		width: 100%;
 	}
 	.attrArea {
-		background-color: var(--appColorPrimary);
+		background-color: rgba(0, 0, 0, 0.75);
+		border-radius: 30px;
 		height: fit-content;
-		border-radius: 10px;
 		padding: 5px;
 		position: relative;
+		top: -5px;
 		z-index: 1;
 	}
 	.attrImgContainer {
 		position: relative;
 		.attrImage {
-			max-width: 25px;
+			max-width: 30px;
 		}
 	}
 	.tooltip {
@@ -1044,7 +1037,7 @@
 				border-radius: 6px;
 				color: white;
 				padding: 5px;
-				text-align: center;
+				text-align: left;
 			}
 		}
 		.tooltip-expander {
@@ -1064,16 +1057,19 @@
 			bottom: 35px;
 		}
 		.tooltip-faction {
-			left: -70px;
-			bottom: -30px;
+			justify-content: flex-start;
+			left: 40px;
+			top: 0px;
 		}
 		.tooltip-type {
-			left: -80px;
-			bottom: -20px;
+			justify-content: flex-start;
+			left: 40px;
+			top: 0px;
 		}
 		.tooltip-class {
-			left: -80px;
-			bottom: -30px;
+			justify-content: flex-start;
+			left: 40px;
+			top: 0px;
 		}
 		.attrImage {
 			&:hover+.tooltip {
