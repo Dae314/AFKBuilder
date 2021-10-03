@@ -182,7 +182,10 @@
 							</button>
 						</div>
 						<div class="recText">
-							<AscendBox ascendLv="{rec.value}" />
+							<AscendBox
+								ascendLv="{rec.value}"
+								tier={$HeroData.find(e => e.id === rec.id).tier}
+							/>
 						</div>
 						<div class="compArea">
 							<h5>Used in</h5>
