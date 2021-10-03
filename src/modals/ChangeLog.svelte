@@ -5,6 +5,19 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.8.6',
+			changes: [
+				'Added Legendary tier heroes into the app',
+				'Setup dynamic disabling of SI/Furniture buttons based on hero tier and ascension level',
+				'Updated ascension markers and menus for Legendary tier heroes',
+				'Updated images with de-noised versions',
+				'Added Leonardo',
+				'Fixed Mezoth, Demonic Hunger ability description',
+				'Updated Rosaline furniture skill descriptions',
+				'Added Mauler engraving info',
+				'Added Endeavor skill descriptions to all engraved heroes',
+			],
+		},
 		{ version: 'v1.7.32',
 			changes: [
 				'Added new hero Granit',
@@ -59,13 +72,6 @@
 				'Fixed iOS Safari gradient display.',
 				'Fixed various typos in hero data.',
 			]
-		},
-		{ version: 'v1.0.16',
-			changes: [
-				'Restricted height on modals.',
-				'Fixed display bug when moving from Hero List or My Heroes to Comps.',
-				'Fixed comp detail not closing when comp is deleted.',
-			],
 		},
 	]
 
