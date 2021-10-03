@@ -504,14 +504,24 @@
 												<XButton clickCallback={() => removeLineHero(openLine, i)} size="medium" hoverable={false} />
 											</div>
 											<div class="ascMark">
-												{#if comp.heroes[hero].ascendLv >= 6}
-													<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
-												{:else if comp.heroes[hero].ascendLv >= 4}
-													<img draggable="false" src="./img/markers/mythic.png" alt="mythic">
-												{:else if comp.heroes[hero].ascendLv >= 2}
-													<img draggable="false" src="./img/markers/legendary.png" alt="legendary">
+												{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
+													{#if comp.heroes[hero].ascendLv >= 6}
+														<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
+													{:else if comp.heroes[hero].ascendLv >= 4}
+														<img draggable="false" src="./img/markers/mythic.png" alt="mythic">
+													{:else if comp.heroes[hero].ascendLv >= 2}
+														<img draggable="false" src="./img/markers/legendary.png" alt="legendary">
+													{:else}
+														<img draggable="false" src="./img/markers/elite.png" alt="elite">
+													{/if}
 												{:else}
-													<img draggable="false" src="./img/markers/elite.png" alt="elite">
+													{#if comp.heroes[hero].ascendLv >= 4}
+														<img draggable="false" src="./img/markers/legendary.png" alt="ascended">
+													{:else if comp.heroes[hero].ascendLv >= 2}
+														<img draggable="false" src="./img/markers/elite.png" alt="mythic">
+													{:else}
+														<img draggable="false" src="./img/markers/rare.png" alt="elite">
+													{/if}
 												{/if}
 												{#if comp.heroes[hero].si >= 30}
 													<img draggable="false" src="./img/markers/si30.png" alt="si30">
@@ -574,14 +584,24 @@
 											</div>
 											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
 											<div class="ascMark subAscMark">
-												{#if comp.heroes[hero].ascendLv >= 6}
-													<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
-												{:else if comp.heroes[hero].ascendLv >= 4}
-													<img draggable="false" src="./img/markers/mythic.png" alt="mythic">
-												{:else if comp.heroes[hero].ascendLv >= 2}
-													<img draggable="false" src="./img/markers/legendary.png" alt="legendary">
+												{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
+													{#if comp.heroes[hero].ascendLv >= 6}
+														<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
+													{:else if comp.heroes[hero].ascendLv >= 4}
+														<img draggable="false" src="./img/markers/mythic.png" alt="mythic">
+													{:else if comp.heroes[hero].ascendLv >= 2}
+														<img draggable="false" src="./img/markers/legendary.png" alt="legendary">
+													{:else}
+														<img draggable="false" src="./img/markers/elite.png" alt="elite">
+													{/if}
 												{:else}
-													<img draggable="false" src="./img/markers/elite.png" alt="elite">
+													{#if comp.heroes[hero].ascendLv >= 4}
+														<img draggable="false" src="./img/markers/legendary.png" alt="ascended">
+													{:else if comp.heroes[hero].ascendLv >= 2}
+														<img draggable="false" src="./img/markers/elite.png" alt="mythic">
+													{:else}
+														<img draggable="false" src="./img/markers/rare.png" alt="elite">
+													{/if}
 												{/if}
 												{#if comp.heroes[hero].si >= 30}
 													<img draggable="false" src="./img/markers/si30.png" alt="si30">
