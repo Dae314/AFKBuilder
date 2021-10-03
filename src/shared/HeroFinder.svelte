@@ -399,7 +399,7 @@
 		} else {
 			selectedHero = {
 				id: heroID,
-				ascendLv: 6,
+				ascendLv: $HeroData.find(e => e.id === heroID).tier === 'ascended' ? 6 : 5,
 				si: $HeroData.find(e => e.id === heroID).si_benchmark,
 				furn: $HeroData.find(e => e.id === heroID).furn_benchmark,
 				artifacts: {primary: [], secondary: [], situational: []},
@@ -520,6 +520,7 @@
 								centerMenu={true}
 								zIndexBase=4
 								si40={$HeroData.find(e => e.id === selectedHero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Celestial' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Hypogean'}
+								active={$HeroData.find(e => e.id === selectedHero.id).tier === 'ascended' && selectedHero.ascendLv >= 4}
 							/>
 						</div>
 						<div class="portraitContainer">
@@ -531,6 +532,7 @@
 								activeItem={selectedHero.furn === 0 ? 0 : selectedHero.furn === 3 ? 1 : 2}
 								centerMenu={true}
 								zIndexBase=4
+								active={$HeroData.find(e => e.id === selectedHero.id).tier === 'ascended' && selectedHero.ascendLv >= 6}
 							/>
 						</div>
 					</div>
@@ -540,6 +542,7 @@
 							activeItem={selectedHero.ascendLv}
 							centerMenu={true}
 							zIndexBase=4
+							tier={$HeroData.find(e => e.id === selectedHero.id).tier}
 						/>
 					</div>
 					<div class="coreArea">
