@@ -185,7 +185,7 @@
 
 	function handleHeroClaim(heroID) {
 		$AppData.MH.List[heroID].claimed = true;
-		$AppData.MH.List[heroID].ascendLv = 6;
+		$AppData.MH.List[heroID].ascendLv = $HeroData.find(e => e.id === heroID).tier === 'ascended' ? 6 : 5;
 		$AppData.MH.List[heroID].si = -1;
 		$AppData.MH.List[heroID].furn = 0;
 		myHeroList = makeMyHeroList($AppData.MH.List);
@@ -447,6 +447,7 @@
 											menuItemChangeCallback={(index) => handleAscChange(hero.id, index)}
 											activeItem={$AppData.MH.List[hero.id].ascendLv} 
 											zIndexBase=2
+											tier={$HeroData.find(e => e.id === hero.id).tier}
 										/>
 									</div>
 								</div>
@@ -457,6 +458,7 @@
 											activeItem={$AppData.MH.List[hero.id].si === -1 ? 0 : Math.floor($AppData.MH.List[hero.id].si/5) + 1}
 											zIndexBase=2
 											si40={$HeroData.find(e => e.id === hero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === hero.id).faction === 'Celestial' || $HeroData.find(e => e.id === hero.id).faction === 'Hypogean'}
+											active={$HeroData.find(e => e.id === hero.id).tier === 'ascended' && $AppData.MH.List[hero.id].ascendLv >= 4}
 										/>
 									</div>
 									<div class="flipButtonArea">
@@ -464,6 +466,7 @@
 											menuItemChangeCallback={(index) => handleFurnChange(hero.id, index)}
 											activeItem={$AppData.MH.List[hero.id].furn === 0 ? 0 : $AppData.MH.List[hero.id].furn === 3 ? 1 : 2}
 											zIndexBase=2
+											active={$HeroData.find(e => e.id === hero.id).tier === 'ascended' && $AppData.MH.List[hero.id].ascendLv >= 6}
 										/>
 									</div>
 								</div>

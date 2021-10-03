@@ -74,7 +74,11 @@
 					{#each hero.skills as skill, i}
 					<div class="skill { skillShown === i ? 'skillVisible' : ''}">
 						<h5 class="skillName">{skill.name}</h5>
-						<p class="skillUnlock">lv {skill.unlock}:</p>
+						{#if skill.type === 'level'}
+							<p class="skillUnlock">lv {skill.unlock}:</p>
+						{:else if skill.type === 'engraving'}
+							<p class="skillUnlock engraveUnlock">Engraving lv {skill.unlock}:</p>
+						{/if}
 						<p class="skillDesc">{@html skill.desc}</p>
 						{#each skill.upgrades as upgrade}
 							{#if upgrade.type === 'level'}
@@ -90,46 +94,48 @@
 			</div>
 		</div>
 	</section>
-	<section class="sigItemSection">
-		<div class="mobileExpanderTitle">
-			<button type="button" class="expanderButton" on:click={() => openSI = !openSI}><i class="arrow {openSI ? 'down' : 'right' }"></i>Signature Item</button>
-		</div>
-		<div class="mobileExpander {openSI ? 'isOpen' : '' }">
-			<div class="siFurnArea">
-				<div class="imageArea">
-					<img draggable="false" src={hero.sig_item.image} alt={hero.sig_item.name}>
-					<h5 class="siFurnName">{hero.sig_item.name}</h5>
-				</div>
-				<p class="siFurnUnlock">Unlocked at +0:</p>
-				<p class="siFurnDesc">{@html hero.sig_item.desc}</p>
-				<div class="siFurnUpgrades">
-					{#each hero.sig_item.upgrades as upgrade}
-						<p class="siFurnUnlock">Unlocked at +{upgrade.unlock}:</p>
-						<p class="siFurnDesc">{@html upgrade.desc}</p>
-					{/each}
+	{#if hero.tier === 'ascended'}
+		<section class="sigItemSection">
+			<div class="mobileExpanderTitle">
+				<button type="button" class="expanderButton" on:click={() => openSI = !openSI}><i class="arrow {openSI ? 'down' : 'right' }"></i>Signature Item</button>
+			</div>
+			<div class="mobileExpander {openSI ? 'isOpen' : '' }">
+				<div class="siFurnArea">
+					<div class="imageArea">
+						<img draggable="false" src={hero.sig_item.image} alt={hero.sig_item.name}>
+						<h5 class="siFurnName">{hero.sig_item.name}</h5>
+					</div>
+					<p class="siFurnUnlock">Unlocked at +0:</p>
+					<p class="siFurnDesc">{@html hero.sig_item.desc}</p>
+					<div class="siFurnUpgrades">
+						{#each hero.sig_item.upgrades as upgrade}
+							<p class="siFurnUnlock">Unlocked at +{upgrade.unlock}:</p>
+							<p class="siFurnDesc">{@html upgrade.desc}</p>
+						{/each}
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-	<section class="furnitureSection">
-		<div class="mobileExpanderTitle">
-			<button type="button" class="expanderButton" on:click={() => openFurn = !openFurn}><i class="arrow {openFurn ? 'down' : 'right' }"></i>Furniture</button>
-		</div>
-		<div class="mobileExpander {openFurn ? 'isOpen' : '' }">
-			<div class="siFurnArea">
-				<div class="imageArea">
-					<img draggable="false" src={hero.furniture.image} alt={hero.furniture.name}>
-					<h5 class="siFurnName">{@html hero.furniture.name}</h5>
-				</div>
-				<div class="siFurnUpgrades">
-					{#each hero.furniture.upgrades as upgrade}
-						<p class="siFurnUnlock">Unlocked at {upgrade.unlock}:</p>
-						<p class="siFurnDesc">{@html upgrade.desc}</p>
-					{/each}
+		</section>
+		<section class="furnitureSection">
+			<div class="mobileExpanderTitle">
+				<button type="button" class="expanderButton" on:click={() => openFurn = !openFurn}><i class="arrow {openFurn ? 'down' : 'right' }"></i>Furniture</button>
+			</div>
+			<div class="mobileExpander {openFurn ? 'isOpen' : '' }">
+				<div class="siFurnArea">
+					<div class="imageArea">
+						<img draggable="false" src={hero.furniture.image} alt={hero.furniture.name}>
+						<h5 class="siFurnName">{@html hero.furniture.name}</h5>
+					</div>
+					<div class="siFurnUpgrades">
+						{#each hero.furniture.upgrades as upgrade}
+							<p class="siFurnUnlock">Unlocked at {upgrade.unlock}:</p>
+							<p class="siFurnDesc">{@html upgrade.desc}</p>
+						{/each}
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
+	{/if}
 </div>
 
 <style lang="scss">

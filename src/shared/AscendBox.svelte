@@ -1,29 +1,49 @@
 <script>
 	export let ascendLv;
+	export let tier = 'ascended';
 
 	function getHeroAscendText(ascLv) {
-		switch(ascendLv) {
-			case 0:
-				return 'Elite';
-			case 1:
-				return 'Elite+';
-			case 2:
-				return 'Legendary';
-			case 3:
-				return 'Legendary+';
-			case 4:
-				return 'Mythic';
-			case 5:
-				return 'Mythic+';
-			case 6:
-				return 'Ascended';
-			default:
-				return '';
+		if(tier === 'ascended') {
+			switch(ascLv) {
+				case 0:
+					return 'Elite';
+				case 1:
+					return 'Elite+';
+				case 2:
+					return 'Legendary';
+				case 3:
+					return 'Legendary+';
+				case 4:
+					return 'Mythic';
+				case 5:
+					return 'Mythic+';
+				case 6:
+					return 'Ascended';
+				default:
+					return '';
+			}
+		} else {
+			switch(ascLv) {
+				case 0:
+					return 'Rare';
+				case 1:
+					return 'Rare+';
+				case 2:
+					return 'Elite';
+				case 3:
+					return 'Elite+';
+				case 4:
+					return 'Legendary';
+				case 5:
+					return 'Legendary+';
+				default:
+					return '';
+			}
 		}
 	}
 </script>
 
-<div class="ascendBox ascLv-{ascendLv}">
+<div class="ascendBox ascLv-{ascendLv}" class:fodder={tier !== 'ascended'}>
 	<span>{getHeroAscendText(ascendLv)}</span>
 </div>
 
@@ -36,6 +56,32 @@
 		width: fit-content;
 		span {
 			user-select: none;
+		}
+		&.fodder {
+			&.ascLv-0 {
+				background-color: var(--rareColor);
+				border: 3px solid var(--rareColor);
+			}
+			&.ascLv-1 {
+				background-color: var(--rareColor);
+				border: 3px solid var(--rareColorAccent);
+			}
+			&.ascLv-2 {
+				background-color: var(--eliteColor);
+				border: 3px solid var(--eliteColor);
+			}
+			&.ascLv-3 {
+				background-color: var(--eliteColor);
+				border: 3px solid var(--eliteColorAccent);
+			}
+			&.ascLv-4 {
+				background-color: var(--legendColor);
+				border: 3px solid var(--legendColor);
+			}
+			&.ascLv-5 {
+				background-color: var(--legendColor);
+				border: 3px solid var(--legendColorAccent);
+			}
 		}
 	}
 	.ascLv-0 {
