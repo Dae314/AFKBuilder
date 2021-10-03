@@ -628,7 +628,10 @@
 										</div>
 										<div class="lowerSelectCard">
 											<div class="ascendBoxContainer">
-												<AscendBox ascendLv="{sortedCompList[$AppData.selectedComp].heroes[selectedHero].ascendLv}" />
+												<AscendBox
+													ascendLv="{sortedCompList[$AppData.selectedComp].heroes[selectedHero].ascendLv}"
+													tier={$HeroData.find(e => e.id === selectedHero).tier}
+												/>
 											</div>
 											{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].notes.length > 0}
 												<div class="heroNotesArea">
