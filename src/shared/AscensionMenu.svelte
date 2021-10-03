@@ -6,6 +6,7 @@
 	export let zIndexBase = 1;
 	export let centerMenu = false;
 	export let tier = 'ascended';
+	export let active = true;
 
 	let menuItems;
 	let fullItems;
@@ -37,16 +38,16 @@
 		menuItems = ['R', 'R+', 'E', 'E+', 'L', 'L+'];
 		fullItems = ['Rare', 'Rare+', 'Elite', 'Elite+', 'Legendary', 'Legendary+'];
 		menuItemsStyle = [
-			'background-color: #5EBCFA; color: white; border: 2px solid #5EBCFA;',
-			'background-color: #5EBCFA; color: white; border: 2px solid #4182AD;',
+			'background-color: #5EAFFA; color: white; border: 2px solid #5EAFFA;',
+			'background-color: #5EAFFA; color: white; border: 2px solid #4D8DC8;',
 			'background-color: #AF3CEA; color: white; border: 2px solid #AF3CEA;',
 			'background-color: #AF3CEA; color: white; border: 2px solid #6D2691;',
 			'background-color: #F7BC19; color: white; border: 2px solid #F7BC19;',
 			'background-color: #F7BC19; color: white; border: 2px solid #E0920B;',
 		];
 		fullItemsStyle = [
-			'background-color: #5EBCFA; color: white; border: 2px solid #5EBCFA;',
-			'background-color: #5EBCFA; color: white; border: 2px solid #4182AD;',
+			'background-color: #5EAFFA; color: white; border: 2px solid #5EAFFA;',
+			'background-color: #5EAFFA; color: white; border: 2px solid #4D8DC8;',
 			'background-color: #AF3CEA; color: white; border: 2px solid #AF3CEA;',
 			'background-color: #AF3CEA; color: white; border: 2px solid #6D2691;',
 			'background-color: #F7BC19; color: white; border: 2px solid #F7BC19;',
@@ -68,6 +69,7 @@
 	{activeItem}
 	{zIndexBase}
 	{centerMenu}
+	{active}
 	containerWidth="80px"
 	containerHeight="30px"
 	menuItemClickCallback={handleMenuItemClick}

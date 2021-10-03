@@ -11,6 +11,7 @@
 	export let menuItemClickCallback = () => {};
 	export let zIndexBase = 1;
 	export let centerMenu = false;
+	export let active = true;
 
 	let menuOpen = false;
 	let xOffset = 0; // px
@@ -55,12 +56,14 @@
 
 	function handleMenuClick(event) {
 		event.stopPropagation();
-		menuOpen = !menuOpen;
-		if(menuOpen) {
-			calculateOffset(event.target);
-		} else {
-			xOffset = '0px';
-			yOffset = '0px';
+		if(active) {
+			menuOpen = !menuOpen;
+			if(menuOpen) {
+				calculateOffset(event.target);
+			} else {
+				xOffset = '0px';
+				yOffset = '0px';
+			}
 		}
 	}
 
@@ -95,6 +98,7 @@
 		class:menu-open={menuOpen}
 		on:click={handleMenuClick}
 		style="{fullItemsStyle[activeItem]};"
+		disabled={!active}
 		>
 		{#if menuOpen}
 			<span class="lines line-1"></span>
@@ -147,6 +151,10 @@
 		&.menu-open.center-menu {
 			position: fixed;
 			transform: translate(-50%, -50%);
+		}
+		&.inactive {
+			background-color: gray;
+			color: white;
 		}
 	}
 	.menu-item {
@@ -470,6 +478,12 @@
 					transform: rotate(324deg) translateY(-100px) rotate(-324deg);
 				}
 			}
+		}
+		&:disabled {
+			background-color: var(--appColorDisabled) !important;
+			border-color: var(--appColorDisabled) !important;
+			color: white !important;
+			cursor: default;
 		}
 	}
 	@media only screen and (min-width: 767px) {

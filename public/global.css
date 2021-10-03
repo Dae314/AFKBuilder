@@ -22,9 +22,10 @@ html {
 	--appColorSecondary: #8AA7FF;
 	--appColorTertiary: #3854A6;
 	--appColorQuaternary: #94C6F2;
+	--appColorDisabled: #7e7e7e;
 
-	--rareColor: #5EBCFA;
-	--rareColorAccent: #4182AD;
+	--rareColor: #5EAFFA;
+	--rareColorAccent: #4D8DC8;
 	--eliteColor: #AF3CEA;
 	--eliteColorAccent: #6D2691;
 	--legendColor: #F7BC19;

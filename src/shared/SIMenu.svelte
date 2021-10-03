@@ -6,6 +6,7 @@
 	export let zIndexBase = 1;
 	export let centerMenu = false;
 	export let si40 = true;
+	export let active = true;
 
 	let menuItems = [];
 	let fullItems = [];
@@ -78,6 +79,7 @@
 	{activeItem}
 	{zIndexBase}
 	{centerMenu}
+	{active}
 	containerWidth="80px"
 	containerHeight="30px"
 	menuItemClickCallback={handleMenuItemClick}
