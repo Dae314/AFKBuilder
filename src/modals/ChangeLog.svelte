@@ -7,9 +7,9 @@
 	const changelog = [
 		{ version: 'v1.8.6',
 			changes: [
-				'Added Legendary tier heroes into the app',
-				'Setup dynamic disabling of SI/Furniture buttons based on hero tier and ascension level',
-				'Updated ascension markers and menus for Legendary tier heroes',
+				'<em>Added Legendary tier heroes into the app</em>',
+				'<em>Setup dynamic disabling of SI/Furniture buttons based on hero tier and ascension level</em>',
+				'<em>Updated ascension markers and menus for Legendary tier heroes</em>',
 				'Updated images with de-noised versions',
 				'Added Leonardo',
 				'Fixed Mezoth, Demonic Hunger ability description',
