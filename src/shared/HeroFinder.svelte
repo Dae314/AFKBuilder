@@ -284,6 +284,12 @@
 
 	function handleAscChange(level) {
 		selectedHero.ascendLv = level;
+		if(selectedHero.ascendLv < 6) {
+			selectedHero.furn = 0;
+		}
+		if(selectedHero.ascendLv < 4) {
+			selectedHero.si = -1;
+		}
 	}
 
 	function handleFurnChange(level) {

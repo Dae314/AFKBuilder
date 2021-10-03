@@ -205,6 +205,12 @@
 
 	function handleAscChange(heroID, level) {
 		$AppData.MH.List[heroID].ascendLv = level;
+		if($AppData.MH.List[heroID].ascendLv < 6) {
+			$AppData.MH.List[heroID].furn = 0;
+		}
+		if($AppData.MH.List[heroID].ascendLv < 4) {
+			$AppData.MH.List[heroID].si = -1;
+		}
 		dispatch('saveData');
 	}
 
