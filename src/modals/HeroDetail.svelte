@@ -74,7 +74,11 @@
 					{#each hero.skills as skill, i}
 					<div class="skill { skillShown === i ? 'skillVisible' : ''}">
 						<h5 class="skillName">{skill.name}</h5>
-						<p class="skillUnlock">lv {skill.unlock}:</p>
+						{#if skill.type === 'level'}
+							<p class="skillUnlock">lv {skill.unlock}:</p>
+						{:else if skill.type === 'engraving'}
+							<p class="skillUnlock engraveUnlock">Engraving lv {skill.unlock}:</p>
+						{/if}
 						<p class="skillDesc">{@html skill.desc}</p>
 						{#each skill.upgrades as upgrade}
 							{#if upgrade.type === 'level'}
