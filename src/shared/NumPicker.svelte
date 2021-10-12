@@ -9,6 +9,8 @@
 	export let enabled = true;
 
 	function handleChange() {
+		value = value > max ? max : value;
+		value = value < min ? min : value;
 		dispatch('change', { value: value });
 	}
 
