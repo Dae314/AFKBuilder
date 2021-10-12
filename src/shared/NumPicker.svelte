@@ -7,6 +7,7 @@
 	export let max = 100;
 	export let value = 0;
 	export let enabled = true;
+	let timeout, interval;
 
 	function handleChange() {
 		value = value > max ? max : value;
@@ -14,7 +15,7 @@
 		dispatch('change', { value: value });
 	}
 
-	function handleClick(type) {
+	function changeValue(type) {
 		switch(type) {
 			case 'minus':
 				value = value - 1 < min ? min : value - 1;
@@ -25,11 +26,34 @@
 			default:
 				break;
 		}
+		if(value <= min | value >= max) clearTimers();
 		dispatch('change', { value: value });
+	}
+
+	function handleInteract(type) {
+		changeValue(type);
+		timeout = setTimeout(function() {
+			interval = setInterval(function() {
+				changeValue(type);
+			}, 50);
+		}, 500);
+	}
+
+	function clearTimers() {
+		clearTimeout(timeout);
+		clearInterval(interval);
 	}
 </script>
 
-<button type="button" class="counterButton subButton" disabled={!enabled || value <= min} on:click={() => handleClick('minus')}>
+<button
+	type="button"
+	class="counterButton subButton"
+	disabled={!enabled || value <= min}
+	on:mousedown={() => handleInteract('minus')}
+	on:touchstart={() => handleInteract('minus')}
+	on:mouseup={clearTimers}
+	on:mouseleave={clearTimers}
+	on:touchend={clearTimers}>
 	<span>–</span>
 </button>
 <input
@@ -40,7 +64,15 @@
 	bind:value={value}
 	disabled={!enabled}
 	on:change={handleChange}>
-<button type="button" class="counterButton subButton" disabled={!enabled || value >= max} on:click={() => handleClick('plus')}>
+<button
+	type="button"
+	class="counterButton subButton"
+	disabled={!enabled || value >= max}
+	on:mousedown={() => handleInteract('plus')}
+	on:touchstart={() => handleInteract('plus')}
+	on:mouseup={clearTimers}
+	on:mouseleave={clearTimers}
+	on:touchend={clearTimers}>
 	<span>+</span>
 </button>
 
