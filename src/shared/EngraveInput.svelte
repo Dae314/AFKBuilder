@@ -1,5 +1,5 @@
 <script>
-	import EngraveInput from './EngraveInput.svelte';
+	import NumPicker from './NumPicker.svelte';
 
 	let min = 0;
 	let max = 100;
@@ -7,7 +7,7 @@
 	export let enabled = true;
 </script>
 
-<EngraveInput 
+<NumPicker 
 	{min}
 	{max}
 	{value}
