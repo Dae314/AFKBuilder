@@ -17,6 +17,9 @@ window.validateMyHeroData = async function(data) {
 		{name: 'ascendLv', type: 'number', },
 		{name: 'furn', type: 'number', },
 		{name: 'si', type: 'number', },
+		{name: 'copies', type: 'number', },
+		{name: 'stars', type: 'number', },
+		{name: 'engraving', type: 'number', },
 	];
 
 	// make sure that data is an object (and nothing else)
@@ -336,6 +339,9 @@ function buildMyHeroData(data) {
 		{name: 'ascendLv', default: 0},
 		{name: 'furn', default: 0},
 		{name: 'si', default: 0},
+		{name: 'copies', default: 0},
+		{name: 'stars', default: 0},
+		{name: 'engraving', default: 0},
 	];
 
 	// make sure that data is an object (and nothing else)
