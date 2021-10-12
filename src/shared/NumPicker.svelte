@@ -7,7 +7,7 @@
 
 <button type="button" class="counterButton subButton" disabled={!enabled}><span>-</span></button>
 <input type="number" class="numInput" min={min} max={max} bind:value={value} disabled={!enabled}>
-<button type="button" class="counterButton subButton" disabled={!enabled}><span>-</span></button>
+<button type="button" class="counterButton subButton" disabled={!enabled}><span>+</span></button>
 
 <style lang="scss">
 
