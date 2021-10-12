@@ -472,14 +472,14 @@
 							<div class="numInputArea">
 								{#if $AppData.MH.List[hero.id].ascendLv < 6}
 									<div class="copiesInputArea">
-										<CopiesInput enabled={true} value={$AppData.MH.List[hero.id].copies} />
+										<CopiesInput enabled={true} bind:value={$AppData.MH.List[hero.id].copies} />
 									</div>
 								{:else}
 									<div class="starsInputArea">
-										<StarsInput enabled={true} value={$AppData.MH.List[hero.id].stars} />
+										<StarsInput enabled={true} bind:value={$AppData.MH.List[hero.id].stars} />
 									</div>
 									<div class="engraveInputArea">
-										<EngraveInput enabled={$AppData.MH.List[hero.id].stars >= 1} value={$AppData.MH.List[hero.id].engraving} />
+										<EngraveInput enabled={$AppData.MH.List[hero.id].stars >= 1} bind:value={$AppData.MH.List[hero.id].engraving} />
 									</div>
 								{/if}
 							</div>

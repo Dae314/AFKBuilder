@@ -11,7 +11,7 @@
 <NumPicker 
 	{min}
 	{max}
-	{value}
+	bind:value={value}
 	{enabled}
 />
 
