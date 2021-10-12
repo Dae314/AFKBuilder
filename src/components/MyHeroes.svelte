@@ -12,6 +12,9 @@
 	import AscensionMenu from '../shared/AscensionMenu.svelte';
 	import SIMenu from '../shared/SIMenu.svelte';
 	import FurnMenu from '../shared/FurnMenu.svelte';
+	import EngraveInput from '../shared/EngraveInput.svelte';
+	import CopiesInput from '../shared/CopiesInput.svelte';
+	import StarsInput from '../shared/StarsInput.svelte';
 
 	export let isMobile = false;
 
@@ -465,6 +468,20 @@
 										/>
 									</div>
 								</div>
+							</div>
+							<div class="numInputArea">
+								{#if $AppData.MH.List[hero.id].ascendLv < 6}
+									<div class="copiesInputArea">
+										<CopiesInput enabled={true} value={$AppData.MH.List[hero.id].copies} />
+									</div>
+								{:else}
+									<div class="starsInputArea">
+										<StarsInput enabled={true} value={$AppData.MH.List[hero.id].stars} />
+									</div>
+									<div class="engraveInputArea">
+										<EngraveInput enabled={$AppData.MH.List[hero.id].stars >= 1} value={$AppData.MH.List[hero.id].engraving} />
+									</div>
+								{/if}
 							</div>
 						</div>
 						{/each}
