@@ -208,8 +208,13 @@
 
 	function handleAscChange(heroID, level) {
 		$AppData.MH.List[heroID].ascendLv = level;
+		if($AppData.MH.List[heroID].ascendLv === 6) {
+			$AppData.MH.List[heroID].copies = 0;
+		}
 		if($AppData.MH.List[heroID].ascendLv < 6) {
 			$AppData.MH.List[heroID].furn = 0;
+			$AppData.MH.List[heroID].stars = 0;
+			$AppData.MH.List[heroID].engraving = 0;
 		}
 		if($AppData.MH.List[heroID].ascendLv < 4) {
 			$AppData.MH.List[heroID].si = -1;
@@ -224,6 +229,10 @@
 
 	function handleFurnChange(heroID, level) {
 		$AppData.MH.List[heroID].furn = level;
+		dispatch('saveData');
+	}
+
+	function handleNumChange() {
 		dispatch('saveData');
 	}
 
@@ -472,14 +481,14 @@
 							<div class="numInputArea">
 								{#if $AppData.MH.List[hero.id].ascendLv < 6}
 									<div class="copiesInputArea">
-										<CopiesInput enabled={true} bind:value={$AppData.MH.List[hero.id].copies} />
+										<CopiesInput enabled={true} bind:value={$AppData.MH.List[hero.id].copies} on:change={handleNumChange} />
 									</div>
 								{:else}
 									<div class="starsInputArea">
-										<StarsInput enabled={true} bind:value={$AppData.MH.List[hero.id].stars} />
+										<StarsInput enabled={true} bind:value={$AppData.MH.List[hero.id].stars} on:change={handleNumChange} />
 									</div>
 									<div class="engraveInputArea">
-										<EngraveInput enabled={$AppData.MH.List[hero.id].stars >= 1} bind:value={$AppData.MH.List[hero.id].engraving} />
+										<EngraveInput enabled={$AppData.MH.List[hero.id].stars >= 1} bind:value={$AppData.MH.List[hero.id].engraving} on:change={handleNumChange} />
 									</div>
 								{/if}
 							</div>

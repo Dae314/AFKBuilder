@@ -13,6 +13,7 @@
 	{max}
 	bind:value={value}
 	{enabled}
+	on:change
 />
 
 <style lang="scss">
