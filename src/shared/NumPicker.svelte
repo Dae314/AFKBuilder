@@ -28,7 +28,7 @@
 </script>
 
 <button type="button" class="counterButton subButton" disabled={!enabled || value <= min} on:click={() => handleClick('minus')}>
-	<span>-</span>
+	<span>–</span>
 </button>
 <input
 	type="number"
@@ -43,5 +43,32 @@
 </button>
 
 <style lang="scss">
-
+	.counterButton {
+		align-items: center;
+		background-color: transparent;
+		border: none;
+		color: var(--appColorPrimary);
+		cursor: pointer;
+		display: inline-flex;
+		font-size: 1.2rem;
+		font-weight: bold;
+		height: 25px;
+		justify-content: center;
+		margin: 0;
+		width: 25px;
+	}
+	.numInput {
+		border: 2px solid var(--appColorPrimary);
+		border-radius: 5px;
+		height: 25px;
+		outline: none;
+		text-align: center;
+		width: 65px;
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			display: none;
+			appearance: none;
+			margin: 0;
+		}
+	}
 </style>
