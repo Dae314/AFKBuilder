@@ -7,7 +7,7 @@
 	export let enabled = true;
 </script>
 
-<label>Copies</label>
+<div class="title">Copies</div>
 <NumPicker 
 	{min}
 	{max}

@@ -7,7 +7,7 @@
 	export let enabled = true;
 </script>
 
-<label>Engraving</label>
+<div class="title">Engraving</div>
 <NumPicker 
 	{min}
 	{max}
