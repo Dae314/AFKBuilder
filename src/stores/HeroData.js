@@ -4033,7 +4033,7 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Earthly Rejuvenation',
 			image: './img/si/granit.png',
-			desc: 'If there are still surviving allied heroes on the battlefield, they will additionally trigger the ability "Sand Vortex" upon Granit\'s death.',
+			desc: 'If there are still surviving allied heroes on the battlefield, Granit will additionally trigger the ability "Sand Vortex" upon his death.',
 			upgrades: [
 				{ desc: 'Eath time Granit uses the ability "Sand Vortex" his Energy recovery rate is increased by <em>10%</em>. This effect can be stacked <em>5</em> times.',
 					unlock: 10,
