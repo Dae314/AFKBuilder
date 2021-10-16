@@ -6189,11 +6189,11 @@ const HeroData = readable([
 				desc: 'When Oden recovers 300/1000/2000 Energy points respectively, one of his eyes will open until all three of his eyes are open. After Oden\'s first eye has been opened, the AoE damage effect caused by the Ability "Eviction" will now include a stun effect, which stuns the affected enemies for <em>3</em> seconds. After Oden\'s second eye has been opened the ability "Void Lightning" will additionally target the enemy that is currently standing farthest away from Oden. After Oden\'s third and final eye has been opened, Oden\'s Normal Attacks will cause his enemies to lose an additional <em>60</em> Energy points per attack.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Oden\'s Attack Rating is increased by <em>10%</em> and his Casting Speed is increased by <em>10%</em> each time he opens another eye.',
+					{ desc: 'Oden\'s Attack Rating is increased by <em>10%</em> and his Haste is increased by <em>10</em> points each time he opens an eye.',
 						unlock: 141,
 						type: 'level',
 					},
-					{ desc: 'Oden\'s Attack Rating is increased by <em>15%</em> and his Casting Speed is increased by <em>15%</em> each time he opens another eye.',
+					{ desc: 'Oden\'s Attack Rating is increased by <em>15%</em> and his Haste is increased by <em>15</em> points each time he opens an eye.',
 						unlock: 221,
 						type: 'level',
 					},
