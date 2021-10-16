@@ -7250,7 +7250,7 @@ const HeroData = readable([
 			{ name: 'Spectral Curse',
 				type: 'level',
 				image: './img/skills/theowyn3.png',
-				desc: 'Theowyn enters spectral form and charges ahead, cursing every enemy that she passes through, dealing <em>130%</em> damage to them. If an enemy is already cursed, the curse is removed and Theowyn instead deals damage equal to <em>15%</em> of the enemy\'s max health, ignoring all of their defense. While in spectral form Theowyn is immune to enemy control abilities.',
+				desc: 'Theowyn enters spectral form and charges ahead, cursing every enemy that she passes through, dealing <em>130%</em> damage to them. If an enemy is already cursed, the curse is removed and Theowyn instead deals damage equal to <em>15%</em> of the enemy\'s max health, ignoring all of their defense. Damage dealt cannot exceed <em>600%</em> of Theowyn\'s Attack Rating. While in spectral form Theowyn is immune to enemy control abilities.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'Damage dealt to enemies when Specters pass through them is increased to <em>150%</em>.',
