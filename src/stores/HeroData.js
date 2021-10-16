@@ -2908,7 +2908,7 @@ const HeroData = readable([
 						unlock: 221,
 						type: 'level',
 					},
-					{ desc: 'When the enchanted circle disappears, all enemies in the circle are dealt <em>200%</em> damage and are stunned for <em>1.5</em> seconds.',
+					{ desc: '<em>25</em> seconds after the circular enchantment has been manifested, all enemies within it will be dealt <em>200%</em> damage and stunned for <em>1.5</em> seconds.',
 						unlock: 60,
 						type: 'engraving',
 					},
