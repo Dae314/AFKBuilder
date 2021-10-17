@@ -5,6 +5,17 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.8.13',
+			changes: [
+				'Added new hero Mishka',
+				'Added Graveborn engraving information',
+				'Updated Walker ultimate skill description',
+				'Updated Oden Eye of Evil skill description',
+				'Updated Theowyn Spectral Curse skill description',
+				'Updated Safiya Spectral Disruption skill description',
+				'Optimized Granit SI description',
+			],
+		},
 		{ version: 'v1.8.6',
 			changes: [
 				'<em>Added Legendary tier heroes into the app</em>',
@@ -45,33 +56,6 @@
 				'Added Morrow to hero database',
 				'Adjusted Raku\'s furn benchmark to 3',
 			],
-		},
-		{ version: 'v1.7.16 - Cherry Berry',
-			changes: [
-				'<em>Completely overhauled the My Heroes area.</em>',
-				'<em>New radial menu used to select SI and Furn.</em>',
-				'<em>Added Hodgkin to the hero database.</em>',
-				'<em>Added engraving skill details to all CHaD heroes in detail popup.</em>',
-				'<em>Added link to new Discord for sharing comps!</em>',
-				'Converted Hero Finder filter logic to exclude all categories aside from the one that was clicked. My Heroes and Hero List remain unchanged.',
-				'Added mobile export button to comp detail and remove buttons from comp cards (too hard to touch)',
-				'Added SI OFF to indicate SI isn\'t activated at all.',
-				'Added changelog to the About page if you click version number.',
-				'Newly claimed heroes are now ascended with 0SI and 0F.',
-				'Added lodash to debounce some listeners.',
-				'Standardized delete button design.',
-				'Standardized mobile viewport listener.',
-				'Disabled autofocus in the comp editor.',
-				'Updated benchmark numbers for several heroes (thanks Bob!)',
-				'Changed design of core marks.',
-				'Updated all NPM packages.',
-				'Fixed desktop filters display on My Heroes and Hero List.',
-				'Fixed info icon displaying above filters in My Heroes.',
-				'Fixed scrolling issue on mobile with URL bar open.',
-				'Fixed weird button padding on iOS Safari.',
-				'Fixed iOS Safari gradient display.',
-				'Fixed various typos in hero data.',
-			]
 		},
 	]
 
