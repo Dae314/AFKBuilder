@@ -190,6 +190,20 @@ const Artifacts = readable({
 		attributes: ['ACC', 'ATK'],
 		class: 'Ranger',
 	},
+	dual_divinity: {
+		name: 'Dual Divinity',
+		image: './img/artifacts/dual_divinity.jpg',
+		upgrades: [
+			{ unlock: 0,
+				desc: 'During the first <em>35</em> seconds of battle, every time the wielder deals damage to enemies while on the enemy side of the battlefield, their Attack Rating is increased by <em>3%</em> and the damage they receive is reduced by <em>3%</em>. Effects can be stacked <em>10</em> times and will remain until <em>36</em> seconds into battle.',
+			},
+			{ unlock: 3,
+				desc: 'During the first <em>35</em> seconds of battle, every time the wielder deals damage to enemies while on the enemy side of the battlefield, their Attack Rating is increased by <em>5%</em> and the damage they receive is reduced by <em>5%</em>. Effects can be stacked <em>10</em> times and will remain until <em>36</em> seconds into battle.',
+			},
+		],
+		attributes: ['CRIT', 'CDA'],
+		class: 'Ranger',
+	},
 	pauldron: {
 		name: 'Pauldron of Burning Fury',
 		image: './img/artifacts/pauldron.jpg',

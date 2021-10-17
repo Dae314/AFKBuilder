@@ -5,10 +5,11 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
-		{ version: 'v1.8.13',
+		{ version: 'v1.8.14',
 			changes: [
 				'Added new hero Mishka',
 				'Added Graveborn engraving information',
+				'Added Dual Divinity artifact',
 				'Updated Walker ultimate skill description',
 				'Updated Oden Eye of Evil skill description',
 				'Updated Theowyn Spectral Curse skill description',
