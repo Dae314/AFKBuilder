@@ -9,9 +9,9 @@
 		"deploy": "npm run build && gh-pages -d public"
 	},
 	"devDependencies": {
-		"@rollup/plugin-commonjs": "^17.0.0",
+		"@rollup/plugin-commonjs": "^21.0.1",
 		"@rollup/plugin-json": "^4.1.0",
-		"@rollup/plugin-node-resolve": "^11.0.0",
+		"@rollup/plugin-node-resolve": "^13.0.6",
 		"autoprefixer": "^10.3.7",
 		"gh-pages": "^3.2.3",
 		"node-sass": "^6.0.1",
