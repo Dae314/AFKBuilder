@@ -7128,10 +7128,10 @@ const HeroData = readable([
 			name: 'Exertion',
 			image: './img/furniture/izold.png',
 			upgrades: [
-				{ desc: 'Izold\'s Attack Rating is increased by <em>1%</em> and his attack frequency increased by <em>3%</em> until the end of the battle every time he loses <em>1%</em> of his max health.',
+				{ desc: 'Izold\'s Attack Rating is increased by <em>1%</em> and his attack frequency increased by <em>1%</em> until the end of the battle every time he loses <em>3%</em> of his max health.',
 					unlock: 3,
 				},
-				{ desc: 'The effects of the ability "Hypodermic Healing" become permanent after this ability has been stacked <em>45</em> times and does not need to be manually activated again.',
+				{ desc: 'After this ability has been stacked <em>45</em> times, the effects of the ability "Hypodermic Healing" become permanent and does not need to be actively used again.',
 					unlock: 9,
 				},
 			],
