@@ -11017,10 +11017,10 @@ const HeroData = readable([
 			{ name: 'Hermes Trismegistus',
 				type: 'level',
 				image: './img/skills/albedo4.png',
-				desc: 'During battle, Albedo\'s Crit Resistance is increased by <em>35</em> points. If Albedo is dealt a Critical Strike, the attacker\'s Attack Rating is reduced by <em>30%</em> for <em>5</em> seconds. This ability cannot be stacked.',
+				desc: 'During battle, Albedo\'s Crit Damage Resistance is increased by <em>35</em> points. If Albedo is dealt a Critical Strike, the attacker\'s Attack Rating is reduced by <em>30%</em> for <em>5</em> seconds. This ability cannot be stacked.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Albedo\'s Crit Resistance is increased by <em>50</em> points.',
+					{ desc: 'Albedo\'s Crit Damage Resistance is increased by <em>50</em> points.',
 						unlock: 141,
 						type: 'level',
 					},
