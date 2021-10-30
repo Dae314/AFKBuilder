@@ -241,7 +241,7 @@ const HeroData = readable([
 				{ desc: 'When the ability "Divine Light" only hits <em>1</em> enemy target, the damage dealt to the target is increased by <em>30%</em>.',
 					unlock: 3,
 				},
-				{ desc: 'When Belinda deals damage to an enemy, their Crit Resistance is reduced by <em>35</em> points for <em>3</em> seconds. This ability cannot be stacked.',
+				{ desc: 'When Belinda deals damage to an enemy, their Crit Damage Resistance is reduced by <em>35</em> points for <em>3</em> seconds. This ability cannot be stacked.',
 					unlock: 9,
 				},
 			],
