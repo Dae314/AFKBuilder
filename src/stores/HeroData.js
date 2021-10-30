@@ -5634,12 +5634,12 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Kindred Spirits',
 			image: './img/si/respen.png',
-			desc: 'For every <em>3</em> Wind Swallows Respen has manifested, his Attack Rating is increased by <em>9%</em> and his Crit Amplification is increased by <em>4</em> points until the end of battle. Ability can be stacked <em>4</em> times.',
+			desc: 'For every <em>3</em> Wind Swallows Respen has manifested, his Attack Rating is increased by <em>9%</em> and his Crit Damage Amplification is increased by <em>4</em> points until the end of battle. Ability can be stacked <em>4</em> times.',
 			upgrades: [
-				{ desc: 'Each time Respen\'s attributes are increased, his Attack Rating is increased by <em>12%</em> and his Crit Amplification is increased by <em>6</em> points.',
+				{ desc: 'Each time Respen\'s attributes are increased, his Attack Rating is increased by <em>12%</em> and his Crit Damage Amplification is increased by <em>6</em> points.',
 					unlock: 10,
 				},
-				{ desc: 'Each time Respen\'s attributes are increased, his Attack Rating is increased by <em>15%</em> and his Crit Amplification is increased by <em>8</em> points.',
+				{ desc: 'Each time Respen\'s attributes are increased, his Attack Rating is increased by <em>15%</em> and his Crit Damage Amplification is increased by <em>8</em> points.',
 					unlock: 20,
 				},
 				{ desc: 'After manifesting a total of <em>6</em> Wind Swallows, all of allies will have their Haste increased by <em>25</em> points.',
