@@ -2329,7 +2329,7 @@ const HeroData = readable([
 			name: 'Almighty Warrior',
 			image: './img/furniture/khasos.png',
 			upgrades: [
-				{ desc: 'When positioned on the backline, each living frontline ally increases Khasos\' Crit Amplification by <em>25</em> points. When positioned on the frontline, damage received by all backline allies is reduced by <em>22%</em>.',
+				{ desc: 'When positioned on the backline, each living frontline ally increases Khasos\' Crit Damage Amplification by <em>25</em> points. When positioned on the frontline, damage received by all backline allies is reduced by <em>22%</em>.',
 					unlock: 3,
 				},
 				{ desc: 'Within <em>5</em> seconds of Khasos using his Ultimate ability, the increased attribute effects of the abilities "Concentration" and "Almighty Warrior" shall become active, ignoring all prior requirements.',
