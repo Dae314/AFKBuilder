@@ -11674,7 +11674,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 3,
 		furniture: {
 			name: 'Artistic Inspiration',
 			image: './img/furniture/leonardo.png',
