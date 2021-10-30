@@ -11300,7 +11300,7 @@ const HeroData = readable([
 				{ desc: 'Shield has a value equal to <em>35%</em> of QUEEN\'s max health.',
 					unlock: 20,
 				},
-				{ desc: 'QUEEN gains an additional <em>25%</em> Crit Rating and <em>30</em> Crit Amplification points while the shield exists.',
+				{ desc: 'QUEEN gains an additional <em>25%</em> Crit Rating and <em>30</em> Crit Damage Amplification points while the shield exists.',
 					unlock: 30,
 				},
 			],
