@@ -2698,7 +2698,7 @@ const HeroData = readable([
 			name: 'Battle Vigor',
 			image: './img/furniture/warek.png',
 			upgrades: [
-				{ desc: 'If one of Warek\'s Normal Attacks or abilities strikes <em>2</em> enemies or more, then his Crit Rating is increased by <em>40%</em> and his Crit Amplification is increased by <em>45</em> points for his attack.',
+				{ desc: 'If one of Warek\'s Normal Attacks or abilities strikes <em>2</em> enemies or more, then his Crit Rating is increased by <em>40%</em> and his Crit Damage Amplification is increased by <em>45</em> points for his attack.',
 					unlock: 3,
 				},
 				{ desc: 'Warek has a <em>100%</em> chance to hit his enemies when there are <em>2</em> or more heroes within range of Warek\'s Normal Attacks or skills.',
