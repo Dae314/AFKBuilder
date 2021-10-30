@@ -10751,7 +10751,7 @@ const HeroData = readable([
 			{ name: 'Smoke Bomb',
 				type: 'level',
 				image: './img/skills/ezio3.png',
-				desc: 'Nearby enemies are enshrouded in a heavy cloud which causes them to lose <em>105</em> Accuracy points, <em>70</em> Haste points, and also have a <em>35%</em> increased chance of suffering Critical Damage from their enemies for a duration of <em>9</em> seconds.',
+				desc: 'Nearby enemies lose <em>105</em> Accuracy points, their Crit Block Rate is reduced by <em>35%</em> and they lose <em>70</em> Haste points for <em>9</em> seconds.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'Enemies now lose <em>120</em> Accuracy points.',
