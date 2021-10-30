@@ -5,6 +5,26 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.8.18',
+		changes: [
+			'Update npm packages',
+			'Add new hero Haelus',
+			'Update Izold\'s furniture description',
+			'Update Belinda\'s furniture description',
+			'Update Albedo\'s 4th skill description',
+			'Update Ainz\'s 4th skill description',
+			'Update QUEEN\'s SI description',
+			'Update Walker\'s 4th skill description',
+			'Update Khasos\' furniture description',
+			'Update Warek\'s furniture description',
+			'Update Drez\'s 4th skill description',
+			'Update Respen\'s SI description',
+			'Update Lucretia\'s 4th skill description',
+			'Update Ezio\'s 3rd skill description',
+			'Update Gwyneth\'s 4th skill description',
+			'Update Leonardo\'s benchmark to 303',
+			],
+		}
 		{ version: 'v1.8.14',
 			changes: [
 				'Added new hero Mishka',
@@ -47,15 +67,6 @@
 				'All heroes in a line or sub-line are now cleaned up when the line or sub-line is deleted',
 				'Fixed Hogkin\'s third skill image',
 				'Fixed code blocks displaying in description without linebreaks',
-			],
-		},
-		{ version: 'v1.7.21',
-			changes: [
-				'Added the Oceanic Strings artifact',
-				'Fixed typo on Twins\' class',
-				'Changed artifact remove buttons to match the rest of the app',
-				'Added Morrow to hero database',
-				'Adjusted Raku\'s furn benchmark to 3',
 			],
 		},
 	]
