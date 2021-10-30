@@ -10901,7 +10901,7 @@ const HeroData = readable([
 						unlock: 141,
 						type: 'level',
 					},
-					{ desc: 'Once Ainz\' attributes have been increased <em>6</em> times, he receives an additional <em>50</em> Crit Amplification points and <em>30</em> Attack Speed points.',
+					{ desc: 'Once Ainz\' attributes have been increased <em>6</em> times, he receives an additional <em>50</em> Crit Damage Amplification points and <em>30</em> Attack Speed points.',
 						unlock: 221,
 						type: 'level',
 					},
