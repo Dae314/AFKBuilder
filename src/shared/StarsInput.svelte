@@ -16,11 +16,15 @@
 		}
 		dispatch('change', { value: value });
 	}
+
+	function handleStarHover(starid) {
+		if(enabled) hover = starid;
+	}
 </script>
 
 <div class="starsContainer" on:mouseleave={() => hover = -1}>
 	{#each star_array as starid}
-		<div class="singleStarContainer" on:click={(e) => handleStarClick(starid)} on:mouseenter={() => hover = starid}>
+		<div class="singleStarContainer" class:enabled on:click={(e) => handleStarClick(starid)} on:mouseenter={() => handleStarHover(starid)}>
 			<i class="star"
 				class:enabled
 				class:active={value >= starid}
@@ -36,12 +40,14 @@
 	}
 	.singleStarContainer {
 		display: inline-block;
+		&.enabled {
+			cursor: pointer;
+		}
 	}
 	.star {
 		border-bottom: .7em solid lightgray;
 		border-left: .3em solid transparent;
 		border-right: .3em solid transparent;
-		cursor: pointer;
 		display: inline-block;
 		font-size: 0.7rem;
 		height: 0;
