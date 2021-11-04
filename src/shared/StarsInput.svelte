@@ -18,8 +18,6 @@
 	}
 </script>
 
-<div class="title">Stars</div>
-
 <div class="starsContainer" on:mouseleave={() => hover = -1}>
 	{#each star_array as starid}
 		<div class="singleStarContainer" on:click={(e) => handleStarClick(starid)} on:mouseenter={() => hover = starid}>
