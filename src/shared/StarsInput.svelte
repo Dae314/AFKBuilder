@@ -9,12 +9,14 @@
 	export let enabled = true;
 
 	function handleStarClick(starid) {
-		if(value === starid) {
-			value = 0; // reset stars to 0 if user clicks on the exact same stars
-		} else {
-			value = starid; // set stars to whatever the user clicked on otherwise
+		if(enabled) {
+			if(value === starid) {
+				value = 0; // reset stars to 0 if user clicks on the exact same stars
+			} else {
+				value = starid; // set stars to whatever the user clicked on otherwise
+			}
+			dispatch('change', { value: value });
 		}
-		dispatch('change', { value: value });
 	}
 
 	function handleStarHover(starid) {
@@ -82,15 +84,6 @@
 			transform: rotate(-35deg);
 			width: 0;
 			transform: rotate(35deg);
-		}
-		&:active {
-			border-bottom-color: var(--legendColor);
-			&:before {
-				border-bottom-color: var(--legendColor);
-			}
-			&:after {
-				border-bottom-color: var(--legendColor);
-			}
 		}
 	}
 	.star.enabled {
