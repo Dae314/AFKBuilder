@@ -445,6 +445,9 @@
 								</div>
 							</div>
 							<p class="heroName">{hero.name}</p>
+							<div class="starsInputArea">
+								<StarsInput enabled={$AppData.MH.List[hero.id].ascendLv >= 6} bind:value={$AppData.MH.List[hero.id].stars} on:change={handleNumChange} />
+							</div>
 							<div class="flipButtonContainer">
 								<div class="ascButtonArea">
 									<div class="flipButtonArea">
@@ -482,9 +485,6 @@
 										<CopiesInput enabled={true} bind:value={$AppData.MH.List[hero.id].copies} on:change={handleNumChange} />
 									</div>
 								{:else}
-									<div class="starsInputArea">
-										<StarsInput enabled={true} bind:value={$AppData.MH.List[hero.id].stars} on:change={handleNumChange} />
-									</div>
 									<div class="engraveInputArea">
 										<EngraveInput enabled={$AppData.MH.List[hero.id].stars >= 1} bind:value={$AppData.MH.List[hero.id].engraving} on:change={handleNumChange} />
 									</div>
@@ -830,8 +830,12 @@
 		justify-content: center;
 		margin: 0;
 		margin-top: 45px;
-		padding-bottom: 10px;
 		width: 100%;
+	}
+	.starsInputArea {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 15px;
 	}
 	.attrArea {
 		background-color: rgba(0, 0, 0, 0.75);
