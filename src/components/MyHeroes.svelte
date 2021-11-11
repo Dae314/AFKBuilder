@@ -446,7 +446,7 @@
 							</div>
 							<p class="heroName">{hero.name}</p>
 							<div class="starsInputArea">
-								<StarsInput enabled={$AppData.MH.List[hero.id].ascendLv >= 6} bind:value={$AppData.MH.List[hero.id].stars} on:change={handleNumChange} />
+								<StarsInput enabled={$AppData.MH.List[hero.id].ascendLv >= 6} bind:value={$AppData.MH.List[hero.id].stars} bind:engraving={$AppData.MH.List[hero.id].engraving} on:change={handleNumChange} />
 							</div>
 							<div class="flipButtonContainer">
 								<div class="ascButtonArea">

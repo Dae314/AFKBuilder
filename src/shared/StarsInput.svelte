@@ -7,11 +7,13 @@
 	let hover = -1;
 	export let value = 0;
 	export let enabled = true;
+	export let engraving = 0;
 
 	function handleStarClick(starid) {
 		if(enabled) {
 			if(value === starid) {
 				value = 0; // reset stars to 0 if user clicks on the exact same stars
+				engraving = 0; // reset engravings as well
 			} else {
 				value = starid; // set stars to whatever the user clicked on otherwise
 			}
@@ -30,7 +32,10 @@
 			<i class="star"
 				class:enabled
 				class:active={value >= starid}
-				class:hovered={hover >= starid}>
+				class:hovered={hover >= starid}
+				class:engrave1={engraving >= 30 && engraving < 60}
+				class:engrave2={engraving >= 60 && engraving < 80}
+				class:engrave3={engraving >= 80}>
 			</i>
 		</div>
 	{/each}
@@ -105,12 +110,39 @@
 		}
 	}
 	.star.active {
-		border-bottom-color: var(--legendColor);
+		border-bottom-color: gold;
 		&:before {
-			border-bottom-color: var(--legendColor);
+			border-bottom-color: gold;
 		}
 		&:after {
-			border-bottom-color: var(--legendColor);
+			border-bottom-color: gold;
+		}
+		&.engrave1 {
+			border-bottom-color: orange;
+			&:before {
+				border-bottom-color: orange;
+			}
+			&:after {
+				border-bottom-color: orange;
+			}
+		}
+		&.engrave2 {
+			border-bottom-color: rgb(255, 81, 0);
+			&:before {
+				border-bottom-color: rgb(255, 81, 0);
+			}
+			&:after {
+				border-bottom-color: rgb(255, 81, 0);
+			}
+		}
+		&.engrave3 {
+			border-bottom-color: rgb(235, 192, 255);
+			&:before {
+				border-bottom-color: rgb(235, 192, 255);
+			}
+			&:after {
+				border-bottom-color: rgb(235, 192, 255);
+			}
 		}
 	}
 </style>
