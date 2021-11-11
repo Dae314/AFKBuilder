@@ -110,8 +110,8 @@
 			margin: 0;
 		}
 		&:disabled {
-			background-color: rgb(238, 238, 238);
-			color: rgb(100, 100, 100);
+			background-color: var(--appBGColor);
+			color: rgba(0, 0, 0, 0.5);
 			border-color: var(--appColorPriAccent);
 		}
 	}

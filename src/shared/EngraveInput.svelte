@@ -7,7 +7,7 @@
 	export let enabled = true;
 </script>
 
-<div class="title">Engraving</div>
+<div class="title" class:disabled={!enabled}>Engraving</div>
 <NumPicker 
 	{min}
 	{max}
@@ -21,5 +21,8 @@
 		font-weight: bold;
 		margin-bottom: 3px;
 		text-align: center;
+		&.disabled {
+			color: rgba(0, 0, 0, 0.5);
+		}
 	}
 </style>
