@@ -15,6 +15,7 @@
 	import EngraveInput from '../shared/EngraveInput.svelte';
 	import CopiesInput from '../shared/CopiesInput.svelte';
 	import StarsInput from '../shared/StarsInput.svelte';
+	import FlipButton from '../shared/FlipButton.svelte';
 
 	export let isMobile = false;
 
@@ -32,7 +33,8 @@
 	let openFilters = false;
 	let openInOutMenu = false;
 	let copyConfirmVisible = false;
-	let sections = ['Owned', 'Unowned']
+	let sections = ['Owned', 'Unowned'];
+	let sortOptions = ['Name', 'Ascension', 'Copies'];
 
 	function makeMyHeroList(herolist) {
 		let buffer = [];
@@ -128,6 +130,12 @@
 		$AppData.MH[filter] = !$AppData.MH[filter];
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
+		dispatch('saveData');
+	}
+
+	function updateSort() {
+		let curOption = sortOptions.findIndex(e => e.toLowerCase() === $AppData.MH.Sort);
+		$AppData.MH.Sort = sortOptions[(curOption + 1) % sortOptions.length].toLowerCase();
 		dispatch('saveData');
 	}
 
@@ -328,6 +336,14 @@
 				<div class="search">
 					<input id="searchBox" type="search" placeholder="Search" bind:value={$AppData.MH.SearchStr} on:keyup={updateSearch} on:search={updateSearch}>
 				</div>
+			</div>
+			<div class="sortContainer">
+				<div class="sortTitle">Sort by:</div>
+				<FlipButton
+					options={sortOptions}
+					curOption={sortOptions.findIndex(e => e.toLowerCase() === $AppData.MH.Sort)}
+					onClick={updateSort}
+					/>
 			</div>
 			<div class="filters">
 				<div class="filterSection">
@@ -721,6 +737,17 @@
 				height: 1.6rem;
 				width: 50%;
 			}
+		}
+	}
+	.sortContainer {
+		align-items: center;
+		border-bottom: 1px solid black;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 5px;
+		.sortTitle {
+			margin-bottom: 5px;
 		}
 	}
 	.filterSection {
@@ -1130,7 +1157,7 @@
 		}
 		.mobileExpander.filterOpen {
 			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-			max-height: 465px;
+			max-height: fit-content;
 			max-width: 100%;
 			padding: 10px;
 		}

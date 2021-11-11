@@ -56,7 +56,8 @@
 	@media only screen and (min-width: 767px) {
 		.flipButton {
 			&:hover {
-				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+				background-color: var(--appColorPrimary);
+				color: white;
 			}
 			&:active {
 				box-shadow: none;
