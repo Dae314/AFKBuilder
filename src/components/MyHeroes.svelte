@@ -446,7 +446,11 @@
 							</div>
 							<p class="heroName">{hero.name}</p>
 							<div class="starsInputArea">
-								<StarsInput enabled={$AppData.MH.List[hero.id].ascendLv >= 6} bind:value={$AppData.MH.List[hero.id].stars} bind:engraving={$AppData.MH.List[hero.id].engraving} on:change={handleNumChange} />
+								<StarsInput
+									enabled={$AppData.MH.List[hero.id].ascendLv >= 6}
+									bind:value={$AppData.MH.List[hero.id].stars}
+									bind:engraving={$AppData.MH.List[hero.id].engraving}
+									on:change={handleNumChange} />
 							</div>
 							<div class="flipButtonContainer">
 								<div class="ascButtonArea">
@@ -482,11 +486,18 @@
 							<div class="numInputArea">
 								{#if $AppData.MH.List[hero.id].ascendLv < 6}
 									<div class="copiesInputArea">
-										<CopiesInput enabled={true} bind:value={$AppData.MH.List[hero.id].copies} on:change={handleNumChange} />
+										<CopiesInput
+											enabled={true}
+											bind:value={$AppData.MH.List[hero.id].copies}
+											on:change={handleNumChange} />
 									</div>
 								{:else}
 									<div class="engraveInputArea">
-										<EngraveInput enabled={$AppData.MH.List[hero.id].stars >= 1} bind:value={$AppData.MH.List[hero.id].engraving} on:change={handleNumChange} />
+										<EngraveInput
+											enabled={$AppData.MH.List[hero.id].stars >= 1}
+											max={$HeroData.find(e => e.id === hero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === hero.id).faction === 'Celestial' || $HeroData.find(e => e.id === hero.id).faction === 'Hypogean' ? 100 : 80}
+											bind:value={$AppData.MH.List[hero.id].engraving}
+											on:change={handleNumChange} />
 									</div>
 								{/if}
 							</div>
