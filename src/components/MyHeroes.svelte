@@ -819,8 +819,6 @@
 	.portrait {
 		border-radius: 50%;
 		cursor: pointer;
-		// mask-image: linear-gradient(180deg, rgba(240,240,242,1) 20%, rgba(240,240,242,1) 35%, rgba(255,255,255,0) 65%);
-		// transform: scale(3);
 		height: 160px;
 		width: 160px;
 	}
