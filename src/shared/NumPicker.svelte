@@ -32,12 +32,14 @@
 	}
 
 	function handleInteract(type) {
-		changeValue(type);
-		timeout = setTimeout(function() {
-			interval = setInterval(function() {
-				changeValue(type);
-			}, 50);
-		}, 500);
+		if(enabled) {
+			changeValue(type);
+			timeout = setTimeout(function() {
+				interval = setInterval(function() {
+					changeValue(type);
+				}, 50);
+			}, 500);
+		}
 	}
 
 	function clearTimers() {
