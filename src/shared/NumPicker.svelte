@@ -90,6 +90,10 @@
 		justify-content: center;
 		margin: 0;
 		width: 25px;
+		&:disabled {
+			color: var(--appColorPriAccent);
+			border-color: var(--appColorPriAccent);
+		}
 	}
 	.numInput {
 		border: 2px solid var(--appColorPrimary);
@@ -103,6 +107,11 @@
 			display: none;
 			appearance: none;
 			margin: 0;
+		}
+		&:disabled {
+			background-color: rgb(238, 238, 238);
+			color: rgb(100, 100, 100);
+			border-color: var(--appColorPriAccent);
 		}
 	}
 </style>
