@@ -807,7 +807,7 @@
 	.MHGrid {
 		display: grid;
 		grid-gap: 10px 5px;
-		grid-template-columns: repeat(auto-fill, minmax(360px, 360px));
+		grid-template-columns: repeat(auto-fill, minmax(330px, 330px));
 		grid-auto-rows: 380px;
 		justify-content: space-evenly;
 	}
@@ -816,6 +816,7 @@
 		border-radius: 10px;
 		display: flex;
 		flex-direction: column;
+		max-width: 330px;
 		padding: 10px;
 		position: relative;
 	}
@@ -908,7 +909,7 @@
 		.MHGrid {
 			display: grid;
 			grid-gap: 10px 5px;
-			grid-template-columns: repeat(auto-fill, minmax(360px, 360px));
+			grid-template-columns: repeat(auto-fill, minmax(330px, 330px));
 			grid-auto-rows: 175px;
 			justify-content: space-evenly;
 		}
