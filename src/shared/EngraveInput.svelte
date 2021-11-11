@@ -17,5 +17,9 @@
 />
 
 <style lang="scss">
-
+	.title {
+		font-weight: bold;
+		margin-bottom: 3px;
+		text-align: center;
+	}
 </style>
