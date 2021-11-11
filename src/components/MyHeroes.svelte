@@ -414,7 +414,7 @@
 			<section class="MHSection">
 				{#if myHeroList.length === 0}
 					<div class="noHeroes">
-						<span>Claim some heroes from the unowned tab!</span>
+						<span>Claim heroes from the unowned tab!</span>
 					</div>
 				{:else}
 					<div class="MHGrid">
@@ -510,32 +510,18 @@
 			<section class="MHSection unownedSection">
 				{#if unownedHeroList.length === 0}
 					<div class="noHeroes">
-						<span>You own every hero in the game!</span>
+						<span>No unowned heroes</span>
 					</div>
 				{:else}
 					<div class="MHGrid">
 						{#each unownedHeroList as hero (hero.id)}
 						<div class="heroCard" animate:flip="{{duration: 200}}" on:click={(e) => { handleHeroClaim(hero.id); e.stopPropagation(); }}>
 							<div class="heroHeader">
-								<div class="headArea">
+								<div class="attrArea">
 									<div class="attrImgContainer">
 										<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
 										<div class="tooltip tooltip-faction"><span class="tooltipText">{hero.faction}</span></div>
 									</div>
-								</div>
-								<div class="headArea">
-									<div class="flipCard">
-										<div class="flipCardInner">
-											<div class="flipCardFront">
-												<img class="unownedPortrait" src={hero.portrait} alt={hero.name}>
-											</div>
-											<div class="flipCardBack">
-												<button type="button" class="portraitButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="headArea">
 									<div class="attrImgContainer">
 										<img class="attrImage typeImg" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
 										<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
@@ -545,8 +531,11 @@
 										<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
 									</div>
 								</div>
+								<div class="portraitArea">
+									<img class="portrait" src={hero.portrait} alt={hero.name}>
+								</div>
 							</div>
-							<p class="heroName">{hero.name}</p>
+							<p class="heroName">Add {hero.name}</p>
 						</div>
 						{/each}
 					</div>
@@ -891,45 +880,38 @@
 	}
 	.unownedSection {
 		.MHGrid {
-			grid-template-rows: repeat(auto-fit, minmax(170px, 170px));
-			grid-template-columns: repeat(auto-fit, minmax(290px, 290px));
+			display: grid;
+			grid-gap: 10px 5px;
+			grid-template-columns: repeat(auto-fill, minmax(360px, 360px));
+			grid-auto-rows: 175px;
+			justify-content: space-evenly;
 		}
 		.heroCard {
 			border-color: #BEBEBE;
 		}
-		.headArea {
-			align-items: center;
+		.heroHeader {
 			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			width: 100%;
-			position: relative;
-		}
-		.unownedPortrait {
-			border-radius: 50%;
-			cursor: pointer;
-			filter: grayscale(1);
-			max-width: 100px;
-			transition: transform 0.2s;
-			&:active {
-				transform: scale(0.9);
-			}
-		}
-		.portraitButton {
-			display: none;
+			flex-direction: row;
 		}
 		.attrImgContainer {
-			position: relative;
 			.attrImage {
 				filter: grayscale(1);
-				max-width: 40px;
 			}
-			.factionImg {
-				max-width: 60px;
+		}
+		.portraitArea {
+			border-radius: 10px 10px 0px 0px;
+			display: flex;
+			height: 80%;
+			justify-content: center;
+			overflow: hidden;
+			position: absolute;
+			.portrait {
+				filter: grayscale(1);
 			}
-			.typeImg {
-				margin-bottom: 10px;
-			}
+		}
+		.heroName {
+			margin: 0;
+			margin-top: 5px;
 		}
 	}
 	.inOutMenuButton {
