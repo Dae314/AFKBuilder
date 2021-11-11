@@ -21,6 +21,7 @@
 		font-weight: bold;
 		margin-bottom: 3px;
 		text-align: center;
+		user-select: none;
 		&.disabled {
 			color: rgba(0, 0, 0, 0.5);
 		}
