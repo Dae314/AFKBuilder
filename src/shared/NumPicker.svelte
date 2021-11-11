@@ -92,6 +92,7 @@
 		height: 25px;
 		justify-content: center;
 		margin: 0;
+		user-select: none;
 		width: 25px;
 		&:disabled {
 			color: var(--appColorPriAccent);
