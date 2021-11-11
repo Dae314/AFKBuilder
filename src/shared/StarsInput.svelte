@@ -96,12 +96,12 @@
 		}
 	}
 	.star.hovered {
-		border-bottom-color: lightgoldenrodyellow;
+		border-bottom-color: rgb(255, 226, 132);
 		&:before {
-			border-bottom-color: lightgoldenrodyellow;
+			border-bottom-color: rgb(255, 226, 132);
 		}
 		&:after {
-			border-bottom-color: lightgoldenrodyellow;
+			border-bottom-color: rgb(255, 226, 132);
 		}
 	}
 	.star.active {
