@@ -781,7 +781,7 @@
 		display: grid;
 		grid-gap: 10px 5px;
 		grid-template-columns: repeat(auto-fill, minmax(360px, 360px));
-		grid-auto-rows: 360px;
+		grid-auto-rows: 380px;
 		justify-content: space-evenly;
 	}
 	.heroCard {
@@ -872,6 +872,11 @@
 				margin-right: 10px;
 			}
 		}
+	}
+	.numInputArea {
+		display: flex;
+		justify-content: center;
+		padding-top: 5px;
 	}
 	.unownedSection {
 		.MHGrid {
