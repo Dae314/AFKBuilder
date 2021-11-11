@@ -12,6 +12,7 @@
 	function handleChange() {
 		value = value > max ? max : value;
 		value = value < min ? min : value;
+		if(value === null) value = 0;
 		dispatch('change', { value: value });
 	}
 
