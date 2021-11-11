@@ -102,7 +102,7 @@
 		height: 25px;
 		outline: none;
 		text-align: center;
-		width: 65px;
+		width: 40px;
 		&::-webkit-outer-spin-button,
 		&::-webkit-inner-spin-button {
 			display: none;
