@@ -822,9 +822,6 @@
 		height: 160px;
 		width: 160px;
 	}
-	.portraitButton {
-		display: none;
-	}
 	.heroName {
 		display: flex;
 		font-size: 1.7rem;
@@ -890,6 +887,7 @@
 		}
 		.heroCard {
 			border-color: #BEBEBE;
+			cursor: pointer;
 		}
 		.heroHeader {
 			display: flex;
@@ -1186,73 +1184,6 @@
 			.filterButton {
 				margin: 0 auto;
 				margin-bottom: 10px;
-			}
-		}
-		.flipCard {
-			background-color: transparent;
-			cursor: pointer;
-			perspective: 1000px;
-			&:hover {
-				.flipCardInner {
-					transform: rotateY(180deg);
-				}
-			}
-			.flipCardInner {
-				height: 100%;
-				position: relative;
-				text-align: center;
-				transform-style: preserve-3d;
-				transition: transform 0.6s;
-				width: 100%;
-			}
-			.flipCardFront {
-				backface-visibility: hidden;
-				bottom: 50px;
-				height: 100%;
-				width: 100%;
-			}
-			.flipCardBack {
-				backface-visibility: hidden;
-				bottom: 50px;
-				height: 100%;
-				width: 100%;
-				display: block;
-				position: absolute;
-				top: 0px;
-				transform: rotateY(180deg);
-				.portraitButton {
-					background-color: var(--appColorPrimary);
-					border: 3px solid var(--appColorPrimary);
-					border-radius: 50%;
-					color: white;
-					cursor: pointer;
-					display: block;
-					font-size: 1.1rem;
-					font-weight: bold;
-					height: 100px;
-					padding: 5px;
-					transition: transform 0.2s;
-					width: 100px;
-					&:active {
-						transform: scale(0.9);
-					}
-				}
-				.portraitButton.owned {
-					background-color: transparent;
-					border: 3px solid var(--appColorPrimary);
-					color: var(--appColorPrimary);
-					font-size: 0.9rem;
-				}
-			}
-		}
-		.unownedSection {
-			.heroCard {
-				cursor: pointer;
-				&:hover .flipCard {
-					.flipCardInner {
-						transform: rotateY(180deg);
-					}
-				}
 			}
 		}
 	}
