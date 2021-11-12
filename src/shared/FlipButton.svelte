@@ -48,6 +48,7 @@
 		background-color: #BEBEBE;
 		border-color: #BEBEBE;
 		color: white;
+		cursor: default;
 	}
 	.playAni {
 		animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
@@ -65,7 +66,7 @@
 		}
 		.flipButton.disabled {
 			&:hover {
-				box-shadow: none;
+				background-color: #BEBEBE;
 			}
 		}
 	}

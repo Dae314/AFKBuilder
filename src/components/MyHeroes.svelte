@@ -100,8 +100,6 @@
 	function makeUnownedHeroList(herolist) {
 		let buffer = [];
 		let hero;
-		let sortKey;
-		let sortOrder;
 		for(let key in herolist) {
 			hero = $HeroData.find(e => e.id === key);
 			if(herolist[key].claimed) continue;
@@ -135,27 +133,7 @@
 			hero.engraving = herolist[key].engraving;
 			buffer.push(hero);
 		}
-		switch($AppData.MH.Sort) {
-			case 'name':
-				sortKey = $AppData.MH.Sort;
-				sortOrder = 'asc';
-				break;
-			case 'ascension':
-				sortKey = 'ascendLv';
-				sortOrder = 'desc';
-				break;
-			case 'copies':
-				sortKey = $AppData.MH.Sort;
-				sortOrder = 'desc';
-				break;
-			case 'engraving':
-				sortKey = $AppData.MH.Sort;
-				sortOrder = 'desc';
-				break;
-			default:
-				throw new Error(`Invalid sort key saved in AppData for My Heroes: ${AppData.MH.Sort}`);
-		}
-		return buffer.length > 0 ? buffer.sort(compareValues(sortKey, sortOrder)) : buffer;
+		return buffer.length > 0 ? buffer.sort(compareValues('name', 'asc')) : buffer;
 	}
 
 	function compareValues(key, order='asc') {
@@ -210,7 +188,6 @@
 		let curOption = sortOptions.findIndex(e => e.toLowerCase() === $AppData.MH.Sort);
 		$AppData.MH.Sort = sortOptions[(curOption + 1) % sortOptions.length].toLowerCase();
 		myHeroList = makeMyHeroList($AppData.MH.List);
-		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
 
@@ -418,6 +395,7 @@
 					options={sortOptions}
 					curOption={sortOptions.findIndex(e => e.toLowerCase() === $AppData.MH.Sort)}
 					onClick={updateSort}
+					disabled={$AppData.MH.openSection !== 0}
 					/>
 			</div>
 			<div class="filters">
