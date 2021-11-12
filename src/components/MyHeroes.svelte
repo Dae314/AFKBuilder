@@ -34,11 +34,13 @@
 	let openInOutMenu = false;
 	let copyConfirmVisible = false;
 	let sections = ['Owned', 'Unowned'];
-	let sortOptions = ['Name', 'Ascension', 'Copies'];
+	let sortOptions = ['Name', 'Ascension', 'Copies', 'Engraving'];
 
 	function makeMyHeroList(herolist) {
 		let buffer = [];
 		let hero;
+		let sortKey;
+		let sortOrder;
 		for(let key in herolist) {
 			hero = $HeroData.find(e => e.id === key);
 			if(!herolist[key].claimed) continue;
@@ -63,14 +65,43 @@
 				 !hero.faction.toLowerCase().includes($AppData.MH.SearchStr.toLowerCase()) &&
 				 !hero.type.toLowerCase().includes($AppData.MH.SearchStr.toLowerCase())
 				) continue;
+			hero = JSON.parse(JSON.stringify(hero)); // make a copy of hero so we don't mutate the original
+			hero.ascendLv = herolist[key].ascendLv;
+			hero.copies = herolist[key].copies;
+			hero.stars = herolist[key].stars;
+			hero.furn = herolist[key].furn;
+			hero.si = herolist[key].si;
+			hero.engraving = herolist[key].engraving;
 			buffer.push(hero);
 		}
-		return buffer.length > 0 ? buffer.sort(compareValues('name', 'asc')) : buffer;
+		switch($AppData.MH.Sort) {
+			case 'name':
+				sortKey = $AppData.MH.Sort;
+				sortOrder = 'asc';
+				break;
+			case 'ascension':
+				sortKey = 'ascendLv';
+				sortOrder = 'desc';
+				break;
+			case 'copies':
+				sortKey = $AppData.MH.Sort;
+				sortOrder = 'desc';
+				break;
+			case 'engraving':
+				sortKey = $AppData.MH.Sort;
+				sortOrder = 'desc';
+				break;
+			default:
+				throw new Error(`Invalid sort key saved in AppData for My Heroes: ${AppData.MH.Sort}`);
+		}
+		return buffer.length > 0 ? buffer.sort(compareValues(sortKey, sortOrder)) : buffer;
 	}
 
 	function makeUnownedHeroList(herolist) {
 		let buffer = [];
 		let hero;
+		let sortKey;
+		let sortOrder;
 		for(let key in herolist) {
 			hero = $HeroData.find(e => e.id === key);
 			if(herolist[key].claimed) continue;
@@ -95,24 +126,66 @@
 				 !hero.faction.toLowerCase().includes($AppData.MH.SearchStr.toLowerCase()) &&
 				 !hero.type.toLowerCase().includes($AppData.MH.SearchStr.toLowerCase())
 				) continue;
+			hero = JSON.parse(JSON.stringify(hero)); // make a copy of hero so we don't mutate the original
+			hero.ascendLv = herolist[key].ascendLv;
+			hero.copies = herolist[key].copies;
+			hero.stars = herolist[key].stars;
+			hero.furn = herolist[key].furn;
+			hero.si = herolist[key].si;
+			hero.engraving = herolist[key].engraving;
 			buffer.push(hero);
 		}
-		return buffer.length > 0 ? buffer.sort(compareValues('name', 'asc')) : buffer;
+		switch($AppData.MH.Sort) {
+			case 'name':
+				sortKey = $AppData.MH.Sort;
+				sortOrder = 'asc';
+				break;
+			case 'ascension':
+				sortKey = 'ascendLv';
+				sortOrder = 'desc';
+				break;
+			case 'copies':
+				sortKey = $AppData.MH.Sort;
+				sortOrder = 'desc';
+				break;
+			case 'engraving':
+				sortKey = $AppData.MH.Sort;
+				sortOrder = 'desc';
+				break;
+			default:
+				throw new Error(`Invalid sort key saved in AppData for My Heroes: ${AppData.MH.Sort}`);
+		}
+		return buffer.length > 0 ? buffer.sort(compareValues(sortKey, sortOrder)) : buffer;
 	}
 
 	function compareValues(key, order='asc') {
 		return function innerSort(a, b) {
 			if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
 				// property doesn't exist on either object
-				throw new Error('Invalid Hero List sort key specified.');
+				throw new Error(`Invalid My Heroes sort key specified: ${key}.`);
 			}
 			const varA = (typeof a[key] === 'string') ? a[key].toLowerCase() : a[key];
 			const varB = (typeof b[key] === 'string') ? b[key].toLowerCase() : b[key];
 			let comparison = 0;
-			if(varA > varB) {
-				comparison = 1;
+			if(key === 'ascendLv') {
+				if(varA > varB) {
+					comparison = 1;
+				} else if(varA < varB) {
+					comparison = -1;
+				} else {
+					// ascension is the same, compare stars
+					if(a.stars > b.stars) {
+						comparison = 1;
+					} else {
+						comparison = -1;
+					}
+				}
 			} else {
-				comparison = -1;
+				if(varA > varB) {
+					comparison = 1;
+				} else {
+					comparison = -1;
+				}
 			}
 			return (
 				(order === 'desc') ? (comparison * -1) : comparison
@@ -136,6 +209,8 @@
 	function updateSort() {
 		let curOption = sortOptions.findIndex(e => e.toLowerCase() === $AppData.MH.Sort);
 		$AppData.MH.Sort = sortOptions[(curOption + 1) % sortOptions.length].toLowerCase();
+		myHeroList = makeMyHeroList($AppData.MH.List);
+		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
 
