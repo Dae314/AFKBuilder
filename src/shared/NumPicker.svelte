@@ -53,7 +53,7 @@
 	class="counterButton subButton"
 	disabled={!enabled || value <= min}
 	on:mousedown={() => handleInteract('minus')}
-	on:touchstart={() => handleInteract('minus')}
+	on:touchstart={(e) => { e.preventDefault(); handleInteract('minus'); }}
 	on:mouseup={clearTimers}
 	on:mouseleave={clearTimers}
 	on:touchend={clearTimers}>
@@ -72,7 +72,7 @@
 	class="counterButton subButton"
 	disabled={!enabled || value >= max}
 	on:mousedown={() => handleInteract('plus')}
-	on:touchstart={() => handleInteract('plus')}
+	on:touchstart={(e) => { e.preventDefault(); handleInteract('plus'); }}
 	on:mouseup={clearTimers}
 	on:mouseleave={clearTimers}
 	on:touchend={clearTimers}>
