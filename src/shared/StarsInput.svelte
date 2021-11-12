@@ -108,6 +108,33 @@
 		&:after {
 			border-bottom-color: rgb(255, 226, 132);
 		}
+		&.engrave1 {
+			border-bottom-color: rgb(255, 214, 137);
+			&:before {
+				border-bottom-color: rgb(255, 214, 137);
+			}
+			&:after {
+				border-bottom-color: rgb(255, 214, 137);
+			}
+		}
+		&.engrave2 {
+			border-bottom-color: rgb(255, 172, 133);
+			&:before {
+				border-bottom-color: rgb(255, 172, 133);
+			}
+			&:after {
+				border-bottom-color: rgb(255, 172, 133);
+			}
+		}
+		&.engrave3 {
+			border-bottom-color: rgb(242, 213, 255);
+			&:before {
+				border-bottom-color: rgb(242, 213, 255);
+			}
+			&:after {
+				border-bottom-color: rgb(242, 213, 255);
+			}
+		}
 	}
 	.star.active {
 		border-bottom-color: gold;
