@@ -245,6 +245,9 @@
 		$AppData.MH.List[heroID].ascendLv = $HeroData.find(e => e.id === heroID).tier === 'ascended' ? 6 : 5;
 		$AppData.MH.List[heroID].si = -1;
 		$AppData.MH.List[heroID].furn = 0;
+		$AppData.MH.List[heroID].copies = 0;
+		$AppData.MH.List[heroID].engraving = 0;
+		$AppData.MH.List[heroID].stars = 0;
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
 		dispatch('saveData');
@@ -255,6 +258,9 @@
 		$AppData.MH.List[heroID].ascendLv = 0;
 		$AppData.MH.List[heroID].si = -1;
 		$AppData.MH.List[heroID].furn = 0;
+		$AppData.MH.List[heroID].copies = 0;
+		$AppData.MH.List[heroID].engraving = 0;
+		$AppData.MH.List[heroID].stars = 0;
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
 		dispatch('saveData');
