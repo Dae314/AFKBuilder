@@ -5,13 +5,11 @@
 
 	export let options = [];
 	export let curOption = 0;
-	export let onClick = () => {};
 	export let disabled = false;
 	
 	function changeHandler(event) {
 		if(!disabled) {
 			curOption = event.target.value;
-			onClick();
 			dispatch('change', { value: curOption });
 		}
 	}
@@ -23,13 +21,13 @@
 			<input type="radio" class="toggle_option" id="toggle{i}" name="option" group="option" on:change={changeHandler} value={i} checked={curOption === i} disabled={disabled}/>
 			<label for="toggle{i}"><p>{opt}</p></label>
 		{/each}
-		<div class="toggle_option_slider">
-		 </div>
 	</div>
 </div>
 
 <style lang="scss">
 	.toggle_radio {
+		background-color: var(--appBGColorDark);
+		border-radius: 5px;
 		display: flex;
 		width: fit-content;
 	}
