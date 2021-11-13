@@ -15,7 +15,7 @@
 	import EngraveInput from '../shared/EngraveInput.svelte';
 	import CopiesInput from '../shared/CopiesInput.svelte';
 	import StarsInput from '../shared/StarsInput.svelte';
-	import FlipButton from '../shared/FlipButton.svelte';
+	import HRadioPicker from '../shared/HRadioPicker.svelte';
 
 	export let isMobile = false;
 
@@ -34,13 +34,12 @@
 	let openInOutMenu = false;
 	let copyConfirmVisible = false;
 	let sections = ['Owned', 'Unowned'];
-	let sortOptions = ['Name', 'Ascension', 'Copies', 'Engraving'];
+	let sortOptions = ['Name', 'Asc.', 'Copies', 'Eng.'];
 
 	function makeMyHeroList(herolist) {
 		let buffer = [];
 		let hero;
-		let sortKey;
-		let sortOrder;
+		let sortOrder = 'desc';
 		for(let key in herolist) {
 			hero = $HeroData.find(e => e.id === key);
 			if(!herolist[key].claimed) continue;
@@ -74,27 +73,8 @@
 			hero.engraving = herolist[key].engraving;
 			buffer.push(hero);
 		}
-		switch($AppData.MH.Sort) {
-			case 'name':
-				sortKey = $AppData.MH.Sort;
-				sortOrder = 'asc';
-				break;
-			case 'ascension':
-				sortKey = 'ascendLv';
-				sortOrder = 'desc';
-				break;
-			case 'copies':
-				sortKey = $AppData.MH.Sort;
-				sortOrder = 'desc';
-				break;
-			case 'engraving':
-				sortKey = $AppData.MH.Sort;
-				sortOrder = 'desc';
-				break;
-			default:
-				throw new Error(`Invalid sort key saved in AppData for My Heroes: ${AppData.MH.Sort}`);
-		}
-		return buffer.length > 0 ? buffer.sort(compareValues(sortKey, sortOrder)) : buffer;
+		if($AppData.MH.Sort === 'name') sortOrder = 'asc';
+		return buffer.length > 0 ? buffer.sort(compareValues($AppData.MH.Sort, sortOrder)) : buffer;
 	}
 
 	function makeUnownedHeroList(herolist) {
@@ -184,9 +164,23 @@
 		dispatch('saveData');
 	}
 
-	function updateSort() {
-		let curOption = sortOptions.findIndex(e => e.toLowerCase() === $AppData.MH.Sort);
-		$AppData.MH.Sort = sortOptions[(curOption + 1) % sortOptions.length].toLowerCase();
+	function updateSort(event) {
+		switch(sortOptions[event.detail.value]) {
+			case 'Name':
+				$AppData.MH.Sort = 'name';
+				break;
+			case 'Asc.':
+				$AppData.MH.Sort = 'ascendLv';
+				break;
+			case 'Copies':
+				$AppData.MH.Sort = 'copies';
+				break;
+			case 'Eng.':
+				$AppData.MH.Sort = 'engraving';
+				break;
+			default:
+				throw new Error(`Invalid sort category specified: ${sortOptions[event.detail.value]}`);
+		}
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
@@ -391,12 +385,12 @@
 			</div>
 			<div class="sortContainer">
 				<div class="sortTitle">Sort by:</div>
-				<FlipButton
+				<HRadioPicker
 					options={sortOptions}
 					curOption={sortOptions.findIndex(e => e.toLowerCase() === $AppData.MH.Sort)}
-					onClick={updateSort}
+					on:change={updateSort}
 					disabled={$AppData.MH.openSection !== 0}
-					/>
+				/>
 			</div>
 			<div class="filters">
 				<div class="filterSection">
