@@ -20,6 +20,7 @@
 		"Ascension",
 		"Signature Item",
 		"Furniture",
+		"Engraving",
 	];
 	
 	$: modalHeight = isMobile ? '75vh' : '80vh';
@@ -34,7 +35,8 @@
 					let idx = buffer.findIndex(e => e.id === id);
 					buffer[idx].ascendLv = buffer[idx].ascendLv < data.ascendLv ? data.ascendLv : buffer[idx].ascendLv;
 					buffer[idx].si = buffer[idx].si < data.si ? data.si : buffer[idx].si;
-					buffer[idx].furn = buffer[idx].furn < data.si ? data.furn : buffer[idx].furn;
+					buffer[idx].furn = buffer[idx].furn < data.furn ? data.furn : buffer[idx].furn;
+					buffer[idx].engraving = buffer[idx].engraving < data.engraving ? data.engraving : buffer[idx].engraving;
 					buffer[idx].core = buffer[idx].core || data.core;
 					buffer[idx].comps.push({id: comp.uuid, name: comp.name});
 				} else {
@@ -44,6 +46,7 @@
 						ascendLv: data.ascendLv,
 						si: data.si,
 						furn: data.furn,
+						engraving: data.engraving,
 						core: data.core,
 						comps: [{id: comp.uuid, name: comp.name}],
 					});
@@ -89,6 +92,15 @@
 						id: hero.id,
 						type: 'furn',
 						value: hero.furn,
+						comps: hero.comps,
+						core: hero.core,
+					});
+				}
+				if($AppData.MH.List[hero.id].engraving < hero.engraving) {
+					buffer.push({
+						id: hero.id,
+						type: 'engraving',
+						value: hero.engraving,
 						comps: hero.comps,
 						core: hero.core,
 					});
@@ -142,10 +154,21 @@
 				$AppData.MH.List[heroID].ascendLv = value;
 				break;
 			case 'si':
+				// allow claiming of si levels before mythic but set to mythic automatically
+				if($AppData.MH.List[heroID].ascendLv < 4) $AppData.MH.List[heroID].ascendLv = 4;
 				$AppData.MH.List[heroID].si = value;
 				break;
 			case 'furn':
+				// allow claiming of furniture levels before ascended but set to ascended automatically
+				if($AppData.MH.List[heroID].ascendLv < 6) $AppData.MH.List[heroID].ascendLv = 6;
 				$AppData.MH.List[heroID].furn = value;
+				break;
+			case 'engraving':
+				// allow claiming of engraving levels before ascended but set to ascended automatically
+				if($AppData.MH.List[heroID].ascendLv < 6) $AppData.MH.List[heroID].ascendLv = 6;
+				// allow claiming of engraving levels with 0* but set stars to 1 automatically
+				if($AppData.MH.List[heroID].stars < 1) $AppData.MH.List[heroID].stars = 1;
+				$AppData.MH.List[heroID].engraving = value;
 				break;
 			default:
 				throw new Error(`Invalid type received ${type} should be 'asc', 'si', or 'furn'.`);
@@ -267,6 +290,40 @@
 				{/each}
 			{:else}
 				<div class="noRec"><span>No Furniture Recommendations</span></div>
+			{/if}
+		</div>
+	</section>
+	{:else if $AppData.REC.openSection === 3}
+	<section class="recSection engSection">
+		<div class="recArea">
+			{#if recommendations.filter(e => e.type === 'engraving').length > 0}
+				{#each recommendations.filter(e => e.type === 'engraving').sort(sortByCore) as rec (rec.id+'_eng')}
+					<div class="recCard" animate:flip="{{duration: 200}}">
+						<div class="claimButtonArea">
+							<button type="button" class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'engraving')}>&#10004;</button>
+						</div>
+						<h4>{$HeroData.find(e => e.id === rec.id).name}</h4>
+						<div class="portraitContainer">
+							<button type="button" class="portraitButton" on:click={() => handlePortraitClick(rec.id)}>
+								<img class="portrait" src={$HeroData.find(e => e.id === rec.id).portrait} alt={$HeroData.find(e => e.id === rec.id).name}>
+								<span class="coreMark" class:visible={rec.core}></span>
+							</button>
+						</div>
+						<div class="recText">
+							<SIFurnEngBox type="engraving" num="{rec.value}" />
+						</div>
+						<div class="compArea">
+							<h5>Used in</h5>
+							<ul>
+							{#each rec.comps as comp}
+								<li><button type="button" class="compButton" on:click={() => handleCompClick(comp.id)}>{comp.name}</button></li>
+							{/each}
+							</ul>
+						</div>
+					</div>
+				{/each}
+			{:else}
+				<div class="noRec"><span>No Engraving Recommendations</span></div>
 			{/if}
 		</div>
 	</section>
