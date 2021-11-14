@@ -9,6 +9,8 @@
 	import SIMenu from '../shared/SIMenu.svelte';
 	import FurnMenu from '../shared/FurnMenu.svelte';
 	import XButton from '../shared/XButton.svelte';
+	import StarsInput from '../shared/StarsInput.svelte';
+	import EngraveInput from '../shared/EngraveInput.svelte';
 
 	export let config = {};
 	export let isMobile = false;
@@ -50,6 +52,8 @@
 				ascendLv: oldHeroData.ascendLv,
 				si: oldHeroData.si,
 				furn: oldHeroData.furn,
+				stars: oldHeroData.stars,
+				engraving: oldHeroData.engraving,
 				artifacts: JSON.parse(JSON.stringify(oldHeroData.artifacts)),
 				core: oldHeroData.core,
 				notes: oldHeroData.notes,
@@ -286,6 +290,8 @@
 		selectedHero.ascendLv = level;
 		if(selectedHero.ascendLv < 6) {
 			selectedHero.furn = 0;
+			selectedHero.stars = 0;
+			selectedHero.engraving = 0;
 		}
 		if(selectedHero.ascendLv < 4) {
 			selectedHero.si = -1;
@@ -294,6 +300,12 @@
 
 	function handleFurnChange(level) {
 		selectedHero.furn = level;
+	}
+
+	function handleStarsChange(event) {
+		if(event.detail.value <= 0) {
+			selectedHero.engraving = 0;
+		}
 	}
 
 	function handleAddArtifact(artifact, line) {
@@ -330,6 +342,8 @@
 			{name: 'ascendLv', type: 'number'},
 			{name: 'si', type: 'number'},
 			{name: 'furn', type: 'number'},
+			{name: 'stars', type: 'number'},
+			{name: 'engraving', type: 'number'},
 			{name: 'artifacts', type: 'object'},
 			{name: 'core', type: 'boolean'},
 			{name: 'notes', type: 'string'},
@@ -398,6 +412,8 @@
 				ascendLv: compHeroData[heroID].ascendLv,
 				si: compHeroData[heroID].si,
 				furn: compHeroData[heroID].furn,
+				stars: compHeroData[heroID].stars,
+				engraving: compHeroData[heroID].engraving,
 				artifacts: JSON.parse(JSON.stringify(compHeroData[heroID].artifacts)),
 				core: compHeroData[heroID].core,
 				notes: compHeroData[heroID].notes,
@@ -408,6 +424,8 @@
 				ascendLv: $HeroData.find(e => e.id === heroID).tier === 'ascended' ? 6 : 5,
 				si: $HeroData.find(e => e.id === heroID).si_benchmark,
 				furn: $HeroData.find(e => e.id === heroID).furn_benchmark,
+				stars: $HeroData.find(e => e.id === heroID).engraving_benchmark > 0 ? 1 : 0,
+				engraving: $HeroData.find(e => e.id === heroID).engraving_benchmark,
 				artifacts: {primary: [], secondary: [], situational: []},
 				core: false,
 				notes: '',
@@ -517,7 +535,6 @@
 					<button type="button" class="saveButton" on:click={() => saveHero()}><span>Save</span></button>
 				</div>
 				<div class="heroEditor">
-					<div class="heroName">{$HeroData.find(e => e.id === selectedHero.id).name}</div>
 					<div class="portraitArea">
 						<div class="siFlipButtonArea">
 							<SIMenu
@@ -542,6 +559,14 @@
 							/>
 						</div>
 					</div>
+					<div class="heroName">{$HeroData.find(e => e.id === selectedHero.id).name}</div>
+					<div class="starsInputContainer">
+						<StarsInput 
+							bind:value={selectedHero.stars}
+							enabled={selectedHero.ascendLv >= 6}
+							engraving={selectedHero.engraving}
+							on:change={handleStarsChange} />
+					</div>
 					<div class="ascFlipButtonArea">
 						<AscensionMenu
 							menuItemChangeCallback={(index) => handleAscChange(index)}
@@ -550,6 +575,12 @@
 							zIndexBase=4
 							tier={$HeroData.find(e => e.id === selectedHero.id).tier}
 						/>
+					</div>
+					<div class="engraveInputContainer">
+						<EngraveInput
+								enabled={selectedHero.stars >= 1}
+								max={$HeroData.find(e => e.id === selectedHero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Celestial' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Hypogean' ? 100 : 80}
+								bind:value={selectedHero.engraving} />
 					</div>
 					<div class="coreArea">
 						<button type="button" class="coreButton" class:on={selectedHero.core} on:click={() => selectedHero.core = !selectedHero.core}><span>Core</span></button>
@@ -876,6 +907,9 @@
 		text-align: center;
 		width: 100%;
 	}
+	.starsInputContainer {
+		margin-top: 5px;
+	}
 	.backButton {
 		background-color: transparent;
 		border: 2px solid var(--appColorPrimary);
@@ -943,6 +977,9 @@
 	.editorPortrait {
 		border-radius: 50%;
 		max-width: 150px;
+	}
+	.engraveInputContainer {
+		margin: 10px 0px;
 	}
 	.furnFlipButtonArea {
 		align-items: center;

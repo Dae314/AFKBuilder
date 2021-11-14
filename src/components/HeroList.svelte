@@ -5,7 +5,7 @@
 	import HeroData from '../stores/HeroData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
-	import SIFurnBox from '../shared/SIFurnBox.svelte';
+	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 
 	export let isMobile = false;
@@ -61,6 +61,7 @@
 				type: hero.type,
 				si_benchmark: hero.si_benchmark,
 				furn_benchmark: hero.furn_benchmark,
+				engraving_benchmark: hero.engraving_benchmark,
 			});
 		}
 		return retVal;
@@ -88,6 +89,9 @@
 				break;
 			case 'furn':
 				return [...displayList].sort(compareValues('furn_benchmark', order));
+				break;
+			case 'engraving':
+				return [...displayList].sort(compareValues('engraving_benchmark', order));
 				break;
 			default:
 				throw new Error('Invalid Hero List sort column.');
@@ -304,8 +308,9 @@
 				<thead>
 					<th class="sortHeader" on:click={() => handleHeaderClick('name')}>Hero</th>
 					<th class="nonSortHeader">Attributes</th>
-					<th class="sortHeader" on:click={() => handleHeaderClick('si')}>SI <span class="hiddenMobile">Benchmark</span></th>
-					<th class="sortHeader" on:click={() => handleHeaderClick('furn')}>Furn <span class="hiddenMobile">Benchmark</span></th>
+					<th class="sortHeader" on:click={() => handleHeaderClick('si')}>SI <span class="spanHiddenMobile">Benchmark</span></th>
+					<th class="sortHeader" on:click={() => handleHeaderClick('furn')}>Furn <span class="spanHiddenMobile">Benchmark</span></th>
+					<th class="sortHeader blockHiddenMobile" on:click={() => handleHeaderClick('engraving')}>Eng. <span class="spanHiddenMobile">Benchmark</span></th>
 				</thead>
 				{#each displayList as hero (hero.id)}
 				<tr class="heroRow" on:click={() => handleHeroClick(hero.id)} animate:flip="{{duration: 200}}">
@@ -332,10 +337,13 @@
 						</div>
 					</td>
 					<td>
-						<SIFurnBox type='si' num={hero.si_benchmark} maxWidth='58px' />
+						<SIFurnEngBox type='si' num={hero.si_benchmark} maxWidth='58px' />
 					</td>
 					<td>
-						<SIFurnBox type='furn' num={hero.furn_benchmark} maxWidth='58px' />
+						<SIFurnEngBox type='furn' num={hero.furn_benchmark} maxWidth='58px' />
+					</td>
+					<td class="blockHiddenMobile">
+						<SIFurnEngBox type='engraving' num={hero.engraving_benchmark} maxWidth='58px' />
 					</td>
 				</tr>
 				{/each}
@@ -528,7 +536,11 @@
 	.sortHeader {
 		cursor: pointer;
 	}
-	.hiddenMobile {
+	.spanHiddenMobile {
+		display: none;
+		visibility: hidden;
+	}
+	.blockHiddenMobile {
 		display: none;
 		visibility: hidden;
 	}
@@ -673,8 +685,12 @@
 				margin-bottom: 10px;
 			}
 		}
-		.hiddenMobile {
+		.spanHiddenMobile {
 			display: inline-block;
+			visibility: visible;
+		}
+		.blockHiddenMobile {
+			display: block;
 			visibility: visible;
 		}
 		.heroTable {

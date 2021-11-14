@@ -2,7 +2,7 @@
 	import { onMount, getContext } from 'svelte';
 	import HeroData from '../stores/HeroData.js';
 	import AppData from '../stores/AppData.js';
-	import SIFurnBox from '../shared/SIFurnBox.svelte';
+	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
 	
 	const { close } = getContext('simple-modal');
 
@@ -52,11 +52,15 @@
 	<section class="siFurnSection">
 		<div class="benchmarkSection">
 			<h4>SI Benchmark</h4>
-			<SIFurnBox type='si' num={hero.si_benchmark} maxWidth='50px' />
+			<SIFurnEngBox type='si' num={hero.si_benchmark} maxWidth='50px' />
 		</div>
 		<div class="benchmarkSection">
 			<h4>Furn Benchmark</h4>
-			<SIFurnBox type='furn' num={hero.furn_benchmark} maxWidth='50px' />
+			<SIFurnEngBox type='furn' num={hero.furn_benchmark} maxWidth='50px' />
+		</div>
+		<div class="benchmarkSection">
+			<h4>Eng. Benchmark</h4>
+			<SIFurnEngBox type='engraving' num={hero.engraving_benchmark} maxWidth='50px' />
 		</div>
 	</section>
 	<section class="skillsSection">
@@ -213,6 +217,7 @@
 			margin: 0;
 			padding: 0;
 			padding-bottom: 10px;
+			text-align: center;
 		}
 	}
 	.skillsSection {
