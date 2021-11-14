@@ -31,8 +31,13 @@
 					throw new Error(`Invalid num specfified for SIFurnEngBox of furn type: ${num}. Must be 0, 3, or 9`);
 			}
 			break;
+		case 'engraving':
+			if(num < 0 || num > 100) {
+				throw new Error(`Invalid num specified for SIFurnEngBox of engraving type: ${num}. Must be 0-100`);
+			}
+			break;
 		default:
-			throw new Error(`Invalid type specified for SIFurnEngBox: ${type}. Must be 'si' or 'furn'`);
+			throw new Error(`Invalid type specified for SIFurnEngBox: ${type}. Must be 'si', 'furn', or 'engraving'`);
 	}
 </script>
 
@@ -51,8 +56,18 @@
 			<p class="num">+{num}</p>
 			{/if}
 		{/if}
+	{:else if type === 'furn'}
+		{#if fullName}
+			<p class="num">{num} furn</p>
+		{:else}
+			<p class="num">{num}f</p>
+		{/if}
 	{:else}
-		<p class="num">{num}f</p>
+		{#if fullName}
+			<p class="num">Engrave {num}</p>
+		{:else}
+			<p class="num">E{num}</p>
+		{/if}
 	{/if}
 </div>
 
