@@ -31,6 +31,11 @@ window.validateMyHeroData = async function(data) {
 		if(!herodata.some(e => e.id === key)) {
 			return {retCode: 1, message: `Unexpected key found in hero list: ${key}`};
 		}
+		
+		// add the stars and engraving properties to heroes if they're missing (update 1.12.0)
+		if(!('stars' in data[key])) data[key].stars = 0;
+		if(!('engraving' in data[key])) data[key].engraving = 0;
+
 		for(const prop in data[key]) {
 			// error if there are extra props
 			if(!expectedProps.some(e => e.name === prop)) {
