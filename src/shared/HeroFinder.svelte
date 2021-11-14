@@ -907,6 +907,9 @@
 		text-align: center;
 		width: 100%;
 	}
+	.starsInputContainer {
+		margin-top: 5px;
+	}
 	.backButton {
 		background-color: transparent;
 		border: 2px solid var(--appColorPrimary);
