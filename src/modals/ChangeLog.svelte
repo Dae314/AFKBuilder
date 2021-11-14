@@ -5,6 +5,19 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.12.3 - Twinkleshine',
+		changes: [
+			'<em>NEW Stars and Engravings now supported for heroes in Comps and My Heroes!</em>',
+			'<em>NEW Track copies of heroes below Ascended in My Heroes!</em>',
+			'<em>NEW Sort My Heroes list based on name, ascension, copies, or engraving!</em>',
+			'<em>NEW Get engraving recommendations in the Recommendations area based on starred comps!</em>',
+			'<em>NEW Engraving benchmarks listed on Hero List (desktop only) or in Hero Details (tap on a hero).</em>',
+			'NOTE Engraving benchmarks are a work in progress and not definitive.',
+			'Added new hero Treznor',
+			'Updated Daimon\'s 3rd skill "Stitchy converts 100% of the damage he DEALT...", thanks Bob49!',
+			'Updated Ulmus\'s ultimate skill description',
+			],
+		},
 		{ version: 'v1.8.18',
 		changes: [
 			'Updated npm packages',
@@ -58,15 +71,6 @@
 				'Fix ToastUI editor z-index value was too high',
 				'Updated NPM packages',
 				'Fixed various typos',
-			],
-		},
-		{ version: 'v1.7.26',
-			changes: [
-				'Added Zikis',
-				'Added Wilder engraving info',
-				'All heroes in a line or sub-line are now cleaned up when the line or sub-line is deleted',
-				'Fixed Hogkin\'s third skill image',
-				'Fixed code blocks displaying in description without linebreaks',
 			],
 		},
 	]
