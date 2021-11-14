@@ -67,6 +67,8 @@ window.validateComp = async function(data) {
 		{name: 'ascendLv', type: 'number'},
 		{name: 'si', type: 'number'},
 		{name: 'furn', type: 'number'},
+		{name: 'stars', type: 'number'},
+		{name: 'engraving', type: 'number'},
 		{name: 'artifacts', type: 'object'},
 		{name: 'core', type: 'boolean'},
 		{name: 'notes', type: 'string'},
@@ -165,6 +167,10 @@ window.validateComp = async function(data) {
 		}
 		// heroes validation
 		for(const hero in data.heroes) {
+			// add the stars and engraving properties to heroes if they're missing (update 1.9.0)
+			if(!('stars' in data.heroes[hero])) data.heroes[hero].stars = 0;
+			if(!('engraving' in data.heroes[hero])) data.heroes[hero].engraving = 0;
+
 			// make sure all heroes are in HeroData
 			if(!(herodata.some(e => e.id === hero))) {
 				return {retCode: 1, message: `Hero ${hero} is not an ID in HeroData`};
@@ -399,6 +405,8 @@ function buildCompsData(data) {
 		{name: 'ascendLv', default: 6},
 		{name: 'si', default: 20},
 		{name: 'furn', default: 3},
+		{name: 'stars', default: 0},
+		{name: 'engraving', default: 0},
 		{name: 'artifacts', default: {}},
 		{name: 'core', default: false},
 		{name: 'notes', default: ''},
