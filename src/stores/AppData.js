@@ -167,7 +167,7 @@ window.validateComp = async function(data) {
 		}
 		// heroes validation
 		for(const hero in data.heroes) {
-			// add the stars and engraving properties to heroes if they're missing (update 1.9.0)
+			// add the stars and engraving properties to heroes if they're missing (update 1.12.0)
 			if(!('stars' in data.heroes[hero])) data.heroes[hero].stars = 0;
 			if(!('engraving' in data.heroes[hero])) data.heroes[hero].engraving = 0;
 
