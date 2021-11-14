@@ -567,12 +567,6 @@
 							engraving={selectedHero.engraving}
 							on:change={handleStarsChange} />
 					</div>
-					<div class="engraveInputContainer">
-						<EngraveInput
-								enabled={selectedHero.stars >= 1}
-								max={$HeroData.find(e => e.id === selectedHero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Celestial' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Hypogean' ? 100 : 80}
-								bind:value={selectedHero.engraving} />
-					</div>
 					<div class="ascFlipButtonArea">
 						<AscensionMenu
 							menuItemChangeCallback={(index) => handleAscChange(index)}
@@ -581,6 +575,12 @@
 							zIndexBase=4
 							tier={$HeroData.find(e => e.id === selectedHero.id).tier}
 						/>
+					</div>
+					<div class="engraveInputContainer">
+						<EngraveInput
+								enabled={selectedHero.stars >= 1}
+								max={$HeroData.find(e => e.id === selectedHero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Celestial' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Hypogean' ? 100 : 80}
+								bind:value={selectedHero.engraving} />
 					</div>
 					<div class="coreArea">
 						<button type="button" class="coreButton" class:on={selectedHero.core} on:click={() => selectedHero.core = !selectedHero.core}><span>Core</span></button>
