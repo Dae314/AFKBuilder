@@ -6,7 +6,7 @@
 	import HeroDetail from '../modals/HeroDetail.svelte';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import AscendBox from '../shared/AscendBox.svelte';
-	import SIFurnBox from '../shared/SIFurnBox.svelte';
+	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
@@ -219,7 +219,7 @@
 							</button>
 						</div>
 						<div class="recText">
-							<SIFurnBox type="si" num="{rec.value}" fullName={true} maxWidth="100px" />
+							<SIFurnEngBox type="si" num="{rec.value}" fullName={true} maxWidth="100px" />
 						</div>
 						<div class="compArea">
 							<h5>Used in</h5>
@@ -253,7 +253,7 @@
 							</button>
 						</div>
 						<div class="recText">
-							<SIFurnBox type="furn" num="{rec.value}" />
+							<SIFurnEngBox type="furn" num="{rec.value}" />
 						</div>
 						<div class="compArea">
 							<h5>Used in</h5>

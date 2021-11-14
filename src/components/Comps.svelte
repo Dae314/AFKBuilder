@@ -15,10 +15,11 @@
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import CompEditor from '../modals/CompEditor.svelte';
 	import ArtifactDetail from '../modals/ArtifactDetail.svelte';
-	import SIFurnBox from '../shared/SIFurnBox.svelte';
+	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import AscendBox from '../shared/AscendBox.svelte';
 	import SortableList from '../shared/SortableList.svelte';
+	import StarsInput from '../shared/StarsInput.svelte';
 
 	export let isMobile = false;
 
@@ -632,8 +633,8 @@
 								{#if selectedHero !== ''}
 									<div class="selectedHero" in:fade="{{duration: 200}}">
 										<div class="upperSelectCard">
-											<div>
-												<SIFurnBox type='si' num={sortedCompList[$AppData.selectedComp].heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
+											<div class="siFurnBoxContainer">
+												<SIFurnEngBox type='si' num={sortedCompList[$AppData.selectedComp].heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
 											</div>
 											<div class="selectPortraitArea">
 												<div class="portraitContainer" on:click={() => handleHeroDetailClick(selectedHero)}>
@@ -641,9 +642,16 @@
 													<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[selectedHero].core}></span>
 												</div>
 												<p>{$HeroData.find(e => e.id === selectedHero).name}</p>
+												<div>
+													<StarsInput
+														value={sortedCompList[$AppData.selectedComp].heroes[selectedHero].stars}
+														enabled={sortedCompList[$AppData.selectedComp].heroes[selectedHero].ascendLv === 6}
+														engraving={sortedCompList[$AppData.selectedComp].heroes[selectedHero].engraving}
+														displayOnly={true} />
+												</div>
 											</div>
-											<div>
-												<SIFurnBox type='furn' num={sortedCompList[$AppData.selectedComp].heroes[selectedHero].furn} maxWidth='50px' fontSize='1.2rem' />
+											<div class="siFurnBoxContainer">
+												<SIFurnEngBox type='furn' num={sortedCompList[$AppData.selectedComp].heroes[selectedHero].furn} maxWidth='50px' fontSize='1.2rem' />
 											</div>
 										</div>
 										<div class="lowerSelectCard">
@@ -1379,6 +1387,9 @@
 		justify-content: center;
 		width: 100%;
 	}
+	.siFurnBoxContainer {
+		margin-bottom: 50px;
+	}
 	.selectPortraitArea {
 		align-items: center;
 		display: flex;
@@ -1448,6 +1459,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		margin-top: 5px;
 		width: 100%;
 	}
 	.ascendBoxContainer {

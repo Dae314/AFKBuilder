@@ -5,7 +5,7 @@
 	import HeroData from '../stores/HeroData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
-	import SIFurnBox from '../shared/SIFurnBox.svelte';
+	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 
 	export let isMobile = false;
@@ -332,10 +332,10 @@
 						</div>
 					</td>
 					<td>
-						<SIFurnBox type='si' num={hero.si_benchmark} maxWidth='58px' />
+						<SIFurnEngBox type='si' num={hero.si_benchmark} maxWidth='58px' />
 					</td>
 					<td>
-						<SIFurnBox type='furn' num={hero.furn_benchmark} maxWidth='58px' />
+						<SIFurnEngBox type='furn' num={hero.furn_benchmark} maxWidth='58px' />
 					</td>
 				</tr>
 				{/each}

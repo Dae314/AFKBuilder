@@ -19,7 +19,7 @@
 				case 35: break;
 				case 40: break;
 				default:
-					throw new Error(`Invalid num specfified for SIFurnBox of si type: ${num}. Must be -1, 0, 5, 10, 15, 20, 25, 30, 35, or 40`);
+					throw new Error(`Invalid num specfified for SIFurnEngBox of si type: ${num}. Must be -1, 0, 5, 10, 15, 20, 25, 30, 35, or 40`);
 			}
 			break;
 		case 'furn':
@@ -28,11 +28,11 @@
 				case 3: break;
 				case 9: break;
 				default:
-					throw new Error(`Invalid num specfified for SIFurnBox of furn type: ${num}. Must be 0, 3, or 9`);
+					throw new Error(`Invalid num specfified for SIFurnEngBox of furn type: ${num}. Must be 0, 3, or 9`);
 			}
 			break;
 		default:
-			throw new Error(`Invalid type specified for SIFurnBox: ${type}. Must be 'si' or 'furn'`);
+			throw new Error(`Invalid type specified for SIFurnEngBox: ${type}. Must be 'si' or 'furn'`);
 	}
 </script>
 

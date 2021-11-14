@@ -8,9 +8,10 @@
 	export let value = 0;
 	export let enabled = true;
 	export let engraving = 0;
+	export let displayOnly = false;
 
 	function handleStarClick(starid) {
-		if(enabled) {
+		if(enabled && !displayOnly) {
 			if(value === starid) {
 				value = 0; // reset stars to 0 if user clicks on the exact same stars
 				engraving = 0; // reset engravings as well
@@ -28,11 +29,11 @@
 
 <div class="starsContainer" on:mouseleave={() => hover = -1}>
 	{#each star_array as starid}
-		<div class="singleStarContainer" class:enabled on:click={(e) => handleStarClick(starid)} on:mouseenter={() => handleStarHover(starid)}>
+		<div class="singleStarContainer" class:displayOnly class:enabled on:click={(e) => handleStarClick(starid)} on:mouseenter={() => handleStarHover(starid)}>
 			<i class="star"
 				class:enabled
 				class:active={value >= starid}
-				class:hovered={hover >= starid}
+				class:hovered={!displayOnly && hover >= starid}
 				class:engrave1={engraving >= 30 && engraving < 60}
 				class:engrave2={engraving >= 60 && engraving < 80}
 				class:engrave3={engraving >= 80}>
@@ -49,6 +50,9 @@
 		display: inline-block;
 		&.enabled {
 			cursor: pointer;
+		}
+		&.displayOnly {
+			cursor: default;
 		}
 	}
 	.star {
