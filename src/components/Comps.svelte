@@ -661,6 +661,11 @@
 													tier={$HeroData.find(e => e.id === selectedHero).tier}
 												/>
 											</div>
+											{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].stars > 0}
+												<div class="engraveBoxContainer">
+													<SIFurnEngBox type='engraving' num={sortedCompList[$AppData.selectedComp].heroes[selectedHero].engraving} maxWidth='50px' fontSize='1.2rem' />
+												</div>
+											{/if}
 											{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].notes.length > 0}
 												<div class="heroNotesArea">
 													<div class="heroNotes">
@@ -1467,7 +1472,7 @@
 	}
 	.heroNotesArea {
 		width: 100%;
-		margin-bottom: 10px;
+		margin: 10px 0px;
 		.heroNotes {
 			background-color: var(--appBGColorDark);
 			border-radius: 10px;
