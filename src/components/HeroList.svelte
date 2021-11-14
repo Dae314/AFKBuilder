@@ -308,9 +308,9 @@
 				<thead>
 					<th class="sortHeader" on:click={() => handleHeaderClick('name')}>Hero</th>
 					<th class="nonSortHeader">Attributes</th>
-					<th class="sortHeader" on:click={() => handleHeaderClick('si')}>SI <span class="hiddenMobile">Benchmark</span></th>
-					<th class="sortHeader" on:click={() => handleHeaderClick('furn')}>Furn <span class="hiddenMobile">Benchmark</span></th>
-					<th class="sortHeader hiddenMobile" on:click={() => handleHeaderClick('engraving')}>Eng. <span class="hiddenMobile">Benchmark</span></th>
+					<th class="sortHeader" on:click={() => handleHeaderClick('si')}>SI <span class="spanHiddenMobile">Benchmark</span></th>
+					<th class="sortHeader" on:click={() => handleHeaderClick('furn')}>Furn <span class="spanHiddenMobile">Benchmark</span></th>
+					<th class="sortHeader blockHiddenMobile" on:click={() => handleHeaderClick('engraving')}>Eng. <span class="spanHiddenMobile">Benchmark</span></th>
 				</thead>
 				{#each displayList as hero (hero.id)}
 				<tr class="heroRow" on:click={() => handleHeroClick(hero.id)} animate:flip="{{duration: 200}}">
@@ -342,7 +342,7 @@
 					<td>
 						<SIFurnEngBox type='furn' num={hero.furn_benchmark} maxWidth='58px' />
 					</td>
-					<td class="hiddenMobile">
+					<td class="blockHiddenMobile">
 						<SIFurnEngBox type='engraving' num={hero.engraving_benchmark} maxWidth='58px' />
 					</td>
 				</tr>
@@ -536,7 +536,11 @@
 	.sortHeader {
 		cursor: pointer;
 	}
-	.hiddenMobile {
+	.spanHiddenMobile {
+		display: none;
+		visibility: hidden;
+	}
+	.blockHiddenMobile {
 		display: none;
 		visibility: hidden;
 	}
@@ -681,8 +685,12 @@
 				margin-bottom: 10px;
 			}
 		}
-		.hiddenMobile {
+		.spanHiddenMobile {
 			display: inline-block;
+			visibility: visible;
+		}
+		.blockHiddenMobile {
+			display: block;
 			visibility: visible;
 		}
 		.heroTable {

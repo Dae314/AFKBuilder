@@ -58,6 +58,10 @@
 			<h4>Furn Benchmark</h4>
 			<SIFurnEngBox type='furn' num={hero.furn_benchmark} maxWidth='50px' />
 		</div>
+		<div class="benchmarkSection">
+			<h4>Eng. Benchmark</h4>
+			<SIFurnEngBox type='engraving' num={hero.engraving_benchmark} maxWidth='50px' />
+		</div>
 	</section>
 	<section class="skillsSection">
 		<div class="mobileExpanderTitle">
@@ -213,6 +217,7 @@
 			margin: 0;
 			padding: 0;
 			padding-bottom: 10px;
+			text-align: center;
 		}
 	}
 	.skillsSection {
