@@ -18,9 +18,9 @@
 	let recommendations = buildRecs();
 	const sections = [
 		"Ascension",
-		"Signature Item",
+		"Sig. Item",
 		"Furniture",
-		"Engraving",
+		"Eng.",
 	];
 	
 	$: modalHeight = isMobile ? '75vh' : '80vh';
@@ -358,7 +358,7 @@
 			color: var(--appColorPrimary);
 			cursor: pointer;
 			font-size: 1rem;
-			margin-right: 15px;
+			margin-right: 0px;
 			outline: none;
 			padding: 5px;
 		}
@@ -390,7 +390,7 @@
 		user-select: none;
 		span {
 			color: rgba(100, 100, 100, 0.3);
-			font-size: 2.5rem;
+			font-size: 2.2rem;
 			font-weight: bold;
 			text-align: center;
 			text-transform: uppercase;
@@ -506,9 +506,9 @@
 	@media only screen and (min-width: 767px) {
 		.sectionPicker {
 			justify-content: flex-start;
-		}
-		.sectionButton {
-			margin-right: 0px;
+			.sectionButton {
+				margin-right: 15px;
+			}
 		}
 		.recSection {
 			border-radius: 0px 10px 10px 10px;
