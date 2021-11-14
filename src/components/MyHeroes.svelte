@@ -36,6 +36,25 @@
 	let sections = ['Owned', 'Unowned'];
 	let sortOptions = ['Name', 'Asc.', 'Copies', 'Eng.'];
 
+	function sortToOptionIdx(sortType) {
+		switch(sortType) {
+			case 'name':
+				return 0;
+				break;
+			case 'ascendLv':
+				return 1;
+				break;
+			case 'copies':
+				return 2;
+				break;
+			case 'engraving':
+				return 3;
+				break;
+			default:
+				throw new Error(`Invalid sort category specified: ${sortType}`);
+		}
+	}
+
 	function makeMyHeroList(herolist) {
 		let buffer = [];
 		let hero;
@@ -133,6 +152,26 @@
 				} else {
 					// ascension is the same, compare stars
 					if(a.stars > b.stars) {
+						comparison = 1;
+					} else if(a.stars < b.stars) {
+						comparison = -1;
+					} else {
+						// stars are the same, compare engraving
+						if(a.engraving > b.engraving) {
+							comparison = 1;
+						} else {
+							comparison = -1;
+						}
+					}
+				}
+			} else if(key === 'engraving') {
+				if(varA > varB) {
+					comparison = 1;
+				} else if (varA < varB) {
+					comparison = -1;
+				} else {
+					// engraving is the same, compare stars
+					if(a. stars > b.stars) {
 						comparison = 1;
 					} else {
 						comparison = -1;
@@ -393,7 +432,7 @@
 				<div class="sortTitle">Sort by:</div>
 				<HRadioPicker
 					options={sortOptions}
-					curOption={sortOptions.findIndex(e => e.toLowerCase() === $AppData.MH.Sort)}
+					curOption={sortToOptionIdx($AppData.MH.Sort)}
 					on:change={updateSort}
 					disabled={$AppData.MH.openSection !== 0}
 				/>
