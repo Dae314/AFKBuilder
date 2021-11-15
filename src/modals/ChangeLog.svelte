@@ -10,7 +10,7 @@
 			'<em>NEW Stars and Engravings now supported for heroes in Comps and My Heroes!</em>',
 			'<em>NEW Track copies of heroes below Ascended in My Heroes!</em>',
 			'<em>NEW Sort My Heroes list based on name, ascension, copies, or engraving!</em>',
-			'<em>NEW Get engraving recommendations in the Recommendations area based on starred comps!</em>',
+			'<em>NEW Get engraving and star recommendations in the Recommendations area based on starred comps!</em>',
 			'<em>NEW Engraving benchmarks listed on Hero List (desktop only) or in Hero Details (tap on a hero).</em>',
 			'NOTE Engraving benchmarks are a work in progress and not definitive.',
 			'Added new hero Treznor',
