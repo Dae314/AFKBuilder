@@ -18,21 +18,6 @@
 		top: -30px;
 		width: 25px;
 		z-index: 1;
-		&:hover {
-			.label {
-				opacity: 1;
-			}
-			.inner {
-				&:before {
-					transform: rotate(0);
-					top: 0;
-				}
-				&:after {
-					transform: rotate(0);
-					bottom: 0;
-				}
-			}
-		}
 	}
 	.inner {
 		height: inherit;
@@ -73,5 +58,24 @@
 		text-transform: uppercase;
 		transition: all 0.3s ease-in;
 		user-select: none;
+	}
+	@media only screen and (min-width: 1200px) {
+		.outer {
+			&:hover {
+				.label {
+					opacity: 1;
+				}
+				.inner {
+					&:before {
+						transform: rotate(0);
+						top: 0;
+					}
+					&:after {
+						transform: rotate(0);
+						bottom: 0;
+					}
+				}
+			}
+		}
 	}
 </style>
