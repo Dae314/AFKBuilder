@@ -6,7 +6,8 @@
 	import HeroDetail from '../modals/HeroDetail.svelte';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import AscendBox from '../shared/AscendBox.svelte';
-	import SIFurnBox from '../shared/SIFurnBox.svelte';
+	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
+	import StarsInput from '../shared/StarsInput.svelte';
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
@@ -18,8 +19,9 @@
 	let recommendations = buildRecs();
 	const sections = [
 		"Ascension",
-		"Signature Item",
+		"Sig. Item",
 		"Furniture",
+		"Eng.",
 	];
 	
 	$: modalHeight = isMobile ? '75vh' : '80vh';
@@ -34,7 +36,9 @@
 					let idx = buffer.findIndex(e => e.id === id);
 					buffer[idx].ascendLv = buffer[idx].ascendLv < data.ascendLv ? data.ascendLv : buffer[idx].ascendLv;
 					buffer[idx].si = buffer[idx].si < data.si ? data.si : buffer[idx].si;
-					buffer[idx].furn = buffer[idx].furn < data.si ? data.furn : buffer[idx].furn;
+					buffer[idx].furn = buffer[idx].furn < data.furn ? data.furn : buffer[idx].furn;
+					buffer[idx].engraving = buffer[idx].engraving < data.engraving ? data.engraving : buffer[idx].engraving;
+					buffer[idx].stars = buffer[idx].stars < data.stars ? data.stars : buffer[idx].stars;
 					buffer[idx].core = buffer[idx].core || data.core;
 					buffer[idx].comps.push({id: comp.uuid, name: comp.name});
 				} else {
@@ -44,6 +48,8 @@
 						ascendLv: data.ascendLv,
 						si: data.si,
 						furn: data.furn,
+						engraving: data.engraving,
+						stars: data.stars,
 						core: data.core,
 						comps: [{id: comp.uuid, name: comp.name}],
 					});
@@ -61,16 +67,16 @@
 				buffer.push({
 					id: hero.id,
 					type: 'ascend',
-					value: hero.ascendLv,
+					value: { ascendLv: hero.ascendLv, stars: hero.stars },
 					comps: hero.comps,
 					core: hero.core,
 				});
 			} else {
-				if($AppData.MH.List[hero.id].ascendLv < hero.ascendLv) {
+				if($AppData.MH.List[hero.id].ascendLv < hero.ascendLv || $AppData.MH.List[hero.id].stars < hero.stars) {
 					buffer.push({
 						id: hero.id,
 						type: 'ascend',
-						value: hero.ascendLv,
+						value: { ascendLv: hero.ascendLv, stars: hero.stars },
 						comps: hero.comps,
 						core: hero.core,
 					});
@@ -79,7 +85,7 @@
 					buffer.push({
 						id: hero.id,
 						type: 'si',
-						value: hero.si,
+						value: { si: hero.si, },
 						comps: hero.comps,
 						core: hero.core,
 					});
@@ -88,7 +94,16 @@
 					buffer.push({
 						id: hero.id,
 						type: 'furn',
-						value: hero.furn,
+						value: { furn: hero.furn, },
+						comps: hero.comps,
+						core: hero.core,
+					});
+				}
+				if($AppData.MH.List[hero.id].engraving < hero.engraving) {
+					buffer.push({
+						id: hero.id,
+						type: 'engraving',
+						value: { engraving: hero.engraving, stars: hero.stars },
 						comps: hero.comps,
 						core: hero.core,
 					});
@@ -139,13 +154,25 @@
 		$AppData.MH.List[heroID].claimed = true;
 		switch(type) {
 			case 'asc':
-				$AppData.MH.List[heroID].ascendLv = value;
+				$AppData.MH.List[heroID].ascendLv = value.ascendLv;
+				$AppData.MH.List[heroID].stars = value.stars;
 				break;
 			case 'si':
-				$AppData.MH.List[heroID].si = value;
+				// allow claiming of si levels before mythic but set to mythic automatically
+				if($AppData.MH.List[heroID].ascendLv < 4) $AppData.MH.List[heroID].ascendLv = 4;
+				$AppData.MH.List[heroID].si = value.si;
 				break;
 			case 'furn':
-				$AppData.MH.List[heroID].furn = value;
+				// allow claiming of furniture levels before ascended but set to ascended automatically
+				if($AppData.MH.List[heroID].ascendLv < 6) $AppData.MH.List[heroID].ascendLv = 6;
+				$AppData.MH.List[heroID].furn = value.furn;
+				break;
+			case 'engraving':
+				// allow claiming of engraving levels before ascended but set to ascended automatically
+				if($AppData.MH.List[heroID].ascendLv < 6) $AppData.MH.List[heroID].ascendLv = 6;
+				// allow claiming of engraving levels with 0* but set stars to recommended stars
+				if($AppData.MH.List[heroID].stars < value.stars) $AppData.MH.List[heroID].stars = value.stars;
+				$AppData.MH.List[heroID].engraving = value.engraving;
 				break;
 			default:
 				throw new Error(`Invalid type received ${type} should be 'asc', 'si', or 'furn'.`);
@@ -172,18 +199,28 @@
 				{#each recommendations.filter(e => e.type === 'ascend').sort(sortByCore) as rec (rec.id+'_asc')}
 					<div class="recCard" animate:flip="{{duration: 200}}">
 						<div class="claimButtonArea">
-							<button type="button" class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'asc')}>&#10004;</button>
+							<button
+								type="button"
+								class="claimButton"
+								on:click={handleClaimClick(rec.id, rec.value, 'asc')}>&#10004;</button>
 						</div>
-						<h4>{$HeroData.find(e => e.id === rec.id).name}</h4>
 						<div class="portraitContainer">
 							<button type="button" class="portraitButton" on:click={() => handlePortraitClick(rec.id)}>
 								<img class="portrait" src={$HeroData.find(e => e.id === rec.id).portrait} alt={$HeroData.find(e => e.id === rec.id).name}>
 								<span class="coreMark" class:visible={rec.core}></span>
 							</button>
 						</div>
+						<h4>{$HeroData.find(e => e.id === rec.id).name}</h4>
+						<div class="starsInputContainer">
+							<StarsInput
+								value={rec.value.stars}
+								enabled={rec.value.ascendLv >= 6}
+								engraving=0
+								displayOnly={true} />
+						</div>
 						<div class="recText">
 							<AscendBox
-								ascendLv="{rec.value}"
+								ascendLv="{rec.value.ascendLv}"
 								tier={$HeroData.find(e => e.id === rec.id).tier}
 							/>
 						</div>
@@ -211,15 +248,15 @@
 						<div class="claimButtonArea">
 							<button type="button" class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'si')}>&#10004;</button>
 						</div>
-						<h4>{$HeroData.find(e => e.id === rec.id).name}</h4>
 						<div class="portraitContainer">
 							<button type="button" class="portraitButton" on:click={() => handlePortraitClick(rec.id)}>
 								<img class="portrait" src={$HeroData.find(e => e.id === rec.id).portrait} alt={$HeroData.find(e => e.id === rec.id).name}>
 								<span class="coreMark" class:visible={rec.core}></span>
 							</button>
 						</div>
+						<h4>{$HeroData.find(e => e.id === rec.id).name}</h4>
 						<div class="recText">
-							<SIFurnBox type="si" num="{rec.value}" fullName={true} maxWidth="100px" />
+							<SIFurnEngBox type="si" num="{rec.value.si}" fullName={true} maxWidth="100px" />
 						</div>
 						<div class="compArea">
 							<h5>Used in</h5>
@@ -245,15 +282,15 @@
 						<div class="claimButtonArea">
 							<button type="button" class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'furn')}>&#10004;</button>
 						</div>
-						<h4>{$HeroData.find(e => e.id === rec.id).name}</h4>
 						<div class="portraitContainer">
 							<button type="button" class="portraitButton" on:click={() => handlePortraitClick(rec.id)}>
 								<img class="portrait" src={$HeroData.find(e => e.id === rec.id).portrait} alt={$HeroData.find(e => e.id === rec.id).name}>
 								<span class="coreMark" class:visible={rec.core}></span>
 							</button>
 						</div>
+						<h4>{$HeroData.find(e => e.id === rec.id).name}</h4>
 						<div class="recText">
-							<SIFurnBox type="furn" num="{rec.value}" />
+							<SIFurnEngBox type="furn" num="{rec.value.furn}" />
 						</div>
 						<div class="compArea">
 							<h5>Used in</h5>
@@ -267,6 +304,47 @@
 				{/each}
 			{:else}
 				<div class="noRec"><span>No Furniture Recommendations</span></div>
+			{/if}
+		</div>
+	</section>
+	{:else if $AppData.REC.openSection === 3}
+	<section class="recSection engSection">
+		<div class="recArea">
+			{#if recommendations.filter(e => e.type === 'engraving').length > 0}
+				{#each recommendations.filter(e => e.type === 'engraving').sort(sortByCore) as rec (rec.id+'_eng')}
+					<div class="recCard" animate:flip="{{duration: 200}}">
+						<div class="claimButtonArea">
+							<button type="button" class="claimButton" on:click={handleClaimClick(rec.id, rec.value, 'engraving')}>&#10004;</button>
+						</div>
+						<div class="portraitContainer">
+							<button type="button" class="portraitButton" on:click={() => handlePortraitClick(rec.id)}>
+								<img class="portrait" src={$HeroData.find(e => e.id === rec.id).portrait} alt={$HeroData.find(e => e.id === rec.id).name}>
+								<span class="coreMark" class:visible={rec.core}></span>
+							</button>
+						</div>
+						<h4>{$HeroData.find(e => e.id === rec.id).name}</h4>
+						<div class="starsInputContainer">
+							<StarsInput
+								value={rec.value.stars}
+								enabled={true}
+								engraving={rec.value.engraving}
+								displayOnly={true} />
+						</div>
+						<div class="recText">
+							<SIFurnEngBox type="engraving" num="{rec.value.engraving}" />
+						</div>
+						<div class="compArea">
+							<h5>Used in</h5>
+							<ul>
+							{#each rec.comps as comp}
+								<li><button type="button" class="compButton" on:click={() => handleCompClick(comp.id)}>{comp.name}</button></li>
+							{/each}
+							</ul>
+						</div>
+					</div>
+				{/each}
+			{:else}
+				<div class="noRec"><span>No Engraving Recommendations</span></div>
 			{/if}
 		</div>
 	</section>
@@ -301,7 +379,7 @@
 			color: var(--appColorPrimary);
 			cursor: pointer;
 			font-size: 1rem;
-			margin-right: 15px;
+			margin-right: 0px;
 			outline: none;
 			padding: 5px;
 		}
@@ -333,7 +411,7 @@
 		user-select: none;
 		span {
 			color: rgba(100, 100, 100, 0.3);
-			font-size: 2.5rem;
+			font-size: 2.2rem;
 			font-weight: bold;
 			text-align: center;
 			text-transform: uppercase;
@@ -348,15 +426,20 @@
 		h4 {
 			font-size: 1.2rem;
 			margin: 0;
-			margin-bottom: 5px;
+			margin-bottom: 3px;
 			text-align: center;
 			width: 100%;
+		}
+		.starsInputContainer {
+			display: flex;
+			justify-content: center;
 		}
 	}
 	.claimButtonArea {
 		position: absolute;
 		right: 5px;
 		top: 5px;
+		z-index: 1;
 		.claimButton {
 			background-color: transparent;
 			border: 2px solid var(--appColorPrimary);
@@ -374,7 +457,6 @@
 		align-items: center;
 		display: flex;
 		justify-content: center;
-		margin-bottom: 10px;
 		position: relative;
 		width: 100%;
 		.portraitButton {
@@ -408,7 +490,7 @@
 	.recText {
 		display: flex;
 		justify-content: center;
-		margin-bottom: 10px;
+		margin: 10px 0px;
 		width: 100%;
 	}
 	.compArea {
@@ -449,9 +531,9 @@
 	@media only screen and (min-width: 767px) {
 		.sectionPicker {
 			justify-content: flex-start;
-		}
-		.sectionButton {
-			margin-right: 0px;
+			.sectionButton {
+				margin-right: 15px;
+			}
 		}
 		.recSection {
 			border-radius: 0px 10px 10px 10px;

@@ -48,6 +48,7 @@
 		background-color: #BEBEBE;
 		border-color: #BEBEBE;
 		color: white;
+		cursor: default;
 	}
 	.playAni {
 		animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
@@ -56,7 +57,8 @@
 	@media only screen and (min-width: 767px) {
 		.flipButton {
 			&:hover {
-				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+				background-color: var(--appColorPrimary);
+				color: white;
 			}
 			&:active {
 				box-shadow: none;
@@ -64,7 +66,7 @@
 		}
 		.flipButton.disabled {
 			&:hover {
-				box-shadow: none;
+				background-color: #BEBEBE;
 			}
 		}
 	}

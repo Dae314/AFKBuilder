@@ -12,6 +12,10 @@
 	import AscensionMenu from '../shared/AscensionMenu.svelte';
 	import SIMenu from '../shared/SIMenu.svelte';
 	import FurnMenu from '../shared/FurnMenu.svelte';
+	import EngraveInput from '../shared/EngraveInput.svelte';
+	import CopiesInput from '../shared/CopiesInput.svelte';
+	import StarsInput from '../shared/StarsInput.svelte';
+	import HRadioPicker from '../shared/HRadioPicker.svelte';
 
 	export let isMobile = false;
 
@@ -29,11 +33,32 @@
 	let openFilters = false;
 	let openInOutMenu = false;
 	let copyConfirmVisible = false;
-	let sections = ['Owned', 'Unowned']
+	let sections = ['Owned', 'Unowned'];
+	let sortOptions = ['Name', 'Asc.', 'Copies', 'Eng.'];
+
+	function sortToOptionIdx(sortType) {
+		switch(sortType) {
+			case 'name':
+				return 0;
+				break;
+			case 'ascendLv':
+				return 1;
+				break;
+			case 'copies':
+				return 2;
+				break;
+			case 'engraving':
+				return 3;
+				break;
+			default:
+				throw new Error(`Invalid sort category specified: ${sortType}`);
+		}
+	}
 
 	function makeMyHeroList(herolist) {
 		let buffer = [];
 		let hero;
+		let sortOrder = 'desc';
 		for(let key in herolist) {
 			hero = $HeroData.find(e => e.id === key);
 			if(!herolist[key].claimed) continue;
@@ -58,9 +83,17 @@
 				 !hero.faction.toLowerCase().includes($AppData.MH.SearchStr.toLowerCase()) &&
 				 !hero.type.toLowerCase().includes($AppData.MH.SearchStr.toLowerCase())
 				) continue;
+			hero = JSON.parse(JSON.stringify(hero)); // make a copy of hero so we don't mutate the original
+			hero.ascendLv = herolist[key].ascendLv;
+			hero.copies = herolist[key].copies;
+			hero.stars = herolist[key].stars;
+			hero.furn = herolist[key].furn;
+			hero.si = herolist[key].si;
+			hero.engraving = herolist[key].engraving;
 			buffer.push(hero);
 		}
-		return buffer.length > 0 ? buffer.sort(compareValues('name', 'asc')) : buffer;
+		if($AppData.MH.Sort === 'name') sortOrder = 'asc';
+		return buffer.length > 0 ? buffer.sort(compareValues($AppData.MH.Sort, sortOrder)) : buffer;
 	}
 
 	function makeUnownedHeroList(herolist) {
@@ -90,6 +123,13 @@
 				 !hero.faction.toLowerCase().includes($AppData.MH.SearchStr.toLowerCase()) &&
 				 !hero.type.toLowerCase().includes($AppData.MH.SearchStr.toLowerCase())
 				) continue;
+			hero = JSON.parse(JSON.stringify(hero)); // make a copy of hero so we don't mutate the original
+			hero.ascendLv = herolist[key].ascendLv;
+			hero.copies = herolist[key].copies;
+			hero.stars = herolist[key].stars;
+			hero.furn = herolist[key].furn;
+			hero.si = herolist[key].si;
+			hero.engraving = herolist[key].engraving;
 			buffer.push(hero);
 		}
 		return buffer.length > 0 ? buffer.sort(compareValues('name', 'asc')) : buffer;
@@ -99,15 +139,50 @@
 		return function innerSort(a, b) {
 			if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
 				// property doesn't exist on either object
-				throw new Error('Invalid Hero List sort key specified.');
+				throw new Error(`Invalid My Heroes sort key specified: ${key}.`);
 			}
 			const varA = (typeof a[key] === 'string') ? a[key].toLowerCase() : a[key];
 			const varB = (typeof b[key] === 'string') ? b[key].toLowerCase() : b[key];
 			let comparison = 0;
-			if(varA > varB) {
-				comparison = 1;
+			if(key === 'ascendLv') {
+				if(varA > varB) {
+					comparison = 1;
+				} else if(varA < varB) {
+					comparison = -1;
+				} else {
+					// ascension is the same, compare stars
+					if(a.stars > b.stars) {
+						comparison = 1;
+					} else if(a.stars < b.stars) {
+						comparison = -1;
+					} else {
+						// stars are the same, compare engraving
+						if(a.engraving > b.engraving) {
+							comparison = 1;
+						} else {
+							comparison = -1;
+						}
+					}
+				}
+			} else if(key === 'engraving') {
+				if(varA > varB) {
+					comparison = 1;
+				} else if (varA < varB) {
+					comparison = -1;
+				} else {
+					// engraving is the same, compare stars
+					if(a. stars > b.stars) {
+						comparison = 1;
+					} else {
+						comparison = -1;
+					}
+				}
 			} else {
-				comparison = -1;
+				if(varA > varB) {
+					comparison = 1;
+				} else {
+					comparison = -1;
+				}
 			}
 			return (
 				(order === 'desc') ? (comparison * -1) : comparison
@@ -125,6 +200,27 @@
 		$AppData.MH[filter] = !$AppData.MH[filter];
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
+		dispatch('saveData');
+	}
+
+	function updateSort(event) {
+		switch(sortOptions[event.detail.value]) {
+			case 'Name':
+				$AppData.MH.Sort = 'name';
+				break;
+			case 'Asc.':
+				$AppData.MH.Sort = 'ascendLv';
+				break;
+			case 'Copies':
+				$AppData.MH.Sort = 'copies';
+				break;
+			case 'Eng.':
+				$AppData.MH.Sort = 'engraving';
+				break;
+			default:
+				throw new Error(`Invalid sort category specified: ${sortOptions[event.detail.value]}`);
+		}
+		myHeroList = makeMyHeroList($AppData.MH.List);
 		dispatch('saveData');
 	}
 
@@ -188,6 +284,9 @@
 		$AppData.MH.List[heroID].ascendLv = $HeroData.find(e => e.id === heroID).tier === 'ascended' ? 6 : 5;
 		$AppData.MH.List[heroID].si = -1;
 		$AppData.MH.List[heroID].furn = 0;
+		$AppData.MH.List[heroID].copies = 0;
+		$AppData.MH.List[heroID].engraving = 0;
+		$AppData.MH.List[heroID].stars = 0;
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
 		dispatch('saveData');
@@ -198,6 +297,9 @@
 		$AppData.MH.List[heroID].ascendLv = 0;
 		$AppData.MH.List[heroID].si = -1;
 		$AppData.MH.List[heroID].furn = 0;
+		$AppData.MH.List[heroID].copies = 0;
+		$AppData.MH.List[heroID].engraving = 0;
+		$AppData.MH.List[heroID].stars = 0;
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
 		dispatch('saveData');
@@ -205,8 +307,13 @@
 
 	function handleAscChange(heroID, level) {
 		$AppData.MH.List[heroID].ascendLv = level;
+		if($AppData.MH.List[heroID].ascendLv === 6) {
+			$AppData.MH.List[heroID].copies = 0;
+		}
 		if($AppData.MH.List[heroID].ascendLv < 6) {
 			$AppData.MH.List[heroID].furn = 0;
+			$AppData.MH.List[heroID].stars = 0;
+			$AppData.MH.List[heroID].engraving = 0;
 		}
 		if($AppData.MH.List[heroID].ascendLv < 4) {
 			$AppData.MH.List[heroID].si = -1;
@@ -221,6 +328,10 @@
 
 	function handleFurnChange(heroID, level) {
 		$AppData.MH.List[heroID].furn = level;
+		dispatch('saveData');
+	}
+
+	function handleNumChange() {
 		dispatch('saveData');
 	}
 
@@ -276,9 +387,7 @@
 	function isCharacterKeyPress(event) {
 		let keycode = event.keyCode;
 		let valid = 
-			(keycode > 47 && keycode < 58)   || // number keys
 			(keycode > 64 && keycode < 91)   || // letter keys
-			(keycode > 95 && keycode < 112)  || // numpad keys
 			(keycode > 185 && keycode < 193) || // ;=,-./` (in order)
 			(keycode > 218 && keycode < 223) || // [\]' (in order)
 			(keycode === 9);										// tab
@@ -318,6 +427,15 @@
 				<div class="search">
 					<input id="searchBox" type="search" placeholder="Search" bind:value={$AppData.MH.SearchStr} on:keyup={updateSearch} on:search={updateSearch}>
 				</div>
+			</div>
+			<div class="sortContainer">
+				<div class="sortTitle">Sort by:</div>
+				<HRadioPicker
+					options={sortOptions}
+					curOption={sortToOptionIdx($AppData.MH.Sort)}
+					on:change={updateSort}
+					disabled={$AppData.MH.openSection !== 0}
+				/>
 			</div>
 			<div class="filters">
 				<div class="filterSection">
@@ -404,7 +522,7 @@
 			<section class="MHSection">
 				{#if myHeroList.length === 0}
 					<div class="noHeroes">
-						<span>Claim some heroes from the unowned tab!</span>
+						<span>Claim heroes from the unowned tab!</span>
 					</div>
 				{:else}
 					<div class="MHGrid">
@@ -416,25 +534,11 @@
 								</div>
 							</div>
 							<div class="heroHeader">
-								<div class="headArea">
+								<div class="attrArea">
 									<div class="attrImgContainer">
 										<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
 										<div class="tooltip tooltip-faction"><span class="tooltipText">{hero.faction}</span></div>
 									</div>
-								</div>
-								<div class="headArea">
-									<div class="flipCard" on:click={(e) => e.stopPropagation()}>
-										<div class="flipCardInner">
-											<div class="flipCardFront">
-												<img on:click="{() => handleHeroDetailClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
-											</div>
-											<div class="flipCardBack">
-												<button type="button" on:click="{() => handleHeroDetailClick(hero.id)}" class="portraitButton" class:owned={$AppData.MH.List[hero.id].claimed}>Info</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="headArea">
 									<div class="attrImgContainer">
 										<img class="attrImage typeImg" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
 										<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
@@ -444,8 +548,18 @@
 										<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
 									</div>
 								</div>
+								<div class="portraitArea">
+									<img on:click="{() => handleHeroDetailClick(hero.id)}" class="portrait" src={hero.portrait} alt={hero.name}>
+								</div>
 							</div>
 							<p class="heroName">{hero.name}</p>
+							<div class="starsInputArea">
+								<StarsInput
+									enabled={$AppData.MH.List[hero.id].ascendLv >= 6}
+									bind:value={$AppData.MH.List[hero.id].stars}
+									bind:engraving={$AppData.MH.List[hero.id].engraving}
+									on:change={handleNumChange} />
+							</div>
 							<div class="flipButtonContainer">
 								<div class="ascButtonArea">
 									<div class="flipButtonArea">
@@ -477,6 +591,24 @@
 									</div>
 								</div>
 							</div>
+							<div class="numInputArea">
+								{#if $AppData.MH.List[hero.id].ascendLv < 6}
+									<div class="copiesInputArea">
+										<CopiesInput
+											enabled={true}
+											bind:value={$AppData.MH.List[hero.id].copies}
+											on:change={handleNumChange} />
+									</div>
+								{:else}
+									<div class="engraveInputArea">
+										<EngraveInput
+											enabled={$AppData.MH.List[hero.id].stars >= 1}
+											max={$HeroData.find(e => e.id === hero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === hero.id).faction === 'Celestial' || $HeroData.find(e => e.id === hero.id).faction === 'Hypogean' ? 100 : 80}
+											bind:value={$AppData.MH.List[hero.id].engraving}
+											on:change={handleNumChange} />
+									</div>
+								{/if}
+							</div>
 						</div>
 						{/each}
 					</div>
@@ -486,32 +618,18 @@
 			<section class="MHSection unownedSection">
 				{#if unownedHeroList.length === 0}
 					<div class="noHeroes">
-						<span>You own every hero in the game!</span>
+						<span>No unowned heroes</span>
 					</div>
 				{:else}
 					<div class="MHGrid">
 						{#each unownedHeroList as hero (hero.id)}
 						<div class="heroCard" animate:flip="{{duration: 200}}" on:click={(e) => { handleHeroClaim(hero.id); e.stopPropagation(); }}>
 							<div class="heroHeader">
-								<div class="headArea">
+								<div class="attrArea">
 									<div class="attrImgContainer">
 										<img class="attrImage factionImg" src="./img/factions/{hero.faction.toLowerCase()}.png" alt="{hero.faction}">
 										<div class="tooltip tooltip-faction"><span class="tooltipText">{hero.faction}</span></div>
 									</div>
-								</div>
-								<div class="headArea">
-									<div class="flipCard">
-										<div class="flipCardInner">
-											<div class="flipCardFront">
-												<img class="portrait" src={hero.portrait} alt={hero.name}>
-											</div>
-											<div class="flipCardBack">
-												<button type="button" class="portraitButton" class:owned={$AppData.MH.List[hero.id].claimed}>{$AppData.MH.List[hero.id].claimed ? 'Remove' : 'Add'}</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="headArea">
 									<div class="attrImgContainer">
 										<img class="attrImage typeImg" src="./img/types/{hero.type.toLowerCase()}.png" alt={hero.type}>
 										<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
@@ -521,8 +639,11 @@
 										<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
 									</div>
 								</div>
+								<div class="portraitArea">
+									<img class="portrait" src={hero.portrait} alt={hero.name}>
+								</div>
 							</div>
-							<p class="heroName">{hero.name}</p>
+							<p class="heroName">Add {hero.name}</p>
 						</div>
 						{/each}
 					</div>
@@ -710,6 +831,17 @@
 			}
 		}
 	}
+	.sortContainer {
+		align-items: center;
+		border-bottom: 1px solid black;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 5px;
+		.sortTitle {
+			margin-bottom: 5px;
+		}
+	}
 	.filterSection {
 		border-bottom: 1px solid black;
 		display: flex;
@@ -766,9 +898,9 @@
 	}
 	.MHGrid {
 		display: grid;
-		grid-gap: 5px 5px;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
-		grid-template-rows: repeat(auto-fit, minmax(240px, 241px));
+		grid-gap: 10px 5px;
+		grid-template-columns: repeat(auto-fill, minmax(330px, 330px));
+		grid-auto-rows: 380px;
 		justify-content: space-evenly;
 	}
 	.heroCard {
@@ -776,8 +908,8 @@
 		border-radius: 10px;
 		display: flex;
 		flex-direction: column;
+		max-width: 330px;
 		padding: 10px;
-		padding-top: 20px;
 		position: relative;
 	}
 	.removeArea {
@@ -792,44 +924,51 @@
 		display: flex;
 		flex-direction: row;
 	}
-	.headArea {
-		align-items: center;
+	.portraitArea {
+		border-radius: 10px 10px 0px 0px;
 		display: flex;
-		flex-direction: column;
+		height: 50%;
 		justify-content: center;
+		left: -1px;
+		overflow: hidden;
+		padding-top: 5px;
+		position: absolute;
+		top: -1px;
 		width: 100%;
-		position: relative;
 	}
 	.portrait {
 		border-radius: 50%;
 		cursor: pointer;
-		max-width: 100px;
-		transition: transform 0.2s;
-		&:active {
-			transform: scale(0.9);
-		}
-	}
-	.portraitButton {
-		display: none;
+		height: 160px;
+		width: 160px;
 	}
 	.heroName {
 		display: flex;
+		font-size: 1.7rem;
 		font-weight: bold;
 		justify-content: center;
 		margin: 0;
-		padding-bottom: 10px;
+		margin-top: 45px;
 		width: 100%;
+	}
+	.starsInputArea {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 15px;
+	}
+	.attrArea {
+		background-color: rgba(0, 0, 0, 0.75);
+		border-radius: 30px;
+		height: fit-content;
+		padding: 5px;
+		position: relative;
+		top: -5px;
+		z-index: 1;
 	}
 	.attrImgContainer {
 		position: relative;
 		.attrImage {
-			max-width: 40px;
-		}
-		.factionImg {
-			max-width: 60px;
-		}
-		.typeImg {
-			margin-bottom: 10px;
+			max-width: 30px;
 		}
 	}
 	.tooltip {
@@ -853,19 +992,48 @@
 			}
 		}
 	}
+	.numInputArea {
+		display: flex;
+		justify-content: center;
+		padding-top: 5px;
+	}
 	.unownedSection {
 		.MHGrid {
-			grid-template-rows: repeat(auto-fit, minmax(170px, 170px));
-			grid-template-columns: repeat(auto-fit, minmax(290px, 290px));
+			display: grid;
+			grid-gap: 10px 5px;
+			grid-template-columns: repeat(auto-fill, minmax(330px, 330px));
+			grid-auto-rows: 175px;
+			justify-content: space-evenly;
 		}
 		.heroCard {
 			border-color: #BEBEBE;
+			cursor: pointer;
 		}
-		.portrait {
-			filter: grayscale(1);
+		.heroHeader {
+			display: flex;
+			flex-direction: row;
 		}
-		.attrImage {
-			filter: grayscale(1);
+		.attrImgContainer {
+			.attrImage {
+				filter: grayscale(1);
+			}
+		}
+		.portraitArea {
+			border-radius: 10px 10px 0px 0px;
+			display: flex;
+			height: 80%;
+			justify-content: center;
+			overflow: hidden;
+			position: absolute;
+			.portrait {
+				filter: grayscale(1);
+				height: 120px;
+				width: 120px;
+			}
+		}
+		.heroName {
+			margin: 0;
+			margin-top: 5px;
 		}
 	}
 	.inOutMenuButton {
@@ -1026,7 +1194,7 @@
 				border-radius: 6px;
 				color: white;
 				padding: 5px;
-				text-align: center;
+				text-align: left;
 			}
 		}
 		.tooltip-expander {
@@ -1046,16 +1214,19 @@
 			bottom: 35px;
 		}
 		.tooltip-faction {
-			left: -70px;
-			bottom: -30px;
+			justify-content: flex-start;
+			left: 40px;
+			top: 0px;
 		}
 		.tooltip-type {
-			left: -80px;
-			bottom: -20px;
+			justify-content: flex-start;
+			left: 40px;
+			top: 0px;
 		}
 		.tooltip-class {
-			left: -80px;
-			bottom: -30px;
+			justify-content: flex-start;
+			left: 40px;
+			top: 0px;
 		}
 		.attrImage {
 			&:hover+.tooltip {
@@ -1079,7 +1250,7 @@
 		}
 		.mobileExpander.filterOpen {
 			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-			max-height: 465px;
+			max-height: fit-content;
 			max-width: 100%;
 			padding: 10px;
 		}
@@ -1133,73 +1304,6 @@
 			.filterButton {
 				margin: 0 auto;
 				margin-bottom: 10px;
-			}
-		}
-		.flipCard {
-			background-color: transparent;
-			cursor: pointer;
-			perspective: 1000px;
-			&:hover {
-				.flipCardInner {
-					transform: rotateY(180deg);
-				}
-			}
-			.flipCardInner {
-				height: 100%;
-				position: relative;
-				text-align: center;
-				transform-style: preserve-3d;
-				transition: transform 0.6s;
-				width: 100%;
-			}
-			.flipCardFront {
-				backface-visibility: hidden;
-				bottom: 50px;
-				height: 100%;
-				width: 100%;
-			}
-			.flipCardBack {
-				backface-visibility: hidden;
-				bottom: 50px;
-				height: 100%;
-				width: 100%;
-				display: block;
-				position: absolute;
-				top: 0px;
-				transform: rotateY(180deg);
-				.portraitButton {
-					background-color: var(--appColorPrimary);
-					border: 3px solid var(--appColorPrimary);
-					border-radius: 50%;
-					color: white;
-					cursor: pointer;
-					display: block;
-					font-size: 1.1rem;
-					font-weight: bold;
-					height: 100px;
-					padding: 5px;
-					transition: transform 0.2s;
-					width: 100px;
-					&:active {
-						transform: scale(0.9);
-					}
-				}
-				.portraitButton.owned {
-					background-color: transparent;
-					border: 3px solid var(--appColorPrimary);
-					color: var(--appColorPrimary);
-					font-size: 0.9rem;
-				}
-			}
-		}
-		.unownedSection {
-			.heroCard {
-				cursor: pointer;
-				&:hover .flipCard {
-					.flipCardInner {
-						transform: rotateY(180deg);
-					}
-				}
 			}
 		}
 	}
