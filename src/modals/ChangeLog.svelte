@@ -5,6 +5,24 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.12.8',
+			changes: [
+				'Add new hero Thesku',
+				'Tweak MH ascension sort so SI and Furniture are compared',
+				'Update Skriath 4th skill',
+				'Updated social links',
+				'Khazard benchmark -> 300',
+				'Leonardo benchmark -> 003',
+				'Thali benchmark -> 209',
+				'Numisu benchmark -> 150',
+				'Mishka benchmark -> 009',
+				'Kren benchmark -> 303',
+				'Raku benchmark -> E44',
+				'Alna benchmark -> E33',
+				'Treznor benchmark -> 300',
+				'Eironn benchmark -> 203',
+			],
+		},
 		{ version: 'v1.12.3 - Twinkleshine',
 		changes: [
 			'<em>NEW Stars and Engravings now supported for heroes in Comps and My Heroes!</em>',
@@ -61,16 +79,6 @@
 				'Updated Rosaline furniture skill descriptions',
 				'Added Mauler engraving info',
 				'Added Endeavor skill descriptions to all engraved heroes',
-			],
-		},
-		{ version: 'v1.7.32',
-			changes: [
-				'Added new hero Granit',
-				'Added Lightbearer engraving information',
-				'Hero benchmarks changed: Ezio 209, Hodgkin 209, Lyca 200, Tidus 203, Zol 203, Zikis, 209, Morrow 203',
-				'Fix ToastUI editor z-index value was too high',
-				'Updated NPM packages',
-				'Fixed various typos',
 			],
 		},
 	]
