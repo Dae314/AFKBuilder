@@ -159,8 +159,22 @@
 						// stars are the same, compare engraving
 						if(a.engraving > b.engraving) {
 							comparison = 1;
-						} else {
+						} else if(a.engraving < b.engraving) {
 							comparison = -1;
+						} else {
+							// engraving is the same, compare furniture
+							if(a.furn > b.furn) {
+								comparison = 1;
+							} else if(a.furn < b.furn) {
+								comparison = -1;
+							} else {
+								// furniture is the same, compare si
+								if(a.si > b.si) {
+									comparison = 1;
+								} else {
+									comparison = -1;
+								}
+							}
 						}
 					}
 				}

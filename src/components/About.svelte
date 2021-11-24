@@ -20,7 +20,7 @@
 			image: './img/contributors/wyatt.jpg',
 			title: 'Designer',
 			message: 'Open for commissions!',
-			website: 'https://www.twitter.com/wyattjrice',
+			website: 'https://twitter.com/wyattzx_',
 		},
 	];
 	
