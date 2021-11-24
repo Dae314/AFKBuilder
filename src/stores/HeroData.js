@@ -3419,7 +3419,7 @@ const HeroData = readable([
 				desc: 'Raises allies\' Crit Raiting by <em>0.5</em> points per second until a maximum of <em>20</em> points are reached.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Max limit of Crit Rating is increased to <em>20</em> points.',
+					{ desc: 'Max limit of Crit Rating is increased to <em>30</em> points.',
 						unlock: 141,
 						type: 'level',
 					},
