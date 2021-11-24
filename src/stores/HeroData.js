@@ -2573,7 +2573,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 15,
 		sig_item: {
 			name: 'Totem Master',
 			image: './img/si/numisu.png',
@@ -2590,7 +2590,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Power of Faith',
 			image: './img/furniture/numisu.png',
@@ -3813,7 +3813,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 20,
+		si_benchmark: 30,
 		sig_item: {
 			name: 'Potent Firepower',
 			image: './img/si/kren.png',
@@ -3830,7 +3830,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 3,
 		furniture: {
 			name: 'Action Plan',
 			image: './img/furniture/kren.png',
@@ -3954,7 +3954,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 3,
+		furn_benchmark: 9,
 		furniture: {
 			name: 'Heart of Fire',
 			image: './img/furniture/thali.png',
@@ -4807,7 +4807,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 20,
 		sig_item: {
 			name: 'Chill',
 			image: './img/si/eironn.png',
@@ -4824,7 +4824,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 3,
 		furniture: {
 			name: 'Oathkeeper',
 			image: './img/furniture/eironn.png',
@@ -5829,7 +5829,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 41,
+		engraving_benchmark: 44,
 	},
 	{ id: 'mishka',
 		name: 'Mishka',
@@ -5923,7 +5923,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 20,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Natural Defense',
 			image: './img/si/mishka.png',
@@ -8031,7 +8031,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 0,
+		si_benchmark: 30,
 		sig_item: {
 			name: 'Oath of Faith',
 			image: './img/si/treznor.png',
@@ -9053,7 +9053,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 0,
+		engraving_benchmark: 33,
 	},
 	{ id: 'morael',
 		name: 'Morael',
@@ -9908,7 +9908,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 3,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Solid Ice',
 			image: './img/furniture/khazard.png',
@@ -11875,7 +11875,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'The Machinist',
 			image: './img/si/leonardo.png',
