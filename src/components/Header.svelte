@@ -11,14 +11,15 @@
 		const urlParams = new URLSearchParams(queryString);
 		if(urlParams.has('view')) {
 			if(urlParams.get('view') === item) {
-				history.replaceState({view: item, modal: false}, item, `?view=${item}`);
+				// history.replaceState({view: item, modal: false}, item, `?view=${item}`);
 			} else {
-				history.pushState({view: item, modal: false}, item, `?view=${item}`);
+				// history.pushState({view: item, modal: false}, item, `?view=${item}`);
 			}
 		} else {
-			history.pushState({view: item, modal: false}, item, `?view=${item}`);
+			// history.pushState({view: item, modal: false}, item, `?view=${item}`);
 		}
-		$AppData.activeView = item;
+		// $AppData.activeView = item;
+		window.location.hash = (`/${item}`);
 		dispatch('saveData');
 		showMobileMenu = false;
 	}
@@ -46,12 +47,12 @@
 			<div class="middle-line"></div>
 		</div>
 		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
-			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].toLowerCase())}>
+			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].toLowerCase().replace(/\s/g, ''))}>
 				<button type="button" class="logo"><img src="./img/app/afkbuilder_logo.png" alt="AFKBuilder"></button>
 			</li>
 			{#each menu as item}
-				<li on:click={() => handleMenuChange(item.toLowerCase())}>
-					<button type="button" class="{$AppData.activeView === item.toLowerCase() ? 'selected' : ''}">{item}</button>
+				<li on:click={() => handleMenuChange(item.toLowerCase().replace(/\s/g, ''))}>
+					<button type="button" class="{$AppData.activeView === item.toLowerCase().replace(/\s/g, '') ? 'selected' : ''}">{item}</button>
 				</li>
 			{/each}
 			<li class="discordMobileButton" on:click={() => window.open('https://discord.com/invite/sjxgnmkvSf', '_blank')}>

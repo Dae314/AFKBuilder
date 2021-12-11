@@ -3,6 +3,8 @@
 	import {debounce} from 'lodash';
 	import AppData from './stores/AppData.js';
 	import Modal from 'svelte-simple-modal';
+	import Router from 'svelte-spa-router';
+	import {wrap} from 'svelte-spa-router/wrap';
 
 	import Header from './components/Header.svelte';
 	import Comps from './components/Comps.svelte';
@@ -15,6 +17,36 @@
 	const menuItems = [ 'Comps', 'Recommendations', 'My Heroes', 'Hero List', 'About' ];
 	const defaultView = 'comps';
 	let isMobile = window.matchMedia("(max-width: 767px)").matches;
+
+	const routes = {
+		'/': wrap({
+				component: Comps,
+				props: { isMobile: isMobile },
+			}),
+		'/comps': wrap({
+				component: Comps,
+				props: { isMobile: isMobile },
+			}),
+		'/recommendations': wrap({
+				component: Recommendations,
+				props: { isMobile: isMobile },
+			}),
+		'/myheroes': wrap({
+				component: MyHeroes,
+				props: { isMobile: isMobile },
+			}),
+		'/herolist': wrap({
+				component: HeroList,
+				props: { isMobile: isMobile },
+			}),
+		'/about': wrap({
+				component: About,
+				props: {
+					version: version,
+					isMobile: isMobile,
+					},
+			}),
+	}
 
 	onMount(async () => {
 		const queryString = window.location.search;
@@ -29,7 +61,7 @@
 		} else {
 			$AppData.activeView = defaultView;
 		}
-		history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
+		// history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 		saveAppData();
 		handleWindowResize();
 	});
@@ -56,7 +88,7 @@
 		if(state !== null) {
 			if('view' in state) {
 				if(state.modal) {
-					history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
+					// history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 				}else{
 					$AppData.activeView = state.view;
 				}
@@ -71,9 +103,9 @@
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		if(urlParams.has('modal')) {
-			history.back();
+			// history.back();
 		}
-		history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
+		// history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 	}
 
 	function handleWindowResize() {
@@ -83,6 +115,22 @@
 
 		// convienence variable to track if window is mobile width or desktop width
 		isMobile = window.matchMedia("(max-width: 767px)").matches;
+	}
+
+	function handleRouteEvent(event) {
+		switch(event.detail.action) {
+			case 'saveData':
+				saveAppData();
+				break;
+			case 'clearData':
+				clearAppData();
+				break;
+			case 'resetTutorial':
+				resetTutorial();
+				break;
+			default:
+				throw new Error(`Invalid action specified for route event: ${event.detail.action}`);
+		}
 	}
 </script>
 
@@ -100,19 +148,7 @@
 		<main>
 			<div class="MainWindow">
 				<div id="currentDisplay">
-					{#if $AppData.activeView === 'comps'}
-						<Comps {isMobile} on:saveData={saveAppData} />
-					{:else if $AppData.activeView === 'recommendations'}
-						<Recommendations {isMobile} on:saveData={saveAppData} />
-					{:else if $AppData.activeView === 'my heroes'}
-						<MyHeroes {isMobile} on:saveData={saveAppData} />
-					{:else if $AppData.activeView === 'hero list' }
-						<HeroList {isMobile} on:saveData={saveAppData} />
-					{:else if $AppData.activeView === 'about' }
-						<About {version} {isMobile} on:clearData={clearAppData} on:resetTutorial={resetTutorial} />
-					{:else}
-						<h2>you shouldn't be able to get here</h2>
-					{/if}
+					<Router routes={routes} on:routeEvent={handleRouteEvent}/>
 				</div>
 			</div>
 		</main>

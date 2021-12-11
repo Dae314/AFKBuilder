@@ -138,7 +138,7 @@
 			$AppData.selectedUUID = null;
 		}
 		
-		history.pushState({view: 'comps', modal: false}, 'comps', `?view=comps`);
+		// history.pushState({view: 'comps', modal: false}, 'comps', `?view=comps`);
 		$AppData.activeView = 'comps';
 	}
 
@@ -178,7 +178,7 @@
 				throw new Error(`Invalid type received ${type} should be 'asc', 'si', or 'furn'.`);
 		}
 		recommendations = buildRecs();
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'})
 	}
 </script>
 
@@ -187,7 +187,7 @@
 		<ul class="sectionPicker">
 			{#each sections as section, i}
 			<li>
-				<button type="button" class="sectionButton" class:active={$AppData.REC.openSection === i} on:click={() => { $AppData.REC.openSection = i; dispatch('saveData');} }>{section}</button>
+				<button type="button" class="sectionButton" class:active={$AppData.REC.openSection === i} on:click={() => { $AppData.REC.openSection = i; dispatch('routeEvent', {action: 'saveData'})} }>{section}</button>
 			</li>
 			{/each}
 		</ul>

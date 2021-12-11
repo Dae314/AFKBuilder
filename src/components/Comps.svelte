@@ -131,15 +131,15 @@
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		if(urlParams.has('comp')) {
-			history.replaceState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?view=${$AppData.activeView}&comp=true`);
+			// history.replaceState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?view=${$AppData.activeView}&comp=true`);
 		} else {
-			history.pushState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?view=${$AppData.activeView}&comp=true`);
+			// history.pushState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?view=${$AppData.activeView}&comp=true`);
 		}
 		$AppData.selectedComp = compIdx;
 		openDetail = true;
 		selectedLine = 0;
 		selectedHero = '';
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function renderMarkdown(mdText) {
@@ -181,7 +181,7 @@
 		await tick();
 		document.getElementById(`comp${highlightComp}`).scrollIntoView();
 		setTimeout(() => highlightComp = null, 2000);
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function handleDeleteButtonClick(compIdx) {
@@ -198,7 +198,7 @@
 	function handleImportButtonClick() {
 		open(ImportData, 
 		{ dataHandler: handleCompImport,
-			saveAppData: () => dispatch('saveData'),
+			saveAppData: () => dispatch('routeEvent', {action: 'saveData'}),
 			title: 'Paste Composition:',
 		},
 		{ closeButton: ModalCloseButton,
@@ -221,7 +221,7 @@
 		comp.starred = !comp.starred;
 		event.stopPropagation();
 		sortedCompList = makeSortedCompList();
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function handleDelComp(idx) {
@@ -238,7 +238,7 @@
 			if($AppData.selectedComp === -1) $AppData.selectedComp = null;
 		}
 		sortedCompList = makeSortedCompList();
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	async function handleCompImport(compressedData) {
@@ -300,7 +300,7 @@
 			await tick();
 			document.getElementById(`comp${highlightComp}`).scrollIntoView();
 			setTimeout(() => highlightComp = null, 3000);
-			dispatch('saveData');
+			dispatch('routeEvent', {action: 'saveData'});
 			return { retCode: 0, message: statusMsg };
 		}
 	}
@@ -371,7 +371,7 @@
 			sortedCompList = makeSortedCompList();
 			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selectedUUID);
 			if($AppData.selectedComp === -1) $AppData.selectedComp = null;
-			dispatch('saveData');
+			dispatch('routeEvent', {action: 'saveData'});
 		}
 	}
 
@@ -384,7 +384,7 @@
 		}
 		searchSuggestions = makeSearchSuggestions();
 		openSuggestions = true;
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function takeSuggestion(suggestion) {

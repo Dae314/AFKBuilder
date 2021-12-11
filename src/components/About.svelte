@@ -38,11 +38,11 @@
 	}
 
 	function handleTutorialButtonClick() {
-		dispatch('resetTutorial');
+		dispatch('routeEvent', {action: 'resetTutorial'});
 	}
 
 	function clearData() {
-		dispatch('clearData');
+		dispatch('routeEvent', {action: 'clearData'});
 	}
 
 	function openChangeLog() {
