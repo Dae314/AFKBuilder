@@ -206,7 +206,7 @@
 	}
 
 	function dynamicSearch(event) {
-		if(isCharacterKeyPress(event)) {
+		if(isCharacterKeyPress(event) && !event.ctrlKey && !event.metaKey) {
 			if(event.keyCode === 9) {
 				// tab pressed, toggle openFilters
 				openFilters = !openFilters;
