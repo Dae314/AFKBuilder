@@ -20,6 +20,7 @@
 		}
 		// $AppData.activeView = item;
 		window.location.hash = (`/${item}`);
+		window.URLSearchParams.forEach(param => window.URLSearchParams.delete(param.key));
 		dispatch('saveData');
 		showMobileMenu = false;
 	}
