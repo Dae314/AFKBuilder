@@ -139,7 +139,9 @@
 		}
 		
 		// history.pushState({view: 'comps', modal: false}, 'comps', `?view=comps`);
+		window.history.replaceState({}, '', `${window.location.pathname}`); // clear all url parameters
 		$AppData.activeView = 'comps';
+		window.location.hash = ('/comps'); // navigate to the comps page
 	}
 
 	function handlePortraitClick(heroID) {

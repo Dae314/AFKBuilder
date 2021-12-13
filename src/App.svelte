@@ -49,18 +49,18 @@
 	}
 
 	onMount(async () => {
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		if(urlParams.has('view')) {
-			const menuItemsLower = menuItems.map((e) => e.toLowerCase());
-			if(menuItemsLower.includes(urlParams.get('view'))) {
-				$AppData.activeView = urlParams.get('view');
-			} else {
-				$AppData.activeView = defaultView;
-			}
-		} else {
-			$AppData.activeView = defaultView;
-		}
+		// const queryString = window.location.search;
+		// const urlParams = new URLSearchParams(queryString);
+		// if(urlParams.has('view')) {
+		// 	const menuItemsLower = menuItems.map((e) => e.toLowerCase());
+		// 	if(menuItemsLower.includes(urlParams.get('view'))) {
+		// 		$AppData.activeView = urlParams.get('view');
+		// 	} else {
+		// 		$AppData.activeView = defaultView;
+		// 	}
+		// } else {
+		// 	$AppData.activeView = defaultView;
+		// }
 		// history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 		saveAppData();
 		handleWindowResize();
@@ -90,10 +90,10 @@
 				if(state.modal) {
 					// history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
 				}else{
-					$AppData.activeView = state.view;
+					// $AppData.activeView = state.view;
 				}
 			} else {
-				$AppData.activeView = defaultView;
+				// $AppData.activeView = defaultView;
 			}
 			saveAppData();
 		}
