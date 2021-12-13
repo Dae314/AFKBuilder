@@ -1,6 +1,6 @@
 <script>
 	import { onMount, createEventDispatcher } from 'svelte';
-	import AppData from '../stores/AppData.js'
+	import AppData from '../stores/AppData.js';
 
 	export let menu = [];
 	const dispatch = createEventDispatcher();
@@ -18,8 +18,7 @@
 		} else {
 			// history.pushState({view: item, modal: false}, item, `?view=${item}`);
 		}
-		$AppData.activeView = item;
-		window.history.replaceState({}, '', `${window.location.pathname}`); // clear all url parameters
+		// window.history.replaceState({}, '', `${window.location.pathname}`); // clear all url parameters
 		window.location.hash = (`/${item}`); // navigate to the correct route
 		dispatch('saveData');
 		showMobileMenu = false;

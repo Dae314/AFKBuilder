@@ -14,7 +14,7 @@
 	$: skillShown = 0;
 
 	onMount(async () => {
-		history.pushState({view: $AppData.activeView, modal: true}, "Hero Detail", `?modal=true`);
+		history.pushState({view: $AppData.activeView, modal: true}, "Hero Detail", `${window.location.hash}?modal=true`);
 	});
 
 	function handlePopState() {

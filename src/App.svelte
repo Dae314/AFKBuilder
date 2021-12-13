@@ -62,7 +62,12 @@
 		// 	$AppData.activeView = defaultView;
 		// }
 		// history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
-		saveAppData();
+		// if(window.location.hash === '') {
+		// 	$AppData.activeView = 'comps';
+		// } else {
+		// 	$AppData.activeView = window.location.hash.replace('#/', '');
+		// }
+		// saveAppData();
 		handleWindowResize();
 	});
 
@@ -86,16 +91,10 @@
 	function handlePopState(event) {
 		const state = event.state;
 		if(state !== null) {
-			if('view' in state) {
-				if(state.modal) {
-					// history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
-				}else{
-					// $AppData.activeView = state.view;
-				}
-			} else {
-				// $AppData.activeView = defaultView;
+			if(state.modal) {
+				// history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `${window.location.pathname}`);
 			}
-			saveAppData();
+			// saveAppData();
 		}
 	}
 
@@ -105,7 +104,7 @@
 		if(urlParams.has('modal')) {
 			// history.back();
 		}
-		// history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
+		// history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `${window.location.pathname}`);
 	}
 
 	function handleWindowResize() {

@@ -23,6 +23,7 @@
 
 	onMount(async () => {
 		displayList = sortDisplayList($AppData.HL.Sort, $AppData.HL.Order, makeDisplayList());
+		$AppData.activeView = 'herolist';
 		dispatch('routeEvent', {action: 'saveData'});
 	});
 

@@ -1,5 +1,5 @@
 <script>
-	import { getContext, createEventDispatcher } from 'svelte';
+	import { getContext, createEventDispatcher, onMount } from 'svelte';
 	import { flip } from 'svelte/animate';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
@@ -25,6 +25,11 @@
 	];
 	
 	$: modalHeight = isMobile ? '75vh' : '80vh';
+
+	onMount(async () => {
+		$AppData.activeView = 'recommendations';
+		dispatch('routeEvent', {action: 'saveData'});
+	});
 
 	// loop through the hero list for every starred comp and compile a list of all of them
 	function buildCompHeroes() {

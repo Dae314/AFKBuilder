@@ -1,5 +1,5 @@
 <script>
-	import { getContext, createEventDispatcher, tick } from 'svelte';
+	import { getContext, createEventDispatcher, tick, onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import MarkdownIt from 'markdown-it';
 	import Emoji from 'markdown-it-emoji';
@@ -53,6 +53,11 @@
 	let showowConfirm = false;
 	let owText = '';
 	let owPromise;
+
+	onMount(async () => {
+		$AppData.activeView = 'comps';
+		dispatch('routeEvent', {action: 'saveData'});
+	});
 
 	function makeSortedCompList() {
 		let compList = [...$AppData.Comps.sort(sortByStars)];

@@ -1,5 +1,5 @@
 <script>
-	import { getContext, createEventDispatcher } from 'svelte';
+	import { getContext, createEventDispatcher, onMount } from 'svelte';
 	import { flip } from 'svelte/animate';
 	import JSONURL from 'json-url';
 	import AppData from '../stores/AppData.js';
@@ -35,6 +35,11 @@
 	let copyConfirmVisible = false;
 	let sections = ['Owned', 'Unowned'];
 	let sortOptions = ['Name', 'Asc.', 'Copies', 'Eng.'];
+
+	onMount(async () => {
+		$AppData.activeView = 'myheroes';
+		dispatch('routeEvent', {action: 'saveData'});
+	});
 
 	function sortToOptionIdx(sortType) {
 		switch(sortType) {
