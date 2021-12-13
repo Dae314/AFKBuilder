@@ -135,10 +135,8 @@
 	function handleCompCardClick(compIdx) {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
-		if(urlParams.has('comp')) {
-			// history.replaceState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?view=${$AppData.activeView}&comp=true`);
-		} else {
-			// history.pushState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?view=${$AppData.activeView}&comp=true`);
+		if(!urlParams.has('comp')) {
+			history.pushState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?comp=true${window.location.hash}`);
 		}
 		$AppData.selectedComp = compIdx;
 		openDetail = true;
@@ -345,9 +343,10 @@
 	function handlePopState(event) {
 		const state = event.state;
 		if(state !== null) {
-			if(!state.comp) openDetail = false;
+			if(state.comp) openDetail = false;
 			showowConfirm = false;
 			owText = '';
+			
 		}
 	}
 
