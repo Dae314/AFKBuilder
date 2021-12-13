@@ -102,9 +102,9 @@
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		if(urlParams.has('modal')) {
-			// history.back();
+			history.back();
 		}
-		// history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `${window.location.pathname}`);
+		history.replaceState({view: $AppData.activeView, modal: true}, $AppData.activeView, `${window.location.origin}/#/${$AppData.activeView}`);;
 	}
 
 	function handleWindowResize() {

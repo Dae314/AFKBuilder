@@ -84,7 +84,7 @@
 	]
 
 	onMount(async () => {
-		history.pushState({view: $AppData.activeView, modal: true}, "Change Log", `?modal=true`);
+		history.pushState({view: $AppData.activeView, modal: true}, "Change Log", `${window.location.hash}?modal=true`);
 	});
 
 	function handlePopState() {
