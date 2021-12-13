@@ -18,9 +18,9 @@
 		} else {
 			// history.pushState({view: item, modal: false}, item, `?view=${item}`);
 		}
-		// $AppData.activeView = item;
-		window.location.hash = (`/${item}`);
-		window.URLSearchParams.forEach(param => window.URLSearchParams.delete(param.key));
+		$AppData.activeView = item;
+		window.history.replaceState({}, '', `${window.location.pathname}`); // clear all url parameters
+		window.location.hash = (`/${item}`); // navigate to the correct route
 		dispatch('saveData');
 		showMobileMenu = false;
 	}
@@ -53,7 +53,7 @@
 			</li>
 			{#each menu as item}
 				<li on:click={() => handleMenuChange(item.toLowerCase().replace(/\s/g, ''))}>
-					<button type="button" class="{$AppData.activeView === item.toLowerCase().replace(/\s/g, '') ? 'selected' : ''}">{item}</button>
+					<button type="button" class:selected={$AppData.activeView === item.toLowerCase().replace(/\s/g, '')}>{item}</button>
 				</li>
 			{/each}
 			<li class="discordMobileButton" on:click={() => window.open('https://discord.com/invite/sjxgnmkvSf', '_blank')}>
