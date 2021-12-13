@@ -13,7 +13,7 @@
 	let statusMsg = 'Awaiting data import';
 
 	onMount(async () => {
-		history.pushState({view: $AppData.activeView, modal: true}, "Import Data", `${window.location.hash}?modal=true`);
+		history.pushState({view: $AppData.activeView, modal: true}, "Import Data", `?modal=true${window.location.hash}`);
 	});
 
 	async function handleImport() {
