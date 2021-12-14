@@ -843,9 +843,6 @@
 	img {
 		user-select: none;
 	}
-	a {
-		user-select: none;
-	}
 	.CompContainer {
 		display: flex;
 		flex-direction: row;
@@ -1307,22 +1304,6 @@
 	}
 	.detailImgContainer {
 		position: relative;
-		+ {
-			a {
-				color: black;
-				font-size: 0.8rem;
-				font-weight: bold;
-				margin: 0;
-				margin-bottom: 5px;
-				margin-top: -8px;
-				overflow: hidden;
-				text-align: center;
-				text-decoration: none;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				width: 80px;
-			}
-		}
 	}
 	.detailFrontline {
 		align-items: center;
@@ -1343,13 +1324,17 @@
 		background: transparent;
 		border: none;
 		cursor: pointer;
+		margin: 0;
 		outline: none;
+		padding: 0;
 	}
 	.heroNameButton {
 		background: transparent;
 		border: none;
 		cursor: pointer;
+		margin: 0;
 		outline: none;
+		padding: 0;
 	}
 	.lineImg {
 		border-radius: 50%;
@@ -1591,13 +1576,6 @@
 	.subHeroContainer {
 		margin-right: 8px;
 		margin-bottom: 8px;
-		a {
-			align-items: center;
-			color: black;
-			display: flex;
-			flex-direction: column;
-			text-decoration: none;
-		}
 		p {
 			font-size: 0.9rem;
 			font-weight: bold;
