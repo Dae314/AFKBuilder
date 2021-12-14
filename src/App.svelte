@@ -4,6 +4,7 @@
 	import AppData from './stores/AppData.js';
 	import Modal from 'svelte-simple-modal';
 	import Router from 'svelte-spa-router';
+	import {pop as spaRoutePop} from 'svelte-spa-router';
 	import {wrap} from 'svelte-spa-router/wrap';
 
 	import Header from './components/Header.svelte';
@@ -49,25 +50,6 @@
 	}
 
 	onMount(async () => {
-		// const queryString = window.location.search;
-		// const urlParams = new URLSearchParams(queryString);
-		// if(urlParams.has('view')) {
-		// 	const menuItemsLower = menuItems.map((e) => e.toLowerCase());
-		// 	if(menuItemsLower.includes(urlParams.get('view'))) {
-		// 		$AppData.activeView = urlParams.get('view');
-		// 	} else {
-		// 		$AppData.activeView = defaultView;
-		// 	}
-		// } else {
-		// 	$AppData.activeView = defaultView;
-		// }
-		// history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `?view=${$AppData.activeView}`);
-		// if(window.location.hash === '') {
-		// 	$AppData.activeView = 'comps';
-		// } else {
-		// 	$AppData.activeView = window.location.hash.replace('#/', '');
-		// }
-		// saveAppData();
 		handleWindowResize();
 	});
 
@@ -88,23 +70,13 @@
 		location.reload();
 	}
 
-	function handlePopState(event) {
-		const state = event.state;
-		if(state !== null) {
-			if(state.modal) {
-				// history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `${window.location.pathname}`);
-			}
-			// saveAppData();
-		}
-	}
-
 	function handleModalClosed() {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		if(urlParams.has('modal')) {
-			history.back();
+			spaRoutePop();
 		}
-		history.replaceState({view: $AppData.activeView, modal: true}, $AppData.activeView, `${window.location.origin}/#/${$AppData.activeView}`);;
+		history.replaceState({view: $AppData.activeView, modal: true}, $AppData.activeView, `${window.location.origin}/#/${$AppData.activeView}`);
 	}
 
 	function handleWindowResize() {
@@ -139,7 +111,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
 </svelte:head>
 
-<svelte:window on:popstate={handlePopState} on:resize={debounce(handleWindowResize, 100)} />
+<svelte:window on:resize={debounce(handleWindowResize, 100)} />
 
 <Modal on:closed={handleModalClosed}>
 	<div class="AppContainer">
