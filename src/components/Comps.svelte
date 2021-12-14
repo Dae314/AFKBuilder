@@ -5,6 +5,7 @@
 	import Emoji from 'markdown-it-emoji';
 	import { v4 as uuidv4 } from 'uuid';
 	import JSONURL from 'json-url';
+	import {pop as spaRoutePop} from 'svelte-spa-router';
 	import CompCard from './CompCard.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
@@ -321,7 +322,7 @@
 
 	function handleCloseButtonClick() {
 		openDetail = false;
-		history.back();
+		spaRoutePop();
 	}
 
 	function handleHeroDetailClick(heroID) {
@@ -341,13 +342,9 @@
 	}
 
 	function handlePopState(event) {
-		const state = event.state;
-		if(state !== null) {
-			if(state.comp) openDetail = false;
-			showowConfirm = false;
-			owText = '';
-			
-		}
+		if(openDetail) openDetail = false;
+		showowConfirm = false;
+		owText = '';
 	}
 
 	async function handleCardSort(event) {
