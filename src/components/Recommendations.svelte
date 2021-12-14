@@ -143,10 +143,8 @@
 			$AppData.selectedUUID = null;
 		}
 		
-		// history.pushState({view: 'comps', modal: false}, 'comps', `?view=comps`);
-		window.history.replaceState({}, '', `${window.location.pathname}`); // clear all url parameters
-		$AppData.activeView = 'comps';
-		window.location.hash = ('/comps'); // navigate to the comps page
+		// navigate to comps page and clear all query parameters except the one specified below
+		window.location.assign(`${window.location.origin}/?comp=true#/comps`);
 	}
 
 	function handlePortraitClick(heroID) {

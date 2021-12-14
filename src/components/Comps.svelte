@@ -56,6 +56,11 @@
 	let owPromise;
 
 	onMount(async () => {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		
+		openDetail = urlParams.has('comp');
+
 		$AppData.activeView = 'comps';
 		dispatch('routeEvent', {action: 'saveData'});
 	});
