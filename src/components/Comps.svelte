@@ -399,6 +399,13 @@
 		updateSearch();
 		openSuggestions = false;
 	}
+
+	async function handleHeroClick(hero) {
+		selectedHero = hero;
+		openHero = true;
+		await tick();
+		document.getElementById('heroDetailSection').scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
+	}
 </script>
 
 <svelte:window on:popstate={handlePopState} />
@@ -515,7 +522,7 @@
 												{#if i >= 2}
 													{#if $HeroData.some(e => e.id === hero)}
 														<div class="detailImgContainer">
-															<a draggable="false" href="#heroDetailSection"><img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
+															<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
 															<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
 															<div class="ascMark">
 																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
@@ -553,7 +560,7 @@
 																{/if}
 															</div>
 														</div>
-														<a draggable="false" href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
+														<button type="button" class="heroNameButton"><span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span></button>
 													{:else}
 														<i class="emptyLineSlot"></i>
 													{/if}
@@ -567,7 +574,7 @@
 												{#if i < 2}
 													{#if $HeroData.some(e => e.id === hero)}
 														<div class="detailImgContainer">
-															<a draggable="false" href="#heroDetailSection"><img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
+															<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
 															<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
 															<div class="ascMark">
 																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
@@ -605,7 +612,7 @@
 																{/if}
 															</div>
 														</div>
-														<a draggable="false" href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
+														<button type="button" class="heroNameButton"><span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span></button>
 													{:else}
 														<i class="emptyLineSlot"></i>
 													{/if}
@@ -737,9 +744,9 @@
 										<div class="subGroupMembers">
 											{#each subgroup.heroes as hero}
 												<div class="subHeroContainer">
-													<a draggable="false" href="#heroDetailSection">
+													<button type="button" class="heroButton">
 														<div class="subImgContainer">
-															<img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+															<img draggable="false" on:click={() => handleHeroClick(hero)} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 															<span class="coreMark subCoreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
 															<div class="ascMark subAscMark">
 																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
@@ -777,8 +784,8 @@
 																{/if}
 															</div>
 														</div>
-														<p on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</p>
-													</a>
+														<p on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</p>
+													</button>
 												</div>
 											{/each}
 										</div>
@@ -1326,6 +1333,18 @@
 		justify-content: center;
 		width: 80px;
 		margin-right: 10px;
+	}
+	.heroButton {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		outline: none;
+	}
+	.heroNameButton {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		outline: none;
 	}
 	.lineImg {
 		border-radius: 50%;
