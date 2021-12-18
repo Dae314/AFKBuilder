@@ -1,24 +1,15 @@
 <script>
 	import { onMount, createEventDispatcher } from 'svelte';
-	import AppData from '../stores/AppData.js'
+	import AppData from '../stores/AppData.js';
 
 	export let menu = [];
 	const dispatch = createEventDispatcher();
 	let showMobileMenu = false;
 
 	function handleMenuChange(item) {
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		if(urlParams.has('view')) {
-			if(urlParams.get('view') === item) {
-				history.replaceState({view: item, modal: false}, item, `?view=${item}`);
-			} else {
-				history.pushState({view: item, modal: false}, item, `?view=${item}`);
-			}
-		} else {
-			history.pushState({view: item, modal: false}, item, `?view=${item}`);
-		}
-		$AppData.activeView = item;
+		// navigate to the correct route
+		// note: clears all extraneous URL parameters
+		window.location.assign(`${window.location.origin}/#/${item}`);
 		dispatch('saveData');
 		showMobileMenu = false;
 	}
@@ -46,12 +37,12 @@
 			<div class="middle-line"></div>
 		</div>
 		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
-			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].toLowerCase())}>
+			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].toLowerCase().replace(/\s/g, ''))}>
 				<button type="button" class="logo"><img src="./img/app/afkbuilder_logo.png" alt="AFKBuilder"></button>
 			</li>
 			{#each menu as item}
-				<li on:click={() => handleMenuChange(item.toLowerCase())}>
-					<button type="button" class="{$AppData.activeView === item.toLowerCase() ? 'selected' : ''}">{item}</button>
+				<li on:click={() => handleMenuChange(item.toLowerCase().replace(/\s/g, ''))}>
+					<button type="button" class:selected={$AppData.activeView === item.toLowerCase().replace(/\s/g, '')}>{item}</button>
 				</li>
 			{/each}
 			<li class="discordMobileButton" on:click={() => window.open('https://discord.com/invite/sjxgnmkvSf', '_blank')}>

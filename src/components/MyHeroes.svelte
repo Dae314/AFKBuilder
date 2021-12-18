@@ -1,5 +1,5 @@
 <script>
-	import { getContext, createEventDispatcher } from 'svelte';
+	import { getContext, createEventDispatcher, onMount } from 'svelte';
 	import { flip } from 'svelte/animate';
 	import JSONURL from 'json-url';
 	import AppData from '../stores/AppData.js';
@@ -35,6 +35,11 @@
 	let copyConfirmVisible = false;
 	let sections = ['Owned', 'Unowned'];
 	let sortOptions = ['Name', 'Asc.', 'Copies', 'Eng.'];
+
+	onMount(async () => {
+		$AppData.activeView = 'myheroes';
+		dispatch('routeEvent', {action: 'saveData'});
+	});
 
 	function sortToOptionIdx(sortType) {
 		switch(sortType) {
@@ -207,14 +212,14 @@
 	function updateSearch() {
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function updateFilters(filter) {
 		$AppData.MH[filter] = !$AppData.MH[filter];
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function updateSort(event) {
@@ -235,7 +240,7 @@
 				throw new Error(`Invalid sort category specified: ${sortOptions[event.detail.value]}`);
 		}
 		myHeroList = makeMyHeroList($AppData.MH.List);
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function handleFilterMasterButtonClick(category) {
@@ -290,7 +295,7 @@
 		}
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function handleHeroClaim(heroID) {
@@ -303,7 +308,7 @@
 		$AppData.MH.List[heroID].stars = 0;
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function handleHeroUnclaim(heroID) {
@@ -316,7 +321,7 @@
 		$AppData.MH.List[heroID].stars = 0;
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'})
 	}
 
 	function handleAscChange(heroID, level) {
@@ -332,21 +337,21 @@
 		if($AppData.MH.List[heroID].ascendLv < 4) {
 			$AppData.MH.List[heroID].si = -1;
 		}
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'})
 	}
 
 	function handleSIChange(heroID, level) {
 		$AppData.MH.List[heroID].si = level;
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'})
 	}
 
 	function handleFurnChange(heroID, level) {
 		$AppData.MH.List[heroID].furn = level;
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'})
 	}
 
 	function handleNumChange() {
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'})
 	}
 
 	async function handleMyHeroesInput(compressedData) {
@@ -372,7 +377,7 @@
 			$AppData.MH.List = returnObj.message;
 			myHeroList = makeMyHeroList($AppData.MH.List);
 			unownedHeroList = makeUnownedHeroList($AppData.MH.List);
-			dispatch('saveData');
+			dispatch('routeEvent', {action: 'saveData'})
 			return { retCode: 0, message: 'Data import successful' }
 		}
 	}
@@ -409,7 +414,7 @@
 	}
 
 	function dynamicSearch(event) {
-		if(isCharacterKeyPress(event)) {
+		if(isCharacterKeyPress(event) && !event.ctrlKey && !event.metaKey) {
 			if(event.keyCode === 9) {
 				// tab pressed, toggle openFilters
 				openFilters = !openFilters;
@@ -517,7 +522,7 @@
 		{#if !$AppData.dismissMHSearchInfo}
 			<div class="searchInfo">
 				<div class="tutorialBoxContainer">
-					<TutorialBox clickable={true} onClick={() => {$AppData.dismissMHSearchInfo = true; dispatch('saveData');}}>
+					<TutorialBox clickable={true} onClick={() => {$AppData.dismissMHSearchInfo = true; dispatch('routeEvent', {action: 'saveData'})}}>
 						Just start typing to search! Pressing tab will also open and close the filter area.
 					</TutorialBox>
 				</div>
@@ -527,7 +532,7 @@
 			<ul class="sectionPicker">
 				{#each sections as section, i}
 				<li>
-					<button type="button" class="sectionButton" class:active={$AppData.MH.openSection === i} on:click={() => { $AppData.MH.openSection = i; dispatch('saveData');} }>{section}</button>
+					<button type="button" class="sectionButton" class:active={$AppData.MH.openSection === i} on:click={() => { $AppData.MH.openSection = i; dispatch('routeEvent', {action: 'saveData'})} }>{section}</button>
 				</li>
 				{/each}
 			</ul>

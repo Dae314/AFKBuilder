@@ -23,7 +23,8 @@
 
 	onMount(async () => {
 		displayList = sortDisplayList($AppData.HL.Sort, $AppData.HL.Order, makeDisplayList());
-		dispatch('saveData');
+		$AppData.activeView = 'herolist';
+		dispatch('routeEvent', {action: 'saveData'});
 	});
 
 	function makeDisplayList() {
@@ -70,12 +71,12 @@
 	function updateFilters(filter) {
 		$AppData.HL[filter] = !$AppData.HL[filter];
 		displayList = sortDisplayList($AppData.HL.Sort, $AppData.HL.Order, makeDisplayList());
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function updateSearch() {
 		displayList = sortDisplayList($AppData.HL.Sort, $AppData.HL.Order, makeDisplayList());
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function sortDisplayList(col, order, displayList) {
@@ -136,7 +137,7 @@
 		displayList = sortDisplayList(col, order, makeDisplayList());
 		$AppData.HL.Sort = col;
 		$AppData.HL.Order = order;
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function handleFilterMasterButtonClick(category) {
@@ -190,7 +191,7 @@
 				throw new Error(`Invalid category given to handleFilterMasterButtonClick(): ${category}`);
 		}
 		displayList = sortDisplayList($AppData.HL.Sort, $AppData.HL.Order, makeDisplayList());
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function isCharacterKeyPress(event) {
@@ -206,7 +207,7 @@
 	}
 
 	function dynamicSearch(event) {
-		if(isCharacterKeyPress(event)) {
+		if(isCharacterKeyPress(event) && !event.ctrlKey && !event.metaKey) {
 			if(event.keyCode === 9) {
 				// tab pressed, toggle openFilters
 				openFilters = !openFilters;
@@ -297,7 +298,7 @@
 		{#if !$AppData.dismissHLSearchInfo}
 			<div class="searchInfo">
 				<div class="tutorialBoxContainer">
-					<TutorialBox clickable={true} onClick={() => {$AppData.dismissHLSearchInfo = true; dispatch('saveData');}}>
+					<TutorialBox clickable={true} onClick={() => {$AppData.dismissHLSearchInfo = true; dispatch('routeEvent', {action: 'saveData'});}}>
 						Just start typing to search! Pressing tab will also open and close the filter area.
 					</TutorialBox>
 				</div>

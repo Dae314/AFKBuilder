@@ -1,10 +1,11 @@
 <script>
-	import { getContext, createEventDispatcher, tick } from 'svelte';
+	import { getContext, createEventDispatcher, tick, onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import MarkdownIt from 'markdown-it';
 	import Emoji from 'markdown-it-emoji';
 	import { v4 as uuidv4 } from 'uuid';
 	import JSONURL from 'json-url';
+	import {params, pop as spaRoutePop} from 'svelte-spa-router';
 	import CompCard from './CompCard.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
@@ -41,6 +42,7 @@
 	$: searchSuggestions = makeSearchSuggestions();
 	$: editorWidth = isMobile ? '100%' : '75%';
 	$: editorHeight = isMobile ? '70vh' : '80vh';
+	$: $AppData.modalClosed && handleModalClosed();
 
 	let openDetail = false;
 	let openDesc = true;
@@ -53,6 +55,18 @@
 	let showowConfirm = false;
 	let owText = '';
 	let owPromise;
+	let modalStack = [];
+
+	onMount(async () => {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		
+		openDetail = urlParams.has('comp');
+		modalStack = openDetail ? ['base', 'comp'] : ['base']
+
+		$AppData.activeView = 'comps';
+		dispatch('routeEvent', {action: 'saveData'});
+	});
 
 	function makeSortedCompList() {
 		let compList = [...$AppData.Comps.sort(sortByStars)];
@@ -130,16 +144,15 @@
 	function handleCompCardClick(compIdx) {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
-		if(urlParams.has('comp')) {
-			history.replaceState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?view=${$AppData.activeView}&comp=true`);
-		} else {
-			history.pushState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?view=${$AppData.activeView}&comp=true`);
+		if(!urlParams.has('comp')) {
+			history.pushState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?comp=true${window.location.hash}`);
 		}
+		modalStack.push('comp');
 		$AppData.selectedComp = compIdx;
 		openDetail = true;
 		selectedLine = 0;
 		selectedHero = '';
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function renderMarkdown(mdText) {
@@ -147,6 +160,7 @@
 	}
 
 	function handleEditButtonClick(compIdx) {
+		modalStack.push('editor');
 		open(CompEditor,
 				{compID: sortedCompList[compIdx].uuid,
 				 onSuccess: (uuid) => handleCompChangeSuccess(uuid, 'edit'),
@@ -160,6 +174,7 @@
 	}
 
 	function handleNewButtonClick() {
+		modalStack.push('editor');
 		open(CompEditor,
 				{onSuccess: (uuid) => { $AppData.compSearchStr = ''; handleCompChangeSuccess(uuid, 'new') },
 				 isMobile: isMobile,
@@ -181,10 +196,11 @@
 		await tick();
 		document.getElementById(`comp${highlightComp}`).scrollIntoView();
 		setTimeout(() => highlightComp = null, 2000);
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function handleDeleteButtonClick(compIdx) {
+		modalStack.push('confirm');
 		open(Confirm,
 				{onConfirm: handleDelComp, confirmData: compIdx, message: `Delete comp named ${sortedCompList[compIdx].name}?`},
 				{closeButton: false,
@@ -196,9 +212,10 @@
 	}
 
 	function handleImportButtonClick() {
+		modalStack.push('import');
 		open(ImportData, 
 		{ dataHandler: handleCompImport,
-			saveAppData: () => dispatch('saveData'),
+			saveAppData: () => dispatch('routeEvent', {action: 'saveData'}),
 			title: 'Paste Composition:',
 		},
 		{ closeButton: ModalCloseButton,
@@ -221,7 +238,7 @@
 		comp.starred = !comp.starred;
 		event.stopPropagation();
 		sortedCompList = makeSortedCompList();
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function handleDelComp(idx) {
@@ -238,7 +255,7 @@
 			if($AppData.selectedComp === -1) $AppData.selectedComp = null;
 		}
 		sortedCompList = makeSortedCompList();
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	async function handleCompImport(compressedData) {
@@ -300,7 +317,7 @@
 			await tick();
 			document.getElementById(`comp${highlightComp}`).scrollIntoView();
 			setTimeout(() => highlightComp = null, 3000);
-			dispatch('saveData');
+			dispatch('routeEvent', {action: 'saveData'});
 			return { retCode: 0, message: statusMsg };
 		}
 	}
@@ -317,11 +334,14 @@
 	}
 
 	function handleCloseButtonClick() {
+		if(modalStack.pop() === 'comp') {
+			spaRoutePop();
+		}
 		openDetail = false;
-		history.back();
 	}
 
 	function handleHeroDetailClick(heroID) {
+		modalStack.push('detail');
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
@@ -330,6 +350,7 @@
 	}
 
 	function openArtifactDetail(artifactID) {
+		modalStack.push('detail');
 		open(ArtifactDetail, 
 		{ artifactID: artifactID, },
 		{ closeButton: ModalCloseButton,
@@ -338,11 +359,53 @@
 	}
 
 	function handlePopState(event) {
-		const state = event.state;
-		if(state !== null) {
-			if(!state.comp) openDetail = false;
-			showowConfirm = false;
-			owText = '';
+		const component = modalStack.pop();
+		switch(component) {
+			case 'detail':
+			case 'import':
+			case 'editor':
+				break;
+			case 'base':
+				modalStack.push('base');
+				break;
+			case 'comp':
+				openDetail = false;
+				history.replaceState({view: $AppData.activeView, comp: false}, $AppData.activeView, `?${window.location.hash}`);
+				break;
+			case 'confirm':
+				showowConfirm = false;
+				owText = '';
+				break;
+			default:
+				throw new Error(`Error invalid Comp.svelte modal stack component detected: ${component}`);
+		}
+	}
+
+	function handleModalClosed() {
+		$AppData.modalClosed = false;
+		const component = modalStack.pop();
+		switch(component) {
+			case 'detail':
+			case 'import':
+			case 'editor':
+				if(modalStack[modalStack.length - 1] !== 'comp') {
+					spaRoutePop();
+				} else {
+					history.replaceState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?comp=true${window.location.hash}`);
+				}
+				break;
+			case 'base':
+				modalStack.push('base');
+				break;
+			case 'comp':
+				modalStack.push('comp');
+				break;
+			case 'confirm':
+				showowConfirm = false;
+				owText = '';
+				break;
+			default:
+				Error(`Error invalid Comp.svelte modal stack component detected: ${component}`);
 		}
 	}
 
@@ -371,7 +434,7 @@
 			sortedCompList = makeSortedCompList();
 			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selectedUUID);
 			if($AppData.selectedComp === -1) $AppData.selectedComp = null;
-			dispatch('saveData');
+			dispatch('routeEvent', {action: 'saveData'});
 		}
 	}
 
@@ -384,7 +447,7 @@
 		}
 		searchSuggestions = makeSearchSuggestions();
 		openSuggestions = true;
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function takeSuggestion(suggestion) {
@@ -397,6 +460,13 @@
 		$AppData.compSearchStr = searchTerms.join(', ');
 		updateSearch();
 		openSuggestions = false;
+	}
+
+	async function handleHeroClick(hero) {
+		selectedHero = hero;
+		openHero = true;
+		await tick();
+		document.getElementById('heroDetailSection').scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
 	}
 </script>
 
@@ -514,7 +584,7 @@
 												{#if i >= 2}
 													{#if $HeroData.some(e => e.id === hero)}
 														<div class="detailImgContainer">
-															<a draggable="false" href="#heroDetailSection"><img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
+															<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
 															<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
 															<div class="ascMark">
 																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
@@ -552,7 +622,7 @@
 																{/if}
 															</div>
 														</div>
-														<a draggable="false" href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
+														<button type="button" class="heroNameButton"><span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span></button>
 													{:else}
 														<i class="emptyLineSlot"></i>
 													{/if}
@@ -566,7 +636,7 @@
 												{#if i < 2}
 													{#if $HeroData.some(e => e.id === hero)}
 														<div class="detailImgContainer">
-															<a draggable="false" href="#heroDetailSection"><img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></a>
+															<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
 															<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
 															<div class="ascMark">
 																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
@@ -604,7 +674,7 @@
 																{/if}
 															</div>
 														</div>
-														<a draggable="false" href="#heroDetailSection"><span on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</span></a>
+														<button type="button" class="heroNameButton"><span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span></button>
 													{:else}
 														<i class="emptyLineSlot"></i>
 													{/if}
@@ -736,9 +806,9 @@
 										<div class="subGroupMembers">
 											{#each subgroup.heroes as hero}
 												<div class="subHeroContainer">
-													<a draggable="false" href="#heroDetailSection">
+													<button type="button" class="heroButton">
 														<div class="subImgContainer">
-															<img draggable="false" on:click={() => { selectedHero = hero; openHero = true; }} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
+															<img draggable="false" on:click={() => handleHeroClick(hero)} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
 															<span class="coreMark subCoreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
 															<div class="ascMark subAscMark">
 																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
@@ -776,8 +846,8 @@
 																{/if}
 															</div>
 														</div>
-														<p on:click={() => { selectedHero = hero; openHero = true; }}>{$HeroData.find(e => e.id === hero).name}</p>
-													</a>
+														<p on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</p>
+													</button>
 												</div>
 											{/each}
 										</div>
@@ -828,9 +898,6 @@
 
 <style lang="scss">
 	img {
-		user-select: none;
-	}
-	a {
 		user-select: none;
 	}
 	.CompContainer {
@@ -1294,22 +1361,6 @@
 	}
 	.detailImgContainer {
 		position: relative;
-		+ {
-			a {
-				color: black;
-				font-size: 0.8rem;
-				font-weight: bold;
-				margin: 0;
-				margin-bottom: 5px;
-				margin-top: -8px;
-				overflow: hidden;
-				text-align: center;
-				text-decoration: none;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				width: 80px;
-			}
-		}
 	}
 	.detailFrontline {
 		align-items: center;
@@ -1325,6 +1376,22 @@
 		justify-content: center;
 		width: 80px;
 		margin-right: 10px;
+	}
+	.heroButton {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		margin: 0;
+		outline: none;
+		padding: 0;
+	}
+	.heroNameButton {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		margin: 0;
+		outline: none;
+		padding: 0;
 	}
 	.lineImg {
 		border-radius: 50%;
@@ -1566,13 +1633,6 @@
 	.subHeroContainer {
 		margin-right: 8px;
 		margin-bottom: 8px;
-		a {
-			align-items: center;
-			color: black;
-			display: flex;
-			flex-direction: column;
-			text-decoration: none;
-		}
 		p {
 			font-size: 0.9rem;
 			font-weight: bold;

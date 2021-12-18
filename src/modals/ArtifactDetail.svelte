@@ -6,7 +6,7 @@
 	const { close } = getContext('simple-modal');
 
 	onMount(async () => {
-		history.pushState({view: $AppData.activeView, modal: true}, "Artifact Detail", `?view=${$AppData.activeView}&modal=true`);
+		history.pushState({view: $AppData.activeView, modal: true}, "Artifact Detail", `?&modal=true${window.location.hash}`);
 	});
 
 	export let artifactID = "";

@@ -14,7 +14,13 @@
 	$: skillShown = 0;
 
 	onMount(async () => {
-		history.pushState({view: $AppData.activeView, modal: true}, "Hero Detail", `?view=${$AppData.activeView}&modal=true`);
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		if(urlParams.has('comp')) {
+			history.pushState({view: $AppData.activeView, modal: true, comp: true}, "Hero Detail", `?comp=true&modal=true${window.location.hash}`);
+		} else {
+			history.pushState({view: $AppData.activeView, modal: true, comp: false}, "Hero Detail", `?modal=true${window.location.hash}`);
+		}
 	});
 
 	function handlePopState() {

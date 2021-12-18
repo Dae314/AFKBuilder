@@ -235,6 +235,7 @@ function buildAppData(data) {
 		{name: 'dismissImportWarn', default: false},
 		{name: 'dismissHLSearchInfo', default: false},
 		{name: 'dismissMHSearchInfo', default: false},
+		{name: 'modalClosed', default: false},
 		{name: 'maxDescLen', default: maxDescLen},
 		{name: 'maxCompTags', default: maxCompTags},
 		{name: 'maxNoteLen', default: maxNoteLen},
