@@ -370,6 +370,7 @@
 				break;
 			case 'comp':
 				openDetail = false;
+				history.replaceState({view: $AppData.activeView, comp: false}, $AppData.activeView, `?${window.location.hash}`);
 				break;
 			case 'confirm':
 				showowConfirm = false;
@@ -390,7 +391,7 @@
 				if(modalStack[modalStack.length - 1] !== 'comp') {
 					spaRoutePop();
 				} else {
-					history.replaceState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?comp=true${window.location.hash}`)
+					history.replaceState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?comp=true${window.location.hash}`);
 				}
 				break;
 			case 'base':
