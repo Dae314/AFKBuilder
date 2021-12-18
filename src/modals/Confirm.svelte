@@ -10,7 +10,7 @@
 	const { close } = getContext('simple-modal');
 
 	onMount(async () => {
-		history.pushState({view: $AppData.activeView, modal: true}, "Confirm", `?view=${$AppData.activeView}&modal=true`);
+		history.pushState({view: $AppData.activeView, modal: true}, "Confirm", `?modal=true${window.location.hash}`);
 	});
 
 	function handleCancel() {

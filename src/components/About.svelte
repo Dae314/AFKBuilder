@@ -1,8 +1,9 @@
 <script>
-	import { getContext, createEventDispatcher } from 'svelte';
+	import { getContext, createEventDispatcher, onMount } from 'svelte';
 	import Confirm from '../modals/Confirm.svelte';
 	import ChangeLog from '../modals/ChangeLog.svelte';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
+	import AppData from '../stores/AppData.js';
 
 	export let version = '';
 	export let isMobile = false;
@@ -26,6 +27,11 @@
 	
 	$: modalHeight = isMobile ? '75vh' : '80vh';
 
+	onMount(async () => {
+		$AppData.activeView = 'about';
+		dispatch('routeEvent', {action: 'saveData'});
+	});
+
 	function handleClearDataButtonClick() {
 		open(Confirm,
 			{onConfirm: clearData, message: "Are you sure you want to CLEAR ALL DATA?"},
@@ -38,11 +44,11 @@
 	}
 
 	function handleTutorialButtonClick() {
-		dispatch('resetTutorial');
+		dispatch('routeEvent', {action: 'resetTutorial'});
 	}
 
 	function clearData() {
-		dispatch('clearData');
+		dispatch('routeEvent', {action: 'clearData'});
 	}
 
 	function openChangeLog() {

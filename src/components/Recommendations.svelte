@@ -1,5 +1,5 @@
 <script>
-	import { getContext, createEventDispatcher } from 'svelte';
+	import { getContext, createEventDispatcher, onMount } from 'svelte';
 	import { flip } from 'svelte/animate';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
@@ -25,6 +25,11 @@
 	];
 	
 	$: modalHeight = isMobile ? '75vh' : '80vh';
+
+	onMount(async () => {
+		$AppData.activeView = 'recommendations';
+		dispatch('routeEvent', {action: 'saveData'});
+	});
 
 	// loop through the hero list for every starred comp and compile a list of all of them
 	function buildCompHeroes() {
@@ -138,8 +143,8 @@
 			$AppData.selectedUUID = null;
 		}
 		
-		history.pushState({view: 'comps', modal: false}, 'comps', `?view=comps`);
-		$AppData.activeView = 'comps';
+		// navigate to comps page and clear all query parameters except the one specified below
+		window.location.assign(`${window.location.origin}/?comp=true#/comps`);
 	}
 
 	function handlePortraitClick(heroID) {
@@ -178,7 +183,7 @@
 				throw new Error(`Invalid type received ${type} should be 'asc', 'si', or 'furn'.`);
 		}
 		recommendations = buildRecs();
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'})
 	}
 </script>
 
@@ -187,7 +192,7 @@
 		<ul class="sectionPicker">
 			{#each sections as section, i}
 			<li>
-				<button type="button" class="sectionButton" class:active={$AppData.REC.openSection === i} on:click={() => { $AppData.REC.openSection = i; dispatch('saveData');} }>{section}</button>
+				<button type="button" class="sectionButton" class:active={$AppData.REC.openSection === i} on:click={() => { $AppData.REC.openSection = i; dispatch('routeEvent', {action: 'saveData'})} }>{section}</button>
 			</li>
 			{/each}
 		</ul>
