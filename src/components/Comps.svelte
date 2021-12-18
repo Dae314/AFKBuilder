@@ -5,7 +5,7 @@
 	import Emoji from 'markdown-it-emoji';
 	import { v4 as uuidv4 } from 'uuid';
 	import JSONURL from 'json-url';
-	import {pop as spaRoutePop} from 'svelte-spa-router';
+	import {params, pop as spaRoutePop} from 'svelte-spa-router';
 	import CompCard from './CompCard.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
@@ -55,12 +55,14 @@
 	let showowConfirm = false;
 	let owText = '';
 	let owPromise;
+	let modalStack = [];
 
 	onMount(async () => {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		
 		openDetail = urlParams.has('comp');
+		modalStack = openDetail ? ['base', 'comp'] : ['base']
 
 		$AppData.activeView = 'comps';
 		dispatch('routeEvent', {action: 'saveData'});
@@ -145,6 +147,7 @@
 		if(!urlParams.has('comp')) {
 			history.pushState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?comp=true${window.location.hash}`);
 		}
+		modalStack.push('comp');
 		$AppData.selectedComp = compIdx;
 		openDetail = true;
 		selectedLine = 0;
@@ -157,6 +160,7 @@
 	}
 
 	function handleEditButtonClick(compIdx) {
+		modalStack.push('editor');
 		open(CompEditor,
 				{compID: sortedCompList[compIdx].uuid,
 				 onSuccess: (uuid) => handleCompChangeSuccess(uuid, 'edit'),
@@ -170,6 +174,7 @@
 	}
 
 	function handleNewButtonClick() {
+		modalStack.push('editor');
 		open(CompEditor,
 				{onSuccess: (uuid) => { $AppData.compSearchStr = ''; handleCompChangeSuccess(uuid, 'new') },
 				 isMobile: isMobile,
@@ -195,6 +200,7 @@
 	}
 
 	function handleDeleteButtonClick(compIdx) {
+		modalStack.push('confirm');
 		open(Confirm,
 				{onConfirm: handleDelComp, confirmData: compIdx, message: `Delete comp named ${sortedCompList[compIdx].name}?`},
 				{closeButton: false,
@@ -206,6 +212,7 @@
 	}
 
 	function handleImportButtonClick() {
+		modalStack.push('import');
 		open(ImportData, 
 		{ dataHandler: handleCompImport,
 			saveAppData: () => dispatch('routeEvent', {action: 'saveData'}),
@@ -327,14 +334,14 @@
 	}
 
 	function handleCloseButtonClick() {
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		console.log(urlParams.has('comp'))
+		if(modalStack.pop() === 'comp') {
+			spaRoutePop();
+		}
 		openDetail = false;
-		spaRoutePop();
 	}
 
 	function handleHeroDetailClick(heroID) {
+		modalStack.push('detail');
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
@@ -343,6 +350,7 @@
 	}
 
 	function openArtifactDetail(artifactID) {
+		modalStack.push('detail');
 		open(ArtifactDetail, 
 		{ artifactID: artifactID, },
 		{ closeButton: ModalCloseButton,
@@ -351,14 +359,53 @@
 	}
 
 	function handlePopState(event) {
-		if(openDetail) openDetail = false;
-		showowConfirm = false;
-		owText = '';
+		const component = modalStack.pop();
+		switch(component) {
+			case 'detail':
+			case 'import':
+			case 'editor':
+				break;
+			case 'base':
+				modalStack.push('base');
+				break;
+			case 'comp':
+				openDetail = false;
+				break;
+			case 'confirm':
+				showowConfirm = false;
+				owText = '';
+				break;
+			default:
+				throw new Error(`Error invalid Comp.svelte modal stack component detected: ${component}`);
+		}
 	}
 
 	function handleModalClosed() {
 		$AppData.modalClosed = false;
-		console.log('comp modal closed');
+		const component = modalStack.pop();
+		switch(component) {
+			case 'detail':
+			case 'import':
+			case 'editor':
+				if(modalStack[modalStack.length - 1] !== 'comp') {
+					spaRoutePop();
+				} else {
+					history.replaceState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?comp=true${window.location.hash}`)
+				}
+				break;
+			case 'base':
+				modalStack.push('base');
+				break;
+			case 'comp':
+				modalStack.push('comp');
+				break;
+			case 'confirm':
+				showowConfirm = false;
+				owText = '';
+				break;
+			default:
+				Error(`Error invalid Comp.svelte modal stack component detected: ${component}`);
+		}
 	}
 
 	async function handleCardSort(event) {
