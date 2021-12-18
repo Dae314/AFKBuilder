@@ -50,7 +50,7 @@
 		if(urlParams.has('comp')) {
 			history.pushState({view: $AppData.activeView, modal: true, comp: true}, "Comp Editor", `?comp=true&modal=true${window.location.hash}`);
 		} else {
-			history.pushState({view: $AppData.activeView, modal: true, comp: true}, "Comp Editor", `?modal=true${window.location.hash}`);
+			history.pushState({view: $AppData.activeView, modal: true, comp: false}, "Comp Editor", `?modal=true${window.location.hash}`);
 		}
 		if(compID) {
 			const compCopy = $AppData.Comps.find(e => e.uuid === compID);
