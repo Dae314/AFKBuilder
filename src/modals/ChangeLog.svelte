@@ -5,6 +5,19 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.13.8',
+			changes: [
+				'Add new hero Framton',
+				'Update Haelus benchmark -> 203',
+				'Update Skriath SI description',
+				'Update Warek skill descriptions - thanks Bob!',
+				'Add engraving benchmarks for Silas, Izold, and Skriath',
+				'Don\'t take search input on MH and HL when ctrl or cmd are held',
+				'Transition to svelte-spa-router for history handling',
+				'Fix Warek\'s 4th skill name',
+				'Fix Cecilia ult description',
+			],
+		},
 		{ version: 'v1.12.8',
 			changes: [
 				'Add new hero Thesku',
@@ -66,19 +79,6 @@
 				'Updated Theowyn Spectral Curse skill description',
 				'Updated Safiya Spectral Disruption skill description',
 				'Optimized Granit SI description',
-			],
-		},
-		{ version: 'v1.8.6',
-			changes: [
-				'<em>Added Legendary tier heroes into the app</em>',
-				'<em>Setup dynamic disabling of SI/Furniture buttons based on hero tier and ascension level</em>',
-				'<em>Updated ascension markers and menus for Legendary tier heroes</em>',
-				'Updated images with de-noised versions',
-				'Added Leonardo',
-				'Fixed Mezoth, Demonic Hunger ability description',
-				'Updated Rosaline furniture skill descriptions',
-				'Added Mauler engraving info',
-				'Added Endeavor skill descriptions to all engraved heroes',
 			],
 		},
 	]
