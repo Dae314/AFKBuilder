@@ -22,11 +22,11 @@
 	const routes = {
 		'/': wrap({
 				component: Comps,
-				props: { isMobile: isMobile },
+				props: { isMobile: isMobile},
 			}),
 		'/comps': wrap({
 				component: Comps,
-				props: { isMobile: isMobile },
+				props: { isMobile: isMobile},
 			}),
 		'/recommendations': wrap({
 				component: Recommendations,
@@ -71,12 +71,17 @@
 	}
 
 	function handleModalClosed() {
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		if(urlParams.has('modal')) {
-			spaRoutePop();
+		// handle comps modals in Comps.svelte
+		if($AppData.activeView === 'comps') {
+			$AppData.modalClosed = true;
+		} else {
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+			if(urlParams.has('modal')) {
+				spaRoutePop();
+				history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `${window.location.origin}/#/${$AppData.activeView}`);
+			}
 		}
-		history.replaceState({view: $AppData.activeView, modal: true}, $AppData.activeView, `${window.location.origin}/#/${$AppData.activeView}`);
 	}
 
 	function handleWindowResize() {

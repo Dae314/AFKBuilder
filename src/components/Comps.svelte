@@ -42,6 +42,7 @@
 	$: searchSuggestions = makeSearchSuggestions();
 	$: editorWidth = isMobile ? '100%' : '75%';
 	$: editorHeight = isMobile ? '70vh' : '80vh';
+	$: $AppData.modalClosed && handleModalClosed();
 
 	let openDetail = false;
 	let openDesc = true;
@@ -326,6 +327,9 @@
 	}
 
 	function handleCloseButtonClick() {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		console.log(urlParams.has('comp'))
 		openDetail = false;
 		spaRoutePop();
 	}
@@ -350,6 +354,11 @@
 		if(openDetail) openDetail = false;
 		showowConfirm = false;
 		owText = '';
+	}
+
+	function handleModalClosed() {
+		$AppData.modalClosed = false;
+		console.log('comp modal closed');
 	}
 
 	async function handleCardSort(event) {
