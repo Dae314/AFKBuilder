@@ -3223,7 +3223,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 44,
+		engraving_benchmark: 41,
 	},
 	{ id: 'tidus',
 		name: 'Tidus',
