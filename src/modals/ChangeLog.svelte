@@ -5,6 +5,15 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.13.13',
+			changes: [
+				'Add new hero Astar',
+				'Update Antandra engraving benchmark: E41',
+				'Update Tasi Teleportation ability description',
+				'Fix typo on Hodgkin skill 4',
+				'Fix typo on Framton 9f and skill 1',
+			],
+		},
 		{ version: 'v1.13.8',
 			changes: [
 				'Add new hero Framton',
@@ -67,18 +76,6 @@
 			'Updated Ezio\'s 3rd skill description',
 			'Updated Gwyneth\'s 4th skill description',
 			'Updated Leonardo\'s benchmark to 303',
-			],
-		},
-		{ version: 'v1.8.14',
-			changes: [
-				'Added new hero Mishka',
-				'Added Graveborn engraving information',
-				'Added Dual Divinity artifact',
-				'Updated Walker ultimate skill description',
-				'Updated Oden Eye of Evil skill description',
-				'Updated Theowyn Spectral Curse skill description',
-				'Updated Safiya Spectral Disruption skill description',
-				'Optimized Granit SI description',
 			],
 		},
 	]
