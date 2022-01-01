@@ -5030,7 +5030,7 @@ const HeroData = readable([
 			{ name: 'Teleportation',
 				type: 'level',
 				image: './img/skills/tasi4.png',
-				desc: 'Tasi is able to teleport behind an ally or enemy\'s back if she is struck. If Tasi teleports next to an ally, the ally\'s Haste will be increased, if Tasi teleports behind an enemy, they will be dealt <em>140%</em> damage. The ability has a cooldown period of <em>6</em> seconds.',
+				desc: 'After suffering damage, Tasi extricates herself from any control abilities that are affecting her and teleports behind a random enemy target. While teleporting, Tasi is unable to be attacked. After teleporting, Tasi increases her nearby allies\' Haste and attacks any nearby enemies, dealing <em>140%</em> damage to them. This ability has a cooldown period of <em>6</em> seconds.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Cooldown time is reduced each time Tasi is struck.',
