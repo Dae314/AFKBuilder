@@ -6171,7 +6171,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 0,
+		si_benchmark: 30,
 		sig_item: {
 			name: 'Burning Wave',
 			image: './img/si/astar.png',
