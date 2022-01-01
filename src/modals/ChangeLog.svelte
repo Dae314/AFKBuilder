@@ -5,10 +5,13 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
-		{ version: 'v1.13.13',
+		{ version: 'v1.13.16',
 			changes: [
 				'Add new hero Astar',
-				'Update Antandra engraving benchmark: E41',
+				'Update Hodgkin, Daimon, Estrilda, Mortas, Albedo, Flora, Treznor engraving benchmark: E30',
+				'Update Twins, Leondardo, Rosaline, Merlin engraving benchmark: E33',
+				'Update Antandra, Ferael, Zolrath engraving benchmark: E41',
+				'Update Haelus, Mishka, Drez, Thane, Theowyn, Zaphrael, Ezizh, Athalia, Belinda, Arthur, Alna engraving benchmark: E60',
 				'Update Tasi Teleportation ability description',
 				'Fix typo on Hodgkin skill 4',
 				'Fix typo on Framton 9f and skill 1',
