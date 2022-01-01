@@ -8433,7 +8433,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 38,
+		engraving_benchmark: 60,
 	},
 	{ id: 'twins',
 		name: 'Elijah & Lailah',
