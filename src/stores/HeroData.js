@@ -9177,7 +9177,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 41,
+		engraving_benchmark: 60,
 	},
 	{ id: 'alna',
 		name: 'Alna',
