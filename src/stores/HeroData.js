@@ -6077,7 +6077,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 0,
+		engraving_benchmark: 60,
 	},
 	{ id: 'astar',
 		name: 'Astar',
