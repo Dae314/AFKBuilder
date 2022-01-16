@@ -563,7 +563,11 @@
 										<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
 									</div>
 									<div class="attrImgContainer">
-										<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
+										{#if hero.tier === 'legendary'}
+											<img class="attrImage classImg" src="./img/classes/fodder_{hero.class.toLowerCase()}.png" alt={hero.class}>
+										{:else}
+											<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
+										{/if}
 										<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
 									</div>
 								</div>
@@ -654,7 +658,11 @@
 										<div class="tooltip tooltip-type"><span class="tooltipText">{hero.type}</span></div>
 									</div>
 									<div class="attrImgContainer">
-										<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
+										{#if hero.tier === 'legendary'}
+											<img class="attrImage classImg" src="./img/classes/fodder_{hero.class.toLowerCase()}.png" alt={hero.class}>
+										{:else}
+											<img class="attrImage classImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt={hero.class}>
+										{/if}
 										<div class="tooltip tooltip-class"><span class="tooltipText">{hero.class}</span></div>
 									</div>
 								</div>

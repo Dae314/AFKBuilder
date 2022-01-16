@@ -49,7 +49,11 @@
 					<div class="tooltip"><span class="tooltipText">{hero.type}</span></div>
 				</div>
 				<div class="attrImgContainer">
-					<img draggable="false" class="attrImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt="{hero.class}">
+					{#if hero.tier === 'legendary'}
+						<img draggable="false" class="attrImg" src="./img/classes/fodder_{hero.class.toLowerCase()}.png" alt="{hero.class}">
+					{:else}
+						<img draggable="false" class="attrImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt="{hero.class}">
+					{/if}
 					<div class="tooltip"><span class="tooltipText">{hero.class}</span></div>
 				</div>
 			</div>
