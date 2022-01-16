@@ -10802,7 +10802,7 @@ const HeroData = readable([
 			{ name: 'Blazing Meteor',
 				type: 'level',
 				image: './img/skills/framton1.png',
-				desc: 'Framton throws all enemies in front of him up into the air, who come crashing down several moments later onto the nearest enemy target, dealing <em>410%</em> damage to all affected enemies, also stunning them for <em>2</em> seconds. Every enemy that Framton successfully throws into the air increases his Attack Rating for <em>8</em> seconds by a value equal to <em>15%</em> of each enemy\'s Attack Rating, but the total value cannot exceed <em>30%</em> of his own current Attack Rating. This ability does not affect bosses or control-immune enemies.',
+				desc: 'Framton throws all enemies in front of him up into the air, who come crashing down several moments later onto the nearest enemy target, dealing <em>410%</em> damage to all affected enemies, also stunning them for <em>2</em> seconds. Every enemy that Framton successfully throws into the air increases his Attack Rating for <em>8</em> seconds by a value equal to <em>15%</em> of each enemy\'s Attack Rating, but the total value cannot exceed <em>30%</em> of his own current Attack Rating. Bosses and control-immune enemies will not be thrown into the air when this ability is used.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Damage is increased to <em>450%</em>.',
