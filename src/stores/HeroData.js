@@ -9753,7 +9753,7 @@ const HeroData = readable([
 						unlock: 221,
 						type: 'level',
 					},
-					{ desc: 'During battle and while Ezizh is alive, his allies shall receive an additional <em>100</em> Energy Points when they kill an enemy target.',
+					{ desc: 'The ability remains effective after Ezizh dies but its effects are reduced by <em>20%</em>. During the battle and while Ezizh is alive, his allies shall receive an additional <em>100</em> Energy points when they kill an enemy target.',
 						unlock: 60,
 						type: 'engraving',
 					},
