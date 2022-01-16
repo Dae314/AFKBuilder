@@ -5982,7 +5982,7 @@ const HeroData = readable([
 			{ name: 'Dire Wolves',
 				type: 'level',
 				image: './img/skills/mishka2.png',
-				desc: 'Mishka fights with two wolves by her side. The wolves possess <em>150%</em> of Mishka\'s Attack Rating and <em>50%</em> of all her other attributes. When a wolf attacks an enemy they will mark the enemy with a "Feral Bite" mark, which lasts for <em>10%</em> seconds. Each time Mishka deals damage to a marked enemy, she will deal additional damage equal to <em>5%</em> of the enemy\'s current health, but the damage shall not exceed <em>300%</em> of Mishka\'s Attack Rating.',
+				desc: 'Mishka fights with two wolves by her side. The wolves possess <em>150%</em> of Mishka\'s Attack Rating and <em>50%</em> of all her other attributes. When a wolf attacks an enemy they will mark the enemy with a "Feral Bite" mark, which lasts for <em>10</em> seconds. Each time Mishka deals damage to a marked enemy, she will deal additional damage equal to <em>5%</em> of the enemy\'s current health, but the damage shall not exceed <em>300%</em> of Mishka\'s Attack Rating.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Other attributes shared by the wolves are increased to <em>80%</em>.',
