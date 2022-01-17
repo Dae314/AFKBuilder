@@ -49,7 +49,11 @@
 					<div class="tooltip"><span class="tooltipText">{hero.type}</span></div>
 				</div>
 				<div class="attrImgContainer">
-					<img draggable="false" class="attrImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt="{hero.class}">
+					{#if hero.tier === 'legendary'}
+						<img draggable="false" class="attrImg" src="./img/classes/fodder_{hero.class.toLowerCase()}.png" alt="{hero.class}">
+					{:else}
+						<img draggable="false" class="attrImg" src="./img/classes/{hero.class.toLowerCase()}.png" alt="{hero.class}">
+					{/if}
 					<div class="tooltip"><span class="tooltipText">{hero.class}</span></div>
 				</div>
 			</div>
@@ -87,14 +91,26 @@
 						{#if skill.type === 'level'}
 							<p class="skillUnlock">lv {skill.unlock}:</p>
 						{:else if skill.type === 'engraving'}
-							<p class="skillUnlock engraveUnlock">Engraving lv {skill.unlock}:</p>
+							<p class="skillUnlock engraveUnlock specialUnlock">Engraving lv {skill.unlock}:</p>
+						{:else if skill.type === 'ascension'}
+							<p class="skillUnlock ascensionUnlock specialUnlock">Ascension lv {skill.unlock}:</p>
+						{:else if skill.type === 'si'}
+							<p class="skillUnlock siUnlock specialUnlock">Signature Item lv {skill.unlock}:</p>
+						{:else if skill.type === 'furn'}
+							<p class="skillUnlock furnUnlock specialUnlock">Furniture lv {skill.unlock}:</p>
 						{/if}
 						<p class="skillDesc">{@html skill.desc}</p>
 						{#each skill.upgrades as upgrade}
 							{#if upgrade.type === 'level'}
 								<p class="skillUnlock">lv {upgrade.unlock}:</p>
 							{:else if upgrade.type === 'engraving'}
-								<p class="skillUnlock engraveUnlock">Engraving lv {upgrade.unlock}:</p>
+								<p class="skillUnlock engraveUnlock specialUnlock">Engraving lv {upgrade.unlock}:</p>
+							{:else if upgrade.type === 'ascension'}
+								<p class="skillUnlock ascensionUnlock specialUnlock">Ascension lv {upgrade.unlock}:</p>
+							{:else if upgrade.type === 'si'}
+								<p class="skillUnlock siUnlock specialUnlock">Signature Item lv {upgrade.unlock}:</p>
+							{:else if upgrade.type === 'furn'}
+								<p class="skillUnlock furnUnlock specialUnlock">Furniture lv {upgrade.unlock}:</p>
 							{/if}
 							<p class="skillDesc">{@html upgrade.desc}</p>
 						{/each}
@@ -270,7 +286,7 @@
 		margin: 0;
 		padding-bottom: 5px;
 	}
-	.engraveUnlock {
+	.specialUnlock {
 		color: var(--appColorPrimary);
 	}
 	.skillDesc {
