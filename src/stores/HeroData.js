@@ -10281,7 +10281,7 @@ const HeroData = readable([
 				{ desc: 'Normal Attacks that deal critical damage now have a freezing effect that lasts for <em>3</em> seconds.',
 					unlock: 20,
 				},
-				{ desc: 'Increases the duration of most negative debuff effects which are currently affecting all enemies on the battlefield by <em>60%</em> seconds.',
+				{ desc: 'Increases the duration of most negative debuff effects which are currently affecting all enemies on the battlefield by <em>60</em> seconds.',
 					unlock: 30,
 				},
 			],
