@@ -5,6 +5,19 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.13.25',
+			changes: [
+				'Added Talene - The Resurging Flame',
+				'Re-translated Ezizh\'s SI descriptions (Thanks Bob49)',
+				'Changed fodder hero class icons to generic icons',
+				'Updated Rigby\'s skill descriptions',
+				'Updated Fawkes\' SI',
+				'Update Ezizh E60 effect',
+				'Updated Framton\'s ult description',
+				'Fixed typo on Mishka "Dire Wolves" skill',
+				'Fixed typo on Khaz SI30 skill',
+			],
+		},
 		{ version: 'v1.13.16',
 			changes: [
 				'Add new hero Astar',
@@ -59,26 +72,6 @@
 			'Added new hero Treznor',
 			'Updated Daimon\'s 3rd skill "Stitchy converts 100% of the damage he DEALT...", thanks Bob49!',
 			'Updated Ulmus\'s ultimate skill description',
-			],
-		},
-		{ version: 'v1.8.18',
-		changes: [
-			'Updated npm packages',
-			'Add new hero Haelus',
-			'Updated Izold\'s furniture description',
-			'Updated Belinda\'s furniture description',
-			'Updated Albedo\'s 4th skill description',
-			'Updated Ainz\'s 4th skill description',
-			'Updated QUEEN\'s SI description',
-			'Updated Walker\'s 4th skill description',
-			'Updated Khasos\' furniture description',
-			'Updated Warek\'s furniture description',
-			'Updated Drez\'s 4th skill description',
-			'Updated Respen\'s SI description',
-			'Updated Lucretia\'s 4th skill description',
-			'Updated Ezio\'s 3rd skill description',
-			'Updated Gwyneth\'s 4th skill description',
-			'Updated Leonardo\'s benchmark to 303',
 			],
 		},
 	]
