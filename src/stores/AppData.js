@@ -240,6 +240,7 @@ function buildAppData(data) {
 		{name: 'maxCompTags', default: maxCompTags},
 		{name: 'maxNoteLen', default: maxNoteLen},
 		{name: 'compSearchStr', default: ''},
+		{name: 'jwt', default: ''},
 		{name: 'HL', default: {}},
 		{name: 'MH', default: {}},
 		{name: 'REC', default: {}},
@@ -542,6 +543,37 @@ async function performCompsValidation() {
 	}
 }
 
+// validate that any existing JWT is good, otherwise erase it
+async function validateJWT(appdata) {
+	const uri = REST_URI;
+	if(appdata.jwt) {
+		try {
+			const response = await fetch(`${uri}/token/validation`, {
+				method: 'POST',
+				mode: 'cors',
+				cache: 'no-cache',
+				headers: {
+					'Authorization': `Bearer ${appdata.jwt}`,
+					'Content-Type': 'application/json',
+				},
+				body: `{ "token": "${appdata.jwt}" }`,
+			});
+			if(response.status !== 200) {
+				// bad response code: assume JWT is invalid and erase it
+				appdata.jwt = '';
+			} else {
+				const responseData = await response.json();
+				if (Date.now() >= responseData.exp * 1000) {
+					// token has expired, erase it
+					appdata.jwt = '';
+				}
+			}
+		} catch(err) {
+			throw new Error(`An error occurred while fetching JWT token validation: ${err}`);
+		}
+	}
+}
+
 if(window.localStorage.getItem('appData') !== null) {
 	// Load AppData from localstorage if it exists
 	appdata = JSON.parse(window.localStorage.getItem('appData'))
@@ -553,6 +585,7 @@ if(window.localStorage.getItem('appData') !== null) {
 	for(let comp of appdata.Comps) {
 		comp.lastUpdate = new Date(comp.lastUpdate);
 	}
+	validateJWT(appdata);
 	// updateTestComps(appdata);
 } else {
 	// Otherwise initialize a clean AppData
