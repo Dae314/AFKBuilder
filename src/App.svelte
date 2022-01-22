@@ -17,6 +17,7 @@
 	import MyHeroes from './components/MyHeroes.svelte';
 	import Recommendations from './components/Recommendations.svelte';
 	import About from './components/About.svelte';
+	import Profile from './components/Profile.svelte';
 
 	export let version = '';
 	const menuItems = [ 'Comps', 'Recommendations', 'My Heroes', 'Hero List', 'About' ];
@@ -51,6 +52,10 @@
 					isMobile: isMobile,
 					},
 			}),
+		'/profile': wrap({
+			component: Profile,
+			props: { isMobile: isMobile },
+		}),
 	}
 
 	// setup GraphQL with ApolloClient

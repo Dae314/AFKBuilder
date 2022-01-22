@@ -15,7 +15,7 @@
 		// navigate to the correct route
 		// note: clears all extraneous URL parameters
 		window.location.assign(`${window.location.origin}/#/${item}`);
-		dispatch('saveData');
+		dispatch('routeEvent', {action: 'saveData'});;
 		showMobileMenu = false;
 	}
 
@@ -31,7 +31,11 @@
 	}
 
 	function handleUserClick() {
-		console.log('user clicked');
+		// navigate to the user's profile
+		// note: clears all extraneous URL parameters
+		window.location.assign(`${window.location.origin}/#/profile`);
+		dispatch('routeEvent', {action: 'saveData'});
+		showMobileMenu = false;
 	}
 
 	function handleLoginClick() {
