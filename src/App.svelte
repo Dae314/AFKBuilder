@@ -7,6 +7,10 @@
 	import {pop as spaRoutePop} from 'svelte-spa-router';
 	import {wrap} from 'svelte-spa-router/wrap';
 
+	// imports for GraphQL
+	import ApolloClient from 'apollo-boost';
+	import { setClient } from "svelte-apollo";
+
 	import Header from './components/Header.svelte';
 	import Comps from './components/Comps.svelte';
 	import HeroList from './components/HeroList.svelte';
@@ -48,6 +52,20 @@
 					},
 			}),
 	}
+
+	// setup GraphQL with ApolloClient
+	const client = new ApolloClient({
+		uri: GQL_URI,
+		request: operation => {
+			const token = $AppData.jwt;
+			if(token) {
+				operation.setContext({
+					headers: { authorization: `Bearer ${token}` },
+				});
+			}
+		},
+	});
+	setClient(client); // provide ApolloClient to all components in the app
 
 	onMount(async () => {
 		handleWindowResize();
