@@ -385,7 +385,7 @@
 	function handleImportData() {
 		open(ImportData, 
 		{ dataHandler: handleMyHeroesInput,
-			saveAppData: () => dispatch('saveData'),
+			saveAppData: () => dispatch('routeEvent', {action: 'saveData'}),
 			title: 'Paste My Hero Data:',
 		},
 		{ closeButton: ModalCloseButton,
