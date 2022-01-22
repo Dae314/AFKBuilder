@@ -543,7 +543,7 @@ async function performCompsValidation() {
 	}
 }
 
-// validate that any existing JWT is good, otherwise erase it
+// if the jwt provided is good, return true otherwise return false
 async function validateJWT(jwt) {
 	const uri = REST_URI;
 	if(jwt) {
@@ -571,6 +571,12 @@ async function validateJWT(jwt) {
 	}
 }
 
+// assumes a valid JWT, get details of the logged in user
+// returns an object with user properties
+async function getUserDetails(jwt) {
+	return {};
+}
+
 if(window.localStorage.getItem('appData') !== null) {
 	// Load AppData from localstorage if it exists
 	appdata = JSON.parse(window.localStorage.getItem('appData'))
@@ -583,6 +589,8 @@ if(window.localStorage.getItem('appData') !== null) {
 		comp.lastUpdate = new Date(comp.lastUpdate);
 	}
 	if(!validateJWT(appdata.jwt)) appdata.jwt = '';
+
+	getUserDetails(appdata.jwt).then(result => console.log(result));
 	// updateTestComps(appdata);
 } else {
 	// Otherwise initialize a clean AppData
