@@ -241,6 +241,9 @@ function buildAppData(data) {
 		{name: 'maxNoteLen', default: maxNoteLen},
 		{name: 'compSearchStr', default: ''},
 		{name: 'jwt', default: ''},
+		{name: 'username', default: ''},
+		{name: 'email', default: ''},
+		{name: 'id', default: ''},
 		{name: 'HL', default: {}},
 		{name: 'MH', default: {}},
 		{name: 'REC', default: {}},
@@ -574,7 +577,33 @@ async function validateJWT(jwt) {
 // assumes a valid JWT, get details of the logged in user
 // returns an object with user properties
 async function getUserDetails(jwt) {
-	return {};
+	const uri = REST_URI;
+	if(jwt) {
+		try {
+			const response = await fetch(`${uri}/users/me`, {
+				method: 'GET',
+				mode: 'cors',
+				cache: 'no-cache',
+				headers: {
+					'Authorization': `Bearer ${jwt}`,
+				},
+			});
+			if(response.status !== 200) {
+				throw new Error(`An error occurred while fetching user information: ${response.json()}`)
+			} else {
+				const responseData = await response.json();
+				return {
+					id: responseData.id,
+					username: responseData.username,
+					email: responseData.email,
+					my_heroes: responseData.my_heroes,
+					local_comps: responseData.local_comps,
+				}
+			}
+		} catch(err) {
+			throw new Error(`An error occurred while fetching user information: ${err}`);
+		}
+	}
 }
 
 if(window.localStorage.getItem('appData') !== null) {
@@ -590,7 +619,16 @@ if(window.localStorage.getItem('appData') !== null) {
 	}
 	if(!validateJWT(appdata.jwt)) appdata.jwt = '';
 
-	getUserDetails(appdata.jwt).then(result => console.log(result));
+	if(appdata.jwt) {
+		// user is logged in, try to populate the user's data
+		getUserDetails(appdata.jwt).then(user => {
+				appdata.id = user.id;
+				appdata.username = user.username;
+				appdata.email = user.email;
+				window.localStorage.setItem('appData', JSON.stringify(appdata));
+			}
+		);
+	}
 	// updateTestComps(appdata);
 } else {
 	// Otherwise initialize a clean AppData
