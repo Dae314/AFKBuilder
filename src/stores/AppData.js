@@ -544,29 +544,26 @@ async function performCompsValidation() {
 }
 
 // validate that any existing JWT is good, otherwise erase it
-async function validateJWT(appdata) {
+async function validateJWT(jwt) {
 	const uri = REST_URI;
-	if(appdata.jwt) {
+	if(jwt) {
 		try {
 			const response = await fetch(`${uri}/token/validation`, {
 				method: 'POST',
 				mode: 'cors',
 				cache: 'no-cache',
 				headers: {
-					'Authorization': `Bearer ${appdata.jwt}`,
+					'Authorization': `Bearer ${jwt}`,
 					'Content-Type': 'application/json',
 				},
-				body: `{ "token": "${appdata.jwt}" }`,
+				body: `{ "token": "${jwt}" }`,
 			});
 			if(response.status !== 200) {
-				// bad response code: assume JWT is invalid and erase it
-				appdata.jwt = '';
+				// bad response code: assume JWT is invalid
+				return false;
 			} else {
 				const responseData = await response.json();
-				if (Date.now() >= responseData.exp * 1000) {
-					// token has expired, erase it
-					appdata.jwt = '';
-				}
+				return Date.now() >= responseData.exp * 1000; // returns false if token is expired
 			}
 		} catch(err) {
 			throw new Error(`An error occurred while fetching JWT token validation: ${err}`);
@@ -585,7 +582,7 @@ if(window.localStorage.getItem('appData') !== null) {
 	for(let comp of appdata.Comps) {
 		comp.lastUpdate = new Date(comp.lastUpdate);
 	}
-	validateJWT(appdata);
+	if(!validateJWT(appdata.jwt)) appdata.jwt = '';
 	// updateTestComps(appdata);
 } else {
 	// Otherwise initialize a clean AppData
