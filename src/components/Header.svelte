@@ -6,6 +6,11 @@
 	const dispatch = createEventDispatcher();
 	let showMobileMenu = false;
 
+	onMount(async () => {
+		const mediaListener = window.matchMedia("(max-width: 767px)");
+		mediaListener.addEventListener('change', mediaQueryHandler);
+	});
+
 	function handleMenuChange(item) {
 		// navigate to the correct route
 		// note: clears all extraneous URL parameters
@@ -25,10 +30,13 @@
 		}
 	}
 
-	onMount(async () => {
-		const mediaListener = window.matchMedia("(max-width: 767px)");
-		mediaListener.addEventListener('change', mediaQueryHandler);
-	});
+	function handleUserClick() {
+		console.log('user clicked');
+	}
+
+	function handleLoginClick() {
+		console.log('login clicked');
+	}
 </script>
 
 <nav>
@@ -45,11 +53,28 @@
 					<button type="button" class:selected={$AppData.activeView === item.toLowerCase().replace(/\s/g, '')}>{item}</button>
 				</li>
 			{/each}
-			<li class="discordMobileButton" on:click={() => window.open('https://discord.com/invite/sjxgnmkvSf', '_blank')}>
+			{#if $AppData.jwt}
+				<li class="mobileUserItem" on:click={handleUserClick}>
+					<button type="button" class:selected={$AppData.activeView === 'profile'}>Profile</button>
+				</li>
+			{:else}
+				<li class="mobileUserItem" on:click={handleLoginClick}>
+					<button type="button" class="userButton">Login</button>
+				</li>
+			{/if}
+			<li class="discordButton" on:click={() => window.open('https://discord.com/invite/sjxgnmkvSf', '_blank')}>
 				<div><img src="./img/app/discord-logo-white.png" alt="Discord"><span>Join the Discord!</span></div>
 			</li>
 		</ul>
-		<a href="https://discord.com/invite/sjxgnmkvSf" class="discordButton" target="_blank" rel="noreferrer noopener"><img src="./img/app/discord-logo-white.png" alt="Discord"></a>
+		{#if $AppData.jwt}
+			<div class="desktopUserItem" on:click={handleUserClick}>
+				<button type="button" class:selected={$AppData.activeView === 'profile'} class="desktopUserButton">Profile</button>
+			</div>
+		{:else}
+			<div class="desktopUserItem" on:click={handleLoginClick}>
+				<button type="button" class="desktopUserButton">Login</button>
+			</div>
+		{/if}
 	</div>
 </nav>
 
@@ -168,31 +193,6 @@
 					color: rgba(240, 240, 242, 1.0);
 				}
 			}
-			&:last-child {
-				font-size: 20px;
-				padding-left: 30px;
-				div {
-					color: rgba(240, 240, 242, 0.7);
-					text-decoration: none;
-				}
-				span {
-					padding-left: 10px;
-					position: relative;
-					top: -10px;
-				}
-				img {
-					max-width: 30px;
-					opacity: 0.7;
-				}
-				&:hover {
-					div {
-						color: rgba(240, 240, 242, 1.0);
-					}
-					img {
-						opacity: 1.0;
-					}
-				}
-			}
 		}
 		button {
 			background: none;
@@ -212,6 +212,37 @@
 		button.selected {
 			color: rgba(240, 240, 242, 1.0);
 		}
+		.mobileUserItem {
+			align-items: center;
+			display: flex;
+		}
+		.discordButton {
+			align-items: center;
+			display: flex;
+			font-size: 20px;
+			div {
+				align-items: center;
+				color: rgba(240, 240, 242, 0.7);
+				display: flex;
+				text-decoration: none;
+				img {
+					margin-left: 31px;
+					max-width: 30px;
+					opacity: 0.7;
+				}
+				span {
+					margin-left: 10px;
+				}
+				&:hover {
+					div {
+						color: rgba(240, 240, 242, 1.0);
+					}
+					img {
+						opacity: 1.0;
+					}
+				}
+			}
+		}
 	}
 	.navbar-list.mobile {
 		background-color: rgba(0, 0, 0, 0.8);
@@ -221,13 +252,30 @@
 		left: 0;
 		position: fixed;
 	}
-	.discordButton {
-		align-items: center;
+	.desktopUserItem {
+		cursor: pointer;
 		display: none;
-		justify-content: center;
 		margin-left: auto;
-		img {
-			max-width: 30px;
+		padding-bottom: 20px;
+		padding-top: 20px;
+		button {
+			background: none;
+			border: none;
+			color: rgba(240, 240, 242, 0.7);
+			cursor: pointer;
+			display: block;
+			font-size: 20px;
+			padding: 4px 10px;
+			text-align: center;
+			text-decoration: none;
+			&:focus {
+				outline: 0;
+			}
+		}
+		&:hover {
+			button {
+				color: rgba(240, 240, 242, 1.0);
+			}
 		}
 	}
 	@media only screen and (min-width: 767px) {
@@ -264,9 +312,6 @@
 				&:before {
 					display: none;
 				}
-				&:last-child {
-					display: none;
-				}
 			}
 			button {
 				color: rgba(240, 240, 242, 0.7);
@@ -275,6 +320,22 @@
 			button.selected {
 				color: rgba(240, 240, 242, 1.0);
 			}
+			.mobileUserItem {
+				display: none;
+			}
+			.discordButton {
+				div {
+					img {
+						margin-left: 0;
+					}
+					span {
+						display: none;
+					}
+				}
+			}
+		}
+		.desktopUserItem {
+			display: flex;
 		}
 		.logoContainer {
 			display: block;
@@ -300,9 +361,6 @@
 					transform: rotateZ(360deg);
 				}
 			}
-		}
-		.discordButton {
-			display: flex;
 		}
 	}
 </style>
