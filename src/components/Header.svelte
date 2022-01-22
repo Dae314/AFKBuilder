@@ -55,7 +55,7 @@
 			{/each}
 			{#if $AppData.jwt}
 				<li class="mobileUserItem" on:click={handleUserClick}>
-					<button type="button" class:selected={$AppData.activeView === 'profile'}>Profile</button>
+					<button type="button" class:selected={$AppData.activeView === 'profile'}>{$AppData.username || 'Profile'}</button>
 				</li>
 			{:else}
 				<li class="mobileUserItem" on:click={handleLoginClick}>
@@ -68,7 +68,7 @@
 		</ul>
 		{#if $AppData.jwt}
 			<div class="desktopUserItem" on:click={handleUserClick}>
-				<button type="button" class:selected={$AppData.activeView === 'profile'} class="desktopUserButton">Profile</button>
+				<button type="button" class:selected={$AppData.activeView === 'profile'} class="desktopUserButton">{$AppData.username || 'Profile'}</button>
 			</div>
 		{:else}
 			<div class="desktopUserItem" on:click={handleLoginClick}>
