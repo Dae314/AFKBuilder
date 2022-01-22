@@ -546,66 +546,6 @@ async function performCompsValidation() {
 	}
 }
 
-// if the jwt provided is good, return true otherwise return false
-async function validateJWT(jwt) {
-	const uri = REST_URI;
-	if(jwt) {
-		try {
-			const response = await fetch(`${uri}/token/validation`, {
-				method: 'POST',
-				mode: 'cors',
-				cache: 'no-cache',
-				headers: {
-					'Authorization': `Bearer ${jwt}`,
-					'Content-Type': 'application/json',
-				},
-				body: `{ "token": "${jwt}" }`,
-			});
-			if(response.status !== 200) {
-				// bad response code: assume JWT is invalid
-				return false;
-			} else {
-				const responseData = await response.json();
-				return Date.now() >= responseData.exp * 1000; // returns false if token is expired
-			}
-		} catch(err) {
-			throw new Error(`An error occurred while fetching JWT token validation: ${err}`);
-		}
-	}
-}
-
-// assumes a valid JWT, get details of the logged in user
-// returns an object with user properties
-async function getUserDetails(jwt) {
-	const uri = REST_URI;
-	if(jwt) {
-		try {
-			const response = await fetch(`${uri}/users/me`, {
-				method: 'GET',
-				mode: 'cors',
-				cache: 'no-cache',
-				headers: {
-					'Authorization': `Bearer ${jwt}`,
-				},
-			});
-			if(response.status !== 200) {
-				throw new Error(`An error occurred while fetching user information: ${response.json()}`)
-			} else {
-				const responseData = await response.json();
-				return {
-					id: responseData.id,
-					username: responseData.username,
-					email: responseData.email,
-					my_heroes: responseData.my_heroes,
-					local_comps: responseData.local_comps,
-				}
-			}
-		} catch(err) {
-			throw new Error(`An error occurred while fetching user information: ${err}`);
-		}
-	}
-}
-
 if(window.localStorage.getItem('appData') !== null) {
 	// Load AppData from localstorage if it exists
 	appdata = JSON.parse(window.localStorage.getItem('appData'))
@@ -616,18 +556,6 @@ if(window.localStorage.getItem('appData') !== null) {
 	// JSON doesn't parse date objects correctly, so need to re-initialize them
 	for(let comp of appdata.Comps) {
 		comp.lastUpdate = new Date(comp.lastUpdate);
-	}
-	if(!validateJWT(appdata.jwt)) appdata.jwt = '';
-
-	if(appdata.jwt) {
-		// user is logged in, try to populate the user's data
-		getUserDetails(appdata.jwt).then(user => {
-				appdata.id = user.id;
-				appdata.username = user.username;
-				appdata.email = user.email;
-				window.localStorage.setItem('appData', JSON.stringify(appdata));
-			}
-		);
 	}
 	// updateTestComps(appdata);
 } else {
