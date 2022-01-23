@@ -1,0 +1,61 @@
+<script context="module">
+	// if the jwt provided is good, return true otherwise return false
+	export async function validateJWT(jwt) {
+		const uri = REST_URI;
+		if(jwt) {
+			try {
+				const response = await fetch(`${uri}/token/validation`, {
+					method: 'POST',
+					mode: 'cors',
+					cache: 'no-cache',
+					headers: {
+						'Authorization': `Bearer ${jwt}`,
+						'Content-Type': 'application/json',
+					},
+					body: `{ "token": "${jwt}" }`,
+				});
+				if(response.status !== 200) {
+					// bad response code: assume JWT is invalid
+					return false;
+				} else {
+					const responseData = await response.json();
+					return Date.now() >= responseData.exp * 1000; // returns false if token is expired
+				}
+			} catch(err) {
+				throw new Error(`An error occurred while fetching JWT token validation: ${err}`);
+			}
+		}
+	}
+
+	// assumes a valid JWT, get details of the logged in user
+	// returns an object with user properties
+	export async function getUserDetails(jwt) {
+		const uri = REST_URI;
+		if(jwt) {
+			try {
+				const response = await fetch(`${uri}/users/me`, {
+					method: 'GET',
+					mode: 'cors',
+					cache: 'no-cache',
+					headers: {
+						'Authorization': `Bearer ${jwt}`,
+					},
+				});
+				if(response.status !== 200) {
+					throw new Error(`An error occurred while fetching user information: ${response.json()}`)
+				} else {
+					const responseData = await response.json();
+					return {
+						id: responseData.id,
+						username: responseData.username,
+						email: responseData.email,
+						my_heroes: responseData.my_heroes,
+						local_comps: responseData.local_comps,
+					}
+				}
+			} catch(err) {
+				throw new Error(`An error occurred while fetching user information: ${err}`);
+			}
+		}
+	}
+</script>
