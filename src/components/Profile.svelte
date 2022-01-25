@@ -42,7 +42,8 @@
 	.profileContainer {
 		display: flex;
 		flex-direction: column;
-		height: 100%;
+		height: calc(100vh - var(--headerHeight));
+		overflow-y: auto;
 		width: 100%;
 	}
 	.titleArea {
@@ -73,6 +74,14 @@
 			.headText {
 				font-size: 1.3rem;
 				font-weight: bold;
+			}
+		}
+	}
+	@media only screen and (min-width: 767px) {
+		.headlineArea {
+			flex-direction: row;
+			.headBox {
+				margin: 0px 20px;
 			}
 		}
 	}
