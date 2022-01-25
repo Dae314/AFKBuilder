@@ -94,4 +94,32 @@
 			}
 		}
 	}
+
+	// get a list of comps that the user has published, returns the array
+	/*[
+			{ id: ID, uuid: ID, updatedAt: String }
+	]*/
+	export async function getPublishedComps(jwt) {
+		const uri = REST_URI;
+		if(jwt) {
+			try {
+				const response = await fetch(`${uri}/custom-comps/getmycomps`, {
+					method: 'GET',
+					mode: 'cors',
+					cache: 'no-cache',
+					headers: {
+						'Authorization': `Bearer ${jwt}`,
+					},
+				});
+				if(response.status !== 200) {
+					throw new Error(`An error occurred while fetching user's published comps: ${response.json()}`)
+				} else {
+					const responseData = await response.json();
+					return responseData.data.comps;
+				}
+			} catch(err) {
+				throw new Error(`An error occurred while fetching user's published comps: ${err}`);
+			}
+		}
+	}
 </script>
