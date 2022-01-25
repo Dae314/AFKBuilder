@@ -63,7 +63,7 @@
 	const client = new ApolloClient({
 		uri: GQL_URI,
 		request: operation => {
-			const token = $AppData.jwt;
+			const token = $AppData.user.jwt;
 			if(token) {
 				operation.setContext({
 					headers: { authorization: `Bearer ${token}` },
@@ -77,17 +77,15 @@
 		handleWindowResize();
 
 		// check user's JWT on app start
-		if(validateJWT($AppData.jwt)) {
+		if(validateJWT($AppData.user.jwt)) {
 			// user is logged in, try to populate the user's data
-			getUserDetails($AppData.jwt).then(user => {
-					$AppData.id = user.id;
-					$AppData.username = user.username;
-					$AppData.email = user.email;
-					saveAppData();
-				}
-			);
+			const user = await getUserDetails($AppData.user.jwt);
+			$AppData.user.id = user.id;
+			$AppData.user.username = user.username;
+			$AppData.user.email = user.email;
+			saveAppData();
 		} else {
-			$AppData.jwt = '';
+			$AppData.user.jwt = '';
 		}
 	});
 

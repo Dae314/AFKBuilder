@@ -240,15 +240,21 @@ function buildAppData(data) {
 		{name: 'maxCompTags', default: maxCompTags},
 		{name: 'maxNoteLen', default: maxNoteLen},
 		{name: 'compSearchStr', default: ''},
-		{name: 'jwt', default: ''},
-		{name: 'username', default: ''},
-		{name: 'email', default: ''},
-		{name: 'id', default: ''},
+		{name: 'user', default: {}},
 		{name: 'HL', default: {}},
 		{name: 'MH', default: {}},
 		{name: 'REC', default: {}},
 		{name: 'Comps', default: []},
 	];
+	const expectedUserProps = [
+		{name: 'jwt', default: ''},
+		{name: 'username', default: ''},
+		{name: 'email', default: ''},
+		{name: 'id', default: ''},
+		{name: 'local_comps', default: {}},
+		{name: 'liked_comps', default: []},
+		{name: 'published_comps', default: []},
+	]
 	const expectedHLProps = [
 		{name: 'Sort', default: 'name'},
 		{name: 'Order', default: 'asc'},
@@ -311,6 +317,15 @@ function buildAppData(data) {
 	data.maxDescLen = expectedProps.find(e => e.name === 'maxDescLen').default;
 	data.maxCompTags = expectedProps.find(e => e.name === 'maxCompTags').default;
 	data.maxNoteLen = expectedProps.find(e => e.name === 'maxNoteLen').default;
+
+	// add User props as required
+	for(const prop of expectedUserProps) {
+		if(!(prop.name in data.user)) data.user[prop.name] = prop.default;
+	}
+	// delete extra User props
+	for(let prop in data.user) {
+		if(!expectedUserProps.some(e => e.name === prop)) delete data.user[prop];
+	}
 
 	// add HL props as required
 	for(const prop of expectedHLProps) {

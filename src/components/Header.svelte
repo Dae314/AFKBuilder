@@ -57,9 +57,9 @@
 					<button type="button" class:selected={$AppData.activeView === item.toLowerCase().replace(/\s/g, '')}>{item}</button>
 				</li>
 			{/each}
-			{#if $AppData.jwt}
+			{#if $AppData.user.jwt}
 				<li class="mobileUserItem" on:click={handleUserClick}>
-					<button type="button" class:selected={$AppData.activeView === 'profile'}>{$AppData.username || 'Profile'}</button>
+					<button type="button" class:selected={$AppData.activeView === 'profile'}>{$AppData.user.username || 'Profile'}</button>
 				</li>
 			{:else}
 				<li class="mobileUserItem" on:click={handleLoginClick}>
@@ -70,9 +70,9 @@
 				<div><img src="./img/app/discord-logo-white.png" alt="Discord"><span>Join the Discord!</span></div>
 			</li>
 		</ul>
-		{#if $AppData.jwt}
+		{#if $AppData.user.jwt}
 			<div class="desktopUserItem" on:click={handleUserClick}>
-				<button type="button" class:selected={$AppData.activeView === 'profile'} class="desktopUserButton">{$AppData.username || 'Profile'}</button>
+				<button type="button" class:selected={$AppData.activeView === 'profile'} class="desktopUserButton">{$AppData.user.username || 'Profile'}</button>
 			</div>
 		{:else}
 			<div class="desktopUserItem" on:click={handleLoginClick}>
