@@ -5,6 +5,12 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.13.27',
+			changes: [
+				'Added Scarlet with accurate skill descriptions (Thanks Bob49)',
+				'Fixed typo on Khazard SI +30 description',
+			],
+		},
 		{ version: 'v1.13.25',
 			changes: [
 				'Added Talene - The Resurging Flame',
@@ -59,19 +65,6 @@
 				'Alna benchmark -> E33',
 				'Treznor benchmark -> 300',
 				'Eironn benchmark -> 203',
-			],
-		},
-		{ version: 'v1.12.3 - Twinkleshine',
-		changes: [
-			'<em>NEW Stars and Engravings now supported for heroes in Comps and My Heroes!</em>',
-			'<em>NEW Track copies of heroes below Ascended in My Heroes!</em>',
-			'<em>NEW Sort My Heroes list based on name, ascension, copies, or engraving!</em>',
-			'<em>NEW Get engraving and star recommendations in the Recommendations area based on starred comps!</em>',
-			'<em>NEW Engraving benchmarks listed on Hero List (desktop only) or in Hero Details (tap on a hero).</em>',
-			'NOTE Engraving benchmarks are a work in progress and not definitive.',
-			'Added new hero Treznor',
-			'Updated Daimon\'s 3rd skill "Stitchy converts 100% of the damage he DEALT...", thanks Bob49!',
-			'Updated Ulmus\'s ultimate skill description',
 			],
 		},
 	]
