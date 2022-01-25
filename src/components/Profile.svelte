@@ -9,7 +9,7 @@
 	</section>
 	<section class="headlineArea">
 		<div class="headBox publishedCompsBox">
-			<div class="headNumber">0</div>
+			<div class="headNumber">{$AppData.user.published_comps.length}</div>
 			<div class="headText">Published Comps</div>
 		</div>
 		<div class="headBox likedCompsBox">
