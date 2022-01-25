@@ -77,7 +77,8 @@
 		handleWindowResize();
 
 		// check user's JWT on app start
-		if(validateJWT($AppData.user.jwt)) {
+		const valid = await validateJWT($AppData.user.jwt);
+		if(valid) {
 			// user is logged in, try to populate the user's data
 			const user = await getUserDetails($AppData.user.jwt);
 			$AppData.user.id = user.id;

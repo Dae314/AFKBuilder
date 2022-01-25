@@ -19,7 +19,7 @@
 					return false;
 				} else {
 					const responseData = await response.json();
-					return Date.now() >= responseData.exp * 1000; // returns false if token is expired
+					return Date.now() < responseData.exp * 1000; // returns false if token is expired
 				}
 			} catch(err) {
 				throw new Error(`An error occurred while fetching JWT token validation: ${err}`);
@@ -119,6 +119,32 @@
 				}
 			} catch(err) {
 				throw new Error(`An error occurred while fetching user's published comps: ${err}`);
+			}
+		}
+	}
+
+	// get user's total upvotes received, returns an int
+	/* Int */
+	export async function getReceivedUpvotes(jwt) {
+		const uri = REST_URI;
+		if(jwt) {
+			try {
+				const response = await fetch(`${uri}/custom-comps/gettotalupvotes`, {
+					method: 'GET',
+					mode: 'cors',
+					cache: 'no-cache',
+					headers: {
+						'Authorization': `Bearer ${jwt}`,
+					},
+				});
+				if(response.status !== 200) {
+					throw new Error(`An error occurred while fetching user's received upvotes: ${response.json()}`)
+				} else {
+					const responseData = await response.json();
+					return responseData.data.upvotes;
+				}
+			} catch(err) {
+				throw new Error(`An error occurred while fetching user's received upvotes: ${err}`);
 			}
 		}
 	}
