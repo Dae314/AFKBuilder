@@ -27,8 +27,16 @@
 		}
 	}
 
-	// assumes a valid JWT, get details of the logged in user
-	// returns an object with user properties
+	// functions below here assume a valid JWT
+
+	// get details of the logged in user, returns an object with user properties
+	/*{
+		id: ID,
+		username: String,
+		email: String,
+		my_heroes: String,
+		local_comps: Object
+	}*/
 	export async function getUserDetails(jwt) {
 		const uri = REST_URI;
 		if(jwt) {
@@ -51,10 +59,38 @@
 						email: responseData.email,
 						my_heroes: responseData.my_heroes,
 						local_comps: responseData.local_comps,
-					}
+					};
 				}
 			} catch(err) {
 				throw new Error(`An error occurred while fetching user information: ${err}`);
+			}
+		}
+	}
+
+	// get a list of comps that the user has liked, returns the array
+	/*[
+			{ id: ID, uuid: ID }
+	]*/
+	export async function getLikedComps(jwt) {
+		const uri = REST_URI;
+		if(jwt) {
+			try {
+				const response = await fetch(`${uri}/custom-comps/getallupvoted`, {
+					method: 'GET',
+					mode: 'cors',
+					cache: 'no-cache',
+					headers: {
+						'Authorization': `Bearer ${jwt}`,
+					},
+				});
+				if(response.status !== 200) {
+					throw new Error(`An error occurred while fetching user's liked comps: ${response.json()}`)
+				} else {
+					const responseData = await response.json();
+					return responseData.data.comps;
+				}
+			} catch(err) {
+				throw new Error(`An error occurred while fetching user's liked comps: ${err}`);
 			}
 		}
 	}
