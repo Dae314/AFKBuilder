@@ -129,7 +129,7 @@
 		const uri = REST_URI;
 		if(jwt) {
 			try {
-				const response = await fetch(`${uri}/custom-comps/gettotalupvotes`, {
+				const response = await fetch(`${uri}/custom-comps/getreceivedupvotes`, {
 					method: 'GET',
 					mode: 'cors',
 					cache: 'no-cache',

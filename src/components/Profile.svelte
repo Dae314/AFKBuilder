@@ -1,6 +1,21 @@
 <script>
+	import { onMount } from 'svelte';
 	import AppData from '../stores/AppData.js';
+	import { validateJWT, getReceivedUpvotes } from '../rest/RESTFunctions.svelte';
+
 	export let isMobile = false;
+	let receivedLikes = 0;
+
+	onMount(async () => {
+		// check user's JWT before making queries
+		const valid = await validateJWT($AppData.user.jwt);
+		if(valid) {
+			// user is valid, perform query
+			receivedLikes = await getReceivedUpvotes($AppData.user.jwt);
+		} else {
+			$AppData.user.jwt = '';
+		}
+	});
 </script>
 
 <div class="profileContainer">
@@ -17,8 +32,8 @@
 			<div class="headText">Liked Comps</div>
 		</div>
 		<div class="headBox totalLikesBox">
-			<div class="headNumber">0</div>
-			<div class="headText">Total Likes</div>
+			<div class="headNumber">{receivedLikes}</div>
+			<div class="headText">Received Likes</div>
 		</div>
 	</section>
 </div>
