@@ -5,7 +5,7 @@
 
 <div class="profileContainer">
 	<section class="titleArea">
-		<h2>{$AppData.username}</h2>
+		<h2>{$AppData.user.username}</h2>
 	</section>
 	<section class="headlineArea">
 		<div class="headBox publishedCompsBox">
@@ -13,7 +13,7 @@
 			<div class="headText">Published Comps</div>
 		</div>
 		<div class="headBox likedCompsBox">
-			<div class="headNumber">0</div>
+			<div class="headNumber">{$AppData.user.liked_comps.length}</div>
 			<div class="headText">Liked Comps</div>
 		</div>
 		<div class="headBox totalLikesBox">
