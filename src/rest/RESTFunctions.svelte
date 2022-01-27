@@ -1,7 +1,29 @@
 <script context="module">
+	let tokenCache = readCache();
+
+	// utility function to save token data to localstorage
+	function saveCache() {
+		window.localStorage.setItem('tokenCache', JSON.stringify(tokenCache));
+	}
+
+	// utility function to load token data from localstorage
+	function readCache() {
+		const item = localStorage.getItem('tokenCache');
+		if(item === null) {
+			return {};
+		} else {
+			return JSON.parse(item);
+		}
+	}
+
 	// if the jwt provided is good, return true otherwise return false
 	export async function validateJWT(jwt) {
 		const uri = REST_URI;
+		// check for cached result
+		if(tokenCache.jwt === jwt) {
+			return Date.now() < tokenCache.tokenData.exp * 1000; // returns false if token is expired
+		}
+		// jwt changed, cache needs to be refreshed
 		if(jwt) {
 			try {
 				const response = await fetch(`${uri}/token/validation`, {
@@ -19,6 +41,9 @@
 					return false;
 				} else {
 					const responseData = await response.json();
+					tokenCache.tokenData = responseData; // cache the result
+					tokenCache.jwt = jwt; // cache the token as well
+					saveCache();
 					return Date.now() < responseData.exp * 1000; // returns false if token is expired
 				}
 			} catch(err) {
