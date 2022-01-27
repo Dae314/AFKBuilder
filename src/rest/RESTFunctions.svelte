@@ -84,6 +84,7 @@
 						email: responseData.email,
 						my_heroes: responseData.my_heroes,
 						local_comps: responseData.local_comps,
+						avatar: responseData.avatar,
 					};
 				}
 			} catch(err) {

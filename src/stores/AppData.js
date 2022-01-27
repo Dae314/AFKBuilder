@@ -251,6 +251,7 @@ function buildAppData(data) {
 		{name: 'username', default: ''},
 		{name: 'email', default: ''},
 		{name: 'id', default: ''},
+		{name: 'avatar', default: ''},
 		{name: 'local_comps', default: {}},
 		{name: 'liked_comps', default: []},
 		{name: 'published_comps', default: []},

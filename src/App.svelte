@@ -85,6 +85,7 @@
 			$AppData.user.username = user.username;
 			$AppData.user.email = user.email;
 			$AppData.user.local_comps = user.local_comps;
+			$AppData.user.avatar = user.avatar;
 			
 			const likedComps = await getLikedComps($AppData.user.jwt);
 			$AppData.user.liked_comps = likedComps;
