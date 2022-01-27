@@ -2,9 +2,12 @@
 	import { onMount } from 'svelte';
 	import AppData from '../stores/AppData.js';
 	import { validateJWT, getReceivedUpvotes } from '../rest/RESTFunctions.svelte';
+	import AvatarInput from '../shared/AvatarInput.svelte';
 
 	export let isMobile = false;
 	let receivedLikes = 0;
+	let username = $AppData.user.username;
+	let avatar = $AppData.user.avatar;
 
 	onMount(async () => {
 		// check user's JWT before making queries
@@ -16,6 +19,14 @@
 			$AppData.user.jwt = '';
 		}
 	});
+
+	function handleAvatarChange(event) {
+		avatar = event.detail.avatar;
+	}
+
+	async function updateUser() {
+		console.log('bloop');
+	}
 </script>
 
 <div class="profileContainer">
@@ -35,6 +46,18 @@
 			<div class="headNumber">{receivedLikes}</div>
 			<div class="headText">Received Likes</div>
 		</div>
+	</section>
+	<section class="settingsArea">
+		<h3>Settings</h3>
+		<form on:submit|preventDefault="{updateUser}">
+			<label for="usernameInput">Input new username:</label>
+			<input id="usernameInput" type="text" bind:value={username} />
+			<label for="avatarInput">Choose an avatar:</label>
+			<div id="avatarInput">
+				<AvatarInput avatar={avatar} on:avatarChanged={handleAvatarChange} />
+			</div>
+			<button method="submit">Save</button>
+		</form>
 	</section>
 </div>
 
@@ -75,6 +98,11 @@
 				font-size: 1.3rem;
 				font-weight: bold;
 			}
+		}
+	}
+	form {
+		label {
+			display: block;
 		}
 	}
 	@media only screen and (min-width: 767px) {
