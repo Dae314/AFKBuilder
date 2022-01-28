@@ -1,10 +1,12 @@
 <script>
-	import { onMount, createEventDispatcher } from 'svelte';
+	import { onMount, createEventDispatcher, getContext } from 'svelte';
+	import ChooseLogin from '../modals/ChooseLogin.svelte';
 	import AppData from '../stores/AppData.js';
 
 	export let menu = [];
 	const dispatch = createEventDispatcher();
 	let showMobileMenu = false;
+	const { open } = getContext('simple-modal');
 
 	onMount(async () => {
 		const mediaListener = window.matchMedia("(max-width: 767px)");
@@ -39,7 +41,7 @@
 	}
 
 	function handleLoginClick() {
-		console.log('login clicked');
+		open(ChooseLogin, {}, { closeButton: ModalCloseButton, });
 	}
 </script>
 
