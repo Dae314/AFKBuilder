@@ -65,6 +65,8 @@
 			} catch(err) {
 				throw new Error(`An error occurred while fetching JWT token validation: ${err}`);
 			}
+		} else {
+			return false;
 		}
 	}
 
