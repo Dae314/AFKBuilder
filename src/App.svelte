@@ -60,7 +60,7 @@
 		}),
 		'/connect/:provider/redirect': wrap({
 			component: PostLogin,
-			props: { isMobile: isMobile },
+			props: {},
 		})
 	}
 

@@ -16,6 +16,22 @@
 		}
 	}
 
+	export async function postLoginProvider(token, provider) {
+		const uri = REST_URI;
+		const response = await fetch(`${uri}/auth/${provider}/callback?access_token=${token}`,
+		{
+			headers: {
+				Authorization: `token ${token}`
+			}
+		});
+		if(response.status !== 200) {
+			console.log(`Failed to retrieve JWT from backend: ${response.status}`);
+			return { status: response.status, data: {message: 'Failed to retrieve JWT from backend.'}};
+		}
+		const json = await response.json();
+		return { status: response.status, data: {jwt: json.jwt}};
+	}
+
 	// if the jwt provided is good, return true otherwise return false
 	export async function validateJWT(jwt) {
 		const uri = REST_URI;
