@@ -1,11 +1,17 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, createEventDispatcher } from 'svelte';
 	import AppData from '../stores/AppData.js';
 	import { validateJWT, getReceivedUpvotes } from '../rest/RESTFunctions.svelte';
+	import { gql_UPDATE_USER } from '../gql/queries.svelte';
+	import { mutation } from "svelte-apollo";
 	import AvatarInput from '../shared/AvatarInput.svelte';
 
 	export let isMobile = false;
-	let receivedLikes = 0;
+
+	const gqlUpdateUser = mutation(gql_UPDATE_USER);
+	const dispatch = createEventDispatcher();
+
+	let receivedLikes = '';
 	let username = $AppData.user.username;
 	let avatar = $AppData.user.avatar;
 
@@ -25,7 +31,14 @@
 	}
 
 	async function updateUser() {
-		console.log('bloop');
+		try {
+			const response = await gqlUpdateUser({variables: { id: $AppData.user.id, username: username, avatar: avatar }});
+			$AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
+			$AppData.user.avatar = response.data.updateUsersPermissionsUser.data.attributes.avatar;
+			dispatch('routeEvent', {action: 'saveData'});
+		} catch (error) {
+			console.log(error);
+		}
 	}
 </script>
 
