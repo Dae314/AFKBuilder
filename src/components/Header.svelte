@@ -1,5 +1,6 @@
 <script>
 	import { onMount, createEventDispatcher, getContext } from 'svelte';
+	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import ChooseLogin from '../modals/ChooseLogin.svelte';
 	import AppData from '../stores/AppData.js';
 
