@@ -31,14 +31,20 @@
 	}
 
 	async function updateUser() {
-		try {
-			const response = await gqlUpdateUser({variables: { id: $AppData.user.id, username: username, avatar: avatar }});
-			$AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
-			$AppData.user.avatar = response.data.updateUsersPermissionsUser.data.attributes.avatar;
-			dispatch('routeEvent', {action: 'saveData'});
-		} catch (error) {
-			console.log(error);
+		if($AppData.user.username !== username || $AppData.user.avatar !== avatar) {
+			try {
+				const response = await gqlUpdateUser({variables: { id: $AppData.user.id, username: username, avatar: avatar }});
+				$AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
+				$AppData.user.avatar = response.data.updateUsersPermissionsUser.data.attributes.avatar;
+				dispatch('routeEvent', {action: 'saveData'});
+			} catch (error) {
+				console.log(error);
+			}
 		}
+	}
+
+	function handleLogout() {
+		console.log('logout');
 	}
 </script>
 
@@ -71,6 +77,9 @@
 			</div>
 			<button method="submit">Save</button>
 		</form>
+	</section>
+	<section class="logoutArea">
+		<button type="button" class="logoutButton" on:click={handleLogout}>Logout</button>
 	</section>
 </div>
 
@@ -113,10 +122,18 @@
 			}
 		}
 	}
-	form {
-		label {
-			display: block;
+	.settingsArea {
+		border-top: 2px solid black;
+		padding: 10px;
+		form {
+			label {
+				display: block;
+			}
 		}
+	}
+	.logoutArea {
+		border-top: 2px solid black;
+		padding: 10px;
 	}
 	@media only screen and (min-width: 767px) {
 		.headlineArea {
