@@ -249,7 +249,6 @@ function buildAppData(data) {
 	const expectedUserProps = [
 		{name: 'jwt', default: ''},
 		{name: 'username', default: ''},
-		{name: 'email', default: ''},
 		{name: 'id', default: ''},
 		{name: 'avatar', default: ''},
 		{name: 'local_comps', default: {}},

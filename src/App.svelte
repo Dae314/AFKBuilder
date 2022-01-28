@@ -83,7 +83,6 @@
 			const user = await getUserDetails($AppData.user.jwt);
 			$AppData.user.id = user.id;
 			$AppData.user.username = user.username;
-			$AppData.user.email = user.email;
 			$AppData.user.local_comps = user.local_comps;
 			$AppData.user.avatar = user.avatar;
 			
