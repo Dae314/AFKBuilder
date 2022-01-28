@@ -2,7 +2,7 @@
 	import { onMount, createEventDispatcher } from 'svelte';
 	import AppData from '../stores/AppData.js';
 	import {querystring} from 'svelte-spa-router';
-	import {postLoginProvider, validateJWT, getLikedComps, getPublishedComps} from '../rest/RESTFunctions.svelte';
+	import {postLoginProvider, validateJWT, getUserDetails, getLikedComps, getPublishedComps} from '../rest/RESTFunctions.svelte';
 
 	export let params = {};
 
@@ -12,8 +12,8 @@
 
 	onMount(async () => {
 		provider = params.provider;
-		const params = new URLSearchParams($querystring);
-		const token = params.get('access_token');
+		const urlParams = new URLSearchParams($querystring);
+		const token = urlParams.get('access_token');
 		const response = await postLoginProvider(token, provider);
 		if(response.status !== 200) {
 			throw new Error(response.data.message);
