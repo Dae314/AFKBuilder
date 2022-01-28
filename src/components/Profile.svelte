@@ -44,7 +44,15 @@
 	}
 
 	function handleLogout() {
-		console.log('logout');
+		$AppData.user.avatar = '';
+		$AppData.user.username = '';
+		$AppData.user.id = '';
+		$AppData.user.jwt = '';
+		$AppData.user.liked_comps = [];
+		$AppData.user.local_comps = [];
+		$AppData.user.published_comps = [];
+		dispatch('routeEvent', {action: 'saveData'});
+		window.location.assign(`${window.location.origin}/#/`);
 	}
 </script>
 
