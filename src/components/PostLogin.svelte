@@ -49,5 +49,11 @@
 </div>
 
 <style lang="scss">
-
+	.postLoginContainer {
+		display: flex;
+		flex-direction: column;
+		height: calc(100vh - var(--headerHeight));
+		overflow-y: auto;
+		width: 100%;
+	}
 </style>
