@@ -1,19 +1,21 @@
 <script>
-	import { onMount, createEventDispatcher } from 'svelte';
+	import { onMount, createEventDispatcher, tick } from 'svelte';
 	import AppData from '../stores/AppData.js';
 	import { validateJWT, getReceivedUpvotes } from '../rest/RESTFunctions.svelte';
-	import { gql_UPDATE_USER } from '../gql/queries.svelte';
+	import { gql_UPDATE_USERNAME, gql_UPDATE_AVATAR } from '../gql/queries.svelte';
 	import { mutation } from "svelte-apollo";
 	import AvatarInput from '../shared/AvatarInput.svelte';
 
 	export let isMobile = false;
 
-	const gqlUpdateUser = mutation(gql_UPDATE_USER);
+	const gqlUpdateUsername = mutation(gql_UPDATE_USERNAME);
+	const gqlUpdateAvatar = mutation(gql_UPDATE_AVATAR);
 	const dispatch = createEventDispatcher();
 
 	let receivedLikes = '';
 	let username = $AppData.user.username;
 	let avatar = $AppData.user.avatar;
+	let editUsernameDisabled = true;
 
 	onMount(async () => {
 		// check user's JWT before making queries
@@ -28,6 +30,31 @@
 
 	function handleAvatarChange(event) {
 		avatar = event.detail.avatar;
+	}
+
+	async function handleUsernameEditClick() {
+		editUsernameDisabled = false;
+		await tick();
+		document.getElementById('usernameInput').focus();
+	}
+
+	async function handleUsernameBlur() {
+		editUsernameDisabled = true;
+		if($AppData.user.username !== username) {
+			try {
+				const response = await gqlUpdateUsername({variables: { id: $AppData.user.id, username: username }});
+				$AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
+				dispatch('routeEvent', {action: 'saveData'});
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	}
+
+	function handleUsernameKeyup(event) {
+		if (event.keyCode === 13) {
+			editUsernameDisabled = true; // save will be handled by blur function
+		}
 	}
 
 	async function updateUser() {
@@ -58,7 +85,23 @@
 
 <div class="profileContainer">
 	<section class="titleArea">
-		<h2>{$AppData.user.username}</h2>
+		<div class="usernameInputArea" on:click={handleUsernameEditClick} >
+			<input id="usernameInput"
+				type="text"
+				maxlength="20"
+				bind:value={username}
+				disabled={editUsernameDisabled}
+				on:blur={handleUsernameBlur}
+				on:keyup={handleUsernameKeyup} />
+			<span class="usernameEdit">
+				<button class="usernameEditButton" on:click={handleUsernameEditClick}>
+					<img src="./img/utility/pencil.png" alt="edit username">
+				</button>
+			</span>
+		</div>
+		<div class="avatarInputArea">
+			<AvatarInput avatar={avatar} on:avatarChanged={handleAvatarChange} />
+		</div>
 	</section>
 	<section class="headlineArea">
 		<div class="headBox publishedCompsBox">
@@ -74,18 +117,6 @@
 			<div class="headText">Received Likes</div>
 		</div>
 	</section>
-	<section class="settingsArea">
-		<h3>Settings</h3>
-		<form on:submit|preventDefault="{updateUser}">
-			<label for="usernameInput">Input new username:</label>
-			<input id="usernameInput" type="text" bind:value={username} />
-			<label for="avatarInput">Choose an avatar:</label>
-			<div id="avatarInput">
-				<AvatarInput avatar={avatar} on:avatarChanged={handleAvatarChange} />
-			</div>
-			<button method="submit">Save</button>
-		</form>
-	</section>
 	<section class="logoutArea">
 		<button type="button" class="logoutButton" on:click={handleLogout}>Logout</button>
 	</section>
@@ -100,8 +131,38 @@
 		width: 100%;
 	}
 	.titleArea {
+		align-items: center;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
+		.usernameInputArea {
+			padding: 10px;
+			position: relative;
+			&:hover > .usernameEdit {
+				display: inline-block;
+			}
+		}
+		.usernameEdit {
+			display: inline-block;
+			position: absolute;
+			right: -35px;
+			.usernameEditButton {
+				border: none;
+				background: transparent;
+				outline: none;
+				img {
+					max-width: 29px;
+					filter: invert(1);
+				}
+			}
+		}
+		#usernameInput {
+			font-size: 1.5rem;
+			font-weight: bold;
+			height: fit-content;
+			text-align: center;
+			width: 275px;
+		}
 	}
 	.headlineArea {
 		display: flex;
@@ -144,6 +205,16 @@
 		padding: 10px;
 	}
 	@media only screen and (min-width: 767px) {
+		.titleArea {
+			.usernameInputArea {
+				&:hover > .usernameEdit {
+					display: inline-block;
+				}
+			}
+			.usernameEdit {
+				display: none;
+			}
+		}
 		.headlineArea {
 			flex-direction: row;
 			.headBox {
