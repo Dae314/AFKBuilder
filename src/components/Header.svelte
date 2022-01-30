@@ -262,9 +262,8 @@
 	.desktopUserItem {
 		cursor: pointer;
 		display: none;
+		height: 100%;
 		margin-left: auto;
-		padding-bottom: 20px;
-		padding-top: 20px;
 		button {
 			background: none;
 			border: none;
