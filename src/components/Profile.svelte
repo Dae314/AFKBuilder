@@ -1,16 +1,18 @@
 <script>
-	import { onMount, createEventDispatcher, tick } from 'svelte';
+	import { onMount, createEventDispatcher, tick, getContext } from 'svelte';
 	import AppData from '../stores/AppData.js';
 	import { validateJWT, getReceivedUpvotes } from '../rest/RESTFunctions.svelte';
 	import { gql_UPDATE_USERNAME, gql_UPDATE_AVATAR } from '../gql/queries.svelte';
 	import { mutation } from "svelte-apollo";
 	import AvatarInput from '../shared/AvatarInput.svelte';
+	import Confirm from '../modals/Confirm.svelte';
 
 	export let isMobile = false;
 
 	const gqlUpdateUsername = mutation(gql_UPDATE_USERNAME);
 	const gqlUpdateAvatar = mutation(gql_UPDATE_AVATAR);
 	const dispatch = createEventDispatcher();
+	const { open } = getContext('simple-modal');
 
 	let receivedLikes = '';
 	let username = $AppData.user.username;
@@ -77,6 +79,17 @@
 		dispatch('routeEvent', {action: 'saveData'});
 		window.location.assign(`${window.location.origin}/#/`);
 	}
+
+	function handleLogoutClick() {
+		open(Confirm,
+			{onConfirm: handleLogout, message: "Are you sure you want to logout?"},
+			{ closeButton: false,
+				closeOnEsc: true,
+				closeOnOuterClick: true,
+				styleWindow: { width: 'fit-content', },
+				styleContent: { width: 'fit-content', },
+			});
+	}
 </script>
 
 <div class="profileContainer">
@@ -114,7 +127,7 @@
 		</div>
 	</section>
 	<section class="logoutArea">
-		<button type="button" class="logoutButton" on:click={handleLogout}>Logout</button>
+		<button type="button" class="logoutButton" on:click={handleLogoutClick}>Logout</button>
 	</section>
 </div>
 
@@ -190,9 +203,25 @@
 		}
 	}
 	.logoutArea {
-		border-top: 2px solid black;
+		border-top: 1px solid black;
 		margin-top: auto;
-		padding: 10px;
+		padding: 15px;
+		.logoutButton {
+			background-color: transparent;
+			border: 3px solid var(--appDelColor);
+			border-radius: 10px;
+			color: var(--appDelColor);
+			cursor: pointer;
+			font-size: 1rem;
+			font-weight: bold;
+			outline: none;
+			padding: 10px;
+			transition: all 0.2s;
+			&:hover {
+				background-color: var(--appDelColor);
+				color: white;
+			}
+		}
 	}
 	@media only screen and (min-width: 767px) {
 		.titleArea {
