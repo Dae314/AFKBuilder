@@ -1,36 +1,32 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, getContext } from 'svelte';
 	import HeroData from '../stores/HeroData.js';
+	import AvatarPicker from '../modals/AvatarPicker.svelte';
+	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 
 	const dispatch = createEventDispatcher();
+	const { open } = getContext('simple-modal');
 
 	export let avatar = 'hogan';
-	let pickerVisible = false;
-	let avatarList = $HeroData.map(e => e.id);
 
 	$: avatarHero = $HeroData.find(e => e.id === avatar);
 
 	function handleAvatarChange(id) {
 		dispatch('avatarChanged', {avatar: id});
-		const menu = document.getElementById('avatarPicker');
-		menu.scrollTop = 0;
-		pickerVisible = false;
+	}
+
+	function openAvatarPicker() {
+		open(AvatarPicker, { onChange: handleAvatarChange, }, { closeButton: ModalCloseButton });
 	}
 </script>
 
 <div class="avatarInputContainer">
-	<button type="button" class="avatarButton" on:click={() => pickerVisible = !pickerVisible}>
+	<button type="button" class="avatarButton" on:click={openAvatarPicker}>
 		<img class="avatar" src="{avatarHero.portrait}" alt="{avatarHero.name}">
 	</button>
-	<div id="avatarPicker" class="avatarPicker" class:visible={pickerVisible}>
-		{#each avatarList as avatarID}
-			<div class="optionContainer">
-				<button type="button" class="avatarButton" on:click={() => handleAvatarChange(avatarID)}>
-					<img class="avatar" src="{$HeroData.find(e => e.id === avatarID).portrait}" alt="{$HeroData.find(e => e.id === avatarID).name}">
-				</button>
-			</div>
-		{/each}
-	</div>
+	<span class="avatarEdit">
+		<img src="./img/utility/pencil.png" alt="edit avatar">
+	</span>
 </div>
 
 <style lang="scss">
@@ -38,21 +34,33 @@
 		position: relative;
 	}
 	.avatarButton {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		outline: none;
 		.avatar {
 			border-radius: 50%;
 			max-width: 70px;
 		}
 	}
-	.avatarPicker {
-		display: none;
-		height: 250px;
-		overflow-y: auto;
-		width: 500px;
-		&.visible {
-			display: grid;
-			grid-auto-rows: 90px;
-			grid-template-columns: repeat(auto-fill, minmax(90px, 90px));
-			position: relative;
+	.avatarEdit {
+		bottom: 0px;
+		display: inline-block;
+		position: absolute;
+		right: -20px;
+		img {
+			max-width: 20px;
+			filter: invert(1);
+		}
+	}
+	@media only screen and (min-width: 767px) {
+		.avatarInputContainer {
+			&:hover > .avatarEdit {
+				display: inline-block;
+			}
+		}
+		.avatarEdit {
+			display: none;
 		}
 	}
 </style>

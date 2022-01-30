@@ -28,10 +28,6 @@
 		}
 	});
 
-	function handleAvatarChange(event) {
-		avatar = event.detail.avatar;
-	}
-
 	async function handleUsernameEditClick() {
 		editUsernameDisabled = false;
 		await tick();
@@ -57,11 +53,11 @@
 		}
 	}
 
-	async function updateUser() {
-		if($AppData.user.username !== username || $AppData.user.avatar !== avatar) {
+	async function handleAvatarChange(event) {
+		avatar = event.detail.avatar;
+		if($AppData.user.avatar !== avatar) {
 			try {
-				const response = await gqlUpdateUser({variables: { id: $AppData.user.id, username: username, avatar: avatar }});
-				$AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
+				const response = await gqlUpdateAvatar({variables: { id: $AppData.user.id, avatar: avatar }});
 				$AppData.user.avatar = response.data.updateUsersPermissionsUser.data.attributes.avatar;
 				dispatch('routeEvent', {action: 'saveData'});
 			} catch (error) {
@@ -188,15 +184,6 @@
 			.headText {
 				font-size: 1.3rem;
 				font-weight: bold;
-			}
-		}
-	}
-	.settingsArea {
-		border-top: 2px solid black;
-		padding: 10px;
-		form {
-			label {
-				display: block;
 			}
 		}
 	}
