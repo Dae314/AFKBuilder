@@ -51,16 +51,20 @@
 		img {
 			max-width: 20px;
 			filter: invert(1);
+			opacity: 0.7;
 		}
 	}
 	@media only screen and (min-width: 767px) {
 		.avatarInputContainer {
 			&:hover > .avatarEdit {
-				display: inline-block;
+				opacity: 1;
+				visibility: visible;
 			}
 		}
 		.avatarEdit {
-			display: none;
+			opacity: 0;
+			transition: all 0.1s;
+			visibility: hidden;
 		}
 	}
 </style>

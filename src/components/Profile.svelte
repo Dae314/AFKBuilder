@@ -149,8 +149,15 @@
 		.usernameInputArea {
 			padding: 10px;
 			position: relative;
-			&:hover > .usernameEdit {
-				display: inline-block;
+			input {
+				background: transparent;
+				border: none;
+				border-bottom: 3px solid var(--appColorPrimary);
+				margin-bottom: 5px;
+				outline: none;
+			}
+			input:disabled {
+				border-bottom: 3px solid var(--appColorPriOpaque);
 			}
 		}
 		.usernameEdit {
@@ -164,6 +171,7 @@
 				img {
 					max-width: 29px;
 					filter: invert(1);
+					opacity: 0.7;
 				}
 			}
 		}
@@ -173,6 +181,9 @@
 			height: fit-content;
 			text-align: center;
 			width: 275px;
+		}
+		.avatarInputArea {
+			margin-bottom: 10px;
 		}
 	}
 	.headlineArea {
@@ -229,11 +240,14 @@
 		.titleArea {
 			.usernameInputArea {
 				&:hover > .usernameEdit {
-					display: inline-block;
+					opacity: 1;
+					visibility: visible;
 				}
 			}
 			.usernameEdit {
-				display: none;
+				opacity: 0;
+				transition: all 0.1s;
+				visibility: hidden;
 			}
 		}
 		.headlineArea {
