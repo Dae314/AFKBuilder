@@ -28,6 +28,8 @@
 		} else {
 			$AppData.user.jwt = '';
 		}
+		$AppData.activeView = 'profile';
+		dispatch('routeEvent', {action: 'saveData'});
 	});
 
 	async function handleUsernameEditClick() {

@@ -277,6 +277,9 @@
 			&:focus {
 				outline: 0;
 			}
+			&.selected {
+				color: rgba(240, 240, 242, 1.0);
+			}
 		}
 		&:hover {
 			button {
