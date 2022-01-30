@@ -161,6 +161,7 @@
 		}
 	}
 	.headlineArea {
+		align-items: center;
 		display: flex;
 		flex-direction: column;
 		padding: 5px;
@@ -175,6 +176,7 @@
 			flex-direction: column;
 			height: 120px;
 			margin: 10px 0px;
+			max-width: 300px;
 			justify-content: center;
 			width: 100%;
 			.headNumber {
@@ -189,6 +191,7 @@
 	}
 	.logoutArea {
 		border-top: 2px solid black;
+		margin-top: auto;
 		padding: 10px;
 	}
 	@media only screen and (min-width: 767px) {
@@ -204,6 +207,7 @@
 		}
 		.headlineArea {
 			flex-direction: row;
+			justify-content: center;
 			.headBox {
 				margin: 0px 20px;
 			}
