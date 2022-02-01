@@ -18,6 +18,7 @@
 	let username = $AppData.user.username;
 	let avatar = $AppData.user.avatar;
 	let editUsernameDisabled = true;
+	const usernameError = {state: false, text: ''};
 
 	onMount(async () => {
 		// check user's JWT before making queries
@@ -40,13 +41,26 @@
 
 	async function handleUsernameBlur() {
 		editUsernameDisabled = true;
+		usernameError.state = false;
+		usernameError.text = '';
 		if($AppData.user.username !== username) {
 			try {
 				const response = await gqlUpdateUsername({variables: { id: $AppData.user.id, username: username }});
 				$AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
 				dispatch('routeEvent', {action: 'saveData'});
 			} catch (error) {
-				console.log(error);
+				console.log()
+				switch(error.graphQLErrors[0].extensions.code) {
+					case 'BAD_USER_INPUT':
+					case 'FORBIDDEN':
+						usernameError.state = true;
+						usernameError.text = error.graphQLErrors[0].message;
+						break;
+					default:
+						usernameError.state = true;
+						usernameError.text = error.message;
+				}
+				console.log(error.graphQLErrors[0]);
 			}
 		}
 	}
@@ -101,6 +115,7 @@
 				type="text"
 				minlength="3"
 				maxlength="20"
+				class:error={usernameError.state}
 				bind:value={username}
 				disabled={editUsernameDisabled}
 				on:blur={handleUsernameBlur}
@@ -110,6 +125,7 @@
 					<img src="./img/utility/pencil.png" alt="edit username">
 				</button>
 			</span>
+			<div class="usernameErrorText" class:visible={usernameError.state}><span>{usernameError.text}</span></div>
 		</div>
 		<div class="avatarInputArea">
 			<AvatarInput avatar={avatar} on:avatarChanged={handleAvatarChange} />
@@ -159,8 +175,18 @@
 				&:disabled {
 					border-bottom: 3px solid var(--appColorPriOpaque);
 				}
-				&:invalid {
+				&.error {
 					border-bottom: 3px solid var(--appDelColorOpaque);
+				}
+			}
+			.usernameErrorText {
+				color: var(--appDelColor);
+				display: none;
+				font-size: 0.7rem;
+				max-width: 270px;
+				text-align: center;
+				&.visible {
+					display: block;
 				}
 			}
 		}
