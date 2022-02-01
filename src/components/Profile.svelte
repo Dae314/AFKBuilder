@@ -99,6 +99,7 @@
 		<div class="usernameInputArea" on:click={handleUsernameEditClick} >
 			<input id="usernameInput"
 				type="text"
+				minlength="3"
 				maxlength="20"
 				bind:value={username}
 				disabled={editUsernameDisabled}
@@ -155,9 +156,12 @@
 				border-bottom: 3px solid var(--appColorPrimary);
 				margin-bottom: 5px;
 				outline: none;
-			}
-			input:disabled {
-				border-bottom: 3px solid var(--appColorPriOpaque);
+				&:disabled {
+					border-bottom: 3px solid var(--appColorPriOpaque);
+				}
+				&:invalid {
+					border-bottom: 3px solid var(--appDelColorOpaque);
+				}
 			}
 		}
 		.usernameEdit {
