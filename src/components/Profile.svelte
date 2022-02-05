@@ -53,6 +53,7 @@
 				switch(error.graphQLErrors[0].extensions.code) {
 					case 'BAD_USER_INPUT':
 					case 'FORBIDDEN':
+					case 'STRAPI_APPLICATION_ERROR':
 						usernameError.state = true;
 						usernameError.text = error.graphQLErrors[0].message;
 						break;
