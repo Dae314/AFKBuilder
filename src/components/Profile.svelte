@@ -126,50 +126,65 @@
 </script>
 
 <div class="profileContainer">
-	<section class="titleArea">
-		<div class="usernameInputArea" on:click={handleUsernameEditClick} >
-			<input id="usernameInput"
-				type="text"
-				minlength="3"
-				maxlength="20"
-				class:error={usernameError.state}
-				bind:value={username}
-				disabled={editUsernameDisabled}
-				on:blur={handleUsernameBlur}
-				on:keyup={handleUsernameKeyup} />
-			<span class="usernameEdit">
-				<button class="usernameEditButton" on:click={handleUsernameEditClick}>
-					<img src="./img/utility/pencil.png" alt="edit username">
+	{#if $AppData.user.jwt}
+		<section class="titleArea">
+			<div class="usernameInputArea" on:click={handleUsernameEditClick} >
+				<input id="usernameInput"
+					type="text"
+					minlength="3"
+					maxlength="20"
+					class:error={usernameError.state}
+					bind:value={username}
+					disabled={editUsernameDisabled}
+					on:blur={handleUsernameBlur}
+					on:keyup={handleUsernameKeyup} />
+				<span class="usernameEdit">
+					<button class="usernameEditButton" on:click={handleUsernameEditClick}>
+						<img src="./img/utility/pencil.png" alt="edit username">
+					</button>
+				</span>
+				<div class="usernameErrorText" class:visible={usernameError.state}><span>{usernameError.text}</span></div>
+			</div>
+			<div class="avatarInputArea">
+				<AvatarInput avatar={avatar} on:avatarChanged={handleAvatarChange} />
+			</div>
+		</section>
+		<section class="headlineArea">
+			<div class="headBox publishedCompsBox">
+				<button type="button" class="headButton" on:click={handlePublicProfileButtonClick}>
+					<div class="headNumber">{$AppData.user.published_comps.length}</div>
+					<div class="headText">Published Comps</div>
 				</button>
-			</span>
-			<div class="usernameErrorText" class:visible={usernameError.state}><span>{usernameError.text}</span></div>
+			</div>
+			<div class="headBox likedCompsBox">
+				<div class="headNumber">{$AppData.user.liked_comps.length}</div>
+				<div class="headText">Liked Comps</div>
+			</div>
+			<div class="headBox totalLikesBox">
+				<div class="headNumber">{receivedLikes}</div>
+				<div class="headText">Received Likes</div>
+			</div>
+		</section>
+		<section class="logoutArea">
+			<button type="button" class="logoutButton" on:click={handleLogoutClick}>Logout</button>
+		</section>
+	{:else}
+		<div class="noLoginContainer">
+			<h3 class="noLogin">Login to view your profile</h3>
 		</div>
-		<div class="avatarInputArea">
-			<AvatarInput avatar={avatar} on:avatarChanged={handleAvatarChange} />
-		</div>
-	</section>
-	<section class="headlineArea">
-		<div class="headBox publishedCompsBox">
-			<button type="button" class="headButton" on:click={handlePublicProfileButtonClick}>
-				<div class="headNumber">{$AppData.user.published_comps.length}</div>
-				<div class="headText">Published Comps</div>
-			</button>
-		</div>
-		<div class="headBox likedCompsBox">
-			<div class="headNumber">{$AppData.user.liked_comps.length}</div>
-			<div class="headText">Liked Comps</div>
-		</div>
-		<div class="headBox totalLikesBox">
-			<div class="headNumber">{receivedLikes}</div>
-			<div class="headText">Received Likes</div>
-		</div>
-	</section>
-	<section class="logoutArea">
-		<button type="button" class="logoutButton" on:click={handleLogoutClick}>Logout</button>
-	</section>
+	{/if}
 </div>
 
 <style lang="scss">
+	.noLoginContainer {
+		height: 100%;
+		text-align: center;
+		width: 100%;
+		.noLogin {
+			color: rgba(0, 0, 0, 0.6);
+			font-size: 2.5rem;
+		}
+	}
 	.profileContainer {
 		display: flex;
 		flex-direction: column;
