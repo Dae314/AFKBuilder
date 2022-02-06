@@ -169,7 +169,7 @@
 
 	// get a list of comps that the user has published, returns the array
 	/*[
-			{ id: ID, uuid: ID, updatedAt: String }
+			{ id: ID, uuid: ID, comp_update: DateTime }
 	]*/
 	export async function getPublishedComps(jwt) {
 		const uri = REST_URI;
@@ -187,6 +187,10 @@
 					throw new Error(`An error occurred while fetching user's published comps: ${response.json()}`)
 				} else {
 					const responseData = await response.json();
+					for(let comp of responseData.data.comps) {
+						// parse the comp_update field as a datetime
+						comp.comp_update = new Date(comp.comp_update);
+					}
 					return responseData.data.comps;
 				}
 			} catch(err) {
