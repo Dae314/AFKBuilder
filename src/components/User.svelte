@@ -1,6 +1,15 @@
 <script>
+	import { onMount } from 'svelte';
+	import AppData from '../stores/AppData.js';
+	
 	export let params = {};
-	let username = params.username;
+	let username;
+
+	onMount(async () => {
+		username = params.username;
+		$AppData.activeView = 'user';
+		dispatch('routeEvent', {action: 'saveData'});
+	});
 </script>
 
 <div class="userContainer">
