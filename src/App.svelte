@@ -125,6 +125,20 @@
 		window.localStorage.setItem('appData', JSON.stringify($AppData));
 	}
 
+	function handleLogout() {
+		$AppData.user.avatar = '';
+		$AppData.user.username = '';
+		$AppData.user.id = '';
+		$AppData.user.jwt = '';
+		$AppData.user.liked_comps = [];
+		$AppData.user.disliked_comps = [];
+		$AppData.user.local_comps = [];
+		$AppData.user.published_comps = [];
+		$AppData.user.saved_comps = [];
+		saveAppData();
+		window.location.assign(`${window.location.origin}/#/`);
+	}
+
 	function clearAppData() {
 		window.localStorage.removeItem('appData');
 		location.reload();
@@ -168,6 +182,9 @@
 				break;
 			case 'clearData':
 				clearAppData();
+				break;
+			case 'logout':
+				handleLogout();
 				break;
 			case 'resetTutorial':
 				resetTutorial();
