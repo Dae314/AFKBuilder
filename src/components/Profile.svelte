@@ -107,6 +107,11 @@
 				styleContent: { width: 'fit-content', },
 			});
 	}
+
+	function handlePublicProfileButtonClick() {
+		// note: clears all extraneous URL parameters
+		window.location.assign(`${window.location.origin}/#/users/${encodeURIComponent($AppData.user.username)}`);
+	}
 </script>
 
 <div class="profileContainer">
@@ -134,8 +139,10 @@
 	</section>
 	<section class="headlineArea">
 		<div class="headBox publishedCompsBox">
-			<div class="headNumber">{$AppData.user.published_comps.length}</div>
-			<div class="headText">Published Comps</div>
+			<button type="button" class="headButton" on:click={handlePublicProfileButtonClick}>
+				<div class="headNumber">{$AppData.user.published_comps.length}</div>
+				<div class="headText">Published Comps</div>
+			</button>
 		</div>
 		<div class="headBox likedCompsBox">
 			<div class="headNumber">{$AppData.user.liked_comps.length}</div>
@@ -236,6 +243,15 @@
 			max-width: 300px;
 			justify-content: center;
 			width: 100%;
+			.headButton {
+				background-color: transparent;
+				border: none;
+				color: white;
+				cursor: pointer;
+				height: 100%;
+				outline: none;
+				width: 100%;
+			}
 			.headNumber {
 				font-size: 2.0rem;
 				font-weight: bold;
