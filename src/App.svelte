@@ -6,7 +6,14 @@
 	import Router from 'svelte-spa-router';
 	import {pop as spaRoutePop} from 'svelte-spa-router';
 	import {wrap} from 'svelte-spa-router/wrap';
-	import {validateJWT, getUserDetails, getLikedComps, getPublishedComps} from './rest/RESTFunctions.svelte';
+	import {
+		validateJWT,
+		getUserDetails,
+		getLikedComps,
+		getDislikedComps,
+		getPublishedComps,
+		getSavedComps,
+	} from './rest/RESTFunctions.svelte';
 
 	// imports for GraphQL
 	import ApolloClient from 'apollo-boost';
@@ -94,8 +101,14 @@
 			const likedComps = await getLikedComps($AppData.user.jwt);
 			$AppData.user.liked_comps = likedComps;
 
+			const dislikedComps = await getDislikedComps($AppData.user.jwt);
+			$AppData.user.disliked_comps = dislikedComps;
+
 			const publishedComps = await getPublishedComps($AppData.user.jwt);
 			$AppData.user.published_comps = publishedComps;
+
+			const savedComps = await getSavedComps($AppData.user.jwt);
+			$AppData.user.saved_comps = savedComps;
 
 			saveAppData();
 		} else {

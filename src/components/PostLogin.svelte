@@ -2,7 +2,15 @@
 	import { onMount, createEventDispatcher } from 'svelte';
 	import AppData from '../stores/AppData.js';
 	import {querystring} from 'svelte-spa-router';
-	import {postLoginProvider, validateJWT, getUserDetails, getLikedComps, getPublishedComps} from '../rest/RESTFunctions.svelte';
+	import {
+		postLoginProvider,
+		validateJWT,
+		getUserDetails,
+		getLikedComps,
+		getDislikedComps,
+		getPublishedComps,
+		getSavedComps,
+	} from '../rest/RESTFunctions.svelte';
 
 	export let params = {};
 
@@ -32,8 +40,14 @@
 				const likedComps = await getLikedComps($AppData.user.jwt);
 				$AppData.user.liked_comps = likedComps;
 
+				const dislikedComps = await getDislikedComps($AppData.user.jwt);
+				$AppData.user.disliked_comps = dislikedComps;
+
 				const publishedComps = await getPublishedComps($AppData.user.jwt);
 				$AppData.user.published_comps = publishedComps;
+
+				const savedComps = await getSavedComps($AppData.user.jwt);
+				$AppData.user.saved_comps = savedComps;
 
 				dispatch('routeEvent', {action: 'saveData'});
 			} else {

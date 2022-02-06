@@ -253,7 +253,9 @@ function buildAppData(data) {
 		{name: 'avatar', default: ''},
 		{name: 'local_comps', default: {}},
 		{name: 'liked_comps', default: []},
+		{name: 'disliked_comps', default: []},
 		{name: 'published_comps', default: []},
+		{name: 'saved_comps', default: []},
 	]
 	const expectedHLProps = [
 		{name: 'Sort', default: 'name'},

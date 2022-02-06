@@ -139,6 +139,34 @@
 		}
 	}
 
+	// get a list of comps that the user has disliked, returns the array
+	/*[
+			{ id: ID, uuid: ID }
+	]*/
+	export async function getDislikedComps(jwt) {
+		const uri = REST_URI;
+		if(jwt) {
+			try {
+				const response = await fetch(`${uri}/custom-comps/getalldownvoted`, {
+					method: 'GET',
+					mode: 'cors',
+					cache: 'no-cache',
+					headers: {
+						'Authorization': `Bearer ${jwt}`,
+					},
+				});
+				if(response.status !== 200) {
+					throw new Error(`An error occurred while fetching user's disliked comps: ${response.json()}`)
+				} else {
+					const responseData = await response.json();
+					return responseData.data.comps;
+				}
+			} catch(err) {
+				throw new Error(`An error occurred while fetching user's disliked comps: ${err}`);
+			}
+		}
+	}
+
 	// get a list of comps that the user has published, returns the array
 	/*[
 			{ id: ID, uuid: ID, updatedAt: String }
@@ -167,6 +195,34 @@
 		}
 	}
 
+	// get a list of comps that the user has published, returns the array
+	/*[
+			{ id: ID, uuid: ID }
+	]*/
+	export async function getSavedComps(jwt) {
+		const uri = REST_URI;
+		if(jwt) {
+			try {
+				const response = await fetch(`${uri}/custom-comps/getallsaved`, {
+					method: 'GET',
+					mode: 'cors',
+					cache: 'no-cache',
+					headers: {
+						'Authorization': `Bearer ${jwt}`,
+					},
+				});
+				if(response.status !== 200) {
+					throw new Error(`An error occurred while fetching user's saved comps: ${response.json()}`)
+				} else {
+					const responseData = await response.json();
+					return responseData.data.comps;
+				}
+			} catch(err) {
+				throw new Error(`An error occurred while fetching user's saved comps: ${err}`);
+			}
+		}
+	}
+
 	// get user's total upvotes received, returns an int
 	/* Int */
 	export async function getReceivedUpvotes(jwt) {
@@ -189,6 +245,58 @@
 				}
 			} catch(err) {
 				throw new Error(`An error occurred while fetching user's received upvotes: ${err}`);
+			}
+		}
+	}
+
+	// get user's total downvotes received, returns an int
+	/* Int */
+	export async function getReceivedDownvotes(jwt) {
+		const uri = REST_URI;
+		if(jwt) {
+			try {
+				const response = await fetch(`${uri}/custom-comps/getreceiveddownvotes`, {
+					method: 'GET',
+					mode: 'cors',
+					cache: 'no-cache',
+					headers: {
+						'Authorization': `Bearer ${jwt}`,
+					},
+				});
+				if(response.status !== 200) {
+					throw new Error(`An error occurred while fetching user's received downvotes: ${response.json()}`)
+				} else {
+					const responseData = await response.json();
+					return responseData.data.upvotes;
+				}
+			} catch(err) {
+				throw new Error(`An error occurred while fetching user's received downvotes: ${err}`);
+			}
+		}
+	}
+
+	// get user's total saves received, returns an int
+	/* Int */
+	export async function getReceivedSaves(jwt) {
+		const uri = REST_URI;
+		if(jwt) {
+			try {
+				const response = await fetch(`${uri}/custom-comps/getreceivedsaves`, {
+					method: 'GET',
+					mode: 'cors',
+					cache: 'no-cache',
+					headers: {
+						'Authorization': `Bearer ${jwt}`,
+					},
+				});
+				if(response.status !== 200) {
+					throw new Error(`An error occurred while fetching user's received saves: ${response.json()}`)
+				} else {
+					const responseData = await response.json();
+					return responseData.data.upvotes;
+				}
+			} catch(err) {
+				throw new Error(`An error occurred while fetching user's received saves: ${err}`);
 			}
 		}
 	}
