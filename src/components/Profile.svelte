@@ -45,11 +45,16 @@
 		usernameError.text = '';
 		if($AppData.user.username !== username) {
 			try {
-				const response = await gqlUpdateUsername({variables: { id: $AppData.user.id, username: username }});
-				$AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
-				dispatch('routeEvent', {action: 'saveData'});
+				// check user's JWT before making queries
+				const valid = await validateJWT($AppData.user.jwt);
+				if(valid) {
+					const response = await gqlUpdateUsername({variables: { id: $AppData.user.id, username: username }});
+					$AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
+					dispatch('routeEvent', {action: 'saveData'});
+				} else {
+					$AppData.user.jwt = '';
+				}
 			} catch (error) {
-				console.log()
 				switch(error.graphQLErrors[0].extensions.code) {
 					case 'BAD_USER_INPUT':
 					case 'FORBIDDEN':
@@ -76,9 +81,15 @@
 		avatar = event.detail.avatar;
 		if($AppData.user.avatar !== avatar) {
 			try {
-				const response = await gqlUpdateAvatar({variables: { id: $AppData.user.id, avatar: avatar }});
-				$AppData.user.avatar = response.data.updateUsersPermissionsUser.data.attributes.avatar;
-				dispatch('routeEvent', {action: 'saveData'});
+				// check user's JWT before making queries
+				const valid = await validateJWT($AppData.user.jwt);
+				if(valid) {
+					const response = await gqlUpdateAvatar({variables: { id: $AppData.user.id, avatar: avatar }});
+					$AppData.user.avatar = response.data.updateUsersPermissionsUser.data.attributes.avatar;
+					dispatch('routeEvent', {action: 'saveData'});
+				} else {
+					$AppData.user.jwt = '';
+				}
 			} catch (error) {
 				console.log(error);
 			}
