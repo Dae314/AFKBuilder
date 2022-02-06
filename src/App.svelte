@@ -27,6 +27,7 @@
 	import About from './components/About.svelte';
 	import Profile from './components/Profile.svelte';
 	import PostLogin from './components/PostLogin.svelte';
+	import User from './components/User.svelte';
 
 	export let version = '';
 	const menuItems = [ 'Comps', 'Recommendations', 'My Heroes', 'Hero List', 'About' ];
@@ -65,10 +66,14 @@
 			component: Profile,
 			props: { isMobile: isMobile },
 		}),
+		'/users/:username': wrap({
+			component: User,
+			props: {},
+		}),
 		'/connect/:provider/redirect': wrap({
 			component: PostLogin,
 			props: {},
-		})
+		}),
 	}
 
 	// setup GraphQL with ApolloClient

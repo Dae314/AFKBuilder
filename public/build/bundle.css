@@ -1589,3 +1589,4 @@ table.ProseMirror-selectednode {
 .toastui-editor-md-custom-block .toastui-editor-md-meta {
   color: #5200d0;
 }
+.userContainer.svelte-1rywwcs{display:flex;flex-direction:column;height:calc(100vh - var(--headerHeight));overflow-y:auto;width:100%}
