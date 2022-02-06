@@ -117,7 +117,7 @@
 
 			saveAppData();
 		} else {
-			$AppData.user.jwt = '';
+			handleLogout();
 		}
 	});
 

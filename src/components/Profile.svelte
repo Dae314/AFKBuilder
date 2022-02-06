@@ -27,7 +27,7 @@
 			// user is valid, perform query
 			receivedLikes = await getReceivedUpvotes($AppData.user.jwt);
 		} else {
-			$AppData.user.jwt = '';
+			dispatch('routeEvent', {action: 'logout'});;
 		}
 		$AppData.activeView = 'profile';
 		dispatch('routeEvent', {action: 'saveData'});
@@ -52,7 +52,7 @@
 					$AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
 					dispatch('routeEvent', {action: 'saveData'});
 				} else {
-					$AppData.user.jwt = '';
+					dispatch('routeEvent', {action: 'logout'});;
 				}
 			} catch (error) {
 				switch(error.graphQLErrors[0].extensions.code) {
@@ -88,7 +88,7 @@
 					$AppData.user.avatar = response.data.updateUsersPermissionsUser.data.attributes.avatar;
 					dispatch('routeEvent', {action: 'saveData'});
 				} else {
-					$AppData.user.jwt = '';
+					dispatch('routeEvent', {action: 'logout'});;
 				}
 			} catch (error) {
 				console.log(error);
