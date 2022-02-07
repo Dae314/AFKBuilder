@@ -12537,7 +12537,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 33,
+		engraving_benchmark: 36,
 	},
 	{ id: 'melusina',
 		name: 'Melusina',
