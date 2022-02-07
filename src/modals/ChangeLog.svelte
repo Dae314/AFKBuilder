@@ -5,6 +5,13 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.13.30',
+			changes: [
+				'Added new hero Melusina',
+				'Updated LDV benchmark to E36',
+				'Adjusted spacing on Ainz skill Magic Caster',
+			],
+		},
 		{ version: 'v1.13.27',
 			changes: [
 				'Added Scarlet with accurate skill descriptions (Thanks Bob49)',
@@ -47,24 +54,6 @@
 				'Transition to svelte-spa-router for history handling',
 				'Fix Warek\'s 4th skill name',
 				'Fix Cecilia ult description',
-			],
-		},
-		{ version: 'v1.12.8',
-			changes: [
-				'Add new hero Thesku',
-				'Tweak MH ascension sort so SI and Furniture are compared',
-				'Update Skriath 4th skill',
-				'Updated social links',
-				'Khazard benchmark -> 300',
-				'Leonardo benchmark -> 003',
-				'Thali benchmark -> 209',
-				'Numisu benchmark -> 150',
-				'Mishka benchmark -> 009',
-				'Kren benchmark -> 303',
-				'Raku benchmark -> E44',
-				'Alna benchmark -> E33',
-				'Treznor benchmark -> 300',
-				'Eironn benchmark -> 203',
 			],
 		},
 	]
