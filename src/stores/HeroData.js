@@ -11698,7 +11698,7 @@ const HeroData = readable([
 			{ name: 'Magic Caster',
 				type: 'level',
 				image: './img/skills/ainz2.png',
-				desc: 'Ainz\' Normal Attacks are changed to the following abilities, which are used in a cycle:<br/><br/>Call Greater Thunder: Deals <em>240%</em> damage to the enemy target.<br/>Gravity Maelstrom: Deals <em>210%</em> damage to the enemy and any other nearby enemy targets.<br/>True Dark: Deals <em>180%</em> damage to the enemy target and prevents the enemy from using their Ultimate ability for <em>5</em> seconds.',
+				desc: 'Ainz\' Normal Attacks are changed to the following abilities, which are used in a cycle:<br/><br/>Call Greater Thunder: Deals <em>240%</em> damage to the enemy target.<br/><br/>Gravity Maelstrom: Deals <em>210%</em> damage to the enemy and any other nearby enemy targets.<br/><br/>True Dark: Deals <em>180%</em> damage to the enemy target and prevents the enemy from using their Ultimate ability for <em>5</em> seconds.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Call Greater Thunder damage is increased to <em>270%</em>.',
