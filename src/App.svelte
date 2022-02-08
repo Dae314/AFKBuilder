@@ -96,6 +96,7 @@
 		// check user's JWT on app start
 		const valid = await validateJWT($AppData.user.jwt);
 		if(valid) {
+			// user is logged in, try to populate the user's data
 			await populateUserData();
 			saveAppData();
 		} else {
@@ -121,13 +122,14 @@
 		window.location.assign(`${window.location.origin}/#/`);
 	}
 
+	// function assumes that $AppData.user.jwt was set correctly
+	// function will populate $Appdata.user object with data
 	async function populateUserData() {
-		// user is logged in, try to populate the user's data
 		let response;
 
 		response = await getUserDetails($AppData.user.jwt);
 		if(response.status !== 200) {
-			console.log(response.data);
+			throw new Error(`ERROR: received ${response.status} when querying for user details: ${response.data}`);
 		}
 		const user = response.data;
 		$AppData.user.id = user.id;
@@ -137,28 +139,28 @@
 		
 		response = await getLikedComps($AppData.user.jwt);
 		if(response.status !== 200) {
-			console.log(response.data);
+			throw new Error(`ERROR: received ${response.status} when querying for user liked comps: ${response.data}`);
 		}
 		const likedComps = response.data;
 		$AppData.user.liked_comps = likedComps;
 
 		response = await getDislikedComps($AppData.user.jwt);
 		if(response.status !== 200) {
-			console.log(response.data);
+			throw new Error(`ERROR: received ${response.status} when querying for user disliked comps: ${response.data}`);
 		}
 		const dislikedComps = response.data;
 		$AppData.user.disliked_comps = dislikedComps;
 
 		response = await getPublishedComps($AppData.user.jwt);
 		if(response.status !== 200) {
-			console.log(response.data);
+			throw new Error(`ERROR: received ${response.status} when querying for user published comps: ${response.data}`);
 		}
 		const publishedComps = response.data;
 		$AppData.user.published_comps = publishedComps;
 
 		response = await getSavedComps($AppData.user.jwt);
 		if(response.status !== 200) {
-			console.log(response.data);
+			throw new Error(`ERROR: received ${response.status} when querying for user saved comps: ${response.data}`);
 		}
 		const savedComps = response.data;
 		$AppData.user.saved_comps = savedComps;
