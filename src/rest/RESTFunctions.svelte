@@ -1,5 +1,6 @@
 <script context="module">
 	let tokenCache = readCache();
+	const uri = REST_URI;
 
 	// ===============================
 	// Utilities
@@ -28,7 +29,6 @@
 		data: { jwt: jwt } OR error object
 	} */
 	export async function postLoginProvider(token, provider) {
-		const uri = REST_URI;
 		const response = await fetch(`${uri}/auth/${provider}/callback?access_token=${token}`,
 		{
 			headers: {
@@ -45,7 +45,6 @@
 	// check if the jwt provided is good
 	/* bool */
 	export async function validateJWT(jwt) {
-		const uri = REST_URI;
 		// check for cached result
 		if(tokenCache.jwt === jwt) {
 			return Date.now() < tokenCache.tokenData.exp * 1000; // returns false if token is expired
@@ -97,7 +96,6 @@
 		} OR error object
 	}*/
 	export async function getUserDetails(jwt) {
-		const uri = REST_URI;
 		if(jwt) {
 			try {
 				const response = await fetch(`${uri}/users/me`, {
@@ -136,7 +134,6 @@
 		data: [{ id: ID, uuid: ID }] OR error object
 	}*/
 	export async function getLikedComps(jwt) {
-		const uri = REST_URI;
 		if(jwt) {
 			try {
 				const response = await fetch(`${uri}/custom-comps/getallupvoted`, {
@@ -165,7 +162,6 @@
 		data: [{ id: ID, uuid: ID }] OR error object
 	}*/
 	export async function getDislikedComps(jwt) {
-		const uri = REST_URI;
 		if(jwt) {
 			try {
 				const response = await fetch(`${uri}/custom-comps/getalldownvoted`, {
@@ -194,7 +190,6 @@
 		data: [{ id: ID, uuid: ID, comp_update: DateTime }] OR error object
 	}*/
 	export async function getPublishedComps(jwt) {
-		const uri = REST_URI;
 		if(jwt) {
 			try {
 				const response = await fetch(`${uri}/custom-comps/getmycomps`, {
@@ -227,7 +222,6 @@
 		data: [{ id: ID, uuid: ID }] OR error object
 	}*/
 	export async function getSavedComps(jwt) {
-		const uri = REST_URI;
 		if(jwt) {
 			try {
 				const response = await fetch(`${uri}/custom-comps/getallsaved`, {
@@ -256,7 +250,6 @@
 		data: Int OR error object
 	}*/
 	export async function getReceivedUpvotes(jwt) {
-		const uri = REST_URI;
 		if(jwt) {
 			try {
 				const response = await fetch(`${uri}/custom-comps/getreceivedupvotes`, {
@@ -285,7 +278,6 @@
 		data: Int OR error object
 	}*/
 	export async function getReceivedDownvotes(jwt) {
-		const uri = REST_URI;
 		if(jwt) {
 			try {
 				const response = await fetch(`${uri}/custom-comps/getreceiveddownvotes`, {
@@ -314,7 +306,6 @@
 		data: Int OR error object
 	}*/
 	export async function getReceivedSaves(jwt) {
-		const uri = REST_URI;
 		if(jwt) {
 			try {
 				const response = await fetch(`${uri}/custom-comps/getreceivedsaves`, {
@@ -349,7 +340,6 @@
 		} OR error object
 	}*/
 	export async function getAuthorDetails(author) {
-		const uri = REST_URI;
 		try {
 			const response = await fetch(`${uri}/custom-comps/getauthor/${encodeURIComponent(author)}`, {
 				method: 'GET',
