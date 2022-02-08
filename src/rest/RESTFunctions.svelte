@@ -84,7 +84,7 @@
 	// ===============================
 	// Authenticated user functions
 	// ===============================
-	// get details of the logged in user, returns an object with user properties
+	// get details of the logged in user
 	/*{
 		status: response status,
 		data: {
@@ -130,7 +130,7 @@
 		}
 	}
 
-	// get a list of comps that the user has liked, returns the array
+	// get a list of comps that the user has liked
 	/*{
 		status: response status,
 		data: [{ id: ID, uuid: ID }] OR error object
@@ -159,7 +159,7 @@
 		}
 	}
 
-	// get a list of comps that the user has disliked, returns the array
+	// get a list of comps that the user has disliked
 	/*{
 		status: response status,
 		data: [{ id: ID, uuid: ID }] OR error object
@@ -188,7 +188,7 @@
 		}
 	}
 
-	// get a list of comps that the user has published, returns the array
+	// get a list of comps that the user has published
 	/*{
 		status: response status,
 		data: [{ id: ID, uuid: ID, comp_update: DateTime }] OR error object
@@ -221,7 +221,7 @@
 		}
 	}
 
-	// get a list of comps that the user has published, returns the array
+	// get a list of comps that the user has published
 	/*{
 		status: response status,
 		data: [{ id: ID, uuid: ID }] OR error object
@@ -250,7 +250,7 @@
 		}
 	}
 
-	// get user's total upvotes received, returns an int
+	// get user's total upvotes received
 	/*{
 		status: response status,
 		data: Int OR error object
@@ -279,7 +279,7 @@
 		}
 	}
 
-	// get user's total downvotes received, returns an int
+	// get user's total downvotes received
 	/*{
 		status: response status,
 		data: Int OR error object
@@ -308,7 +308,7 @@
 		}
 	}
 
-	// get user's total saves received, returns an int
+	// get user's total saves received
 	/*{
 		status: response status,
 		data: Int OR error object
@@ -340,4 +340,31 @@
 	// ===============================
 	// Unauthenticated user functions
 	// ===============================
+	// get author's public profile
+	/*{
+		status: response status,
+		data: {
+			comps: [{id, uuid, name}],
+			author: { username, avatar, upvoted_comps, upvotes }
+		} OR error object
+	}*/
+	export async function getAuthorDetails(author) {
+		const uri = REST_URI;
+		try {
+			const response = await fetch(`${uri}/custom-comps/getauthor/${encodeURIComponent(author)}`, {
+				method: 'GET',
+				mode: 'cors',
+				cache: 'no-cache',
+				headers: {},
+			});
+			const responseData = await response.json();
+			if(response.status !== 200) {
+				return { status: response.status, data: responseData.error };
+			} else {
+				return { status: response.status, data: responseData.data };
+			}
+		} catch(err) {
+			throw new Error(`An error occurred while fetching author details: ${err}`);
+		}
+	}
 </script>
