@@ -92,17 +92,20 @@
 						'Authorization': `Bearer ${jwt}`,
 					},
 				});
+				const responseData = await response.json();
 				if(response.status !== 200) {
-					throw new Error(`An error occurred while fetching user information: ${response.json()}`)
+					return { status: response.status, data: responseData.error };
 				} else {
-					const responseData = await response.json();
 					return {
-						id: responseData.id,
-						username: responseData.username,
-						email: responseData.email,
-						my_heroes: responseData.my_heroes,
-						local_comps: responseData.local_comps,
-						avatar: responseData.avatar,
+						status: response.status,
+						data: {
+							id: responseData.id,
+							username: responseData.username,
+							email: responseData.email,
+							my_heroes: responseData.my_heroes,
+							local_comps: responseData.local_comps,
+							avatar: responseData.avatar,
+						}
 					};
 				}
 			} catch(err) {
@@ -127,11 +130,11 @@
 						'Authorization': `Bearer ${jwt}`,
 					},
 				});
+				const responseData = await response.json();
 				if(response.status !== 200) {
-					throw new Error(`An error occurred while fetching user's liked comps: ${response.json()}`)
+					return { status: response.status, data: responseData.error };
 				} else {
-					const responseData = await response.json();
-					return responseData.data.comps;
+					return { status: response.status, data: responseData.data.comps };
 				}
 			} catch(err) {
 				throw new Error(`An error occurred while fetching user's liked comps: ${err}`);
@@ -155,11 +158,11 @@
 						'Authorization': `Bearer ${jwt}`,
 					},
 				});
+				const responseData = await response.json();
 				if(response.status !== 200) {
-					throw new Error(`An error occurred while fetching user's disliked comps: ${response.json()}`)
+					return { status: response.status, data: responseData.error };
 				} else {
-					const responseData = await response.json();
-					return responseData.data.comps;
+					return { status: response.status, data: responseData.data.comps };
 				}
 			} catch(err) {
 				throw new Error(`An error occurred while fetching user's disliked comps: ${err}`);
@@ -183,15 +186,15 @@
 						'Authorization': `Bearer ${jwt}`,
 					},
 				});
+				const responseData = await response.json();
 				if(response.status !== 200) {
-					throw new Error(`An error occurred while fetching user's published comps: ${response.json()}`)
+					return { status: response.status, data: responseData.error };
 				} else {
-					const responseData = await response.json();
 					for(let comp of responseData.data.comps) {
 						// parse the comp_update field as a datetime
 						comp.comp_update = new Date(comp.comp_update);
 					}
-					return responseData.data.comps;
+					return { status: response.status, data: responseData.data.comps };
 				}
 			} catch(err) {
 				throw new Error(`An error occurred while fetching user's published comps: ${err}`);
@@ -215,11 +218,11 @@
 						'Authorization': `Bearer ${jwt}`,
 					},
 				});
+				const responseData = await response.json();
 				if(response.status !== 200) {
-					throw new Error(`An error occurred while fetching user's saved comps: ${response.json()}`)
+					return { status: response.status, data: responseData.error };
 				} else {
-					const responseData = await response.json();
-					return responseData.data.comps;
+					return { status: response.status, data: responseData.data.comps };
 				}
 			} catch(err) {
 				throw new Error(`An error occurred while fetching user's saved comps: ${err}`);
@@ -241,11 +244,11 @@
 						'Authorization': `Bearer ${jwt}`,
 					},
 				});
+				const responseData = await response.json();
 				if(response.status !== 200) {
-					throw new Error(`An error occurred while fetching user's received upvotes: ${response.json()}`)
+					return { status: response.status, data: responseData.error };
 				} else {
-					const responseData = await response.json();
-					return responseData.data.upvotes;
+					return { status: response.status, data: responseData.data.upvotes };
 				}
 			} catch(err) {
 				throw new Error(`An error occurred while fetching user's received upvotes: ${err}`);
@@ -267,11 +270,11 @@
 						'Authorization': `Bearer ${jwt}`,
 					},
 				});
+				const responseData = await response.json();
 				if(response.status !== 200) {
-					throw new Error(`An error occurred while fetching user's received downvotes: ${response.json()}`)
+					return { status: response.status, data: responseData.error };
 				} else {
-					const responseData = await response.json();
-					return responseData.data.upvotes;
+					return { status: response.status, data: responseData.data.downvotes };
 				}
 			} catch(err) {
 				throw new Error(`An error occurred while fetching user's received downvotes: ${err}`);
@@ -293,11 +296,11 @@
 						'Authorization': `Bearer ${jwt}`,
 					},
 				});
+				const responseData = await response.json();
 				if(response.status !== 200) {
-					throw new Error(`An error occurred while fetching user's received saves: ${response.json()}`)
+					return { status: response.status, data: responseData.error };
 				} else {
-					const responseData = await response.json();
-					return responseData.data.upvotes;
+					return { status: response.status, data: responseData.data.saves };
 				}
 			} catch(err) {
 				throw new Error(`An error occurred while fetching user's received saves: ${err}`);

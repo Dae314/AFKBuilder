@@ -31,23 +31,7 @@
 			if(valid) { // login successful, populate user data
 				$AppData.user.jwt = jwt;
 
-				const user = await getUserDetails($AppData.user.jwt);
-				$AppData.user.id = user.id;
-				$AppData.user.username = user.username;
-				$AppData.user.local_comps = user.local_comps;
-				$AppData.user.avatar = user.avatar;
-				
-				const likedComps = await getLikedComps($AppData.user.jwt);
-				$AppData.user.liked_comps = likedComps;
-
-				const dislikedComps = await getDislikedComps($AppData.user.jwt);
-				$AppData.user.disliked_comps = dislikedComps;
-
-				const publishedComps = await getPublishedComps($AppData.user.jwt);
-				$AppData.user.published_comps = publishedComps;
-
-				const savedComps = await getSavedComps($AppData.user.jwt);
-				$AppData.user.saved_comps = savedComps;
+				dispatch('routeEvent', {action: 'populateUserData'});
 
 				dispatch('routeEvent', {action: 'saveData'});
 			} else {

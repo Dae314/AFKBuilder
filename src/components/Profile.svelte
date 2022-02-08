@@ -24,8 +24,14 @@
 		// check user's JWT before making queries
 		const valid = await validateJWT($AppData.user.jwt);
 		if(valid) {
+			let response;
 			// user is valid, perform query
-			receivedLikes = await getReceivedUpvotes($AppData.user.jwt);
+			response = await getReceivedUpvotes($AppData.user.jwt);
+			if(response.status !== 200) {
+				console.log(response.data);
+			} else {
+				receivedLikes = response.data;
+			}
 		} else {
 			dispatch('routeEvent', {action: 'logout'});;
 		}

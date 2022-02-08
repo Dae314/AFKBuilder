@@ -96,25 +96,7 @@
 		// check user's JWT on app start
 		const valid = await validateJWT($AppData.user.jwt);
 		if(valid) {
-			// user is logged in, try to populate the user's data
-			const user = await getUserDetails($AppData.user.jwt);
-			$AppData.user.id = user.id;
-			$AppData.user.username = user.username;
-			$AppData.user.local_comps = user.local_comps;
-			$AppData.user.avatar = user.avatar;
-			
-			const likedComps = await getLikedComps($AppData.user.jwt);
-			$AppData.user.liked_comps = likedComps;
-
-			const dislikedComps = await getDislikedComps($AppData.user.jwt);
-			$AppData.user.disliked_comps = dislikedComps;
-
-			const publishedComps = await getPublishedComps($AppData.user.jwt);
-			$AppData.user.published_comps = publishedComps;
-
-			const savedComps = await getSavedComps($AppData.user.jwt);
-			$AppData.user.saved_comps = savedComps;
-
+			await populateUserData();
 			saveAppData();
 		} else {
 			handleLogout();
@@ -137,6 +119,49 @@
 		$AppData.user.saved_comps = [];
 		saveAppData();
 		window.location.assign(`${window.location.origin}/#/`);
+	}
+
+	async function populateUserData() {
+		// user is logged in, try to populate the user's data
+		let response;
+
+		response = await getUserDetails($AppData.user.jwt);
+		if(response.status !== 200) {
+			console.log(response.data);
+		}
+		const user = response.data;
+		$AppData.user.id = user.id;
+		$AppData.user.username = user.username;
+		$AppData.user.local_comps = user.local_comps;
+		$AppData.user.avatar = user.avatar;
+		
+		response = await getLikedComps($AppData.user.jwt);
+		if(response.status !== 200) {
+			console.log(response.data);
+		}
+		const likedComps = response.data;
+		$AppData.user.liked_comps = likedComps;
+
+		response = await getDislikedComps($AppData.user.jwt);
+		if(response.status !== 200) {
+			console.log(response.data);
+		}
+		const dislikedComps = response.data;
+		$AppData.user.disliked_comps = dislikedComps;
+
+		response = await getPublishedComps($AppData.user.jwt);
+		if(response.status !== 200) {
+			console.log(response.data);
+		}
+		const publishedComps = response.data;
+		$AppData.user.published_comps = publishedComps;
+
+		response = await getSavedComps($AppData.user.jwt);
+		if(response.status !== 200) {
+			console.log(response.data);
+		}
+		const savedComps = response.data;
+		$AppData.user.saved_comps = savedComps;
 	}
 
 	function clearAppData() {
@@ -175,7 +200,7 @@
 		isMobile = window.matchMedia("(max-width: 767px)").matches;
 	}
 
-	function handleRouteEvent(event) {
+	async function handleRouteEvent(event) {
 		switch(event.detail.action) {
 			case 'saveData':
 				saveAppData();
@@ -185,6 +210,9 @@
 				break;
 			case 'logout':
 				handleLogout();
+				break;
+			case 'populateUserData':
+				await populateUserData();
 				break;
 			case 'resetTutorial':
 				resetTutorial();
