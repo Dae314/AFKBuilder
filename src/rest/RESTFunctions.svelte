@@ -1,6 +1,9 @@
 <script context="module">
 	let tokenCache = readCache();
 
+	// ===============================
+	// Utilities
+	// ===============================
 	// utility function to save token data to localstorage
 	function saveCache() {
 		window.localStorage.setItem('tokenCache', JSON.stringify(tokenCache));
@@ -16,6 +19,14 @@
 		}
 	}
 
+	// ===============================
+	// JWT functions
+	// ===============================
+	// part of the post-login process: retrieve user's JWT based on their provider token
+	/* {
+		status: response status,
+		data: { jwt: jwt } OR error object
+	} */
 	export async function postLoginProvider(token, provider) {
 		const uri = REST_URI;
 		const response = await fetch(`${uri}/auth/${provider}/callback?access_token=${token}`,
@@ -24,15 +35,15 @@
 				Authorization: `token ${token}`
 			}
 		});
-		if(response.status !== 200) {
-			console.log(`Failed to retrieve JWT from backend: ${response.status}`);
-			return { status: response.status, data: {message: 'Failed to retrieve JWT from backend.'}};
-		}
 		const json = await response.json();
+		if(response.status !== 200) {
+			return { status: response.status, data: json.error };
+		}
 		return { status: response.status, data: {jwt: json.jwt}};
 	}
 
-	// if the jwt provided is good, return true otherwise return false
+	// check if the jwt provided is good
+	/* bool */
 	export async function validateJWT(jwt) {
 		const uri = REST_URI;
 		// check for cached result
@@ -70,15 +81,20 @@
 		}
 	}
 
-	// functions below here assume a valid JWT
-
+	// ===============================
+	// Authenticated user functions
+	// ===============================
 	// get details of the logged in user, returns an object with user properties
 	/*{
-		id: ID,
-		username: String,
-		email: String,
-		my_heroes: String,
-		local_comps: Object
+		status: response status,
+		data: {
+			id: ID,
+			username: String,
+			email: String,
+			my_heroes: String,
+			local_comps: Object,
+			avatar: String
+		} OR error object
 	}*/
 	export async function getUserDetails(jwt) {
 		const uri = REST_URI;
@@ -115,9 +131,10 @@
 	}
 
 	// get a list of comps that the user has liked, returns the array
-	/*[
-			{ id: ID, uuid: ID }
-	]*/
+	/*{
+		status: response status,
+		data: [{ id: ID, uuid: ID }] OR error object
+	}*/
 	export async function getLikedComps(jwt) {
 		const uri = REST_URI;
 		if(jwt) {
@@ -143,9 +160,10 @@
 	}
 
 	// get a list of comps that the user has disliked, returns the array
-	/*[
-			{ id: ID, uuid: ID }
-	]*/
+	/*{
+		status: response status,
+		data: [{ id: ID, uuid: ID }] OR error object
+	}*/
 	export async function getDislikedComps(jwt) {
 		const uri = REST_URI;
 		if(jwt) {
@@ -171,9 +189,10 @@
 	}
 
 	// get a list of comps that the user has published, returns the array
-	/*[
-			{ id: ID, uuid: ID, comp_update: DateTime }
-	]*/
+	/*{
+		status: response status,
+		data: [{ id: ID, uuid: ID, comp_update: DateTime }] OR error object
+	}*/
 	export async function getPublishedComps(jwt) {
 		const uri = REST_URI;
 		if(jwt) {
@@ -203,9 +222,10 @@
 	}
 
 	// get a list of comps that the user has published, returns the array
-	/*[
-			{ id: ID, uuid: ID }
-	]*/
+	/*{
+		status: response status,
+		data: [{ id: ID, uuid: ID }] OR error object
+	}*/
 	export async function getSavedComps(jwt) {
 		const uri = REST_URI;
 		if(jwt) {
@@ -231,7 +251,10 @@
 	}
 
 	// get user's total upvotes received, returns an int
-	/* Int */
+	/*{
+		status: response status,
+		data: Int OR error object
+	}*/
 	export async function getReceivedUpvotes(jwt) {
 		const uri = REST_URI;
 		if(jwt) {
@@ -257,7 +280,10 @@
 	}
 
 	// get user's total downvotes received, returns an int
-	/* Int */
+	/*{
+		status: response status,
+		data: Int OR error object
+	}*/
 	export async function getReceivedDownvotes(jwt) {
 		const uri = REST_URI;
 		if(jwt) {
@@ -283,7 +309,10 @@
 	}
 
 	// get user's total saves received, returns an int
-	/* Int */
+	/*{
+		status: response status,
+		data: Int OR error object
+	}*/
 	export async function getReceivedSaves(jwt) {
 		const uri = REST_URI;
 		if(jwt) {
@@ -307,4 +336,8 @@
 			}
 		}
 	}
+
+	// ===============================
+	// Unauthenticated user functions
+	// ===============================
 </script>
