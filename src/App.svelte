@@ -98,17 +98,17 @@
 		if(valid) {
 			// user is logged in, try to populate the user's data
 			await populateUserData();
-			saveAppData();
+			await saveAppData();
 		} else {
-			handleLogout();
+			await handleLogout();
 		}
 	});
 
-	function saveAppData() {
+	async function saveAppData() {
 		window.localStorage.setItem('appData', JSON.stringify($AppData));
 	}
 
-	function handleLogout() {
+	async function handleLogout() {
 		$AppData.user.avatar = '';
 		$AppData.user.username = '';
 		$AppData.user.id = '';
@@ -118,7 +118,7 @@
 		$AppData.user.local_comps = [];
 		$AppData.user.published_comps = [];
 		$AppData.user.saved_comps = [];
-		saveAppData();
+		await saveAppData();
 		window.location.assign(`${window.location.origin}/#/`);
 	}
 
@@ -166,16 +166,16 @@
 		$AppData.user.saved_comps = savedComps;
 	}
 
-	function clearAppData() {
+	async function clearAppData() {
 		window.localStorage.removeItem('appData');
 		location.reload();
 	}
 
-	function resetTutorial() {
+	async function resetTutorial() {
 		$AppData.dismissImportWarn = false;
 		$AppData.dismissMHSearchInfo = false;
 		$AppData.dismissHLSearchInfo = false;
-		saveAppData();
+		await saveAppData();
 		location.reload();
 	}
 
@@ -205,19 +205,19 @@
 	async function handleRouteEvent(event) {
 		switch(event.detail.action) {
 			case 'saveData':
-				saveAppData();
+				await saveAppData();
 				break;
 			case 'clearData':
-				clearAppData();
+				await clearAppData();
 				break;
 			case 'logout':
-				handleLogout();
+				await handleLogout();
 				break;
 			case 'populateUserData':
 				await populateUserData();
 				break;
 			case 'resetTutorial':
-				resetTutorial();
+				await resetTutorial();
 				break;
 			default:
 				throw new Error(`Invalid action specified for route event: ${event.detail.action}`);
