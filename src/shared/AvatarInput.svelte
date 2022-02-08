@@ -8,6 +8,8 @@
 	const { open } = getContext('simple-modal');
 
 	export let avatar = 'hogan';
+	export let editable = true;
+	export let size = '70px';
 
 	$: avatarHero = $HeroData.find(e => e.id === avatar);
 
@@ -16,15 +18,17 @@
 	}
 
 	function openAvatarPicker() {
-		open(AvatarPicker, { onChange: handleAvatarChange, }, { closeButton: ModalCloseButton });
+		if(editable) {
+			open(AvatarPicker, { onChange: handleAvatarChange, }, { closeButton: ModalCloseButton });
+		}
 	}
 </script>
 
 <div class="avatarInputContainer">
-	<button type="button" class="avatarButton" on:click={openAvatarPicker}>
-		<img class="avatar" src="{avatarHero.portrait}" alt="{avatarHero.name}">
+	<button type="button" class="avatarButton" on:click={openAvatarPicker} disabled={!editable}>
+		<img class="avatar" src="{avatarHero.portrait}" alt="{avatarHero.name}" style="max-width: {size}" draggable="false">
 	</button>
-	<span class="avatarEdit">
+	<span class="avatarEdit" class:editLock={!editable}>
 		<img src="./img/utility/pencil.png" alt="edit avatar">
 	</span>
 </div>
@@ -40,7 +44,9 @@
 		outline: none;
 		.avatar {
 			border-radius: 50%;
-			max-width: 70px;
+		}
+		&:disabled {
+			cursor: default;
 		}
 	}
 	.avatarEdit {
@@ -52,6 +58,9 @@
 			max-width: 20px;
 			filter: invert(1);
 			opacity: 0.7;
+		}
+		&.editLock {
+			display: none;
 		}
 	}
 	@media only screen and (min-width: 767px) {
@@ -65,6 +74,9 @@
 			opacity: 0;
 			transition: all 0.1s;
 			visibility: hidden;
+			&.editLock {
+				display: none;
+			}
 		}
 	}
 </style>
