@@ -25,6 +25,7 @@
 	import MyHeroes from './components/MyHeroes.svelte';
 	import Recommendations from './components/Recommendations.svelte';
 	import About from './components/About.svelte';
+	import CookieConsent from './components/CookieConsent.svelte';
 	import Profile from './components/Profile.svelte';
 	import PostLogin from './components/PostLogin.svelte';
 	import User from './components/User.svelte';
@@ -243,6 +244,7 @@
 				</div>
 			</div>
 		</main>
+		<CookieConsent on:routeEvent={handleRouteEvent} />
 	</div>
 </Modal>
 
