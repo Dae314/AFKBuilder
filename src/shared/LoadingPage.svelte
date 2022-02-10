@@ -3,7 +3,7 @@
 </script>
 
 <div class="loadingContainer">
-	<LoadingSpinner />
+	<LoadingSpinner type="dual ring" size="medium" />
 </div>
 
 <style lang="scss">
