@@ -2,7 +2,7 @@
 	import { onMount, createEventDispatcher } from 'svelte';
 	import AppData from '../stores/AppData.js';
 	import AvatarInput from '../shared/AvatarInput.svelte';
-	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
+	import LoadingPage from '../shared/LoadingPage.svelte';
 	import {getAuthorDetails} from '../rest/RESTFunctions.svelte';
 	
 	export let params = {};
@@ -44,7 +44,7 @@
 </script>
 
 {#await populateAuthorData()}
-	<LoadingSpinner />
+	<LoadingPage />
 {:then _}
 	<div class="userContainer">
 		<section class="titleArea">

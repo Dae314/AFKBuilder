@@ -5,7 +5,7 @@
 	import { gql_UPDATE_USERNAME, gql_UPDATE_AVATAR } from '../gql/queries.svelte';
 	import { mutation } from "svelte-apollo";
 	import AvatarInput from '../shared/AvatarInput.svelte';
-	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
+	import LoadingPage from '../shared/LoadingPage.svelte';
 	import Confirm from '../modals/Confirm.svelte';
 
 	export let isMobile = false;
@@ -127,7 +127,7 @@
 </script>
 
 {#await populateReceivedUpvotes()}
-	<LoadingSpinner />
+	<LoadingPage />
 {:then _}
 	<div class="profileContainer">
 		{#if $AppData.user.jwt}
