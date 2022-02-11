@@ -3,6 +3,7 @@
 	import AppData from '../stores/AppData.js';
 	import AvatarInput from '../shared/AvatarInput.svelte';
 	import LoadingPage from '../shared/LoadingPage.svelte';
+	import CompLibCard from './CompLibCard.svelte';
 	import {getAuthorDetails} from '../rest/RESTFunctions.svelte';
 	
 	export let params = {};
@@ -65,7 +66,7 @@
 				<ul>
 					{#each comps as comp}
 					<li>
-						{comp.name}
+						<CompLibCard comp={comp} />
 					</li>
 					{/each}
 				</ul>

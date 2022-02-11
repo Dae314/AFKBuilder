@@ -1,348 +1,125 @@
 <script>
-	import AppData from '../stores/AppData.js';
+	import {onMount} from 'svelte';
 	import HeroData from '../stores/HeroData.js';
 	
 	export let comp = {};
+	/* expect comp to be of the format:
+		{
+			id: int,
+			uuid: uuid,
+			name: string,
+			upvotes: int,
+			downvotes: int,
+			tags: [{id: int, name: string}],
+			author: {username: string, avatar: string},
+			comp_update: datetime,
+		}
+	*/
+
+	$: avatarHero = $HeroData.find(e => e.id === comp.author.avatar);
+
+	let age = 0;
+
+	onMount(async () => {
+		if(!('id' in comp) ||
+		   !('uuid' in comp) ||
+			 !('name' in comp) ||
+			 !('upvotes' in comp) ||
+			 !('downvotes' in comp) ||
+			 !('tags' in comp) ||
+			 !('author' in comp) ||
+			 !('comp_update' in comp)
+			) {
+			throw new Error(`ERROR invalid comp object passed to CompLibCard: ${comp}`);
+		}
+		age = Date.now() - Date.parse(comp.comp_update);
+	});
 
 	function handleCompCardClick() {
-		console.log('clicked');
+		console.log('card clicked');
+	}
+
+	function handleFavoriteButtonClick() {
+		console.log('favorite clicked');
+	}
+
+	function msToString(time) {
+		// expect time to be number of milliseconds
+		if(time < 60000) {
+			// time is less than a minute
+			return `a few seconds`;
+		} else if(time < 3600000) {
+			// time is less than an hour
+			return `${Math.floor(time/60000)}min`;
+		} else if(time < 86400000) {
+			// time is less than a day
+			return `${Math.floor(time/3600000)}hrs`;
+		} else if(time < 2592000000) {
+			// time is less than a month
+			return `${Math.floor(time/86400000)}days`;
+		} else if(time < 31560000000) {
+			// time is less than a year
+			return `${Math.floor(time/2592000000)}mo`;
+		} else {
+			// time is greater than a year
+			return `${Math.floor(time/31560000000)}yrs`;
+		}
 	}
 </script>
 
-<div class="compCard" on:click={() => handleCompCardClick() }>
-	<div class="compCardHead">
-		<div class="titleAuthorContainer">
-			<div class="compCardTitleContainer">
-				<span class="compCardTitle">{comp.name}</span>
-			</div>
-			<div class="authorContainer">
-				<span class="author">{comp.author}</span>
+<div class="compLibCardContainer">
+	<div class="votingContainer">
+		<div class="likeArea">
+			<button class="likeButton">
+				<img class="likeImage" src="./img/utility/export.png" alt="Like" draggable="false">
+			</button>
+			<div class="likeText">
+				{comp.upvotes}
 			</div>
 		</div>
-		<div class="buttonDraftArea">
-			<div class="cardButtonsContainer">
-				<div class="buttonArea">
-					<button type="button" class="cardDeleteButton" on:click={(e) => { handleDeleteButtonClick(idx); e.stopPropagation(); }}><img draggable="false" class="deleteIcon" src="./img/utility/trashcan.png" alt="Delete"></button>
-					<div class="tooltip deleteTooltip"><span class="tooltipText">Delete</span></div>
-				</div>
-				<div class="buttonArea">
-					<button type="button" class="cardExportButton" on:click={(e) => { handleExportButtonClick(idx); e.stopPropagation(); }}><img draggable="false" class="exportIcon" src="./img/utility/export.png" alt="Export"></button>
-					<div class="tooltip exportTooltip"><span class="tooltipText">Export</span></div>
-				</div>
-				<i class="star" class:active={comp.starred} on:click={(e) => handleStarClick(e, comp)}></i>
-			</div>
-			<div class="draftContainer">
-				<div class="draftLabel" class:open={comp.draft}><span>draft</span></div>
+		<div class="dislikeArea">
+			<button class="dislikeButton">
+				<img class="dislikeImage" src="./img/utility/import.png" alt="Dislike" draggable="false">
+			</button>
+			<div class="dislikeText">
+				{comp.downvotes}
 			</div>
 		</div>
 	</div>
-	<div class="compImgs">
-		{#if comp.lines.length > 0}
-			{#each comp.lines[0].heroes as hero}
-				{#if $HeroData.some(e => e.id === hero)}
-					<img draggable="false" class="compCardImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
-				{:else}
-					<i class="emptyCardSlot"></i>
-				{/if}
-			{/each}
-		{:else}
-			<i class="emptyCardSlot"></i>
-			<i class="emptyCardSlot"></i>
-			<i class="emptyCardSlot"></i>
-			<i class="emptyCardSlot"></i>
-			<i class="emptyCardSlot"></i>
-		{/if}
+	<div class="compCard" on:click={() => handleCompCardClick() }>
+		<div class="compCardHead">
+			<div class="authorContainer">
+				<img class="avatar" src="{avatarHero.portrait}" alt="{avatarHero.name}" draggable="false">
+				<div class="username">{comp.author.username}</div>
+			</div>
+			<div class="ageContainer">
+				<span class="age">{msToString(age)}</span>
+			</div>
+			<div class="buttonArea">
+				<div class="cardButtonsContainer">
+					<div class="buttonArea">
+						<button type="button" class="favoriteButton" on:click={(e) => { handleFavoriteButtonClick(idx); e.stopPropagation(); }}><img draggable="false" class="deleteIcon" src="./img/utility/trashcan.png" alt="Favorite"></button>
+						<div class="tooltip favoriteTooltip"><span class="tooltipText">Favorite</span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="compTitleContainer">
+			<div class="compTitle">{comp.name}</div>
+		</div>
+		<div class="tagsContainer">
+			<ul>
+				{#each comp.tags as tag}
+				<li>
+					<div class="compTag">{tag.name}</div>
+				</li>
+				{/each}
+			</ul>
+		</div>
 	</div>
 </div>
 
 <style lang="scss">
-	.compCard {
-		background-color: var(--appBGColor);
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 10px;
-		cursor: pointer;
-		scroll-snap-align: center;
-		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-	}
-	img {
-		user-select: none;
-	}
-	.compCardHead {
-		display: flex;
-		justify-content: center;
-		padding: 10px;
-		padding-right: 5px;
-		padding-top: 8px;
-		.titleAuthorContainer {
-			flex-grow: 1;
-			max-width: 80%;
-			justify-content: flex-start;
-			padding-right: 5px;
-			.compCardTitleContainer {
-				width: 100%;
-				.compCardTitle {
-					display: inline-block;
-					font-size: 1.3rem;
-					font-weight: bold;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					user-select: none;
-					white-space: nowrap;
-					width: 100%;
-				}
-			}
-			.author {
-				display: inline-block;
-				overflow: hidden;
-				user-select: none;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				width: 100%;
-			}
-		}
-		.buttonDraftArea {
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-end;
-			min-width: 80px;
-			width: 20%;
-			.cardButtonsContainer {
-				align-items: center;
-				display: grid;
-				grid-gap: 5px;
-				grid-template-columns: 1fr 1fr 1fr;
-				height: 100%;
-				justify-content: space-evenly;
-				justify-items: center;
-				.buttonArea {
-					align-items: center;
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-				}
-				.cardDeleteButton {
-					background-color: transparent;
-					border: 0;
-					cursor: pointer;
-					display: none;
-					height: fit-content;
-					margin: 0;
-					outline: 0;
-					padding: 0;
-					padding-top: 1px;
-					.deleteIcon {
-						filter: invert(1.0);
-						max-width: 15px;
-					}
-				}
-				.cardExportButton {
-					background-color: transparent;
-					border: 0;
-					cursor: pointer;
-					display: none;
-					height: fit-content;
-					margin: 0;
-					outline: 0;
-					padding: 0;
-					padding-top: 2px;
-					.exportIcon {
-						filter: invert(1.0);
-						max-width: 18px;
-					}
-				}
-				.star {
-					border-bottom: .7em solid gray;
-					border-left: .3em solid transparent;
-					border-right: .3em solid transparent;
-					cursor: pointer;
-					display: inline-block;
-					font-size: 0.7rem;
-					height: 0;
-					margin-bottom: 1.2em;
-					margin-left: .9em;
-					margin-right: .9em;
-					position: relative;
-					width: 0;
-					&:before {
-						border-bottom: .7em solid gray;
-						border-left: 1em solid transparent;
-						border-right: 1em solid transparent;
-						content: '';
-						display: block;
-						height: 0;
-						left: -1em;
-						position: absolute;
-						top: .6em;
-						transform: rotate(-35deg);
-						width: 0;
-					}
-					&:after {
-						border-bottom: .7em solid gray;
-						border-left: 1em solid transparent;
-						border-right: 1em solid transparent;
-						content: '';
-						display: block;
-						height: 0;
-						left: -1em;
-						position: absolute;
-						top: .6em;
-						transform: rotate(-35deg);
-						width: 0;
-						transform: rotate(35deg);
-					}
-					&:active {
-						border-bottom-color: var(--legendColor);
-						&:before {
-							border-bottom-color: var(--legendColor);
-						}
-						&:after {
-							border-bottom-color: var(--legendColor);
-						}
-					}
-				}
-				.star.active {
-					border-bottom-color: var(--legendColor);
-					&:before {
-						border-bottom-color: var(--legendColor);
-					}
-					&:after {
-						border-bottom-color: var(--legendColor);
-					}
-				}
-			}
-			.draftContainer {
-				display: flex;
-				font-style: italic;
-				justify-content: flex-end;
-				padding-right: 4px;
-				.draftLabel {
-					visibility: hidden;
-				}
-				.draftLabel.open {
-					visibility: visible;
-				}
-			}
-		}
-	}
-	.tooltip {
-		display: none;
-	}
-	.compImgs {
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		height: max-content;
-		justify-content: center;
-		padding: 5px;
-	}
-	.compCardImg {
-		border-radius: 50%;
-		margin: 3px;
-		max-width: 50px;
-	}
-	.compCardImg.claimed {
-		border: 3px solid var(--appColorPrimary);
-	}
-	.emptyCardSlot {
-		background: transparent;
-		border: 3px solid var(--appColorPriAccent);
-		border-radius: 50%;
-		flex-grow: 0;
-		flex-shrink: 0;
-		height: 50px;
-		margin: 3px;
-		width: 50px;
-	}
 	@media only screen and (min-width: 767px) {
-		.tooltip {
-			bottom: -2px;
-			display: inline-block;
-			position: relative;
-			right: 22px;
-			.tooltipText {
-				background-color: var(--appColorPrimary);
-				border-radius: 6px;
-				color: white;
-				font-size: 0.8rem;
-				opacity: 0;
-				padding: 4px;
-				position: absolute;
-				text-align: center;
-				transition: opacity 0.2s;
-				user-select: none;
-				visibility: hidden;
-				z-index: 1;
-			}
-		}
-		.exportTooltip {
-			right: 22.5px;
-		}
-		.compCard {
-			&:hover {
-				box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
-				transform: scale(1.02);
-			}
-		}
-		.compCard.active {
-			border: 5px solid var(--appColorPrimary);
-			transform: scale(1.03);
-		}
-		.compCardHead {
-			.buttonDraftArea {
-				.cardButtonsContainer {
-					.cardDeleteButton {
-						display: block;
-					}
-					.cardExportButton {
-						display: block;
-					}
-				}
-			}
-		}
-		.titleAuthorContainer {
-			width: 70%;
-		}
-		.buttonDraftArea {
-			width: 30%;
-			.cardDeleteButton {
-				&:hover+.tooltip {
-					.tooltipText {
-						opacity: 1;
-						visibility: visible;
-					}
-				}
-			}
-			.cardExportButton {
-				&:hover+.tooltip {
-					.tooltipText {
-						opacity: 1;
-						visibility: visible;
-					}
-				}
-			}
-			.star {
-				&:hover {
-					border-bottom-color: #E0920B;
-					&:before {
-						border-bottom-color: #E0920B;
-					}
-					&:after {
-						border-bottom-color: #E0920B;
-					}
-				}
-			}
-			.star.active {
-				&:hover {
-					border-bottom-color: var(--legendColor);
-					&:before {
-						border-bottom-color: var(--legendColor);
-					}
-					&:after {
-						border-bottom-color: var(--legendColor);
-					}
-				}
-			}
-		}
 	}
 </style>
