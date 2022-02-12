@@ -13,7 +13,7 @@
 	let user = {};
 	let comps = [];
 	let showPublished = false;
-	let showLiked = false;
+	let showFavorite = false;
 
 	onMount(async () => {
 		$AppData.activeView = 'user';
@@ -36,7 +36,7 @@
 				showPublished = !showPublished;
 				break;
 			case 'liked':
-				showLiked = !showLiked;
+				showFavorite = !showFavorite;
 				break;
 			default:
 				throw new Error(`ERROR: invalid type passed to handleShowClick: ${type}`);
@@ -72,12 +72,12 @@
 				</ul>
 			</div>
 			<button class="expanderHeadButton" on:click={() => handleShowClick('liked')}>
-				<i class="arrow {showLiked ? 'down' : 'right' }"></i>
-				<div class="expandHeadText">Liked Comps</div>
+				<i class="arrow {showFavorite ? 'down' : 'right' }"></i>
+				<div class="expandHeadText">Favorite Comps</div>
 			</button>
-			<div class="expanderBody" class:open={showLiked}>
+			<div class="expanderBody" class:open={showFavorite}>
 				<ul>
-					{#each user.upvoted_comps as comp}
+					{#each user.saved_comps as comp}
 					<li>
 						{comp.name}
 					</li>
