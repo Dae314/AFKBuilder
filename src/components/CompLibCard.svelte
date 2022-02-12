@@ -10,7 +10,7 @@
 			name: string,
 			upvotes: int,
 			downvotes: int,
-			tags: [{id: int, name: string}],
+			heroes: [{id: int, name: string}],
 			author: {username: string, avatar: string},
 			comp_update: datetime,
 		}
@@ -26,7 +26,7 @@
 			 !('name' in comp) ||
 			 !('upvotes' in comp) ||
 			 !('downvotes' in comp) ||
-			 !('tags' in comp) ||
+			 !('heroes' in comp) ||
 			 !('author' in comp) ||
 			 !('comp_update' in comp)
 			) {
@@ -107,11 +107,11 @@
 		<div class="compTitleContainer">
 			<div class="compTitle">{comp.name}</div>
 		</div>
-		<div class="tagsContainer">
+		<div class="heroesContainer">
 			<ul>
-				{#each comp.tags as tag}
+				{#each comp.heroes as hero}
 				<li>
-					<div class="compTag">{tag.name}</div>
+					<div class="compHero">{hero.name}</div>
 				</li>
 				{/each}
 			</ul>
