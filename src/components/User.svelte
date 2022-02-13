@@ -48,6 +48,9 @@
 			case 'saveData':
 				dispatch('routeEvent', {action: 'saveData'});
 				break;
+			case 'logout':
+				dispatch('routeEvent', {action: 'logout'});
+				break;
 			default:
 				throw new Error(`Invalid action specified for card event: ${event.detail.action}`);
 		}

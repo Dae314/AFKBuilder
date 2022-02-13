@@ -2,6 +2,7 @@
 	import {createEventDispatcher} from 'svelte';
 	import HeroData from '../stores/HeroData.js';
 	import AppData from '../stores/AppData.js';
+	import {validateJWT,toggleSave,toggleUpvote} from '../rest/RESTFunctions.svelte';
 	
 	export let comp = {};
 	/* expect comp to be of the format:
@@ -81,12 +82,39 @@
 		window.location.assign(`${window.location.origin}/#/library/comp/${comp.uuid}`);
 	}
 
-	function handleFavoriteClick() {
-		console.log('favorite clicked');
+	async function handleFavoriteClick() {
+		const valid = await validateJWT($AppData.user.jwt);
+		if(valid) {
+			// user is valid, perform query
+			const response = await toggleSave($AppData.user.jwt, comp.id);
+			if(response.status !== 200) {
+				throw new Error(`ERROR: received ${response.status} when attempting to toggle favorite comp: ${response.data}`);
+			} else {
+				$AppData.user.saved_comps = response.data;
+				dispatch('cardEvent', {action: 'saveData'});
+			}
+		} else {
+			dispatch('cardEvent', {action: 'logout'});
+		}
 	}
 
-	function handleLikeClick() {
-		console.log('like clicked');
+	async function handleLikeClick() {
+		if(!$AppData.user.disliked_comps.some(e => e.uuid === comp.uuid)) {
+			const valid = await validateJWT($AppData.user.jwt);
+			if(valid) {
+				// user is valid, perform query
+				const response = await toggleUpvote($AppData.user.jwt, comp.id);
+				if(response.status !== 200) {
+					throw new Error(`ERROR: received ${response.status} when attempting to toggle upvote comp: ${response.data}`);
+				} else {
+					$AppData.user.liked_comps = response.data.comps;
+					comp.upvotes = response.data.upvotes;
+					dispatch('cardEvent', {action: 'saveData'});
+				}
+			} else {
+				dispatch('cardEvent', {action: 'logout'});
+			}
+		}
 	}
 
 	function handleDislikeClick() {
