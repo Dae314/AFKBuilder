@@ -2,7 +2,7 @@
 	import {createEventDispatcher} from 'svelte';
 	import HeroData from '../stores/HeroData.js';
 	import AppData from '../stores/AppData.js';
-	import {validateJWT,toggleSave,toggleUpvote} from '../rest/RESTFunctions.svelte';
+	import {validateJWT, toggleSave, toggleUpvote, toggleDownvote} from '../rest/RESTFunctions.svelte';
 	
 	export let comp = {};
 	/* expect comp to be of the format:
@@ -117,8 +117,23 @@
 		}
 	}
 
-	function handleDislikeClick() {
-		console.log('dislike clicked');
+	async function handleDislikeClick() {
+		if(!$AppData.user.liked_comps.some(e => e.uuid === comp.uuid)) {
+			const valid = await validateJWT($AppData.user.jwt);
+			if(valid) {
+				// user is valid, perform query
+				const response = await toggleDownvote($AppData.user.jwt, comp.uuid);
+				if(response.status !== 200) {
+					throw new Error(`ERROR: received ${response.status} when attempting to toggle downvote comp: ${response.data}`);
+				} else {
+					$AppData.user.disliked_comps = response.data.comps;
+					comp.downvotes = response.data.downvotes;
+					dispatch('cardEvent', {action: 'saveData'});
+				}
+			} else {
+				dispatch('cardEvent', {action: 'logout'});
+			}
+		}
 	}
 
 	function handleAuthorClick() {

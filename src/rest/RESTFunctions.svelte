@@ -384,6 +384,34 @@
 		}
 	}
 
+	// toggle user comp downvote
+	/*{
+		status: response status,
+		data: {comps: [{ id: ID, uuid: ID }], downvotes: int} OR error object
+	}*/
+	export async function toggleDownvote(jwt, uuid) {
+		if(jwt) {
+			try {
+				const response = await fetch(`${uri}/custom-comps/toggledownvote/${uuid}`, {
+					method: 'PUT',
+					mode: 'cors',
+					cache: 'no-cache',
+					headers: {
+						'Authorization': `Bearer ${jwt}`,
+					},
+				});
+				const responseData = await response.json();
+				if(response.status !== 200) {
+					return { status: response.status, data: responseData.error };
+				} else {
+					return { status: response.status, data: responseData.data };
+				}
+			} catch(err) {
+				throw new Error(`An error occurred while toggling comp downvote: ${err}`);
+			}
+		}
+	}
+
 	// ===============================
 	// Unauthenticated user functions
 	// ===============================
