@@ -51,17 +51,17 @@
 	function msToString(time) {
 		// expect time to be number of milliseconds
 		// return seconds if time is < 1 minute
-		if(time < 6e4) return `a few seconds`;
+		if(time < 6e4) return `a few seconds ago`;
 		// return minutes if time is < 1 hour
-		if(time < 3.6e6) return `${Math.floor(time/6e4)} min`;
+		if(time < 3.6e6) return `${Math.floor(time/6e4)} min ago`;
 		// return hours if time is < 1 day
-		if(time < 8.64e7) return `${Math.floor(time/3.6e6)} hrs`;
+		if(time < 8.64e7) return `${Math.floor(time/3.6e6)} hours ago`;
 		// return days if time is < 1 month
-		if(time < 2.592e9) return `${Math.floor(time/8.64e7)} days`;
+		if(time < 2.592e9) return `${Math.floor(time/8.64e7)} days ago`;
 		// return months if time is < 1 year
-		if(time < 3.156e10) return `${Math.floor(time/2.592e9)} mo`;
+		if(time < 3.156e10) return `${Math.floor(time/2.592e9)} months ago`;
 		// return years if time is >= 1 year
-		return `${Math.floor(time/3.156e10)} yrs`;
+		return `${Math.floor(time/3.156e10)} years ago`;
 	}
 
 	function votesToString(votes) {
@@ -189,6 +189,8 @@
 		}
 		.likeButton {
 			border: 3px solid var(--appColorPrimary);
+			border-bottom: none;
+			border-right: none;
 			border-top-left-radius: 10px;
 			&.active {
 				background-color: var(--appColorPrimary);
@@ -199,6 +201,8 @@
 		}
 		.dislikeButton {
 			border: 3px solid var(--appDelColor);
+			border-right: none;
+			border-top: none;
 			border-bottom-left-radius: 10px;
 			&.active {
 				background-color: var(--appDelColor);
