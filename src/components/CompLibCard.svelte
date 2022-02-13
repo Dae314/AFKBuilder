@@ -86,7 +86,7 @@
 		const valid = await validateJWT($AppData.user.jwt);
 		if(valid) {
 			// user is valid, perform query
-			const response = await toggleSave($AppData.user.jwt, comp.id);
+			const response = await toggleSave($AppData.user.jwt, comp.uuid);
 			if(response.status !== 200) {
 				throw new Error(`ERROR: received ${response.status} when attempting to toggle favorite comp: ${response.data}`);
 			} else {
@@ -103,7 +103,7 @@
 			const valid = await validateJWT($AppData.user.jwt);
 			if(valid) {
 				// user is valid, perform query
-				const response = await toggleUpvote($AppData.user.jwt, comp.id);
+				const response = await toggleUpvote($AppData.user.jwt, comp.uuid);
 				if(response.status !== 200) {
 					throw new Error(`ERROR: received ${response.status} when attempting to toggle upvote comp: ${response.data}`);
 				} else {

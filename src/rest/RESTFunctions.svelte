@@ -333,10 +333,10 @@
 		status: response status,
 		data: [{ id: ID, uuid: ID }] OR error object
 	}*/
-	export async function toggleSave(jwt, id) {
+	export async function toggleSave(jwt, uuid) {
 		if(jwt) {
 			try {
-				const response = await fetch(`${uri}/custom-comps/togglesave/${id}`, {
+				const response = await fetch(`${uri}/custom-comps/togglesave/${uuid}`, {
 					method: 'PUT',
 					mode: 'cors',
 					cache: 'no-cache',
@@ -361,10 +361,10 @@
 		status: response status,
 		data: {comps: [{ id: ID, uuid: ID }], upvotes: int} OR error object
 	}*/
-	export async function toggleUpvote(jwt, id) {
+	export async function toggleUpvote(jwt, uuid) {
 		if(jwt) {
 			try {
-				const response = await fetch(`${uri}/custom-comps/toggleupvote/${id}`, {
+				const response = await fetch(`${uri}/custom-comps/toggleupvote/${uuid}`, {
 					method: 'PUT',
 					mode: 'cors',
 					cache: 'no-cache',
