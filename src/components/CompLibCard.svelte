@@ -50,31 +50,24 @@
 
 	function msToString(time) {
 		// expect time to be number of milliseconds
-		if(time < 60000) {
-			// time is less than a minute
-			return `a few seconds`;
-		} else if(time < 3600000) {
-			// time is less than an hour
-			return `${Math.floor(time/60000)} min`;
-		} else if(time < 86400000) {
-			// time is less than a day
-			return `${Math.floor(time/3600000)} hrs`;
-		} else if(time < 2592000000) {
-			// time is less than a month
-			return `${Math.floor(time/86400000)} days`;
-		} else if(time < 31560000000) {
-			// time is less than a year
-			return `${Math.floor(time/2592000000)} mo`;
-		} else {
-			// time is greater than a year
-			return `${Math.floor(time/31560000000)} yrs`;
-		}
+		// time is less than a minute
+		if(time < 6e4) return `a few seconds`;
+		// time is less than an hour
+		if(time < 3.6e6) return `${Math.floor(time/6e4)} min`;
+		// time is less than a day
+		if(time < 8.64e7) return `${Math.floor(time/3.6e6)} hrs`;
+		// time is less than a month
+		if(time < 2.592e9) return `${Math.floor(time/8.64e7)} days`;
+		// time is less than a year
+		if(time < 3.156e10) return `${Math.floor(time/2.592e9)} mo`;
+		// time is greater than a year
+		return `${Math.floor(time/3.156e10)} yrs`;
 	}
 
 	function votesToString(votes) {
 		if(votes < 1e3) return votes;
-		if(votes < 1e6) return `${Math.round((votes/1000) * 10)/10}k`;
-		if(votes < 1e9) return `${Math.round(votes/1000000 * 10)/10}m`;
+		if(votes < 1e6) return `${Math.round((votes/1e3) * 10)/10}k`;
+		if(votes < 1e9) return `${Math.round(votes/1e6 * 10)/10}m`;
 		return 'a lot';
 	}
 
