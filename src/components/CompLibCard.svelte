@@ -45,6 +45,8 @@
 
 	let age = Date.now() - Date.parse(comp.comp_update);
 	const dispatch = createEventDispatcher();
+	const root = document.documentElement;
+	root.style.setProperty('--vote-text-size', '1.2rem');
 
 	function msToString(time) {
 		// expect time to be number of milliseconds
@@ -70,15 +72,10 @@
 	}
 
 	function votesToString(votes) {
-		if(votes < 1000) {
-			return votes;
-		} else if(votes < 1000000) {
-			return `${Math.floor(votes/1000)}k`;
-		} else if(votes < 1000000000) {
-			return `${Math.floor(votes/1000000)}m`;
-		} else {
-			return 'a lot'
-		}
+		if(votes < 1e3) return votes;
+		if(votes < 1e6) return `${Math.round((votes/1000) * 10)/10}k`;
+		if(votes < 1e9) return `${Math.round(votes/1000000 * 10)/10}m`;
+		return 'a lot';
 	}
 
 	function handleCompCardClick() {
@@ -183,7 +180,7 @@
 				max-width: 30px;
 			}
 			.voteText {
-				font-size: 1.2rem;
+				font-size: var(--vote-text-size);
 				margin: 10px;
 				font-weight: bold;
 			}
@@ -213,9 +210,6 @@
 					color: var(--appBGColor);
 				}
 			}
-		}
-		.likeButton {
-			border-bottom: 2px solid var(--appColorPrimary);
 		}
 	}
 	.compCard {
