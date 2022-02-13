@@ -44,7 +44,7 @@
 				receivedLikes = response.data;
 			}
 		} else {
-			dispatch('routeEvent', {action: 'logout'});;
+			dispatch('routeEvent', {action: 'logout'});
 		}
 	}
 
