@@ -328,6 +328,34 @@
 		}
 	}
 
+	// toggle user comp save
+	/*{
+		status: response status,
+		data: [{ id: ID, uuid: ID }] OR error object
+	}*/
+	export async function toggleSave(jwt, id) {
+		if(jwt) {
+			try {
+				const response = await fetch(`${uri}/custom-comps/togglesave/${id}`, {
+					method: 'PUT',
+					mode: 'cors',
+					cache: 'no-cache',
+					headers: {
+						'Authorization': `Bearer ${jwt}`,
+					},
+				});
+				const responseData = await response.json();
+				if(response.status !== 200) {
+					return { status: response.status, data: responseData.error };
+				} else {
+					return { status: response.status, data: responseData.data.comps };
+				}
+			} catch(err) {
+				throw new Error(`An error occurred while toggling comp save: ${err}`);
+			}
+		}
+	}
+
 	// ===============================
 	// Unauthenticated user functions
 	// ===============================

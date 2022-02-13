@@ -82,7 +82,9 @@
 	}
 
 	function handleCompCardClick() {
-		console.log('card clicked');
+		// navigate to the comp detail view
+		// note: clears all extraneous URL parameters
+		window.location.assign(`${window.location.origin}/#/library/comp/${comp.uuid}`);
 	}
 
 	function handleFavoriteClick() {
