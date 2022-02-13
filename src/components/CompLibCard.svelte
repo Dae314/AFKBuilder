@@ -42,11 +42,11 @@
 	$: liked = $AppData.user.liked_comps.some(e => e.uuid === comp.uuid);
 	$: disliked = $AppData.user.disliked_comps.some(e => e.uuid === comp.uuid);
 	$: favorited = $AppData.user.saved_comps.some(e => e.uuid === comp.uuid);
+	$: like_size = (comp.upvotes >= 1e5 && comp.upvotes < 1e6) || comp.upvotes >= 1e8 ? '0.95rem' : '1.2rem';
+	$: dislike_size = (comp.downvotes >= 1e5 && comp.downvotes < 1e6) || comp.downvotes >= 1e8 ? '0.95rem' : '1.2rem';
 
 	let age = Date.now() - Date.parse(comp.comp_update);
 	const dispatch = createEventDispatcher();
-	const root = document.documentElement;
-	root.style.setProperty('--vote-text-size', '1.2rem');
 
 	function msToString(time) {
 		// expect time to be number of milliseconds
@@ -102,13 +102,13 @@
 	<div class="votingContainer">
 		<button class="voteButton likeButton" class:active={liked} on:click={handleLikeClick}>
 			<img class="voteImage likeImage" src="{liked ? './img/utility/like_filled.png' : './img/utility/like_unfilled.png'}" alt="Like" draggable="false">
-			<div class="voteText likeText">
+			<div class="voteText likeText" style="font-size: {like_size};">
 				{votesToString(comp.upvotes)}
 			</div>
 		</button>
 		<button class="voteButton dislikeButton" class:active={disliked} on:click={handleDislikeClick}>
 			<img class="voteImage dislikeImage" src="{disliked ? './img/utility/dislike_filled.png' : './img/utility/dislike_unfilled.png'}" alt="Dislike" draggable="false">
-			<div class="voteText dislikeText">
+			<div class="voteText dislikeText" style="font-size: {dislike_size};">
 				{votesToString(comp.downvotes)}
 			</div>
 		</button>
@@ -177,7 +177,6 @@
 				max-width: 30px;
 			}
 			.voteText {
-				font-size: var(--vote-text-size);
 				margin: 10px;
 				font-weight: bold;
 			}
