@@ -21,7 +21,7 @@
 	});
 
 	async function populateAuthorData() {
-		await new Promise(resolve => setTimeout(resolve, 3000));
+		// await new Promise(resolve => setTimeout(resolve, 3000));
 		const response = await getAuthorDetails(username);
 		if(response.status !== 200) {
 			throw new Error(`ERROR: received ${response.status} when querying for author public profile: ${response.data}`);
@@ -40,6 +40,16 @@
 				break;
 			default:
 				throw new Error(`ERROR: invalid type passed to handleShowClick: ${type}`);
+		}
+	}
+
+	function handleCardEvent(event) {
+		switch(event.detail.action) {
+			case 'saveData':
+				dispatch('routeEvent', {action: 'saveData'});
+				break;
+			default:
+				throw new Error(`Invalid action specified for card event: ${event.detail.action}`);
 		}
 	}
 </script>
@@ -66,7 +76,7 @@
 				<ul>
 					{#each comps as comp}
 					<li>
-						<CompLibCard comp={comp} />
+						<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
 					</li>
 					{/each}
 				</ul>
