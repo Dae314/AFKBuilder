@@ -33,4 +33,19 @@
 			}
 		}
 	}`;
+	export const gql_GET_COMP = gql`
+	query($uuid: String!) {
+		comps(filters: { uuid: { eq: $uuid } }) {
+			data {
+				id
+				attributes {
+					name
+					uuid
+					upvotes
+					downvotes
+					comp_string
+				}
+			}
+		}
+	}`;
 </script>

@@ -29,6 +29,7 @@
 	import Profile from './components/Profile.svelte';
 	import PostLogin from './components/PostLogin.svelte';
 	import User from './components/User.svelte';
+	import CompLibDetail from './components/CompLibDetail.svelte';
 	import NotFound from './components/NotFound.svelte';
 
 	export let version = '';
@@ -70,6 +71,10 @@
 		}),
 		'/users/:username': wrap({
 			component: User,
+			props: {},
+		}),
+		'/library/comp/:uuid': wrap({
+			component: CompLibDetail,
 			props: {},
 		}),
 		'/connect/:provider/redirect': wrap({
