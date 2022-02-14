@@ -137,7 +137,9 @@
 	}
 
 	function handleAuthorClick() {
-		console.log('author clicked');
+		// navigate to author page
+		// note: clears all extraneous URL parameters
+		window.location.assign(`${window.location.origin}/#/users/${encodeURIComponent(comp.author.username)}`);
 	}
 </script>
 
