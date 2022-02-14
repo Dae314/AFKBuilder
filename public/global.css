@@ -23,6 +23,9 @@ html {
 	--appColorTertiary: #3854A6;
 	--appColorQuaternary: #94C6F2;
 	--appColorDisabled: #7e7e7e;
+	--googleProviderColor: #EA4335;
+	--facebookProviderColor: #1094F4;
+	--discordProviderColor: #5865F2;
 
 	--rareColor: #5EAFFA;
 	--rareColorAccent: #4D8DC8;
