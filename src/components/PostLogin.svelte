@@ -31,15 +31,18 @@
 	}
 </script>
 
-<div class="postLoginContainer">
-	{#await processPostLogin()}
-		<LoadingPage />
-	{:then _}
+{#await processPostLogin()}
+	<LoadingPage />
+{:then _}
+	<div class="postLoginContainer">
 		<h2 class="success">Login successful! You will be redirected shortly...</h2>
-	{:catch error}
+	</div>
+{:catch error}
+	<div class="postLoginContainer">
 		<h2 class="error">{error.message}</h2>
-	{/await}
-</div>
+	</div>
+{/await}
+
 
 <style lang="scss">
 	.postLoginContainer {
