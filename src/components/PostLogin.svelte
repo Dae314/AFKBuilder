@@ -1,25 +1,16 @@
 <script>
-	import { onMount, createEventDispatcher } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 	import AppData from '../stores/AppData.js';
 	import {querystring} from 'svelte-spa-router';
-	import {
-		postLoginProvider,
-		validateJWT,
-		getUserDetails,
-		getLikedComps,
-		getDislikedComps,
-		getPublishedComps,
-		getSavedComps,
-	} from '../rest/RESTFunctions.svelte';
+	import LoadingPage from '../shared/LoadingPage.svelte';
+	import { postLoginProvider, validateJWT } from '../rest/RESTFunctions.svelte';
 
 	export let params = {};
 
 	const dispatch = createEventDispatcher();
 
-	let provider = '';
-
-	onMount(async () => {
-		provider = params.provider;
+	async function processPostLogin() {
+		const provider = params.provider;
 		const urlParams = new URLSearchParams($querystring);
 		const token = urlParams.get('access_token');
 		const response = await postLoginProvider(token, provider);
@@ -30,20 +21,24 @@
 			const valid = await validateJWT(jwt);
 			if(valid) { // login successful, populate user data
 				$AppData.user.jwt = jwt;
-
 				dispatch('routeEvent', {action: 'populateUserData'});
-
 				dispatch('routeEvent', {action: 'saveData'});
 			} else {
-				throw new Error(`Login invalid, please try again.`);
+				throw new Error(`Login did not complete successfully, please try again.`);
 			}
-			setTimeout(() => window.location.assign(`${window.location.origin}/#/`), 3000);
+			setTimeout(() => window.location.assign(`${window.location.origin}/#/`), 2000);
 		}
-	});
+	}
 </script>
 
 <div class="postLoginContainer">
-	<h2>PostLogin page for {provider}, you will be redirected shortly...</h2>
+	{#await processPostLogin()}
+		<LoadingPage />
+	{:then _}
+		<h2 class="success">Login successful! You will be redirected shortly...</h2>
+	{:catch error}
+		<h2 class="error">{error.message}</h2>
+	{/await}
 </div>
 
 <style lang="scss">
@@ -52,6 +47,10 @@
 		flex-direction: column;
 		height: calc(100vh - var(--headerHeight));
 		overflow-y: auto;
+		padding: 10px;
 		width: 100%;
+	}
+	.error {
+		color: var(--appDelColor);
 	}
 </style>
