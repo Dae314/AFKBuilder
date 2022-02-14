@@ -32,12 +32,17 @@
 	.header {
 		position: relative;
 		height: 150px;
-		left: -50px;
+		left: -42px;
 		text-align: right;
 		h3 {
+			color: var(--appBGColor);
 			font-size: 5rem;
 			margin: 0;
 			padding: 0;
+			text-shadow: 4px 5px 0px rgba(0, 0, 0, 0.8);
+		}
+		.headText {
+			margin-top: -3px;
 		}
 	}
 	.divider {
@@ -47,7 +52,7 @@
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
-		width: 20px;
+		width: 10px;
 	}
 	.navigation {
 		align-items: flex-start;
