@@ -29,6 +29,7 @@
 	import Profile from './components/Profile.svelte';
 	import PostLogin from './components/PostLogin.svelte';
 	import User from './components/User.svelte';
+	import NotFound from './components/NotFound.svelte';
 
 	export let version = '';
 	const menuItems = [ 'Comps', 'Recommendations', 'My Heroes', 'Hero List', 'About' ];
@@ -73,6 +74,10 @@
 		}),
 		'/connect/:provider/redirect': wrap({
 			component: PostLogin,
+			props: {},
+		}),
+		'*': wrap({
+			component: NotFound,
 			props: {},
 		}),
 	}
