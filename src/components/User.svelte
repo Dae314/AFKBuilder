@@ -76,26 +76,22 @@
 				<div class="expandHeadText">Published Comps</div>
 			</button>
 			<div class="expanderBody" class:open={showPublished}>
-				<ul>
-					{#each comps as comp}
-					<li>
-						<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
-					</li>
-					{/each}
-				</ul>
+				{#each comps as comp}
+				<div class="cardContainer">
+					<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
+				</div>
+				{/each}
 			</div>
 			<button class="expanderHeadButton" on:click={() => handleShowClick('liked')}>
 				<i class="arrow {showFavorite ? 'down' : 'right' }"></i>
 				<div class="expandHeadText">Favorite Comps</div>
 			</button>
 			<div class="expanderBody" class:open={showFavorite}>
-				<ul>
-					{#each user.saved_comps as comp}
-					<li>
-						{comp.name}
-					</li>
-					{/each}
-				</ul>
+				{#each user.saved_comps as comp}
+				<div class="cardContainer">
+					<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
+				</div>
+				{/each}
 			</div>
 		</section>
 	</div>
@@ -173,6 +169,11 @@
 			font-size: 1rem;
 		}
 		.expanderBody {
+			display: grid;
+			grid-gap: 5px 5px;
+			grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
+			grid-auto-rows: 240px;
+			justify-content: space-evenly;
 			max-height: 0px;
 			opacity: 0%;
 			transition: all 0.2s;
@@ -181,9 +182,6 @@
 				max-height: 100%;
 				opacity: 100%;
 				visibility: visible;
-			}
-			ul {
-				margin: 0;
 			}
 		}
 	}

@@ -199,7 +199,7 @@
 	.compLibCardContainer {
 		display: flex;
 		height: 220px;
-		width: 450px;
+		width: 400px;
 	}
 	.votingContainer {
 		display: flex;
