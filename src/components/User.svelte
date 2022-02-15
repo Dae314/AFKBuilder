@@ -4,6 +4,7 @@
 	import AvatarInput from '../shared/AvatarInput.svelte';
 	import LoadingPage from '../shared/LoadingPage.svelte';
 	import CompLibCard from './CompLibCard.svelte';
+	import ErrorDisplay from './ErrorDisplay.svelte';
 	import {getAuthorDetails} from '../rest/RESTFunctions.svelte';
 	
 	export let params = {};
@@ -14,6 +15,8 @@
 	let comps = [];
 	let showPublished = false;
 	let showFavorite = false;
+	let showErrorDisplay = false;
+	let errorDisplayConf = {};
 
 	onMount(async () => {
 		$AppData.activeView = 'user';
@@ -24,7 +27,13 @@
 		// await new Promise(resolve => setTimeout(resolve, 3000));
 		const response = await getAuthorDetails(username);
 		if(response.status !== 200) {
-			throw new Error(`ERROR: received ${response.status} when querying for author public profile: ${response.data}`);
+			errorDisplayConf = {
+				errorCode: response.status,
+				headText: 'Something went wrong',
+				detailText: response.data,
+				showHomeButton: true,
+			};
+			showErrorDisplay = true;
 		}
 		comps = response.data.comps;
 		user = response.data.author;
@@ -60,41 +69,50 @@
 {#await populateAuthorData()}
 	<LoadingPage />
 {:then _}
-	<div class="userContainer">
-		<section class="titleArea">
-			<div class="userArea">
-				<AvatarInput avatar={user.avatar} editable={false} />
-				<div class="userHeadline">
-					<h3>{user.username}</h3>
-					<p class="userSubtitle">{user.upvotes} Received Likes</p>
+	{#if showErrorDisplay}
+		<ErrorDisplay
+			errorCode={errorDisplayConf.errorCode}
+			headText={errorDisplayConf.headText}
+			detailText={errorDisplayConf.detailText}
+			showHomeButton={errorDisplayConf.showHomeButton}
+		/>
+	{:else}
+		<div class="userContainer">
+			<section class="titleArea">
+				<div class="userArea">
+					<AvatarInput avatar={user.avatar} editable={false} />
+					<div class="userHeadline">
+						<h3>{user.username}</h3>
+						<p class="userSubtitle">{user.upvotes} Received Likes</p>
+					</div>
 				</div>
-			</div>
-		</section>
-		<section class="bodyArea">
-			<button class="expanderHeadButton" on:click={() => handleShowClick('published')}>
-				<i class="arrow {showPublished ? 'down' : 'right' }"></i>
-				<div class="expandHeadText">Published Comps</div>
-			</button>
-			<div class="expanderBody" class:open={showPublished}>
-				{#each comps as comp}
-				<div class="cardContainer">
-					<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
+			</section>
+			<section class="bodyArea">
+				<button class="expanderHeadButton" on:click={() => handleShowClick('published')}>
+					<i class="arrow {showPublished ? 'down' : 'right' }"></i>
+					<div class="expandHeadText">Published Comps</div>
+				</button>
+				<div class="expanderBody" class:open={showPublished}>
+					{#each comps as comp}
+					<div class="cardContainer">
+						<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
+					</div>
+					{/each}
 				</div>
-				{/each}
-			</div>
-			<button class="expanderHeadButton" on:click={() => handleShowClick('liked')}>
-				<i class="arrow {showFavorite ? 'down' : 'right' }"></i>
-				<div class="expandHeadText">Favorite Comps</div>
-			</button>
-			<div class="expanderBody" class:open={showFavorite}>
-				{#each user.saved_comps as comp}
-				<div class="cardContainer">
-					<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
+				<button class="expanderHeadButton" on:click={() => handleShowClick('liked')}>
+					<i class="arrow {showFavorite ? 'down' : 'right' }"></i>
+					<div class="expandHeadText">Favorite Comps</div>
+				</button>
+				<div class="expanderBody" class:open={showFavorite}>
+					{#each user.saved_comps as comp}
+					<div class="cardContainer">
+						<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
+					</div>
+					{/each}
 				</div>
-				{/each}
-			</div>
-		</section>
-	</div>
+			</section>
+		</div>
+	{/if}
 {/await}
 
 <style lang="scss">
