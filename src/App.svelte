@@ -30,7 +30,7 @@
 	import PostLogin from './components/PostLogin.svelte';
 	import User from './components/User.svelte';
 	import CompLibDetail from './components/CompLibDetail.svelte';
-	import NotFound from './components/NotFound.svelte';
+	import ErrorDisplay from './components/ErrorDisplay.svelte';
 
 	export let version = '';
 	const menuItems = [ 'Comps', 'Recommendations', 'My Heroes', 'Hero List', 'About' ];
@@ -82,7 +82,7 @@
 			props: {},
 		}),
 		'*': wrap({
-			component: NotFound,
+			component: ErrorDisplay,
 			props: {},
 		}),
 	}
