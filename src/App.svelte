@@ -151,7 +151,7 @@
 			errorDisplayConf = {
 				errorCode: response.status,
 				headText: 'Something went wrong',
-				detailText: 'Sorry about that',
+				detailText: response.data,
 				showHomeButton: true,
 			}
 		}
@@ -167,7 +167,7 @@
 			errorDisplayConf = {
 				errorCode: response.status,
 				headText: 'Something went wrong',
-				detailText: 'Sorry about that',
+				detailText: response.data,
 				showHomeButton: true,
 			}
 		}
@@ -180,7 +180,7 @@
 			errorDisplayConf = {
 				errorCode: response.status,
 				headText: 'Something went wrong',
-				detailText: 'Sorry about that',
+				detailText: response.data,
 				showHomeButton: true,
 			}
 		}
@@ -193,7 +193,7 @@
 			errorDisplayConf = {
 				errorCode: response.status,
 				headText: 'Something went wrong',
-				detailText: 'Sorry about that',
+				detailText: response.data,
 				showHomeButton: true,
 			}
 		}
@@ -206,7 +206,7 @@
 			errorDisplayConf = {
 				errorCode: response.status,
 				headText: 'Something went wrong',
-				detailText: 'Sorry about that',
+				detailText: response.data,
 				showHomeButton: true,
 			}
 		}
