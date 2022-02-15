@@ -3,6 +3,7 @@
 	import AppData from '../stores/AppData.js';
 	import {querystring} from 'svelte-spa-router';
 	import LoadingPage from '../shared/LoadingPage.svelte';
+	import ErrorDisplay from '../components/ErrorDisplay.svelte';
 	import { postLoginProvider, validateJWT } from '../rest/RESTFunctions.svelte';
 
 	export let params = {};
@@ -38,9 +39,12 @@
 		<h2 class="success">Login successful! You will be redirected shortly...</h2>
 	</div>
 {:catch error}
-	<div class="postLoginContainer">
-		<h2 class="error">{error.message}</h2>
-	</div>
+	<ErrorDisplay
+		errorCode="500"
+		headText="Something went wrong"
+		detailText="{error.message}"
+		showHomeButton={true}
+	/>
 {/await}
 
 
@@ -52,8 +56,5 @@
 		overflow-y: auto;
 		padding: 10px;
 		width: 100%;
-	}
-	.error {
-		color: var(--appDelColor);
 	}
 </style>
