@@ -35,11 +35,20 @@
 				Authorization: `token ${token}`
 			}
 		});
-		const json = await response.json();
-		if(response.status !== 200) {
-			return { status: response.status, data: json.error };
+		try {
+			const json = await response.json();
+			if(response.status !== 200) {
+				return { status: response.status, data: json.error };
+			}
+			return { status: response.status, data: {jwt: json.jwt}};
+		} catch(err) {
+			if(err instanceof TypeError && err.message) {
+				// network error occurred
+				return { status: 503, data: err.message }
+			} else {
+				throw new Error(`An error occurred while attempting postlogin process: ${err}`);
+			}
 		}
-		return { status: response.status, data: {jwt: json.jwt}};
 	}
 
 	// check if the jwt provided is good
@@ -73,7 +82,12 @@
 					return Date.now() < responseData.exp * 1000; // returns false if token is expired
 				}
 			} catch(err) {
-				throw new Error(`An error occurred while fetching JWT token validation: ${err}`);
+				if(err instanceof TypeError && err.message) {
+					// network error occurred
+					return { status: 503, data: err.message }
+				} else {
+					throw new Error(`An error occurred while fetching JWT token validation: ${err}`);
+				}
 			}
 		} else {
 			return false;
@@ -123,7 +137,12 @@
 					};
 				}
 			} catch(err) {
-				throw new Error(`An error occurred while fetching user information: ${err}`);
+				if(err instanceof TypeError && err.message) {
+					// network error occurred
+					return { status: 503, data: err.message }
+				} else {
+					throw new Error(`An error occurred while fetching user information: ${err}`);
+				}
 			}
 		}
 	}
@@ -151,7 +170,12 @@
 					return { status: response.status, data: responseData.data.comps };
 				}
 			} catch(err) {
-				throw new Error(`An error occurred while fetching user's liked comps: ${err}`);
+				if(err instanceof TypeError && err.message) {
+					// network error occurred
+					return { status: 503, data: err.message }
+				} else {
+					throw new Error(`An error occurred while fetching user's liked comps: ${err}`);
+				}
 			}
 		}
 	}
@@ -179,7 +203,12 @@
 					return { status: response.status, data: responseData.data.comps };
 				}
 			} catch(err) {
-				throw new Error(`An error occurred while fetching user's disliked comps: ${err}`);
+				if(err instanceof TypeError && err.message) {
+					// network error occurred
+					return { status: 503, data: err.message }
+				} else {
+					throw new Error(`An error occurred while fetching user's disliked comps: ${err}`);
+				}
 			}
 		}
 	}
@@ -211,7 +240,12 @@
 					return { status: response.status, data: responseData.data.comps };
 				}
 			} catch(err) {
-				throw new Error(`An error occurred while fetching user's published comps: ${err}`);
+				if(err instanceof TypeError && err.message) {
+					// network error occurred
+					return { status: 503, data: err.message }
+				} else {
+					throw new Error(`An error occurred while fetching user's published comps: ${err}`);
+				}
 			}
 		}
 	}
@@ -239,7 +273,12 @@
 					return { status: response.status, data: responseData.data.comps };
 				}
 			} catch(err) {
-				throw new Error(`An error occurred while fetching user's saved comps: ${err}`);
+				if(err instanceof TypeError && err.message) {
+					// network error occurred
+					return { status: 503, data: err.message }
+				} else {
+					throw new Error(`An error occurred while fetching user's saved comps: ${err}`);
+				}
 			}
 		}
 	}
@@ -267,7 +306,12 @@
 					return { status: response.status, data: responseData.data.upvotes };
 				}
 			} catch(err) {
-				throw new Error(`An error occurred while fetching user's received upvotes: ${err}`);
+				if(err instanceof TypeError && err.message) {
+					// network error occurred
+					return { status: 503, data: err.message }
+				} else {
+					throw new Error(`An error occurred while fetching user's received upvotes: ${err}`);
+				}
 			}
 		}
 	}
@@ -295,7 +339,12 @@
 					return { status: response.status, data: responseData.data.downvotes };
 				}
 			} catch(err) {
-				throw new Error(`An error occurred while fetching user's received downvotes: ${err}`);
+				if(err instanceof TypeError && err.message) {
+					// network error occurred
+					return { status: 503, data: err.message }
+				} else {
+					throw new Error(`An error occurred while fetching user's received downvotes: ${err}`);
+				}
 			}
 		}
 	}
@@ -323,7 +372,12 @@
 					return { status: response.status, data: responseData.data.saves };
 				}
 			} catch(err) {
-				throw new Error(`An error occurred while fetching user's received saves: ${err}`);
+				if(err instanceof TypeError && err.message) {
+					// network error occurred
+					return { status: 503, data: err.message }
+				} else {
+					throw new Error(`An error occurred while fetching user's received saves: ${err}`);
+				}
 			}
 		}
 	}
@@ -351,7 +405,12 @@
 					return { status: response.status, data: responseData.data.comps };
 				}
 			} catch(err) {
-				throw new Error(`An error occurred while toggling comp save: ${err}`);
+				if(err instanceof TypeError && err.message) {
+					// network error occurred
+					return { status: 503, data: err.message }
+				} else {
+					throw new Error(`An error occurred while toggling comp save: ${err}`);
+				}
 			}
 		}
 	}
@@ -379,7 +438,12 @@
 					return { status: response.status, data: responseData.data };
 				}
 			} catch(err) {
-				throw new Error(`An error occurred while toggling comp upvote: ${err}`);
+				if(err instanceof TypeError && err.message) {
+					// network error occurred
+					return { status: 503, data: err.message }
+				} else {
+					throw new Error(`An error occurred while toggling comp upvote: ${err}`);
+				}
 			}
 		}
 	}
@@ -407,7 +471,12 @@
 					return { status: response.status, data: responseData.data };
 				}
 			} catch(err) {
-				throw new Error(`An error occurred while toggling comp downvote: ${err}`);
+				if(err instanceof TypeError && err.message) {
+					// network error occurred
+					return { status: 503, data: err.message }
+				} else {
+					throw new Error(`An error occurred while toggling comp downvote: ${err}`);
+				}
 			}
 		}
 	}
@@ -438,7 +507,12 @@
 				return { status: response.status, data: responseData.data };
 			}
 		} catch(err) {
-			throw new Error(`An error occurred while fetching author details: ${err}`);
+			if(err instanceof TypeError && err.message) {
+				// network error occurred
+				return { status: 503, data: err.message }
+			} else {
+				throw new Error(`An error occurred while fetching author details: ${err}`);
+			}
 		}
 	}
 
@@ -464,7 +538,12 @@
 				return { status: response.status, data: responseData.data };
 			}
 		} catch(err) {
-			throw new Error(`An error occurred while fetching author for a comp: ${err}`);
+			if(err instanceof TypeError && err.message) {
+				// network error occurred
+				return { status: 503, data: err.message }
+			} else {
+				throw new Error(`An error occurred while fetching author for a comp: ${err}`);
+			}
 		}
 	}
 </script>
