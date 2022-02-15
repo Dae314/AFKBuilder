@@ -9,6 +9,8 @@
 	export let params = {};
 	let comp;
 	let author;
+	let showErrorDisplay = false;
+	let errorDisplayConf = {};
 
 	const compQuery = query(gql_GET_COMP, {
 		variables: { uuid: params.uuid }
@@ -27,7 +29,13 @@
 	async function loadAuthor() {
 		const response = await getCompAuthor(comp.attributes.uuid);
 		if(response.status !== 200) {
-			throw new Error(`ERROR: received ${response.status} when retrieving comp's author: ${response.data}`);
+			errorDisplayConf = {
+				errorCode: response.status,
+				headText: 'Something went wrong',
+				detailText: response.data,
+				showHomeButton: true,
+			};
+			showErrorDisplay = true;
 		} else {
 			author = response.data.author;
 		}
@@ -56,10 +64,19 @@
 		{#await loadAuthor()}
 			<LoadingPage />
 		{:then _}
-			<div class="compLibDetailContainer">
-				{comp.attributes.name}
-				{author.username}
-			</div>
+			{#if showErrorDisplay}
+				<ErrorDisplay
+					errorCode={errorDisplayConf.errorCode}
+					headText={errorDisplayConf.headText}
+					detailText={errorDisplayConf.detailText}
+					showHomeButton={errorDisplayConf.showHomeButton}
+				/>
+			{:else}
+				<div class="compLibDetailContainer">
+					{comp.attributes.name}
+					{author.username}
+				</div>
+			{/if}
 		{/await}
 	{/if}
 {/if}
