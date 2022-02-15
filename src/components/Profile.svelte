@@ -81,8 +81,14 @@
 						usernameError.text = error.graphQLErrors[0].message;
 						break;
 					default:
-						usernameError.state = true;
-						usernameError.text = error.message;
+						// an unexpected error occurred
+						errorDisplayConf = {
+							errorCode: 500,
+							headText: 'Something went wrong',
+							detailText: error.graphQLErrors[0].message,
+							showHomeButton: false,
+						};
+						showErrorDisplay = true;
 				}
 				console.log(error.graphQLErrors[0]);
 			}
@@ -109,7 +115,13 @@
 					dispatch('routeEvent', {action: 'logout'});;
 				}
 			} catch (error) {
-				console.log(error);
+				errorDisplayConf = {
+					errorCode: 500,
+					headText: 'Something went wrong',
+					detailText: error.graphQLErrors[0].message,
+					showHomeButton: false,
+				};
+				showErrorDisplay = true;
 			}
 		}
 	}
