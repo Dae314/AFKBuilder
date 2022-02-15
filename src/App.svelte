@@ -147,13 +147,13 @@
 
 		response = await getUserDetails($AppData.user.jwt);
 		if(response.status !== 200) {
-			showErrorDisplay = true;
 			errorDisplayConf = {
 				errorCode: response.status,
 				headText: 'Something went wrong',
 				detailText: response.data,
 				showHomeButton: true,
-			}
+			};
+			showErrorDisplay = true;
 		}
 		const user = response.data;
 		$AppData.user.id = user.id;
@@ -163,52 +163,52 @@
 		
 		response = await getLikedComps($AppData.user.jwt);
 		if(response.status !== 200) {
-			showErrorDisplay = true;
 			errorDisplayConf = {
 				errorCode: response.status,
 				headText: 'Something went wrong',
 				detailText: response.data,
 				showHomeButton: true,
-			}
+			};
+			showErrorDisplay = true;
 		}
 		const likedComps = response.data;
 		$AppData.user.liked_comps = likedComps;
 
 		response = await getDislikedComps($AppData.user.jwt);
 		if(response.status !== 200) {
-			showErrorDisplay = true;
 			errorDisplayConf = {
 				errorCode: response.status,
 				headText: 'Something went wrong',
 				detailText: response.data,
 				showHomeButton: true,
-			}
+			};
+			showErrorDisplay = true;
 		}
 		const dislikedComps = response.data;
 		$AppData.user.disliked_comps = dislikedComps;
 
 		response = await getPublishedComps($AppData.user.jwt);
 		if(response.status !== 200) {
-			showErrorDisplay = true;
 			errorDisplayConf = {
 				errorCode: response.status,
 				headText: 'Something went wrong',
 				detailText: response.data,
 				showHomeButton: true,
-			}
+			};
+			showErrorDisplay = true;
 		}
 		const publishedComps = response.data;
 		$AppData.user.published_comps = publishedComps;
 
 		response = await getSavedComps($AppData.user.jwt);
 		if(response.status !== 200) {
-			showErrorDisplay = true;
 			errorDisplayConf = {
 				errorCode: response.status,
 				headText: 'Something went wrong',
 				detailText: response.data,
 				showHomeButton: true,
-			}
+			};
+			showErrorDisplay = true;
 		}
 		const savedComps = response.data;
 		$AppData.user.saved_comps = savedComps;

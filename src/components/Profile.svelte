@@ -42,13 +42,13 @@
 			// user is valid, perform query
 			const response = await getReceivedUpvotes($AppData.user.jwt);
 			if(response.status !== 200) {
-				showErrorDisplay = true;
 				errorDisplayConf = {
 					errorCode: response.status,
 					headText: 'Something went wrong',
 					detailText: response.data,
 					showHomeButton: true,
-				}
+				};
+				showErrorDisplay = true;
 			} else {
 				receivedLikes = response.data;
 			}
