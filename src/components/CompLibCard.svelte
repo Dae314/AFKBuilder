@@ -3,6 +3,7 @@
 	import HeroData from '../stores/HeroData.js';
 	import AppData from '../stores/AppData.js';
 	import {validateJWT, toggleSave, toggleUpvote, toggleDownvote} from '../rest/RESTFunctions.svelte';
+import { error } from 'console';
 	
 	export let comp = {};
 	/* expect comp to be of the format:
@@ -48,6 +49,8 @@
 
 	let age = Date.now() - Date.parse(comp.comp_update);
 	const dispatch = createEventDispatcher();
+	let showError = false;
+	let errorConf = {};
 
 	function msToString(time) {
 		// expect time to be number of milliseconds
@@ -88,7 +91,12 @@
 			// user is valid, perform query
 			const response = await toggleSave($AppData.user.jwt, comp.uuid);
 			if(response.status !== 200) {
-				throw new Error(`ERROR: received ${response.status} when attempting to toggle favorite comp: ${response.data}`);
+				errorConf = {
+					errorCode: response.status,
+					headText: 'Something went wrong',
+					detailText: response.data,
+				}
+				showError = true;
 			} else {
 				$AppData.user.saved_comps = response.data;
 				dispatch('cardEvent', {action: 'saveData'});
@@ -104,8 +112,13 @@
 			if(valid) {
 				// user is valid, perform query
 				const response = await toggleUpvote($AppData.user.jwt, comp.uuid);
-				if(response.status !== 200) {
-					throw new Error(`ERROR: received ${response.status} when attempting to toggle upvote comp: ${response.data}`);
+					if(response.status !== 200) {
+						errorConf = {
+						errorCode: response.status,
+						headText: 'Something went wrong',
+						detailText: response.data,
+					}
+					showError = true;
 				} else {
 					$AppData.user.liked_comps = response.data.comps;
 					comp.upvotes = response.data.upvotes;
@@ -124,7 +137,12 @@
 				// user is valid, perform query
 				const response = await toggleDownvote($AppData.user.jwt, comp.uuid);
 				if(response.status !== 200) {
-					throw new Error(`ERROR: received ${response.status} when attempting to toggle downvote comp: ${response.data}`);
+					errorConf = {
+						errorCode: response.status,
+						headText: 'Something went wrong',
+						detailText: response.data,
+					}
+					showError = true;
 				} else {
 					$AppData.user.disliked_comps = response.data.comps;
 					comp.downvotes = response.data.downvotes;
@@ -143,59 +161,88 @@
 	}
 </script>
 
-<div class="compLibCardContainer">
-	<div class="votingContainer">
-		<button class="voteButton likeButton" class:active={liked} on:click={handleLikeClick}>
-			<img class="voteImage likeImage" src="{liked ? './img/utility/like_filled.png' : './img/utility/like_unfilled.png'}" alt="Like" draggable="false">
-			<div class="voteText likeText" style="font-size: {like_size};">
-				{votesToString(comp.upvotes)}
-			</div>
-		</button>
-		<button class="voteButton dislikeButton" class:active={disliked} on:click={handleDislikeClick}>
-			<img class="voteImage dislikeImage" src="{disliked ? './img/utility/dislike_filled.png' : './img/utility/dislike_unfilled.png'}" alt="Dislike" draggable="false">
-			<div class="voteText dislikeText" style="font-size: {dislike_size};">
-				{votesToString(comp.downvotes)}
-			</div>
-		</button>
+{#if showError}
+	<div class="compLibCardError">
+		<h3>{errorConf.errorCode}</h3>
+		<div class="errorHeadText">{errorConf.errorHeadText}</div>
+		<div class="errorDetailText">{errorConf.errorDetailText}</div>
 	</div>
-	<div class="compCard">
-		<div class="compCardHead">
-			<div class="authorAgeContainer">
-				<button type="button" class="authorButton" on:click={handleAuthorClick}>
-					<img class="avatar" src="{avatarHero.portrait}" alt="{avatarHero.name}" draggable="false">
-					<div class="username">{comp.author.username}</div>
-				</button>
-				<div class="ageContainer">
-					<span class="age">{msToString(age)}</span>
+{:else}
+	<div class="compLibCardContainer">
+		<div class="votingContainer">
+			<button class="voteButton likeButton" class:active={liked} on:click={handleLikeClick}>
+				<img class="voteImage likeImage" src="{liked ? './img/utility/like_filled.png' : './img/utility/like_unfilled.png'}" alt="Like" draggable="false">
+				<div class="voteText likeText" style="font-size: {like_size};">
+					{votesToString(comp.upvotes)}
 				</div>
-			</div>
-			<div class="buttonContainer">
-				<div class="buttonArea">
-					<button type="button" class="favoriteButton" on:click={handleFavoriteClick}>
-						<img draggable="false" class="favoriteImage" src="{favorited ? './img/utility/favorite_filled.png' : './img/utility/favorite_unfilled.png'}" alt="Favorite">
-					</button>
-					<div class="tooltip favoriteTooltip"><span class="tooltipText">{favorited ? 'Unfavorite' : 'Favorite'}</span></div>
+			</button>
+			<button class="voteButton dislikeButton" class:active={disliked} on:click={handleDislikeClick}>
+				<img class="voteImage dislikeImage" src="{disliked ? './img/utility/dislike_filled.png' : './img/utility/dislike_unfilled.png'}" alt="Dislike" draggable="false">
+				<div class="voteText dislikeText" style="font-size: {dislike_size};">
+					{votesToString(comp.downvotes)}
 				</div>
-			</div>
+			</button>
 		</div>
-		<button type="button" class="compButton" on:click={handleCompCardClick}>
-			<div class="compTitleContainer" >
-				<div class="compTitle">{comp.name}</div>
+		<div class="compCard">
+			<div class="compCardHead">
+				<div class="authorAgeContainer">
+					<button type="button" class="authorButton" on:click={handleAuthorClick}>
+						<img class="avatar" src="{avatarHero.portrait}" alt="{avatarHero.name}" draggable="false">
+						<div class="username">{comp.author.username}</div>
+					</button>
+					<div class="ageContainer">
+						<span class="age">{msToString(age)}</span>
+					</div>
+				</div>
+				<div class="buttonContainer">
+					<div class="buttonArea">
+						<button type="button" class="favoriteButton" on:click={handleFavoriteClick}>
+							<img draggable="false" class="favoriteImage" src="{favorited ? './img/utility/favorite_filled.png' : './img/utility/favorite_unfilled.png'}" alt="Favorite">
+						</button>
+						<div class="tooltip favoriteTooltip"><span class="tooltipText">{favorited ? 'Unfavorite' : 'Favorite'}</span></div>
+					</div>
+				</div>
 			</div>
-			<div class="heroesContainer">
-				{#each comp.heroes as hero}
-					{#if $HeroData.some(e => e.id === hero.name)}
-						<img draggable="false" class="heroImage" src={$HeroData.find(e => e.id === hero.name).portrait} alt={$HeroData.find(e => e.id === hero.name).name}>
-					{:else}
-						<i class="emptyHeroSlot"></i>
-					{/if}
-				{/each}
-			</div>
-		</button>
+			<button type="button" class="compButton" on:click={handleCompCardClick}>
+				<div class="compTitleContainer" >
+					<div class="compTitle">{comp.name}</div>
+				</div>
+				<div class="heroesContainer">
+					{#each comp.heroes as hero}
+						{#if $HeroData.some(e => e.id === hero.name)}
+							<img draggable="false" class="heroImage" src={$HeroData.find(e => e.id === hero.name).portrait} alt={$HeroData.find(e => e.id === hero.name).name}>
+						{:else}
+							<i class="emptyHeroSlot"></i>
+						{/if}
+					{/each}
+				</div>
+			</button>
+		</div>
 	</div>
-</div>
+{/if}
 
 <style lang="scss">
+	.compLibCardError {
+		align-items: center;
+		border: 3px solid var(--appDelColor);
+		border-radius: 10px;
+		display: flex;
+		justify-content: center;
+		h3 {
+			color: var(--appDelColor);
+			font-size: 1.2rem;
+			margin: 0;
+			padding: 0;
+		}
+		.errorHeadText {
+			border-bottom: 1px solid black;
+			font-size: 1.0rem;
+		}
+		.errorDetailText {
+			margin-top: 10px;
+			font-size: 0.9rem;
+		}
+	}
 	.compLibCardContainer {
 		display: flex;
 		height: 220px;
