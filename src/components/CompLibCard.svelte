@@ -79,7 +79,7 @@
 	function handleCompCardClick() {
 		// navigate to the comp detail view
 		// note: clears all extraneous URL parameters
-		window.location.assign(`${window.location.origin}/#/library/comp/${comp.uuid}`);
+		window.location.assign(`${window.location.origin}/#/explore/comp/${comp.uuid}`);
 	}
 
 	async function handleFavoriteClick() {

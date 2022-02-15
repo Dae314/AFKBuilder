@@ -73,7 +73,7 @@
 			component: User,
 			props: {},
 		}),
-		'/library/comp/:uuid': wrap({
+		'/explore/comp/:uuid': wrap({
 			component: CompLibDetail,
 			props: {},
 		}),
