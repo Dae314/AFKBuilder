@@ -441,4 +441,30 @@
 			throw new Error(`An error occurred while fetching author details: ${err}`);
 		}
 	}
+
+	// get author of a comp
+	/*{
+		status: response status,
+		data: {
+			author: { username, avatar }
+		} OR error object
+	}*/
+	export async function getCompAuthor(uuid) {
+		try {
+			const response = await fetch(`${uri}/custom-comps/getcompauthor/${uuid}`, {
+				method: 'GET',
+				mode: 'cors',
+				cache: 'no-cache',
+				headers: {},
+			});
+			const responseData = await response.json();
+			if(response.status !== 200) {
+				return { status: response.status, data: responseData.error };
+			} else {
+				return { status: response.status, data: responseData.data };
+			}
+		} catch(err) {
+			throw new Error(`An error occurred while fetching author for a comp: ${err}`);
+		}
+	}
 </script>
