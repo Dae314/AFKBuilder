@@ -6,6 +6,7 @@
 	import { mutation } from "svelte-apollo";
 	import AvatarInput from '../shared/AvatarInput.svelte';
 	import LoadingPage from '../shared/LoadingPage.svelte';
+	import ErrorDisplay from '../components/ErrorDisplay.svelte';
 	import Confirm from '../modals/Confirm.svelte';
 
 	export let isMobile = false;
@@ -20,6 +21,8 @@
 	let avatar = $AppData.user.avatar;
 	let editUsernameDisabled = true;
 	const usernameError = {state: false, text: ''};
+	let showErrorDisplay = false;
+	let errorDisplayConf = {};
 
 	onMount(async () => {
 		$AppData.activeView = 'profile';
@@ -39,7 +42,13 @@
 			// user is valid, perform query
 			const response = await getReceivedUpvotes($AppData.user.jwt);
 			if(response.status !== 200) {
-				throw new Error(`ERROR: received ${response.status} when querying for user received upvotes: ${response.data}`);
+				showErrorDisplay = true;
+				errorDisplayConf = {
+					errorCode: response.status,
+					headText: 'Something went wrong',
+					detailText: response.data,
+					showHomeButton: true,
+				}
 			} else {
 				receivedLikes = response.data;
 			}
@@ -129,55 +138,64 @@
 {#await populateReceivedUpvotes()}
 	<LoadingPage />
 {:then _}
-	<div class="profileContainer">
-		{#if $AppData.user.jwt}
-			<section class="titleArea">
-				<div class="usernameInputArea" on:click={handleUsernameEditClick} >
-					<input id="usernameInput"
-						type="text"
-						minlength="3"
-						maxlength="20"
-						class:error={usernameError.state}
-						bind:value={username}
-						disabled={editUsernameDisabled}
-						on:blur={handleUsernameBlur}
-						on:keyup={handleUsernameKeyup} />
-					<span class="usernameEdit">
-						<button class="usernameEditButton" on:click={handleUsernameEditClick}>
-							<img src="./img/utility/pencil.png" alt="edit username">
+	{#if showErrorDisplay}
+		<ErrorDisplay
+			errorCode={errorDisplayConf.errorCode}
+			headText={errorDisplayConf.headText}
+			detailText={errorDisplayConf.detailText}
+			showHomeButton={errorDisplayConf.showHomeButton}
+		/>
+	{:else}
+		<div class="profileContainer">
+			{#if $AppData.user.jwt}
+				<section class="titleArea">
+					<div class="usernameInputArea" on:click={handleUsernameEditClick} >
+						<input id="usernameInput"
+							type="text"
+							minlength="3"
+							maxlength="20"
+							class:error={usernameError.state}
+							bind:value={username}
+							disabled={editUsernameDisabled}
+							on:blur={handleUsernameBlur}
+							on:keyup={handleUsernameKeyup} />
+						<span class="usernameEdit">
+							<button class="usernameEditButton" on:click={handleUsernameEditClick}>
+								<img src="./img/utility/pencil.png" alt="edit username">
+							</button>
+						</span>
+						<div class="usernameErrorText" class:visible={usernameError.state}><span>{usernameError.text}</span></div>
+					</div>
+					<div class="avatarInputArea">
+						<AvatarInput avatar={avatar} on:avatarChanged={handleAvatarChange} />
+					</div>
+				</section>
+				<section class="headlineArea">
+					<div class="headBox publishedCompsBox">
+						<button type="button" class="headButton" on:click={handlePublicProfileButtonClick}>
+							<div class="headNumber">{$AppData.user.published_comps.length}</div>
+							<div class="headText">Published Comps</div>
 						</button>
-					</span>
-					<div class="usernameErrorText" class:visible={usernameError.state}><span>{usernameError.text}</span></div>
+					</div>
+					<div class="headBox likedCompsBox">
+						<div class="headNumber">{$AppData.user.liked_comps.length}</div>
+						<div class="headText">Liked Comps</div>
+					</div>
+					<div class="headBox totalLikesBox">
+						<div class="headNumber">{receivedLikes}</div>
+						<div class="headText">Received Likes</div>
+					</div>
+				</section>
+				<section class="logoutArea">
+					<button type="button" class="logoutButton" on:click={handleLogoutClick}>Logout</button>
+				</section>
+			{:else}
+				<div class="noLoginContainer">
+					<h3 class="noLogin">Login to view your profile</h3>
 				</div>
-				<div class="avatarInputArea">
-					<AvatarInput avatar={avatar} on:avatarChanged={handleAvatarChange} />
-				</div>
-			</section>
-			<section class="headlineArea">
-				<div class="headBox publishedCompsBox">
-					<button type="button" class="headButton" on:click={handlePublicProfileButtonClick}>
-						<div class="headNumber">{$AppData.user.published_comps.length}</div>
-						<div class="headText">Published Comps</div>
-					</button>
-				</div>
-				<div class="headBox likedCompsBox">
-					<div class="headNumber">{$AppData.user.liked_comps.length}</div>
-					<div class="headText">Liked Comps</div>
-				</div>
-				<div class="headBox totalLikesBox">
-					<div class="headNumber">{receivedLikes}</div>
-					<div class="headText">Received Likes</div>
-				</div>
-			</section>
-			<section class="logoutArea">
-				<button type="button" class="logoutButton" on:click={handleLogoutClick}>Logout</button>
-			</section>
-		{:else}
-			<div class="noLoginContainer">
-				<h3 class="noLogin">Login to view your profile</h3>
-			</div>
-		{/if}
-	</div>
+			{/if}
+		</div>
+	{/if}
 {/await}
 
 <style lang="scss">
