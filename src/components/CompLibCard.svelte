@@ -3,7 +3,6 @@
 	import HeroData from '../stores/HeroData.js';
 	import AppData from '../stores/AppData.js';
 	import {validateJWT, toggleSave, toggleUpvote, toggleDownvote} from '../rest/RESTFunctions.svelte';
-import { error } from 'console';
 	
 	export let comp = {};
 	/* expect comp to be of the format:
