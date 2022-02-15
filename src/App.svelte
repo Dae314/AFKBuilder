@@ -83,7 +83,12 @@
 		}),
 		'*': wrap({
 			component: ErrorDisplay,
-			props: {},
+			props: {
+				errorCode: 404,
+				headText: 'We couldn\'t find that',
+				detailText: 'Sorry about that!',
+				showHomeButton: true,
+			},
 		}),
 	}
 

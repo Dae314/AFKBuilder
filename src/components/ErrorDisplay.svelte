@@ -1,4 +1,8 @@
 <script>
+	export let errorCode = 404;
+	export let headText = 'We couldn\'t find that';
+	export let detailText = 'Sorry about that!';
+	export let showHomeButton = true;
 
 	function handleHomeClick() {
 		// navigate to /
@@ -10,13 +14,15 @@
 
 <div class="notFoundContainer">
 	<div class="header">
-		<h3>404</h3>
-		<div class="headText">We couldn't find that</div>
+		<h3>{errorCode}</h3>
+		<div class="headText">{headText}</div>
 	</div>
 	<div class="divider"></div>
 	<div class="navigation">
-		<div class="detailText">Sorry about that!</div>
-		<button type="button" class="homeButton" on:click={handleHomeClick}>Return Home?</button>
+		<div class="detailText">{detailText}</div>
+		{#if showHomeButton}
+			<button type="button" class="homeButton" on:click={handleHomeClick}>Return Home?</button>
+		{/if}
 	</div>
 </div>
 
@@ -30,9 +36,11 @@
 		width: 100%;
 	}
 	.header {
-		position: relative;
+		position: absolute;
 		height: 150px;
-		left: -42px;
+		left: 50%;
+		top: 50%;
+		transform: translate(-115%, -50%);
 		text-align: right;
 		h3 {
 			color: var(--appBGColor);
@@ -58,10 +66,12 @@
 		align-items: flex-start;
 		display: flex;
 		flex-direction: column;
-		position: relative;
+		position: absolute;
 		height: 150px;
 		justify-content: center;
-		left: 25px;
+		left: 50%;
+		top: 50%;
+		transform: translate(15%, -50%);
 		.detailText {
 			font-size: 1.0rem;
 		}
