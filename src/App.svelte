@@ -36,6 +36,8 @@
 	const menuItems = [ 'Comps', 'Recommendations', 'My Heroes', 'Hero List', 'About' ];
 	const defaultView = 'comps';
 	let isMobile = window.matchMedia("(max-width: 767px)").matches;
+	let showErrorDisplay = false;
+	let errorDisplayConf = {};
 
 	const routes = {
 		'/': wrap({
@@ -145,7 +147,13 @@
 
 		response = await getUserDetails($AppData.user.jwt);
 		if(response.status !== 200) {
-			throw new Error(`ERROR: received ${response.status} when querying for user details: ${response.data}`);
+			showErrorDisplay = true;
+			errorDisplayConf = {
+				errorCode: response.status,
+				headText: 'Something went wrong',
+				detailText: 'Sorry about that',
+				showHomeButton: true,
+			}
 		}
 		const user = response.data;
 		$AppData.user.id = user.id;
@@ -155,28 +163,52 @@
 		
 		response = await getLikedComps($AppData.user.jwt);
 		if(response.status !== 200) {
-			throw new Error(`ERROR: received ${response.status} when querying for user liked comps: ${response.data}`);
+			showErrorDisplay = true;
+			errorDisplayConf = {
+				errorCode: response.status,
+				headText: 'Something went wrong',
+				detailText: 'Sorry about that',
+				showHomeButton: true,
+			}
 		}
 		const likedComps = response.data;
 		$AppData.user.liked_comps = likedComps;
 
 		response = await getDislikedComps($AppData.user.jwt);
 		if(response.status !== 200) {
-			throw new Error(`ERROR: received ${response.status} when querying for user disliked comps: ${response.data}`);
+			showErrorDisplay = true;
+			errorDisplayConf = {
+				errorCode: response.status,
+				headText: 'Something went wrong',
+				detailText: 'Sorry about that',
+				showHomeButton: true,
+			}
 		}
 		const dislikedComps = response.data;
 		$AppData.user.disliked_comps = dislikedComps;
 
 		response = await getPublishedComps($AppData.user.jwt);
 		if(response.status !== 200) {
-			throw new Error(`ERROR: received ${response.status} when querying for user published comps: ${response.data}`);
+			showErrorDisplay = true;
+			errorDisplayConf = {
+				errorCode: response.status,
+				headText: 'Something went wrong',
+				detailText: 'Sorry about that',
+				showHomeButton: true,
+			}
 		}
 		const publishedComps = response.data;
 		$AppData.user.published_comps = publishedComps;
 
 		response = await getSavedComps($AppData.user.jwt);
 		if(response.status !== 200) {
-			throw new Error(`ERROR: received ${response.status} when querying for user saved comps: ${response.data}`);
+			showErrorDisplay = true;
+			errorDisplayConf = {
+				errorCode: response.status,
+				headText: 'Something went wrong',
+				detailText: 'Sorry about that',
+				showHomeButton: true,
+			}
 		}
 		const savedComps = response.data;
 		$AppData.user.saved_comps = savedComps;
@@ -252,14 +284,23 @@
 <Modal on:closed={handleModalClosed}>
 	<div class="AppContainer">
 		<Header menu={menuItems} on:saveData={saveAppData} />
-		<main>
-			<div class="MainWindow">
-				<div id="currentDisplay">
-					<Router routes={routes} on:routeEvent={handleRouteEvent}/>
+		{#if showErrorDisplay}
+			<ErrorDisplay
+				errorCode={errorDisplayConf.errorCode}
+				headText={errorDisplayConf.headText}
+				detailText={errorDisplayConf.detailText}
+				showHomeButton={errorDisplayConf.showHomeButton}
+			/>
+		{:else}
+			<main>
+				<div class="MainWindow">
+					<div id="currentDisplay">
+						<Router routes={routes} on:routeEvent={handleRouteEvent}/>
+					</div>
 				</div>
-			</div>
-		</main>
-		<CookieConsent on:routeEvent={handleRouteEvent} />
+			</main>
+			<CookieConsent on:routeEvent={handleRouteEvent} />
+		{/if}
 	</div>
 </Modal>
 
