@@ -5,20 +5,23 @@
 	import { gql_GET_COMP } from '../gql/queries.svelte';
 	import { getCompAuthor } from '../rest/RESTFunctions.svelte';
 	import { query } from 'svelte-apollo';
+	import JSONURL from 'json-url';
 
 	export let params = {};
+	let svrComp;
 	let comp;
 	let author;
 	let showErrorDisplay = false;
 	let errorDisplayConf = {};
+	const jsurl = JSONURL('lzma'); // json-url compressor
 
 	const compQuery = query(gql_GET_COMP, {
 		variables: { uuid: params.uuid }
 	});
 
 	$: if(!$compQuery.loading) {
-		comp = $compQuery.data.comps.data[0];
-		loadAuthor();
+		svrComp = $compQuery.data.comps.data[0];
+		populateAuthor();
 	}
 	$: compQuery.refetch({ uuid: params.uuid });
 
@@ -26,8 +29,8 @@
 		compQuery.refetch({ uuid: params.uuid });
 	}
 
-	async function loadAuthor() {
-		const response = await getCompAuthor(comp.attributes.uuid);
+	async function populateAuthor() {
+		const response = await getCompAuthor(svrComp.attributes.uuid);
 		if(response.status !== 200) {
 			errorDisplayConf = {
 				errorCode: response.status,
@@ -38,6 +41,41 @@
 			showErrorDisplay = true;
 		} else {
 			author = response.data.author;
+		}
+	}
+
+	async function unpackComp(comp_string) {
+		// unpack and decompress data
+		let data;
+		try {
+			const json = await jsurl.decompress(comp_string);
+			data = JSON.parse(json);
+		} catch(err) {
+			errorDisplayConf = {
+				errorCode: 400,
+				headText: 'Unable to process comp',
+				detailText: 'See console for details',
+				showHomeButton: false,
+			};
+			console.log(err);
+			showErrorDisplay = true;
+			return;
+		}
+
+		// run consistency checks on data
+		const returnObj = await validateComp(data);
+		if(returnObj.retCode !== 0) {
+			// validation error occurred
+			errorDisplayConf = {
+				errorCode: 400,
+				headText: 'Unable to process comp',
+				detailText: `${returnObj.message}`,
+				showHomeButton: false,
+			};
+			showErrorDisplay = true;
+		} else {
+			// validation successful, import the comp
+			comp = returnObj.message;
 		}
 	}
 </script>
@@ -61,7 +99,7 @@
 			showHomeButton={false}
 		/>
 	{:else}
-		{#await loadAuthor()}
+		{#await Promise.all([populateAuthor(), unpackComp(svrComp.comp_string)])}
 			<LoadingPage />
 		{:then _}
 			{#if showErrorDisplay}
@@ -73,8 +111,9 @@
 				/>
 			{:else}
 				<div class="compLibDetailContainer">
-					{comp.attributes.name}
+					{svrComp.attributes.name}
 					{author.username}
+					{comp.heroes}
 				</div>
 			{/if}
 		{/await}
