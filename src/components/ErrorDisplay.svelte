@@ -70,6 +70,7 @@
 		height: 150px;
 		justify-content: center;
 		left: 50%;
+		max-width: 250px;
 		top: 50%;
 		transform: translate(15%, -50%);
 		.detailText {
