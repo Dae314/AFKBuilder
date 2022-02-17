@@ -7,7 +7,7 @@
 	import LoadingPage from '../shared/LoadingPage.svelte';
 	import ErrorDisplay from './ErrorDisplay.svelte';
 	import { gql_GET_COMP } from '../gql/queries.svelte';
-	import { getCompAuthor, validateJWT, toggleSave, toggleUpvote } from '../rest/RESTFunctions.svelte';
+	import { getCompAuthor, validateJWT, toggleSave, toggleUpvote, toggleDownvote } from '../rest/RESTFunctions.svelte';
 	import { msToString, votesToString } from '../utilities/Utilities.svelte';
 	
 
@@ -144,6 +144,30 @@
 			}
 		}
 	}
+
+	async function handleDislikeClick() {
+		if(!$AppData.user.liked_comps.some(e => e.uuid === comp.uuid)) {
+			const valid = await validateJWT($AppData.user.jwt);
+			if(valid) {
+				// user is valid, perform query
+				const response = await toggleDownvote($AppData.user.jwt, svrComp.attributes.uuid);
+					if(response.status !== 200) {
+						errorConf = {
+						errorCode: response.status,
+						headText: 'Something went wrong',
+						detailText: response.data,
+					}
+					showError = true;
+				} else {
+					$AppData.user.disliked_comps = response.data.comps;
+					svrComp.attributes.downvotes = response.data.downvotes;
+					dispatch('routeEvent', {action: 'saveData'});
+				}
+			} else {
+				dispatch('routeEvent', {action: 'logout'});
+			}
+		}
+	}
 </script>
 
 {#if $compQuery.loading}
@@ -190,7 +214,14 @@
 											<img draggable="false" class="headImage likeImage" src="{liked ? './img/utility/like_filled_white.png' : './img/utility/like_unfilled.png'}" alt="Like">
 											<p>{votesToString(svrComp.attributes.upvotes)}</p>
 										</button>
-										<div class="tooltip favoriteTooltip"><span class="tooltipText">{favorited ? 'Unfavorite' : 'Favorite'}</span></div>
+										<div class="tooltip likeTooltip"><span class="tooltipText">{liked ? 'Unlike' : 'Like'}</span></div>
+									</div>
+									<div class="buttonContainer dislikeButtonContainer">
+										<button type="button" class="headButton dislikeButton" class:disliked={disliked} on:click={handleDislikeClick}>
+											<img draggable="false" class="headImage dislikeImage" src="{disliked ? './img/utility/dislike_filled_white.png' : './img/utility/dislike_unfilled.png'}" alt="Dislike">
+											<p>{votesToString(svrComp.attributes.downvotes)}</p>
+										</button>
+										<div class="tooltip dislikeTooltip"><span class="tooltipText">{disliked ? 'Undislike' : 'Dislike'}</span></div>
 									</div>
 									<div class="buttonContainer favoriteButtonContainer">
 										<button type="button" class="headButton favoriteButton" class:favorited={favorited} on:click={handleFavoriteClick}>
@@ -511,18 +542,6 @@
 						padding: 3px;
 					}
 				}
-				.favoriteButton {
-					border: 2px solid var(--mythicColor);
-					p {
-						color: var(--mythicColor);
-					}
-					&.favorited {
-						background-color: var(--mythicColor);
-						p {
-							color: white;
-						}
-					}
-				}
 				.likeButton {
 					border: 2px solid var(--appColorPrimary);
 					p {
@@ -531,7 +550,31 @@
 					&.liked {
 						background-color: var(--appColorPrimary);
 						p {
-							color: white;
+							color: var(--appBGColor);
+						}
+					}
+				}
+				.dislikeButton {
+					border: 2px solid var(--appDelColor);
+					p {
+						color: var(--appDelColor);
+					}
+					&.liked {
+						background-color: var(--appDelColor);
+						p {
+							color: var(--appBGColor);
+						}
+					}
+				}
+				.favoriteButton {
+					border: 2px solid var(--mythicColor);
+					p {
+						color: var(--mythicColor);
+					}
+					&.favorited {
+						background-color: var(--mythicColor);
+						p {
+							color: var(--appBGColor);
 						}
 					}
 				}
