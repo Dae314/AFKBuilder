@@ -7,7 +7,7 @@
 	import LoadingPage from '../shared/LoadingPage.svelte';
 	import ErrorDisplay from './ErrorDisplay.svelte';
 	import { gql_GET_COMP } from '../gql/queries.svelte';
-	import { getCompAuthor, validateJWT, toggleSave } from '../rest/RESTFunctions.svelte';
+	import { getCompAuthor, validateJWT, toggleSave, toggleUpvote } from '../rest/RESTFunctions.svelte';
 	import { msToString, votesToString } from '../utilities/Utilities.svelte';
 	
 
@@ -34,6 +34,8 @@
 	$: avatarHero = author ? $HeroData.find(e => e.id === author.avatar) : '';
 	$: age = comp ? Date.now() - comp.lastUpdate.getTime() : '';
 	$: favorited = svrComp ? $AppData.user.saved_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
+	$: liked = svrComp ? $AppData.user.liked_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
+	$: disliked = svrComp ?  $AppData.user.disliked_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
 
 	function reload() {
 		compQuery.refetch({ uuid: params.uuid });
@@ -111,11 +113,35 @@
 				showError = true;
 			} else {
 				$AppData.user.saved_comps = response.data;
+				svrComp.attributes.saves = response.data.saves;
 				dispatch('routeEvent', {action: 'saveData'});
-				reload();
 			}
 		} else {
 			dispatch('routeEvent', {action: 'logout'});
+		}
+	}
+
+	async function handleLikeClick() {
+		if(!$AppData.user.disliked_comps.some(e => e.uuid === comp.uuid)) {
+			const valid = await validateJWT($AppData.user.jwt);
+			if(valid) {
+				// user is valid, perform query
+				const response = await toggleUpvote($AppData.user.jwt, svrComp.attributes.uuid);
+					if(response.status !== 200) {
+						errorConf = {
+						errorCode: response.status,
+						headText: 'Something went wrong',
+						detailText: response.data,
+					}
+					showError = true;
+				} else {
+					$AppData.user.liked_comps = response.data.comps;
+					svrComp.attributes.upvotes = response.data.upvotes;
+					dispatch('routeEvent', {action: 'saveData'});
+				}
+			} else {
+				dispatch('routeEvent', {action: 'logout'});
+			}
 		}
 	}
 </script>
@@ -158,10 +184,17 @@
 									<img class="avatar" src="{avatarHero.portrait}" alt="{avatarHero.name}" draggable="false">
 									<div class="username">{author.username}</div>
 								</button>
-								<div class="buttonContainer">
-									<div class="favoriteButtonContainer">
-										<button type="button" class="favoriteButton" class:favorited={favorited} on:click={handleFavoriteClick}>
-											<img draggable="false" class="favoriteImage" src="{favorited ? './img/utility/favorite_filled_white.png' : './img/utility/favorite_unfilled.png'}" alt="Favorite">
+								<div class="buttonsContainer">
+									<div class="buttonContainer likeButtonContainer">
+										<button type="button" class="headButton likeButton" class:liked={liked} on:click={handleLikeClick}>
+											<img draggable="false" class="headImage likeImage" src="{liked ? './img/utility/like_filled_white.png' : './img/utility/like_unfilled.png'}" alt="Like">
+											<p>{votesToString(svrComp.attributes.upvotes)}</p>
+										</button>
+										<div class="tooltip favoriteTooltip"><span class="tooltipText">{favorited ? 'Unfavorite' : 'Favorite'}</span></div>
+									</div>
+									<div class="buttonContainer favoriteButtonContainer">
+										<button type="button" class="headButton favoriteButton" class:favorited={favorited} on:click={handleFavoriteClick}>
+											<img draggable="false" class="headImage favoriteImage" src="{favorited ? './img/utility/favorite_filled_white.png' : './img/utility/favorite_unfilled.png'}" alt="Favorite">
 											<p>{votesToString(svrComp.attributes.saves)}</p>
 										</button>
 										<div class="tooltip favoriteTooltip"><span class="tooltipText">{favorited ? 'Unfavorite' : 'Favorite'}</span></div>
@@ -450,37 +483,55 @@
 					user-select: none;
 				}
 			}
-			.buttonContainer {
+			.buttonsContainer {
 				align-items: center;
 				display: flex;
 				justify-content: flex-end;
 				margin-left: auto;
-				.favoriteButtonContainer {
+				.buttonContainer {
 					position: relative;
-					.favoriteButton {
-						align-items: center;
-						background-color: transparent;
-						border: 2px solid var(--mythicColor);
-						border-radius: 10px;
-						cursor: pointer;
-						display: flex;
-						justify-content: center;
-						outline: none;
-						padding: 5px;
-						.favoriteImage {
-							max-width: 20px;
-						}
+				}
+				.headButton {
+					align-items: center;
+					background-color: transparent;
+					border: 2px solid black;
+					border-radius: 10px;
+					cursor: pointer;
+					display: flex;
+					justify-content: center;
+					margin: 0px 5px;
+					outline: none;
+					padding: 5px;
+					.headImage {
+						max-width: 20px;
+					}
+					p {
+						margin: 0;
+						margin-left: 3px;
+						padding: 3px;
+					}
+				}
+				.favoriteButton {
+					border: 2px solid var(--mythicColor);
+					p {
+						color: var(--mythicColor);
+					}
+					&.favorited {
+						background-color: var(--mythicColor);
 						p {
-							color: var(--mythicColor);
-							margin: 0;
-							margin-left: 3px;
-							padding: 3px;
+							color: white;
 						}
-						&.favorited {
-							background-color: var(--mythicColor);
-							p {
-								color: white;
-							}
+					}
+				}
+				.likeButton {
+					border: 2px solid var(--appColorPrimary);
+					p {
+						color: var(--appColorPrimary);
+					}
+					&.liked {
+						background-color: var(--appColorPrimary);
+						p {
+							color: white;
 						}
 					}
 				}
