@@ -1,4 +1,5 @@
 <script>
+	import {createEventDispatcher} from 'svelte';
 	import { query } from 'svelte-apollo';
 	import JSONURL from 'json-url';
 	import AppData from '../stores/AppData.js';
@@ -6,7 +7,7 @@
 	import LoadingPage from '../shared/LoadingPage.svelte';
 	import ErrorDisplay from './ErrorDisplay.svelte';
 	import { gql_GET_COMP } from '../gql/queries.svelte';
-	import { getCompAuthor } from '../rest/RESTFunctions.svelte';
+	import { getCompAuthor, validateJWT, toggleSave } from '../rest/RESTFunctions.svelte';
 	import { msToString, votesToString } from '../utilities/Utilities.svelte';
 	
 
@@ -16,8 +17,9 @@
 	let author;
 	let showErrorDisplay = false;
 	let errorDisplayConf = {};
-	const jsurl = JSONURL('lzma'); // json-url compressor
 	let populatePromise;
+	const jsurl = JSONURL('lzma'); // json-url compressor
+	const dispatch = createEventDispatcher();
 	const compQuery = query(gql_GET_COMP, {
 		variables: { uuid: params.uuid }
 	});
@@ -31,7 +33,7 @@
 	}
 	$: avatarHero = author ? $HeroData.find(e => e.id === author.avatar) : '';
 	$: age = comp ? Date.now() - comp.lastUpdate.getTime() : '';
-	$: favorited = comp ? $AppData.user.saved_comps.some(e => e.uuid === comp.uuid) : false;
+	$: favorited = svrComp ? $AppData.user.saved_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
 
 	function reload() {
 		compQuery.refetch({ uuid: params.uuid });
@@ -50,7 +52,6 @@
 		} else {
 			author = response.data.author;
 		}
-		console.log(author);
 	}
 
 	async function populateComp() {
@@ -91,11 +92,31 @@
 	}
 
 	function handleAuthorClick() {
-		console.log('author clicked');
+		// navigate to author page
+		// note: clears all extraneous URL parameters
+		window.location.assign(`${window.location.origin}/#/users/${encodeURIComponent(author.username)}`);
 	}
 
-	function handleFavoriteClick() {
-		console.log('favorite clicked');
+	async function handleFavoriteClick() {
+		const valid = await validateJWT($AppData.user.jwt);
+		if(valid) {
+			// user is valid, perform query
+			const response = await toggleSave($AppData.user.jwt, svrComp.attributes.uuid);
+			if(response.status !== 200) {
+				errorConf = {
+					errorCode: response.status,
+					headText: 'Something went wrong',
+					detailText: response.data,
+				}
+				showError = true;
+			} else {
+				$AppData.user.saved_comps = response.data;
+				dispatch('routeEvent', {action: 'saveData'});
+				reload();
+			}
+		} else {
+			dispatch('routeEvent', {action: 'logout'});
+		}
 	}
 </script>
 
@@ -445,12 +466,14 @@
 						display: flex;
 						justify-content: center;
 						outline: none;
+						padding: 5px;
 						.favoriteImage {
 							max-width: 20px;
 						}
 						p {
 							color: var(--mythicColor);
 							margin: 0;
+							margin-left: 3px;
 							padding: 3px;
 						}
 						&.favorited {
