@@ -43,6 +43,7 @@
 					uuid
 					upvotes
 					downvotes
+					saves
 					comp_string
 				}
 			}

@@ -144,13 +144,13 @@
 	<div class="compLibCardContainer">
 		<div class="votingContainer">
 			<button class="voteButton likeButton" class:active={liked} on:click={handleLikeClick}>
-				<img class="voteImage likeImage" src="{liked ? './img/utility/like_filled.png' : './img/utility/like_unfilled.png'}" alt="Like" draggable="false">
+				<img class="voteImage likeImage" src="{liked ? './img/utility/like_filled_white.png' : './img/utility/like_unfilled.png'}" alt="Like" draggable="false">
 				<div class="voteText likeText" style="font-size: {like_size};">
 					{votesToString(comp.upvotes)}
 				</div>
 			</button>
 			<button class="voteButton dislikeButton" class:active={disliked} on:click={handleDislikeClick}>
-				<img class="voteImage dislikeImage" src="{disliked ? './img/utility/dislike_filled.png' : './img/utility/dislike_unfilled.png'}" alt="Dislike" draggable="false">
+				<img class="voteImage dislikeImage" src="{disliked ? './img/utility/dislike_filled_white.png' : './img/utility/dislike_unfilled.png'}" alt="Dislike" draggable="false">
 				<div class="voteText dislikeText" style="font-size: {dislike_size};">
 					{votesToString(comp.downvotes)}
 				</div>

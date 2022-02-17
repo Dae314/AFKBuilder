@@ -7,7 +7,7 @@
 	import ErrorDisplay from './ErrorDisplay.svelte';
 	import { gql_GET_COMP } from '../gql/queries.svelte';
 	import { getCompAuthor } from '../rest/RESTFunctions.svelte';
-	import { msToString } from '../utilities/Utilities.svelte';
+	import { msToString, votesToString } from '../utilities/Utilities.svelte';
 	
 
 	export let params = {};
@@ -27,10 +27,11 @@
 	// reload the comp data if the query is rerun
 	$: if(!$compQuery.loading) {
 		svrComp = $compQuery.data.comps.data[0];
-		populatePromise = Promise.all([populateAuthor(), populateComp()]);
+		populatePromise = Promise.all([populateComp(), populateAuthor()]);
 	}
 	$: avatarHero = author ? $HeroData.find(e => e.id === author.avatar) : '';
 	$: age = comp ? Date.now() - comp.lastUpdate.getTime() : '';
+	$: favorited = comp ? $AppData.user.saved_comps.some(e => e.uuid === comp.uuid) : false;
 
 	function reload() {
 		compQuery.refetch({ uuid: params.uuid });
@@ -92,6 +93,10 @@
 	function handleAuthorClick() {
 		console.log('author clicked');
 	}
+
+	function handleFavoriteClick() {
+		console.log('favorite clicked');
+	}
 </script>
 
 {#if $compQuery.loading}
@@ -127,18 +132,25 @@
 				<div class="compLibDetailContainer">
 					<div class="compLibDetailHead">
 						<div class="titleContainer">
-							<div class="authorAgeContainer">
+							<div class="authorButtonsContainer">
 								<button type="button" class="authorButton" on:click={handleAuthorClick}>
 									<img class="avatar" src="{avatarHero.portrait}" alt="{avatarHero.name}" draggable="false">
 									<div class="username">{author.username}</div>
 								</button>
-								<div class="ageContainer">
-									<span class="age">{msToString(age)}</span>
+								<div class="buttonContainer">
+									<div class="favoriteButtonContainer">
+										<button type="button" class="favoriteButton" class:favorited={favorited} on:click={handleFavoriteClick}>
+											<img draggable="false" class="favoriteImage" src="{favorited ? './img/utility/favorite_filled_white.png' : './img/utility/favorite_unfilled.png'}" alt="Favorite">
+											<p>{votesToString(svrComp.attributes.saves)}</p>
+										</button>
+										<div class="tooltip favoriteTooltip"><span class="tooltipText">{favorited ? 'Unfavorite' : 'Favorite'}</span></div>
+									</div>
 								</div>
 							</div>
 							<h3 class="compTitle">{comp.name}</h3>
-						</div>
-						<div class="buttonContainer">
+							<div class="ageContainer">
+								<span class="age">{msToString(age)}</span>
+							</div>
 						</div>
 					</div>
 					<!--
@@ -396,9 +408,10 @@
 	.compLibDetailHead {
 		display: flex;
 		flex-direction: column;
-		.authorAgeContainer {
+		padding: 10px;
+		padding-bottom: 0px;
+		.authorButtonsContainer {
 			display: flex;
-			flex-direction: column;
 			.authorButton {
 				align-items: center;
 				background: transparent;
@@ -416,6 +429,53 @@
 					user-select: none;
 				}
 			}
+			.buttonContainer {
+				align-items: center;
+				display: flex;
+				justify-content: flex-end;
+				margin-left: auto;
+				.favoriteButtonContainer {
+					position: relative;
+					.favoriteButton {
+						align-items: center;
+						background-color: transparent;
+						border: 2px solid var(--mythicColor);
+						border-radius: 10px;
+						cursor: pointer;
+						display: flex;
+						justify-content: center;
+						outline: none;
+						.favoriteImage {
+							max-width: 20px;
+						}
+						p {
+							color: var(--mythicColor);
+							margin: 0;
+							padding: 3px;
+						}
+						&.favorited {
+							background-color: var(--mythicColor);
+							p {
+								color: white;
+							}
+						}
+					}
+				}
+				.tooltip {
+					display: none;
+				}
+			}
+		}
+		.compTitle {
+			font-size: 1.5rem;
+			margin: 0;
+			text-align: center;
+			width: 100%;
+		}
+		.ageContainer {
+			font-size: 0.8rem;
+			text-align: center;
+			width: 100%;
 		}
 	}
 </style>
