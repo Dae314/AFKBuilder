@@ -16,12 +16,14 @@
 	import StarsInput from '../shared/StarsInput.svelte';
 	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
 	import AscendBox from '../shared/AscendBox.svelte';
+	import TutorialBox from '../shared/TutorialBox.svelte';
 	import { gql_GET_COMP } from '../gql/queries.svelte';
 	import { getCompAuthor, validateJWT, toggleSave, toggleUpvote, toggleDownvote } from '../rest/RESTFunctions.svelte';
 	import { msToString, votesToString } from '../utilities/Utilities.svelte';
 	
 
 	export let params = {};
+	export let isMobile = false;
 	let svrComp;
 	let comp;
 	let author;
@@ -56,6 +58,7 @@
 	}
 	$: avatarHero = author ? $HeroData.find(e => e.id === author.avatar) : '';
 	$: age = comp ? Date.now() - comp.lastUpdate.getTime() : '';
+	$: editorHeight = isMobile ? '70vh' : '80vh';
 	$: favorited = svrComp ? $AppData.user.saved_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
 	$: liked = svrComp ? $AppData.user.liked_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
 	$: disliked = svrComp ?  $AppData.user.disliked_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
@@ -219,7 +222,7 @@
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight },
 		});
 	}
 </script>
@@ -523,6 +526,10 @@
 												{/if}
 											</div>
 										</div>
+									{:else}
+										<TutorialBox noMargin={true}>
+											<span>Select hero to see Ascension, SI, Furniture, and Artifact details.</span>
+										</TutorialBox>
 									{/if}
 								</div>
 							</div>

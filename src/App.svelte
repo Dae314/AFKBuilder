@@ -77,7 +77,7 @@
 		}),
 		'/explore/comp/:uuid': wrap({
 			component: CompLibDetail,
-			props: {},
+			props: { isMobile: isMobile },
 		}),
 		'/connect/:provider/redirect': wrap({
 			component: PostLogin,
