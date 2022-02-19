@@ -115,7 +115,6 @@
 		} else {
 			// validation successful, import the comp
 			comp = returnObj.message;
-			console.log(comp);
 		}
 	}
 
