@@ -53,6 +53,7 @@
 	let selectedHero = '';
 	let copyConfirmVisible = false;
 	let showowConfirm = false;
+	let showEditMenu = false;
 	let owText = '';
 	let owPromise;
 	let modalStack = [];
@@ -547,9 +548,14 @@
 						<h3 class="compTitle">{sortedCompList[$AppData.selectedComp].name}</h3>
 						<p class="authorTitle">{sortedCompList[$AppData.selectedComp].author}</p>
 					</div>
-					<div class="editContainer">
-						<button type="button" class="editDelButton exportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/export.png" alt="Export"><span>Export</span></button>
+					<button type="button" class="editMenuButton" class:open={showEditMenu} on:click={() => showEditMenu = !showEditMenu}>
+						<i class="filledCircle"></i>
+						<i class="filledCircle"></i>
+						<i class="filledCircle"></i>
+					</button>
+					<div class="editContainer" class:open={showEditMenu}>
 						<button type="button" class="editDelButton editButton" on:click={() => handleEditButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/pencil.png" alt="Edit"><span>Edit</span></button>
+						<button type="button" class="editDelButton exportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/export.png" alt="Export"><span>Export</span></button>
 						<button type="button" class="editDelButton deleteButton" on:click={() => handleDeleteButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/trashcan.png" alt="Delete"><span>Delete</span></button>
 					</div>
 				</div>
@@ -889,11 +895,6 @@
 			</div>
 		{/if}
 	</section>
-	{#if openDetail}
-		<section class="sect5" class:open={openDetail}>
-			<button type="button" class="mobileExportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/export.png" alt="Export"></button>
-		</section>
-	{/if}
 </div>
 
 <style lang="scss">
@@ -1161,8 +1162,10 @@
 		visibility: visible;
 	}
 	.compDetailHead {
+		align-items: center;
 		display: flex;
 		flex-direction: row;
+		position: relative;
 		width: 100%;
 	}
 	.closeButtonContainer {
@@ -1219,39 +1222,97 @@
 		white-space: nowrap;
 		width: 100%;
 	}
-	.editContainer {
+	.editMenuButton {
 		align-items: center;
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-end;
-		width: 25%;
-	}
-	.editDelButton {
-		align-items: center;
-		background-color: var(--appColorPrimary);
 		border: 3px solid var(--appColorPrimary);
-		border-radius: 5px;
-		color: white;
+		border-radius: 10px;
+		color: var(--appColorPrimary);
 		cursor: pointer;
 		display: flex;
-		flex-direction: row;
-		font-size: 0.9rem;
-		height: fit-content;
+		flex-direction: column;
+		height: 40px;
 		justify-content: center;
-		margin: 0px 5px;
-		padding: 5px 8px;
-		span {
-			display: none;
+		margin-left: auto;
+		padding: 0;
+		transition: all 0.2s;
+		width: 40px;
+		.filledCircle {
+			background-color: var(--appColorPrimary);
+			border-radius: 50%;
+			height: 5px;
+			margin: 2px;
+			max-height: 5px;
+			min-height: 5px;
+			max-width: 5px;
+			min-width: 5px;
+			width: 5px;
 		}
-		&:active {
-			box-shadow: none;
-		}
-		img {
-			max-width: 20px;
+		&.open {
+			background-color: var(--appColorPrimary);
+			.filledCircle {
+				background-color: var(--appBGColor);
+			}
 		}
 	}
-	.exportButton {
-		display: none;
+	.editContainer {
+		align-items: center;
+		background-color: var(--appBGColor);
+		border-radius: 10px;
+		border-top-right-radius: 0px;
+		box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		opacity: 0;
+		padding: 5px;
+		position: absolute;
+		right: 13px;
+		bottom: -163px;
+		visibility: hidden;
+		transition: all 0.2s;
+		&:after {
+			content: " ";
+			position: absolute;
+			right: 0px;
+			top: -6px;
+			border-top: none;
+			border-right: 6px solid transparent;
+			border-left: 6px solid transparent;
+			border-bottom: 6px solid var(--appBGColor);
+		}
+		&.open {
+			opacity: 1;
+			visibility: visible;
+		}
+		.editDelButton {
+			align-items: center;
+			background-color: var(--appColorPrimary);
+			border: 3px solid var(--appColorPrimary);
+			border-radius: 5px;
+			color: white;
+			cursor: pointer;
+			display: flex;
+			flex-direction: row;
+			font-size: 0.9rem;
+			height: fit-content;
+			justify-content: center;
+			margin: 5px;
+			height: 40px;
+			width: 40px;
+			span {
+				display: none;
+			}
+			&:active {
+				box-shadow: none;
+			}
+			img {
+				max-width: 20px;
+			}
+		}
+		.deleteButton {
+			background-color: var(--appDelColor);
+			border: 3px solid var(--appDelColor);
+		}
 	}
 	.deleteButton {
 		background-color: var(--appDelColor);
