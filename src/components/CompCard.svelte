@@ -10,6 +10,8 @@
 	export let exportCallback = () => {};
 	export let starCallback = () => {};
 
+	$: published = $AppData.user.published_comps.some(e => e.uuid === comp.uuid);
+
 	function handleDeleteButtonClick(index) {
 		delCallback(index);
 	}
@@ -44,8 +46,8 @@
 					<div class="tooltip deleteTooltip"><span class="tooltipText">Delete</span></div>
 				</div>
 				<div class="buttonArea">
-					<button type="button" class="cardExportButton" on:click={(e) => { handleExportButtonClick(idx); e.stopPropagation(); }}><img draggable="false" class="exportIcon" src="./img/utility/export.png" alt="Export"></button>
-					<div class="tooltip exportTooltip"><span class="tooltipText">Export</span></div>
+					<img class="publishedIcon" class:published={published} src="./img/utility/explore_white.png" alt="{published ? 'Published' : 'Unpublished'}" draggable="false" />
+					<div class="tooltip publishedTooltip"><span class="tooltipText">{published ? 'Published' : 'Unpublished'}</span></div>
 				</div>
 				<i class="star" class:active={comp.starred} on:click={(e) => handleStarClick(e, comp)}></i>
 			</div>
@@ -140,6 +142,7 @@
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
+					position: relative;
 				}
 				.cardDeleteButton {
 					background-color: transparent;
@@ -156,19 +159,13 @@
 						max-width: 15px;
 					}
 				}
-				.cardExportButton {
-					background-color: transparent;
-					border: 0;
-					cursor: pointer;
-					display: none;
-					height: fit-content;
-					margin: 0;
-					outline: 0;
-					padding: 0;
-					padding-top: 2px;
-					.exportIcon {
-						filter: invert(1.0);
-						max-width: 18px;
+				.publishedIcon {
+					cursor: default;
+					filter: invert(1.0);
+					max-width: 20px;
+					opacity: 35%;
+					&.published {
+						opacity: 100%;
 					}
 				}
 				.star {
@@ -277,10 +274,14 @@
 	}
 	@media only screen and (min-width: 767px) {
 		.tooltip {
-			bottom: -2px;
-			display: inline-block;
-			position: relative;
-			right: 22px;
+			align-items: center;
+			bottom: -15px;
+			display: flex;
+			justify-content: center;
+			position: absolute;
+			text-align: center;
+			left: -32px;
+			width: 80px;
 			.tooltipText {
 				background-color: var(--appColorPrimary);
 				border-radius: 6px;
@@ -296,9 +297,6 @@
 				z-index: 1;
 			}
 		}
-		.exportTooltip {
-			right: 22.5px;
-		}
 		.compCard {
 			&:hover {
 				box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
@@ -313,9 +311,6 @@
 			.buttonDraftArea {
 				.cardButtonsContainer {
 					.cardDeleteButton {
-						display: block;
-					}
-					.cardExportButton {
 						display: block;
 					}
 				}
@@ -334,7 +329,7 @@
 					}
 				}
 			}
-			.cardExportButton {
+			.publishedIcon {
 				&:hover+.tooltip {
 					.tooltipText {
 						opacity: 1;
