@@ -1876,27 +1876,39 @@
 		.titleContainer {
 			width: 50%;
 		}
+		.editMenuButton {
+			display: none;
+		}
 		.editContainer {
-			width: 25%;
-		}
-		.exportButton {
-			display: flex;
-		}
-		.editDelButton {
-			span {
-				display: block;
+			background-color: transparent;
+			box-shadow: none;
+			flex-direction: row;
+			margin-left: auto;
+			opacity: 1;
+			position: static;
+			visibility: visible;
+			&:before {
+				display: none;
 			}
-			img {
-				margin-right: 8px;
-				max-width: 15px;
+			.exportButton {
+				display: flex;
 			}
-			&:hover {
-				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+			.editDelButton {
+				height: fit-content;
+				width: fit-content;
+				padding: 6px;
+				span {
+					display: block;
+				}
+				img {
+					margin-right: 8px;
+					max-width: 15px;
+				}
 			}
-		}
-		.deleteButton {
-			img {
-				max-width: 12px;
+			.deleteButton {
+				img {
+					max-width: 12px;
+				}
 			}
 		}
 		.newCompOptionButton {
