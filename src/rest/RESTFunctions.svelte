@@ -546,4 +546,29 @@
 			}
 		}
 	}
+
+	// get comp by UUID - used to check if comp already exists
+	export async function getCompByUUID(uuid) {
+		try {
+			const response = await fetch(`${uri}/comps?filters[uuid][$eq]=${uuid}`, {
+				method: 'GET',
+				mode: 'cors',
+				cache: 'no-cache',
+				headers: {},
+			});
+			const responseData = await response.json();
+			if(response.status !== 200) {
+				return { status: response.status, data: responseData.error };
+			} else {
+				return { status: response.status, data: responseData.data };
+			}
+		} catch(err) {
+			if(err instanceof TypeError && err.message) {
+				// network error occurred
+				return { status: 503, data: err.message }
+			} else {
+				throw new Error(`An error occurred while fetching comp by UUID: ${err}`);
+			}
+		}
+	}
 </script>

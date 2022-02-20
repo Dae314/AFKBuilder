@@ -49,4 +49,45 @@
 			}
 		}
 	}`;
+	export const gql_CREATE_COMP = gql`
+	mutation ($name: String!, $uuid: String!, $comp_string: String!, $heroes: [ID], $tags: [ID], $comp_update: DateTime!) {
+		createComp(
+			data: {
+				name: $name
+				uuid: $uuid
+				comp_string: $comp_string
+				heroes: $heroes
+				tags: $tags
+				comp_update: $comp_update
+			}
+		) {
+			data {
+							id
+				attributes {
+					name
+				}
+			}
+		}
+	}`;
+	export const gql_UPDATE_COMP = gql`
+	mutation ($id: ID!, $name: String!, $uuid: String!, $comp_string: String!, $heroes: [ID], $tags: [ID], $comp_update: DateTime!) {
+		updateComp(
+			id: $id
+			data: {
+				name: $name
+				uuid: $uuid
+				comp_string: $comp_string
+				heroes: $heroes
+				tags: $tags
+				comp_update: $comp_update
+			}
+		) {
+			data {
+							id
+				attributes {
+					name
+				}
+			}
+		}
+	}`;
 </script>

@@ -6,6 +6,7 @@
 	import { v4 as uuidv4 } from 'uuid';
 	import JSONURL from 'json-url';
 	import {params, pop as spaRoutePop} from 'svelte-spa-router';
+	import { mutation } from "svelte-apollo";
 	import CompCard from './CompCard.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
@@ -21,6 +22,8 @@
 	import AscendBox from '../shared/AscendBox.svelte';
 	import SortableList from '../shared/SortableList.svelte';
 	import StarsInput from '../shared/StarsInput.svelte';
+	import { validateJWT, getCompByUUID } from '../rest/RESTFunctions.svelte';
+	import { gql_CREATE_COMP, gql_UPDATE_COMP } from '../gql/queries.svelte';
 
 	export let isMobile = false;
 
@@ -28,6 +31,8 @@
 	const jsurl = JSONURL('lzma'); // json-url compressor
 	const dispatch = createEventDispatcher();
 	const { open } = getContext('simple-modal');
+	const gqlCreateComp = mutation(gql_CREATE_COMP);
+	const gqlUpdateComp = mutation(gql_UPDATE_COMP);
 	const md = new MarkdownIt({
 		html: false,
 		linkify: false,
@@ -173,6 +178,18 @@
 					closeOnOuterClick: false,
 				});
 	}
+	
+	function handlePublishButtonClick(compIdx) {
+		modalStack.push('confirm');
+		open(Confirm,
+				{onConfirm: handlePublishComp, confirmData: compIdx, message: `Publish comp named ${sortedCompList[compIdx].name}?`},
+				{closeButton: false,
+				 closeOnEsc: true,
+				 closeOnOuterClick: true,
+				 styleWindow: { width: 'fit-content', },
+				 styleContent: { width: 'fit-content', },
+				});
+	}
 
 	function handleNewButtonClick() {
 		modalStack.push('editor');
@@ -257,6 +274,75 @@
 		}
 		sortedCompList = makeSortedCompList();
 		dispatch('routeEvent', {action: 'saveData'});
+	}
+
+	async function handlePublishComp(idx) {
+		const valid = await validateJWT($AppData.user.jwt);
+		if(valid) {
+			// setup essential variables
+			const compToPublish = sortedCompList[idx];
+			const comp_string = await jsurl.compress(JSON.stringify(compToPublish));
+
+			// check if the comp has been published before
+			const compCheck = [];
+			const response = await getCompByUUID(compToPublish.uuid);
+			if(response.status !== 200) {
+				// errorDisplayConf = {
+				// 	errorCode: response.status,
+				// 	headText: 'Something went wrong',
+				// 	detailText: response.data,
+				// 	showHomeButton: true,
+				// };
+				// showErrorDisplay = true;
+				console.log('an error occurred');
+				return;
+			} else {
+				compCheck = response.data;
+			}
+
+			if(compCheck.length === 0) {
+				// create a new comp
+				try {
+					const response = await gqlCreateComp({
+						variables: {
+							name: compToPublish.name,
+							uuid: compToPublish.uuid,
+							comp_string: comp_string,
+							heroes: compToPublish.heroes,
+							tags: compToPublish.tags,
+							comp_update: compToPublish.lastUpdate,
+						}
+					});
+					// $AppData.user.publishedComps = response.data.updateUsersPermissionsUser.data.attributes.username;
+					// dispatch('routeEvent', {action: 'saveData'});
+				} catch(error) {
+					console.log(error.graphQLErrors[0].message);
+					return;
+				}
+			} else {
+				// update existing comp
+				try {
+					const response = await gqlUpdateComp({
+						variables: {
+							id: compCheck[0].id,
+							name: compToPublish.name,
+							uuid: compToPublish.uuid,
+							comp_string: comp_string,
+							heroes: compToPublish.heroes,
+							tags: compToPublish.tags,
+							comp_update: compToPublish.lastUpdate,
+						}
+					});
+					// $AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
+					// dispatch('routeEvent', {action: 'saveData'});
+				} catch(error) {
+					console.log(error.graphQLErrors[0].message);
+					return;
+				}
+			}
+		} else {
+			dispatch('routeEvent', {action: 'logout'});
+		}
 	}
 
 	async function handleCompImport(compressedData) {
@@ -555,6 +641,7 @@
 					</button>
 					<div class="editContainer" class:open={showEditMenu}>
 						<button type="button" class="editDelButton editButton" on:click={() => handleEditButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/pencil.png" alt="Edit"><span>Edit</span></button>
+						<button type="button" class="editDelButton publishButton" on:click={() => handlePublishButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/explore_white.png" alt="Publish"><span>Publish</span></button>
 						<button type="button" class="editDelButton exportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/export.png" alt="Export"><span>Export</span></button>
 						<button type="button" class="editDelButton deleteButton" on:click={() => handleDeleteButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/trashcan.png" alt="Delete"><span>Delete</span></button>
 					</div>
@@ -1256,7 +1343,7 @@
 		padding: 5px;
 		position: absolute;
 		right: 13px;
-		bottom: -163px;
+		bottom: -213px;
 		visibility: hidden;
 		transition: all 0.2s;
 		&:after {
