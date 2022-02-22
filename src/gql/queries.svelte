@@ -62,9 +62,9 @@
 			}
 		) {
 			data {
-							id
+				id
 				attributes {
-					name
+					uuid
 				}
 			}
 		}
@@ -83,9 +83,9 @@
 			}
 		) {
 			data {
-							id
+				id
 				attributes {
-					name
+					uuid
 				}
 			}
 		}

@@ -284,7 +284,7 @@
 			const comp_string = await jsurl.compress(JSON.stringify(compToPublish));
 
 			// check if the comp has been published before
-			const compCheck = [];
+			let compCheck = [];
 			const response = await getCompByUUID(compToPublish.uuid);
 			if(response.status !== 200) {
 				// errorDisplayConf = {
@@ -303,41 +303,44 @@
 			if(compCheck.length === 0) {
 				// create a new comp
 				try {
-					const response = await gqlCreateComp({
+					const create_response = await gqlCreateComp({
 						variables: {
 							name: compToPublish.name,
 							uuid: compToPublish.uuid,
 							comp_string: comp_string,
-							heroes: compToPublish.heroes,
+							heroes: Object.keys(compToPublish.heroes),
 							tags: compToPublish.tags,
 							comp_update: compToPublish.lastUpdate,
 						}
 					});
-					// $AppData.user.publishedComps = response.data.updateUsersPermissionsUser.data.attributes.username;
-					// dispatch('routeEvent', {action: 'saveData'});
+					const id = create_response.data.createComp.data.id;
+					const uuid = create_response.data.createComp.data.attributes.uuid;
+					$AppData.user.publishedComps = [...$AppData.user.publishedComps, {id, uuid}];
+					dispatch('routeEvent', {action: 'saveData'});
 				} catch(error) {
-					console.log(error.graphQLErrors[0].message);
+					console.log(error.message);
 					return;
 				}
 			} else {
 				// update existing comp
-				try {
-					const response = await gqlUpdateComp({
-						variables: {
-							id: compCheck[0].id,
-							name: compToPublish.name,
-							uuid: compToPublish.uuid,
-							comp_string: comp_string,
-							heroes: compToPublish.heroes,
-							tags: compToPublish.tags,
-							comp_update: compToPublish.lastUpdate,
-						}
-					});
-					// $AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
-					// dispatch('routeEvent', {action: 'saveData'});
-				} catch(error) {
-					console.log(error.graphQLErrors[0].message);
-					return;
+				const oldDate = new Date(compCheck[0].attributes.comp_update);
+				if(compToPublish.lastUpdate > oldDate) {
+					try {
+						const update_response = await gqlUpdateComp({
+							variables: {
+								id: compCheck[0].id,
+								name: compToPublish.name,
+								uuid: compToPublish.uuid,
+								comp_string: comp_string,
+								heroes: Object.keys(compToPublish.heroes),
+								tags: compToPublish.tags,
+								comp_update: compToPublish.lastUpdate,
+							}
+						});
+					} catch(error) {
+						console.log(error.graphQLErrors[0].message);
+						return;
+					}
 				}
 			}
 		} else {
