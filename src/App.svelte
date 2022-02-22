@@ -116,7 +116,6 @@
 		if(valid) {
 			// user is logged in, try to populate the user's data
 			await populateUserData();
-			await saveAppData();
 		} else {
 			await handleLogout();
 		}
@@ -212,6 +211,8 @@
 		}
 		const savedComps = response.data;
 		$AppData.user.saved_comps = savedComps;
+
+		saveAppData();
 	}
 
 	async function clearAppData() {

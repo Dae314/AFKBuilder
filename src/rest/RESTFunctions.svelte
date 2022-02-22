@@ -216,7 +216,7 @@
 	// get a list of comps that the user has published
 	/*{
 		status: response status,
-		data: [{ id: ID, uuid: ID, comp_update: DateTime }] OR error object
+		data: [{ id: ID, uuid: ID }] OR error object
 	}*/
 	export async function getPublishedComps(jwt) {
 		if(jwt) {
@@ -233,10 +233,6 @@
 				if(response.status !== 200) {
 					return { status: response.status, data: responseData.error };
 				} else {
-					for(let comp of responseData.data.comps) {
-						// parse the comp_update field as a datetime
-						comp.comp_update = new Date(comp.comp_update);
-					}
 					return { status: response.status, data: responseData.data.comps };
 				}
 			} catch(err) {
