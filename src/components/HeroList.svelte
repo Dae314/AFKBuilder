@@ -585,7 +585,7 @@
 	.tooltip {
 		display: none;
 	}
-	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
+	@media only screen and (min-width: 767px) {
 		.HLContainer {
 			display: flex;
 			flex-direction: row;

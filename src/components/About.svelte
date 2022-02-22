@@ -312,7 +312,7 @@
 		font-style: normal;
 		font-weight: bold;
 	}
-	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
+	@media only screen and (min-width: 767px) {
 		.generalDesc {
 			margin: 0 auto;
 			width: 70%;

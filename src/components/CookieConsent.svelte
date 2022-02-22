@@ -58,7 +58,7 @@
 			width: 140px;
 		}
 	}
-	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
+	@media only screen and (min-width: 767px) {
 		.cookieConsentContainer {
 			align-items: center;
 			display: flex;

@@ -63,7 +63,7 @@
 			display: none;
 		}
 	}
-	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
+	@media only screen and (min-width: 767px) {
 		.avatarInputContainer {
 			&:hover > .avatarEdit {
 				opacity: 1;

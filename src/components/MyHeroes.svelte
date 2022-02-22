@@ -1152,7 +1152,7 @@
 			text-align: center;
 		}
 	}
-	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
+	@media only screen and (min-width: 767px) {
 		.MHContainer {
 			display: flex;
 			flex-direction: column;

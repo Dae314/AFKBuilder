@@ -155,7 +155,7 @@
 	.tooltip {
 		display: none;
 	}
-	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
+	@media only screen and (min-width: 767px) {
 		.tooltip {
 			bottom: -35px;
 			display: flex;

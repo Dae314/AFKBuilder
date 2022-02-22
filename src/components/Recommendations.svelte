@@ -533,7 +533,7 @@
 			}
 		}
 	}
-	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
+	@media only screen and (min-width: 767px) {
 		.sectionPicker {
 			justify-content: flex-start;
 			.sectionButton {

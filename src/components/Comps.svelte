@@ -1946,7 +1946,7 @@
 			max-width: 100px;
 		}
 	}
-	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
+	@media only screen and (min-width: 767px) {
 		.sect1 {
 			max-width: 375px;
 			width: 21%;
