@@ -284,7 +284,7 @@
 		setTimeout(() => {
 			showNotice = false;
 			noticeConf = {};
-		}, 1000);
+		}, 2000);
 	}
 </script>
 
@@ -320,6 +320,7 @@
 	<div class="noticeContainer"
 			 class:open={showNotice}
 			 class:info={ !noticeConf.type || noticeConf.type === 'info'}
+			 class:warning={noticeConf.type === 'warning'}
 			 class:error={noticeConf.type === 'error'}>
 		<span>
 			{noticeConf.message}
@@ -352,7 +353,7 @@
 		display: none;
 		left: 50%;
 		opacity: 0;
-		padding: 5px;
+		padding: 7px;
 		position: fixed;
 		top: 80px;
 		transform: translate(-50%, 0);
@@ -366,10 +367,17 @@
 		&.info {
 			background-color: rgba(50, 50, 50, 0.7);
 			color: rgba(255, 255, 255, 0.7);
+			font-weight: bold;
+		}
+		&.warning {
+			background-color: rgba(247, 188, 25, 0.7);
+			color: rgba(0, 0, 0, 0.7);
+			font-weight: bold;
 		}
 		&.error {
 			background-color: rgba(242, 107, 107, 0.7);
 			color: rgba(255, 255, 255, 0.7);
+			font-weight: bold;
 		}
 	}
 	@media only screen and (min-width: 767px) {

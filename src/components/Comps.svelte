@@ -334,7 +334,27 @@
 					const uuid = create_response.data.createComp.data.attributes.uuid;
 					$AppData.user.publishedComps = [...$AppData.user.publishedComps, {id, uuid}];
 					dispatch('routeEvent', {action: 'saveData'});
+					dispatch('routeEvent',
+						{ action: 'showNotice',
+							data: {
+								noticeConf: {
+									type: 'info',
+									message: 'Comp published!',
+								}
+							}
+						}
+					);
 				} catch(error) {
+					dispatch('routeEvent',
+						{ action: 'showNotice',
+							data: {
+								noticeConf: {
+									type: 'error',
+									message: 'Comp publish failed!',
+								}
+							}
+						}
+					);
 					console.log(error.message);
 					return;
 				}
@@ -354,10 +374,42 @@
 								comp_update: compToPublish.lastUpdate,
 							}
 						});
+						dispatch('routeEvent',
+							{ action: 'showNotice',
+								data: {
+									noticeConf: {
+										type: 'info',
+										message: 'Comp updated!',
+									}
+								}
+							}
+						);
 					} catch(error) {
-						console.log(error.graphQLErrors[0].message);
+						dispatch('routeEvent',
+							{ action: 'showNotice',
+								data: {
+									noticeConf: {
+										type: 'error',
+										message: 'Comp publish failed!',
+									}
+								}
+							}
+						);
+						console.log(error.message);
 						return;
 					}
+				} else {
+					// no updates detected
+					dispatch('routeEvent',
+						{ action: 'showNotice',
+							data: {
+								noticeConf: {
+									type: 'warning',
+									message: 'Publish failed: no change detected',
+								}
+							}
+						}
+					);
 				}
 			}
 		} else {
