@@ -56,7 +56,6 @@
 	let openSuggestions = false;
 	let selectedLine = 0;
 	let selectedHero = '';
-	let copyConfirmVisible = false;
 	let showowConfirm = false;
 	let showEditMenu = false;
 	let owText = '';
@@ -245,10 +244,28 @@
 	async function handleExportButtonClick(compIdx) {
 		const output = await jsurl.compress(JSON.stringify(sortedCompList[compIdx]));
 		navigator.clipboard.writeText(output).then(() => {
-			copyConfirmVisible = true;
-			setTimeout(() => copyConfirmVisible = false, 1000);
-		}, () => {
-			throw new Error("Error copying Comp data to clipboard.");
+			dispatch('routeEvent',
+				{ action: 'showNotice',
+					data: {
+						noticeConf: {
+							type: 'info',
+							message: 'Comp Data Copied to Clipboard',
+						}
+					}
+				}
+			);
+		}, (error) => {
+			dispatch('routeEvent',
+				{ action: 'showNotice',
+					data: {
+						noticeConf: {
+							type: 'error',
+							message: 'Error copying Comp data to clipboard',
+						}
+					}
+				}
+			);
+			console.log(error);
 		});
 	}
 
@@ -963,10 +980,7 @@
 			{/if}
 		</div>
 	</section>
-	<section class="sect3">
-		<div class="copyConfirm" class:visible={copyConfirmVisible}><span>Comp Data Copied to Clipboard</span></div>
-	</section>
-	<section class="sect4" class:visible={showowConfirm}>
+	<section class="sect3" class:visible={showowConfirm}>
 		{#if showowConfirm}
 			<div class="owBackground">
 				<div class="owConfirmWindow">
@@ -1007,13 +1021,6 @@
 		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 	}
 	.sect3 {
-		left: 50%;
-		position: fixed;
-		top: 80px;
-		transform: translate(-50%, 0);
-		width: fit-content;
-	}
-	.sect4 {
 		display: block;
 		height: 100%;
 		left: 0;
@@ -1067,21 +1074,6 @@
 		&:last-child {
 			margin-right: 0;
 		}
-	}
-	.copyConfirm {
-		background-color: rgba(50, 50, 50, 0.7);
-		border-radius: 10px;
-		color: rgba(255, 255, 255, 0.7);
-		display: none;
-		opacity: 0;
-		padding: 5px;
-		transition: visibility 0.3s, opacity 0.3s;
-		visibility: hidden;
-	}
-	.copyConfirm.visible {
-		display: block;
-		opacity: 1;
-		visibility: visible;
 	}
 	.searchArea {
 		align-items: center;
