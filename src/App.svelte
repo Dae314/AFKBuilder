@@ -361,9 +361,11 @@
 		border-radius: 10px;
 		display: none;
 		left: 50%;
+		max-width: 500px;
 		opacity: 0;
 		padding: 7px;
 		position: fixed;
+		text-align: center;
 		top: 80px;
 		transform: translate(-50%, 0);
 		transition: visibility 0.3s, opacity 0.3s;
