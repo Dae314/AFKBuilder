@@ -278,19 +278,32 @@
 
 	function handleDelComp(idx) {
 		const delUUID = sortedCompList[idx].uuid;
-		const selUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : null;
-		$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== delUUID);
-		if($AppData.selectedComp === idx) {
-			$AppData.selectedComp = null;
-			selectedHero = '';
-			selectedLine = 0;
-			openDetail = false;
-		} else if($AppData.selectedComp > idx) {
-			$AppData.selectedComp = selUUID !== null ? sortedCompList.findIndex(e => e.uuid === selUUID) : null;
-			if($AppData.selectedComp === -1) $AppData.selectedComp = null;
+		if(!$AppData.user.published_comps.some(e => e.uuid === delUUID)) {
+			const selUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : null;
+			$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== delUUID);
+			if($AppData.selectedComp === idx) {
+				$AppData.selectedComp = null;
+				selectedHero = '';
+				selectedLine = 0;
+				openDetail = false;
+			} else if($AppData.selectedComp > idx) {
+				$AppData.selectedComp = selUUID !== null ? sortedCompList.findIndex(e => e.uuid === selUUID) : null;
+				if($AppData.selectedComp === -1) $AppData.selectedComp = null;
+			}
+			sortedCompList = makeSortedCompList();
+			dispatch('routeEvent', {action: 'saveData'});
+		} else {
+			dispatch('routeEvent',
+				{ action: 'showNotice',
+					data: {
+						noticeConf: {
+							type: 'warning',
+							message: 'Comp must be unpublished before deletion',
+						}
+					}
+				}
+			);
 		}
-		sortedCompList = makeSortedCompList();
-		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	async function handlePublishComp(idx) {
