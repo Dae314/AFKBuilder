@@ -744,6 +744,7 @@
 					border: 2px solid var(--appDelColor);
 					p {
 						color: var(--appBGColor);
+						display: none;
 					}
 				}
 				.tooltip {
@@ -1251,6 +1252,17 @@
 		}
 	}
 	@media only screen and (min-width: 767px) {
+		.compLibDetailHead {
+			.authorButtonsContainer {
+				.buttonsContainer {
+					.unpublishButton {
+						p {
+							display: block;
+						}
+					}
+				}
+			}
+		}
 		.compLibDetailBody {
 			.bodyArea1 {
 				display: flex;
