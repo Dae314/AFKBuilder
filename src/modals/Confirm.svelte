@@ -31,7 +31,7 @@
 <svelte:window on:popstate={handlePopState} />
 
 <div class="confirmContainer">
-	<div class="text"><span>{message}</span></div>
+	<div class="text"><span>{@html message}</span></div>
 	<div class="optionsArea">
 		<button type="button" class="optionButton confirmButton" on:click={handleConfirm}>Yes</button>
 		<button type="button" class="optionButton cancelButton" on:click={handleCancel}>Cancel</button>
@@ -43,6 +43,7 @@
 		display: flex;
 		font-size: 1.2rem;
 		justify-content: center;
+		max-width: 500px;
 		padding-bottom: 20px;
 		text-align: center;
 		width: 100%;

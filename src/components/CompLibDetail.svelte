@@ -1,7 +1,7 @@
 <script>
 	import {createEventDispatcher, tick, getContext} from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { query } from 'svelte-apollo';
+	import { query, mutation } from 'svelte-apollo';
 	import JSONURL from 'json-url';
 	import MarkdownIt from 'markdown-it';
 	import Emoji from 'markdown-it-emoji';
@@ -12,12 +12,13 @@
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
 	import ArtifactDetail from '../modals/ArtifactDetail.svelte';
+	import Confirm from '../modals/Confirm.svelte';
 	import LoadingPage from '../shared/LoadingPage.svelte';
 	import StarsInput from '../shared/StarsInput.svelte';
 	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
 	import AscendBox from '../shared/AscendBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
-	import { gql_GET_COMP } from '../gql/queries.svelte';
+	import { gql_GET_COMP, gql_DELETE_COMP } from '../gql/queries.svelte';
 	import { getCompAuthor, validateJWT, toggleSave, toggleUpvote, toggleDownvote } from '../rest/RESTFunctions.svelte';
 	import { msToString, votesToString } from '../utilities/Utilities.svelte';
 	
@@ -48,6 +49,7 @@
 	const compQuery = query(gql_GET_COMP, {
 		variables: { uuid: params.uuid }
 	});
+	const gqlDeleteComp = mutation(gql_DELETE_COMP);
 
 	// redo the query comp if the params change
 	$: compQuery.refetch({ uuid: params.uuid });
@@ -62,10 +64,7 @@
 	$: favorited = svrComp ? $AppData.user.saved_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
 	$: liked = svrComp ? $AppData.user.liked_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
 	$: disliked = svrComp ?  $AppData.user.disliked_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
-
-	function reload() {
-		compQuery.refetch({ uuid: params.uuid });
-	}
+	$: owned = svrComp ? $AppData.user.published_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
 
 	async function populateAuthor() {
 		const response = await getCompAuthor(svrComp.attributes.uuid);
@@ -224,6 +223,42 @@
 			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight },
 		});
 	}
+
+	async function handleUnpublishClick() {
+		open(Confirm,
+				{onConfirm: handleUnpublishComp, message: `Unpublish comp named ${comp.name}?<br/><br/>The comp will still be available in "Comps" but it will no longer be shared in the "Explore" area.`},
+				{closeButton: false,
+				 closeOnEsc: true,
+				 closeOnOuterClick: true,
+				 styleWindow: { width: 'fit-content', },
+				 styleContent: { width: 'fit-content', },
+				});
+	}
+
+	async function handleUnpublishComp() {
+		try {
+			// check user's JWT before making queries
+			const valid = await validateJWT($AppData.user.jwt);
+			if(valid) {
+				const response = await gqlDeleteComp({variables: { id: svrComp.id }});
+				const delUUID = response.data.deleteComp.data.attributes.uuid;
+				$AppData.user.published_comps = $AppData.user.published_comps.filter(e => e.uuid !== delUUID);
+				dispatch('routeEvent', {action: 'saveData'});
+				window.location.assign(`${window.location.origin}/#/`);
+			} else {
+				dispatch('routeEvent', {action: 'logout'});;
+			}
+		} catch(error) {
+			errorDisplayConf = {
+				errorCode: 500,
+				headText: 'Something went wrong',
+				detailText: error.message,
+				showHomeButton: true,
+			};
+			showErrorDisplay = true;
+			console.log(error.message);
+		}
+	}
 </script>
 
 {#if $compQuery.loading}
@@ -286,6 +321,15 @@
 										</button>
 										<div class="tooltip favoriteTooltip"><span class="tooltipText">{favorited ? 'Unfavorite' : 'Favorite'}</span></div>
 									</div>
+									{#if owned}
+										<div class="buttonContainer unpublishButtonContainer">
+											<button type="button" class="headButton unpublishButton" on:click={handleUnpublishClick}>
+												<img draggable="false" class="headImage unpublishImage" src="./img/utility/unpublish_white.png" alt="Unpublish">
+												<p>Unpublish</p>
+											</button>
+											<div class="tooltip unpublishTooltip"><span class="tooltipText">Unpublish</span></div>
+										</div>
+									{/if}
 								</div>
 							</div>
 							<h3 class="compTitle">{comp.name}</h3>
@@ -693,6 +737,13 @@
 						p {
 							color: var(--appBGColor);
 						}
+					}
+				}
+				.unpublishButton {
+					background-color: var(--appDelColor);
+					border: 2px solid var(--appDelColor);
+					p {
+						color: var(--appBGColor);
 					}
 				}
 				.tooltip {

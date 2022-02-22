@@ -90,4 +90,17 @@
 			}
 		}
 	}`;
+	export const gql_DELETE_COMP = gql`
+	mutation ($id: ID!) {
+		deleteComp(
+			id: $id
+		) {
+			data {
+				id
+				attributes {
+					uuid
+				}
+			}
+		}
+	}`;
 </script>

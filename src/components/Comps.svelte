@@ -332,7 +332,7 @@
 					});
 					const id = create_response.data.createComp.data.id;
 					const uuid = create_response.data.createComp.data.attributes.uuid;
-					$AppData.user.publishedComps = [...$AppData.user.publishedComps, {id, uuid}];
+					$AppData.user.published_comps = [...$AppData.user.published_comps, {id, uuid}];
 					dispatch('routeEvent', {action: 'saveData'});
 					dispatch('routeEvent',
 						{ action: 'showNotice',
