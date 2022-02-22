@@ -71,7 +71,7 @@
 		border: 3px solid var(--appDelColor);
 		color: var(--appDelColor);
 	}
-	@media only screen and (min-width: 767px) {
+	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
 		.confirmButton {
 			&:hover {
 				background-color: var(--appDelColor);

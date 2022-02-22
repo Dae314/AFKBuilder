@@ -106,7 +106,7 @@
 		display: none;
 		max-width: 20px;
 	}
-	@media only screen and (min-width: 767px) {
+	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
 		.providerButton:hover {
 			.providerText {
 				color: white;

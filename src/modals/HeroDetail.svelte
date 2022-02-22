@@ -369,7 +369,7 @@
 	.mobileExpander.isOpen {
 		max-height: 1000px;
 	}
-	@media only screen and (min-width: 767px) {
+	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
 		.attrImg {
 			max-width: 80px;
 			&:hover+.tooltip {

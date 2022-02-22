@@ -54,7 +54,7 @@
 		animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
 		display: inline-block;
 	}
-	@media only screen and (min-width: 767px) {
+	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
 		.flipButton {
 			&:hover {
 				background-color: var(--appColorPrimary);

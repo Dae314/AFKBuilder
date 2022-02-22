@@ -272,7 +272,7 @@
 		margin: 3px;
 		width: 50px;
 	}
-	@media only screen and (min-width: 767px) {
+	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
 		.tooltip {
 			align-items: center;
 			bottom: -15px;

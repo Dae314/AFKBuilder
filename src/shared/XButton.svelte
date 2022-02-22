@@ -58,7 +58,7 @@
 		padding: 1px;
 		width: 10px;
 	}
-	@media only screen and (min-width: 767px) {
+	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
 		.xButton.hoverable:hover {
 			background: transparent;
 			color: var(--appDelColor);

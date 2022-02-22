@@ -128,7 +128,7 @@
 			transform: scale(0.9);
 		}
 	}
-	@media only screen and (min-width: 767px) {
+	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
 		.submitButton {
 			&:hover {
 				background-color: var(--appColorPrimary);

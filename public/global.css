@@ -44,6 +44,7 @@ html {
 	--ascColorAccent: #B289E8;
 
 	--headerHeight: 45px;
+	--mobileWidthBreakpoint: 767px;
 }
 
 body {

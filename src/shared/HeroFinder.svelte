@@ -1135,7 +1135,7 @@
 	.desktopArtifactPicker {
 		display: none;
 	}
-	@media only screen and (min-width: 767px) {
+	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
 		.modalCloseContainer {
 			right: 25%;
 		}

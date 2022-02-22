@@ -1107,7 +1107,7 @@
 	.cancelButton {
 		margin-right: 0;
 	}
-	@media only screen and (min-width: 767px) {
+	@media only screen and (min-width: var(--mobileWidthBreakpoint)) {
 		.tagDisplay {
 			.addTagButton {
 				&:hover {
