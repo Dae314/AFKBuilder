@@ -128,17 +128,26 @@
 	}
 
 	async function handleLogout() {
-		$AppData.user.avatar = '';
-		$AppData.user.username = '';
-		$AppData.user.id = '';
-		$AppData.user.jwt = '';
-		$AppData.user.liked_comps = [];
-		$AppData.user.disliked_comps = [];
-		$AppData.user.local_comps = [];
-		$AppData.user.published_comps = [];
-		$AppData.user.saved_comps = [];
-		await saveAppData();
-		window.location.assign(`${window.location.origin}/#/`);
+		if($AppData.user.jwt) {
+			// JWT is set, perform a full logout
+			$AppData.user.avatar = '';
+			$AppData.user.username = '';
+			$AppData.user.id = '';
+			$AppData.user.jwt = '';
+			$AppData.user.liked_comps = [];
+			$AppData.user.disliked_comps = [];
+			$AppData.user.local_comps = [];
+			$AppData.user.published_comps = [];
+			$AppData.user.saved_comps = [];
+			await saveAppData();
+			window.location.assign(`${window.location.origin}/#/`);
+		} else {
+			// JWT is not set, assume user performed action that only logged in users can perform
+			await displayNotice({
+				type: 'warning',
+				message: 'Login required'
+			});
+		}
 	}
 
 	// function assumes that $AppData.user.jwt was set correctly
