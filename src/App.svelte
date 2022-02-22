@@ -38,6 +38,8 @@
 	let isMobile = window.matchMedia("(max-width: 767px)").matches;
 	let showErrorDisplay = false;
 	let errorDisplayConf = {};
+	let showNotice = false;
+	let noticeConf = {};
 
 	const routes = {
 		'/': wrap({
@@ -268,9 +270,21 @@
 			case 'resetTutorial':
 				await resetTutorial();
 				break;
+			case 'showNotice':
+				await displayNotice(event.detail.data.noticeConf);
+				break;
 			default:
 				throw new Error(`Invalid action specified for route event: ${event.detail.action}`);
 		}
+	}
+
+	async function displayNotice(notice_config) {
+		noticeConf = notice_config;
+		showNotice = true;
+		setTimeout(() => {
+			showNotice = false;
+			noticeConf = {};
+		}, 1000);
 	}
 </script>
 
@@ -303,6 +317,14 @@
 			<CookieConsent on:routeEvent={handleRouteEvent} />
 		{/if}
 	</div>
+	<div class="noticeContainer"
+			 class:open={showNotice}
+			 class:info={ !noticeConf.type || noticeConf.type === 'info'}
+			 class:error={noticeConf.type === 'error'}>
+		<span>
+			{noticeConf.message}
+		</span>
+	</div>
 </Modal>
 
 <style lang="scss">
@@ -324,6 +346,31 @@
 	.MainWindow {
 		width: 100%;
 		height: 100%;
+	}
+	.noticeContainer {
+		border-radius: 10px;
+		display: none;
+		left: 50%;
+		opacity: 0;
+		padding: 5px;
+		position: fixed;
+		top: 80px;
+		transform: translate(-50%, 0);
+		transition: visibility 0.3s, opacity 0.3s;
+		visibility: hidden;
+		&.open {
+			display: block;
+			opacity: 1;
+			visibility: visible;
+		}
+		&.info {
+			background-color: rgba(50, 50, 50, 0.7);
+			color: rgba(255, 255, 255, 0.7);
+		}
+		&.error {
+			background-color: rgba(242, 107, 107, 0.7);
+			color: rgba(255, 255, 255, 0.7);
+		}
 	}
 	@media only screen and (min-width: 767px) {
 		main {
