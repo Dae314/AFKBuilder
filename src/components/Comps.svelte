@@ -376,9 +376,24 @@
 					return;
 				}
 			} else {
-				// update existing comp
+				// check that the user owns the comp
+				if(!$AppData.user.published_comps.some(e => e.uuid === compToPublish.uuid)) {
+					dispatch('routeEvent',
+						{ action: 'showNotice',
+							data: {
+								noticeConf: {
+									type: 'error',
+									message: 'You do not have permission to publish this comp',
+								}
+							}
+						}
+					);
+					return;
+				}
+				// check that the comp needs updating
 				const oldDate = new Date(compCheck[0].attributes.comp_update);
 				if(compToPublish.lastUpdate > oldDate) {
+					// try to update the existing comp
 					try {
 						const update_response = await gqlUpdateComp({
 							variables: {
