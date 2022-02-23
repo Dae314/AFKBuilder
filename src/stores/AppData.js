@@ -209,6 +209,19 @@ window.validateComp = async function(data) {
 		if(data.tags.length > maxCompTags) return {retCode: 1, message: `Comps can have a max of ${maxCompTags} tags.`};
 	}
 
+	// tag syntax cleanup added for DB update
+	const tagCheck = new RegExp('^[A-Za-z0-9-_.~]*$');
+	data.tags = data.tags.map(e => {
+		const retVal = e.replace(/ /g, '_') // replace all spaces with _
+										.replace(/\+/g, '-') // replace all + with -
+										.replace(/[^A-Za-z0-9-_.~]/g, '.') // replace all other invalid characters with .
+		if(tagCheck.test(retVal)) {
+			return retVal;
+		} else {
+			return 'invalid-tag';
+		}
+	});
+
 	// everything should be good now, return the clean Comp object
 	return {retCode: 0, message: data};
 }
