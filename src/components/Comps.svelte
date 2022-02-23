@@ -368,7 +368,11 @@
 							}
 						}
 					);
-					console.log(error.message);
+					if(error.graphQLErrors[0]) {
+						console.log(error.graphQLErrors[0].message);
+					} else {
+						console.log(error.message);
+					}
 					return;
 				}
 			} else {
@@ -408,7 +412,11 @@
 								}
 							}
 						);
-						console.log(error.message);
+						if(error.graphQLErrors[0]) {
+							console.log(error.graphQLErrors[0].message);
+						} else {
+							console.log(error.message);
+						}
 						return;
 					}
 				} else {
