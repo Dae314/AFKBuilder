@@ -334,7 +334,7 @@
 							</div>
 							<h3 class="compTitle">{comp.name}</h3>
 							<div class="ageContainer">
-								<span class="age">Published {msToString(age)}</span>
+								<span class="age">Updated {msToString(age)}</span>
 							</div>
 						</div>
 						<div class="tagsArea">
