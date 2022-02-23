@@ -339,7 +339,7 @@
 							uuid: compToPublish.uuid,
 							comp_string: comp_string,
 							heroes: Object.keys(compToPublish.heroes),
-							tags: compToPublish.tags,
+							tags: compToPublish.tags.map(e => e.replace(/ /g, '_')),
 							comp_update: compToPublish.lastUpdate,
 						}
 					});
@@ -383,7 +383,7 @@
 								uuid: compToPublish.uuid,
 								comp_string: comp_string,
 								heroes: Object.keys(compToPublish.heroes),
-								tags: compToPublish.tags,
+								tags: compToPublish.tags.map(e => e.replace(/ /g, '_')),
 								comp_update: compToPublish.lastUpdate,
 							}
 						});

@@ -16,6 +16,7 @@
 	const { close } = getContext('simple-modal');
 
 	$: tagSuggestions = makeTagSuggestions();
+	$: isValidTag = newTagText !== '' && tagValidation.test(newTagText);
 
 	// this will hold the comp as it's edited
 	let comp = {
@@ -42,6 +43,7 @@
 	let openSuggestions = false;
 	let autosave;
 	let editor; // ToastUI editor
+	const tagValidation = new RegExp('^[A-Za-z0-9-_.~]*$');
 	const heroLookup = makeHeroLookup();
 
 	onMount(async () => {
@@ -325,10 +327,10 @@
 	}
 
 	function handleAddTag() {
-		if(newTagText !== '') {
+		if(isValidTag) {
 			comp.tags = [...comp.tags, newTagText];
-			newTagText = '';
 		}
+		newTagText = '';
 		openSuggestions = false;
 		addTagOpen = false;
 	}
@@ -452,6 +454,7 @@
 								id="newTagInput"
 								class="tagInput"
 								class:noMargin={comp.tags.length === 0}
+								class:invalid={!isValidTag}
 								type="text"
 								bind:value={newTagText}
 								on:focus={() => {tagSuggestions = makeTagSuggestions(); openSuggestions = true; }}
@@ -797,6 +800,10 @@
 		}
 		.tagInput {
 			margin-left: 10px;
+			&.invalid {
+				border: 1px solid var(--appDelColor);
+				outline: 2px solid var(--appDelColor);
+			}
 		}
 		.addTagButton.noMargin, .tagInput.noMargin {
 			margin: 0;
