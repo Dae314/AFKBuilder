@@ -52,12 +52,15 @@
 			<div class="middle-line"></div>
 		</div>
 		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
-			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].toLowerCase().replace(/\s/g, ''))}>
+			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].name.toLowerCase().replace(/\s/g, ''))}>
 				<button type="button" class="logo"><img src="./img/app/afkbuilder_logo.png" alt="AFKBuilder"></button>
 			</li>
 			{#each menu as item}
-				<li on:click={() => handleMenuChange(item.toLowerCase().replace(/\s/g, ''))}>
-					<button type="button" class:selected={$AppData.activeView === item.toLowerCase().replace(/\s/g, '')}>{item}</button>
+				<li on:click={() => handleMenuChange(item.name.toLowerCase().replace(/\s/g, ''))}>
+					<button type="button" class:selected={$AppData.activeView === item.name.toLowerCase().replace(/\s/g, '')}>
+						{#if item.icon}<img class="menuIcon" src={item.icon} alt={item.name}>{/if}
+						<span>{item.name}</span>
+					</button>
 				</li>
 			{/each}
 			{#if $AppData.user.jwt}
@@ -198,26 +201,43 @@
 			&:hover {
 				button {
 					color: rgba(240, 240, 242, 1.0);
+					.menuIcon {
+						opacity: 1;
+					}
 				}
 			}
 		}
 		button {
+			align-items: center;
 			background: none;
 			border: none;
 			color: rgba(240, 240, 242, 0.7);
 			cursor: pointer;
-			display: block;
+			display: flex;
 			font-size: 20px;
 			margin-left: 20px;
 			padding: 4px 10px;
 			text-align: center;
 			text-decoration: none;
+			transition: all 0.1s;
+			.menuIcon {
+				max-width: 25px;
+				margin-right: 10px;
+				opacity: 0.7;
+				transition: all 0.1s;
+			}
 			&:focus {
 				outline: 0;
+				.menuIcon {
+					opacity: 1;
+				}
 			}
 		}
 		button.selected {
 			color: rgba(240, 240, 242, 1.0);
+			.menuIcon {
+				opacity: 1;
+			}
 		}
 		.mobileUserItem {
 			align-items: center;
@@ -236,6 +256,7 @@
 					margin-left: 31px;
 					max-width: 30px;
 					opacity: 0.7;
+					transition: all 0.1s;
 				}
 				span {
 					margin-left: 10px;

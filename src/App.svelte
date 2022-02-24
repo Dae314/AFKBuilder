@@ -20,6 +20,7 @@
 	import { setClient } from "svelte-apollo";
 
 	import Header from './components/Header.svelte';
+	import Explore from './components/Explore.svelte';
 	import Comps from './components/Comps.svelte';
 	import HeroList from './components/HeroList.svelte';
 	import MyHeroes from './components/MyHeroes.svelte';
@@ -33,7 +34,14 @@
 	import ErrorDisplay from './components/ErrorDisplay.svelte';
 
 	export let version = '';
-	const menuItems = [ 'Comps', 'Recommendations', 'My Heroes', 'Hero List', 'About' ];
+	const menuItems = [
+		{ name: 'Explore', icon: './img/utility/explore_white.png' },
+		{ name: 'Comps', icon: '' },
+		{ name: 'Recommendations', icon: ''},
+		{ name: 'My Heroes', icon: ''},
+		{ name: 'Hero List', icon: ''},
+		{ name: 'About', icon: ''},
+	];
 	const defaultView = 'comps';
 	let isMobile = window.matchMedia("(max-width: 767px)").matches;
 	let showErrorDisplay = false;
@@ -80,6 +88,10 @@
 		'/explore/comp/:uuid': wrap({
 			component: CompLibDetail,
 			props: { isMobile: isMobile },
+		}),
+		'/explore': wrap({
+			component: Explore,
+			props: {},
 		}),
 		'/connect/:provider/redirect': wrap({
 			component: PostLogin,
