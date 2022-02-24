@@ -186,8 +186,8 @@
 		li {
 			cursor: pointer;
 			list-style-type: none;
-			padding-bottom: 20px;
-			padding-top: 20px;
+			padding-bottom: 15px;
+			padding-top: 15px;
 			position: relative;
 			&:before {
 				background-color: #424245;
