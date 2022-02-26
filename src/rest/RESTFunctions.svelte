@@ -567,4 +567,97 @@
 			}
 		}
 	}
+
+	// get all authors (users with >0 published comps)
+	/*{
+		status: response status,
+		data: [
+			{ name, totalComps }
+		] OR error object
+	}*/
+	export async function getAllAuthors() {
+		try {
+			const response = await fetch(`${uri}/custom-comps/getallauthors`, {
+				method: 'GET',
+				mode: 'cors',
+				cache: 'no-cache',
+				headers: {},
+			});
+			const responseData = await response.json();
+			if(response.status !== 200) {
+				return { status: response.status, data: responseData.error };
+			} else {
+				return { status: response.status, data: responseData.data };
+			}
+		} catch(err) {
+			if(err instanceof TypeError && err.message) {
+				// network error occurred
+				return { status: 503, data: err.message }
+			} else {
+				throw new Error(`An error occurred while fetching all authors: ${err}`);
+			}
+		}
+	}
+
+	// get all tags with >0 related comps
+	/*{
+		status: response status,
+		data: [
+			{ name, totalComps }
+		] OR error object
+	}*/
+	export async function getAllTags() {
+		try {
+			const response = await fetch(`${uri}/custom-tags/getalltags`, {
+				method: 'GET',
+				mode: 'cors',
+				cache: 'no-cache',
+				headers: {},
+			});
+			const responseData = await response.json();
+			if(response.status !== 200) {
+				return { status: response.status, data: responseData.error };
+			} else {
+				return { status: response.status, data: responseData.data };
+			}
+		} catch(err) {
+			if(err instanceof TypeError && err.message) {
+				// network error occurred
+				return { status: 503, data: err.message }
+			} else {
+				throw new Error(`An error occurred while fetching all tags: ${err}`);
+			}
+		}
+	}
+
+	// get all heroes with >0 related comps
+	/*{
+		status: response status,
+		data: [
+			{ name, totalComps }
+		] OR error object
+	}*/
+	export async function getAllHeroes() {
+		try {
+			const response = await fetch(`${uri}/custom-heroes/getallheroes`, {
+				method: 'GET',
+				mode: 'cors',
+				cache: 'no-cache',
+				headers: {},
+			});
+			const responseData = await response.json();
+			if(response.status !== 200) {
+				return { status: response.status, data: responseData.error };
+			} else {
+				return { status: response.status, data: responseData.data };
+			}
+		} catch(err) {
+			if(err instanceof TypeError && err.message) {
+				// network error occurred
+				return { status: 503, data: err.message }
+			} else {
+				throw new Error(`An error occurred while fetching all heroes: ${err}`);
+			}
+		}
+	}
 </script>
