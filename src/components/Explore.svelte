@@ -7,12 +7,24 @@
 	const { open } = getContext('simple-modal');
 
 	let showFilters = false;
-	let include_tags = ['one', 'two'];
-	let exclude_tags = ['three', 'four'];
-	let include_authors = ['five', 'six'];
-	let exclude_authors = ['seven', 'eight'];
-	let include_heroes = ['nine', 'ten'];
-	let exclude_heroes = ['eleven', 'twelve'];
+	let tag_filter = [
+		{ name: 'one', type: 'include' },
+		{ name: 'two', type: 'exclude' },
+		{ name: 'three', type: 'include' },
+		{ name: 'four', type: 'exclude' },
+	];
+	let author_filter = [
+		{ name: 'five', type: 'include' },
+		{ name: 'six', type: 'exclude' },
+		{ name: 'seven', type: 'include' },
+		{ name: 'eight', type: 'exclude' },
+	];
+	let hero_filter = [
+		{ name: 'nine', type: 'include' },
+		{ name: 'ten', type: 'exclude' },
+		{ name: 'eleven', type: 'include' },
+		{ name: 'twelve', type: 'exclude' },
+	];
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
@@ -20,23 +32,14 @@
 
 	function handleRemoveFilter(category, idx) {
 		switch(category) {
-			case 'include_tags':
-				include_tags = include_tags.filter((e, i) => i !== idx);
+			case 'tag':
+				tag_filter = tag_filter.filter((e, i) => i !== idx);
 				break;
-			case 'exclude_tags':
-				exclude_tags = exclude_tags.filter((e, i) => i !== idx);
+			case 'author':
+				author_filter = author_filter.filter((e, i) => i !== idx);
 				break;
-			case 'include_authors':
-				include_authors = include_authors.filter((e, i) => i !== idx);
-				break;
-			case 'exclude_authors':
-				exclude_authors = exclude_authors.filter((e, i) => i !== idx);
-				break;
-			case 'include_heroes':
-				include_heroes = include_heroes.filter((e, i) => i !== idx);
-				break;
-			case 'exclude_heroes':
-				exclude_heroes = exclude_heroes.filter((e, i) => i !== idx);
+			case 'hero':
+				hero_filter = hero_filter.filter((e, i) => i !== idx);
 				break;
 			default:
 				throw new Error(`ERROR invalid category passed to handleRemoveFilter: ${category}`)
@@ -44,28 +47,23 @@
 	}
 
 	function handleAddFilterButtonClick(category) {
-		let curInclude;
-		let curExclude;
+		let curFilter;
 		switch(category) {
 			case 'tag':
-				curInclude = include_tags;
-				curExclude = exclude_tags;
+				curFilter = tag_filter;
 				break;
 			case 'author':
-				curInclude = include_authors;
-				curExclude = exclude_authors;
+				curFilter = author_filter;
 				break;
 			case 'hero':
-				curInclude = include_heroes;
-				curExclude = exclude_heroes;
+				curFilter = hero_filter;
 				break;
 			default:
 				throw new Error(`ERROR invalid category passed to handleAddFilterButtonClick: ${category}`);
 		}
 		open(FilterPicker,
 			{ category,
-				curInclude,
-				curExclude,
+				curFilter,
 				onSuccess: (array) => handleFilterChangeSuccess({array, category}),
 			},
 			{ closeButton: ModalCloseButton }
@@ -93,33 +91,24 @@
 			<div class="filterArea">
 				<button type="button" class="addFilterButton addTagButton" on:click={() => handleAddFilterButtonClick('tag')}>Add Tags</button>
 				<div class="filterItems tagFilters">
-					{#each include_tags as tag, i}
-						<button type="button" class="rmFilterButton tag include" on:click={() => handleRemoveFilter('include_tags', i)}>{tag}</button>
-					{/each}
-					{#each exclude_tags as tag, i}
-						<button type="button" class="rmFilterButton tag exclude" on:click={() => handleRemoveFilter('exclude_tags', i)}>{tag}</button>
+					{#each tag_filter as tag, i}
+						<button type="button" class="rmFilterButton tag {tag.type}" on:click={() => handleRemoveFilter('tag', i)}>{tag.name}</button>
 					{/each}
 				</div>
 			</div>
 			<div class="filterArea">
 				<button type="button" class="addFilterButton addAuthorButton" on:click={() => handleAddFilterButtonClick('author')}>Add Authors</button>
 				<div class="filterItems authorFilters">
-					{#each include_authors as author, i}
-						<button type="button" class="rmFilterButton author include" on:click={() => handleRemoveFilter('include_authors', i)}>{author}</button>
-					{/each}
-					{#each exclude_authors as author, i}
-						<button type="button" class="rmFilterButton author exclude" on:click={() => handleRemoveFilter('exclude_authors', i)}>{author}</button>
+					{#each author_filter as author, i}
+						<button type="button" class="rmFilterButton author {author.type}" on:click={() => handleRemoveFilter('author', i)}>{author.name}</button>
 					{/each}
 				</div>
 			</div>
 			<div class="filterArea">
 				<button type="button" class="addFilterButton addHeroButton" on:click={() => handleAddFilterButtonClick('hero')}>Add Heroes</button>
 				<div class="filterItems heroFilters">
-					{#each include_heroes as hero, i}
-						<button type="button" class="rmFilterButton hero include" on:click={() => handleRemoveFilter('include_heroes', i)}>{hero}</button>
-					{/each}
-					{#each exclude_heroes as hero, i}
-						<button type="button" class="rmFilterButton hero exclude" on:click={() => handleRemoveFilter('exclude_heroes', i)}>{hero}</button>
+					{#each hero_filter as hero, i}
+						<button type="button" class="rmFilterButton hero {hero.type}" on:click={() => handleRemoveFilter('hero', i)}>{hero.name}</button>
 					{/each}
 				</div>
 			</div>

@@ -1,15 +1,12 @@
 <script>
-
 	export let category;
-	export let curInclude;
-	export let curExclude;
+	export let curFilter;
 </script>
 
 <h4>Filter Picker</h4>
 <div>
 	{category}
-	{curInclude}
-	{curExclude}
+	{curFilter}
 </div>
 
 <style lang="scss">
