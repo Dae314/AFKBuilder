@@ -1482,7 +1482,7 @@ const HeroData = readable([
 				{ desc: 'After every <em>4</em> seconds, Cecilia marks the enemy that has dealt the most damage with <em>1</em> Symbol(s) of Sin.',
 					unlock: 3,
 				},
-				{ desc: 'Using the ultimate ability "Judgement Day" marks the enemy with the second highest dealt damage with a Symbol of Sin.',
+				{ desc: 'The Ultimate skill "Judgement Day" is additionally cast once upon the enemy marked with the second highest number of Symbols of Sin.',
 					unlock: 9,
 				},
 			],
