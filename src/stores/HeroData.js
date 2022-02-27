@@ -8407,7 +8407,7 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Oath of Faith',
 			image: './img/si/treznor.png',
-			desc: 'Each time a shield is generated increases the Attack Ratings of Treznor and the closest <em>2</em> heroes by <em>40%</em> for <em>6</em> seconds. This effect cannot be stacked.',
+			desc: 'Each time "Soul Barricade" generates a barrier, it increases the Attack Ratings of Treznor and the closest <em>2</em> allied heroes by <em>40%</em> for <em>6</em> seconds. This effect cannot be stacked.',
 			upgrades: [
 				{ desc: 'The amount of energy Treznor\'s mount regenerates every second is increased by <em>3%</em>.',
 					unlock: 10,
