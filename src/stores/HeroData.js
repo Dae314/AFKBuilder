@@ -531,7 +531,7 @@ const HeroData = readable([
 						unlock: 21,
 						type: 'level',
 					},
-					{ desc: 'Damage is reduced by <em>20%</em> for every enemy that is knocked over. Ability lasts for <em>8</em> seconds.',
+					{ desc: 'For every enemy that is knocked over by "Divine Strike," Lucius will receive <em>20%</em> less damage for the following <em>8</em> seconds.',
 						unlock: 101,
 						type: 'level',
 					},
