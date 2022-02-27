@@ -4935,12 +4935,12 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Nature\'s Shield',
 			image: './img/si/gorvo.png',
-			desc: 'Increases the efficacy of all shields by <em>25%</em>.',
+			desc: 'Increases the efficacy of all shields cast upon himself by <em>25%</em>.',
 			upgrades: [
-				{ desc: 'Increases the efficacy of all shields by <em>50%</em>.',
+				{ desc: 'Increases the efficacy of all shields cast upon himself by <em>50%</em>.',
 					unlock: 10,
 				},
-				{ desc: 'If the shield created by the ability "Shell Shield" is not broken within a certain period of time, the remaining shield value will be converted into Energy. Ability restores up to <em>250</em> Energy points.',
+				{ desc: 'If the shield created by the ability "Shell Shield" is not broken within a certain period of time, the remaining shield value will be converted into Energy. Skill restores up to <em>250</em> Energy points.',
 					unlock: 20,
 				},
 				{ desc: 'When in a shielded state, Gorvo will recover <em>5%</em> of his max health every second.',
