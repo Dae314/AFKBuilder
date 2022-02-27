@@ -6171,7 +6171,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 0,
+		si_benchmark: 20,
 		sig_item: {
 			name: 'Natural Defense',
 			image: './img/si/mishka.png',
@@ -6325,7 +6325,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 0,
+		engraving_benchmark: 60,
 	},
 	{ id: 'grezhul',
 		name: 'Grezhul',
