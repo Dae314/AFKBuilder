@@ -3215,7 +3215,7 @@ const HeroData = readable([
 			name: 'Firedance',
 			image: './img/furniture/satrana.png',
 			upgrades: [
-				{ desc: 'If the ability "Overflow" causes the total duration an enemy has been set alight for to exceed <em>15</em> seconds, the burning effects of "Overflow" are strengthened. Enemies may not recover any health while being burned as a result of "Overflow" and raised to <em>2</em> times its original value.',
+				{ desc: 'If the skill "Overflow" causes the total duration an enemy has been set alight for to exceed <em>15</em> seconds, the burning effects of "Overflow" are strengthened. Enemies may not recover any health while being burned as a result of "Overflow" and the damage output of this skill is increased to <em>2</em> times its original value.',
 					unlock: 3,
 				},
 				{ desc: 'Burning effects of "Overflow" are strengthen when the enemy has been set alight for a total of <em>9</em> seconds.',
