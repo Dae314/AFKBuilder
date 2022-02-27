@@ -5,6 +5,21 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.13.41',
+			changes: [
+				'Added new hero Fane',
+				'Updated Mishka benchmark to 209',
+				'Updated Astar benchmark to e60',
+				'Updated Lucius skill Divine Strike description',
+				'Updated Gorvo\'s SI description',
+				'Updated Mehira\'s SI description',
+				'Updated Cecilia\'s Furniture description',
+				'Updated Safiya Spectral Disruption skill description',
+				'Updated Tasi Slumber skill description',
+				'Updated Treznor\'s SI description',
+				'Fixed typo on Satrana 3f',
+			],
+		},
 		{ version: 'v1.13.30',
 			changes: [
 				'Added new hero Melusina',
@@ -41,19 +56,6 @@
 				'Update Tasi Teleportation ability description',
 				'Fix typo on Hodgkin skill 4',
 				'Fix typo on Framton 9f and skill 1',
-			],
-		},
-		{ version: 'v1.13.8',
-			changes: [
-				'Add new hero Framton',
-				'Update Haelus benchmark -> 203',
-				'Update Skriath SI description',
-				'Update Warek skill descriptions - thanks Bob!',
-				'Add engraving benchmarks for Silas, Izold, and Skriath',
-				'Don\'t take search input on MH and HL when ctrl or cmd are held',
-				'Transition to svelte-spa-router for history handling',
-				'Fix Warek\'s 4th skill name',
-				'Fix Cecilia ult description',
 			],
 		},
 	]
