@@ -131,7 +131,7 @@
 			// user is logged in, try to populate the user's data
 			await populateUserData();
 		} else {
-			await handleLogout();
+			await handleLogout(showWarn = false);
 		}
 	});
 
@@ -139,7 +139,7 @@
 		window.localStorage.setItem('appData', JSON.stringify($AppData));
 	}
 
-	async function handleLogout() {
+	async function handleLogout(showWarn = true) {
 		if($AppData.user.jwt) {
 			// JWT is set, perform a full logout
 			$AppData.user.avatar = '';
@@ -155,10 +155,12 @@
 			window.location.assign(`${window.location.origin}/#/`);
 		} else {
 			// JWT is not set, assume user performed action that only logged in users can perform
-			await displayNotice({
-				type: 'warning',
-				message: 'Login required'
-			});
+			if(showWarn) {
+				await displayNotice({
+					type: 'warning',
+					message: 'Login required'
+				});
+			}
 		}
 	}
 
