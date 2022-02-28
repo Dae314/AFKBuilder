@@ -7,24 +7,9 @@
 	const { open } = getContext('simple-modal');
 
 	let showFilters = false;
-	let tag_filter = [
-		{ name: 'one', type: 'include' },
-		{ name: 'two', type: 'exclude' },
-		{ name: 'three', type: 'include' },
-		{ name: 'four', type: 'exclude' },
-	];
-	let author_filter = [
-		{ name: 'five', type: 'include' },
-		{ name: 'six', type: 'exclude' },
-		{ name: 'seven', type: 'include' },
-		{ name: 'eight', type: 'exclude' },
-	];
-	let hero_filter = [
-		{ name: 'nine', type: 'include' },
-		{ name: 'ten', type: 'exclude' },
-		{ name: 'eleven', type: 'include' },
-		{ name: 'twelve', type: 'exclude' },
-	];
+	let tag_filter = [];
+	let author_filter = [];
+	let hero_filter = [];
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
