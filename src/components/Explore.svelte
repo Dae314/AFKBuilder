@@ -64,14 +64,26 @@
 		open(FilterPicker,
 			{ category,
 				curFilter,
-				onSuccess: (array) => handleFilterChangeSuccess({array, category}),
+				onSuccess: (filterList) => handleFilterChangeSuccess({filterList, category}),
 			},
 			{ closeButton: ModalCloseButton }
 		);
 	}
 
-	function handleFilterChangeSuccess({array, category}) {
-		console.log(`Array: ${array}, category: ${category}`);
+	function handleFilterChangeSuccess({filterList, category}) {
+		switch(category) {
+			case 'tag':
+				tag_filter = filterList;
+				break;
+			case 'author':
+				author_filter = filterList;
+				break;
+			case 'hero':
+				hero_filter = filterList;
+				break;
+			default:
+				throw new Error(`ERROR invalid category passed to handleFilterChangeSuccess: ${category}`);
+		}
 	}
 </script>
 
