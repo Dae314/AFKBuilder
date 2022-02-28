@@ -572,7 +572,7 @@
 	/*{
 		status: response status,
 		data: [
-			{ name, totalComps }
+			{ name, id, totalComps }
 		] OR error object
 	}*/
 	export async function getAllAuthors() {
@@ -603,7 +603,7 @@
 	/*{
 		status: response status,
 		data: [
-			{ name, totalComps }
+			{ name, id, totalComps }
 		] OR error object
 	}*/
 	export async function getAllTags() {
@@ -634,7 +634,7 @@
 	/*{
 		status: response status,
 		data: [
-			{ name, totalComps }
+			{ name, id, totalComps }
 		] OR error object
 	}*/
 	export async function getAllHeroes() {

@@ -76,14 +76,14 @@
 	}
 
 	function handleAddFilters(type) {
-		curFilter = curFilter.concat(selectedEntities.map(e => { return {name: e, type: type} }));
+		curFilter = curFilter.concat(selectedEntities.map(e => { return {name: e.name, id: e.id, type: type} }));
 		selectedEntities = [];
 	}
 
 	function handleSelectEntity(entity) {
-		if(selectedEntities.some(e => e === entity)) {
+		if(selectedEntities.some(e => e.id === entity.id)) {
 			// remove entity
-			selectedEntities = selectedEntities.filter(e => e !== entity);
+			selectedEntities = selectedEntities.filter(e => e.id !== entity.id);
 		} else {
 			// add entity
 			selectedEntities = [...selectedEntities, entity];
@@ -144,7 +144,13 @@
 				<ul class="entityList">
 					{#each sortedEntityList.filter(e => !curFilter.some(i => i.name === e.name)) as entity}
 						<li>
-							<button type="button" class="entityButton" class:selected={selectedEntities.some(e => e === entity.name)} on:click={() => handleSelectEntity(entity.name)}>{entity.name} ({entity.totalComps})</button>
+							<button
+								type="button"
+								class="entityButton"
+								class:selected={selectedEntities.some(e => e.name === entity.name)}
+								on:click={() => handleSelectEntity(entity)}>
+								{entity.name} ({entity.totalComps})
+							</button>
 						</li>
 					{/each}
 				</ul>
