@@ -1,7 +1,8 @@
 <script>
-	import { onMount, onDestroy, getContext } from 'svelte';
+	import { onMount, getContext } from 'svelte';
 	import { flip } from 'svelte/animate';
 	import AppData from '../stores/AppData.js';
+	import HeroData from '../stores/HeroData.js';
 	import { getAllAuthors, getAllTags, getAllHeroes} from '../rest/RESTFunctions.svelte';
 	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
 	import ToggleSwitch from '../shared/ToggleSwitch.svelte';
@@ -25,10 +26,6 @@
 
 	onMount(async () => {
 		history.pushState({view: $AppData.activeView, modal: true}, "Filter Picker", `?modal=true${window.location.hash}`);
-	});
-
-	onDestroy(() => {
-		onSuccess(curFilter);
 	});
 
 	async function populateEntityList() {
@@ -55,14 +52,24 @@
 			};
 			showErrorDisplay = true;
 		} else {
-			entityList = response.data;
+			if(category === 'hero') {
+				entityList = response.data.map(e => {
+					e.displayName = $HeroData.find(i => i.id === e.name).name
+					return e;
+				});
+			} else {
+				entityList = response.data.map(e => {
+					e.displayName = e.name
+					return e;
+				})
+			}
 		}
 	}
 
 	function sortEntityList(list, type, search) {
 		let tempList = [...list];
 		if(search) {
-			tempList = tempList.filter(e => e.name.toLowerCase().includes(search.toLowerCase()));
+			tempList = tempList.filter(e => e.displayName.toLowerCase().includes(search.toLowerCase()));
 		}
 		switch(type) {
 			case 'popular':
@@ -131,7 +138,8 @@
 	}
 
 	function handleSave() {
-		
+		onSuccess(curFilter);
+		close();
 	}
 </script>
 
@@ -181,7 +189,7 @@
 								class:include={curFilter.some(e => e.name === entity.name && e.type === 'include')}
 								class:exclude={curFilter.some(e => e.name === entity.name && e.type === 'exclude')}
 								on:click={() => handleEntityClick(entity)}>
-								<span class="entityName">{entity.name}</span>
+								<span class="entityName">{entity.displayName}</span>
 								<span class="entityCount">{votesToString(entity.totalComps)}</span>
 							</button>
 						</li>
@@ -189,8 +197,8 @@
 				</ul>
 			</div>
 			<div class="filterPickerFooter">
-				<button type="button" class="footerButton cancel" on:click={handlePopState}>Cancel</button>
 				<button type="button" class="footerButton save" on:click={handleSave}>Save</button>
+				<button type="button" class="footerButton cancel" on:click={handlePopState}>Cancel</button>
 			</div>
 		{/if}
 	{/await}
@@ -256,9 +264,14 @@
 		}
 	}
 	.filterPickerBody {
+		background: white;
+		border-radius: 10px;
+		box-shadow: inset 7px 7px 14px #e6e6e6,
+								inset -7px -7px 14px white;
 		max-height: 350px;
+		margin-top: 10px;
 		overflow-y: auto;
-		padding-top: 10px;
+		padding: 10px 0px;
 		.entityList {
 			display: grid;
 			grid-auto-rows: 25px;
@@ -326,9 +339,9 @@
 	.filterPickerFooter {
 		align-items: center;
 		display: flex;
-		justify-content: center;
+		justify-content: flex-end;
 		padding-top: 10px;
-		.addEntityButton {
+		.footerButton {
 			background-color: var(--appColorPrimary);
 			border: 2px solid var(--appColorPrimary);
 			border-radius: 10px;
@@ -336,11 +349,12 @@
 			cursor: pointer;
 			font-size: 0.9rem;
 			font-weight: bold;
-			margin: 0px 10px;
+			margin: 0px 5px;
 			padding: 5px;
-			&.exclude {
-				background-color: var(--appDelColor);
-				border-color: var(--appDelColor);
+			&.cancel {
+				background-color: var(--appColorDisabled);
+				border-color: var(--appColorDisabled);
+				margin-right: 0;
 			}
 		}
 	}

@@ -56,7 +56,6 @@
 	}
 
 	function handleFilterChangeSuccess({filterList, category}) {
-		console.log(filterList);
 		switch(category) {
 			case 'tag':
 				tag_filter = filterList;
