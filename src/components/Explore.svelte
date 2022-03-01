@@ -89,7 +89,7 @@
 				<button type="button" class="addFilterButton addTagButton" on:click={() => handleAddFilterButtonClick('tag')}>Add Tags</button>
 				<div class="filterItems tagFilters">
 					{#each tag_filter as tag, i}
-						<button type="button" class="rmFilterButton tag {tag.type}" on:click={() => handleRemoveFilter('tag', i)}>{tag.name}</button>
+						<button type="button" class="rmFilterButton tag {tag.type}" on:click={() => handleRemoveFilter('tag', i)}>{tag.displayName}</button>
 					{/each}
 				</div>
 			</div>
@@ -97,7 +97,7 @@
 				<button type="button" class="addFilterButton addAuthorButton" on:click={() => handleAddFilterButtonClick('author')}>Add Authors</button>
 				<div class="filterItems authorFilters">
 					{#each author_filter as author, i}
-						<button type="button" class="rmFilterButton author {author.type}" on:click={() => handleRemoveFilter('author', i)}>{author.name}</button>
+						<button type="button" class="rmFilterButton author {author.type}" on:click={() => handleRemoveFilter('author', i)}>{author.displayName}</button>
 					{/each}
 				</div>
 			</div>
@@ -105,7 +105,7 @@
 				<button type="button" class="addFilterButton addHeroButton" on:click={() => handleAddFilterButtonClick('hero')}>Add Heroes</button>
 				<div class="filterItems heroFilters">
 					{#each hero_filter as hero, i}
-						<button type="button" class="rmFilterButton hero {hero.type}" on:click={() => handleRemoveFilter('hero', i)}>{hero.name}</button>
+						<button type="button" class="rmFilterButton hero {hero.type}" on:click={() => handleRemoveFilter('hero', i)}>{hero.displayName}</button>
 					{/each}
 				</div>
 			</div>

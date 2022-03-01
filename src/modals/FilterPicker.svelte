@@ -100,7 +100,7 @@
 					}
 				} else {
 					// filter entry does not exist yet, add it
-					curFilter = [...curFilter, {name: entity.name, id: entity.id, type: 'include'}];
+					curFilter = [...curFilter, {name: entity.name, displayName: entity.displayName, id: entity.id, type: 'include'}];
 				}
 				break;
 			case 'exclude':
@@ -115,7 +115,7 @@
 					}
 				} else {
 					// filter entry does not exist yet, add it
-					curFilter = [...curFilter, {name: entity.name, id: entity.id, type: 'exclude'}];
+					curFilter = [...curFilter, {name: entity.name, displayName: entity.displayName, id: entity.id, type: 'exclude'}];
 				}
 				break;
 			default:
