@@ -16,7 +16,7 @@
 			root.style.setProperty('--toggle-width', "41px");
 			root.style.setProperty('--toggle-height', "21px");
 			root.style.setProperty('--toggle-radius', "33px");
-			root.style.setProperty('--toggle-inner-size', "18px");
+			root.style.setProperty('--toggle-inner-size', "17.5px");
 			root.style.setProperty('--toggle-movement', "21px");
 			break;
 		case 'medium':
