@@ -1,4 +1,5 @@
 <script>
+	// adapted from https://danklammer.com/articles/simple-css-toggle-switch/
 	import { createEventDispatcher } from 'svelte';
 
 	export let size = 'medium';
