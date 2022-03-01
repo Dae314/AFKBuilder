@@ -1,9 +1,12 @@
 <script>
 	import { onMount, onDestroy, getContext } from 'svelte';
+	import { flip } from 'svelte/animate';
 	import AppData from '../stores/AppData.js';
 	import { getAllAuthors, getAllTags, getAllHeroes} from '../rest/RESTFunctions.svelte';
 	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
+	import ToggleSwitch from '../shared/ToggleSwitch.svelte';
 	import ErrorDisplay from '../components/ErrorDisplay.svelte';
+	import { votesToString } from '../utilities/Utilities.svelte';
 
 	export let category = 'tag';
 	export let curFilter = [];
@@ -15,9 +18,10 @@
 	let showErrorDisplay = false;
 	let entityList = [];
 	let sortType = 'popular';
-	let selectedEntities = [];
+	let searchStr = '';
+	let mode = 'include';
 
-	$: sortedEntityList = sortEntityList(entityList, sortType);
+	$: sortedEntityList = sortEntityList(entityList, sortType, searchStr);
 
 	onMount(async () => {
 		history.pushState({view: $AppData.activeView, modal: true}, "Filter Picker", `?modal=true${window.location.hash}`);
@@ -55,8 +59,11 @@
 		}
 	}
 
-	function sortEntityList(list, type) {
+	function sortEntityList(list, type, search) {
 		let tempList = [...list];
+		if(search) {
+			tempList = tempList.filter(e => e.name.toLowerCase().includes(search.toLowerCase()));
+		}
 		switch(type) {
 			case 'popular':
 				return tempList.sort((a, b) => b.totalComps - a.totalComps);
@@ -71,27 +78,60 @@
 		}
 	}
 
-	function handleRemoveFilter(idx) {
-		curFilter = curFilter.filter((e, i) => i !== idx);
+	function handleEntityClick(entity) {
+		const idx = curFilter.findIndex(e => e.id === entity.id);
+		switch(mode) {
+			case 'include':
+				if(idx > -1) {
+					// filter entry already exists
+					if(curFilter[idx].type === 'include') {
+						// entry already exists for include, assume remove entry
+						curFilter = curFilter.filter((e, i) => i !== idx);
+					} else {
+						// entry already exists for exclude, assume change to include
+						curFilter[idx].type = 'include';
+					}
+				} else {
+					// filter entry does not exist yet, add it
+					curFilter = [...curFilter, {name: entity.name, id: entity.id, type: 'include'}];
+				}
+				break;
+			case 'exclude':
+				if(idx > -1) {
+					// filter entry already exists
+					if(curFilter[idx].type === 'exclude') {
+						// entry already exists for exclude, assume remove entry
+						curFilter = curFilter.filter((e, i) => i !== idx);
+					} else {
+						// entry already exists for include, assume change to exclude
+						curFilter[idx].type = 'exclude';
+					}
+				} else {
+					// filter entry does not exist yet, add it
+					curFilter = [...curFilter, {name: entity.name, id: entity.id, type: 'exclude'}];
+				}
+				break;
+			default:
+				throw new Error(`ERROR invalid mode set for FilterPicker: ${mode}`);
+		}
 	}
 
-	function handleAddFilters(type) {
-		curFilter = curFilter.concat(selectedEntities.map(e => { return {name: e.name, id: e.id, type: type} }));
-		selectedEntities = [];
-	}
-
-	function handleSelectEntity(entity) {
-		if(selectedEntities.some(e => e.id === entity.id)) {
-			// remove entity
-			selectedEntities = selectedEntities.filter(e => e.id !== entity.id);
+	function handleModeChange(event) {
+		if(event.detail.data.state) {
+			// switched on
+			mode = 'include';
 		} else {
-			// add entity
-			selectedEntities = [...selectedEntities, entity];
+			// switched off
+			mode = 'exclude';
 		}
 	}
 
 	function handlePopState() {
 		close();
+	}
+
+	function handleSave() {
+		
 	}
 </script>
 
@@ -112,25 +152,16 @@
 			/>
 		{:else}
 			<div class="filterPickerHead">
-				<div class="filterHeadArea include">
-					<h4 class="filterAreaTitle include">Include:</h4>
-					<div class="filterAreaList include">
-						{#each curFilter as entity, i}
-							{#if entity.type === 'include'}
-								<button type="button" class="rmEntityButton include" on:click={() => handleRemoveFilter(i)}>{entity.name}</button>
-							{/if}
-						{/each}
-					</div>
-				</div>
-				<div class="filterHeadArea exclude">
-					<h4 class="filterAreaTitle exclude">Exclude:</h4>
-					<div class="filterAreaList exclude">
-						{#each curFilter as entity, i}
-							{#if entity.type === 'exclude'}
-								<button type="button" class="rmEntityButton exclude" on:click={() => handleRemoveFilter(i)}>{entity.name}</button>
-							{/if}
-						{/each}
-					</div>
+				<input class="searchInput" type="search" placeholder="Search" bind:value={searchStr} />
+				<div class="modeArea">
+					<div class="modeLabel">Exclude</div>
+					<ToggleSwitch
+						size="small"
+						state={true}
+						offColor={window.getComputedStyle(document.documentElement).getPropertyValue('--appDelColor')}
+						on:toggleEvent={handleModeChange}
+					/>
+					<div class="modeLabel">Include</div>
 				</div>
 			</div>
 			<div class="filterSortArea">
@@ -142,22 +173,24 @@
 			</div>
 			<div class="filterPickerBody">
 				<ul class="entityList">
-					{#each sortedEntityList.filter(e => !curFilter.some(i => i.name === e.name)) as entity}
-						<li>
+					{#each sortedEntityList as entity (entity.id)}
+						<li animate:flip="{{duration: 300}}">
 							<button
 								type="button"
 								class="entityButton"
-								class:selected={selectedEntities.some(e => e.name === entity.name)}
-								on:click={() => handleSelectEntity(entity)}>
-								{entity.name} ({entity.totalComps})
+								class:include={curFilter.some(e => e.name === entity.name && e.type === 'include')}
+								class:exclude={curFilter.some(e => e.name === entity.name && e.type === 'exclude')}
+								on:click={() => handleEntityClick(entity)}>
+								<span class="entityName">{entity.name}</span>
+								<span class="entityCount">{votesToString(entity.totalComps)}</span>
 							</button>
 						</li>
 					{/each}
 				</ul>
 			</div>
 			<div class="filterPickerFooter">
-				<button type="button" class="addEntityButton include" on:click={() => handleAddFilters('include')}>Add to Include</button>
-				<button type="button" class="addEntityButton exclude" on:click={() => handleAddFilters('exclude')}>Add to Exclude</button>
+				<button type="button" class="footerButton cancel" on:click={handlePopState}>Cancel</button>
+				<button type="button" class="footerButton save" on:click={handleSave}>Save</button>
 			</div>
 		{/if}
 	{/await}
@@ -173,47 +206,25 @@
 		justify-content: center;
 	}
 	.filterPickerHead {
-		display: flex;
-		max-height: 30%;
-		.filterHeadArea {
+		.searchInput {
+			border: 2px solid var(--appColorPrimary);
+			border-radius: 10px;
+			font-size: 1rem;
+			outline: none;
 			padding: 5px;
-			text-align: center;
-			width: 50%;
-			.filterAreaTitle {
-				margin: 0;
+			width: 100%;
+			&:focus {
+				outline: 1px solid var(--appColorPrimary);
 			}
-			.filterAreaList {
-				max-height: 100px;
-				overflow-y: auto;
-				.rmEntityButton {
-					background: var(--appColorPrimary);
-					border: 2px solid var(--appColorPrimary);
-					border-radius: 30px;
-					color: var(--appBGColor);
-					cursor: pointer;
-					font-size: 0.7rem;
-					flex-grow: 0;
-					flex-shrink: 0;
-					margin: 2px 5px;
-					outline: none;
-					&:before {
-						background-color: var(--appBGColor);
-						border-radius: 50%;
-						color: var(--appColorPrimary);
-						content: '—';
-						font-weight: bold;
-						font-size: 0.6rem;
-						margin-right: 3px;
-						text-align: center;
-					}
-					&.exclude {
-						background: var(--appDelColor);
-						border-color: var(--appDelColor);
-						&:before {
-							color: var(--appDelColor);
-						}
-					}
-				}
+		}
+		.modeArea {
+			align-items: center;
+			display: flex;
+			justify-content: center;
+			padding: 10px;
+			width: 100%;
+			.modeLabel {
+				padding: 5px;
 			}
 		}
 	}
@@ -222,7 +233,6 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		padding: 5px 0px;
 		h5 {
 			margin: 0;
 			margin-bottom: 5px;
@@ -263,18 +273,51 @@
 				justify-content: center;
 				.entityButton {
 					align-items: center;
-					background-color: var(--appColorDisabled);
-					border: 2px solid var(--appColorDisabled);
-					border-radius: 10px;
-					color: var(--appBGColor);
+					background-color: transparent;
+					border: none;
 					cursor: pointer;
 					display: flex;
 					height: 25px;
 					justify-content: center;
-					padding: 0px 5px;
-					&.selected {
-						background-color: var(--appColorPriDark);
-						border-color: var(--appColorPriDark);
+					span {
+						background-color: var(--appColorDisabled);
+						border: 2px solid var(--appColorDisabled);
+						border-radius: 7px;
+						color: var(--appBGColor);
+						padding: 1px 5px;
+						text-align: center;
+						&.entityName {
+							border-bottom-right-radius: 0px;
+							border-right: none;
+							border-top-right-radius: 0px;
+						}
+						&.entityCount {
+							background-color: #666;
+							border-color: #666;
+							border-bottom-left-radius: 0px;
+							border-left: none;
+							border-top-left-radius: 0px;
+						}
+					}
+					&.include {
+						span {
+							background-color: var(--appColorPrimary);
+							border-color: var(--appColorPrimary);
+							&.entityCount {
+								background-color: var(--appColorPriDark);
+								border-color: var(--appColorPriDark);
+							}
+						}
+					}
+					&.exclude {
+						span {
+							background-color: var(--appDelColor);
+							border-color: var(--appDelColor);
+							&.entityCount {
+								background-color: #b13f3f;
+								border-color: #b13f3f;
+							}
+						}
 					}
 				}
 			}
