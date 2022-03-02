@@ -1,8 +1,10 @@
 <script>
 	import { onMount, getContext } from 'svelte';
+	import RangeSlider from 'svelte-range-slider-pips';
 	import AppData from '../stores/AppData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import FilterPicker from '../modals/FilterPicker.svelte';
+	
 
 	const { open } = getContext('simple-modal');
 
@@ -10,6 +12,8 @@
 	let tag_filter = [];
 	let author_filter = [];
 	let hero_filter = [];
+	const timeValues = ['now', '12hr', '1d', '1w', '1mo', '1yr', 'forever'];
+	let timeLimits = [0, timeValues.length - 1];
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
@@ -112,6 +116,18 @@
 		</div>
 		<div class="secondaryFilters">
 			<div class="filterArea">
+				<div class="timeFilterArea">
+					<RangeSlider
+						id="timeSlider"
+						bind:values={timeLimits}
+						min={0}
+						max={timeValues.length - 1}
+						formatter={ v => timeValues[v] }
+						pips
+						all='label'
+						range
+					/>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -241,6 +257,18 @@
 						}
 					}
 				}
+			}
+		}
+		.secondaryFilters {
+			.filterArea {
+				.timeFilterArea {
+					padding: 0px 30px;
+				}
+			}
+		}
+		:global(#timeSlider) {
+			:global(.rangeBar) {
+				background-color: var(--appColorPrimary);
 			}
 		}
 	}
