@@ -14,18 +14,18 @@
 	let hero_filter = [];
 	const now = Date.now();
 	const timeValues = [
-		{ name: 'now', value: new Date(now - 0) },
-		{ name: '12hr', value: new Date(now - 4.32e7) },
-		{ name: '1d', value: new Date(now - 8.64e7) },
-		{ name: '1w', value: new Date(now - 6.048e8) },
-		{ name: '1mo', value: new Date(now - 2.628e9) },
-		{ name: '1yr', value: new Date(now - 3.156e10) },
 		{ name: 'forever', value: new Date(now - 3.156e+11) }, // 10 years
+		{ name: '1yr', value: new Date(now - 3.156e10) },
+		{ name: '6mo', value: new Date(now - 1.577e10) },
+		{ name: '1mo', value: new Date(now - 2.628e9) },
+		{ name: '1w', value: new Date(now - 6.048e8) },
+		{ name: '1d', value: new Date(now - 8.64e7) },
+		{ name: 'now', value: new Date(now - 0) },
 	];
 	let timeLimits = [0, timeValues.length - 1];
 
-	$: minDate = timeValues[timeLimits[0]].value.toISOString();
-	$: maxDate = timeValues[timeLimits[1]].value.toISOString();
+	$: minDate = timeValues[timeLimits[1]].value.toISOString();
+	$: maxDate = timeValues[timeLimits[0]].value.toISOString();
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
