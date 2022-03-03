@@ -12,8 +12,20 @@
 	let tag_filter = [];
 	let author_filter = [];
 	let hero_filter = [];
-	const timeValues = ['now', '12hr', '1d', '1w', '1mo', '1yr', 'forever'];
+	const now = Date.now();
+	const timeValues = [
+		{ name: 'now', value: new Date(now - 0) },
+		{ name: '12hr', value: new Date(now - 4.32e7) },
+		{ name: '1d', value: new Date(now - 8.64e7) },
+		{ name: '1w', value: new Date(now - 6.048e8) },
+		{ name: '1mo', value: new Date(now - 2.628e9) },
+		{ name: '1yr', value: new Date(now - 3.156e10) },
+		{ name: 'forever', value: new Date(now - 3.156e+11) }, // 10 years
+	];
 	let timeLimits = [0, timeValues.length - 1];
+
+	$: minDate = timeValues[timeLimits[0]].value.toISOString();
+	$: maxDate = timeValues[timeLimits[1]].value.toISOString();
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
@@ -122,7 +134,7 @@
 						bind:values={timeLimits}
 						min={0}
 						max={timeValues.length - 1}
-						formatter={ v => timeValues[v] }
+						formatter={ v => timeValues[v].name }
 						pips
 						all='label'
 						range
