@@ -103,4 +103,27 @@
 			}
 		}
 	}`;
+	export const gql_GET_COMP_LIST = gql`
+	query ($filter: CompFiltersInput) {
+		comps(filters: $filter) {
+			data {
+				id
+				attributes {
+					name
+					uuid
+					upvotes
+					downvotes
+					heroes {
+						data {
+							id
+							attributes {
+								name
+							}
+						}
+					}
+					comp_update
+				}
+			}
+		}
+	}`
 </script>

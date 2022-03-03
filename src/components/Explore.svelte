@@ -1,13 +1,19 @@
 <script>
 	import { onMount, getContext } from 'svelte';
+	import { query } from 'svelte-apollo';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import AppData from '../stores/AppData.js';
+	import ErrorDisplay from './ErrorDisplay.svelte';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import FilterPicker from '../modals/FilterPicker.svelte';
-	
+	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
+	import { gql_GET_COMP_LIST } from '../gql/queries.svelte';
+	import { getCompAuthor } from '../rest/RESTFunctions.svelte';
 
 	const { open } = getContext('simple-modal');
 
+	let showErrorDisplay = false;
+	let errorDisplayConf = {};
 	let showFilters = false;
 	let tag_filter = [];
 	let author_filter = [];
@@ -23,13 +29,37 @@
 		{ name: 'now', value: new Date(now - 0) },
 	];
 	let timeLimits = [0, timeValues.length - 1];
+	let processCompsPromise;
+	let processedComps;
 
-	$: minDate = timeValues[timeLimits[1]].value.toISOString();
-	$: maxDate = timeValues[timeLimits[0]].value.toISOString();
+	$: minDate = timeValues[timeLimits[0]].value.toISOString();
+	$: maxDate = timeValues[timeLimits[1]].value.toISOString();
+	$: gqlFilter = makeFilter({tag_filter, author_filter, hero_filter, minDate, maxDate});
+	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter } });
+	$: if(!$compsQuery.loading) processCompsPromise = processComps($compsQuery.data.comps.data);
+	$: console.log(processedComps);
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
 	});
+
+	function makeFilter({tag_filter, author_filter, hero_filter, minDate, maxDate}) {
+		let andArr = [];
+		let orArr = [];
+		for(let tag of tag_filter) {
+			andArr.push({ tags: { id: { eq: tag.id } } });
+		}
+		for(let hero of hero_filter) {
+			andArr.push({ heroes: { id: { eq: hero.id } } });
+		}
+		for(let author of author_filter) {
+			orArr.push({ author: { id: { eq: author.id } } });
+		}
+		if(orArr.length > 0) andArr.push({ or: orArr });
+		andArr.push({ comp_update: { gte: minDate } });
+		andArr.push({ comp_update: { lte: maxDate } });
+		return { and: andArr };
+	}
 
 	function handleRemoveFilter(category, idx) {
 		switch(category) {
@@ -85,6 +115,43 @@
 			default:
 				throw new Error(`ERROR invalid category passed to handleFilterChangeSuccess: ${category}`);
 		}
+	}
+
+	async function processComps(compList) {
+		let response;
+		let procHeroes;
+		let procAuthor;
+		let processedList = [];
+		if(compList) {
+			for(const comp of compList) {
+				response = await getCompAuthor(comp.attributes.uuid);
+				if(response.status !== 200) {
+					errorDisplayConf = {
+						errorCode: response.status,
+						headText: 'Something went wrong',
+						detailText: response.data,
+						showHomeButton: true,
+					};
+					showErrorDisplay = true;
+				} else {
+					procAuthor = response.data.author;
+				}
+				procHeroes = comp.attributes.heroes.data.map(e => {
+					return { id: e.id, name: e.attributes.name};
+				});
+				processedList.push({
+					id: comp.id,
+					uuid: comp.attributes.uuid,
+					name: comp.attributes.name,
+					upvotes: comp.attributes.upvotes,
+					downvotes: comp.attributes.downvotes,
+					heroes: procHeroes,
+					author: procAuthor,
+					comp_update: comp.attributes.comp_update,
+				});
+			}
+		}
+		processedComps = processedList;
 	}
 </script>
 
@@ -143,14 +210,49 @@
 			</div>
 		</div>
 	</div>
+	<div class="pageSortArea">
+		Paging and sorting goes here
+	</div>
+	<div class="compListArea">
+		{#if $compsQuery.loading}
+			<div class="loadingDiv">
+				<LoadingSpinner type="dual-ring" size="medium" color={window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')} />
+			</div>
+		{:else if $compsQuery.error}
+			<ErrorDisplay
+				errorCode="503"
+				headText="Something went wrong"
+				detailText="Check the console for details."
+				showHomeButton={false}
+			/>
+		{:else}
+			{#if showErrorDisplay}
+				<ErrorDisplay
+					errorCode={errorDisplayConf.errorCode}
+					headText={errorDisplayConf.headText}
+					detailText={errorDisplayConf.detailText}
+					showHomeButton={errorDisplayConf.showHomeButton}
+				/>
+			{:else}
+				{#await processCompsPromise}
+					<div class="loadingDiv">
+						<LoadingSpinner type="dual-ring" size="medium" color={window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')} />
+					</div>
+				{:then _}
+					<div>comps go here</div> 
+				{/await}
+			{/if}
+		{/if}
+	</div>
 </div>
 
 <style lang="scss">
 	.exploreContainer {
 		height: calc(100vh - var(--headerHeight));
 		overflow-y: auto;
-		width: 100%;
 		padding: 0px 10px;
+		position: relative;
+		width: 100%;
 	}
 	.exploreHead {
 		display: flex;
@@ -199,15 +301,19 @@
 		}
 	}
 	.filterContainer {
+		background-color: var(--appBGColor);
 		border-radius: 10px;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+		left: 50%;
 		margin-top: 10px;
 		opacity: 0;
 		overflow: hidden;
 		padding: 10px 0px;
+		position: absolute;
+		transform: translate(-50%, 0);
 		transition: all 0.2s;
 		visibility: hidden;
-		width: 100%;
+		width: 95%;
 		&.open {
 			opacity: 1;
 			visibility: visible;
@@ -282,6 +388,17 @@
 			:global(.rangeBar) {
 				background-color: var(--appColorPrimary);
 			}
+		}
+	}
+	.compListArea {
+		height: 100%;
+		width: 100%;
+		.loadingDiv {
+			align-items: center;
+			display: flex;
+			height: 100%;
+			justify-content: center;
+			width: 100%;
 		}
 	}
 </style>
