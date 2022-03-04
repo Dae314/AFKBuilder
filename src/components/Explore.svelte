@@ -1,9 +1,11 @@
 <script>
 	import { onMount, getContext } from 'svelte';
+	import { querystring, replace } from 'svelte-spa-router';
 	import { query } from 'svelte-apollo';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import AppData from '../stores/AppData.js';
 	import ErrorDisplay from './ErrorDisplay.svelte';
+	import CompLibCard from './CompLibCard.svelte';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import FilterPicker from '../modals/FilterPicker.svelte';
 	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
@@ -28,36 +30,65 @@
 		{ name: '1d', value: new Date(now - 8.64e7) },
 		{ name: 'now', value: new Date(now - 0) },
 	];
-	let timeLimits = [0, timeValues.length - 1];
+	let timeLimits = [0, timeValues.length -1];
 	let processCompsPromise;
-	let processedComps;
+	let processedComps = [];
 
 	$: minDate = timeValues[timeLimits[0]].value.toISOString();
 	$: maxDate = timeValues[timeLimits[1]].value.toISOString();
 	$: gqlFilter = makeFilter({tag_filter, author_filter, hero_filter, minDate, maxDate});
 	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter } });
 	$: if(!$compsQuery.loading) processCompsPromise = processComps($compsQuery.data.comps.data);
-	$: console.log(processedComps);
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
+		const qs = new URLSearchParams($querystring);
+		// if(qs.has('tag_filter')) tag_filter = JSON.parse(decodeURIComponent(qs.get('tag_filter')));
+		// if(qs.has('author_filter')) author_filter = JSON.parse(decodeURIComponent(qs.get('author_filter')));
+		// if(qs.has('hero_filter')) hero_filter = JSON.parse(decodeURIComponent(qs.get('hero_filter')));
+		// if(qs.has('minDate')) timeLimits[0] = JSON.parse(decodeURIComponent(qs.get('minDate')));
+		// if(qs.has('maxDate')) timeLimits[1] = JSON.parse(decodeURIComponent(qs.get('maxDate')));
 	});
 
 	function makeFilter({tag_filter, author_filter, hero_filter, minDate, maxDate}) {
 		let andArr = [];
 		let orArr = [];
+		let qs = new URLSearchParams();
+
+		// convert options into querystring
+		// if(tag_filter.length > 0) qs.set('tag_filter', encodeURIComponent(JSON.stringify(tag_filter)));
+		// if(author_filter.length > 0) qs.set('author_filter', encodeURIComponent(JSON.stringify(author_filter)));
+		// if(hero_filter.length > 0) qs.set('hero_filter', encodeURIComponent(JSON.stringify(hero_filter)));
+		// if(timeLimits[0] !== 0) qs.set('minDate', timeLimits[0]);
+		// if(timeLimits[1] !== timeValues.length - 1) qs.set('maxDate', timeLimits[1]);
+		// replace(`/explore?${qs.toString()}`);
+
+		// create filter array
 		for(let tag of tag_filter) {
-			andArr.push({ tags: { id: { eq: tag.id } } });
+			if(tag.type === 'include') {
+				andArr.push({ tags: { id: { eq: tag.id } } });
+			} else {
+				andArr.push({ tags: { id: { not: { eq: tag.id } } } });
+			}
 		}
 		for(let hero of hero_filter) {
-			andArr.push({ heroes: { id: { eq: hero.id } } });
+			if(hero.type === 'include') {
+				andArr.push({ heroes: { id: { eq: hero.id } } });
+			} else {
+				andArr.push({ heroes: { id: { not: { eq: hero.id } } } });
+			}
 		}
 		for(let author of author_filter) {
-			orArr.push({ author: { id: { eq: author.id } } });
+			if(author.type === 'include') {
+				orArr.push({ author: { id: { eq: author.id } } });
+			} else {
+				andArr.push({ author: { id: { not: { eq: author.id } } } });
+			}
 		}
 		if(orArr.length > 0) andArr.push({ or: orArr });
 		andArr.push({ comp_update: { gte: minDate } });
 		andArr.push({ comp_update: { lte: maxDate } });
+		console.log(andArr);
 		return { and: andArr };
 	}
 
@@ -239,7 +270,11 @@
 						<LoadingSpinner type="dual-ring" size="medium" color={window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')} />
 					</div>
 				{:then _}
-					<div>comps go here</div> 
+					<div class="compGrid">
+						{#each processedComps as comp}
+							<CompLibCard comp={comp} />
+						{/each}
+					</div> 
 				{/await}
 			{/if}
 		{/if}
@@ -314,6 +349,7 @@
 		transition: all 0.2s;
 		visibility: hidden;
 		width: 95%;
+		z-index: 2;
 		&.open {
 			opacity: 1;
 			visibility: visible;
@@ -391,7 +427,7 @@
 		}
 	}
 	.compListArea {
-		height: 100%;
+		padding-top: 20px;
 		width: 100%;
 		.loadingDiv {
 			align-items: center;
@@ -399,6 +435,13 @@
 			height: 100%;
 			justify-content: center;
 			width: 100%;
+		}
+		.compGrid {
+			display: grid;
+			grid-gap: 5px 5px;
+			grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
+			grid-auto-rows: 240px;
+			justify-content: space-around;
 		}
 	}
 </style>
