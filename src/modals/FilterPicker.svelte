@@ -161,7 +161,7 @@
 		{:else}
 			<div class="filterPickerHead">
 				<input class="searchInput" type="search" placeholder="Search" bind:value={searchStr} />
-				<div class="modeArea">
+				<!-- <div class="modeArea">
 					<div class="modeLabel">Exclude</div>
 					<ToggleSwitch
 						size="small"
@@ -170,7 +170,7 @@
 						on:toggleEvent={handleModeChange}
 					/>
 					<div class="modeLabel">Include</div>
-				</div>
+				</div> -->
 			</div>
 			<div class="filterSortArea">
 				<h5>Sort by:</h5>
@@ -241,6 +241,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		padding-top: 10px;
 		h5 {
 			margin: 0;
 			margin-bottom: 5px;
