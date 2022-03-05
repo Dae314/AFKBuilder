@@ -38,15 +38,16 @@
 	let compPageOptions = [10, 25, 50, 100];
 	let compPageLimit = 25;
 	let curPage = 1;
+	let pageInfo = {page: 1, pageCount: 1, pageSize: 25, total: 0};
 
 	$: minDate = timeValues[timeLimits[0]].value.toISOString();
 	$: maxDate = timeValues[timeLimits[1]].value.toISOString();
 	$: gqlFilter = makeFilter({tag_filter, author_filter, hero_filter, minDate, maxDate});
 	$: pageSettings = makePageSettings({curPage, compPageLimit});
 	$: sortSettings = makeSortSettings({curSort});
-	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings } });
+	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings, sort: sortSettings } });
 	$: if(!$compsQuery.loading) processCompsPromise = processComps($compsQuery.data.comps.data);
-	$: if(!$compsQuery.loading) console.log($compsQuery.data.comps.meta);
+	$: if(!$compsQuery.loading) pageInfo = $compsQuery.data.comps.meta.pagination;
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
@@ -108,8 +109,16 @@
 
 	function makeSortSettings({curSort}) {
 		switch(curSort) {
+			case 'best':
+				return ['score:desc', 'name:asc'];
+			case 'top':
+				return ['upvotes:desc', 'name:asc'];
+			case 'new':
+				return ['createdAt:desc', 'name:asc'];
+			case 'updated':
+				return ['comp_update:desc', 'name:asc'];
 			default:
-				return 'score';
+				return ['score:desc', 'name:asc'];
 		}
 	}
 
@@ -263,6 +272,9 @@
 		</div>
 	</div>
 	<div class="pageSortArea">
+		<div class="pageInfo">
+			<span>{pageInfo.total} comps</span>
+		</div>
 		<div class="sortArea">
 			<span class="selectText sortText">Sort by:</span>
 			<select class="exploreSelect sortSelect" bind:value={curSort}>
@@ -271,14 +283,9 @@
 				{/each}
 			</select>
 		</div>
-		<div class="pageLimitArea">
-			<span class="selectText pageLimitText">Comps per page:</span>
-			<select class="exploreSelect pageLimitSelect" bind:value={compPageLimit}>
-				{#each compPageOptions as option}
-					<option value={option}>{option}</option>
-				{/each}
-			</select>
-		</div>
+	</div>
+	<div class="pagePickerArea">
+
 	</div>
 	<div class="compListArea">
 		{#if $compsQuery.loading}
@@ -308,12 +315,22 @@
 				{:then _}
 					<div class="compGrid">
 						{#each processedComps as comp}
-							<CompLibCard comp={comp} />
+							<CompLibCard bind:comp={comp} />
 						{/each}
 					</div> 
 				{/await}
 			{/if}
 		{/if}
+	</div>
+	<div class="exploreFooter">
+		<div class="pageLimitArea">
+			<span class="selectText pageLimitText">Comps per page:</span>
+			<select class="exploreSelect pageLimitSelect" bind:value={compPageLimit}>
+				{#each compPageOptions as option}
+					<option value={option}>{option}</option>
+				{/each}
+			</select>
+		</div>
 	</div>
 </div>
 
@@ -371,13 +388,17 @@
 			}
 		}
 	}
+	.exploreSelect {
+		border: 1px solid var(--appColorPrimary);
+		border-radius: 5px;
+		outline: none;
+		padding: 3px;
+	}
 	.pageSortArea {
+		display: flex;
 		padding-top: 10px;
-		.exploreSelect {
-			border: 1px solid var(--appColorPrimary);
-			border-radius: 5px;
-			outline: none;
-			padding: 3px;
+		.sortArea {
+			margin-left: auto;
 		}
 	}
 	.filterContainer {
@@ -487,6 +508,12 @@
 			grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
 			grid-auto-rows: 240px;
 			justify-content: space-around;
+		}
+	}
+	.exploreFooter {
+		display: flex;
+		.pageLimitArea {
+			margin-left: auto;
 		}
 	}
 </style>
