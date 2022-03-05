@@ -3,6 +3,7 @@
 	import { querystring, replace } from 'svelte-spa-router';
 	import { query } from 'svelte-apollo';
 	import RangeSlider from 'svelte-range-slider-pips';
+	import {debounce} from 'lodash';
 	import AppData from '../stores/AppData.js';
 	import ErrorDisplay from './ErrorDisplay.svelte';
 	import CompLibCard from './CompLibCard.svelte';
@@ -16,6 +17,7 @@
 
 	let showErrorDisplay = false;
 	let errorDisplayConf = {};
+	let searchStr = '';
 	let showFilters = false;
 	let tag_filter = [];
 	let author_filter = [];
@@ -42,7 +44,7 @@
 
 	$: minDate = timeValues[timeLimits[0]].value.toISOString();
 	$: maxDate = timeValues[timeLimits[1]].value.toISOString();
-	$: gqlFilter = makeFilter({tag_filter, author_filter, hero_filter, minDate, maxDate});
+	$: gqlFilter = makeFilter({searchStr, tag_filter, author_filter, hero_filter, minDate, maxDate});
 	$: pageSettings = makePageSettings({curPage, compPageLimit});
 	$: sortSettings = makeSortSettings({curSort});
 	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings, sort: sortSettings } });
@@ -59,7 +61,7 @@
 		// if(qs.has('maxDate')) timeLimits[1] = JSON.parse(decodeURIComponent(qs.get('maxDate')));
 	});
 
-	function makeFilter({tag_filter, author_filter, hero_filter, minDate, maxDate}) {
+	function makeFilter({searchStr, tag_filter, author_filter, hero_filter, minDate, maxDate}) {
 		let andArr = [];
 		let orArr = [];
 		let qs = new URLSearchParams();
@@ -73,6 +75,7 @@
 		// replace(`/explore?${qs.toString()}`);
 
 		// create filter array
+		andArr.push({ name: { containsi: searchStr } });
 		for(let tag of tag_filter) {
 			if(tag.type === 'include') {
 				andArr.push({ tags: { id: { eq: tag.id } } });
@@ -120,6 +123,10 @@
 			default:
 				return ['score:desc', 'name:asc'];
 		}
+	}
+
+	function handleSearchStrChange(event) {
+		searchStr = event.target.value;
 	}
 
 	function handleRemoveFilter(category, idx) {
@@ -219,7 +226,7 @@
 <div class="exploreContainer">
 	<div class="exploreHead">
 		<div class="mobileSearchArea">
-			<input class="filterInput" type="text" placeholder="search" />
+			<input value={searchStr} on:input={debounce(handleSearchStrChange, 500)} on:search={handleSearchStrChange} on:blur={handleSearchStrChange} class="filterInput" type="search" placeholder="search" />
 		</div>
 		<div class="filterButtonArea">
 			<button type="button" class="openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
