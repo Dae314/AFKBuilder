@@ -104,8 +104,8 @@
 		}
 	}`;
 	export const gql_GET_COMP_LIST = gql`
-	query ($filter: CompFiltersInput) {
-		comps(filters: $filter) {
+	query ($filter: CompFiltersInput, $pagination: PaginationArg) {
+		comps(filters: $filter, pagination: $pagination) {
 			data {
 				id
 				attributes {
@@ -122,6 +122,14 @@
 						}
 					}
 					comp_update
+				}
+			}
+			meta {
+				pagination {
+					page
+					pageSize
+					pageCount
+					total
 				}
 			}
 		}

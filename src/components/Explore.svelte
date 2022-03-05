@@ -33,12 +33,20 @@
 	let timeLimits = [0, timeValues.length -1];
 	let processCompsPromise;
 	let processedComps = [];
+	let sortOptions = ['best', 'top', 'new', 'updated'];
+	let curSort = 'best';
+	let compPageOptions = [10, 25, 50, 100];
+	let compPageLimit = 25;
+	let curPage = 1;
 
 	$: minDate = timeValues[timeLimits[0]].value.toISOString();
 	$: maxDate = timeValues[timeLimits[1]].value.toISOString();
 	$: gqlFilter = makeFilter({tag_filter, author_filter, hero_filter, minDate, maxDate});
-	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter } });
+	$: pageSettings = makePageSettings({curPage, compPageLimit});
+	$: sortSettings = makeSortSettings({curSort});
+	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings } });
 	$: if(!$compsQuery.loading) processCompsPromise = processComps($compsQuery.data.comps.data);
+	$: if(!$compsQuery.loading) console.log($compsQuery.data.comps.meta);
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
@@ -88,8 +96,21 @@
 		if(orArr.length > 0) andArr.push({ or: orArr });
 		andArr.push({ comp_update: { gte: minDate } });
 		andArr.push({ comp_update: { lte: maxDate } });
-		console.log(andArr);
 		return { and: andArr };
+	}
+	
+	function makePageSettings({curPage, compPageLimit}) {
+		return {
+			page: curPage,
+			pageSize: compPageLimit,
+		}
+	}
+
+	function makeSortSettings({curSort}) {
+		switch(curSort) {
+			default:
+				return 'score';
+		}
 	}
 
 	function handleRemoveFilter(category, idx) {
@@ -242,7 +263,22 @@
 		</div>
 	</div>
 	<div class="pageSortArea">
-		Paging and sorting goes here
+		<div class="sortArea">
+			<span class="selectText sortText">Sort by:</span>
+			<select class="exploreSelect sortSelect" bind:value={curSort}>
+				{#each sortOptions as option}
+					<option value={option}>{option}</option>
+				{/each}
+			</select>
+		</div>
+		<div class="pageLimitArea">
+			<span class="selectText pageLimitText">Comps per page:</span>
+			<select class="exploreSelect pageLimitSelect" bind:value={compPageLimit}>
+				{#each compPageOptions as option}
+					<option value={option}>{option}</option>
+				{/each}
+			</select>
+		</div>
 	</div>
 	<div class="compListArea">
 		{#if $compsQuery.loading}
@@ -333,6 +369,15 @@
 					background-color: transparent;
 				}
 			}
+		}
+	}
+	.pageSortArea {
+		padding-top: 10px;
+		.exploreSelect {
+			border: 1px solid var(--appColorPrimary);
+			border-radius: 5px;
+			outline: none;
+			padding: 3px;
 		}
 	}
 	.filterContainer {
