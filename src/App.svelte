@@ -131,7 +131,7 @@
 			// user is logged in, try to populate the user's data
 			await populateUserData();
 		} else {
-			await handleLogout(showWarn = false);
+			await handleLogout(false);
 		}
 	});
 
