@@ -4,6 +4,7 @@
 	import { query } from 'svelte-apollo';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import {debounce} from 'lodash';
+	import qs from 'query-string';
 	import AppData from '../stores/AppData.js';
 	import ErrorDisplay from './ErrorDisplay.svelte';
 	import CompLibCard from './CompLibCard.svelte';
@@ -35,15 +36,18 @@
 	let timeLimits = [0, timeValues.length -1];
 	let processCompsPromise;
 	let processedComps = [];
-	let sortOptions = ['best', 'top', 'new', 'updated'];
-	let curSort = 'best';
-	let compPageOptions = [10, 25, 50, 100];
-	let compPageLimit = 25;
+	const sortOptions = ['best', 'top', 'new', 'updated'];
+	const defaultSort = 'best'
+	let curSort = defaultSort;
+	const compPageOptions = [10, 25, 50, 100];
+	const defaultPageLimit = 25;
+	let compPageLimit = defaultPageLimit;
 	let curPage = 1;
 	let pageInfo = {page: 1, pageCount: 1, pageSize: 25, total: 0};
 
 	$: minDate = timeValues[timeLimits[0]].value.toISOString();
 	$: maxDate = timeValues[timeLimits[1]].value.toISOString();
+	$: updateQS({searchStr, tag_filter, author_filter, hero_filter, timeLimits, curPage, compPageLimit, curSort});
 	$: gqlFilter = makeFilter({searchStr, tag_filter, author_filter, hero_filter, minDate, maxDate});
 	$: pageSettings = makePageSettings({curPage, compPageLimit});
 	$: sortSettings = makeSortSettings({curSort});
@@ -53,7 +57,7 @@
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
-		const qs = new URLSearchParams($querystring);
+		const urlqs = new URLSearchParams($querystring);
 		// if(qs.has('tag_filter')) tag_filter = JSON.parse(decodeURIComponent(qs.get('tag_filter')));
 		// if(qs.has('author_filter')) author_filter = JSON.parse(decodeURIComponent(qs.get('author_filter')));
 		// if(qs.has('hero_filter')) hero_filter = JSON.parse(decodeURIComponent(qs.get('hero_filter')));
@@ -61,18 +65,26 @@
 		// if(qs.has('maxDate')) timeLimits[1] = JSON.parse(decodeURIComponent(qs.get('maxDate')));
 	});
 
+	function updateQS({searchStr, tag_filter, author_filter, hero_filter, timeLimits, curPage, compPageLimit, curSort}) {
+		let newQS = new URLSearchParams();
+
+		// convert options into querystring
+		if(searchStr) newQS.set('searchStr', encodeURIComponent(searchStr));
+		if(tag_filter.length > 0) newQS.set('tag_filter', qs.stringify(tag_filter));
+		if(author_filter.length > 0) newQS.set('author_filter', qs.stringify(author_filter));
+		if(hero_filter.length > 0) newQS.set('hero_filter', qs.stringify(hero_filter));
+		if(timeLimits[0] !== 0) newQS.set('minDate', encodeURIComponent(timeLimits[0]));
+		if(timeLimits[1] !== timeValues.length - 1) newQS.set('maxDate', encodeURIComponent(timeLimits[1]));
+		if(curPage !== 1) newQS.set('curPage', encodeURIComponent(curPage));
+		if(compPageLimit !== defaultPageLimit) newQS.set('compPageLimit', encodeURIComponent(compPageLimit));
+		if(curSort !== defaultSort) newQS.set('curSort', encodeURIComponent(curSort));
+
+		replace(`/explore?${newQS.toString()}`);
+	}
+
 	function makeFilter({searchStr, tag_filter, author_filter, hero_filter, minDate, maxDate}) {
 		let andArr = [];
 		let orArr = [];
-		let qs = new URLSearchParams();
-
-		// convert options into querystring
-		// if(tag_filter.length > 0) qs.set('tag_filter', encodeURIComponent(JSON.stringify(tag_filter)));
-		// if(author_filter.length > 0) qs.set('author_filter', encodeURIComponent(JSON.stringify(author_filter)));
-		// if(hero_filter.length > 0) qs.set('hero_filter', encodeURIComponent(JSON.stringify(hero_filter)));
-		// if(timeLimits[0] !== 0) qs.set('minDate', timeLimits[0]);
-		// if(timeLimits[1] !== timeValues.length - 1) qs.set('maxDate', timeLimits[1]);
-		// replace(`/explore?${qs.toString()}`);
 
 		// create filter array
 		andArr.push({ name: { containsi: searchStr } });

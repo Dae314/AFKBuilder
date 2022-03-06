@@ -39,6 +39,7 @@
 		"markdown-it": "^12.2.0",
 		"markdown-it-emoji": "^2.0.0",
 		"punycode": "^2.1.1",
+		"query-string": "^7.1.1",
 		"sirv-cli": "^1.0.14",
 		"svelte-apollo": "^0.4.0",
 		"svelte-simple-modal": "^1.0.3",

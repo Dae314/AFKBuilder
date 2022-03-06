@@ -4,7 +4,7 @@
 	import AppData from './stores/AppData.js';
 	import Modal from 'svelte-simple-modal';
 	import Router from 'svelte-spa-router';
-	import {pop as spaRoutePop} from 'svelte-spa-router';
+	import {pop as spaRoutePop, querystring} from 'svelte-spa-router';
 	import {wrap} from 'svelte-spa-router/wrap';
 	import {
 		validateJWT,
@@ -254,7 +254,7 @@
 	}
 
 	function handleModalClosed() {
-		// handle comps modals in Comps.svelte
+		// handle modals in Comps.svelte and Explore.svelte separately
 		if($AppData.activeView === 'comps') {
 			$AppData.modalClosed = true;
 		} else {
@@ -262,7 +262,11 @@
 			const urlParams = new URLSearchParams(queryString);
 			if(urlParams.has('modal')) {
 				spaRoutePop();
-				history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, `${window.location.origin}/#/${$AppData.activeView}`);
+				window.addEventListener('popstate', function updateURL(event) {
+					const uri = $querystring ? `${window.location.origin}/#/${$AppData.activeView}?${$querystring}` : `${window.location.origin}/#/${$AppData.activeView}`
+					history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, uri);
+					window.removeEventListener('popstate', updateURL);
+				});
 			}
 		}
 	}
