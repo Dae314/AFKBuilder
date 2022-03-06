@@ -11,6 +11,7 @@
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import FilterPicker from '../modals/FilterPicker.svelte';
 	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
+	import PageNav from '../shared/PageNav.svelte';
 	import { gql_GET_COMP_LIST } from '../gql/queries.svelte';
 	import { getCompAuthor } from '../rest/RESTFunctions.svelte';
 
@@ -52,9 +53,10 @@
 	let curSort = defaultSort;
 	let compPageLimit = defaultPageLimit;
 	let curPage = defaultStartPage;
-	let pageInfo = {page: 1, pageCount: 1, pageSize: 25, total: 0};
+	let pageInfo = {page: 1, pageCount: 1, pageSize: compPageLimit, total: 0};
 	let sortSelectEl;
 	let pageLimitSelectEl;
+	let testPageInfo = {page: 1, pageCount: 100, pageSize: 25, total: 500};
 
 	$: processQS($querystring);
 	$: gqlFilter = makeFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits});
@@ -309,6 +311,10 @@
 		}
 		processedComps = processedList;
 	}
+
+	function handlePageEvent(event) {
+		testPageInfo.page = event.detail.data.page;
+	}
 </script>
 
 <div class="exploreContainer">
@@ -380,9 +386,6 @@
 			</select>
 		</div>
 	</div>
-	<div class="pagePickerArea">
-
-	</div>
 	<div class="compListArea">
 		{#if $compsQuery.loading}
 			<div class="loadingDiv">
@@ -409,6 +412,9 @@
 						<LoadingSpinner type="dual-ring" size="medium" color={window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')} />
 					</div>
 				{:then _}
+					<div class="pageNavArea">
+						<PageNav pageInfo={testPageInfo} on:pageEvent={handlePageEvent}/>
+					</div>
 					<div class="compGrid">
 						{#each processedComps as comp}
 							<CompLibCard bind:comp={comp} />
@@ -496,6 +502,12 @@
 		.sortArea {
 			margin-left: auto;
 		}
+	}
+	.pageNavArea {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 10px;
+		width: 100%;
 	}
 	.filterContainer {
 		background-color: var(--appBGColor);
