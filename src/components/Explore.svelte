@@ -4,7 +4,7 @@
 	import { query } from 'svelte-apollo';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import {debounce} from 'lodash';
-	import qs from 'query-string';
+	import qs from 'qs';
 	import AppData from '../stores/AppData.js';
 	import ErrorDisplay from './ErrorDisplay.svelte';
 	import CompLibCard from './CompLibCard.svelte';
@@ -16,13 +16,7 @@
 
 	const { open } = getContext('simple-modal');
 
-	let showErrorDisplay = false;
-	let errorDisplayConf = {};
-	let searchStr = '';
-	let showFilters = false;
-	let tag_filter = [];
-	let author_filter = [];
-	let hero_filter = [];
+	// configuration defaults
 	const now = Date.now();
 	const timeValues = [
 		{ name: 'forever', value: new Date(now - 3.156e+11) }, // 10 years
@@ -33,22 +27,37 @@
 		{ name: '1d', value: new Date(now - 8.64e7) },
 		{ name: 'now', value: new Date(now - 0) },
 	];
-	let timeLimits = [0, timeValues.length -1];
+	const sortOptions = ['best', 'top', 'new', 'updated'];
+	const defaultSort = 'best';
+	const compPageOptions = [10, 25, 50, 100];
+	const defaultStartPage = 1;
+	const defaultPageLimit = 25;
+	const defaultSearchStr = '';
+	const defaultTagFilter = [];
+	const defaultAuthorFilter = [];
+	const defaultHeroFilter = [];
+	const defaultMinTime = 0;
+	const defaultMaxTime = timeValues.length - 1;
+
+	let showErrorDisplay = false;
+	let errorDisplayConf = {};
+	let searchStr = defaultSearchStr;
+	let showFilters = false;
+	let tag_filter = defaultTagFilter;
+	let author_filter = defaultAuthorFilter;
+	let hero_filter = defaultHeroFilter;
+	let timeLimits = [defaultMinTime, defaultMaxTime];
 	let processCompsPromise;
 	let processedComps = [];
-	const sortOptions = ['best', 'top', 'new', 'updated'];
-	const defaultSort = 'best'
 	let curSort = defaultSort;
-	const compPageOptions = [10, 25, 50, 100];
-	const defaultPageLimit = 25;
 	let compPageLimit = defaultPageLimit;
-	let curPage = 1;
+	let curPage = defaultStartPage;
 	let pageInfo = {page: 1, pageCount: 1, pageSize: 25, total: 0};
+	let sortSelectEl;
+	let pageLimitSelectEl;
 
-	$: minDate = timeValues[timeLimits[0]].value.toISOString();
-	$: maxDate = timeValues[timeLimits[1]].value.toISOString();
-	$: updateQS({searchStr, tag_filter, author_filter, hero_filter, timeLimits, curPage, compPageLimit, curSort});
-	$: gqlFilter = makeFilter({searchStr, tag_filter, author_filter, hero_filter, minDate, maxDate});
+	$: processQS($querystring);
+	$: gqlFilter = makeFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits});
 	$: pageSettings = makePageSettings({curPage, compPageLimit});
 	$: sortSettings = makeSortSettings({curSort});
 	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings, sort: sortSettings } });
@@ -57,34 +66,27 @@
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
-		const urlqs = new URLSearchParams($querystring);
-		// if(qs.has('tag_filter')) tag_filter = JSON.parse(decodeURIComponent(qs.get('tag_filter')));
-		// if(qs.has('author_filter')) author_filter = JSON.parse(decodeURIComponent(qs.get('author_filter')));
-		// if(qs.has('hero_filter')) hero_filter = JSON.parse(decodeURIComponent(qs.get('hero_filter')));
-		// if(qs.has('minDate')) timeLimits[0] = JSON.parse(decodeURIComponent(qs.get('minDate')));
-		// if(qs.has('maxDate')) timeLimits[1] = JSON.parse(decodeURIComponent(qs.get('maxDate')));
 	});
 
-	function updateQS({searchStr, tag_filter, author_filter, hero_filter, timeLimits, curPage, compPageLimit, curSort}) {
-		let newQS = new URLSearchParams();
-
-		// convert options into querystring
-		if(searchStr) newQS.set('searchStr', encodeURIComponent(searchStr));
-		if(tag_filter.length > 0) newQS.set('tag_filter', qs.stringify(tag_filter));
-		if(author_filter.length > 0) newQS.set('author_filter', qs.stringify(author_filter));
-		if(hero_filter.length > 0) newQS.set('hero_filter', qs.stringify(hero_filter));
-		if(timeLimits[0] !== 0) newQS.set('minDate', encodeURIComponent(timeLimits[0]));
-		if(timeLimits[1] !== timeValues.length - 1) newQS.set('maxDate', encodeURIComponent(timeLimits[1]));
-		if(curPage !== 1) newQS.set('curPage', encodeURIComponent(curPage));
-		if(compPageLimit !== defaultPageLimit) newQS.set('compPageLimit', encodeURIComponent(compPageLimit));
-		if(curSort !== defaultSort) newQS.set('curSort', encodeURIComponent(curSort));
-
-		replace(`/explore?${newQS.toString()}`);
+	function processQS(queryString) {
+		const urlqs = new URLSearchParams(queryString);
+		searchStr = urlqs.has('searchStr') ? decodeURIComponent(urlqs.get('searchStr')) : defaultSearchStr;
+		tag_filter = urlqs.has('tag_filter') ? qs.parse(urlqs.get('tag_filter')).filter : defaultTagFilter;
+		author_filter = urlqs.has('author_filter') ? qs.parse(urlqs.get('author_filter')).filter : defaultAuthorFilter;
+		hero_filter = urlqs.has('hero_filter') ? qs.parse(urlqs.get('hero_filter')).filter : defaultHeroFilter;
+		timeLimits[0] = urlqs.has('minDate') ? decodeURIComponent(urlqs.get('minDate')) : defaultMinTime;
+		timeLimits[1] = urlqs.has('maxDate') ? decodeURIComponent(urlqs.get('maxDate')) : defaultMaxTime;
+		curPage = urlqs.has('page') ? parseInt(decodeURIComponent(urlqs.get('page'))) : defaultStartPage;
+		compPageLimit = urlqs.has('pageLimit') ? parseInt(decodeURIComponent(urlqs.get('pageLimit'))) : defaultPageLimit;
+		curSort = urlqs.has('sort') ? decodeURIComponent(urlqs.get('sort')) : defaultSort;
 	}
 
-	function makeFilter({searchStr, tag_filter, author_filter, hero_filter, minDate, maxDate}) {
+	function makeFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits}) {
 		let andArr = [];
 		let orArr = [];
+
+		const minDate = timeValues[timeLimits[0]].value.toISOString();
+		const maxDate = timeValues[timeLimits[1]].value.toISOString();
 
 		// create filter array
 		andArr.push({ name: { containsi: searchStr } });
@@ -138,23 +140,47 @@
 	}
 
 	function handleSearchStrChange(event) {
-		searchStr = event.target.value;
+		let newQS = new URLSearchParams($querystring);
+		if(event.target.value) {
+			newQS.set('searchStr', encodeURIComponent(event.target.value));
+		} else {
+			newQS.delete('searchStr');
+		}
+		replace(`/explore?${newQS.toString()}`);
 	}
 
 	function handleRemoveFilter(category, idx) {
+		let newQS = new URLSearchParams($querystring);
+		let new_filter = [];
 		switch(category) {
 			case 'tag':
-				tag_filter = tag_filter.filter((e, i) => i !== idx);
+				new_filter = tag_filter.filter((e, i) => i !== idx);
+				if(new_filter.length !== 0) {
+					newQS.set('tag_filter', qs.stringify({filter: new_filter}));
+				} else {
+					newQS.delete('tag_filter');
+				}
 				break;
 			case 'author':
-				author_filter = author_filter.filter((e, i) => i !== idx);
+				new_filter = author_filter.filter((e, i) => i !== idx);
+				if(new_filter.length !== 0) {
+					newQS.set('author_filter', qs.stringify({filter: new_filter}));
+				} else {
+					newQS.delete('author_filter');
+				}
 				break;
 			case 'hero':
-				hero_filter = hero_filter.filter((e, i) => i !== idx);
+				new_filter = hero_filter.filter((e, i) => i !== idx);
+				if(new_filter.length !== 0) {
+					newQS.set('hero_filter', qs.stringify({filter: new_filter}));
+				} else {
+					newQS.delete('hero_filter');
+				}
 				break;
 			default:
 				throw new Error(`ERROR invalid category passed to handleRemoveFilter: ${category}`)
 		}
+		replace(`/explore?${newQS.toString()}`);
 	}
 
 	function handleAddFilterButtonClick(category) {
@@ -182,19 +208,69 @@
 	}
 
 	function handleFilterChangeSuccess({filterList, category}) {
+		let newQS = new URLSearchParams($querystring);
 		switch(category) {
 			case 'tag':
-				tag_filter = filterList;
+				if(filterList.length !== 0) {
+					newQS.set('tag_filter', qs.stringify({filter: filterList}));
+				} else {
+					newQS.delete('tag_filter');
+				}
 				break;
 			case 'author':
-				author_filter = filterList;
+				if(filterList.length !== 0) {
+					newQS.set('author_filter', qs.stringify({filter: filterList}));
+				} else {
+					newQS.delete('author_filter');
+				}
 				break;
 			case 'hero':
-				hero_filter = filterList;
+				if(filterList.length !== 0) {
+					newQS.set('hero_filter', qs.stringify({filter: filterList}));
+				} else {
+					newQS.delete('hero_filter');
+				}
 				break;
 			default:
 				throw new Error(`ERROR invalid category passed to handleFilterChangeSuccess: ${category}`);
 		}
+		replace(`/explore?${newQS.toString()}`);
+	}
+
+	function handleTimeValueChange(event) {
+		let newQS = new URLSearchParams($querystring);
+		const newLimits = event.detail.values;
+		if(newLimits[0] !== defaultMinTime) {
+			newQS.set('minDate', encodeURIComponent(newLimits[0]));
+		} else {
+			newQS.delete('minDate');
+		}
+		if(newLimits[1] !== defaultMaxTime) {
+			newQS.set('maxDate', encodeURIComponent(newLimits[1]));
+		} else {
+			newQS.delete('maxDate');
+		}
+		replace(`/explore?${newQS.toString()}`);
+	}
+
+	function handleSortChange(selectObj) {
+		let newQS = new URLSearchParams($querystring);
+		if(selectObj.value !== defaultSort) {
+			newQS.set('sort', encodeURIComponent(selectObj.value));
+		} else {
+			newQS.delete('sort');
+		}
+		replace(`/explore?${newQS.toString()}`);
+	}
+
+	function handlePageLimitChange(selectObj) {
+		let newQS = new URLSearchParams($querystring);
+		if(selectObj.value !== defaultPageLimit) {
+			newQS.set('pageLimit', encodeURIComponent(selectObj.value));
+		} else {
+			newQS.delete('pageLimit');
+		}
+		replace(`/explore?${newQS.toString()}`);
 	}
 
 	async function processComps(compList) {
@@ -278,10 +354,11 @@
 				<div class="timeFilterArea">
 					<RangeSlider
 						id="timeSlider"
-						bind:values={timeLimits}
+						values={timeLimits}
 						min={0}
 						max={timeValues.length - 1}
 						formatter={ v => timeValues[v].name }
+						on:change={handleTimeValueChange}
 						pips
 						all='label'
 						range
@@ -296,7 +373,7 @@
 		</div>
 		<div class="sortArea">
 			<span class="selectText sortText">Sort by:</span>
-			<select class="exploreSelect sortSelect" bind:value={curSort}>
+			<select class="exploreSelect sortSelect" value={curSort} bind:this={sortSelectEl} on:change={() => handleSortChange(sortSelectEl)}>
 				{#each sortOptions as option}
 					<option value={option}>{option}</option>
 				{/each}
@@ -344,7 +421,7 @@
 	<div class="exploreFooter">
 		<div class="pageLimitArea">
 			<span class="selectText pageLimitText">Comps per page:</span>
-			<select class="exploreSelect pageLimitSelect" bind:value={compPageLimit}>
+			<select class="exploreSelect pageLimitSelect" value={compPageLimit} bind:this={pageLimitSelectEl} on:change={() => handlePageLimitChange(pageLimitSelectEl)}>
 				{#each compPageOptions as option}
 					<option value={option}>{option}</option>
 				{/each}
