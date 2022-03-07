@@ -5,6 +5,12 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.13.43',
+			changes: [
+				'Added new hero Ezizh (Awakened)',
+				'Fix Talene (Awakened) signature item skill descriptions',
+			],
+		},
 		{ version: 'v1.13.41',
 			changes: [
 				'Added new hero Fane',
@@ -44,18 +50,6 @@
 				'Updated Framton\'s ult description',
 				'Fixed typo on Mishka "Dire Wolves" skill',
 				'Fixed typo on Khaz SI30 skill',
-			],
-		},
-		{ version: 'v1.13.16',
-			changes: [
-				'Add new hero Astar',
-				'Update Hodgkin, Daimon, Estrilda, Mortas, Albedo, Flora, Treznor engraving benchmark: E30',
-				'Update Twins, Leondardo, Rosaline, Merlin engraving benchmark: E33',
-				'Update Antandra, Ferael, Zolrath engraving benchmark: E41',
-				'Update Haelus, Mishka, Drez, Thane, Theowyn, Zaphrael, Ezizh, Athalia, Belinda, Arthur, Alna engraving benchmark: E60',
-				'Update Tasi Teleportation ability description',
-				'Fix typo on Hodgkin skill 4',
-				'Fix typo on Framton 9f and skill 1',
 			],
 		},
 	]
