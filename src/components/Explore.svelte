@@ -31,9 +31,9 @@
 	const pageViewLimit = 2;
 	const sortOptions = ['best', 'top', 'new', 'updated'];
 	const defaultSort = 'best';
-	const compPageOptions = [1, 10, 25, 50, 100];
+	const compPageOptions = [10, 25, 50, 100];
 	const defaultStartPage = 1;
-	const defaultPageLimit = 1;
+	const defaultPageLimit = 25;
 	const defaultSearchStr = '';
 	const defaultTagFilter = [];
 	const defaultAuthorFilter = [];

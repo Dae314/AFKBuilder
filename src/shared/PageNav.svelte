@@ -17,7 +17,7 @@
 	$: viewLimit = parseInt(viewLimit);
 	$: pageArr = makePageArr(pageInfo.page, pageInfo.pageCount);
 	$: if(pageInfo.page < 1) throw new Error(`ERROR current page cannot be < 1`);
-	$: if(pageInfo.page > pageInfo.pageCount) throw new Error(`ERROR current page cannot be > pageCount`);
+	$: if(pageInfo.pageCount > 0 && pageInfo.page > pageInfo.pageCount) throw new Error(`ERROR current page cannot be > pageCount`);
 	$: if(viewLimit < 1) throw new Error(`Error viewLimit cannot be < 1`);
 
 	function makePageArr(page, pageCount) {
