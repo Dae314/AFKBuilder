@@ -3,7 +3,6 @@
 	import { querystring, replace } from 'svelte-spa-router';
 	import { query } from 'svelte-apollo';
 	import RangeSlider from 'svelte-range-slider-pips';
-	import {debounce} from 'lodash';
 	import qs from 'qs';
 	import AppData from '../stores/AppData.js';
 	import ErrorDisplay from './ErrorDisplay.svelte';
@@ -278,6 +277,7 @@
 		} else {
 			newQS.delete('sort');
 		}
+		if(newQS.has('page')) newQS.delete('page');
 		replace(`/explore?${newQS.toString()}`);
 	}
 
@@ -343,7 +343,7 @@
 <div class="exploreContainer">
 	<div class="exploreHead">
 		<div class="mobileSearchArea">
-			<input id="compSearch" value={searchStr} on:input={debounce(handleSearchStrChange, 500)} on:search={handleSearchStrChange} on:blur={handleSearchStrChange} class="filterInput" type="search" placeholder="search" />
+			<input id="compSearch" value={searchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="search" />
 			<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
 				<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
 			</button>
