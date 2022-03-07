@@ -31,7 +31,7 @@
 	const pageViewLimit = 2;
 	const sortOptions = ['best', 'top', 'new', 'updated'];
 	const defaultSort = 'best';
-	const compPageOptions = [10, 25, 50, 100];
+	const compPageOptions = [1, 10, 25, 50, 100];
 	const defaultStartPage = 1;
 	const defaultPageLimit = 25;
 	const defaultSearchStr = '';
@@ -148,6 +148,7 @@
 		} else {
 			newQS.delete('searchStr');
 		}
+		if(newQS.has('page')) newQS.delete('page');
 		replace(`/explore?${newQS.toString()}`);
 	}
 
@@ -159,6 +160,7 @@
 		} else {
 			newQS.delete('searchStr');
 		}
+		if(newQS.has('page')) newQS.delete('page');
 		replace(`/explore?${newQS.toString()}`);
 	}
 
@@ -193,6 +195,7 @@
 			default:
 				throw new Error(`ERROR invalid category passed to handleRemoveFilter: ${category}`)
 		}
+		if(newQS.has('page')) newQS.delete('page');
 		replace(`/explore?${newQS.toString()}`);
 	}
 
@@ -247,6 +250,7 @@
 			default:
 				throw new Error(`ERROR invalid category passed to handleFilterChangeSuccess: ${category}`);
 		}
+		if(newQS.has('page')) newQS.delete('page');
 		replace(`/explore?${newQS.toString()}`);
 	}
 
@@ -263,6 +267,7 @@
 		} else {
 			newQS.delete('maxDate');
 		}
+		if(newQS.has('page')) newQS.delete('page');
 		replace(`/explore?${newQS.toString()}`);
 	}
 
@@ -283,6 +288,7 @@
 		} else {
 			newQS.delete('pageLimit');
 		}
+		if(newQS.has('page')) newQS.delete('page');
 		replace(`/explore?${newQS.toString()}`);
 	}
 
@@ -394,9 +400,6 @@
 		</div>
 	</div>
 	<div class="pageSortArea">
-		<div class="pageInfo">
-			<span>{pageInfo.total} comps</span>
-		</div>
 		<div class="sortArea">
 			<span class="selectText sortText">Sort by:</span>
 			<select class="exploreSelect sortSelect" value={curSort} bind:this={sortSelectEl} on:change={() => handleSortChange(sortSelectEl)}>
@@ -448,8 +451,11 @@
 		{/if}
 	</div>
 	<div class="exploreFooter">
+		<div class="resultInfo">
+			<span>{pageInfo.total} {pageInfo.total === 1 ? 'result' : 'results'}</span>
+		</div>
 		<div class="pageLimitArea">
-			<span class="selectText pageLimitText">Comps per page:</span>
+			<span class="selectText pageLimitText">Results per page:</span>
 			<select class="exploreSelect pageLimitSelect" value={compPageLimit} bind:this={pageLimitSelectEl} on:change={() => handlePageLimitChange(pageLimitSelectEl)}>
 				{#each compPageOptions as option}
 					<option value={option}>{option}</option>
@@ -632,7 +638,7 @@
 		}
 	}
 	.compListArea {
-		padding-top: 10px;
+		padding-top: 0px;
 		width: 100%;
 		.loadingDiv {
 			align-items: center;
