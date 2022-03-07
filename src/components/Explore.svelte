@@ -28,11 +28,12 @@
 		{ name: '1d', value: new Date(now - 8.64e7) },
 		{ name: 'now', value: new Date(now - 0) },
 	];
+	const pageViewLimit = 2;
 	const sortOptions = ['best', 'top', 'new', 'updated'];
 	const defaultSort = 'best';
-	const compPageOptions = [10, 25, 50, 100];
+	const compPageOptions = [1, 10, 25, 50, 100];
 	const defaultStartPage = 1;
-	const defaultPageLimit = 25;
+	const defaultPageLimit = 1;
 	const defaultSearchStr = '';
 	const defaultTagFilter = [];
 	const defaultAuthorFilter = [];
@@ -56,7 +57,6 @@
 	let pageInfo = {page: 1, pageCount: 1, pageSize: compPageLimit, total: 0};
 	let sortSelectEl;
 	let pageLimitSelectEl;
-	let testPageInfo = {page: 1, pageCount: 100, pageSize: 25, total: 500};
 
 	$: processQS($querystring);
 	$: gqlFilter = makeFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits});
@@ -313,7 +313,13 @@
 	}
 
 	function handlePageEvent(event) {
-		testPageInfo.page = event.detail.data.page;
+		let newQS = new URLSearchParams($querystring);
+		if(event.detail.data.page !== defaultStartPage) {
+			newQS.set('page', encodeURIComponent(event.detail.data.page));
+		} else {
+			newQS.delete('page');
+		}
+		replace(`/explore?${newQS.toString()}`);
 	}
 </script>
 
@@ -413,13 +419,16 @@
 					</div>
 				{:then _}
 					<div class="pageNavArea">
-						<PageNav pageInfo={testPageInfo} on:pageEvent={handlePageEvent}/>
+						<PageNav pageInfo={pageInfo} on:pageEvent={handlePageEvent} viewLimit={pageViewLimit} />
 					</div>
 					<div class="compGrid">
 						{#each processedComps as comp}
 							<CompLibCard bind:comp={comp} />
 						{/each}
-					</div> 
+					</div>
+					<div class="pageNavArea">
+						<PageNav pageInfo={pageInfo} on:pageEvent={handlePageEvent} viewLimit={pageViewLimit} />
+					</div>
 				{/await}
 			{/if}
 		{/if}
@@ -601,7 +610,7 @@
 		}
 	}
 	.compListArea {
-		padding-top: 20px;
+		padding-top: 10px;
 		width: 100%;
 		.loadingDiv {
 			align-items: center;

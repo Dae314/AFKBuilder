@@ -23,33 +23,21 @@
 	function makePageArr(page, pageCount) {
 		let arr = [];
 		if(pageCount <= viewLimit + 2) {
-			// fill arr with sequential numbers from 1 to pageCount
 			arr = Array.from({length: pageCount}, (_, index) => index + 1);
 		} else {
-			const pageDist = pageCount - page;
-			if(page <= viewLimit + 2) {
-				// fill arr with sequential numbers from 1 to page
-				arr = Array.from({length: page}, (_, index) => index + 1);
-			} else {
-				// show page 1, then a separator, then viewLimit pages before the current page, and the current page
-				arr.push(1);
-				arr.push(-1);
-				for(let i = viewLimit; i >= 0; i--) {
-					arr.push(page - i);
-				}
-			}
-			if(pageDist <= viewLimit + 1) {
-				// show up to viewLimit + 1 pages after page
-				for(let i = 1; i <= pageDist; i++) {
-					arr.push(page + i);
+			if(page <= viewLimit) {
+				// fill arr with sequential numbers from 1 to page + viewLimit
+				arr = Array.from({length: page + viewLimit}, (_, index) => index + 1);
+			} else if(pageCount - page <= viewLimit) {
+				// fill arr with sequential numbers from page - viewLimit to pageCount
+				for(let i = page - viewLimit; i <= pageCount; i++) {
+					arr.push(i);
 				}
 			} else {
-				// show viewLimit pages after page, a separator, and the final page
-				for(let i = 1; i <= viewLimit; i++) {
-					arr.push(page + i);
+				// fill arr with sequential numbers from page - viewLimit to page + viewLimit
+				for(let i = page - viewLimit; i <= page + viewLimit; i++) {
+					arr.push(i);
 				}
-				arr.push(-1);
-				arr.push(pageCount);
 			}
 		}
 		return arr;
@@ -71,12 +59,28 @@
 				throw new Error(`ERROR invalid increment type passed to handleIncrClick: ${type}`);
 		}
 	}
+
+	function handleJumpClick(type) {
+		switch(type) {
+			case 'start':
+				if(pageInfo.page !== 1) dispatch('pageEvent', {data: {page: 1}});
+				break;
+			case 'end':
+				if(pageInfo.page !== pageInfo.pageCount) dispatch('pageEvent', {data: {page: pageInfo.pageCount}});
+				break;
+			default:
+				throw new Error(`ERROR invalid increment type passed to handleIncrClick: ${type}`);
+		}
+	}
 </script>
 
 <div class="pageNavContainer">
 	<ul class="pageList">
 		<li>
-			<button disabled={pageInfo.page === 1} class="pageOption prev" on:click={() => handleIncrClick('prev')}>Prev</button>
+			<button class="pageOption start" on:click={() => handleJumpClick('start')}>&#10094;&#10094;</button>
+		</li>
+		<li>
+			<button disabled={pageInfo.page === 1} class="pageOption prev" on:click={() => handleIncrClick('prev')}>&#10094;</button>
 		</li>
 		{#each pageArr as page}
 			<li>
@@ -92,7 +96,10 @@
 			</li>
 		{/each}
 		<li>
-			<button disabled={pageInfo.page === pageInfo.pageCount} class="pageOption next" on:click={() => handleIncrClick('next')}>Next</button>
+			<button disabled={pageInfo.page === pageInfo.pageCount} class="pageOption next" on:click={() => handleIncrClick('next')}>&#x276F;</button>
+		</li>
+		<li>
+			<button class="pageOption end" on:click={() => handleJumpClick('end')}>&#x276F;&#x276F;</button>
 		</li>
 	</ul>
 </div>
@@ -109,40 +116,44 @@
 			align-items: center;
 			display: flex;
 			justify-content: center;
-			margin: 3px 5px;
 		}
 		.separator {
-			align-items: center;
+			align-items: end;
 			display: flex;
+			height: 100%;
 			justify-content: center;
+			margin: 0;
+			padding-bottom: 4px;
 			.circle {
 				background-color: var(--appColorPrimary);
 				border-radius: 50%;
 				flex-grow: 0;
 				flex-shrink: 0;
-				height: 7px;
+				height: 5px;
 				margin: 0px 1px;
-				width: 7px;
+				width: 5px;
 			}
 		}
 		.pageOption {
 			align-items: center;
-			background-color: var(--appColorPrimary);
-			border: 2px solid var(--appColorPrimary);
+			background-color: transparent;
+			border: none;
 			border-radius: 50%;
-			color: var(--appBGColor);
+			color: var(--appColorPrimary);
 			cursor: pointer;
 			display: flex;
 			flex-grow: 0;
 			flex-shrink: 0;
-			height: 30px;
+			font-size: 1rem;
 			justify-content: center;
+			margin: 3px 3px;
 			outline: none;
-			width: 30px;
+			user-select: none;
 			&.selected {
-				background-color: transparent;
-				color: var(--appColorPrimary);
-				font-weight: bold;
+				background-color: var(--appColorPrimary);
+				color: var(--appBGColor);
+				height: 30px;
+				width: 30px;
 			}
 			&:disabled {
 				background-color: transparent;
