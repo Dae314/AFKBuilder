@@ -304,6 +304,10 @@
 							border-bottom-right-radius: 0px;
 							border-right: none;
 							border-top-right-radius: 0px;
+							max-width: 120px;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
 						}
 						&.entityCount {
 							background-color: #666;
