@@ -151,6 +151,17 @@
 		replace(`/explore?${newQS.toString()}`);
 	}
 
+	function handleSearchButtonClick() {
+		const search = document.getElementById('compSearch');
+		let newQS = new URLSearchParams($querystring);
+		if(search.value) {
+			newQS.set('searchStr', encodeURIComponent(search.value));
+		} else {
+			newQS.delete('searchStr');
+		}
+		replace(`/explore?${newQS.toString()}`);
+	}
+
 	function handleRemoveFilter(category, idx) {
 		let newQS = new URLSearchParams($querystring);
 		let new_filter = [];
@@ -326,10 +337,13 @@
 <div class="exploreContainer">
 	<div class="exploreHead">
 		<div class="mobileSearchArea">
-			<input value={searchStr} on:input={debounce(handleSearchStrChange, 500)} on:search={handleSearchStrChange} on:blur={handleSearchStrChange} class="filterInput" type="search" placeholder="search" />
+			<input id="compSearch" value={searchStr} on:input={debounce(handleSearchStrChange, 500)} on:search={handleSearchStrChange} on:blur={handleSearchStrChange} class="filterInput" type="search" placeholder="search" />
+			<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
+				<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
+			</button>
 		</div>
 		<div class="filterButtonArea">
-			<button type="button" class="openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
+			<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
 				<img class="openFiltersImage" src={ showFilters ? './img/utility/filter_color.png' : './img/utility/filter_white.png' } alt="Open Filters">
 			</button>
 		</div>
@@ -456,10 +470,23 @@
 	.exploreHead {
 		display: flex;
 		padding-top: 15px;
+		.headButton {
+			align-items: center;
+			background-color: var(--appColorPrimary);
+			border: 2px solid var(--appColorPrimary);
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+			cursor: pointer;
+			display: flex;
+			height: 40px;
+			justify-content: center;
+			outline: none;
+			transition: all 0.2s;
+			width: 40px;
+		}
 		.mobileSearchArea {
 			align-items: center;
 			display: flex;
-			padding-right: 10px;
 			width: 100%;
 			.filterInput {
 				border: 1px solid var(--appColorPrimary);
@@ -473,23 +500,18 @@
 					outline: 0;
 				}
 			}
+			.searchButton {
+				margin-left: 5px;
+				.searchImage {
+					max-width: 25px;
+				}
+			}
 		}
 		.filterButtonArea {
 			align-items: center;
 			display: flex;
+			margin-left: 5px;
 			.openFiltersButton {
-				align-items: center;
-				background-color: var(--appColorPrimary);
-				border: 2px solid var(--appColorPrimary);
-				border-radius: 10px;
-				box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-				cursor: pointer;
-				display: flex;
-				height: 40px;
-				justify-content: center;
-				outline: none;
-				transition: all 0.2s;
-				width: 40px;
 				.openFiltersImage {
 					max-width: 25px;
 				}
