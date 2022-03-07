@@ -44,7 +44,7 @@
 	}
 
 	function handlePageClick(newPage) {
-		if(newPage >= 1 && newPage <= pageInfo.pageCount && newPage !== pageInfo.pageCount) dispatch('pageEvent', {data: {page: newPage}});
+		if(newPage >= 1 && newPage <= pageInfo.pageCount && newPage !== pageInfo.page) dispatch('pageEvent', {data: {page: newPage}});
 	}
 
 	function handleIncrClick(type) {
