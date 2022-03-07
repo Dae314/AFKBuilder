@@ -507,7 +507,7 @@
 				}
 			}
 			.searchButton {
-				margin-left: 5px;
+				margin-left: 8px;
 				.searchImage {
 					max-width: 25px;
 				}
