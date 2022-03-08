@@ -13,6 +13,7 @@
 			name: string,
 			upvotes: int,
 			downvotes: int,
+			createdAt: datetime,
 			heroes: [{id: int, name: string}],
 			author: {username: string, avatar: string},
 			comp_update: datetime,
@@ -23,10 +24,11 @@
 			!('name' in comp) ||
 			!('upvotes' in comp) ||
 			!('downvotes' in comp) ||
+			!('createdAt' in comp) ||
 			!('heroes' in comp) ||
 			!('author' in comp) ||
 			!('comp_update' in comp)
-		) {
+		){
 		throw new Error(`ERROR invalid comp object passed to CompLibCard: ${comp}`);
 	}
 	// ensure comp.heroes is length 5
@@ -47,7 +49,7 @@
 	$: like_size = (comp.upvotes >= 1e5 && comp.upvotes < 1e6) || comp.upvotes >= 1e8 ? '0.95rem' : '1.2rem';
 	$: dislike_size = (comp.downvotes >= 1e5 && comp.downvotes < 1e6) || comp.downvotes >= 1e8 ? '0.95rem' : '1.2rem';
 
-	let age = Date.now() - Date.parse(comp.comp_update);
+	let age = Date.now() - Date.parse(comp.createdAt);
 	const dispatch = createEventDispatcher();
 	let showError = false;
 	let errorConf = {};

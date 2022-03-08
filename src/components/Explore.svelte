@@ -114,8 +114,8 @@ import { element_is } from 'svelte/internal';
 			}
 		}
 		if(orArr.length > 0) andArr.push({ or: orArr });
-		andArr.push({ comp_update: { gte: minDate } });
-		andArr.push({ comp_update: { lte: maxDate } });
+		andArr.push({ createdAt: { gte: minDate } });
+		andArr.push({ createdAt: { lte: maxDate } });
 		return { and: andArr };
 	}
 	
@@ -321,6 +321,7 @@ import { element_is } from 'svelte/internal';
 					name: comp.attributes.name,
 					upvotes: comp.attributes.upvotes,
 					downvotes: comp.attributes.downvotes,
+					createdAt: comp.attributes.createdAt,
 					heroes: procHeroes,
 					author: procAuthor,
 					comp_update: comp.attributes.comp_update,

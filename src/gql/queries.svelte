@@ -113,6 +113,7 @@
 					uuid
 					upvotes
 					downvotes
+					createdAt
 					heroes {
 						data {
 							id
