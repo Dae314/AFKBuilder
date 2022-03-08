@@ -527,25 +527,6 @@
 			}
 		}
 	}
-	.exploreSelect {
-		border: 1px solid var(--appColorPrimary);
-		border-radius: 5px;
-		outline: none;
-		padding: 3px;
-	}
-	.pageSortArea {
-		display: flex;
-		padding-top: 10px;
-		.sortArea {
-			margin-left: auto;
-		}
-	}
-	.pageNavArea {
-		display: flex;
-		justify-content: center;
-		margin-bottom: 10px;
-		width: 100%;
-	}
 	.filterContainer {
 		background-color: var(--appBGColor);
 		border-radius: 10px;
@@ -602,7 +583,12 @@
 						flex-grow: 0;
 						flex-shrink: 0;
 						margin: 2px 5px;
+						max-width: 125px;
 						outline: none;
+						overflow: hidden;
+						padding: 2px;
+						text-overflow: ellipsis;
+						white-space: nowrap;
 						&:before {
 							background-color: var(--appBGColor);
 							border-radius: 50%;
@@ -636,6 +622,25 @@
 				background-color: var(--appColorPrimary);
 			}
 		}
+	}
+	.exploreSelect {
+		border: 1px solid var(--appColorPrimary);
+		border-radius: 5px;
+		outline: none;
+		padding: 3px;
+	}
+	.pageSortArea {
+		display: flex;
+		padding-top: 10px;
+		.sortArea {
+			margin-left: auto;
+		}
+	}
+	.pageNavArea {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 10px;
+		width: 100%;
 	}
 	.compListArea {
 		padding-top: 0px;
