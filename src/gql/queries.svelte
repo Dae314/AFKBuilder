@@ -45,6 +45,7 @@
 					downvotes
 					saves
 					comp_string
+					createdAt
 				}
 			}
 		}

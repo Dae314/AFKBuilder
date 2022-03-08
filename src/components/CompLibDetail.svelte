@@ -50,6 +50,7 @@
 		variables: { uuid: params.uuid }
 	});
 	const gqlDeleteComp = mutation(gql_DELETE_COMP);
+	const now = Date.now();
 
 	// redo the query comp if the params change
 	$: compQuery.refetch({ uuid: params.uuid });
@@ -59,12 +60,15 @@
 		populatePromise = Promise.all([populateComp(), populateAuthor()]);
 	}
 	$: avatarHero = author ? $HeroData.find(e => e.id === author.avatar) : '';
-	$: age = comp ? Date.now() - comp.lastUpdate.getTime() : '';
 	$: editorHeight = isMobile ? '70vh' : '80vh';
 	$: favorited = svrComp ? $AppData.user.saved_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
 	$: liked = svrComp ? $AppData.user.liked_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
 	$: disliked = svrComp ?  $AppData.user.disliked_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
 	$: owned = svrComp ? $AppData.user.published_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
+	$: createdAt = svrComp ? new Date(svrComp.attributes.createdAt) : {};
+	$: age = typeof createdAt.getTime === 'function' ? now - createdAt.getTime() : 0;
+	$: comp_update = comp ? comp.lastUpdate : {};
+	$: updateAge = typeof comp_update.getTime === 'function' ? now - comp_update.getTime() : 0;
 
 	async function populateAuthor() {
 		const response = await getCompAuthor(svrComp.attributes.uuid);
@@ -334,7 +338,7 @@
 							</div>
 							<h3 class="compTitle">{comp.name}</h3>
 							<div class="ageContainer">
-								<span class="age">Updated {msToString(age)}</span>
+								<span class="age" title="{createdAt.toLocaleString()}">Published {msToString(age)}</span>
 							</div>
 						</div>
 						<div class="tagsArea">
@@ -348,6 +352,9 @@
 						</div>
 					</div>
 					<div class="compLibDetailBody">
+						<div class="updateContainer">
+							<span class="updateAge" title="{comp_update.toLocaleString()}">Updated {msToString(updateAge)}</span>
+						</div>
 						<div class="bodyArea1">
 							<div class="lineExamples">
 								<div class="lineSwitcher">
@@ -801,6 +808,14 @@
 	}
 	.compLibDetailBody {
 		padding: 10px;
+		padding-top: 5px;
+		.updateContainer {
+			display: flex;
+			font-size: 0.8rem;
+			justify-content: flex-end;
+			padding-bottom: 10px;
+			width: 100%;
+		}
 		.lineExamples {
 			padding-bottom: 10px;
 			width: 100%;
