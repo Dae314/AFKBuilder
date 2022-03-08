@@ -437,17 +437,23 @@ import { element_is } from 'svelte/internal';
 						<LoadingSpinner type="dual-ring" size="medium" color={window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')} />
 					</div>
 				{:then _}
-					<div class="pageNavArea">
-						<PageNav pageInfo={pageInfo} on:pageEvent={handlePageEvent} viewLimit={pageViewLimit} />
-					</div>
-					<div class="compGrid">
-						{#each processedComps as comp}
-							<CompLibCard bind:comp={comp} />
-						{/each}
-					</div>
-					<div class="pageNavArea">
-						<PageNav pageInfo={pageInfo} on:pageEvent={handlePageEvent} viewLimit={pageViewLimit} />
-					</div>
+					{#if processedComps.length <= 0}
+						<div class="noComps">
+							<span>No comps found :(</span>
+						</div>
+					{:else}
+						<div class="pageNavArea">
+							<PageNav pageInfo={pageInfo} on:pageEvent={handlePageEvent} viewLimit={pageViewLimit} />
+						</div>
+						<div class="compGrid">
+							{#each processedComps as comp}
+								<CompLibCard bind:comp={comp} />
+							{/each}
+						</div>
+						<div class="pageNavArea">
+							<PageNav pageInfo={pageInfo} on:pageEvent={handlePageEvent} viewLimit={pageViewLimit} />
+						</div>
+					{/if}
 				{/await}
 			{/if}
 		{/if}
@@ -637,6 +643,17 @@ import { element_is } from 'svelte/internal';
 		.sortArea {
 			margin-left: auto;
 		}
+	}
+	.noComps {
+		color: rgba(100, 100, 100, 0.3);
+		font-size: 4rem;
+		font-weight: bold;
+		height: 100%;
+		padding: 50px 0px;
+		text-align: center;
+		text-transform: uppercase;
+		width: 100%;
+		user-select: none;
 	}
 	.pageNavArea {
 		display: flex;
