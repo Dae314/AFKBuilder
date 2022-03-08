@@ -686,4 +686,21 @@ import { element_is } from 'svelte/internal';
 			margin-left: auto;
 		}
 	}
+	@media only screen and (min-width: 767px) {
+		.exploreHead {
+			padding-left: 12.5%;
+			padding-right: 12.5%;
+		}
+		.filterContainer {
+			width: 75%;
+		}
+		.pageSortArea {
+			padding-left: 12.5%;
+			padding-right: 12.5%;
+		}
+		.exploreFooter {
+			padding-left: 12.5%;
+			padding-right: 12.5%;
+		}
+	}
 </style>
