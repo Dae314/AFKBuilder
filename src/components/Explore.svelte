@@ -3,6 +3,7 @@
 	import { querystring, replace } from 'svelte-spa-router';
 	import { query } from 'svelte-apollo';
 	import RangeSlider from 'svelte-range-slider-pips';
+	import {debounce} from 'lodash';
 	import qs from 'qs';
 	import AppData from '../stores/AppData.js';
 	import ErrorDisplay from './ErrorDisplay.svelte';
@@ -392,7 +393,7 @@ import { element_is } from 'svelte/internal';
 						min={0}
 						max={timeValues.length - 1}
 						formatter={ v => timeValues[v].name }
-						on:change={handleTimeValueChange}
+						on:change={debounce(handleTimeValueChange, 300)}
 						pips
 						all='label'
 						range
