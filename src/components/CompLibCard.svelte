@@ -219,6 +219,7 @@
 	.compLibCardContainer {
 		display: flex;
 		height: 220px;
+		overflow: hidden;
 		width: 400px;
 	}
 	.votingContainer {
@@ -282,6 +283,7 @@
 		border-bottom-right-radius: 10px;
 		border: 3px solid var(--appColorPrimary);
 		border-left: none;
+		height: 100%;
 		padding: 10px;
 		width: 100%;
 		.compCardHead {
@@ -342,7 +344,7 @@
 			cursor: pointer;
 			display: flex;
 			flex-direction: column;
-			height: 100%;
+			height: 138px;
 			margin: 0;
 			outline: none;
 			padding: 0;
