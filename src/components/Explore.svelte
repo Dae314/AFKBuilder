@@ -13,6 +13,7 @@
 	import PageNav from '../shared/PageNav.svelte';
 	import { gql_GET_COMP_LIST } from '../gql/queries.svelte';
 	import { getCompAuthor } from '../rest/RESTFunctions.svelte';
+import { element_is } from 'svelte/internal';
 
 	const { open } = getContext('simple-modal');
 
@@ -72,11 +73,11 @@
 	function processQS(queryString) {
 		const urlqs = new URLSearchParams(queryString);
 		searchStr = urlqs.has('searchStr') ? decodeURIComponent(urlqs.get('searchStr')) : defaultSearchStr;
-		tag_filter = urlqs.has('tag_filter') ? qs.parse(urlqs.get('tag_filter')).filter : defaultTagFilter;
-		author_filter = urlqs.has('author_filter') ? qs.parse(urlqs.get('author_filter')).filter : defaultAuthorFilter;
-		hero_filter = urlqs.has('hero_filter') ? qs.parse(urlqs.get('hero_filter')).filter : defaultHeroFilter;
-		timeLimits[0] = urlqs.has('minDate') ? decodeURIComponent(urlqs.get('minDate')) : defaultMinTime;
-		timeLimits[1] = urlqs.has('maxDate') ? decodeURIComponent(urlqs.get('maxDate')) : defaultMaxTime;
+		tag_filter = urlqs.has('tag_filter') ? qs.parse(urlqs.get('tag_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultTagFilter;
+		author_filter = urlqs.has('author_filter') ? qs.parse(urlqs.get('author_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultAuthorFilter;
+		hero_filter = urlqs.has('hero_filter') ? qs.parse(urlqs.get('hero_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultHeroFilter;
+		timeLimits[0] = urlqs.has('minDate') ? parseInt(decodeURIComponent(urlqs.get('minDate'))) : defaultMinTime;
+		timeLimits[1] = urlqs.has('maxDate') ? parseInt(decodeURIComponent(urlqs.get('maxDate'))) : defaultMaxTime;
 		curPage = urlqs.has('page') ? parseInt(decodeURIComponent(urlqs.get('page'))) : defaultStartPage;
 		compPageLimit = urlqs.has('pageLimit') ? parseInt(decodeURIComponent(urlqs.get('pageLimit'))) : defaultPageLimit;
 		curSort = urlqs.has('sort') ? decodeURIComponent(urlqs.get('sort')) : defaultSort;
