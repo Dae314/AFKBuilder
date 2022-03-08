@@ -49,8 +49,10 @@
 	$: like_size = (comp.upvotes >= 1e5 && comp.upvotes < 1e6) || comp.upvotes >= 1e8 ? '0.95rem' : '1.2rem';
 	$: dislike_size = (comp.downvotes >= 1e5 && comp.downvotes < 1e6) || comp.downvotes >= 1e8 ? '0.95rem' : '1.2rem';
 
-	let age = Date.now() - Date.parse(comp.createdAt);
 	const dispatch = createEventDispatcher();
+	const now = Date.now();
+	const createdAt = new Date(comp.createdAt);
+	const age = now - Date.parse(comp.createdAt);
 	let showError = false;
 	let errorConf = {};
 
@@ -166,7 +168,7 @@
 						<div class="username">{comp.author.username}</div>
 					</button>
 					<div class="ageContainer">
-						<span class="age">{msToString(age)}</span>
+						<span class="age" title="{createdAt.toLocaleString()}">Published {msToString(age)}</span>
 					</div>
 				</div>
 				<div class="buttonContainer">
