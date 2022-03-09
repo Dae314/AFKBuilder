@@ -14,7 +14,6 @@
 	import PageNav from '../shared/PageNav.svelte';
 	import { gql_GET_COMP_LIST } from '../gql/queries.svelte';
 	import { getCompAuthor } from '../rest/RESTFunctions.svelte';
-import { element_is } from 'svelte/internal';
 
 	const { open } = getContext('simple-modal');
 
@@ -285,7 +284,7 @@ import { element_is } from 'svelte/internal';
 
 	function handlePageLimitChange(selectObj) {
 		let newQS = new URLSearchParams($querystring);
-		if(selectObj.value !== defaultPageLimit) {
+		if(parseInt(selectObj.value) !== defaultPageLimit) {
 			newQS.set('pageLimit', encodeURIComponent(selectObj.value));
 		} else {
 			newQS.delete('pageLimit');
