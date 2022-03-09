@@ -1,7 +1,7 @@
 <script>
 	import { onMount, createEventDispatcher, tick, getContext } from 'svelte';
 	import AppData from '../stores/AppData.js';
-	import { validateJWT, getReceivedUpvotes } from '../rest/RESTFunctions.svelte';
+	import { validateJWT, getReceivedUpvotes, deleteUser } from '../rest/RESTFunctions.svelte';
 	import { gql_UPDATE_USERNAME, gql_UPDATE_AVATAR } from '../gql/queries.svelte';
 	import { mutation } from "svelte-apollo";
 	import AvatarInput from '../shared/AvatarInput.svelte';
@@ -141,6 +141,39 @@
 			});
 	}
 
+	function handleDeleteUserClick() {
+		open(Confirm,
+			{onConfirm: handleDeleteUser, message: "Are you sure you want to permanently delete your account?<br/><br/>This action cannot be undone. Your published comps will remain published but will be owned by an anonymous user, and you will no longer be able to update them.<br/><br/>If you do not want your comps to be available, please unpublish your comps before you delete your account."},
+			{ closeButton: false,
+				closeOnEsc: true,
+				closeOnOuterClick: true,
+				styleWindow: { width: 'fit-content', },
+				styleContent: { width: 'fit-content', },
+			});
+	}
+
+	async function handleDeleteUser() {
+		// check user's JWT before making queries
+		const valid = await validateJWT($AppData.user.jwt);
+		if(valid) {
+			// user is valid, attempt delete
+			const response = await deleteUser($AppData.user.jwt, $AppData.user.id);
+			if(response.status !== 200) {
+				errorDisplayConf = {
+					errorCode: response.status,
+					headText: 'Something went wrong',
+					detailText: response.data,
+					showHomeButton: true,
+				};
+				showErrorDisplay = true;
+			} else {
+				dispatch('routeEvent', {action: 'logout'});
+			}
+		} else {
+			dispatch('routeEvent', {action: 'logout'});
+		}
+	}
+
 	function handlePublicProfileButtonClick() {
 		// note: clears all extraneous URL parameters
 		window.location.assign(`${window.location.origin}/#/users/${encodeURIComponent($AppData.user.username)}`);
@@ -200,6 +233,7 @@
 				</section>
 				<section class="logoutArea">
 					<button type="button" class="logoutButton" on:click={handleLogoutClick}>Logout</button>
+					<button type="button" class="logoutButton deleteButton" on:click={handleDeleteUserClick}>Delete Account</button>
 				</section>
 			{:else}
 				<div class="noLoginContainer">
@@ -326,6 +360,7 @@
 	}
 	.logoutArea {
 		border-top: 1px solid black;
+		display: flex;
 		margin-top: auto;
 		padding: 15px;
 		.logoutButton {
@@ -342,6 +377,9 @@
 			&:hover {
 				background-color: var(--appDelColor);
 				color: white;
+			}
+			&.deleteButton {
+				margin-left: auto;
 			}
 		}
 	}

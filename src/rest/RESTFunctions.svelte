@@ -477,6 +477,40 @@
 		}
 	}
 
+	// delete a user
+	/*{
+		status: response status,
+		data: {id, username, email, provider, confirmed, blocked, createdAt, updatedAt, my_heroes, local_comps, avatar}
+		OR error object
+	}*/
+	export async function deleteUser(jwt, userID) {
+		if(jwt) {
+			try {
+				const response = await fetch(`${uri}/users/${userID}`, {
+					method: 'DELETE',
+					mode: 'cors',
+					cache: 'no-cache',
+					headers: {
+						'Authorization': `Bearer ${jwt}`,
+					},
+				});
+				const responseData = await response.json();
+				if(response.status !== 200) {
+					return { status: response.status, data: responseData.error };
+				} else {
+					return { status: response.status, data: responseData.data };
+				}
+			} catch(err) {
+				if(err instanceof TypeError && err.message) {
+					// network error occurred
+					return { status: 503, data: err.message }
+				} else {
+					throw new Error(`An error occurred while deleting user: ${err}`);
+				}
+			}
+		}
+	}
+
 	// ===============================
 	// Unauthenticated user functions
 	// ===============================
