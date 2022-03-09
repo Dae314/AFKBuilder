@@ -29,7 +29,9 @@
 		<img class="avatar" src="{avatarHero.portrait}" alt="{avatarHero.name}" style="max-width: {size}" draggable="false">
 	</button>
 	<span class="avatarEdit" class:editLock={!editable}>
-		<img src="./img/utility/pencil.png" alt="edit avatar">
+		<button type="button" class="pencilButton" on:click={openAvatarPicker} disabled={!editable}>
+			<img src="./img/utility/pencil.png" alt="edit avatar">
+		</button>
 	</span>
 </div>
 
@@ -54,10 +56,16 @@
 		display: inline-block;
 		position: absolute;
 		right: -20px;
-		img {
-			max-width: 20px;
-			filter: invert(1);
-			opacity: 0.7;
+		.pencilButton {
+			background-color: transparent;
+			border: none;
+			cursor: pointer;
+			outline: none;
+			img {
+				max-width: 20px;
+				filter: invert(1);
+				opacity: 0.7;
+			}
 		}
 		&.editLock {
 			display: none;
