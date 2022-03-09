@@ -300,6 +300,7 @@
 			.usernameEditButton {
 				border: none;
 				background: transparent;
+				cursor: pointer;
 				outline: none;
 				img {
 					max-width: 29px;
