@@ -303,6 +303,7 @@
 			margin: 10px 0px;
 			max-width: 300px;
 			justify-content: center;
+			user-select: none;
 			width: 100%;
 			.headButton {
 				background-color: transparent;
