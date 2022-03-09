@@ -1,5 +1,6 @@
 <script>
 	import { onMount, createEventDispatcher } from 'svelte';
+	import qs from 'qs';
 	import AppData from '../stores/AppData.js';
 	import AvatarInput from '../shared/AvatarInput.svelte';
 	import LoadingPage from '../shared/LoadingPage.svelte';
@@ -64,6 +65,26 @@
 				throw new Error(`Invalid action specified for card event: ${event.detail.action}`);
 		}
 	}
+
+	function handleShowMoreClick(type) {
+		let newQS = new URLSearchParams();
+		switch(type) {
+			case 'published':
+				const author = qs.stringify({
+					filter: [{
+						displayName: user.username,
+						id: user.id,
+						name: user.username,
+						type: "include",
+					}]
+				});
+				newQS.set('author_filter', author);
+				window.location.assign(`${window.location.origin}/#/explore?${newQS.toString()}`);
+				break;
+			default:
+				throw new Error(`Invalid type passed to handleShowMoreClick: ${type}`);
+		}
+	}
 </script>
 
 {#await populateAuthorData()}
@@ -93,22 +114,29 @@
 					<div class="expandHeadText">Published Comps</div>
 				</button>
 				<div class="expanderBody" class:open={showPublished}>
-					{#each comps as comp}
-					<div class="cardContainer">
-						<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
+					<div class="compContainer">
+						{#each comps as comp}
+						<div class="cardContainer">
+							<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
+						</div>
+						{/each}
+						<div class="showMoreArea">
+							<button type="button" class="showMoreButton" on:click={() => handleShowMoreClick('published')}>Show More</button>
+						</div>
 					</div>
-					{/each}
 				</div>
 				<button class="expanderHeadButton" on:click={() => handleShowClick('liked')}>
 					<i class="arrow {showFavorite ? 'down' : 'right' }"></i>
 					<div class="expandHeadText">Favorite Comps</div>
 				</button>
 				<div class="expanderBody" class:open={showFavorite}>
-					{#each user.saved_comps as comp}
-					<div class="cardContainer">
-						<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
+					<div class="compContainer">
+						{#each user.saved_comps as comp}
+						<div class="cardContainer">
+							<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
+						</div>
+						{/each}
 					</div>
-					{/each}
 				</div>
 			</section>
 		</div>
@@ -187,11 +215,6 @@
 			font-size: 1rem;
 		}
 		.expanderBody {
-			display: grid;
-			grid-gap: 5px 5px;
-			grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
-			grid-auto-rows: 240px;
-			justify-content: space-evenly;
 			max-height: 0px;
 			opacity: 0%;
 			transition: all 0.2s;
@@ -200,6 +223,31 @@
 				max-height: 100%;
 				opacity: 100%;
 				visibility: visible;
+			}
+			.compContainer {
+				display: grid;
+				grid-gap: 5px 5px;
+				grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
+				grid-auto-rows: 240px;
+				justify-content: space-evenly;
+			}
+			.showMoreArea {
+				align-items: center;
+				display: flex;
+				height: 100%;
+				justify-content: center;
+				width: 100%;
+				.showMoreButton {
+					background-color: var(--appColorPrimary);
+					border: 2px solid var(--appColorPrimary);
+					border-radius: 5px;
+					color: var(--appBGColor);
+					cursor: pointer;
+					font-weight: bold;
+					font-size: 2rem;
+					outline: none;
+					padding: 10px;
+				}
 			}
 		}
 	}

@@ -485,7 +485,7 @@
 		status: response status,
 		data: {
 			comps: [{id, uuid, name, upvotes, downvotes, tags, author, comp_update, createdAt}],
-			author: { username, avatar, saved_comps, upvotes }
+			author: { username, id, avatar, saved_comps, upvotes }
 		} OR error object
 	}*/
 	export async function getAuthorDetails(author) {
