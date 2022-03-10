@@ -136,4 +136,20 @@
 			}
 		}
 	}`
+	export const gql_CREATE_REPORT = gql`
+	mutation ($type: String!, $description: String, $target_type: String!, $target_id: String!, $target_name: String!) {
+		createReport(
+			data: {
+				type: $type
+				description: $description
+				target_type: $target_type
+				target_id: $target_id
+				target_name: $target_name
+			}
+		) {
+			data {
+				id
+			}
+		}
+	}`;
 </script>
