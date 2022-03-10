@@ -178,6 +178,7 @@
 				showHomeButton: true,
 			};
 			showErrorDisplay = true;
+			return;
 		}
 		const user = response.data;
 		$AppData.user.id = user.id;

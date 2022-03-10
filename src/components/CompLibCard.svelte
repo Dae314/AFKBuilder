@@ -43,9 +43,9 @@
 	}
 
 	$: avatarHero = $HeroData.find(e => e.id === comp.author.avatar);
-	$: liked = $AppData.user.liked_comps.some(e => e.uuid === comp.uuid);
-	$: disliked = $AppData.user.disliked_comps.some(e => e.uuid === comp.uuid);
-	$: favorited = $AppData.user.saved_comps.some(e => e.uuid === comp.uuid);
+	$: liked = $AppData.user.jwt ? $AppData.user.liked_comps.some(e => e.uuid === comp.uuid) : false;
+	$: disliked = $AppData.user.jwt ? $AppData.user.disliked_comps.some(e => e.uuid === comp.uuid) : false;
+	$: favorited = $AppData.user.jwt ? $AppData.user.saved_comps.some(e => e.uuid === comp.uuid) : false;
 	$: like_size = (comp.upvotes >= 1e5 && comp.upvotes < 1e6) || comp.upvotes >= 1e8 ? '0.95rem' : '1.2rem';
 	$: dislike_size = (comp.downvotes >= 1e5 && comp.downvotes < 1e6) || comp.downvotes >= 1e8 ? '0.95rem' : '1.2rem';
 

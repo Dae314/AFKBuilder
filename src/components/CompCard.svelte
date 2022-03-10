@@ -10,7 +10,7 @@
 	export let exportCallback = () => {};
 	export let starCallback = () => {};
 
-	$: published = $AppData.user.published_comps.some(e => e.uuid === comp.uuid);
+	$: published = $AppData.user.jwt ? $AppData.user.published_comps.some(e => e.uuid === comp.uuid) : false;
 
 	function handleDeleteButtonClick(index) {
 		delCallback(index);
