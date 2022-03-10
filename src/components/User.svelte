@@ -132,7 +132,7 @@
 					<div class="compContainer">
 						{#each user.saved_comps as comp}
 						<div class="cardContainer">
-							<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
+							<CompLibCard bind:comp={comp} on:cardEvent={handleCardEvent} />
 						</div>
 						{/each}
 					</div>

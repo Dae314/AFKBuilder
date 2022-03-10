@@ -1,5 +1,5 @@
 <script>
-	import { onMount, getContext } from 'svelte';
+	import { onMount, getContext, createEventDispatcher } from 'svelte';
 	import { querystring, replace } from 'svelte-spa-router';
 	import { query } from 'svelte-apollo';
 	import RangeSlider from 'svelte-range-slider-pips';
@@ -16,6 +16,7 @@
 	import { getCompAuthor } from '../rest/RESTFunctions.svelte';
 
 	const { open } = getContext('simple-modal');
+	const dispatch = createEventDispatcher();
 
 	// configuration defaults
 	const now = Date.now();
@@ -340,6 +341,19 @@
 		}
 		replace(`/explore?${newQS.toString()}`);
 	}
+
+	function handleCardEvent(event) {
+		switch(event.detail.action) {
+			case 'saveData':
+				dispatch('routeEvent', {action: 'saveData'});
+				break;
+			case 'logout':
+				dispatch('routeEvent', {action: 'logout'});
+				break;
+			default:
+				throw new Error(`Invalid action specified for card event: ${event.detail.action}`);
+		}
+	}
 </script>
 
 <div class="exploreContainer">
@@ -447,7 +461,7 @@
 						</div>
 						<div class="compGrid">
 							{#each processedComps as comp}
-								<CompLibCard bind:comp={comp} />
+								<CompLibCard bind:comp={comp} on:cardEvent={handleCardEvent} />
 							{/each}
 						</div>
 						<div class="pageNavArea">
