@@ -13,6 +13,7 @@
 	import HeroDetail from '../modals/HeroDetail.svelte';
 	import ArtifactDetail from '../modals/ArtifactDetail.svelte';
 	import Confirm from '../modals/Confirm.svelte';
+	import Report from '../modals/Report.svelte';
 	import LoadingPage from '../shared/LoadingPage.svelte';
 	import StarsInput from '../shared/StarsInput.svelte';
 	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
@@ -262,6 +263,14 @@
 			showErrorDisplay = true;
 			console.log(error.message);
 		}
+	}
+
+	function handleReportClick() {
+		open(Report, 
+		{ target: {type: 'comp', data: svrComp}, },
+		{ closeButton: ModalCloseButton,
+			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+		});
 	}
 </script>
 
@@ -646,6 +655,12 @@
 								</div>
 							</div>
 						</div>
+					</div>
+					<div class="reportContainer">
+						<button class="reportButton" on:click={handleReportClick}>
+							<img src="./img/utility/report.png" class="reportImage" alt="Report" />
+							<span>Report</span>
+						</button>
 					</div>
 				</div>
 			{/if}
@@ -1263,6 +1278,27 @@
 			}
 			:global(img) {
 				max-width: 100px;
+			}
+		}
+	}
+	.reportContainer {
+		display: flex;
+		padding-right: 10px;
+		.reportButton {
+			align-items: center;
+			display: flex;
+			background-color: var(--appDelColor);
+			border: 2px solid var(--appDelColor);
+			border-radius: 10px;
+			color: var(--appBGColor);
+			cursor: pointer;
+			justify-content: center;
+			margin-left: auto;
+			outline: none;
+			padding: 5px;
+			.reportImage {
+				margin-right: 5px;
+				max-width: 15px;
 			}
 		}
 	}
