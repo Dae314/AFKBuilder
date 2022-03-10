@@ -1,5 +1,14 @@
 <script>
+	import { onMount, getContext } from 'svelte';
+	import { mutation } from "svelte-apollo";
+	import AppData from '../stores/AppData.js';
+	import { gql_CREATE_REPORT } from '../gql/queries.svelte';
+	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
+
 	export let target = {};
+
+	const gqlCreateReport = mutation(gql_CREATE_REPORT);
+	const { close } = getContext('simple-modal');
 	
 	const reportTypes = [
 		'Copyright Violation',
@@ -13,9 +22,17 @@
 		'Spam',
 		'Threatening/Violence',
 	];
-	let reportType = reportTypes[8];
+	let reportType = reportTypes[8]; // default report type to Spam
+	let showErrorDisplay = false;
+	let errorMessage = '';
+	let showSuccess = false;
+	let showLoading = false;
 
 	$: name = target.type === 'comp' ? target.data.attributes.name : target.data.attributes.username;
+
+	onMount(async () => {
+		history.pushState({view: $AppData.activeView, modal: true}, "Report Modal", `?modal=true${window.location.hash}`);
+	});
 
 	async function onSubmit(event) {
 		const formData = new FormData(event.target);
@@ -25,42 +42,82 @@
 		const target_id = target.data.id;
 		const target_name = name;
 
-		console.log(type)
-		console.log(desc)
-		console.log(target_type)
-		console.log(target_id)
-		console.log(target_name)
+		try {
+			showLoading = true;
+			const response = await gqlCreateReport({
+				variables: {
+					type: type,
+					description: desc,
+					target_type: target_type,
+					target_id: target_id,
+					target_name: target_name,
+				}
+			});
+			showLoading = false;
+			showSuccess = true;
+			setTimeout(() => close(), 2000);
+		} catch(error) {
+			showLoading = false;
+			errorMessage = error;
+			showErrorDisplay = true;
+		}
 	}
 
 	function handleCancelClick() {
-
+		close();
 	}
 </script>
 
 <div class="reportContainer">
-	<h5>Report {name}</h5>
-	<form on:submit|preventDefault={onSubmit}>
-		<label for="repType">Type of violation</label>
-		<select bind:value={reportType} name="repType">
-			{#each reportTypes as type}
-				<option value={type}>
-					{type}
-				</option>
-			{/each}
-		</select>
-		<label for="desc">Description (optional):</label>
-		<textarea name="desc" rows="4"></textarea>
-		<div class="submitArea">
-			<button type="submit">Submit</button>
-			<button type="button" on:click={handleCancelClick}>Cancel</button>
+	{#if showLoading}
+		<div class="loadingDiv">
+			<LoadingSpinner type="dual-ring" size="medium" color={window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')} />
 		</div>
-	</form>
-	<div class="detailText">After submission, the report will be reviewed by one of our moderators.</div>
+	{:else}
+		<h5>Report {name}</h5>
+		<form on:submit|preventDefault={onSubmit}>
+			<label for="repType">Report for...</label>
+			<select bind:value={reportType} name="repType">
+				{#each reportTypes as type}
+					<option value={type}>
+						{type}
+					</option>
+				{/each}
+			</select>
+			<label for="desc">Description (optional):</label>
+			<textarea name="desc" rows="4"></textarea>
+			{#if showErrorDisplay}
+				<div class="errorMessage">
+					Submission failed, please close this window and try again.
+					<br/>
+					<br/>
+					{errorMessage}
+				</div>
+			{:else if showSuccess}
+				<div class="successMessage">
+					Report submitted successfully!
+				</div>
+			{:else}
+				<div class="submitArea">
+					<button type="submit" class="submitButton">Submit</button>
+					<button type="button" on:click={handleCancelClick} class="cancelButton">Cancel</button>
+				</div>
+			{/if}
+		</form>
+		<div class="detailText">After submission, your report will be reviewed by one of our moderators.</div>
+	{/if}
 </div>
 
 <style lang="scss">
 	.reportContainer {
 		padding: 10px;
+	}
+	.loadingDiv {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		justify-content: center;
+		width: 100%;
 	}
 	h5 {
 		font-size: 1.5rem;
@@ -74,11 +131,52 @@
 		flex-direction: column;
 		label {
 			padding-top: 10px;
+			padding-bottom: 3px;
+		}
+		select {
+			border: 1px solid var(--appColorPrimary);
+			border-radius: 5px;
+			outline: none;
+			padding: 3px;
+			width: fit-content;
+		}
+		textarea {
+			border: 1px solid var(--appColorPrimary);
+			border-radius: 5px;
+			outline: none;
+			padding: 3px;
 		}
 		.submitArea {
 			display: flex;
 			margin-left: auto;
 			padding-top: 10px;
+			button {
+				background-color: var(--appColorPrimary);
+				border: 2px solid var(--appColorPrimary);
+				border-radius: 5px;
+				color: var(--appBGColor);
+				cursor: pointer;
+				margin: 0px 3px;
+				outline: none;
+				padding: 5px;
+				&.cancelButton {
+					background-color: var(--appColorDisabled);
+					border-color: var(--appColorDisabled);
+				}
+			}
+		}
+		.successMessage {
+			color: var(--appColorQuaternary);
+			font-weight: bold;
+			padding-top: 10px;
+			text-align: center;
+			user-select: none;
+		}
+		.errorMessage {
+			color: var(--appDelColor);
+			font-weight: bold;
+			padding-top: 10px;
+			text-align: center;
 		}
 	}
 	.detailText {
