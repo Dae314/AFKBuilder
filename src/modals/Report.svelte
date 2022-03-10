@@ -28,7 +28,7 @@
 	let showSuccess = false;
 	let showLoading = false;
 
-	$: name = target.type === 'comp' ? target.data.attributes.name : target.data.attributes.username;
+	$: name = target.type === 'comp' ? target.data.attributes.name : target.data.username;
 
 	onMount(async () => {
 		history.pushState({view: $AppData.activeView, modal: true}, "Report Modal", `?modal=true${window.location.hash}`);
@@ -49,7 +49,7 @@
 					type: type,
 					description: desc,
 					target_type: target_type,
-					target_id: target_id,
+					target_id: `${target_id}`,
 					target_name: target_name,
 				}
 			});

@@ -269,7 +269,7 @@
 		open(Report, 
 		{ target: {type: 'comp', data: svrComp}, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
 		});
 	}
 </script>
