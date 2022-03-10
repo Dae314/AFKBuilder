@@ -25,7 +25,6 @@
 	});
 
 	async function populateAuthorData() {
-		// await new Promise(resolve => setTimeout(resolve, 3000));
 		const response = await getAuthorDetails(username);
 		if(response.status !== 200) {
 			errorDisplayConf = {
