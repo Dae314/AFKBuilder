@@ -24,6 +24,8 @@
 	let errorDisplayConf = {};
 	let showUsernameLoading = false;
 	let showUsernameSuccess = false;
+	let showAvatarLoading = false;
+	let showAvatarSuccess = false;
 
 	onMount(async () => {
 		$AppData.activeView = 'profile';
@@ -113,15 +115,21 @@
 		if($AppData.user.avatar !== avatar) {
 			try {
 				// check user's JWT before making queries
+				showAvatarLoading = true;
 				const valid = await validateJWT($AppData.user.jwt);
 				if(valid) {
 					const response = await gqlUpdateAvatar({variables: { id: $AppData.user.id, avatar: avatar }});
 					$AppData.user.avatar = response.data.updateUsersPermissionsUser.data.attributes.avatar;
+					showAvatarLoading = false;
+					showAvatarSuccess = true;
+					setTimeout(() => showAvatarSuccess = false, 1000);
 					dispatch('routeEvent', {action: 'saveData'});
 				} else {
+					showAvatarLoading = false;
 					dispatch('routeEvent', {action: 'logout'});;
 				}
 			} catch (error) {
+				showAvatarLoading = false;
 				errorDisplayConf = {
 					errorCode: 500,
 					headText: 'Something went wrong',
@@ -224,7 +232,12 @@
 						<div class="usernameErrorText" class:visible={usernameError.state}><span>{usernameError.text}</span></div>
 					</div>
 					<div class="avatarInputArea">
-						<AvatarInput avatar={avatar} on:avatarChanged={handleAvatarChange} />
+						<AvatarInput
+							loading={showAvatarLoading}
+							success={showAvatarSuccess}
+							avatar={avatar}
+							on:avatarChanged={handleAvatarChange}
+						/>
 					</div>
 				</section>
 				<section class="headlineArea">
@@ -287,7 +300,7 @@
 				border-bottom: 3px solid var(--appColorPrimary);
 				margin-bottom: 5px;
 				outline: none;
-				transition: all 0.2s;
+				transition: border 0.2s;
 				&:disabled {
 					border-bottom: 3px solid var(--appColorPriOpaque);
 				}
