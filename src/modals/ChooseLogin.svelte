@@ -1,4 +1,8 @@
 <script>
+	import { onMount } from 'svelte';
+	import AppData from '../stores/AppData.js';
+	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
+
 	const base_uri = REST_URI
 	const providers = [
 		{ name: 'Google',
@@ -17,31 +21,50 @@
 			uri: `${base_uri}/connect/discord`,
 		},
 	];
+	let loading = false;
+
+	onMount(async () => {
+		history.pushState({view: $AppData.activeView, modal: true}, "Choose Login", `?modal=true${window.location.hash}`);
+	});
 
 	function handleProviderClick(uri) {
 		// navigate to the correct login route
+		loading = true;
 		window.location.assign(uri);
 	}
 </script>
 
 <div class="choseLoginContainer">
-	<h4>Login with:</h4>
-	<ul>
-		{#each providers as provider}
-		<li>
-			<button type="button" class="{provider.name.toLowerCase()}Button providerButton" on:click={() => handleProviderClick(provider.uri)}>
-				<img class="providerLogo" src="{provider.logo}" alt="{provider.name}">
-				<img class="providerLogoAlt" src="{provider.logoAlt}" alt="{provider.name}">
-				<span class="{provider.name.toLowerCase()}Text providerText">{provider.name}</span>
-			</button>
-		</li>
-		{/each}
-	</ul>
+	{#if loading}
+		<div class="loadingSpinnerContainer">
+			<LoadingSpinner type="dual-ring" size="medium" color="{window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')}" />
+		</div>
+	{:else}
+		<h4>Login with:</h4>
+		<ul>
+			{#each providers as provider}
+			<li>
+				<button type="button" class="{provider.name.toLowerCase()}Button providerButton" on:click={() => handleProviderClick(provider.uri)}>
+					<img class="providerLogo" src="{provider.logo}" alt="{provider.name}">
+					<img class="providerLogoAlt" src="{provider.logoAlt}" alt="{provider.name}">
+					<span class="{provider.name.toLowerCase()}Text providerText">{provider.name}</span>
+				</button>
+			</li>
+			{/each}
+		</ul>
+	{/if}
 </div>
 
 <style lang="scss">
 	.chooseLoginContainer {
 		width: fit-content;
+	}
+	.loadingSpinnerContainer {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		justify-content: center;
+		width: 100%;
 	}
 	h4 {
 		font-size: 1.2rem;
