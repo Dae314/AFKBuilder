@@ -79,7 +79,7 @@
 			}),
 		'/profile': wrap({
 			component: Profile,
-			props: { isMobile: isMobile },
+			props: {},
 		}),
 		'/users/:username': wrap({
 			component: User,

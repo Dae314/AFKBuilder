@@ -6,10 +6,9 @@
 	import { mutation } from "svelte-apollo";
 	import AvatarInput from '../shared/AvatarInput.svelte';
 	import LoadingPage from '../shared/LoadingPage.svelte';
+	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
 	import ErrorDisplay from '../components/ErrorDisplay.svelte';
 	import Confirm from '../modals/Confirm.svelte';
-
-	export let isMobile = false;
 
 	const gqlUpdateUsername = mutation(gql_UPDATE_USERNAME);
 	const gqlUpdateAvatar = mutation(gql_UPDATE_AVATAR);
@@ -23,6 +22,8 @@
 	const usernameError = {state: false, text: ''};
 	let showErrorDisplay = false;
 	let errorDisplayConf = {};
+	let showUsernameLoading = false;
+	let showUsernameSuccess = false;
 
 	onMount(async () => {
 		$AppData.activeView = 'profile';
@@ -64,15 +65,21 @@
 		if($AppData.user.username !== username) {
 			try {
 				// check user's JWT before making queries
+				showUsernameLoading = true;
 				const valid = await validateJWT($AppData.user.jwt);
 				if(valid) {
 					const response = await gqlUpdateUsername({variables: { id: $AppData.user.id, username: username }});
 					$AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
+					showUsernameLoading = false;
+					showUsernameSuccess = true;
+					setTimeout(() => showUsernameSuccess = false, 1000);
 					dispatch('routeEvent', {action: 'saveData'});
 				} else {
+					showUsernameLoading = false;
 					dispatch('routeEvent', {action: 'logout'});;
 				}
 			} catch (error) {
+				showUsernameLoading = false;
 				switch(error.graphQLErrors[0].extensions.code) {
 					case 'BAD_USER_INPUT':
 					case 'FORBIDDEN':
@@ -200,14 +207,19 @@
 							minlength="3"
 							maxlength="20"
 							class:error={usernameError.state}
+							class:success={showUsernameSuccess}
 							bind:value={username}
 							disabled={editUsernameDisabled}
 							on:blur={handleUsernameBlur}
 							on:keyup={handleUsernameKeyup} />
-						<span class="usernameEdit">
-							<button class="usernameEditButton" on:click={handleUsernameEditClick}>
-								<img src="./img/utility/pencil.png" alt="edit username">
-							</button>
+						<span class="usernameEdit" class:loading={showUsernameLoading}>
+							{#if showUsernameLoading}
+								<LoadingSpinner type="dual-ring" size="small" color="{window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')}" />
+							{:else}
+								<button class="usernameEditButton" on:click={handleUsernameEditClick}>
+									<img src="./img/utility/pencil.png" alt="edit username">
+								</button>
+							{/if}
 						</span>
 						<div class="usernameErrorText" class:visible={usernameError.state}><span>{usernameError.text}</span></div>
 					</div>
@@ -275,8 +287,12 @@
 				border-bottom: 3px solid var(--appColorPrimary);
 				margin-bottom: 5px;
 				outline: none;
+				transition: all 0.2s;
 				&:disabled {
 					border-bottom: 3px solid var(--appColorPriOpaque);
+				}
+				&.success {
+					border-bottom: 3px solid var(--appColorQuaternary);
 				}
 				&.error {
 					border-bottom: 3px solid var(--appDelColorOpaque);
@@ -396,6 +412,10 @@
 				opacity: 0;
 				transition: all 0.1s;
 				visibility: hidden;
+				&.loading {
+					opacity: 1;
+					visibility: visible;
+				}
 			}
 		}
 		.headlineArea {
