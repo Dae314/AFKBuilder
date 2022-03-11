@@ -92,7 +92,12 @@
 		const maxDate = timeValues[timeLimits[1]].value.toISOString();
 
 		// create filter array
-		andArr.push({ name: { containsi: searchStr } });
+		andArr.push({
+			or: [
+				{ name: { containsi: searchStr } },
+				{ tags: { name: { containsi: searchStr} } },
+			]
+		});
 		for(let tag of tag_filter) {
 			if(tag.type === 'include') {
 				andArr.push({ tags: { id: { eq: tag.id } } });
@@ -359,7 +364,7 @@
 <div class="exploreContainer">
 	<div class="exploreHead">
 		<div class="mobileSearchArea">
-			<input id="compSearch" value={searchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="search" />
+			<input id="compSearch" value={searchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="Search titles or tags" />
 			<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
 				<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
 			</button>
