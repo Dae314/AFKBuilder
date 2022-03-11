@@ -93,7 +93,7 @@
 						errorConf = {
 						errorCode: response.status,
 						headText: 'Something went wrong',
-						detailText: response.data,
+						detailText: response.data.message,
 					}
 					showError = true;
 				} else {
@@ -141,8 +141,8 @@
 {#if showError}
 	<div class="compLibCardError">
 		<h3>{errorConf.errorCode}</h3>
-		<div class="errorHeadText">{errorConf.errorHeadText}</div>
-		<div class="errorDetailText">{errorConf.errorDetailText}</div>
+		<div class="errorHeadText">{errorConf.headText}</div>
+		<div class="errorDetailText">{errorConf.detailText}</div>
 	</div>
 {:else}
 	<div class="compLibCardContainer">
@@ -204,6 +204,7 @@
 		border: 3px solid var(--appDelColor);
 		border-radius: 10px;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		h3 {
 			color: var(--appDelColor);
@@ -212,7 +213,6 @@
 			padding: 0;
 		}
 		.errorHeadText {
-			border-bottom: 1px solid black;
 			font-size: 1.0rem;
 		}
 		.errorDetailText {
