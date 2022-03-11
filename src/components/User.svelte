@@ -1,18 +1,16 @@
 <script>
-	import { onMount, createEventDispatcher, getContext } from 'svelte';
+	import { onMount, createEventDispatcher } from 'svelte';
 	import qs from 'qs';
 	import AppData from '../stores/AppData.js';
-	import Report from '../modals/Report.svelte';
-	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import AvatarInput from '../shared/AvatarInput.svelte';
 	import LoadingPage from '../shared/LoadingPage.svelte';
+	import ReportButton from '../shared/ReportButton.svelte';
 	import CompLibCard from './CompLibCard.svelte';
 	import ErrorDisplay from './ErrorDisplay.svelte';
 	import {getAuthorDetails} from '../rest/RESTFunctions.svelte';
 	
 	export let params = {};
 	const dispatch = createEventDispatcher();
-	const { open } = getContext('simple-modal');
 
 	let username = params.username;
 	let user = {};
@@ -87,14 +85,6 @@
 				throw new Error(`Invalid type passed to handleShowMoreClick: ${type}`);
 		}
 	}
-
-	function handleReportClick() {
-		open(Report, 
-		{ target: {type: 'user', data: user}, },
-		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
-		});
-	}
 </script>
 
 {#await populateAuthorData()}
@@ -118,10 +108,7 @@
 					</div>
 				</div>
 				<div class="reportArea">
-					<button class="reportButton" on:click={handleReportClick}>
-						<img src="./img/utility/report.png" class="reportImage" alt="Report" />
-						<span>Report</span>
-					</button>
+					<ReportButton reportType="user" reportData={user} />
 				</div>
 			</section>
 			<section class="bodyArea">
@@ -201,22 +188,6 @@
 			justify-content: center;
 			padding-top: 10px;
 			width: 100%;
-			.reportButton {
-				align-items: center;
-				display: flex;
-				background-color: var(--appDelColor);
-				border: 2px solid var(--appDelColor);
-				border-radius: 10px;
-				color: var(--appBGColor);
-				cursor: pointer;
-				justify-content: center;
-				outline: none;
-				padding: 5px;
-				.reportImage {
-					margin-right: 5px;
-					max-width: 15px;
-				}
-			}
 		}
 	}
 	.bodyArea {
