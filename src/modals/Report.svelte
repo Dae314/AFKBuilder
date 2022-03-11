@@ -15,6 +15,7 @@
 		'Harassment',
 		'Hate',
 		'Impersonation',
+		'Malware',
 		'Misinformation',
 		'Self-harm or Suicide',
 		'Sexual Content',
