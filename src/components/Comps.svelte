@@ -195,6 +195,15 @@
 				});
 	}
 
+	function handleHideButtonClick(compIdx) {
+		const uuid = sortedCompList[compIdx].uuid;
+		const idx = $AppData.Comps.findIndex(e => e.uuid === uuid);
+		$AppData.Comps[idx].hidden = !$AppData.Comps[idx].hidden;
+		// if hidden comps are not shown, need to set selectedComp to null when the list is updated
+		if(!$AppData.compShowHidden) $AppData.selectedComp = null;
+		dispatch('routeEvent', {action: 'saveData'});
+	}
+
 	function handleNewButtonClick() {
 		modalStack.push('editor');
 		open(CompEditor,
@@ -760,6 +769,8 @@
 						<button type="button" class="editDelButton editButton" on:click={() => handleEditButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/pencil.png" alt="Edit"><span>Edit</span></button>
 						<button type="button" class="editDelButton publishButton" on:click={() => handlePublishButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/explore_white.png" alt="Publish"><span>Publish</span></button>
 						<button type="button" class="editDelButton exportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/export.png" alt="Export"><span>Export</span></button>
+						<button type="button" class="editDelButton hideButton" class:hidden={sortedCompList[$AppData.selectedComp].hidden} on:click={() => handleHideButtonClick($AppData.selectedComp)}><i class:gg-eye={!sortedCompList[$AppData.selectedComp].hidden} class:gg-eye-alt={sortedCompList[$AppData.selectedComp].hidden}></i> <span>{sortedCompList[$AppData.selectedComp].hidden ? 'Unhide' : 'Hide'}</span></button>
+						<!-- eye icons by https://css.gg -->
 						<button type="button" class="editDelButton deleteButton" on:click={() => handleDeleteButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/trashcan.png" alt="Delete"><span>Delete</span></button>
 					</div>
 				</div>
@@ -1206,7 +1217,7 @@
 			transition: all 0.2s;
 			visibility: hidden;
 			width: 80%;
-			z-index: 2;
+			z-index: 1;
 			.suggestionButton {
 				background: transparent;
 				border: 0;
@@ -1445,7 +1456,7 @@
 		padding: 5px;
 		position: absolute;
 		right: 13px;
-		bottom: -213px;
+		bottom: -264px;
 		visibility: hidden;
 		transition: all 0.2s;
 		&:after {
@@ -1490,6 +1501,84 @@
 		.deleteButton {
 			background-color: var(--appDelColor);
 			border: 3px solid var(--appDelColor);
+		}
+		.hideButton {
+			i {
+				margin-right: 5px;
+			}
+			.gg-eye {
+				position: relative;
+				display: block;
+				transform: scale(var(--ggs,1));
+				width: 24px;
+				height: 18px;
+				border-bottom-right-radius: 100px;
+				border-bottom-left-radius: 100px;
+				overflow: hidden;
+				box-sizing: border-box;
+				&::after,
+				&::before {
+					content: "";
+					display: block;
+					border-radius: 100px;
+					position: absolute;
+					box-sizing: border-box;
+				}
+				&::after {
+					top: 2px;
+					box-shadow:
+						inset 0 -8px 0 2px,
+						inset 0 0 0 2px;
+					width: 24px;
+					height: 24px;
+				}
+				&::before {
+					width: 8px;
+					height: 8px;
+					border: 2px solid;
+					bottom: 4px;
+					left: 8px;
+				}
+			}
+			.gg-eye-alt {
+				position: relative;
+				display: block;
+				transform: scale(var(--ggs,1));
+				width: 24px;
+				height: 18px;
+				border-bottom-right-radius: 100px;
+				border-bottom-left-radius: 100px;
+				overflow: hidden;
+				box-sizing: border-box;
+				&::after,
+				&::before {
+					content: "";
+					display: block;
+					border-radius: 100px;
+					position: absolute;
+					box-sizing: border-box;
+				}
+				&::after {
+					top: 2px;
+					box-shadow:
+							inset 0 -8px 0 2px,
+							inset 0 0 0 2px;
+					width: 24px;
+					height: 24px
+				}
+				&::before {
+					width: 8px;
+					height: 8px;
+					border: 2px solid transparent;
+					box-shadow:
+							inset 0 0 0 6px,
+							0 0 0 4px,
+							6px 0 0 0,
+							-6px 0 0 0 ;
+					bottom: 4px;
+					left: 8px
+				}
+			}
 		}
 	}
 	.deleteButton {
@@ -2035,7 +2124,7 @@
 		}
 		.editContainer {
 			align-items: flex-end;
-			bottom: -195px;
+			bottom: -240px;
 			.exportButton {
 				display: flex;
 			}

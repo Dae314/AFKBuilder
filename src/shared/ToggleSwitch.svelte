@@ -63,7 +63,7 @@
 			content: "";
 			display: block;
 			position: absolute;
-			z-index: 1;
+			z-index: 0;
 			width: var(--toggle-inner-size);
 			height: var(--toggle-inner-size);
 			background: var(--appBGColor);
