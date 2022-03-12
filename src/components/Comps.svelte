@@ -2007,20 +2007,9 @@
 		.titleContainer {
 			width: 50%;
 		}
-		.editMenuButton {
-			display: none;
-		}
 		.editContainer {
-			background-color: transparent;
-			box-shadow: none;
-			flex-direction: row;
-			margin-left: auto;
-			opacity: 1;
-			position: static;
-			visibility: visible;
-			&:before {
-				display: none;
-			}
+			align-items: flex-end;
+			bottom: -195px;
 			.exportButton {
 				display: flex;
 			}
