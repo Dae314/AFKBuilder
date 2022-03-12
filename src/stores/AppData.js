@@ -256,6 +256,7 @@ function buildAppData(data) {
 		{name: 'maxCompTags', default: maxCompTags},
 		{name: 'maxNoteLen', default: maxNoteLen},
 		{name: 'compSearchStr', default: ''},
+		{name: 'compShowHidden', default: false},
 		{name: 'user', default: {}},
 		{name: 'HL', default: {}},
 		{name: 'MH', default: {}},

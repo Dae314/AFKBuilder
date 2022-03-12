@@ -22,6 +22,7 @@
 	import AscendBox from '../shared/AscendBox.svelte';
 	import SortableList from '../shared/SortableList.svelte';
 	import StarsInput from '../shared/StarsInput.svelte';
+	import ToggleSwitch from '../shared/ToggleSwitch.svelte';
 	import { validateJWT, getCompByUUID } from '../rest/RESTFunctions.svelte';
 	import { gql_CREATE_COMP, gql_UPDATE_COMP } from '../gql/queries.svelte';
 
@@ -680,6 +681,10 @@
 					<button type="button" class="suggestionButton" on:click={() => takeSuggestion(suggestion)}><span>{suggestion}</span></button>
 				{/each}
 			</div>
+			<div class="hiddenToggleArea">
+				<span>Show Hidden</span>
+				<ToggleSwitch size="small" bind:state={$AppData.compShowHidden} />
+			</div>
 		</div>
 		<div class="compScroller" id="compScroller">
 			{#if sortedCompList.length === 0}
@@ -1162,11 +1167,11 @@
 	.searchArea {
 		align-items: center;
 		background-color: var(--appBGColorDark);
-		border-right: 3px solid var(--appColorPrimary);
 		border-bottom: 3px solid var(--appColorPrimary);
 		display: flex;
-		height: 40px;
-		padding: 5px 20px;
+		flex-direction: column;
+		height: 65px;
+		padding: 5px 10px;
 		position: relative;
 		justify-content: center;
 		.searchBox {
@@ -1216,6 +1221,16 @@
 		.suggestions.open {
 			visibility: visible;
 			opacity: 1;
+		}
+		.hiddenToggleArea {
+			align-items: center;
+			display: flex;
+			justify-content: flex-end;
+			padding-top: 3px;
+			width: 100%;
+			span {
+				font-size: 0.9rem;
+			}
 		}
 	}
 	.compScroller {
@@ -1983,6 +1998,9 @@
 			&:hover {
 				background-color: var(--appColorPriAccent);
 			}
+		}
+		.searchArea {
+			border-right: 3px solid var(--appColorPrimary);
 		}
 		.compScroller {
 			border-right: 3px solid var(--appColorPrimary);
