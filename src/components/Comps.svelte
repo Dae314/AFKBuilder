@@ -165,6 +165,10 @@
 		return md.render(mdText);
 	}
 
+	function handleShowHiddenChange() {
+		dispatch('routeEvent', {action: 'saveData'});
+	}
+
 	function handleEditButtonClick(compIdx) {
 		modalStack.push('editor');
 		open(CompEditor,
@@ -683,7 +687,11 @@
 			</div>
 			<div class="hiddenToggleArea">
 				<span>Show Hidden</span>
-				<ToggleSwitch size="small" bind:state={$AppData.compShowHidden} />
+				<ToggleSwitch
+					size="small"
+					bind:state={$AppData.compShowHidden}
+					on:toggleEvent={handleShowHiddenChange}
+				/>
 			</div>
 		</div>
 		<div class="compScroller" id="compScroller">
