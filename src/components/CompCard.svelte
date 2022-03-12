@@ -24,8 +24,8 @@
 		exportCallback(index);
 	}
 
-	function handleStarClick(event, comp) {
-		starCallback(event, comp);
+	function handleStarClick(event, uuid) {
+		starCallback(event, uuid);
 	}
 </script>
 
@@ -49,7 +49,7 @@
 					<img class="publishedIcon" class:published={published} src="./img/utility/explore_white.png" alt="{published ? 'Published' : 'Unpublished'}" draggable="false" />
 					<div class="tooltip publishedTooltip"><span class="tooltipText">{published ? 'Published' : 'Unpublished'}</span></div>
 				</div>
-				<i class="star" class:active={comp.starred} on:click={(e) => handleStarClick(e, comp)}></i>
+				<i class="star" class:active={comp.starred} on:click={(e) => handleStarClick(e, comp.uuid)}></i>
 			</div>
 			<div class="draftContainer">
 				<div class="draftLabel" class:open={comp.draft}><span>draft</span></div>

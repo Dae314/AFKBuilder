@@ -41,7 +41,7 @@
 	});
 	md.use(Emoji);
 
-	$: sortedCompList = makeSortedCompList();
+	$: sortedCompList = makeSortedCompList($AppData.Comps);
 	$: selectedUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : '';
 	$: highlightComp = null;
 	$: searchSuggestions = makeSearchSuggestions();
@@ -73,8 +73,8 @@
 		dispatch('routeEvent', {action: 'saveData'});
 	});
 
-	function makeSortedCompList() {
-		let compList = [...$AppData.Comps.sort(sortByStars)];
+	function makeSortedCompList(comps) {
+		let compList = [...comps].sort(sortByStars);
 
 		if($AppData.compSearchStr !== '') {
 			// array of search terms (separate by , trim white space, and make lower case)
@@ -204,7 +204,6 @@
 	}
 
 	async function handleCompChangeSuccess(uuid, type) {
-		sortedCompList = makeSortedCompList();
 		searchSuggestions = makeSearchSuggestions();
 		highlightComp = sortedCompList.findIndex(e => e.uuid === uuid);
 		selectedHero = '';
@@ -269,10 +268,10 @@
 		});
 	}
 
-	function handleStarClick(event, comp) {
-		comp.starred = !comp.starred;
+	function handleStarClick(event, uuid) {
+		const idx = $AppData.Comps.findIndex(e => e.uuid === uuid);
+		$AppData.Comps[idx].starred = !$AppData.Comps[idx].starred;
 		event.stopPropagation();
-		sortedCompList = makeSortedCompList();
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
@@ -290,7 +289,6 @@
 				$AppData.selectedComp = selUUID !== null ? sortedCompList.findIndex(e => e.uuid === selUUID) : null;
 				if($AppData.selectedComp === -1) $AppData.selectedComp = null;
 			}
-			sortedCompList = makeSortedCompList();
 			dispatch('routeEvent', {action: 'saveData'});
 		} else {
 			dispatch('routeEvent',
@@ -503,14 +501,14 @@
 				$AppData.Comps = [...$AppData.Comps, returnObj.message];
 				statusMsg = 'Data import successful';
 			}
+			await tick();
 			$AppData.compSearchStr = ''; // reset any filters
-			sortedCompList = makeSortedCompList();
 			highlightComp = sortedCompList.findIndex(e => e.uuid === returnObj.message.uuid);
 			$AppData.selectedComp = highlightComp;
 			selectedHero = '';
 			selectedLine = 0;
-			await tick();
-			document.getElementById(`comp${highlightComp}`).scrollIntoView();
+			const compScroller = document.getElementById('compScroller');
+			compScroller.scrollTop = compScroller.scrollHeight;
 			setTimeout(() => highlightComp = null, 3000);
 			dispatch('routeEvent', {action: 'saveData'});
 			return { retCode: 0, message: statusMsg };
@@ -626,7 +624,6 @@
 				}
 			}
 			$AppData.Comps = event.detail;
-			sortedCompList = makeSortedCompList();
 			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selectedUUID);
 			if($AppData.selectedComp === -1) $AppData.selectedComp = null;
 			dispatch('routeEvent', {action: 'saveData'});
@@ -634,7 +631,6 @@
 	}
 
 	function updateSearch() {
-		sortedCompList = makeSortedCompList();
 		if(sortedCompList.some(e => e.uuid === selectedUUID)) {
 			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selectedUUID);
 		} else {
@@ -685,7 +681,7 @@
 				{/each}
 			</div>
 		</div>
-		<div class="compScroller">
+		<div class="compScroller" id="compScroller">
 			{#if sortedCompList.length === 0}
 				<div class="noComps" class:noSearch={$AppData.compSearchStr !== ''}>
 					{#if $AppData.compSearchStr === ''}
