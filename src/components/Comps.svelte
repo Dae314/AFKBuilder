@@ -75,7 +75,7 @@
 	});
 
 	function makeSortedCompList(comps) {
-		let compList = [...comps].sort(sortByStars);
+		let compList = [...comps].filter(e => $AppData.compShowHidden || !e.hidden).sort(sortByStars);
 
 		if($AppData.compSearchStr !== '') {
 			// array of search terms (separate by , trim white space, and make lower case)
@@ -1198,7 +1198,7 @@
 			transition: all 0.2s;
 			visibility: hidden;
 			width: 80%;
-			z-index: 1;
+			z-index: 2;
 			.suggestionButton {
 				background: transparent;
 				border: 0;
