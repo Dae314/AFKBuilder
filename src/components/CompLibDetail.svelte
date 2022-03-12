@@ -141,7 +141,7 @@
 				}
 				showError = true;
 			} else {
-				$AppData.user.saved_comps = response.data;
+				$AppData.user.saved_comps = response.data.comps;
 				svrComp.attributes.saves = response.data.saves;
 				dispatch('routeEvent', {action: 'saveData'});
 			}

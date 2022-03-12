@@ -381,7 +381,7 @@
 	// toggle user comp save
 	/*{
 		status: response status,
-		data: [{ id: ID, uuid: ID }] OR error object
+		data: {comps: [{ id: ID, uuid: ID }], saves: int} OR error object
 	}*/
 	export async function toggleSave(jwt, uuid) {
 		if(jwt) {
@@ -398,7 +398,7 @@
 				if(response.status !== 200) {
 					return { status: response.status, data: responseData.error };
 				} else {
-					return { status: response.status, data: responseData.data.comps };
+					return { status: response.status, data: responseData.data };
 				}
 			} catch(err) {
 				if(err instanceof TypeError && err.message) {
