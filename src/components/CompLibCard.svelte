@@ -75,7 +75,7 @@
 				}
 				showError = true;
 			} else {
-				$AppData.user.saved_comps = response.data;
+				$AppData.user.saved_comps = response.data.comps;
 				dispatch('cardEvent', {action: 'saveData'});
 			}
 		} else {
@@ -392,8 +392,9 @@
 						display: block;
 						opacity: 0%;
 						position: absolute;
-						left: -28px;
+						left: -30px;
 						text-align: center;
+						top: 20px;
 						transition: all 0.2s;
 						visibility: hidden;
 						width: 90px;
@@ -401,7 +402,7 @@
 							background-color: var(--mythicColor);
 							border-radius: 5px;
 							color: var(--appBGColor);
-							font-size: 0.8rem;
+							font-size: 0.65rem;
 							font-weight: bold;
 							padding: 3px;
 						}
