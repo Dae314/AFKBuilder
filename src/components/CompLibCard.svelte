@@ -77,6 +77,7 @@
 			} else {
 				$AppData.user.saved_comps = response.data.comps;
 				dispatch('cardEvent', {action: 'saveData'});
+				dispatch('cardEvent', {action: 'syncFavorites'});
 			}
 		} else {
 			dispatch('cardEvent', {action: 'logout'});

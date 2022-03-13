@@ -13,6 +13,7 @@
 		getDislikedComps,
 		getPublishedComps,
 		getSavedComps,
+		getCompByUUID,
 	} from './rest/RESTFunctions.svelte';
 
 	// imports for GraphQL
@@ -130,6 +131,8 @@
 		if(valid) {
 			// user is logged in, try to populate the user's data
 			await populateUserData();
+			// now sync the user's favorited comps
+			await syncFavoriteComps();
 		} else {
 			await handleLogout(false);
 		}
@@ -241,6 +244,19 @@
 		saveAppData();
 	}
 
+	// function assumes that $AppData.user.jwt was set correctly
+	async function syncFavoriteComps() {
+		if($AppData.user.saved_comps.length > 0) {
+			for(const saveComp of $AppData.user.saved_comps) {
+				if(!$AppData.user.published_comps.some(e => e.uuid === saveComp.uuid)) {
+					// favorited comp is not one of the user's own published comps
+					let svrComp = await getCompByUUID(saveComp.uuid);
+					console.log(svrComp);
+				}
+			}
+		}
+	}
+
 	async function clearAppData() {
 		window.localStorage.removeItem('appData');
 		location.reload();
@@ -294,6 +310,9 @@
 				break;
 			case 'populateUserData':
 				await populateUserData();
+				break;
+			case 'syncFavorites':
+				await syncFavoriteComps();
 				break;
 			case 'resetTutorial':
 				await resetTutorial();

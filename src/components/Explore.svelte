@@ -355,6 +355,9 @@
 			case 'logout':
 				dispatch('routeEvent', {action: 'logout'});
 				break;
+			case 'syncFavorites':
+				dispatch('routeEvent', {action: 'syncFavorites'});
+				break;
 			default:
 				throw new Error(`Invalid action specified for card event: ${event.detail.action}`);
 		}
