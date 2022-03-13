@@ -769,12 +769,47 @@
 						<i class="filledCircle"></i>
 					</button>
 					<div class="editContainer" class:open={showEditMenu}>
-						<button type="button" class="editDelButton editButton" on:click={() => handleEditButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/pencil.png" alt="Edit"><span>Edit</span></button>
-						<button type="button" class="editDelButton publishButton" on:click={() => handlePublishButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/explore_white.png" alt="Publish"><span>Publish</span></button>
-						<button type="button" class="editDelButton exportButton" on:click={() => handleExportButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/export.png" alt="Export"><span>Export</span></button>
-						<button type="button" class="editDelButton hideButton" class:hidden={sortedCompList[$AppData.selectedComp].hidden} on:click={() => handleHideButtonClick($AppData.selectedComp)}><i class:gg-eye={!sortedCompList[$AppData.selectedComp].hidden} class:gg-eye-alt={sortedCompList[$AppData.selectedComp].hidden}></i> <span>{sortedCompList[$AppData.selectedComp].hidden ? 'Unhide' : 'Hide'}</span></button>
+						<button
+							type="button"
+							class="editDelButton editButton"
+							disabled={sortedCompList[$AppData.selectedComp].source !== 'local'}
+							on:click={() => handleEditButtonClick($AppData.selectedComp)}>
+							<img draggable="false" src="./img/utility/pencil.png" alt="Edit">
+							<span>Edit</span>
+						</button>
+						<button
+							type="button"
+							class="editDelButton publishButton"
+							class:update={$AppData.user.published_comps.some(e => e.uuid === sortedCompList[$AppData.selectedComp].uuid)}
+							disabled={sortedCompList[$AppData.selectedComp].source !== 'local'}
+							on:click={() => handlePublishButtonClick($AppData.selectedComp)}>
+							<img draggable="false" src="./img/utility/explore_white.png" alt="Publish">
+							<span>{$AppData.user.published_comps.some(e => e.uuid === sortedCompList[$AppData.selectedComp].uuid) ? 'Update' : 'Publish'}</span>
+						</button>
+						<button
+							type="button"
+							class="editDelButton exportButton"
+							on:click={() => handleExportButtonClick($AppData.selectedComp)}>
+							<img draggable="false" src="./img/utility/export.png" alt="Export">
+							<span>Export</span>
+						</button>
+						<button
+							type="button"
+							class="editDelButton hideButton"
+							class:hidden={sortedCompList[$AppData.selectedComp].hidden}
+							on:click={() => handleHideButtonClick($AppData.selectedComp)}>
+							<i class:gg-eye={!sortedCompList[$AppData.selectedComp].hidden} class:gg-eye-alt={sortedCompList[$AppData.selectedComp].hidden}></i>
+							<span>{sortedCompList[$AppData.selectedComp].hidden ? 'Unhide' : 'Hide'}</span>
+						</button>
 						<!-- eye icons by https://css.gg -->
-						<button type="button" class="editDelButton deleteButton" on:click={() => handleDeleteButtonClick($AppData.selectedComp)}><img draggable="false" src="./img/utility/trashcan.png" alt="Delete"><span>Delete</span></button>
+						<button
+							type="button"
+							class="editDelButton deleteButton"
+							disabled={$AppData.user.published_comps.some(e => e.uuid === sortedCompList[$AppData.selectedComp].uuid)}
+							on:click={() => handleDeleteButtonClick($AppData.selectedComp)}>
+							<img draggable="false" src="./img/utility/trashcan.png" alt="Delete">
+							<span>Delete</span>
+						</button>
 					</div>
 				</div>
 				<div class="tagsArea">
@@ -1500,87 +1535,92 @@
 			img {
 				max-width: 20px;
 			}
-		}
-		.deleteButton {
-			background-color: var(--appDelColor);
-			border: 3px solid var(--appDelColor);
-		}
-		.hideButton {
-			i {
-				margin-right: 5px;
+			&.deleteButton {
+				background-color: var(--appDelColor);
+				border: 3px solid var(--appDelColor);
 			}
-			.gg-eye {
-				position: relative;
-				display: block;
-				transform: scale(var(--ggs,1));
-				width: 24px;
-				height: 18px;
-				border-bottom-right-radius: 100px;
-				border-bottom-left-radius: 100px;
-				overflow: hidden;
-				box-sizing: border-box;
-				&::after,
-				&::before {
-					content: "";
-					display: block;
-					border-radius: 100px;
-					position: absolute;
-					box-sizing: border-box;
+			&.hideButton {
+				i {
+					margin-right: 5px;
 				}
-				&::after {
-					top: 2px;
-					box-shadow:
-						inset 0 -8px 0 2px,
-						inset 0 0 0 2px;
+				.gg-eye {
+					position: relative;
+					display: block;
+					transform: scale(var(--ggs,1));
 					width: 24px;
-					height: 24px;
-				}
-				&::before {
-					width: 8px;
-					height: 8px;
-					border: 2px solid;
-					bottom: 4px;
-					left: 8px;
-				}
-			}
-			.gg-eye-alt {
-				position: relative;
-				display: block;
-				transform: scale(var(--ggs,1));
-				width: 24px;
-				height: 18px;
-				border-bottom-right-radius: 100px;
-				border-bottom-left-radius: 100px;
-				overflow: hidden;
-				box-sizing: border-box;
-				&::after,
-				&::before {
-					content: "";
-					display: block;
-					border-radius: 100px;
-					position: absolute;
+					height: 18px;
+					border-bottom-right-radius: 100px;
+					border-bottom-left-radius: 100px;
+					overflow: hidden;
 					box-sizing: border-box;
-				}
-				&::after {
-					top: 2px;
-					box-shadow:
+					&::after,
+					&::before {
+						content: "";
+						display: block;
+						border-radius: 100px;
+						position: absolute;
+						box-sizing: border-box;
+					}
+					&::after {
+						top: 2px;
+						box-shadow:
 							inset 0 -8px 0 2px,
 							inset 0 0 0 2px;
+						width: 24px;
+						height: 24px;
+					}
+					&::before {
+						width: 8px;
+						height: 8px;
+						border: 2px solid;
+						bottom: 4px;
+						left: 8px;
+					}
+				}
+				.gg-eye-alt {
+					position: relative;
+					display: block;
+					transform: scale(var(--ggs,1));
 					width: 24px;
-					height: 24px
+					height: 18px;
+					border-bottom-right-radius: 100px;
+					border-bottom-left-radius: 100px;
+					overflow: hidden;
+					box-sizing: border-box;
+					&::after,
+					&::before {
+						content: "";
+						display: block;
+						border-radius: 100px;
+						position: absolute;
+						box-sizing: border-box;
+					}
+					&::after {
+						top: 2px;
+						box-shadow:
+								inset 0 -8px 0 2px,
+								inset 0 0 0 2px;
+						width: 24px;
+						height: 24px
+					}
+					&::before {
+						width: 8px;
+						height: 8px;
+						border: 2px solid transparent;
+						box-shadow:
+								inset 0 0 0 6px,
+								0 0 0 4px,
+								6px 0 0 0,
+								-6px 0 0 0 ;
+						bottom: 4px;
+						left: 8px
+					}
 				}
-				&::before {
-					width: 8px;
-					height: 8px;
-					border: 2px solid transparent;
-					box-shadow:
-							inset 0 0 0 6px,
-							0 0 0 4px,
-							6px 0 0 0,
-							-6px 0 0 0 ;
-					bottom: 4px;
-					left: 8px
-				}
+			}
+			&:disabled {
+				background-color: var(--appColorDisabled);
+				border-color: var(--appColorDisabled);
+				cursor: not-allowed;
 			}
 		}
 	}
