@@ -159,7 +159,6 @@
 					background-color: transparent;
 					border: 0;
 					cursor: pointer;
-					display: none;
 					height: fit-content;
 					margin: 0;
 					outline: 0;
