@@ -572,6 +572,26 @@
 		}
 	}
 
+	async function handleCopyButtonClick(idx) {
+		const copyComp = JSON.parse(JSON.stringify(sortedCompList[idx]));
+		copyComp.uuid = uuidv4();
+		copyComp.starred = false;
+		copyComp.source = 'local';
+		copyComp.lastUpdate = new Date(copyComp.lastUpdate);
+		$AppData.Comps = [...$AppData.Comps, copyComp];
+		handleCloseButtonClick();
+		await tick();
+		$AppData.compSearchStr = ''; // reset any filters
+		highlightComp = sortedCompList.findIndex(e => e.uuid === copyComp.uuid);
+		$AppData.selectedComp = highlightComp;
+		selectedHero = '';
+		selectedLine = 0;
+		const compScroller = document.getElementById('compScroller');
+		compScroller.scrollTop = compScroller.scrollHeight;
+		setTimeout(() => highlightComp = null, 3000);
+		dispatch('routeEvent', {action: 'saveData'});
+	}
+
 	async function openOverwriteConfirm(index) {
 		let reply = '';
 		owText = `Update comp named "${$AppData.Comps[index].name}"?`;
@@ -846,6 +866,13 @@
 							<span>{sortedCompList[$AppData.selectedComp].hidden ? 'Unhide' : 'Hide'}</span>
 						</button>
 						<!-- eye icons by https://css.gg -->
+						<button
+							type="button"
+							class="editDelButton copyButton"
+							on:click={() => handleCopyButtonClick($AppData.selectedComp)}>
+							<img draggable="false" src="./img/utility/copy_white.png" alt="Copy">
+							<span>Copy</span>
+						</button>
 						<button
 							type="button"
 							class="editDelButton deleteButton"
@@ -1550,7 +1577,7 @@
 		padding: 5px;
 		position: absolute;
 		right: 13px;
-		bottom: -264px;
+		bottom: -315px;
 		visibility: hidden;
 		transition: all 0.2s;
 		&:after {
@@ -2243,7 +2270,7 @@
 		}
 		.editContainer {
 			align-items: flex-end;
-			bottom: -240px;
+			bottom: -286px;
 			.exportButton {
 				display: flex;
 			}
