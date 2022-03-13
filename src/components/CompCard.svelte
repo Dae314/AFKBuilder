@@ -47,9 +47,14 @@
 						class="cardDeleteButton"
 						disabled={$AppData.user.published_comps.some(e => e.uuid === comp.uuid)}
 						on:click={(e) => { handleDeleteButtonClick(idx); e.stopPropagation(); }}>
-						<img draggable="false" class="deleteIcon" class:disabled={$AppData.user.published_comps.some(e => e.uuid === comp.uuid)} src="./img/utility/trashcan.png" alt="Delete">
+						<img
+							draggable="false"
+							class="deleteIcon"
+							class:disabled={$AppData.user.published_comps.some(e => e.uuid === comp.uuid)}
+							src={comp.source === 'local' ? './img/utility/trashcan.png' : './img/utility/favorite_unfilled_white.png'}
+							alt="Delete">
 					</button>
-					<div class="tooltip deleteTooltip"><span class="tooltipText">Delete</span></div>
+					<div class="tooltip deleteTooltip"><span class="tooltipText">{comp.source === 'local' ? 'Delete' : 'Unfavorite'}</span></div>
 				</div>
 				<div class="buttonArea">
 					<img class="publishedIcon" class:published={published} src="./img/utility/explore_white.png" alt="{published ? 'Published' : 'Unpublished'}" draggable="false" />

@@ -23,7 +23,7 @@
 	import SortableList from '../shared/SortableList.svelte';
 	import StarsInput from '../shared/StarsInput.svelte';
 	import ToggleSwitch from '../shared/ToggleSwitch.svelte';
-	import { validateJWT, getCompByUUID } from '../rest/RESTFunctions.svelte';
+	import { validateJWT, getCompByUUID, toggleSave } from '../rest/RESTFunctions.svelte';
 	import { gql_CREATE_COMP, gql_UPDATE_COMP } from '../gql/queries.svelte';
 
 	export let isMobile = false;
@@ -231,8 +231,9 @@
 
 	function handleDeleteButtonClick(compIdx) {
 		modalStack.push('confirm');
+		const message = sortedCompList[compIdx].source === 'local' ? `Delete comp named ${sortedCompList[compIdx].name}?` : `Unfavorite comp named ${sortedCompList[compIdx].name}?`;
 		open(Confirm,
-				{onConfirm: handleDelComp, confirmData: compIdx, message: `Delete comp named ${sortedCompList[compIdx].name}?`},
+				{onConfirm: handleDelComp, confirmData: compIdx, message: message},
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
@@ -289,32 +290,71 @@
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
-	function handleDelComp(idx) {
+	async function handleDelComp(idx) {
 		const delUUID = sortedCompList[idx].uuid;
-		if(!$AppData.user.published_comps.some(e => e.uuid === delUUID)) {
-			const selUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : null;
-			$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== delUUID);
-			if($AppData.selectedComp === idx) {
-				$AppData.selectedComp = null;
-				selectedHero = '';
-				selectedLine = 0;
-				openDetail = false;
-			} else if($AppData.selectedComp > idx) {
-				$AppData.selectedComp = selUUID !== null ? sortedCompList.findIndex(e => e.uuid === selUUID) : null;
-				if($AppData.selectedComp === -1) $AppData.selectedComp = null;
-			}
-			dispatch('routeEvent', {action: 'saveData'});
-		} else {
-			dispatch('routeEvent',
-				{ action: 'showNotice',
-					data: {
-						noticeConf: {
-							type: 'warning',
-							message: 'Comp must be unpublished before deletion',
+		if(sortedCompList[idx].source === 'local') {
+			if(!$AppData.user.published_comps.some(e => e.uuid === delUUID)) {
+				const selUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : null;
+				$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== delUUID);
+				if($AppData.selectedComp === idx) {
+					$AppData.selectedComp = null;
+					selectedHero = '';
+					selectedLine = 0;
+					openDetail = false;
+				} else if($AppData.selectedComp > idx) {
+					$AppData.selectedComp = selUUID !== null ? sortedCompList.findIndex(e => e.uuid === selUUID) : null;
+					if($AppData.selectedComp === -1) $AppData.selectedComp = null;
+				}
+				dispatch('routeEvent', {action: 'saveData'});
+			} else {
+				dispatch('routeEvent',
+					{ action: 'showNotice',
+						data: {
+							noticeConf: {
+								type: 'warning',
+								message: 'Comp must be unpublished before deletion',
+							}
 						}
 					}
+				);
+			}
+		} else {
+			// assume source is favorite
+			const valid = await validateJWT($AppData.user.jwt);
+			if(valid) {
+				// user is valid, perform query
+				const response = await toggleSave($AppData.user.jwt, delUUID);
+				if(response.status !== 200) {
+					dispatch('routeEvent',
+						{ action: 'showNotice',
+							data: {
+								noticeConf: {
+									type: 'error',
+									message: 'Something went wrong',
+								}
+							}
+						}
+					);
+					console.log(`An error occurred attempting to unfavorite comp with uuid: ${delUUID}`)
+					console.log(response.data);
+				} else {
+					const selUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : null;
+					if($AppData.selectedComp === idx) {
+						$AppData.selectedComp = null;
+						selectedHero = '';
+						selectedLine = 0;
+						openDetail = false;
+					} else if($AppData.selectedComp > idx) {
+						$AppData.selectedComp = selUUID !== null ? sortedCompList.findIndex(e => e.uuid === selUUID) : null;
+						if($AppData.selectedComp === -1) $AppData.selectedComp = null;
+					}
+					$AppData.user.saved_comps = response.data.comps;
+					dispatch('routeEvent', {action: 'saveData'});
+					dispatch('routeEvent', {action: 'syncFavorites'});
 				}
-			);
+			} else {
+				dispatch('routeEvent', {action: 'logout'});
+			}
 		}
 	}
 
@@ -811,8 +851,11 @@
 							class="editDelButton deleteButton"
 							disabled={$AppData.user.published_comps.some(e => e.uuid === sortedCompList[$AppData.selectedComp].uuid)}
 							on:click={() => handleDeleteButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src="./img/utility/trashcan.png" alt="Delete">
-							<span>Delete</span>
+							<img
+								draggable="false"
+								src={sortedCompList[$AppData.selectedComp].source === 'local' ? './img/utility/trashcan.png' : './img/utility/favorite_unfilled_white.png'}
+								alt={sortedCompList[$AppData.selectedComp].source === 'local' ? 'Delete' : 'Unfavorite'}>
+							<span>{sortedCompList[$AppData.selectedComp].source === 'local' ? 'Delete' : 'Unfavorite'}</span>
 						</button>
 					</div>
 				</div>
