@@ -42,7 +42,13 @@
 		<div class="buttonDraftArea">
 			<div class="cardButtonsContainer">
 				<div class="buttonArea">
-					<button type="button" class="cardDeleteButton" on:click={(e) => { handleDeleteButtonClick(idx); e.stopPropagation(); }}><img draggable="false" class="deleteIcon" src="./img/utility/trashcan.png" alt="Delete"></button>
+					<button
+						type="button"
+						class="cardDeleteButton"
+						disabled={$AppData.user.published_comps.some(e => e.uuid === comp.uuid)}
+						on:click={(e) => { handleDeleteButtonClick(idx); e.stopPropagation(); }}>
+						<img draggable="false" class="deleteIcon" class:disabled={$AppData.user.published_comps.some(e => e.uuid === comp.uuid)} src="./img/utility/trashcan.png" alt="Delete">
+					</button>
 					<div class="tooltip deleteTooltip"><span class="tooltipText">Delete</span></div>
 				</div>
 				<div class="buttonArea">
@@ -154,9 +160,15 @@
 					outline: 0;
 					padding: 0;
 					padding-top: 1px;
+					&:disabled {
+						cursor: not-allowed;
+					}
 					.deleteIcon {
 						filter: invert(1.0);
 						max-width: 15px;
+						&.disabled {
+							filter: invert(0.35);
+						}
 					}
 				}
 				.publishedIcon {
