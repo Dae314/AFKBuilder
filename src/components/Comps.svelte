@@ -676,6 +676,10 @@
 		await tick();
 		document.getElementById('heroDetailSection').scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
 	}
+
+	function handleViewExploreClick(uuid) {
+		window.location.assign(`${window.location.origin}/#/explore/comp/${uuid}`);
+	}
 </script>
 
 <svelte:window on:popstate={handlePopState} />
@@ -820,6 +824,15 @@
 							</div>
 						{/each}
 					</div>
+				</div>
+				<div class="viewExploreContainer">
+					<button
+						type="button"
+						class="viewExploreButton"
+						class:visible={$AppData.user.published_comps.some(e => e.uuid === sortedCompList[$AppData.selectedComp].uuid)}
+						on:click={() => handleViewExploreClick(sortedCompList[$AppData.selectedComp].uuid)}>
+						<span>View in Explore</span>
+					</button>
 				</div>
 				<div class="compDetailBody">
 					<div class="lastUpdate">
@@ -1632,10 +1645,30 @@
 		}
 	}
 	.tagsArea {
-		border-bottom: 1px solid black;
 		display: flex;
 		flex-direction: column;
 		width: 100%;
+	}
+	.viewExploreContainer {
+		border-bottom: 1px solid black;
+		display: flex;
+		justify-content: center;
+		padding-bottom: 10px;
+		width: 100%;
+		.viewExploreButton {
+			background-color: var(--appColorPrimary);
+			border: 2px solid var(--appColorPrimary);
+			border-radius: 7px;
+			color: var(--appBGColor);
+			cursor: pointer;
+			display: none;
+			outline: none;
+			padding: 5px;
+			text-align: center;
+			&.visible {
+				display: block;
+			}
+		}
 	}
 	.tagDisplay {
 		align-items: center;
