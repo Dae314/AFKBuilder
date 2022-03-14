@@ -1,5 +1,5 @@
 <script>
-	import {createEventDispatcher, tick, getContext} from 'svelte';
+	import {createEventDispatcher, tick, getContext, onMount} from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { query, mutation } from 'svelte-apollo';
 	import JSONURL from 'json-url';
@@ -70,6 +70,10 @@
 	$: age = typeof createdAt.getTime === 'function' ? now - createdAt.getTime() : 0;
 	$: comp_update = comp ? comp.lastUpdate : {};
 	$: updateAge = typeof comp_update.getTime === 'function' ? now - comp_update.getTime() : 0;
+
+	onMount(async () => {
+		$AppData.activeView = 'explore';
+	});
 
 	async function populateAuthor() {
 		const response = await getCompAuthor(svrComp.attributes.uuid);
