@@ -271,6 +271,7 @@ function buildAppData(data) {
 		{name: 'id', default: ''},
 		{name: 'avatar', default: ''},
 		{name: 'local_comps', default: {}},
+		{name: 'my_heroes', default: {}},
 		{name: 'liked_comps', default: []},
 		{name: 'disliked_comps', default: []},
 		{name: 'published_comps', default: []},
@@ -315,6 +316,7 @@ function buildAppData(data) {
 		{name: 'ShowTank', default: true},
 		{name: 'ShowSup', default: true},
 		{name: 'ShowRan', default: true},
+		{name: 'lastUpdate', default: new Date('January 1, 1990 03:00:00')},
 		{name: 'List', default: {}},
 		{name: 'openSection', default: 0},
 	];
@@ -595,6 +597,7 @@ if(window.localStorage.getItem('appData') !== null) {
 	for(let comp of appdata.Comps) {
 		comp.lastUpdate = new Date(comp.lastUpdate);
 	}
+	appdata.MH.lastUpdate = new Date(appdata.MH.lastUpdate);
 	// updateTestComps(appdata);
 } else {
 	// Otherwise initialize a clean AppData

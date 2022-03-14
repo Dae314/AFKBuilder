@@ -16,6 +16,7 @@
 	import CopiesInput from '../shared/CopiesInput.svelte';
 	import StarsInput from '../shared/StarsInput.svelte';
 	import HRadioPicker from '../shared/HRadioPicker.svelte';
+	import { validateJWT } from '../rest/RESTFunctions.svelte';
 
 	export let isMobile = false;
 
@@ -40,6 +41,12 @@
 		$AppData.activeView = 'myheroes';
 		dispatch('routeEvent', {action: 'saveData'});
 	});
+
+	async function postUpdate() {
+		$AppData.MH.lastUpdate = new Date();
+		const valid = await validateJWT($AppData.user.jwt);
+		if(valid) dispatch('routeEvent', {action: 'syncMyHeroes'});
+	}
 
 	function sortToOptionIdx(sortType) {
 		switch(sortType) {
@@ -298,7 +305,7 @@
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
-	function handleHeroClaim(heroID) {
+	async function handleHeroClaim(heroID) {
 		$AppData.MH.List[heroID].claimed = true;
 		$AppData.MH.List[heroID].ascendLv = $HeroData.find(e => e.id === heroID).tier === 'ascended' ? 6 : 5;
 		$AppData.MH.List[heroID].si = -1;
@@ -308,10 +315,11 @@
 		$AppData.MH.List[heroID].stars = 0;
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
+		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
-	function handleHeroUnclaim(heroID) {
+	async function handleHeroUnclaim(heroID) {
 		$AppData.MH.List[heroID].claimed = false;
 		$AppData.MH.List[heroID].ascendLv = 0;
 		$AppData.MH.List[heroID].si = -1;
@@ -321,10 +329,11 @@
 		$AppData.MH.List[heroID].stars = 0;
 		myHeroList = makeMyHeroList($AppData.MH.List);
 		unownedHeroList = makeUnownedHeroList($AppData.MH.List);
+		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'})
 	}
 
-	function handleAscChange(heroID, level) {
+	async function handleAscChange(heroID, level) {
 		$AppData.MH.List[heroID].ascendLv = level;
 		if($AppData.MH.List[heroID].ascendLv === 6) {
 			$AppData.MH.List[heroID].copies = 0;
@@ -337,21 +346,25 @@
 		if($AppData.MH.List[heroID].ascendLv < 4) {
 			$AppData.MH.List[heroID].si = -1;
 		}
+		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'})
 	}
 
-	function handleSIChange(heroID, level) {
+	async function handleSIChange(heroID, level) {
 		$AppData.MH.List[heroID].si = level;
+		postUpdate();
 		dispatch('routeEvent', {action: 'saveData'})
 	}
 
-	function handleFurnChange(heroID, level) {
+	async function handleFurnChange(heroID, level) {
 		$AppData.MH.List[heroID].furn = level;
+		postUpdate();
 		dispatch('routeEvent', {action: 'saveData'})
 	}
 
-	function handleNumChange() {
-		dispatch('routeEvent', {action: 'saveData'})
+	async function handleNumChange() {
+		await postUpdate();
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	async function handleMyHeroesInput(compressedData) {
@@ -377,6 +390,7 @@
 			$AppData.MH.List = returnObj.message;
 			myHeroList = makeMyHeroList($AppData.MH.List);
 			unownedHeroList = makeUnownedHeroList($AppData.MH.List);
+			await postUpdate();
 			dispatch('routeEvent', {action: 'saveData'})
 			return { retCode: 0, message: 'Data import successful' }
 		}

@@ -19,7 +19,8 @@
 
 	// imports for GraphQL
 	import ApolloClient from 'apollo-boost';
-	import { setClient } from "svelte-apollo";
+	import { setClient, mutation } from "svelte-apollo";
+	import { gql_UPDATE_MY_HEROES } from './gql/queries.svelte';
 
 	import Header from './components/Header.svelte';
 	import Explore from './components/Explore.svelte';
@@ -125,6 +126,8 @@
 	});
 	setClient(client); // provide ApolloClient to all components in the app
 
+	const gqlUpdateMyHeroes = mutation(gql_UPDATE_MY_HEROES);
+
 	onMount(async () => {
 		handleWindowResize();
 
@@ -133,8 +136,9 @@
 		if(valid) {
 			// user is logged in, try to populate the user's data
 			await populateUserData();
-			// now sync the user's favorited comps
+			// now sync the user's favorited comps, myHeroes, and local comps
 			await syncFavoriteComps();
+			await syncMyHeroes();
 		} else {
 			await handleLogout(false);
 		}
@@ -186,9 +190,13 @@
 			return;
 		}
 		const user = response.data;
+		if(user.my_heroes) {
+			if('lastUpdate' in user.my_heroes) user.my_heroes.lastUpdate = new Date(user.my_heroes.lastUpdate);
+		}
 		$AppData.user.id = user.id;
 		$AppData.user.username = user.username;
 		$AppData.user.local_comps = user.local_comps;
+		$AppData.user.my_heroes = user.my_heroes;
 		$AppData.user.avatar = user.avatar;
 		
 		response = await getLikedComps($AppData.user.jwt);
@@ -323,6 +331,62 @@
 		}
 	}
 
+	// function assumes that $AppData.user.jwt was set correctly
+	async function syncMyHeroes() {
+		// check if update is necessary
+		let updateType = 'push'; // assume push is necessary if user.my_heroes.lastUpdate is invalid
+		if($AppData.user.my_heroes && 'lastUpdate' in $AppData.user.my_heroes) {
+			// my_heroes.lastUpdate is valid, so check the type of update
+			if($AppData.user.my_heroes.lastUpdate > $AppData.MH.lastUpdate) {
+				// server is ahead of local
+				updateType = 'pull';
+			} else if($AppData.user.my_heroes.lastUpdate.getTime() === $AppData.MH.lastUpdate.getTime()) {
+				// server and local are sync'd no need to update
+				updateType === 'none';
+			} // else local is ahead of server, so do a push that's already set
+		}
+		switch(updateType) {
+			case 'push':
+				try {
+					const mhData = await jsurl.compress(JSON.stringify($AppData.MH.List));
+					const response = await gqlUpdateMyHeroes({variables: { id: $AppData.user.id, mh: {lastUpdate: $AppData.MH.lastUpdate, data: mhData} }});
+				} catch(err) {
+					console.log(`Error: unable to upload My Heroes data to server`);
+					console.log(err);
+					displayNotice({ type: 'error', message: 'MH sync failed', });
+					return;
+				}
+				break;
+			case 'pull':
+				// parse the data
+				let mhData;
+				try {
+					const json = await jsurl.decompress($AppData.user.my_heroes.data);
+					mhData = JSON.parse(json);
+				} catch(err) {
+					console.log(`Error: unable to parse My Heroes data from server`);
+					console.log(err);
+					displayNotice({ type: 'error', message: 'MH sync failed', });
+					return;
+				}
+				// validate resulting data is good
+				const returnObj = await validateMyHeroData(mhData);
+				if(returnObj.retCode !== 0) {
+					console.log(`Error: server My Heroes data is invalid`);
+					displayNotice({ type: 'error', message: 'MH sync failed', });
+					return;
+				}
+				// message should contain a clean MH List object now
+				$AppData.MH.List = returnObj.message;
+				break;
+			case 'none':
+				// do nothing
+				break;
+			default:
+				throw new Error(`Error, invalid updateType computed in syncMyHeroes something really went wrong. ${updateType}`);
+		}
+	}
+
 	async function clearAppData() {
 		window.localStorage.removeItem('appData');
 		location.reload();
@@ -379,6 +443,9 @@
 				break;
 			case 'syncFavorites':
 				await syncFavoriteComps();
+				break;
+			case 'syncMyHeroes':
+				await syncMyHeroes();
 				break;
 			case 'resetTutorial':
 				await resetTutorial();

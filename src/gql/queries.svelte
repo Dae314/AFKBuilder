@@ -33,6 +33,22 @@
 			}
 		}
 	}`;
+	export const gql_UPDATE_MY_HEROES = gql`
+	mutation($id: ID!, $mh: JSON!) {
+		updateUsersPermissionsUser(
+			id: $id
+			data: {
+				my_heroes: $mh
+			}
+		) {
+			data {
+				id
+				attributes {
+					my_heroes
+				}
+			}
+		}
+	}`;
 	export const gql_GET_COMP = gql`
 	query($uuid: String!) {
 		comps(filters: { uuid: { eq: $uuid } }) {
