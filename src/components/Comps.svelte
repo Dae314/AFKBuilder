@@ -880,6 +880,20 @@
 						</button>
 					</div>
 				</div>
+				<div class="iconsArea">
+					<ul class="iconList">
+						{#if openComp.hidden}
+						<li>
+							<img class="iconAreaImage" src="./img/utility/hidden_white.png" alt="Hidden">
+						</li>
+						{/if}
+						{#if openComp.source === 'favorite'}
+						<li>
+							<img class="iconAreaImage" src="./img/utility/favorite_filled_white.png" alt="Favorite">
+						</li>
+						{/if}
+					</ul>
+				</div>
 				<div class="tagsArea">
 					<div class="tagDisplay">
 						{#each openComp.tags as tag}
@@ -893,7 +907,7 @@
 					<button
 						type="button"
 						class="viewExploreButton"
-						class:visible={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
+						class:visible={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid) || $AppData.user.saved_comps.some(e => e.uuid === openComp.uuid)}
 						on:click={() => handleViewExploreClick(openComp.uuid)}>
 						<span>View in Explore</span>
 					</button>
@@ -1634,6 +1648,27 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
+	}
+	.iconsArea {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		padding-top: 3px;
+		width: 100%;
+		.iconList {
+			display: flex;
+			justify-content: center;
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			li {
+				padding: 0px 3px;
+			}
+			img {
+				max-width: 20px;
+				filter: invert(1.0);
+			}
+		}
 	}
 	.viewExploreContainer {
 		border-bottom: 1px solid black;
