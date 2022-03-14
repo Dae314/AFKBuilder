@@ -180,7 +180,7 @@
 		const idx = $AppData.Comps.findIndex(e => e.uuid === uuid);
 		$AppData.Comps[idx].hidden = !$AppData.Comps[idx].hidden;
 		// if hidden comps are not shown, need to set selectedComp to null when the list is updated
-		if(!$AppData.compShowHidden) $AppData.selectedComp = null;
+		if(!$AppData.compShowHidden) resetOpenComp();
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
@@ -277,13 +277,7 @@
 		if(comp.source === 'local') {
 			if(!$AppData.user.published_comps.some(e => e.uuid === uuid)) {
 				$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== uuid);
-				if($AppData.selectedComp === uuid) {
-					$AppData.selectedComp = null;
-					selectedHero = '';
-					selectedLine = 0;
-					openDetail = false;
-					showEditMenu = false;
-				}
+				if($AppData.selectedComp === uuid) resetOpenComp();
 				dispatch('routeEvent', {action: 'saveData'});
 			} else {
 				dispatch('routeEvent',
@@ -317,13 +311,7 @@
 					console.log(`An error occurred attempting to unfavorite comp with uuid: ${delUUID}`)
 					console.log(response.data);
 				} else {
-					if($AppData.selectedComp === uuid) {
-						$AppData.selectedComp = null;
-						selectedHero = '';
-						selectedLine = 0;
-						openDetail = false;
-						showEditMenu = false;
-					}
+					if($AppData.selectedComp === uuid) resetOpenComp();
 					$AppData.user.saved_comps = response.data.comps;
 					dispatch('routeEvent', {action: 'saveData'});
 					dispatch('routeEvent', {action: 'syncFavorites'});
@@ -657,33 +645,60 @@
 	}
 
 	async function handleCardSort(event) {
-		// catch if a user dragged something we weren't expecting and exit
-		if(!Array.isArray(event.detail)) return 0;
-		// don't allow re-ordering when comp list is filtered (could accidently delete comps)
-		if($AppData.compSearchStr !== '') return 0;
-		// don't allow comp overwrite if there are missing comps
-		if(event.detail.length !== $AppData.Comps.length) {
-			throw new Error(`Received invalid Comps array, must be same length as original. ${event.detail}`);
-		}
+		const {from, to} = event.detail;
+		const fromUUID = compList[from].uuid;
+		const toUUID = compList[to].uuid;
+		const mainFromIdx = $AppData.Comps.findIndex(e => e.uuid === fromUUID);
+		const mainToIdx = $AppData.Comps.findIndex(e => e.uuid === toUUID);
+		let newList = [...$AppData.Comps];
+		newList[mainFromIdx] = [newList[mainToIdx], (newList[mainToIdx] = newList[mainFromIdx])][0];
+		// double-check that we didn't lose any comps
 		let allCompsValid = true;
-		for(const comp of event.detail) {
-			let returnObj = await validateComp(comp);
-			allCompsValid = allCompsValid && returnObj.retCode === 0;
+		for(const comp of $AppData.Comps) {
+			allCompsValid = newList.some(e => e.uuid === comp.uuid);
 		}
-		if(allCompsValid) {
-			// one last check that all comps are present
-			for(const comp of $AppData.Comps) {
-				if(!event.detail.some(e => e.uuid === comp.uuid)) {
-					throw new Error(`Received invalid Comps array, missing comp with uuid: ${comp.uuid}`);
+		if(!allCompsValid) {
+			dispatch('routeEvent',
+				{ action: 'showNotice',
+					data: {
+						noticeConf: {
+							type: 'error',
+							message: 'Re-order error occurred',
+						}
+					}
 				}
-			}
-			$AppData.Comps = event.detail;
-			dispatch('routeEvent', {action: 'saveData'});
+			);
+			return;
 		}
+		$AppData.Comps = newList;
+		dispatch('routeEvent', {action: 'saveData'});
+		// // catch if a user dragged something we weren't expecting and exit
+		// if(!Array.isArray(event.detail)) return 0;
+		// // don't allow re-ordering when comp list is filtered (could accidently delete comps)
+		// if($AppData.compSearchStr !== '') return 0;
+		// // don't allow comp overwrite if there are missing comps
+		// if(event.detail.length !== $AppData.Comps.length) {
+		// 	throw new Error(`Received invalid Comps array, must be same length as original. ${event.detail}`);
+		// }
+		// let allCompsValid = true;
+		// for(const comp of event.detail) {
+		// 	let returnObj = await validateComp(comp);
+		// 	allCompsValid = allCompsValid && returnObj.retCode === 0;
+		// }
+		// if(allCompsValid) {
+		// 	// one last check that all comps are present
+		// 	for(const comp of $AppData.Comps) {
+		// 		if(!event.detail.some(e => e.uuid === comp.uuid)) {
+		// 			throw new Error(`Received invalid Comps array, missing comp with uuid: ${comp.uuid}`);
+		// 		}
+		// 	}
+		// 	$AppData.Comps = event.detail;
+		// 	dispatch('routeEvent', {action: 'saveData'});
+		// }
 	}
 
 	function updateSearch() {
-		if(!compList.some(e => e.uuid === $AppData.selectedComp)) $AppData.selectedComp = null;
+		if(!compList.some(e => e.uuid === $AppData.selectedComp)) resetOpenComp();
 		searchSuggestions = makeSearchSuggestions();
 		openSuggestions = true;
 		dispatch('routeEvent', {action: 'saveData'});
@@ -710,6 +725,14 @@
 
 	function handleViewExploreClick(uuid) {
 		window.location.assign(`${window.location.origin}/#/explore/comp/${uuid}`);
+	}
+
+	function resetOpenComp() {
+		$AppData.selectedComp = null;
+		selectedHero = '';
+		selectedLine = 0;
+		openDetail = false;
+		showEditMenu = false;
 	}
 </script>
 
