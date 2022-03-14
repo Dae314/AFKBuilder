@@ -240,7 +240,10 @@
 			};
 			showErrorDisplay = true;
 		}
-		const savedComps = response.data;
+		const savedComps = response.data.map(e => {
+			e.comp_update = new Date(e.comp_update);
+			return e;
+		});
 		$AppData.user.saved_comps = savedComps;
 
 		saveAppData();
@@ -252,56 +255,61 @@
 		if($AppData.user.saved_comps.length > 0) {
 			for(const saveComp of $AppData.user.saved_comps) {
 				if(!$AppData.user.published_comps.some(e => e.uuid === saveComp.uuid)) {
-					// favorited comp is not one of the user's own published comps, retrieve
-					// sync the comp from the DB
-					let svrComp = await getCompByUUID(saveComp.uuid);
-					let compData;
-					if(svrComp.status !== 200) {
-						console.log(`Unable to sync favorited comp with uuid: ${saveComp.uuid}`);
-						displayNotice({ type: 'error', message: 'Favorite sync failed', });
-						continue;
+					// favorited comp is not one of the user's own published comps
+					let needsUpdate = true;
+					let curCompExists = $AppData.Comps.some(e => e.uuid === saveComp.uuid);
+					let curIdx;
+					if(curCompExists) {
+						// comp already exists, check if it needs an update
+						curIdx = $AppData.Comps.findIndex(e => e.uuid === saveComp.uuid);
+						needsUpdate = $AppData.Comps[curIdx].lastUpdate < saveComp.comp_update;
 					}
-					if(svrComp.data.length === 0) {
-						// status was 200, but no data was returned, assume comp was deleted and remove from favorites
-						$AppData.user.saved_comps = $AppData.user.saved_comps.filter(e => e.uuid !== saveComp.uuid);
-						// cleanup will happen in step 2, no need to cleanup here
-						continue;
-					}
-
-					// parse the comp_string
-					try {
-						const json = await jsurl.decompress(svrComp.data[0].attributes.comp_string);
-						compData = JSON.parse(json);
-					} catch(err) {
-						console.log(`Unable to parse favorited comp with uuid: ${saveComp.uuid}`);
-						console.log(err);
-						displayNotice({ type: 'error', message: 'Favorite sync failed', });
-						continue;
-					}
-					if('lastUpdate' in compData) compData.lastUpdate = new Date(compData.lastUpdate);
-
-					// validate resulting data is good
-					const returnObj = await validateComp(compData);
-					if(returnObj.retCode !== 0) {
-						console.log(`Unable to validate favorited comp with uuid: ${saveComp.uuid}`);
-						displayNotice({ type: 'error', message: 'Favorite sync failed', });
-						continue;
-					}
-					// message should contain a clean comp object now
-					if($AppData.Comps.some(e => e.uuid === returnObj.message.uuid)) {
-						// comp exists, check if it needs to be updated
-						const idx = $AppData.Comps.findIndex(e => e.uuid === returnObj.message.uuid);
-						if($AppData.Comps[idx].lastUpdate < returnObj.message.lastUpdate) {
-							// comp needs to be updated
-							returnObj.message.starred = $AppData.Comps[idx].starred;
-							returnObj.message.source = 'favorite';
-							$AppData.Comps[idx] = returnObj.message;
+					if(needsUpdate) {
+						// sync the comp from the DB
+						let svrComp = await getCompByUUID(saveComp.uuid);
+						let compData;
+						if(svrComp.status !== 200) {
+							console.log(`Unable to sync favorited comp with uuid: ${saveComp.uuid}`);
+							displayNotice({ type: 'error', message: 'Favorite sync failed', });
+							continue;
 						}
-					} else {
-						// comp not in list yet, add it to the list
-						returnObj.message.starred = false;
-						returnObj.message.source = 'favorite';
-						$AppData.Comps = [...$AppData.Comps, returnObj.message];
+						if(svrComp.data.length === 0) {
+							// status was 200, but no data was returned, assume comp was deleted and remove from favorites
+							$AppData.user.saved_comps = $AppData.user.saved_comps.filter(e => e.uuid !== saveComp.uuid);
+							// cleanup will happen in step 2, no need to cleanup here
+							continue;
+						}
+
+						// parse the comp_string
+						try {
+							const json = await jsurl.decompress(svrComp.data[0].attributes.comp_string);
+							compData = JSON.parse(json);
+						} catch(err) {
+							console.log(`Unable to parse favorited comp with uuid: ${saveComp.uuid}`);
+							console.log(err);
+							displayNotice({ type: 'error', message: 'Favorite sync failed', });
+							continue;
+						}
+						if('lastUpdate' in compData) compData.lastUpdate = new Date(compData.lastUpdate);
+
+						// validate resulting data is good
+						const returnObj = await validateComp(compData);
+						if(returnObj.retCode !== 0) {
+							console.log(`Unable to validate favorited comp with uuid: ${saveComp.uuid}`);
+							displayNotice({ type: 'error', message: 'Favorite sync failed', });
+							continue;
+						}
+						// message should contain a clean comp object now
+						if(curCompExists) {
+							returnObj.message.starred = $AppData.Comps[curIdx].starred;
+							returnObj.message.source = 'favorite';
+							$AppData.Comps[curIdx] = returnObj.message;
+						} else {
+							// comp not in list yet, add it to the list
+							returnObj.message.starred = false;
+							returnObj.message.source = 'favorite';
+							$AppData.Comps = [...$AppData.Comps, returnObj.message];
+						}
 					}
 				}
 			}
