@@ -5,7 +5,7 @@
 	import Emoji from 'markdown-it-emoji';
 	import { v4 as uuidv4 } from 'uuid';
 	import JSONURL from 'json-url';
-	import {params, pop as spaRoutePop} from 'svelte-spa-router';
+	import {pop as spaRoutePop} from 'svelte-spa-router';
 	import { mutation } from "svelte-apollo";
 	import CompCard from './CompCard.svelte';
 	import AppData from '../stores/AppData.js';
@@ -25,10 +25,11 @@
 	import ToggleSwitch from '../shared/ToggleSwitch.svelte';
 	import { validateJWT, getCompByUUID, toggleSave } from '../rest/RESTFunctions.svelte';
 	import { gql_CREATE_COMP, gql_UPDATE_COMP } from '../gql/queries.svelte';
+	import { msToString } from '../utilities/Utilities.svelte';
 
 	export let isMobile = false;
 
-	const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",];
+	const now = Date.now();
 	const jsurl = JSONURL('lzma'); // json-url compressor
 	const dispatch = createEventDispatcher();
 	const { open } = getContext('simple-modal');
@@ -906,7 +907,7 @@
 				</div>
 				<div class="compDetailBody">
 					<div class="lastUpdate">
-						<span>Updated: {`${months[sortedCompList[$AppData.selectedComp].lastUpdate.getMonth()]} ${sortedCompList[$AppData.selectedComp].lastUpdate.getDate()}, ${sortedCompList[$AppData.selectedComp].lastUpdate.getFullYear()}`}</span>
+						<span title="{sortedCompList[$AppData.selectedComp].lastUpdate.toLocaleString()}">Updated {msToString(now - sortedCompList[$AppData.selectedComp].lastUpdate.getTime())}</span>
 					</div>
 					<div class="bodyArea1">
 						<div class="lineExamples">
