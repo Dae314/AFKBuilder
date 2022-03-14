@@ -134,15 +134,10 @@
 		}
 	}
 
-	function handleCompClick(compID) {
-		$AppData.selectedComp = $AppData.Comps.findIndex(e => e.uuid === compID);
-		$AppData.selectedUUID = compID;
-		
-		if($AppData.selectedComp === -1) {
-			$AppData.selectedComp = null;
-			$AppData.selectedUUID = null;
-		}
-		
+	async function handleCompClick(compID) {
+		$AppData.selectedComp = compID;
+
+		dispatch('routeEvent', {action: 'saveData'})
 		// navigate to comps page and clear all query parameters except the one specified below
 		window.location.assign(`${window.location.origin}/?comp=true#/comps`);
 	}

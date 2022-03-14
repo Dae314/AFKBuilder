@@ -43,8 +43,8 @@
 	});
 	md.use(Emoji);
 
-	$: sortedCompList = makeSortedCompList($AppData.Comps);
-	$: selectedUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : '';
+	$: compList = makeCompList($AppData.Comps);
+	$: openComp = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp);
 	$: highlightComp = null;
 	$: searchSuggestions = makeSearchSuggestions();
 	$: editorWidth = isMobile ? '100%' : '75%';
@@ -75,8 +75,8 @@
 		dispatch('routeEvent', {action: 'saveData'});
 	});
 
-	function makeSortedCompList(comps) {
-		let compList = [...comps].filter(e => $AppData.compShowHidden || !e.hidden).sort(sortByStars);
+	function makeCompList(comps) {
+		let compList = [...comps].filter(e => $AppData.compShowHidden || !e.hidden);
 
 		if($AppData.compSearchStr !== '') {
 			// array of search terms (separate by , trim white space, and make lower case)
@@ -95,17 +95,6 @@
 				return true;
 			});
 		}
-
-		// if comp was clicked in Recommendations, selectedUUID will get set
-		if($AppData.selectedUUID !== null) {
-			// try to find the comp
-			$AppData.selectedComp = compList.findIndex(e => e.uuid === $AppData.selectedUUID);
-			// reset selectedUUID regardless of whether it can be found
-			$AppData.selectedUUID = null;
-		}
-
-		// if we couldn't find the comp, set selectedComp to null
-		if($AppData.selectedComp < 0 || $AppData.selectedComp > compList.length - 1) $AppData.selectedComp = null;
 
 		searchSuggestions = makeSearchSuggestions();
 
@@ -137,28 +126,18 @@
 		return suggestions;
 	}
 
-	function sortByStars(a, b) {
-		// if(a.starred && !b.starred) {
-		// 	return -1;
-		// } else if(!a.starred && b.starred) {
-		// 	return 1;
-		// } else {
-		// 	return 0;
-		// }
-		return 0;
-	}
-
-	function handleCompCardClick(compIdx) {
+	function handleCompCardClick(uuid) {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		if(!urlParams.has('comp')) {
 			history.pushState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?comp=true${window.location.hash}`);
 		}
 		modalStack.push('comp');
-		$AppData.selectedComp = compIdx;
+		$AppData.selectedComp = uuid;
 		openDetail = true;
 		selectedLine = 0;
 		selectedHero = '';
+		showEditMenu = false;
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
@@ -170,10 +149,10 @@
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
-	function handleEditButtonClick(compIdx) {
+	function handleEditButtonClick(uuid) {
 		modalStack.push('editor');
 		open(CompEditor,
-				{compID: sortedCompList[compIdx].uuid,
+				{compID: uuid,
 				 onSuccess: (uuid) => handleCompChangeSuccess(uuid, 'edit'),
 				 isMobile: isMobile,
 				},
@@ -184,10 +163,11 @@
 				});
 	}
 	
-	function handlePublishButtonClick(compIdx) {
+	function handlePublishButtonClick(uuid) {
 		modalStack.push('confirm');
+		const comp = $AppData.Comps.find(e => e.uuid === uuid);
 		open(Confirm,
-				{onConfirm: handlePublishComp, confirmData: compIdx, message: `Publish comp named ${sortedCompList[compIdx].name}?`},
+				{onConfirm: handlePublishComp, confirmData: uuid, message: `Publish comp named ${comp.name}?`},
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
@@ -196,8 +176,7 @@
 				});
 	}
 
-	function handleHideButtonClick(compIdx) {
-		const uuid = sortedCompList[compIdx].uuid;
+	function handleHideButtonClick(uuid) {
 		const idx = $AppData.Comps.findIndex(e => e.uuid === uuid);
 		$AppData.Comps[idx].hidden = !$AppData.Comps[idx].hidden;
 		// if hidden comps are not shown, need to set selectedComp to null when the list is updated
@@ -220,21 +199,22 @@
 
 	async function handleCompChangeSuccess(uuid, type) {
 		searchSuggestions = makeSearchSuggestions();
-		highlightComp = sortedCompList.findIndex(e => e.uuid === uuid);
+		highlightComp = compList.findIndex(e => e.uuid === uuid);
 		selectedHero = '';
 		selectedLine = 0;
-		if(type === 'new') $AppData.selectedComp = highlightComp;
+		if(type === 'new') $AppData.selectedComp = uuid;
 		await tick();
 		document.getElementById(`comp${highlightComp}`).scrollIntoView();
 		setTimeout(() => highlightComp = null, 2000);
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
-	function handleDeleteButtonClick(compIdx) {
+	function handleDeleteButtonClick(uuid) {
 		modalStack.push('confirm');
-		const message = sortedCompList[compIdx].source === 'local' ? `Delete comp named ${sortedCompList[compIdx].name}?` : `Unfavorite comp named ${sortedCompList[compIdx].name}?`;
+		const comp = $AppData.Comps.find(e => e.uuid === uuid);
+		const message = comp.source === 'local' ? `Delete comp named ${comp.name}?` : `Unfavorite comp named ${comp.name}?`;
 		open(Confirm,
-				{onConfirm: handleDelComp, confirmData: compIdx, message: message},
+				{onConfirm: handleDelComp, confirmData: uuid, message: message},
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
@@ -256,8 +236,9 @@
 		});
 	}
 
-	async function handleExportButtonClick(compIdx) {
-		const output = await jsurl.compress(JSON.stringify(sortedCompList[compIdx]));
+	async function handleExportButtonClick(uuid) {
+		const comp = $AppData.Comps.find(e => e.uuid === uuid);
+		const output = await jsurl.compress(JSON.stringify(comp));
 		navigator.clipboard.writeText(output).then(() => {
 			dispatch('routeEvent',
 				{ action: 'showNotice',
@@ -291,20 +272,17 @@
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
-	async function handleDelComp(idx) {
-		const delUUID = sortedCompList[idx].uuid;
-		if(sortedCompList[idx].source === 'local') {
-			if(!$AppData.user.published_comps.some(e => e.uuid === delUUID)) {
-				const selUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : null;
-				$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== delUUID);
-				if($AppData.selectedComp === idx) {
+	async function handleDelComp(uuid) {
+		const comp = $AppData.Comps.find(e => e.uuid === uuid);
+		if(comp.source === 'local') {
+			if(!$AppData.user.published_comps.some(e => e.uuid === uuid)) {
+				$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== uuid);
+				if($AppData.selectedComp === uuid) {
 					$AppData.selectedComp = null;
 					selectedHero = '';
 					selectedLine = 0;
 					openDetail = false;
-				} else if($AppData.selectedComp > idx) {
-					$AppData.selectedComp = selUUID !== null ? sortedCompList.findIndex(e => e.uuid === selUUID) : null;
-					if($AppData.selectedComp === -1) $AppData.selectedComp = null;
+					showEditMenu = false;
 				}
 				dispatch('routeEvent', {action: 'saveData'});
 			} else {
@@ -324,7 +302,7 @@
 			const valid = await validateJWT($AppData.user.jwt);
 			if(valid) {
 				// user is valid, perform query
-				const response = await toggleSave($AppData.user.jwt, delUUID);
+				const response = await toggleSave($AppData.user.jwt, uuid);
 				if(response.status !== 200) {
 					dispatch('routeEvent',
 						{ action: 'showNotice',
@@ -339,15 +317,12 @@
 					console.log(`An error occurred attempting to unfavorite comp with uuid: ${delUUID}`)
 					console.log(response.data);
 				} else {
-					const selUUID = $AppData.selectedComp !== null ? sortedCompList[$AppData.selectedComp].uuid : null;
-					if($AppData.selectedComp === idx) {
+					if($AppData.selectedComp === uuid) {
 						$AppData.selectedComp = null;
 						selectedHero = '';
 						selectedLine = 0;
 						openDetail = false;
-					} else if($AppData.selectedComp > idx) {
-						$AppData.selectedComp = selUUID !== null ? sortedCompList.findIndex(e => e.uuid === selUUID) : null;
-						if($AppData.selectedComp === -1) $AppData.selectedComp = null;
+						showEditMenu = false;
 					}
 					$AppData.user.saved_comps = response.data.comps;
 					dispatch('routeEvent', {action: 'saveData'});
@@ -359,16 +334,16 @@
 		}
 	}
 
-	async function handlePublishComp(idx) {
+	async function handlePublishComp(uuid) {
+		const comp = $AppData.Comps.find(e => e.uuid === uuid);
 		const valid = await validateJWT($AppData.user.jwt);
 		if(valid) {
 			// setup essential variables
-			const compToPublish = sortedCompList[idx];
-			const comp_string = await jsurl.compress(JSON.stringify(compToPublish));
+			const comp_string = await jsurl.compress(JSON.stringify(comp));
 
 			// check if the comp has been published before
 			let compCheck = [];
-			const response = await getCompByUUID(compToPublish.uuid);
+			const response = await getCompByUUID(comp.uuid);
 			if(response.status !== 200) {
 				// errorDisplayConf = {
 				// 	errorCode: response.status,
@@ -388,12 +363,12 @@
 				try {
 					const create_response = await gqlCreateComp({
 						variables: {
-							name: compToPublish.name,
-							uuid: compToPublish.uuid,
+							name: comp.name,
+							uuid: comp.uuid,
 							comp_string: comp_string,
-							heroes: Object.keys(compToPublish.heroes),
-							tags: compToPublish.tags.map(e => e.replace(/ /g, '_')),
-							comp_update: compToPublish.lastUpdate,
+							heroes: Object.keys(comp.heroes),
+							tags: comp.tags.map(e => e.replace(/ /g, '_')),
+							comp_update: comp.lastUpdate,
 						}
 					});
 					const id = create_response.data.createComp.data.id;
@@ -430,7 +405,7 @@
 				}
 			} else {
 				// check that the user owns the comp
-				if(!$AppData.user.published_comps.some(e => e.uuid === compToPublish.uuid)) {
+				if(!$AppData.user.published_comps.some(e => e.uuid === comp.uuid)) {
 					dispatch('routeEvent',
 						{ action: 'showNotice',
 							data: {
@@ -445,18 +420,18 @@
 				}
 				// check that the comp needs updating
 				const oldDate = new Date(compCheck[0].attributes.comp_update);
-				if(compToPublish.lastUpdate > oldDate) {
+				if(comp.lastUpdate > oldDate) {
 					// try to update the existing comp
 					try {
 						const update_response = await gqlUpdateComp({
 							variables: {
 								id: compCheck[0].id,
-								name: compToPublish.name,
-								uuid: compToPublish.uuid,
+								name: comp.name,
+								uuid: comp.uuid,
 								comp_string: comp_string,
-								heroes: Object.keys(compToPublish.heroes),
-								tags: compToPublish.tags.map(e => e.replace(/ /g, '_')),
-								comp_update: compToPublish.lastUpdate,
+								heroes: Object.keys(comp.heroes),
+								tags: comp.tags.map(e => e.replace(/ /g, '_')),
+								comp_update: comp.lastUpdate,
 							}
 						});
 						dispatch('routeEvent',
@@ -561,8 +536,8 @@
 			}
 			await tick();
 			$AppData.compSearchStr = ''; // reset any filters
-			highlightComp = sortedCompList.findIndex(e => e.uuid === returnObj.message.uuid);
-			$AppData.selectedComp = highlightComp;
+			highlightComp = compList.findIndex(e => e.uuid === returnObj.message.uuid);
+			$AppData.selectedComp = returnObj.message.uuid;
 			selectedHero = '';
 			selectedLine = 0;
 			const compScroller = document.getElementById('compScroller');
@@ -573,8 +548,9 @@
 		}
 	}
 
-	async function handleCopyButtonClick(idx) {
-		const copyComp = JSON.parse(JSON.stringify(sortedCompList[idx]));
+	async function handleCopyButtonClick(uuid) {
+		const comp = $AppData.Comps.find(e => e.uuid === uuid);
+		const copyComp = JSON.parse(JSON.stringify(comp));
 		copyComp.uuid = uuidv4();
 		copyComp.starred = false;
 		copyComp.source = 'local';
@@ -583,8 +559,8 @@
 		handleCloseButtonClick();
 		await tick();
 		$AppData.compSearchStr = ''; // reset any filters
-		highlightComp = sortedCompList.findIndex(e => e.uuid === copyComp.uuid);
-		$AppData.selectedComp = highlightComp;
+		highlightComp = compList.findIndex(e => e.uuid === copyComp.uuid);
+		$AppData.selectedComp = copyComp.uuid;
 		selectedHero = '';
 		selectedLine = 0;
 		const compScroller = document.getElementById('compScroller');
@@ -702,18 +678,12 @@
 				}
 			}
 			$AppData.Comps = event.detail;
-			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selectedUUID);
-			if($AppData.selectedComp === -1) $AppData.selectedComp = null;
 			dispatch('routeEvent', {action: 'saveData'});
 		}
 	}
 
 	function updateSearch() {
-		if(sortedCompList.some(e => e.uuid === selectedUUID)) {
-			$AppData.selectedComp = sortedCompList.findIndex(e => e.uuid === selectedUUID);
-		} else {
-			$AppData.selectedComp = null;
-		}
+		if(!compList.some(e => e.uuid === $AppData.selectedComp)) $AppData.selectedComp = null;
 		searchSuggestions = makeSearchSuggestions();
 		openSuggestions = true;
 		dispatch('routeEvent', {action: 'saveData'});
@@ -772,7 +742,7 @@
 			</div>
 		</div>
 		<div class="compScroller" id="compScroller">
-			{#if sortedCompList.length === 0}
+			{#if compList.length === 0}
 				<div class="noComps" class:noSearch={$AppData.compSearchStr !== ''}>
 					{#if $AppData.compSearchStr === ''}
 						<span>Add or Import a New Comp</span>
@@ -785,7 +755,7 @@
 				</div>
 			{:else}
 				<SortableList
-					list={sortedCompList}
+					list={compList}
 					key="uuid"
 					on:sort={handleCardSort}
 					let:item={comp}
@@ -819,14 +789,14 @@
 	</section>
 	<section class="sect2">
 		<div class="compDetails" class:open={openDetail}>
-			{#if $AppData.selectedComp !== null}
+			{#if openComp}
 				<div class="compDetailHead">
 					<div class="closeButtonContainer">
 						<button type="button" class="detailButton closeDetailButton" on:click={handleCloseButtonClick}><i class="arrow left"></i>Close</button>
 					</div>
 					<div class="titleContainer">
-						<h3 class="compTitle">{sortedCompList[$AppData.selectedComp].name}</h3>
-						<p class="authorTitle">{sortedCompList[$AppData.selectedComp].author}</p>
+						<h3 class="compTitle">{openComp.name}</h3>
+						<p class="authorTitle">{openComp.author}</p>
 					</div>
 					<button type="button" class="editMenuButton" class:open={showEditMenu} on:click={() => showEditMenu = !showEditMenu}>
 						<i class="filledCircle"></i>
@@ -837,7 +807,7 @@
 						<button
 							type="button"
 							class="editDelButton editButton"
-							disabled={sortedCompList[$AppData.selectedComp].source !== 'local'}
+							disabled={openComp.source !== 'local'}
 							on:click={() => handleEditButtonClick($AppData.selectedComp)}>
 							<img draggable="false" src="./img/utility/pencil.png" alt="Edit">
 							<span>Edit</span>
@@ -845,11 +815,11 @@
 						<button
 							type="button"
 							class="editDelButton publishButton"
-							class:update={$AppData.user.published_comps.some(e => e.uuid === sortedCompList[$AppData.selectedComp].uuid)}
-							disabled={sortedCompList[$AppData.selectedComp].source !== 'local'}
+							class:update={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
+							disabled={openComp.source !== 'local'}
 							on:click={() => handlePublishButtonClick($AppData.selectedComp)}>
 							<img draggable="false" src="./img/utility/explore_white.png" alt="Publish">
-							<span>{$AppData.user.published_comps.some(e => e.uuid === sortedCompList[$AppData.selectedComp].uuid) ? 'Update' : 'Publish'}</span>
+							<span>{$AppData.user.published_comps.some(e => e.uuid === openComp.uuid) ? 'Update' : 'Publish'}</span>
 						</button>
 						<button
 							type="button"
@@ -861,10 +831,10 @@
 						<button
 							type="button"
 							class="editDelButton hideButton"
-							class:hidden={sortedCompList[$AppData.selectedComp].hidden}
+							class:hidden={openComp.hidden}
 							on:click={() => handleHideButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src={sortedCompList[$AppData.selectedComp].hidden ? './img/utility/view_white.png' : './img/utility/hidden_white.png'} alt={sortedCompList[$AppData.selectedComp].hidden ? 'Unhide' : 'Hide'}>
-							<span>{sortedCompList[$AppData.selectedComp].hidden ? 'Unhide' : 'Hide'}</span>
+							<img draggable="false" src={openComp.hidden ? './img/utility/view_white.png' : './img/utility/hidden_white.png'} alt={openComp.hidden ? 'Unhide' : 'Hide'}>
+							<span>{openComp.hidden ? 'Unhide' : 'Hide'}</span>
 						</button>
 						<!-- eye icons by https://uxwing.com/ -->
 						<button
@@ -877,19 +847,19 @@
 						<button
 							type="button"
 							class="editDelButton deleteButton"
-							disabled={$AppData.user.published_comps.some(e => e.uuid === sortedCompList[$AppData.selectedComp].uuid)}
+							disabled={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
 							on:click={() => handleDeleteButtonClick($AppData.selectedComp)}>
 							<img
 								draggable="false"
-								src={sortedCompList[$AppData.selectedComp].source === 'local' ? './img/utility/trashcan.png' : './img/utility/favorite_unfilled_white.png'}
-								alt={sortedCompList[$AppData.selectedComp].source === 'local' ? 'Delete' : 'Unfavorite'}>
-							<span>{sortedCompList[$AppData.selectedComp].source === 'local' ? 'Delete' : 'Unfavorite'}</span>
+								src={openComp.source === 'local' ? './img/utility/trashcan.png' : './img/utility/favorite_unfilled_white.png'}
+								alt={openComp.source === 'local' ? 'Delete' : 'Unfavorite'}>
+							<span>{openComp.source === 'local' ? 'Delete' : 'Unfavorite'}</span>
 						</button>
 					</div>
 				</div>
 				<div class="tagsArea">
 					<div class="tagDisplay">
-						{#each sortedCompList[$AppData.selectedComp].tags as tag}
+						{#each openComp.tags as tag}
 							<div class="tag">
 								<span class="tagText">{tag}</span>
 							</div>
@@ -900,68 +870,68 @@
 					<button
 						type="button"
 						class="viewExploreButton"
-						class:visible={$AppData.user.published_comps.some(e => e.uuid === sortedCompList[$AppData.selectedComp].uuid)}
-						on:click={() => handleViewExploreClick(sortedCompList[$AppData.selectedComp].uuid)}>
+						class:visible={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
+						on:click={() => handleViewExploreClick(openComp.uuid)}>
 						<span>View in Explore</span>
 					</button>
 				</div>
 				<div class="compDetailBody">
 					<div class="lastUpdate">
-						<span title="{sortedCompList[$AppData.selectedComp].lastUpdate.toLocaleString()}">Updated {msToString(now - sortedCompList[$AppData.selectedComp].lastUpdate.getTime())}</span>
+						<span title="{openComp.lastUpdate.toLocaleString()}">Updated {msToString(now - openComp.lastUpdate.getTime())}</span>
 					</div>
 					<div class="bodyArea1">
 						<div class="lineExamples">
 							<div class="lineSwitcher">
-								{#each sortedCompList[$AppData.selectedComp].lines as line, i}
+								{#each openComp.lines as line, i}
 								<button type="button" class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}>{line.name}</button>
 								{/each}
 							</div>
 							<div class="lineDisplay">
-								{#if sortedCompList[$AppData.selectedComp].lines.length > 0}
-									<div class="lineTitle"><span>{sortedCompList[$AppData.selectedComp].lines[selectedLine].name}</span></div>
+								{#if openComp.lines.length > 0}
+									<div class="lineTitle"><span>{openComp.lines[selectedLine].name}</span></div>
 								{/if}
 								<div class="lineMembers">
 									<div class="detailBackline">
-										{#if sortedCompList[$AppData.selectedComp].lines.length > 0}
-											{#each sortedCompList[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
+										{#if openComp.lines.length > 0}
+											{#each openComp.lines[selectedLine].heroes as hero, i}
 												{#if i >= 2}
 													{#if $HeroData.some(e => e.id === hero)}
 														<div class="detailImgContainer">
 															<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
-															<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
+															<span class="coreMark" class:visible={openComp.heroes[hero].core}></span>
 															<div class="ascMark">
 																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																	{#if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 6}
+																	{#if openComp.heroes[hero].ascendLv >= 6}
 																		<img src="./img/markers/ascended.png" alt="ascended">
-																	{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 4}
+																	{:else if openComp.heroes[hero].ascendLv >= 4}
 																		<img src="./img/markers/mythic.png" alt="mythic">
-																	{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 2}
+																	{:else if openComp.heroes[hero].ascendLv >= 2}
 																		<img src="./img/markers/legendary.png" alt="legendary">
 																	{:else}
 																		<img src="./img/markers/elite.png" alt="elite">
 																	{/if}
 																{:else}
-																	{#if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 4}
+																	{#if openComp.heroes[hero].ascendLv >= 4}
 																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 2}
+																	{:else if openComp.heroes[hero].ascendLv >= 2}
 																		<img src="./img/markers/elite.png" alt="elite">
 																	{:else}
 																		<img src="./img/markers/rare.png" alt="rare">
 																	{/if}
 																{/if}
-																{#if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 30}
+																{#if openComp.heroes[hero].si >= 30}
 																	<img src="./img/markers/si30.png" alt="si30">
-																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 20}
+																{:else if openComp.heroes[hero].si >= 20}
 																	<img src="./img/markers/si20.png" alt="si20">
-																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 10}
+																{:else if openComp.heroes[hero].si >= 10}
 																	<img src="./img/markers/si10.png" alt="si10">
 																{:else}
 																	<img src="./img/markers/si0.png" alt="si0">
 																{/if}
-																{#if sortedCompList[$AppData.selectedComp].heroes[hero].furn >= 9}
-																	<img class:moveup={sortedCompList[$AppData.selectedComp].heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].furn >= 3}
-																	<img class:moveup={sortedCompList[$AppData.selectedComp].heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+																{#if openComp.heroes[hero].furn >= 9}
+																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+																{:else if openComp.heroes[hero].furn >= 3}
+																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
 																{/if}
 															</div>
 														</div>
@@ -974,46 +944,46 @@
 										{/if}
 									</div>
 									<div class="detailFrontline">
-										{#if sortedCompList[$AppData.selectedComp].lines.length > 0}
-											{#each sortedCompList[$AppData.selectedComp].lines[selectedLine].heroes as hero, i}
+										{#if openComp.lines.length > 0}
+											{#each openComp.lines[selectedLine].heroes as hero, i}
 												{#if i < 2}
 													{#if $HeroData.some(e => e.id === hero)}
 														<div class="detailImgContainer">
 															<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
-															<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
+															<span class="coreMark" class:visible={openComp.heroes[hero].core}></span>
 															<div class="ascMark">
 																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																	{#if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 6}
+																	{#if openComp.heroes[hero].ascendLv >= 6}
 																		<img src="./img/markers/ascended.png" alt="ascended">
-																	{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 4}
+																	{:else if openComp.heroes[hero].ascendLv >= 4}
 																		<img src="./img/markers/mythic.png" alt="mythic">
-																	{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 2}
+																	{:else if openComp.heroes[hero].ascendLv >= 2}
 																		<img src="./img/markers/legendary.png" alt="legendary">
 																	{:else}
 																		<img src="./img/markers/elite.png" alt="elite">
 																	{/if}
 																{:else}
-																	{#if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 4}
+																	{#if openComp.heroes[hero].ascendLv >= 4}
 																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 2}
+																	{:else if openComp.heroes[hero].ascendLv >= 2}
 																		<img src="./img/markers/elite.png" alt="elite">
 																	{:else}
 																		<img src="./img/markers/rare.png" alt="rare">
 																	{/if}
 																{/if}
-																{#if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 30}
+																{#if openComp.heroes[hero].si >= 30}
 																	<img src="./img/markers/si30.png" alt="si30">
-																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 20}
+																{:else if openComp.heroes[hero].si >= 20}
 																	<img src="./img/markers/si20.png" alt="si20">
-																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 10}
+																{:else if openComp.heroes[hero].si >= 10}
 																	<img src="./img/markers/si10.png" alt="si10">
 																{:else}
 																	<img src="./img/markers/si0.png" alt="si0">
 																{/if}
-																{#if sortedCompList[$AppData.selectedComp].heroes[hero].furn >= 9}
-																	<img class:moveup={sortedCompList[$AppData.selectedComp].heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].furn >= 3}
-																	<img class:moveup={sortedCompList[$AppData.selectedComp].heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+																{#if openComp.heroes[hero].furn >= 9}
+																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+																{:else if openComp.heroes[hero].furn >= 3}
+																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
 																{/if}
 															</div>
 														</div>
@@ -1033,7 +1003,7 @@
 								<button type="button" class="expanderButton" on:click={() => openDesc = !openDesc}><i class="expanderArrow {openDesc ? 'down' : 'right' }"></i><span>Description</span></button>
 							</div>
 							<div class="mobileExpander descSection" class:open={openDesc}>
-								<span class="descText">{@html renderMarkdown(sortedCompList[$AppData.selectedComp].desc)}</span>
+								<span class="descText">{@html renderMarkdown(openComp.desc)}</span>
 							</div>
 						</div>
 					</div>
@@ -1047,52 +1017,52 @@
 									<div class="selectedHero" in:fade="{{duration: 200}}">
 										<div class="upperSelectCard">
 											<div class="siFurnBoxContainer">
-												<SIFurnEngBox type='si' num={sortedCompList[$AppData.selectedComp].heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
+												<SIFurnEngBox type='si' num={openComp.heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
 											</div>
 											<div class="selectPortraitArea">
 												<div class="portraitContainer" on:click={() => handleHeroDetailClick(selectedHero)}>
 													<img draggable="false" class="selectHeroPortrait" class:claimed={$AppData.MH.List[selectedHero].claimed} src="{$HeroData.find(e => e.id === selectedHero).portrait}" alt="{selectedHero}">
-													<span class="coreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[selectedHero].core}></span>
+													<span class="coreMark" class:visible={openComp.heroes[selectedHero].core}></span>
 												</div>
 												<p>{$HeroData.find(e => e.id === selectedHero).name}</p>
 												<div>
 													<StarsInput
-														value={sortedCompList[$AppData.selectedComp].heroes[selectedHero].stars}
-														enabled={sortedCompList[$AppData.selectedComp].heroes[selectedHero].ascendLv === 6}
-														engraving={sortedCompList[$AppData.selectedComp].heroes[selectedHero].engraving}
+														value={openComp.heroes[selectedHero].stars}
+														enabled={openComp.heroes[selectedHero].ascendLv === 6}
+														engraving={openComp.heroes[selectedHero].engraving}
 														displayOnly={true} />
 												</div>
 											</div>
 											<div class="siFurnBoxContainer">
-												<SIFurnEngBox type='furn' num={sortedCompList[$AppData.selectedComp].heroes[selectedHero].furn} maxWidth='50px' fontSize='1.2rem' />
+												<SIFurnEngBox type='furn' num={openComp.heroes[selectedHero].furn} maxWidth='50px' fontSize='1.2rem' />
 											</div>
 										</div>
 										<div class="lowerSelectCard">
 											<div class="ascendBoxContainer">
 												<AscendBox
-													ascendLv="{sortedCompList[$AppData.selectedComp].heroes[selectedHero].ascendLv}"
+													ascendLv="{openComp.heroes[selectedHero].ascendLv}"
 													tier={$HeroData.find(e => e.id === selectedHero).tier}
 												/>
 											</div>
-											{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].stars > 0}
+											{#if openComp.heroes[selectedHero].stars > 0}
 												<div class="engraveBoxContainer">
-													<SIFurnEngBox type='engraving' num={sortedCompList[$AppData.selectedComp].heroes[selectedHero].engraving} maxWidth='50px' fontSize='1.2rem' />
+													<SIFurnEngBox type='engraving' num={openComp.heroes[selectedHero].engraving} maxWidth='50px' fontSize='1.2rem' />
 												</div>
 											{/if}
-											{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].notes.length > 0}
+											{#if openComp.heroes[selectedHero].notes.length > 0}
 												<div class="heroNotesArea">
 													<div class="heroNotes">
-														<span>{sortedCompList[$AppData.selectedComp].heroes[selectedHero].notes}</span>
+														<span>{openComp.heroes[selectedHero].notes}</span>
 													</div>
 												</div>
 											{/if}
-											{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.primary.length > 0 || sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.secondary.length > 0 || sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.situational.length > 0}
+											{#if openComp.heroes[selectedHero].artifacts.primary.length > 0 || openComp.heroes[selectedHero].artifacts.secondary.length > 0 || openComp.heroes[selectedHero].artifacts.situational.length > 0}
 												<div class="artifactsContainer">
 													<h5>Artifacts</h5>
 													<div class="artifactLine priArtifactLine">
 														<h6>Primary</h6>
 														<div class="artifactArea">
-															{#each sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.primary as artifact}
+															{#each openComp.heroes[selectedHero].artifacts.primary as artifact}
 																<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
 																	<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 																	<p>{$Artifacts[artifact].name}</p>
@@ -1100,11 +1070,11 @@
 															{/each}
 														</div>
 													</div>
-													{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.secondary.length > 0}
+													{#if openComp.heroes[selectedHero].artifacts.secondary.length > 0}
 														<div class="artifactLine secArtifactLine">
 															<h6>Secondary</h6>
 															<div class="artifactArea">
-																{#each sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.secondary as artifact}
+																{#each openComp.heroes[selectedHero].artifacts.secondary as artifact}
 																	<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
 																		<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 																		<p>{$Artifacts[artifact].name}</p>
@@ -1113,11 +1083,11 @@
 															</div>
 														</div>
 													{/if}
-													{#if sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.situational.length > 0}
+													{#if openComp.heroes[selectedHero].artifacts.situational.length > 0}
 														<div class="artifactLine sitArtifactLine">
 															<h6>Situational</h6>
 															<div class="artifactArea">
-																{#each sortedCompList[$AppData.selectedComp].heroes[selectedHero].artifacts.situational as artifact}
+																{#each openComp.heroes[selectedHero].artifacts.situational as artifact}
 																	<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
 																		<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 																		<p>{$Artifacts[artifact].name}</p>
@@ -1143,7 +1113,7 @@
 							</div>
 							<div class="mobileExpander subGroupExpander" class:open={openSubs}>
 								<div class="subDisplay">
-									{#each sortedCompList[$AppData.selectedComp].subs as subgroup}
+									{#each openComp.subs as subgroup}
 									<div class="subGroup">
 										<div class="subGroupTitle"><span>{subgroup.name}</span></div>
 										<div class="subGroupMembers">
@@ -1152,40 +1122,40 @@
 													<button type="button" class="heroButton">
 														<div class="subImgContainer">
 															<img draggable="false" on:click={() => handleHeroClick(hero)} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
-															<span class="coreMark subCoreMark" class:visible={sortedCompList[$AppData.selectedComp].heroes[hero].core}></span>
+															<span class="coreMark subCoreMark" class:visible={openComp.heroes[hero].core}></span>
 															<div class="ascMark subAscMark">
 																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																	{#if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 6}
+																	{#if openComp.heroes[hero].ascendLv >= 6}
 																		<img src="./img/markers/ascended.png" alt="ascended">
-																	{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 4}
+																	{:else if openComp.heroes[hero].ascendLv >= 4}
 																		<img src="./img/markers/mythic.png" alt="mythic">
-																	{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 2}
+																	{:else if openComp.heroes[hero].ascendLv >= 2}
 																		<img src="./img/markers/legendary.png" alt="legendary">
 																	{:else}
 																		<img src="./img/markers/elite.png" alt="elite">
 																	{/if}
 																{:else}
-																	{#if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 4}
+																	{#if openComp.heroes[hero].ascendLv >= 4}
 																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else if sortedCompList[$AppData.selectedComp].heroes[hero].ascendLv >= 2}
+																	{:else if openComp.heroes[hero].ascendLv >= 2}
 																		<img src="./img/markers/elite.png" alt="elite">
 																	{:else}
 																		<img src="./img/markers/rare.png" alt="rare">
 																	{/if}
 																{/if}
-																{#if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 30}
+																{#if openComp.heroes[hero].si >= 30}
 																	<img src="./img/markers/si30.png" alt="si30">
-																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 20}
+																{:else if openComp.heroes[hero].si >= 20}
 																	<img src="./img/markers/si20.png" alt="si20">
-																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].si >= 10}
+																{:else if openComp.heroes[hero].si >= 10}
 																	<img src="./img/markers/si10.png" alt="si10">
 																{:else}
 																	<img src="./img/markers/si0.png" alt="si0">
 																{/if}
-																{#if sortedCompList[$AppData.selectedComp].heroes[hero].furn >= 9}
-																	<img class:moveup={sortedCompList[$AppData.selectedComp].heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																{:else if sortedCompList[$AppData.selectedComp].heroes[hero].furn >= 3}
-																	<img class:moveup={sortedCompList[$AppData.selectedComp].heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
+																{#if openComp.heroes[hero].furn >= 9}
+																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
+																{:else if openComp.heroes[hero].furn >= 3}
+																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
 																{/if}
 															</div>
 														</div>

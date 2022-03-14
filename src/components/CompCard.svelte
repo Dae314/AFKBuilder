@@ -12,16 +12,16 @@
 
 	$: published = $AppData.user.jwt ? $AppData.user.published_comps.some(e => e.uuid === comp.uuid) : false;
 
-	function handleDeleteButtonClick(index) {
-		delCallback(index);
+	function handleDeleteButtonClick(uuid) {
+		delCallback(uuid);
 	}
 
-	function handleCompCardClick(index) {
-		cardClickCallback(index);
+	function handleCompCardClick(uuid) {
+		cardClickCallback(uuid);
 	}
 
-	function handleExportButtonClick(index) {
-		exportCallback(index);
+	function handleExportButtonClick(uuid) {
+		exportCallback(uuid);
 	}
 
 	function handleStarClick(event, uuid) {
@@ -29,7 +29,7 @@
 	}
 </script>
 
-<div id="comp{idx}" class="compCard" class:highlight={highlightComp !== null && highlightComp === idx} class:active={idx === $AppData.selectedComp} on:click={() => handleCompCardClick(idx) }>
+<div id="comp{idx}" class="compCard" class:highlight={highlightComp !== null && highlightComp === idx} class:active={comp.uuid === $AppData.selectedComp} on:click={() => handleCompCardClick(comp.uuid) }>
 	<div class="compCardHead">
 		<div class="titleAuthorContainer">
 			<div class="compCardTitleContainer">
@@ -46,7 +46,7 @@
 						type="button"
 						class="cardDeleteButton"
 						disabled={$AppData.user.published_comps.some(e => e.uuid === comp.uuid)}
-						on:click={(e) => { handleDeleteButtonClick(idx); e.stopPropagation(); }}>
+						on:click={(e) => { handleDeleteButtonClick(comp.uuid); e.stopPropagation(); }}>
 						<img
 							draggable="false"
 							class="deleteIcon"
