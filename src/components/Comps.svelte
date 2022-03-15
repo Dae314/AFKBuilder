@@ -75,6 +75,12 @@
 		dispatch('routeEvent', {action: 'saveData'});
 	});
 
+	async function postUpdate() {
+		$AppData.compLastUpdate = new Date();
+		const valid = await validateJWT($AppData.user.jwt);
+		if(valid) dispatch('routeEvent', {action: 'syncLocalComps'});
+	}
+
 	function makeCompList(comps) {
 		let compList = [...comps].filter(e => $AppData.compShowHidden || !e.hidden);
 
@@ -206,6 +212,7 @@
 		await tick();
 		document.getElementById(`comp${highlightComp}`).scrollIntoView();
 		setTimeout(() => highlightComp = null, 2000);
+		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
@@ -278,6 +285,7 @@
 			if(!$AppData.user.published_comps.some(e => e.uuid === uuid)) {
 				$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== uuid);
 				if($AppData.selectedComp === uuid) resetOpenComp();
+				await postUpdate();
 				dispatch('routeEvent', {action: 'saveData'});
 			} else {
 				dispatch('routeEvent',
@@ -531,6 +539,7 @@
 			const compScroller = document.getElementById('compScroller');
 			compScroller.scrollTop = compScroller.scrollHeight;
 			setTimeout(() => highlightComp = null, 3000);
+			await postUpdate();
 			dispatch('routeEvent', {action: 'saveData'});
 			return { retCode: 0, message: statusMsg };
 		}
@@ -554,6 +563,7 @@
 		const compScroller = document.getElementById('compScroller');
 		compScroller.scrollTop = compScroller.scrollHeight;
 		setTimeout(() => highlightComp = null, 3000);
+		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 

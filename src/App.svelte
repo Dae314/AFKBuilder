@@ -195,6 +195,9 @@
 		if(user.my_heroes) {
 			if('lastUpdate' in user.my_heroes) user.my_heroes.lastUpdate = new Date(user.my_heroes.lastUpdate);
 		}
+		if(user.local_comps) {
+			if('lastUpdate' in user.local_comps) user.local_comps.lastUpdate = new Date(user.local_comps.lastUpdate);
+		}
 		$AppData.user.id = user.id;
 		$AppData.user.username = user.username;
 		$AppData.user.local_comps = user.local_comps;
@@ -455,6 +458,7 @@
 						$AppData.Comps = [...$AppData.Comps, returnObj.message];
 					}
 				}
+				// this function will not delete comps
 				saveAppData();
 				break;
 			case 'none':

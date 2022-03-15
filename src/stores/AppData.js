@@ -599,6 +599,7 @@ if(window.localStorage.getItem('appData') !== null) {
 		comp.lastUpdate = new Date(comp.lastUpdate);
 	}
 	appdata.MH.lastUpdate = new Date(appdata.MH.lastUpdate);
+	appdata.compLastUpdate = new Date(appdata.compLastUpdate);
 	// updateTestComps(appdata);
 } else {
 	// Otherwise initialize a clean AppData
