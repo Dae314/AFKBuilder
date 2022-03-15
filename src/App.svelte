@@ -127,6 +127,7 @@
 	setClient(client); // provide ApolloClient to all components in the app
 
 	const gqlUpdateMyHeroes = mutation(gql_UPDATE_MY_HEROES);
+	const gqlUpdateLocalComps = mutation(gql_UPDATE_LOCAL_COMPS);
 
 	onMount(async () => {
 		handleWindowResize();
@@ -139,6 +140,7 @@
 			// now sync the user's favorited comps, myHeroes, and local comps
 			await syncFavoriteComps();
 			await syncMyHeroes();
+			await syncLocalComps();
 		} else {
 			await handleLogout(false);
 		}
@@ -411,7 +413,7 @@
 				try {
 					const localComps = $AppData.Comps.filter(e => e.source === 'local');
 					const compData = await jsurl.compress(JSON.stringify(localComps));
-					const response = await gqlUpdateMyHeroes({variables: { id: $AppData.user.id, comps: {lastUpdate: $AppData.compLastUpdate, data: compData} }});
+					const response = await gqlUpdateLocalComps({variables: { id: $AppData.user.id, comps: {lastUpdate: $AppData.compLastUpdate, data: compData} }});
 					const newLocalComps = response.data.updateUsersPermissionsUser.data.attributes.local_comps;
 					newLocalComps.lastUpdate = new Date(newLocalComps.lastUpdate);
 					$AppData.user.local_comps = newLocalComps;
