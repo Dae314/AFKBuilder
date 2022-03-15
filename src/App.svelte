@@ -20,7 +20,7 @@
 	// imports for GraphQL
 	import ApolloClient from 'apollo-boost';
 	import { setClient, mutation } from "svelte-apollo";
-	import { gql_UPDATE_MY_HEROES } from './gql/queries.svelte';
+	import { gql_UPDATE_MY_HEROES, gql_UPDATE_LOCAL_COMPS } from './gql/queries.svelte';
 
 	import Header from './components/Header.svelte';
 	import Explore from './components/Explore.svelte';
@@ -353,6 +353,7 @@
 					const newMyHeroes = response.data.updateUsersPermissionsUser.data.attributes.my_heroes;
 					newMyHeroes.lastUpdate = new Date(newMyHeroes.lastUpdate);
 					$AppData.user.my_heroes = newMyHeroes;
+					saveAppData();
 				} catch(err) {
 					console.log(`Error: unable to upload My Heroes data to server`);
 					console.log(err);
@@ -381,6 +382,78 @@
 				}
 				// message should contain a clean MH List object now
 				$AppData.MH.List = returnObj.message;
+				saveAppData();
+				break;
+			case 'none':
+				// do nothing
+				break;
+			default:
+				throw new Error(`Error, invalid updateType computed in syncMyHeroes something really went wrong. ${updateType}`);
+		}
+	}
+
+	// function assumes that $AppData.user.jwt was set correctly
+	async function syncLocalComps() {
+		// check if update is necessary
+		let updateType = 'push'; // assume push is necessary if user.local_comps.lastUpdate is invalid
+		if($AppData.user.local_comps && 'lastUpdate' in $AppData.user.local_comps) {
+			// local_comps.lastUpdate is valid, so check the type of update
+			if($AppData.user.local_comps.lastUpdate > $AppData.compLastUpdate) {
+				// server is ahead of local
+				updateType = 'pull';
+			} else if($AppData.user.local_comps.lastUpdate.getTime() === $AppData.compLastUpdate.getTime()) {
+				// server and local are sync'd no need to update
+				updateType = 'none';
+			} // else local is ahead of server, so do a push that's already set
+		}
+		switch(updateType) {
+			case 'push':
+				try {
+					const localComps = $AppData.Comps.filter(e => e.source === 'local');
+					const compData = await jsurl.compress(JSON.stringify(localComps));
+					const response = await gqlUpdateMyHeroes({variables: { id: $AppData.user.id, comps: {lastUpdate: $AppData.compLastUpdate, data: compData} }});
+					const newLocalComps = response.data.updateUsersPermissionsUser.data.attributes.local_comps;
+					newLocalComps.lastUpdate = new Date(newLocalComps.lastUpdate);
+					$AppData.user.local_comps = newLocalComps;
+					saveAppData();
+				} catch(err) {
+					console.log(`Error: unable to upload local comp data to server`);
+					console.log(err);
+					displayNotice({ type: 'error', message: 'Comps sync failed', });
+					return;
+				}
+				break;
+			case 'pull':
+				// parse the data
+				let compsData;
+				try {
+					const json = await jsurl.decompress($AppData.user.local_comps.data);
+					compsData = JSON.parse(json);
+				} catch(err) {
+					console.log(`Error: unable to parse local comp data from server`);
+					console.log(err);
+					displayNotice({ type: 'error', message: 'Comps sync failed', });
+					return;
+				}
+				// validate resulting data is good
+				for(const comp of compsData) {
+					let returnObj = await validateComp(comp);
+					if(returnObj.retCode !== 0) {
+						console.log(`Error: server local comp data is invalid`);
+						displayNotice({ type: 'error', message: 'Comps sync failed', });
+						return;
+					}
+					// message should contain a clean comp object now, try to merge it into Comps
+					if($AppData.Comps.some(e => e.uuid === returnObj.message.uuid)) {
+						// comp already exists, update it
+						const idx = $AppData.Comps.findIndex(e => e.uuid === returnObj.message.uuid);
+						$AppData.Comps[idx] = returnObj.message;
+					} else {
+						// comp does not exist yet, add it
+						$AppData.Comps = [...$AppData.Comps, returnObj.message];
+					}
+				}
+				saveAppData();
 				break;
 			case 'none':
 				// do nothing
@@ -449,6 +522,9 @@
 				break;
 			case 'syncMyHeroes':
 				await syncMyHeroes();
+				break;
+			case 'syncLocalComps':
+				await syncLocalComps();
 				break;
 			case 'resetTutorial':
 				await resetTutorial();

@@ -49,6 +49,22 @@
 			}
 		}
 	}`;
+	export const gql_UPDATE_LOCAL_COMPS = gql`
+	mutation($id: ID!, $comps: JSON!) {
+		updateUsersPermissionsUser(
+			id: $id
+			data: {
+				local_comps: $comps
+			}
+		) {
+			data {
+				id
+				attributes {
+					local_comps
+				}
+			}
+		}
+	}`;
 	export const gql_GET_COMP = gql`
 	query($uuid: String!) {
 		comps(filters: { uuid: { eq: $uuid } }) {

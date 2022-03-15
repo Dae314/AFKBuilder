@@ -259,6 +259,7 @@ function buildAppData(data) {
 		{name: 'maxNoteLen', default: maxNoteLen},
 		{name: 'compSearchStr', default: ''},
 		{name: 'compShowHidden', default: false},
+		{name: 'compLastUpdate', default: new Date('January 1, 1990 03:00:00')},
 		{name: 'user', default: {}},
 		{name: 'HL', default: {}},
 		{name: 'MH', default: {}},
