@@ -8,6 +8,7 @@
 	import HeroFinder from '../shared/HeroFinder.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
 	import XButton from '../shared/XButton.svelte';
+	import {validateJWT} from '../rest/RESTFunctions.svelte';
 
 	export let compID = null; // uuid for comp to be edited
 	export let onSuccess = () => {}; // save success callback
@@ -17,6 +18,7 @@
 
 	$: tagSuggestions = makeTagSuggestions();
 	$: isValidTag = newTagText !== '' && tagValidation.test(newTagText);
+	$: validLogin = $AppData.user.jwt && validateJWT($AppData.user.jwt);
 
 	// this will hold the comp as it's edited
 	let comp = {
@@ -60,6 +62,7 @@
 			comp = JSON.parse(JSON.stringify(compCopy));
 			comp.lastUpdate = new Date(comp.lastUpdate);
 		}
+		if(validLogin) comp.author = $AppData.user.username;
 		autosave = setTimeout(() => {
 			if(comp.draft) saveDraft();
 		}, 30000);
@@ -420,7 +423,7 @@
 	<section class="sect1">
 		<div class="editorHead">
 			<input class="titleInput" type="text" bind:value={comp.name} placeholder="Title" maxlength="50" class:maxed={comp.name.length >= 50}>
-			<input class="authorInput" type="text" bind:value={comp.author} placeholder="Author" maxlength="50" class:maxed={comp.author.length >= 50}>
+			<input disabled={validLogin} class="authorInput" type="text" bind:value={comp.author} placeholder="Author" maxlength="50" class:maxed={comp.author.length >= 50}>
 			{#if comp.draft}
 				<div class="draftContainer"><span class="draftLabel">draft</span></div>
 			{/if}
