@@ -387,6 +387,7 @@
 				}
 				// message should contain a clean MH List object now
 				$AppData.MH.List = returnObj.message;
+				$AppData.MH.lastUpdate = $AppData.user.my_heroes.lastUpdate;
 				saveAppData();
 				break;
 			case 'none':
@@ -442,9 +443,11 @@
 				}
 				// validate resulting data is good
 				for(const comp of compsData) {
+					comp.lastUpdate = new Date(comp.lastUpdate);
 					let returnObj = await validateComp(comp);
 					if(returnObj.retCode !== 0) {
 						console.log(`Error: server local comp data is invalid`);
+						console.log(returnObj.message);
 						displayNotice({ type: 'error', message: 'Comps sync failed', });
 						return;
 					}
@@ -459,6 +462,7 @@
 					}
 				}
 				// this function will not delete comps
+				$AppData.compLastUpdate = $AppData.user.local_comps.lastUpdate;
 				saveAppData();
 				break;
 			case 'none':
