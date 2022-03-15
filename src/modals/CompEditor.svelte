@@ -6,6 +6,7 @@
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from '../shared/HeroFinder.svelte';
+	import ImportLine from '../shared/ImportLine.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
 	import XButton from '../shared/XButton.svelte';
 	import {validateJWT} from '../rest/RESTFunctions.svelte';
@@ -39,7 +40,9 @@
 	let showStatusMessage = false;
 	let statusError = false;
 	let heroFinderOpen = false;
+	let importLineOpen = false;
 	let hfConfig = {};
+	let ilConfig = {};
 	let newTagText = '';
 	let addTagOpen = false;
 	let openSuggestions = false;
@@ -256,6 +259,23 @@
 		// save and resume autosaving now that HeroFinder is closed
 		if(comp.draft) saveDraft();
 		hfConfig = {};
+	}
+
+	function handleImportLineClick(config) {
+		ilConfig = config;
+		clearTimeout(autosave); // turn off autosaving while ImportLine is open
+		importLineOpen = true;
+	}
+
+	function handleImportLine(config) {
+		console.log(config);
+	}
+
+	function closeImportLine() {
+		importLineOpen = false;
+		// save and resume autosaving now that ImportLine is closed
+		if(comp.draft) saveDraft();
+		ilConfig = {};
 	}
 
 	function updateLineHero(idx, pos, hero, oldHeroID) {
@@ -498,7 +518,12 @@
 					{#if openLine === null}
 						<span class="noLine">Select a line to edit.</span>
 					{:else}
-						<input type="text" class="lineNameInput" bind:value={comp.lines[openLine].name} placeholder="Line Name" maxlength="30" class:maxed={comp.lines[openLine].name.length >= 30}>
+						<div class="lineDisplayHead">
+							<input type="text" class="lineNameInput" bind:value={comp.lines[openLine].name} placeholder="Line Name" maxlength="30" class:maxed={comp.lines[openLine].name.length >= 30}>
+							<button type="button" class="importLineButton" on:click={() => handleImportLineClick({idx: openLine, onSuccess: handleImportLine, close: closeImportLine, })}>
+								<img class="importLineImage" src="./img/utility/import_line_white.png" alt="Import Line">
+							</button>
+						</div>
 						<div class="lineDisplay">
 							<SimpleSortableList
 								list={[...comp.lines[openLine].heroes].reverse()}
@@ -659,7 +684,12 @@
 			<HeroFinder config={hfConfig} isMobile={isMobile} />
 		{/if}
 	</section>
-	<section class="sect3">
+	<section class="sect3" class:visible={importLineOpen}>
+		{#if importLineOpen}
+			<ImportLine config={ilConfig} isMobile={isMobile} />
+		{/if}
+	</section>
+	<section class="sect4">
 		<div class="statusMessage" class:visible={showStatusMessage} class:error={statusError}>{statusMessage}</div>
 	</section>
 </div>
@@ -686,24 +716,38 @@
 	.sect2 {
 		display: none;
 		visibility: hidden;
+		&.visible {
+			display: block;
+			height: 100%;
+			left: 0;
+			position: fixed;
+			top: 0;
+			visibility: visible;
+			width: 100%;
+			z-index: 4;
+		}
 	}
 	.sect3 {
+		display: none;
+		visibility: hidden;
+		&.visible {
+			display: block;
+			height: 100%;
+			left: 0;
+			position: fixed;
+			top: 0;
+			visibility: visible;
+			width: 100%;
+			z-index: 4;
+		}
+	}
+	.sect4 {
 		left: 50%;
 		position: fixed;
 		top: 80px;
 		transform: translate(-50%, 0);
 		width: fit-content;
 		z-index: 5;
-	}
-	.sect2.visible {
-		display: block;
-		height: 100%;
-		left: 0;
-		position: fixed;
-		top: 0;
-		visibility: visible;
-		width: 100%;
-		z-index: 4;
 	}
 	.statusMessage {
 		background-color: rgba(50, 50, 50, 0.7);
@@ -930,6 +974,32 @@
 		flex-direction: column;
 		padding: 5px;
 		width: 100%;
+		.lineDisplayHead {
+			display: flex;
+			justify-content: center;
+			position: relative;
+			width: 100%;
+			.lineNameInput {
+				text-align: center;
+			}
+			.importLineButton {
+				align-items: center;
+				background-color: var(--appColorPrimary);
+				border: 2px solid var(--appColorPrimary);
+				border-radius: 5px;
+				cursor: pointer;
+				display: flex;
+				justify-content: center;
+				margin-left: auto;
+				outline: none;
+				padding: 3px;
+				position: absolute;
+				right: 0px;
+				.importLineImage {
+					max-width: 15px;
+				}
+			}
+		}
 	}
 	.noLine {
 		color: rgba(100, 100, 100, 0.5);
@@ -939,9 +1009,6 @@
 		text-transform: uppercase;
 		user-select: none;
 		width: 100%;
-	}
-	.lineNameInput {
-		text-align: center;
 	}
 	.lineDisplay {
 		align-items: center;
