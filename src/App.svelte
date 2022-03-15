@@ -415,7 +415,7 @@
 		switch(updateType) {
 			case 'push':
 				try {
-					const localComps = $AppData.Comps.filter(e => e.source === 'local');
+					const localComps = $AppData.Comps.filter(e => e.source === 'local' && !e.hidden);
 					const compData = await jsurl.compress(JSON.stringify(localComps));
 					const response = await gqlUpdateLocalComps({variables: { id: $AppData.user.id, comps: {lastUpdate: $AppData.compLastUpdate, data: compData} }});
 					const newLocalComps = response.data.updateUsersPermissionsUser.data.attributes.local_comps;
@@ -453,9 +453,9 @@
 					}
 					// message should contain a clean comp object now, try to merge it into Comps
 					if($AppData.Comps.some(e => e.uuid === returnObj.message.uuid)) {
-						// comp already exists, update it
+						// comp already exists, update it but don't update hidden comps
 						const idx = $AppData.Comps.findIndex(e => e.uuid === returnObj.message.uuid);
-						$AppData.Comps[idx] = returnObj.message;
+						if(!$AppData.Comps[idx].hidden) $AppData.Comps[idx] = returnObj.message;
 					} else {
 						// comp does not exist yet, add it
 						$AppData.Comps = [...$AppData.Comps, returnObj.message];
