@@ -342,7 +342,7 @@
 				updateType = 'pull';
 			} else if($AppData.user.my_heroes.lastUpdate.getTime() === $AppData.MH.lastUpdate.getTime()) {
 				// server and local are sync'd no need to update
-				updateType === 'none';
+				updateType = 'none';
 			} // else local is ahead of server, so do a push that's already set
 		}
 		switch(updateType) {
@@ -353,7 +353,6 @@
 					const newMyHeroes = response.data.updateUsersPermissionsUser.data.attributes.my_heroes;
 					newMyHeroes.lastUpdate = new Date(newMyHeroes.lastUpdate);
 					$AppData.user.my_heroes = newMyHeroes;
-					console.log('boop');
 				} catch(err) {
 					console.log(`Error: unable to upload My Heroes data to server`);
 					console.log(err);
