@@ -2,6 +2,7 @@
 	import { getContext, createEventDispatcher, onMount } from 'svelte';
 	import { flip } from 'svelte/animate';
 	import JSONURL from 'json-url';
+	import {debounce} from 'lodash';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
@@ -642,7 +643,7 @@
 											enabled={$AppData.MH.List[hero.id].stars >= 1}
 											max={$HeroData.find(e => e.id === hero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === hero.id).faction === 'Celestial' || $HeroData.find(e => e.id === hero.id).faction === 'Hypogean' ? 100 : 80}
 											bind:value={$AppData.MH.List[hero.id].engraving}
-											on:change={handleNumChange} />
+											on:change={debounce(handleNumChange, 100)} />
 									</div>
 								{/if}
 							</div>

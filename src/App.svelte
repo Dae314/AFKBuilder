@@ -350,6 +350,10 @@
 				try {
 					const mhData = await jsurl.compress(JSON.stringify($AppData.MH.List));
 					const response = await gqlUpdateMyHeroes({variables: { id: $AppData.user.id, mh: {lastUpdate: $AppData.MH.lastUpdate, data: mhData} }});
+					const newMyHeroes = response.data.updateUsersPermissionsUser.data.attributes.my_heroes;
+					newMyHeroes.lastUpdate = new Date(newMyHeroes.lastUpdate);
+					$AppData.user.my_heroes = newMyHeroes;
+					console.log('boop');
 				} catch(err) {
 					console.log(`Error: unable to upload My Heroes data to server`);
 					console.log(err);
