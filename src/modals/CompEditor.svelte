@@ -267,8 +267,14 @@
 		importLineOpen = true;
 	}
 
-	function handleImportLine(config) {
-		console.log(config);
+	function handleImportLine({srcUUID, srcLine, destLine}) {
+		const srcComp = $AppData.Comps.find(e => e.uuid === srcUUID);
+		const srcHeroes = srcComp.lines[srcLine].heroes;
+		for(const hero of srcHeroes) {
+			// import all hero details
+			if($HeroData.some(e => e.id === hero)) comp.heroes[hero] = srcComp.heroes[hero];
+		}
+		comp.lines[destLine] = srcComp.lines[srcLine];
 	}
 
 	function closeImportLine() {
@@ -686,7 +692,7 @@
 	</section>
 	<section class="sect3" class:visible={importLineOpen}>
 		{#if importLineOpen}
-			<ImportLine config={ilConfig} isMobile={isMobile} />
+			<ImportLine config={ilConfig} />
 		{/if}
 	</section>
 	<section class="sect4">
