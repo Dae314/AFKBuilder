@@ -275,7 +275,6 @@
 			if($HeroData.some(e => e.id === hero)) comp.heroes[hero] = srcComp.heroes[hero];
 		}
 		comp.lines[destLine] = srcComp.lines[srcLine];
-		console.log(comp.heroes);
 	}
 
 	function closeImportLine() {
