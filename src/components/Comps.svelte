@@ -219,7 +219,20 @@
 	function handleDeleteButtonClick(uuid) {
 		modalStack.push('confirm');
 		const comp = $AppData.Comps.find(e => e.uuid === uuid);
-		const message = comp.source === 'local' ? `Delete comp named ${comp.name}?` : `Unfavorite comp named ${comp.name}?`;
+		let message;
+		if($AppData.user.published_comps.some(e => e.uuid === uuid)) {
+			// comp is published
+			message = `Delete comp named ${comp.name}?<br/><br/>This will only remove the comp from your local Comps. To remove from Explore, you must unpublish.<br/><br/>You can restore the comp by finding the comp in Explore and using the restore button.`;
+		} else {
+			// comp is not published
+			if(comp.source === 'local') {
+				// comp is a local comp
+				message = `Delete comp named ${comp.name}?`;
+			} else {
+				// comp is a favorited comp
+				message = `Unfavorite comp named ${comp.name}?`
+			}
+		}
 		open(Confirm,
 				{onConfirm: handleDelComp, confirmData: uuid, message: message},
 				{closeButton: false,
@@ -282,23 +295,10 @@
 	async function handleDelComp(uuid) {
 		const comp = $AppData.Comps.find(e => e.uuid === uuid);
 		if(comp.source === 'local') {
-			if(!$AppData.user.published_comps.some(e => e.uuid === uuid)) {
-				$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== uuid);
-				if($AppData.selectedComp === uuid) resetOpenComp();
-				await postUpdate();
-				dispatch('routeEvent', {action: 'saveData'});
-			} else {
-				dispatch('routeEvent',
-					{ action: 'showNotice',
-						data: {
-							noticeConf: {
-								type: 'warning',
-								message: 'Comp must be unpublished before deletion',
-							}
-						}
-					}
-				);
-			}
+			$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== uuid);
+			if($AppData.selectedComp === uuid) resetOpenComp();
+			await postUpdate();
+			dispatch('routeEvent', {action: 'saveData'});
 		} else {
 			// assume source is favorite
 			const valid = await validateJWT($AppData.user.jwt);
@@ -880,7 +880,6 @@
 						<button
 							type="button"
 							class="editDelButton deleteButton"
-							disabled={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
 							on:click={() => handleDeleteButtonClick($AppData.selectedComp)}>
 							<img
 								draggable="false"

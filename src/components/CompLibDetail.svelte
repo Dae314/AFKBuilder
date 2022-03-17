@@ -67,6 +67,7 @@
 	$: liked = svrComp ? $AppData.user.liked_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
 	$: disliked = svrComp ?  $AppData.user.disliked_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
 	$: owned = svrComp ? $AppData.user.published_comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
+	$: showReturn = svrComp ?  owned && !$AppData.Comps.some(e => e.uuid === svrComp.attributes.uuid) : false;
 	$: createdAt = svrComp ? new Date(svrComp.attributes.createdAt) : {};
 	$: age = typeof createdAt.getTime === 'function' ? now - createdAt.getTime() : 0;
 	$: comp_update = comp ? comp.lastUpdate : {};
@@ -280,6 +281,21 @@
 			console.log(error.message);
 		}
 	}
+
+	function handleRestoreClick() {
+		$AppData.Comps = [...$AppData.Comps, comp];
+		dispatch('routeEvent', {action: 'saveData'});
+		dispatch('routeEvent',
+			{ action: 'showNotice',
+				data: {
+					noticeConf: {
+						type: 'info',
+						message: 'Comp restored',
+					}
+				}
+			}
+		);
+	}
 </script>
 
 {#if $compQuery.loading}
@@ -358,6 +374,13 @@
 								<span class="age" title="{createdAt.toLocaleString()}">Published {msToString(age)}</span>
 							</div>
 						</div>
+						{#if showReturn}
+							<div class="restoreArea">
+								<button type="button" class="restoreButton" on:click={handleRestoreClick}>
+									Restore to Comps
+								</button>
+							</div>
+						{/if}
 						<div class="tagsArea">
 							<div class="tagDisplay">
 								{#each svrComp.attributes.tags.data as tag}
@@ -793,6 +816,22 @@
 			font-size: 0.8rem;
 			text-align: center;
 			width: 100%;
+		}
+		.restoreArea {
+			display: flex;
+			justify-content: center;
+			padding-top: 10px;
+			width: 100%;
+			.restoreButton {
+				background-color: var(--appColorPrimary);
+				border: 2px solid var(--appColorPrimary);
+				border-radius: 5px;
+				color: var(--appBGColor);
+				cursor: pointer;
+				outline: none;
+				padding: 3px;
+				text-align: center;
+			}
 		}
 		.tagsArea {
 			border-bottom: 1px solid black;

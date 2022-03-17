@@ -45,12 +45,10 @@
 					<button
 						type="button"
 						class="cardDeleteButton"
-						disabled={$AppData.user.published_comps.some(e => e.uuid === comp.uuid)}
 						on:click={(e) => { handleDeleteButtonClick(comp.uuid); e.stopPropagation(); }}>
 						<img
 							draggable="false"
 							class="deleteIcon"
-							class:disabled={$AppData.user.published_comps.some(e => e.uuid === comp.uuid)}
 							src={comp.source === 'local' ? './img/utility/trashcan.png' : './img/utility/favorite_unfilled_white.png'}
 							alt="Delete">
 					</button>
