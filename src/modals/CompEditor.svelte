@@ -5,8 +5,8 @@
 	import '@toast-ui/editor/dist/toastui-editor.css';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
-	import HeroFinder from '../shared/HeroFinder.svelte';
-	import ImportLine from '../shared/ImportLine.svelte';
+	import HeroFinder from './HeroFinder.svelte';
+	import ImportLine from './ImportLine.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
 	import XButton from '../shared/XButton.svelte';
 	import {validateJWT} from '../rest/RESTFunctions.svelte';

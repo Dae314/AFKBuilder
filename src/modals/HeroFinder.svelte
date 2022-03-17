@@ -4,7 +4,7 @@
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
 	import AppData from '../stores/AppData.js';
-	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
+	import ModalCloseButton from './ModalCloseButton.svelte';
 	import AscensionMenu from '../shared/AscensionMenu.svelte';
 	import SIMenu from '../shared/SIMenu.svelte';
 	import FurnMenu from '../shared/FurnMenu.svelte';

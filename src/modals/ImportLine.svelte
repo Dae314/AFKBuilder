@@ -2,7 +2,7 @@
 	import { onMount, tick } from 'svelte';
 	import HeroData from '../stores/HeroData.js';
 	import AppData from '../stores/AppData.js';
-	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
+	import ModalCloseButton from './ModalCloseButton.svelte';
 
 	export let config = {};
 
