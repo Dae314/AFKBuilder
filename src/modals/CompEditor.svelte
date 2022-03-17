@@ -23,17 +23,17 @@
 
 	// this will hold the comp as it's edited
 	let comp = {
-				name: '',
-				uuid: uuidv4(),
-				desc: '',
-				starred: false,
-				draft: true,
-				author: '',
-				lastUpdate: new Date(),
-				heroes: {},
-				lines: [],
-				subs: [],
-				tags: [],
+		name: '',
+		uuid: uuidv4(),
+		desc: '',
+		starred: false,
+		draft: true,
+		author: '',
+		lastUpdate: new Date(),
+		heroes: {},
+		lines: [],
+		subs: [],
+		tags: [],
 	}
 	let openLine = null;
 	let statusMessage = '';
@@ -275,6 +275,7 @@
 			if($HeroData.some(e => e.id === hero)) comp.heroes[hero] = srcComp.heroes[hero];
 		}
 		comp.lines[destLine] = srcComp.lines[srcLine];
+		console.log(comp.heroes);
 	}
 
 	function closeImportLine() {
