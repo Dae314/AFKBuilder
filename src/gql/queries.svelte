@@ -77,6 +77,14 @@
 					downvotes
 					saves
 					comp_string
+					tags {
+						data {
+							id
+							attributes {
+								name
+							}
+						}
+					}
 					createdAt
 				}
 			}

@@ -5,6 +5,7 @@
 	import JSONURL from 'json-url';
 	import MarkdownIt from 'markdown-it';
 	import Emoji from 'markdown-it-emoji';
+	import qs from 'qs';
 	import ErrorDisplay from './ErrorDisplay.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
@@ -203,8 +204,18 @@
 		}
 	}
 
-	function handleTagClick(tagName) {
-		console.log(`${tagName} clicked`);
+	function handleTagClick(tag) {
+		let newQS = new URLSearchParams();
+		const tagFilter = qs.stringify({
+			filter: [{
+				displayName: tag.attributes.name,
+				id: tag.id,
+				name: tag.attributes.name,
+				type: "include",
+			}]
+		});
+		newQS.set('tag_filter', tagFilter);
+		window.location.assign(`${window.location.origin}/#/explore?${newQS.toString()}`);
 	}
 
 	function renderMarkdown(mdText) {
@@ -349,9 +360,9 @@
 						</div>
 						<div class="tagsArea">
 							<div class="tagDisplay">
-								{#each comp.tags as tag}
+								{#each svrComp.attributes.tags.data as tag}
 									<button type="button" class="tag" on:click={() => handleTagClick(tag)}>
-										<span class="tagText">{tag}</span>
+										<span class="tagText">{tag.attributes.name}</span>
 									</button>
 								{/each}
 							</div>
