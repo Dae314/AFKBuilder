@@ -3,11 +3,17 @@
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import ChooseLogin from '../modals/ChooseLogin.svelte';
 	import AppData from '../stores/AppData.js';
+	import HeroData from '../stores/HeroData.js';
 
 	export let menu = [];
 	const dispatch = createEventDispatcher();
 	let showMobileMenu = false;
 	const { open } = getContext('simple-modal');
+	let userAvatar = '';
+	let userAvatarName = '';
+
+	$: if($AppData.user.jwt) userAvatar = $HeroData.find(e => e.id === $AppData.user.avatar).portrait;
+	$: if($AppData.user.jwt) userAvatarName = $HeroData.find(e => e.id === $AppData.user.avatar).name;
 
 	onMount(async () => {
 		const mediaListener = window.matchMedia("(max-width: 767px)");
@@ -72,13 +78,18 @@
 					<button type="button" class="userButton">Login</button>
 				</li>
 			{/if}
-			<li class="discordButton" on:click={() => window.open('https://discord.com/invite/sjxgnmkvSf', '_blank')}>
-				<div><img src="./img/app/discord-logo-white.png" alt="Discord"><span>Join the Discord!</span></div>
+			<li class="discordArea">
+				<button class="discordButton" on:click={() => window.open('https://discord.com/invite/sjxgnmkvSf', '_blank')}>
+					<img src="./img/app/discord-logo-white.png" alt="Discord"><span>Join the Discord!</span>
+				</button>
 			</li>
 		</ul>
 		{#if $AppData.user.jwt}
 			<div class="desktopUserItem" on:click={handleUserClick}>
-				<button type="button" class:selected={$AppData.activeView === 'profile'} class="desktopUserButton">{$AppData.user.username || 'Profile'}</button>
+				<button type="button" class:selected={$AppData.activeView === 'profile'} class="desktopUserButton">
+					<img class="desktopUserAvatar" src={userAvatar} alt={userAvatarName}>
+					{$AppData.user.username || 'Profile'}
+				</button>
 			</div>
 		{:else}
 			<div class="desktopUserItem" on:click={handleLoginClick}>
@@ -243,15 +254,20 @@
 			align-items: center;
 			display: flex;
 		}
-		.discordButton {
+		.discordArea {
 			align-items: center;
 			display: flex;
 			font-size: 20px;
-			div {
+			padding: 0;
+			.discordButton {
 				align-items: center;
 				color: rgba(240, 240, 242, 0.7);
 				display: flex;
+				height: 100%;
+				margin: 0;
+				padding: 15px 0px;
 				text-decoration: none;
+				width: 100%;
 				img {
 					margin-left: 31px;
 					max-width: 30px;
@@ -262,7 +278,7 @@
 					margin-left: 10px;
 				}
 				&:hover {
-					div {
+					.discordButton {
 						color: rgba(240, 240, 242, 1.0);
 					}
 					img {
@@ -313,30 +329,36 @@
 			display: none;
 		}
 		nav {
+			background-color: var(--appBGColorDark);
+			height: 100vh;
 			padding: 0;
 			position: static;
+			width: 250px;
 		}
 		.inner {
+			align-items: flex-start;
+			flex-direction: column;
 			min-height: 100%;
+			padding: 0;
 		}
 		.navbar-list {
 			display: flex;
-			height: 100%;
+			flex-direction: column;
+			justify-content: left;
 			padding: 0;
-			width: fit-content;
 			li {
 				align-items: center;
 				display: flex;
-				height: 100%;
-				justify-content: center;
-				margin-left: 20px;
-				padding: 0px;
+				padding: 0;
+				width: 100%;
+				transition: background-color 0.2s;
 				&:first-child {
 					margin-left: 0;
 				}
 				&:hover {
 					button {
-						color: rgba(240, 240, 242, 1.0);
+						background-color: var(--appColorTertiary);
+						color: var(--appBGColor);
 					}
 				}
 				&:before {
@@ -344,28 +366,61 @@
 				}
 			}
 			button {
-				color: rgba(240, 240, 242, 0.7);
+				color: var(--appColorTertiary);
 				margin: 0;
+				padding: 10px 0px 10px 15px;
+				width: 100%;
 			}
 			button.selected {
-				color: rgba(240, 240, 242, 1.0);
+				background-color: var(--appColorTertiary);
+				color: var(--appBGColor);
 			}
 			.mobileUserItem {
 				display: none;
 			}
-			.discordButton {
-				div {
+			.discordArea {
+				.discordButton {
+					padding: 3px 0px 3px 15px;
 					img {
-						margin-left: 0;
+						margin: 0;
 					}
 					span {
 						display: none;
+					}
+					&:hover {
+						background-color: var(--appBGColorDark);
 					}
 				}
 			}
 		}
 		.desktopUserItem {
+			align-items: center;
 			display: flex;
+			height: 70px;
+			justify-content: center;
+			margin: 0;
+			margin-top: auto;
+			width: 100%;
+			.desktopUserButton {
+				align-items: center;
+				background-color: var(--appColorTertiary);
+				display: flex;
+				height: 100%;
+				justify-content: center;
+				transition: background-color 0.2s;
+				width: 100%;
+				.desktopUserAvatar {
+					border-radius: 50%;
+					flex-grow: 0;
+					flex-shrink: 0;
+					height: 40px;
+					margin-right: 10px;
+					width: 40px;
+				}
+				&:hover {
+					background-color: rgba(56, 83, 166, 0.753);
+				}
+			}
 		}
 		.logoContainer {
 			display: block;
