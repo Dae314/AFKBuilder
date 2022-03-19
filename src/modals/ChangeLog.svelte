@@ -5,6 +5,12 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.13.45',
+			changes: [
+				'Added new hero Alaro',
+				'Updated Kren benchmark to E44',
+			],
+		},
 		{ version: 'v1.13.43',
 			changes: [
 				'Added new hero Ezizh (Awakened)',
@@ -37,19 +43,6 @@
 			changes: [
 				'Added Scarlet with accurate skill descriptions (Thanks Bob49)',
 				'Fixed typo on Khazard SI +30 description',
-			],
-		},
-		{ version: 'v1.13.25',
-			changes: [
-				'Added Talene - The Resurging Flame',
-				'Re-translated Ezizh\'s SI descriptions (Thanks Bob49)',
-				'Changed fodder hero class icons to generic icons',
-				'Updated Rigby\'s skill descriptions',
-				'Updated Fawkes\' SI',
-				'Update Ezizh E60 effect',
-				'Updated Framton\'s ult description',
-				'Fixed typo on Mishka "Dire Wolves" skill',
-				'Fixed typo on Khaz SI30 skill',
 			],
 		},
 	]
