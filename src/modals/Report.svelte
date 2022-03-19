@@ -23,7 +23,7 @@
 		'Spam',
 		'Threatening/Violence',
 	];
-	let reportType = reportTypes[8]; // default report type to Spam
+	let reportType = reportTypes[9]; // default report type to Spam
 	let showErrorDisplay = false;
 	let errorMessage = '';
 	let showSuccess = false;
