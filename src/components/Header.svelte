@@ -54,9 +54,11 @@
 
 <nav>
 	<div class="inner">
-		<div on:click={() => handleMobileIconClick()} class="mobile-icon {showMobileMenu ? 'active' : ''}">
-			<div class="middle-line"></div>
-		</div>
+		<button class="mobileButton" on:click={() => handleMobileIconClick()}>
+			<div class="mobile-icon {showMobileMenu ? 'active' : ''}">
+				<div class="middle-line"></div>
+			</div>
+		</button>
 		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
 			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].name.toLowerCase().replace(/\s/g, ''))}>
 				<button type="button" class="logo"><img src="./img/app/afkbuilder_logo.png" alt="AFKBuilder"></button>
@@ -123,68 +125,77 @@
 		display: none;
 		visibility: hidden;
 	}
-	.mobile-icon {
+	.mobileButton {
+		background: transparent;
+		border: none;
 		cursor: pointer;
-		height: 35px;
-		position: relative;
-		width: 35px;
-		&:after {
-			background-color: var(--appBGColor);
-			content: "";
-			height: 3px;
-			position: absolute;
-			transform-origin: center;
-			transition: all 0.4s;
-			width: 100%;
-			bottom: 7px;
-			width: 33%;
+		margin: 0;
+		outline: none;
+		padding: 0;
+		.mobile-icon {
+			height: 35px;
+			position: relative;
+			width: 35px;
+			&:after {
+				background-color: var(--appBGColor);
+				content: "";
+				height: 3px;
+				left: 0px;
+				position: absolute;
+				transform-origin: center;
+				transition: all 0.4s;
+				width: 100%;
+				bottom: 7px;
+				width: 33%;
+			}
+			&:before {
+				background-color: var(--appBGColor);
+				content: "";
+				height: 3px;
+				left: 0px;
+				position: absolute;
+				transform-origin: center;
+				transition: all 0.4s;
+				width: 100%;
+				top: 7px;
+				width: 66%;
+			}
+			&:hover {
+				&:before {
+					width: 100%;
+				}
+				&:after {
+					width: 100%;
+				}
+			}
+			.middle-line {
+				background-color: var(--appBGColor);
+				content: "";
+				height: 3px;
+				position: absolute;
+				transform-origin: center;
+				transition: all 0.4s;
+				width: 100%;
+				top: 7px;
+				bottom: 7px;
+				margin: auto;
+			}
 		}
-		&:before {
-			background-color: var(--appBGColor);
-			content: "";
-			height: 3px;
-			position: absolute;
-			transform-origin: center;
-			transition: all 0.4s;
-			width: 100%;
-			top: 7px;
-			width: 66%;
-		}
-		&:hover {
+		.mobile-icon.active {
 			&:before {
 				width: 100%;
+				top: 50%;
+				transform: rotate(-45deg);
 			}
 			&:after {
 				width: 100%;
+				top: 50%;
+				transform: rotate(-45deg);
 			}
-		}
-		.middle-line {
-			background-color: var(--appBGColor);
-			content: "";
-			height: 3px;
-			position: absolute;
-			transform-origin: center;
-			transition: all 0.4s;
-			width: 100%;
-			top: 7px;
-			bottom: 7px;
-			margin: auto;
-		}
-	}
-	.mobile-icon.active {
-		&:before {
-			width: 100%;
-			top: 50%;
-			transform: rotate(-45deg);
-		}
-		&:after {
-			width: 100%;
-			top: 50%;
-			transform: rotate(-45deg);
-		}
-		.middle-line {
-			width: 100%;
-			transform: rotate(45deg);
+			.middle-line {
+				width: 100%;
+				transform: rotate(45deg);
+			}
 		}
 	}
 	.navbar-list {
@@ -325,7 +336,7 @@
 		}
 	}
 	@media only screen and (min-width: 767px) {
-		.mobile-icon {
+		.mobileButton {
 			display: none;
 		}
 		nav {
