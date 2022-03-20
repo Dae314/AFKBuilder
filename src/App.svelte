@@ -41,7 +41,7 @@
 		{ name: 'Explore', icon: './img/utility/explore_white.png' },
 		{ name: 'Comps', icon: './img/utility/comps_white.png' },
 		{ name: 'Recommendations', icon: './img/utility/recommendations_white.png'},
-		{ name: 'My Heroes', icon: ''},
+		{ name: 'My Heroes', icon: './img/utility/my_heroes_white.png'},
 		{ name: 'Hero List', icon: ''},
 		{ name: 'About', icon: ''},
 	];
