@@ -8,7 +8,7 @@
 	export let menu = [];
 	const dispatch = createEventDispatcher();
 	let showMobileMenu = false;
-	let expandMenu = false;
+	let expandMenu = true;
 	const { open } = getContext('simple-modal');
 	let userAvatar = '';
 	let userAvatarName = '';
@@ -419,9 +419,9 @@
 				}
 			}
 			button {
-				border-radius: 10px;
+				border-radius: 10px 0px 0px 10px;
 				box-shadow: 11px 11px 22px #2e4588, -11px -11px 22px #4263c4;
-				color: var(--appBGColor);
+				color: rgba(240, 240, 242, 0.8);
 				margin: 10px 0px;
 				padding: 10px 0px 10px 15px;
 				width: 100%;
@@ -439,6 +439,11 @@
 					padding: 3px 0px 3px 15px;
 					img {
 						margin: 0;
+					}
+				}
+				&:hover {
+					.discordButton {
+						color: var(--appBGColor);
 					}
 				}
 			}
