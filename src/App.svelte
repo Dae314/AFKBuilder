@@ -39,7 +39,7 @@
 	export let version = '';
 	const menuItems = [
 		{ name: 'Explore', icon: './img/utility/explore_white.png' },
-		{ name: 'Comps', icon: '' },
+		{ name: 'Comps', icon: './img/utility/comps_white.png' },
 		{ name: 'Recommendations', icon: ''},
 		{ name: 'My Heroes', icon: ''},
 		{ name: 'Hero List', icon: ''},
