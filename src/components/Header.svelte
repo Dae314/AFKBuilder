@@ -247,7 +247,7 @@
 			align-items: center;
 			background: none;
 			border: none;
-			color: rgba(240, 240, 242, 0.7);
+			color: rgba(240, 240, 242, 0.8);
 			cursor: pointer;
 			display: flex;
 			font-size: 20px;
@@ -286,7 +286,7 @@
 			padding: 0;
 			.discordButton {
 				align-items: center;
-				color: rgba(240, 240, 242, 0.7);
+				color: rgba(240, 240, 242, 0.8);
 				display: flex;
 				height: 100%;
 				margin: 0;
@@ -329,7 +329,7 @@
 		button {
 			background: none;
 			border: none;
-			color: rgba(240, 240, 242, 0.7);
+			color: rgba(240, 240, 242, 0.8);
 			cursor: pointer;
 			display: block;
 			font-size: 20px;
@@ -434,8 +434,9 @@
 				display: none;
 			}
 			.discordArea {
+				margin: 10.5px 0px;
 				.discordButton {
-					margin: 10px 0px;
+					margin: 3px 0px;
 					padding: 3px 0px 3px 15px;
 					img {
 						margin: 0;
@@ -458,8 +459,7 @@
 			width: 100%;
 			.desktopUserButton {
 				align-items: center;
-				background-color: var(--appColorTertiary);
-				box-shadow: 11px 11px 22px #2e4588, -11px -11px 22px #4263c4;
+				background-color: #4263c4;
 				display: flex;
 				height: 100%;
 				justify-content: center;
@@ -474,7 +474,7 @@
 					width: 40px;
 				}
 				&:hover {
-					background-color: rgba(56, 83, 166, 0.753);
+					background-color: var(--appColorTertiary);
 				}
 			}
 		}
