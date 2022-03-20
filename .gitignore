@@ -1,5 +1,8 @@
 /node_modules/
 # /public/build/
 todo
+.env.dev
+.env.prod
+.env
 
 .DS_Store

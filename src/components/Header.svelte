@@ -12,8 +12,8 @@
 	let userAvatar = '';
 	let userAvatarName = '';
 
-	$: if($AppData.user.jwt) userAvatar = $HeroData.find(e => e.id === $AppData.user.avatar).portrait;
-	$: if($AppData.user.jwt) userAvatarName = $HeroData.find(e => e.id === $AppData.user.avatar).name;
+	$: if($AppData.user.avatar) userAvatar = $HeroData.find(e => e.id === $AppData.user.avatar).portrait;
+	$: if($AppData.user.avatar) userAvatarName = $HeroData.find(e => e.id === $AppData.user.avatar).name;
 
 	onMount(async () => {
 		const mediaListener = window.matchMedia("(max-width: 767px)");
@@ -340,11 +340,11 @@
 			display: none;
 		}
 		nav {
-			background-color: var(--appBGColorDark);
+			background-color: var(--appColorTertiary);
 			height: 100vh;
 			padding: 0;
 			position: static;
-			width: 250px;
+			width: 240px;
 		}
 		.inner {
 			align-items: flex-start;
@@ -377,7 +377,7 @@
 				}
 			}
 			button {
-				color: var(--appColorTertiary);
+				color: var(--appBGColor);
 				margin: 0;
 				padding: 10px 0px 10px 15px;
 				width: 100%;
@@ -397,9 +397,6 @@
 					}
 					span {
 						display: none;
-					}
-					&:hover {
-						background-color: var(--appBGColorDark);
 					}
 				}
 			}
@@ -443,18 +440,17 @@
 				background-color: transparent;
 				outline: 0;
 				border: 0;
-				padding: 0;
+				padding: 5px 0px;
 				margin: 0;
-			}
-		}
-		.logo {
-			img {
-				max-width: 35px;
-				transition: transform 0.4s;
-			}
-			&:hover {
 				img {
-					transform: rotateZ(360deg);
+					max-width: 35px;
+					transition: transform 0.4s;
+				}
+				&:hover {
+					background-color: transparent;
+					img {
+						transform: rotateZ(360deg);
+					}
 				}
 			}
 		}
