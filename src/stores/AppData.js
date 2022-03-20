@@ -254,6 +254,7 @@ function buildAppData(data) {
 		{name: 'dismissMHSearchInfo', default: false},
 		{name: 'dismissCookieConsent', default: false},
 		{name: 'modalClosed', default: false},
+		{name: 'expandHeader', default: false},
 		{name: 'maxDescLen', default: maxDescLen},
 		{name: 'maxCompTags', default: maxCompTags},
 		{name: 'maxNoteLen', default: maxNoteLen},

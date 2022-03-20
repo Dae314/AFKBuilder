@@ -567,7 +567,7 @@
 
 <Modal on:closed={handleModalClosed}>
 	<div class="AppContainer">
-		<Header menu={menuItems} on:saveData={saveAppData} />
+		<Header menu={menuItems} on:routeEvent={handleRouteEvent} />
 		{#if showErrorDisplay}
 			<ErrorDisplay
 				errorCode={errorDisplayConf.errorCode}

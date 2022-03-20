@@ -8,7 +8,6 @@
 	export let menu = [];
 	const dispatch = createEventDispatcher();
 	let showMobileMenu = false;
-	let expandMenu = true;
 	const { open } = getContext('simple-modal');
 	let userAvatar = '';
 	let userAvatarName = '';
@@ -34,7 +33,8 @@
 	}
 
 	function handleExpandButtonClick() {
-		expandMenu = !expandMenu;
+		$AppData.expandHeader = !$AppData.expandHeader;
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function mediaQueryHandler(e) {
@@ -57,7 +57,7 @@
 	}
 </script>
 
-<nav class:minimized={!expandMenu}>
+<nav class:minimized={!$AppData.expandHeader}>
 	<div class="inner">
 		<button class="mobileButton" on:click={() => handleMobileIconClick()}>
 			<div class="mobile-icon {showMobileMenu ? 'active' : ''}">
@@ -65,7 +65,7 @@
 			</div>
 		</button>
 		<button class="expandButton" on:click={handleExpandButtonClick}>
-			<i class="arrow" class:right={!expandMenu} class:left={expandMenu}></i>
+			<i class="arrow" class:right={!$AppData.expandHeader} class:left={$AppData.expandHeader}></i>
 		</button>
 		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
 			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].name.toLowerCase().replace(/\s/g, ''))}>
