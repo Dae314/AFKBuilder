@@ -459,7 +459,7 @@
 			width: 100%;
 			.desktopUserButton {
 				align-items: center;
-				background-color: #4263c4;
+				background-color: var(--appColorTertiary);
 				display: flex;
 				height: 100%;
 				justify-content: center;
@@ -474,7 +474,7 @@
 					width: 40px;
 				}
 				&:hover {
-					background-color: var(--appColorTertiary);
+					background-color: #4263c4;
 				}
 			}
 		}
