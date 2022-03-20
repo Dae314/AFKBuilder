@@ -8,6 +8,7 @@
 	export let menu = [];
 	const dispatch = createEventDispatcher();
 	let showMobileMenu = false;
+	let expandMenu = false;
 	const { open } = getContext('simple-modal');
 	let userAvatar = '';
 	let userAvatarName = '';
@@ -32,6 +33,10 @@
 		showMobileMenu = !showMobileMenu;
 	}
 
+	function handleExpandButtonClick() {
+		expandMenu = !expandMenu;
+	}
+
 	function mediaQueryHandler(e) {
 		// Reset mobile state
 		if(!e.matches) {
@@ -52,12 +57,15 @@
 	}
 </script>
 
-<nav>
+<nav class:minimized={!expandMenu}>
 	<div class="inner">
 		<button class="mobileButton" on:click={() => handleMobileIconClick()}>
 			<div class="mobile-icon {showMobileMenu ? 'active' : ''}">
 				<div class="middle-line"></div>
 			</div>
+		</button>
+		<button class="expandButton" on:click={handleExpandButtonClick}>
+			<i class="arrow" class:right={!expandMenu} class:left={expandMenu}></i>
 		</button>
 		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
 			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].name.toLowerCase().replace(/\s/g, ''))}>
@@ -90,12 +98,15 @@
 			<div class="desktopUserItem" on:click={handleUserClick}>
 				<button type="button" class:selected={$AppData.activeView === 'profile'} class="desktopUserButton">
 					<img class="desktopUserAvatar" src={userAvatar} alt={userAvatarName}>
-					{$AppData.user.username || 'Profile'}
+					<span>{$AppData.user.username || 'Profile'}</span>
 				</button>
 			</div>
 		{:else}
 			<div class="desktopUserItem" on:click={handleLoginClick}>
-				<button type="button" class="desktopUserButton">Login</button>
+				<button type="button" class="desktopUserButton">
+					<img class="desktopUserAvatar" src="./img/portraits/unavailable.png" alt="Login">
+					<span>Login</span>
+				</button>
 			</div>
 		{/if}
 	</div>
@@ -197,6 +208,9 @@
 				transform: rotate(45deg);
 			}
 		}
+	}
+	.expandButton {
+		display: none;
 	}
 	.navbar-list {
 		display: none;
@@ -300,7 +314,7 @@
 		}
 	}
 	.navbar-list.mobile {
-		background-color: rgba(0, 0, 0, 0.8);
+		background-color: rgba(0, 0, 0, 0.9);
 		bottom: 0;
 		display: block;
 		height: calc(100% - var(--headerHeight));
@@ -339,12 +353,40 @@
 		.mobileButton {
 			display: none;
 		}
+		.expandButton {
+			align-items: center;
+			background-color: transparent;
+			border: none;
+			cursor: pointer;
+			display: flex;
+			height: 25px;
+			justify-content: center;
+			margin-left: auto;
+			outline: none;
+			transition: all 0.2s;
+			width: 25px;
+			.arrow {
+				border: solid var(--appBGColor);
+				border-width: 0 3px 3px 0;
+				display: inline-block;
+				padding: 3px;
+				&.right {
+					transform: rotate(-45deg);
+				}
+				&.left {
+					transform: rotate(135deg);
+				}
+			}
+		}
 		nav {
 			background-color: var(--appColorTertiary);
 			height: 100vh;
+			overflow: hidden;
+			min-width: 260px;
 			padding: 0;
 			position: static;
-			width: 240px;
+			transition: all 0.2s;
+			width: 260px;
 		}
 		.inner {
 			align-items: flex-start;
@@ -377,8 +419,10 @@
 				}
 			}
 			button {
+				border-radius: 10px;
+				box-shadow: 11px 11px 22px #2e4588, -11px -11px 22px #4263c4;
 				color: var(--appBGColor);
-				margin: 0;
+				margin: 10px 0px;
 				padding: 10px 0px 10px 15px;
 				width: 100%;
 			}
@@ -391,12 +435,10 @@
 			}
 			.discordArea {
 				.discordButton {
+					margin: 10px 0px;
 					padding: 3px 0px 3px 15px;
 					img {
 						margin: 0;
-					}
-					span {
-						display: none;
 					}
 				}
 			}
@@ -412,6 +454,7 @@
 			.desktopUserButton {
 				align-items: center;
 				background-color: var(--appColorTertiary);
+				box-shadow: 11px 11px 22px #2e4588, -11px -11px 22px #4263c4;
 				display: flex;
 				height: 100%;
 				justify-content: center;
@@ -435,6 +478,7 @@
 			visibility: visible;
 			.logo {
 				display: flex;
+				box-shadow: none;
 				justify-content: center;
 				align-items: center;
 				background-color: transparent;
@@ -450,6 +494,48 @@
 					background-color: transparent;
 					img {
 						transform: rotateZ(360deg);
+					}
+				}
+			}
+		}
+		nav.minimized {
+			min-width: 60px;
+			width: 60px;
+			.inner {
+				.navbar-list {
+					li {
+						align-items: center;
+						display: flex;
+						justify-content: center;
+						width: 100%;
+						button {
+							align-items: center;
+							border-radius: 50%;
+							display: flex;
+							height: 50px;
+							justify-content: center;
+							padding: 0;
+							width: 50px;
+							img {
+								margin: 0;
+							}
+							span {
+								display: none;
+							}
+						}
+					}
+					.mobileUserItem {
+						display: none;
+					}
+				}
+				.desktopUserItem {
+					.desktopUserButton {
+						.desktopUserAvatar {
+							margin: 0;
+						}
+						span {
+							display: none;
+						}
 					}
 				}
 			}
