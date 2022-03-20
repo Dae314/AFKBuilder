@@ -43,7 +43,7 @@
 		{ name: 'Recommendations', icon: './img/utility/recommendations_white.png'},
 		{ name: 'My Heroes', icon: './img/utility/my_heroes_white.png'},
 		{ name: 'Hero List', icon: './img/utility/hero_list_white.png'},
-		{ name: 'About', icon: ''},
+		{ name: 'About', icon: './img/utility/about_white.png'},
 	];
 	const defaultView = 'comps';
 	const jsurl = JSONURL('lzma'); // json-url compressor
