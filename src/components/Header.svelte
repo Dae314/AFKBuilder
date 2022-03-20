@@ -360,15 +360,17 @@
 			cursor: pointer;
 			display: flex;
 			height: 25px;
-			justify-content: center;
+			justify-content: flex-end;
 			margin-left: auto;
 			outline: none;
+			padding-right: 9px;
 			transition: all 0.2s;
-			width: 25px;
+			width: 100%;
 			.arrow {
 				border: solid var(--appBGColor);
 				border-width: 0 3px 3px 0;
 				display: inline-block;
+				opacity: 50%;
 				padding: 3px;
 				&.right {
 					transform: rotate(-45deg);
