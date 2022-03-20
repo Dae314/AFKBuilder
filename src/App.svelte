@@ -42,7 +42,7 @@
 		{ name: 'Comps', icon: './img/utility/comps_white.png' },
 		{ name: 'Recommendations', icon: './img/utility/recommendations_white.png'},
 		{ name: 'My Heroes', icon: './img/utility/my_heroes_white.png'},
-		{ name: 'Hero List', icon: ''},
+		{ name: 'Hero List', icon: './img/utility/hero_list_white.png'},
 		{ name: 'About', icon: ''},
 	];
 	const defaultView = 'comps';
