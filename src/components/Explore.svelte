@@ -92,7 +92,7 @@
 		const maxDate = timeValues[timeLimits[1]].value.toISOString();
 
 		// create filter array
-		andArr.push({
+		if(searchStr) andArr.push({
 			or: [
 				{ name: { containsi: searchStr } },
 				{ tags: { name: { containsi: searchStr} } },
