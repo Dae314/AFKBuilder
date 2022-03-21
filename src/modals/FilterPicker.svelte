@@ -99,13 +99,13 @@
 					}
 					break;
 				case 'author':
-					for(const author of $AppData.Comps.filter(e => !e.hidden)) {
-						if(!tempList.some(e => e.name === author)) {
+					for(const comp of $AppData.Comps.filter(e => !e.hidden)) {
+						if(!tempList.some(e => e.name === comp.author)) {
 							// author not in list yet, add a new object for it
-							tempList.push({name: author, totalComps: 1, id: idTrack++, displayName: author});
+							tempList.push({name: comp.author, totalComps: 1, id: idTrack++, displayName: comp.author});
 						} else {
 							// author already in list, increment totalComps
-							let idx = tempList.findIndex(e => e.name === author);
+							let idx = tempList.findIndex(e => e.name === comp.author);
 							tempList[idx].totalComps++;
 						}
 					}
