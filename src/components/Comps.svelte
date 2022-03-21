@@ -60,8 +60,6 @@
 	const defaultHeroFilter = [];
 	const defaultMinTime = 0;
 	const defaultMaxTime = timeValues.length - 1;
-	const defaultPageLimit = 25;
-	const defaultStartPage = 1;
 	const defaultView = 'compList'
 	const defaultComp = null;
 
@@ -79,14 +77,11 @@
 	let author_filter = defaultAuthorFilter;
 	let hero_filter = defaultHeroFilter;
 	let timeLimits = [defaultMinTime, defaultMaxTime];
-	let pageLimit = defaultPageLimit;
-	let curPage = defaultStartPage;
 	let curView = defaultView;
 	let showFilters = false;
 
 	$: processQS($querystring);
-	$: filterObj = makeFilterObj({tag_filter, author_filter, hero_filter, timeLimits, searchStr})
-	$: compList = makeCompList($AppData.Comps, curPage, pageLimit, filterObj);
+	$: compList = makeCompList($AppData.Comps, {tag_filter, author_filter, hero_filter, timeLimits, searchStr});
 	$: openComp = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp);
 	$: highlightComp = null;
 	$: editorWidth = isMobile ? '100%' : '75%';
@@ -106,13 +101,7 @@
 		hero_filter = urlqs.has('hero_filter') ? qs.parse(urlqs.get('hero_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultHeroFilter;
 		timeLimits[0] = urlqs.has('minDate') ? parseInt(decodeURIComponent(urlqs.get('minDate'))) : defaultMinTime;
 		timeLimits[1] = urlqs.has('maxDate') ? parseInt(decodeURIComponent(urlqs.get('maxDate'))) : defaultMaxTime;
-		curPage = urlqs.has('page') ? parseInt(decodeURIComponent(urlqs.get('page'))) : defaultStartPage;
 		curView = urlqs.has('view') ? urlqs.get('view') : defaultView;
-		pageLimit = urlqs.has('pageLimit') ? parseInt(decodeURIComponent(urlqs.get('pageLimit'))) : defaultPageLimit;
-	}
-
-	async function makeFilterObj({tag_filter, author_filter, hero_filter, timeLimits, searchStr}) {
-		return {};
 	}
 
 	async function postUpdate() {
@@ -121,7 +110,7 @@
 		if(valid) dispatch('routeEvent', {action: 'syncLocalComps'});
 	}
 
-	function makeCompList(comps) {
+	function makeCompList(comps, filters ) {
 		let compList = [...comps].filter(e => $AppData.compShowHidden || !e.hidden);
 
 		if(searchStr !== '') {
