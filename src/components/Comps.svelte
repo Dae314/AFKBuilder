@@ -5,8 +5,10 @@
 	import Emoji from 'markdown-it-emoji';
 	import { v4 as uuidv4 } from 'uuid';
 	import JSONURL from 'json-url';
-	import {pop as spaRoutePop} from 'svelte-spa-router';
+	import {pop as spaRoutePop, push as spaRoutePush, querystring, replace} from 'svelte-spa-router';
 	import { mutation } from "svelte-apollo";
+	import RangeSlider from 'svelte-range-slider-pips';
+	import {debounce} from 'lodash';
 	import CompCard from './CompCard.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
@@ -17,6 +19,7 @@
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import CompEditor from '../modals/CompEditor.svelte';
 	import ArtifactDetail from '../modals/ArtifactDetail.svelte';
+	import FilterPicker from '../modals/FilterPicker.svelte';
 	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import AscendBox from '../shared/AscendBox.svelte';
@@ -42,16 +45,26 @@
 		breaks: true,
 	});
 	md.use(Emoji);
+	const timeValues = [
+		{ name: 'forever', value: new Date(now - 3.156e+11) }, // 10 years
+		{ name: '1yr', value: new Date(now - 3.156e10) },
+		{ name: '6mo', value: new Date(now - 1.577e10) },
+		{ name: '1mo', value: new Date(now - 2.628e9) },
+		{ name: '1w', value: new Date(now - 6.048e8) },
+		{ name: '1d', value: new Date(now - 8.64e7) },
+		{ name: 'now', value: new Date(now - 0) },
+	];
+	const defaultSearchStr = '';
+	const defaultTagFilter = [];
+	const defaultAuthorFilter = [];
+	const defaultHeroFilter = [];
+	const defaultMinTime = 0;
+	const defaultMaxTime = timeValues.length - 1;
+	const defaultPageLimit = 25;
+	const defaultStartPage = 1;
+	const defaultView = 'compList'
+	const defaultComp = null;
 
-	$: compList = makeCompList($AppData.Comps);
-	$: openComp = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp);
-	$: highlightComp = null;
-	$: searchSuggestions = makeSearchSuggestions();
-	$: editorWidth = isMobile ? '100%' : '75%';
-	$: editorHeight = isMobile ? '70vh' : '80vh';
-	$: $AppData.modalClosed && handleModalClosed();
-
-	let openDetail = false;
 	let openDesc = true;
 	let openHero = false;
 	let openSubs = false;
@@ -62,18 +75,47 @@
 	let showEditMenu = false;
 	let owText = '';
 	let owPromise;
-	let modalStack = [];
+	let tag_filter = defaultTagFilter;
+	let author_filter = defaultAuthorFilter;
+	let hero_filter = defaultHeroFilter;
+	let timeLimits = [defaultMinTime, defaultMaxTime];
+	let pageLimit = defaultPageLimit;
+	let curPage = defaultStartPage;
+	let curView = defaultView;
+	let showFilters = false;
+
+	$: processQS($querystring);
+	$: filterObj = makeFilterObj({tag_filter, author_filter, hero_filter, timeLimits, searchStr: $AppData.compSearchStr})
+	$: compList = makeCompList($AppData.Comps, curPage, pageLimit, filterObj);
+	$: openComp = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp);
+	$: highlightComp = null;
+	$: searchSuggestions = makeSearchSuggestions();
+	$: editorWidth = isMobile ? '100%' : '75%';
+	$: editorHeight = isMobile ? '70vh' : '80vh';
+	$: $AppData.modalClosed && handleModalClosed();
 
 	onMount(async () => {
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		
-		openDetail = urlParams.has('comp');
-		modalStack = openDetail ? ['base', 'comp'] : ['base']
-
 		$AppData.activeView = 'comps';
 		dispatch('routeEvent', {action: 'saveData'});
 	});
+
+	async function processQS(queryString) {
+		const urlqs = new URLSearchParams(queryString);
+		$AppData.compSearchStr = urlqs.has('searchStr') ? decodeURIComponent(urlqs.get('searchStr')) : defaultSearchStr;
+		$AppData.selectedComp = urlqs.has('comp') ? decodeURIComponent(urlqs.get('comp')) : defaultComp;
+		tag_filter = urlqs.has('tag_filter') ? qs.parse(urlqs.get('tag_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultTagFilter;
+		author_filter = urlqs.has('author_filter') ? qs.parse(urlqs.get('author_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultAuthorFilter;
+		hero_filter = urlqs.has('hero_filter') ? qs.parse(urlqs.get('hero_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultHeroFilter;
+		timeLimits[0] = urlqs.has('minDate') ? parseInt(decodeURIComponent(urlqs.get('minDate'))) : defaultMinTime;
+		timeLimits[1] = urlqs.has('maxDate') ? parseInt(decodeURIComponent(urlqs.get('maxDate'))) : defaultMaxTime;
+		curPage = urlqs.has('page') ? parseInt(decodeURIComponent(urlqs.get('page'))) : defaultStartPage;
+		curView = urlqs.has('view') ? urlqs.get('view') : defaultView;
+		pageLimit = urlqs.has('pageLimit') ? parseInt(decodeURIComponent(urlqs.get('pageLimit'))) : defaultPageLimit;
+	}
+
+	async function makeFilterObj({tag_filter, author_filter, hero_filter, timeLimits, searchStr}) {
+		return {};
+	}
 
 	async function postUpdate() {
 		$AppData.compLastUpdate = new Date();
@@ -133,17 +175,15 @@
 	}
 
 	function handleCompCardClick(uuid) {
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		if(!urlParams.has('comp')) {
-			history.pushState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?comp=true${window.location.hash}`);
-		}
-		modalStack.push('comp');
+		let newQS = new URLSearchParams($querystring);
+		newQS.set('view', encodeURIComponent('compDetail'));
+		newQS.set('comp', encodeURIComponent(uuid));
+
 		$AppData.selectedComp = uuid;
-		openDetail = true;
 		selectedLine = 0;
 		selectedHero = '';
 		showEditMenu = false;
+		spaRoutePush(`/comps?${newQS.toString()}`);
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
@@ -156,7 +196,6 @@
 	}
 
 	function handleEditButtonClick(uuid) {
-		modalStack.push('editor');
 		open(CompEditor,
 				{compID: uuid,
 				 onSuccess: (uuid) => handleCompChangeSuccess(uuid, 'edit'),
@@ -170,7 +209,6 @@
 	}
 	
 	function handlePublishButtonClick(uuid) {
-		modalStack.push('confirm');
 		const comp = $AppData.Comps.find(e => e.uuid === uuid);
 		open(Confirm,
 				{onConfirm: handlePublishComp, confirmData: uuid, message: `Publish comp named ${comp.name}?`},
@@ -191,7 +229,6 @@
 	}
 
 	function handleNewButtonClick() {
-		modalStack.push('editor');
 		open(CompEditor,
 				{onSuccess: (uuid) => { $AppData.compSearchStr = ''; handleCompChangeSuccess(uuid, 'new') },
 				 isMobile: isMobile,
@@ -217,7 +254,6 @@
 	}
 
 	function handleDeleteButtonClick(uuid) {
-		modalStack.push('confirm');
 		const comp = $AppData.Comps.find(e => e.uuid === uuid);
 		let message;
 		if($AppData.user.published_comps.some(e => e.uuid === uuid)) {
@@ -244,7 +280,6 @@
 	}
 
 	function handleImportButtonClick() {
-		modalStack.push('import');
 		open(ImportData, 
 		{ dataHandler: handleCompImport,
 			saveAppData: () => dispatch('routeEvent', {action: 'saveData'}),
@@ -579,14 +614,10 @@
 	}
 
 	function handleCloseButtonClick() {
-		if(modalStack.pop() === 'comp') {
-			spaRoutePop();
-		}
-		openDetail = false;
+		spaRoutePop();
 	}
 
 	function handleHeroDetailClick(heroID) {
-		modalStack.push('detail');
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
@@ -595,7 +626,6 @@
 	}
 
 	function openArtifactDetail(artifactID) {
-		modalStack.push('detail');
 		open(ArtifactDetail, 
 		{ artifactID: artifactID, },
 		{ closeButton: ModalCloseButton,
@@ -603,55 +633,8 @@
 		});
 	}
 
-	function handlePopState(event) {
-		const component = modalStack.pop();
-		switch(component) {
-			case 'detail':
-			case 'import':
-			case 'editor':
-				break;
-			case 'base':
-				modalStack.push('base');
-				break;
-			case 'comp':
-				openDetail = false;
-				history.replaceState({view: $AppData.activeView, comp: false}, $AppData.activeView, `?${window.location.hash}`);
-				break;
-			case 'confirm':
-				showowConfirm = false;
-				owText = '';
-				break;
-			default:
-				throw new Error(`Error invalid Comp.svelte modal stack component detected: ${component}`);
-		}
-	}
-
 	function handleModalClosed() {
 		$AppData.modalClosed = false;
-		const component = modalStack.pop();
-		switch(component) {
-			case 'detail':
-			case 'import':
-			case 'editor':
-				if(modalStack[modalStack.length - 1] !== 'comp') {
-					spaRoutePop();
-				} else {
-					history.replaceState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?comp=true${window.location.hash}`);
-				}
-				break;
-			case 'base':
-				modalStack.push('base');
-				break;
-			case 'comp':
-				modalStack.push('comp');
-				break;
-			case 'confirm':
-				showowConfirm = false;
-				owText = '';
-				break;
-			default:
-				Error(`Error invalid Comp.svelte modal stack component detected: ${component}`);
-		}
 	}
 
 	async function handleCardSort(event) {
@@ -707,23 +690,27 @@
 		// }
 	}
 
-	function updateSearch() {
-		if(!compList.some(e => e.uuid === $AppData.selectedComp)) resetOpenComp();
-		searchSuggestions = makeSearchSuggestions();
-		openSuggestions = true;
-		dispatch('routeEvent', {action: 'saveData'});
+	async function handleSearchStrChange(event) {
+		let newQS = new URLSearchParams($querystring);
+		if(event.target.value) {
+			newQS.set('searchStr', encodeURIComponent(event.target.value));
+		} else {
+			newQS.delete('searchStr');
+		}
+		if(newQS.has('page')) newQS.delete('page');
+		replace(`/comps?${newQS.toString()}`);
 	}
 
-	function takeSuggestion(suggestion) {
-		let searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim());
-		if(searchTerms[searchTerms.length - 1].charAt(0) === '-') {
-			searchTerms[searchTerms.length - 1] = '-' + suggestion;
+	async function handleSearchButtonClick() {
+		const search = document.getElementById('compSearch');
+		let newQS = new URLSearchParams($querystring);
+		if(search.value) {
+			newQS.set('searchStr', encodeURIComponent(search.value));
 		} else {
-			searchTerms[searchTerms.length - 1] = suggestion;
+			newQS.delete('searchStr');
 		}
-		$AppData.compSearchStr = searchTerms.join(', ');
-		updateSearch();
-		openSuggestions = false;
+		if(newQS.has('page')) newQS.delete('page');
+		replace(`/comps?${newQS.toString()}`);
 	}
 
 	async function handleHeroClick(hero) {
@@ -733,46 +720,196 @@
 		document.getElementById('heroDetailSection').scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
 	}
 
+	async function handleRemoveFilter(category, idx) {
+		let newQS = new URLSearchParams($querystring);
+		let new_filter = [];
+		switch(category) {
+			case 'tag':
+				new_filter = tag_filter.filter((e, i) => i !== idx);
+				if(new_filter.length !== 0) {
+					newQS.set('tag_filter', qs.stringify({filter: new_filter}));
+				} else {
+					newQS.delete('tag_filter');
+				}
+				break;
+			case 'author':
+				new_filter = author_filter.filter((e, i) => i !== idx);
+				if(new_filter.length !== 0) {
+					newQS.set('author_filter', qs.stringify({filter: new_filter}));
+				} else {
+					newQS.delete('author_filter');
+				}
+				break;
+			case 'hero':
+				new_filter = hero_filter.filter((e, i) => i !== idx);
+				if(new_filter.length !== 0) {
+					newQS.set('hero_filter', qs.stringify({filter: new_filter}));
+				} else {
+					newQS.delete('hero_filter');
+				}
+				break;
+			default:
+				throw new Error(`ERROR invalid category passed to handleRemoveFilter: ${category}`)
+		}
+		if(newQS.has('page')) newQS.delete('page');
+		replace(`/comps?${newQS.toString()}`);
+	}
+
+	async function handleAddFilterButtonClick(category) {
+		let curFilter;
+		switch(category) {
+			case 'tag':
+				curFilter = tag_filter;
+				break;
+			case 'author':
+				curFilter = author_filter;
+				break;
+			case 'hero':
+				curFilter = hero_filter;
+				break;
+			default:
+				throw new Error(`ERROR invalid category passed to handleAddFilterButtonClick: ${category}`);
+		}
+		open(FilterPicker,
+			{ category,
+				curFilter,
+				onSuccess: (filterList) => handleFilterChangeSuccess({filterList, category}),
+			},
+			{ closeButton: ModalCloseButton }
+		);
+	}
+
+	async function handleFilterChangeSuccess({filterList, category}) {
+		let newQS = new URLSearchParams($querystring);
+		switch(category) {
+			case 'tag':
+				if(filterList.length !== 0) {
+					newQS.set('tag_filter', qs.stringify({filter: filterList}));
+				} else {
+					newQS.delete('tag_filter');
+				}
+				break;
+			case 'author':
+				if(filterList.length !== 0) {
+					newQS.set('author_filter', qs.stringify({filter: filterList}));
+				} else {
+					newQS.delete('author_filter');
+				}
+				break;
+			case 'hero':
+				if(filterList.length !== 0) {
+					newQS.set('hero_filter', qs.stringify({filter: filterList}));
+				} else {
+					newQS.delete('hero_filter');
+				}
+				break;
+			default:
+				throw new Error(`ERROR invalid category passed to handleFilterChangeSuccess: ${category}`);
+		}
+		if(newQS.has('page')) newQS.delete('page');
+		replace(`/comps?${newQS.toString()}`);
+	}
+
+	function handleTimeValueChange(event) {
+		let newQS = new URLSearchParams($querystring);
+		const newLimits = event.detail.values;
+		if(newLimits[0] !== defaultMinTime) {
+			newQS.set('minDate', encodeURIComponent(newLimits[0]));
+		} else {
+			newQS.delete('minDate');
+		}
+		if(newLimits[1] !== defaultMaxTime) {
+			newQS.set('maxDate', encodeURIComponent(newLimits[1]));
+		} else {
+			newQS.delete('maxDate');
+		}
+		if(newQS.has('page')) newQS.delete('page');
+		replace(`/comps?${newQS.toString()}`);
+	}
+
 	function handleViewExploreClick(uuid) {
 		window.location.assign(`${window.location.origin}/#/explore/comp/${uuid}`);
 	}
 
 	function resetOpenComp() {
-		$AppData.selectedComp = null;
+		let newQS = new URLSearchParams($querystring);
+		if(newQS.has('view')) newQS.delete('view');
+		if(newQS.has('comp')) newQS.delete('comp');
 		selectedHero = '';
 		selectedLine = 0;
-		openDetail = false;
 		showEditMenu = false;
+		replace(`/comps?${newQS.toString()}`);
 	}
 </script>
 
-<svelte:window on:popstate={handlePopState} />
-
 <div class="CompContainer">
+	{#if curView === 'compList'}
 	<section class="sect1">
 		<div class="searchArea">
-			<input
-				bind:value={$AppData.compSearchStr}
-				on:keyup={updateSearch}
-				on:search={updateSearch}
-				on:focus={() => openSuggestions = true}
-				on:blur={() => openSuggestions = false}
-				class="searchBox"
-				type="search"
-				placeholder="Filter name or tags">
-			<div class="suggestions" class:open={openSuggestions}>
-				{#each searchSuggestions as suggestion}
-					<button type="button" class="suggestionButton" on:click={() => takeSuggestion(suggestion)}><span>{suggestion}</span></button>
-				{/each}
+			<div class="mobileSearchArea">
+				<input id="compSearch" value={$AppData.compSearchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="Search titles or tags" />
+				<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
+					<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
+				</button>
 			</div>
-			<div class="hiddenToggleArea">
-				<span>Show Hidden</span>
-				<ToggleSwitch
-					size="small"
-					bind:state={$AppData.compShowHidden}
-					on:toggleEvent={handleShowHiddenChange}
-				/>
+			<div class="filterButtonArea">
+				<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
+					<img class="openFiltersImage" src={ showFilters ? './img/utility/filter_color.png' : './img/utility/filter_white.png' } alt="Open Filters">
+				</button>
 			</div>
+		</div>
+		<div class="filterContainer" class:open={showFilters}>
+			<div class="primaryFilters">
+				<div class="filterArea">
+					<button type="button" class="addFilterButton addTagButton" on:click={() => handleAddFilterButtonClick('tag')}>Add Tags</button>
+					<div class="filterItems tagFilters">
+						{#each tag_filter as tag, i}
+							<button type="button" class="rmFilterButton tag {tag.type}" on:click={() => handleRemoveFilter('tag', i)}>{tag.displayName}</button>
+						{/each}
+					</div>
+				</div>
+				<div class="filterArea">
+					<button type="button" class="addFilterButton addAuthorButton" on:click={() => handleAddFilterButtonClick('author')}>Add Authors</button>
+					<div class="filterItems authorFilters">
+						{#each author_filter as author, i}
+							<button type="button" class="rmFilterButton author {author.type}" on:click={() => handleRemoveFilter('author', i)}>{author.displayName}</button>
+						{/each}
+					</div>
+				</div>
+				<div class="filterArea">
+					<button type="button" class="addFilterButton addHeroButton" on:click={() => handleAddFilterButtonClick('hero')}>Add Heroes</button>
+					<div class="filterItems heroFilters">
+						{#each hero_filter as hero, i}
+							<button type="button" class="rmFilterButton hero {hero.type}" on:click={() => handleRemoveFilter('hero', i)}>{hero.displayName}</button>
+						{/each}
+					</div>
+				</div>
+			</div>
+			<div class="secondaryFilters">
+				<div class="filterArea">
+					<div class="timeFilterArea">
+						<RangeSlider
+							id="timeSlider"
+							values={timeLimits}
+							min={0}
+							max={timeValues.length - 1}
+							formatter={ v => timeValues[v].name }
+							on:change={debounce(handleTimeValueChange, 300)}
+							pips
+							all='label'
+							range
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="hiddenToggleArea">
+			<span>Show Hidden</span>
+			<ToggleSwitch
+				size="small"
+				bind:state={$AppData.compShowHidden}
+				on:toggleEvent={handleShowHiddenChange}
+			/>
 		</div>
 		<div class="compScroller" id="compScroller">
 			{#if compList.length === 0}
@@ -820,8 +957,9 @@
 			</div>
 		</div>
 	</section>
+	{:else if curView === 'compDetail'}
 	<section class="sect2">
-		<div class="compDetails" class:open={openDetail}>
+		<div class="compDetails">
 			{#if openComp}
 				<div class="compDetailHead">
 					<div class="closeButtonContainer">
@@ -1226,6 +1364,7 @@
 			{/if}
 		</div>
 	</section>
+	{/if}
 	<section class="sect3" class:visible={showowConfirm}>
 		{#if showowConfirm}
 			<div class="owBackground">
@@ -1261,6 +1400,238 @@
 		height: 100%;
 		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		width: 100%;
+		.searchArea {
+			display: flex;
+			padding: 10px 10px 0px 10px;
+			.headButton {
+				align-items: center;
+				background-color: var(--appColorPrimary);
+				border: 2px solid var(--appColorPrimary);
+				border-radius: 10px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+				cursor: pointer;
+				display: flex;
+				height: 40px;
+				justify-content: center;
+				outline: none;
+				transition: all 0.2s;
+				width: 40px;
+			}
+			.mobileSearchArea {
+				align-items: center;
+				display: flex;
+				width: 100%;
+				.filterInput {
+					border: 1px solid var(--appColorPrimary);
+					border-radius: 5px;
+					font-size: 1.2rem;
+					padding: 8px;
+					width: 100%;
+					&:focus {
+						border-color: var(--appColorPrimary);
+						box-shadow: 0 0 0 2px var(--appColorPrimary);
+						outline: 0;
+					}
+				}
+				.searchButton {
+					margin-left: 9px;
+					.searchImage {
+						max-width: 25px;
+					}
+				}
+			}
+			.filterButtonArea {
+				align-items: center;
+				display: flex;
+				margin-left: 5px;
+				.openFiltersButton {
+					.openFiltersImage {
+						max-width: 25px;
+					}
+					&.open {
+						background-color: transparent;
+					}
+				}
+			}
+		}
+		.filterContainer {
+			background-color: var(--appBGColor);
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+			left: 50%;
+			margin-top: 56px;
+			opacity: 0;
+			overflow: hidden;
+			padding: 10px 0px;
+			position: absolute;
+			transform: translate(-50%, 0);
+			transition: all 0.2s;
+			visibility: hidden;
+			width: 95%;
+			z-index: 2;
+			&.open {
+				opacity: 1;
+				visibility: visible;
+			}
+			.primaryFilters {
+				display: flex;
+				.filterArea {
+					align-items: center;
+					border-right: 1px solid black;
+					display: flex;
+					flex-direction: column;
+					width: 33.33%;
+					&:last-child {
+						border-right: none;
+					}
+					.addFilterButton {
+						background-color: var(--appColorPrimary);
+						border: 2px solid var(--appColorPrimary);
+						border-radius: 10px;
+						color: var(--appBGColor);
+						cursor: pointer;
+						padding: 5px;
+						font-size: 1rem;
+						outline: none;
+					}
+					.filterItems {
+						align-items: center;
+						display: flex;
+						flex-wrap: wrap;
+						justify-content: center;
+						margin-top: 5px;
+						.rmFilterButton {
+							background: var(--appColorPrimary);
+							border: 2px solid var(--appColorPrimary);
+							border-radius: 30px;
+							color: var(--appBGColor);
+							cursor: pointer;
+							font-size: 0.7rem;
+							flex-grow: 0;
+							flex-shrink: 0;
+							margin: 2px 5px;
+							max-width: 125px;
+							outline: none;
+							overflow: hidden;
+							padding: 2px;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							&:before {
+								background-color: var(--appBGColor);
+								border-radius: 50%;
+								color: var(--appColorPrimary);
+								content: '—';
+								font-weight: bold;
+								font-size: 0.6rem;
+								margin-right: 3px;
+								text-align: center;
+							}
+							&.exclude {
+								background: var(--appDelColor);
+								border-color: var(--appDelColor);
+								&:before {
+									color: var(--appDelColor);
+								}
+							}
+						}
+					}
+				}
+			}
+			.secondaryFilters {
+				.filterArea {
+					.timeFilterArea {
+						padding: 0px 30px;
+					}
+				}
+			}
+			:global(#timeSlider) {
+				:global(.rangeBar) {
+					background-color: var(--appColorPrimary);
+				}
+			}
+		}
+		.hiddenToggleArea {
+			align-items: center;
+			display: flex;
+			justify-content: flex-end;
+			padding: 3px 10px 0px 0px;
+			width: 100%;
+			span {
+				font-size: 0.9rem;
+			}
+		}
+		.compScroller {
+			background-color: var(--appBGColorDark);
+			height: calc(100vh - var(--headerHeight) - 40px - 80px);
+			overflow-x: hidden;
+			overflow-y: auto;
+			padding: 5px;
+			padding-bottom: 0px;
+			position: relative;
+			scroll-behavior: smooth;
+			.noComps {
+				bottom: 30%;
+				color: rgba(100, 100, 100, 0.3);
+				font-size: 3rem;
+				font-weight: bold;
+				left: 0;
+				position: absolute;
+				text-align: center;
+				text-transform: uppercase;
+				width: 100%;
+				user-select: none;
+				&.noSearch {
+					top: 0;
+				}
+			}
+		}
+		.addButtonArea {
+			bottom: 0;
+			height: 80px;
+			left: 0;
+			width: 100%;
+		}
+		.plusIcon {
+			display: block;
+			font-size: 2rem;
+			font-weight: bold;
+			margin: 0 auto;
+			transition: transform 0.7s;
+			width: fit-content;
+		}
+		.newCompOptionsArea {
+			background-color: var(--appColorPrimary);
+			display: flex;
+			flex-direction: row;
+			height: 80px;
+			width: 100%;
+		}
+		.newCompOptionButton {
+			background-color: transparent;
+			border: 0;
+			color: white;
+			cursor: pointer;
+			font-size: 1.1rem;
+			width: 100%;
+			&:first-child {
+				border-right: 3px solid var(--appColorPriAccent);
+			}
+			&:last-child {
+				border-left: 3px solid var(--appColorPriAccent);
+			}
+			.imgContainer {
+				align-items: center;
+				display: flex;
+				height: 37px;
+				justify-content: center;
+			}
+			img {
+				max-width: 20px;
+			}
+			span {
+				display: block;
+			}
+		}
 	}
 	.sect2 {
 		height: 100%;
@@ -1321,147 +1692,6 @@
 			margin-right: 0;
 		}
 	}
-	.searchArea {
-		align-items: center;
-		background-color: var(--appBGColorDark);
-		border-bottom: 3px solid var(--appColorPrimary);
-		display: flex;
-		flex-direction: column;
-		height: 65px;
-		padding: 5px 10px;
-		position: relative;
-		justify-content: center;
-		.searchBox {
-			border: 1px solid var(--appColorPrimary);
-			border-radius: 5px;
-			font-size: 1.1rem;
-			outline: none;
-			width: 100%;
-			&:focus {
-				box-shadow: 0 0 0 2px var(--appColorPrimary);
-			}
-		}
-		.suggestions {
-			background-color: white;
-			border: 1px solid var(--appColorPrimary);
-			border-radius: 0px 0px 10px 10px;
-			border-top: 0;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-			display: flex;
-			flex-direction: column;
-			opacity: 0;
-			position: absolute;
-			top: 30px;
-			transition: all 0.2s;
-			visibility: hidden;
-			width: 80%;
-			z-index: 1;
-			.suggestionButton {
-				background: transparent;
-				border: 0;
-				border-bottom: 1px solid var(--appColorPrimary);
-				color: var(--appColorPrimary);
-				cursor: pointer;
-				font-size: 1rem;
-				outline: 0;
-				user-select: none;
-				&:hover {
-					color: white;
-					background-color: var(--appColorPrimary);
-				}
-				&:last-child {
-					border-bottom: 0;
-					border-radius: 0px 0px 10px 10px;
-				}
-			}
-		}
-		.suggestions.open {
-			visibility: visible;
-			opacity: 1;
-		}
-		.hiddenToggleArea {
-			align-items: center;
-			display: flex;
-			justify-content: flex-end;
-			padding-top: 3px;
-			width: 100%;
-			span {
-				font-size: 0.9rem;
-			}
-		}
-	}
-	.compScroller {
-		background-color: var(--appBGColorDark);
-		height: calc(100vh - var(--headerHeight) - 40px - 80px);
-		overflow-x: hidden;
-		overflow-y: auto;
-		padding: 5px;
-		padding-bottom: 0px;
-		position: relative;
-		scroll-behavior: smooth;
-	}
-	.noComps {
-		bottom: 30%;
-		color: rgba(100, 100, 100, 0.3);
-		font-size: 3rem;
-		font-weight: bold;
-		left: 0;
-		position: absolute;
-		text-align: center;
-		text-transform: uppercase;
-		width: 100%;
-		user-select: none;
-	}
-	.noComps.noSearch {
-		top: 0;
-	}
-	.addButtonArea {
-		bottom: 0;
-		height: 80px;
-		left: 0;
-		width: 100%;
-	}
-	.plusIcon {
-		display: block;
-		font-size: 2rem;
-		font-weight: bold;
-		margin: 0 auto;
-		transition: transform 0.7s;
-		width: fit-content;
-	}
-	.newCompOptionsArea {
-		background-color: var(--appColorPrimary);
-		display: flex;
-		flex-direction: row;
-		height: 80px;
-		width: 100%;
-	}
-	.newCompOptionButton {
-		background-color: transparent;
-		border: 0;
-		color: white;
-		cursor: pointer;
-		font-size: 1.1rem;
-		width: 100%;
-		&:first-child {
-			border-right: 3px solid var(--appColorPriAccent);
-		}
-		&:last-child {
-			border-left: 3px solid var(--appColorPriAccent);
-		}
-		.imgContainer {
-			align-items: center;
-			display: flex;
-			height: 37px;
-			justify-content: center;
-		}
-		img {
-			max-width: 20px;
-		}
-		span {
-			display: block;
-		}
-	}
 	.noSelectedComp {
 		display: none;
 		visibility: hidden;
@@ -1471,22 +1701,13 @@
 		display: flex;
 		flex-direction: column;
 		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
-		max-width: 0px;
-		overflow-x: hidden;
-		overflow-y: hidden;
+		overflow-y: auto;
+		padding: 10px;
 		position: fixed;
 		right: 0;
 		scroll-behavior: smooth;
 		top: var(--headerHeight);
 		transition: all 0.3s ease-out;
-		visibility: hidden;
-	}
-	.compDetails.open {
-		max-width: 100%;
-		overflow-y: auto;
-		padding: 10px;
-		width: 100%;
-		visibility: visible;
 	}
 	.compDetailHead {
 		align-items: center;
@@ -2186,8 +2407,6 @@
 	@media only screen and (min-width: 767px) {
 		.sect1 {
 			height: 100vh;
-			max-width: 375px;
-			width: 21%;
 		}
 		.sect2 {
 			height: 100vh;
