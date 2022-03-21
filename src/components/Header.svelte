@@ -422,7 +422,7 @@
 			}
 			button {
 				border-radius: 10px 0px 0px 10px;
-				box-shadow: 11px 11px 22px #2e4588, -11px -11px 22px #4263c4;
+				box-shadow:   18px 18px 39px #2b4180, -18px -18px 39px #4567cc;
 				color: rgba(240, 240, 242, 0.8);
 				margin: 10px 0px;
 				padding: 10px 0px 10px 15px;
@@ -476,7 +476,7 @@
 					width: 40px;
 				}
 				&:hover {
-					background-color: #4263c4;
+					background-color: #4567cc;
 				}
 			}
 		}
