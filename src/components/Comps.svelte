@@ -571,8 +571,8 @@
 			$AppData.selectedComp = returnObj.message.uuid;
 			selectedHero = '';
 			selectedLine = 0;
-			const compScroller = document.getElementById('compScroller');
-			compScroller.scrollTop = compScroller.scrollHeight;
+			const compArea = document.getElementById('sect1');
+			compArea.scrollTop = compArea.scrollHeight;
 			setTimeout(() => highlightComp = null, 3000);
 			await postUpdate();
 			dispatch('routeEvent', {action: 'saveData'});
@@ -595,8 +595,8 @@
 		$AppData.selectedComp = copyComp.uuid;
 		selectedHero = '';
 		selectedLine = 0;
-		const compScroller = document.getElementById('compScroller');
-		compScroller.scrollTop = compScroller.scrollHeight;
+		const compArea = document.getElementById('sect1');
+		compArea.scrollTop = compArea.scrollHeight;
 		setTimeout(() => highlightComp = null, 3000);
 		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'});
@@ -844,7 +844,7 @@
 
 <div class="CompContainer">
 	{#if curView === 'compList'}
-	<section class="sect1">
+	<section class="sect1" id="sect1">
 		<div class="searchArea">
 			<div class="mobileSearchArea">
 				<input id="compSearch" value={$AppData.compSearchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="Search titles or tags" />
@@ -911,50 +911,50 @@
 				on:toggleEvent={handleShowHiddenChange}
 			/>
 		</div>
-		<div class="compScroller" id="compScroller">
-			{#if compList.length === 0}
-				<div class="noComps" class:noSearch={$AppData.compSearchStr !== ''}>
-					{#if $AppData.compSearchStr === ''}
-						<span>Add or Import a New Comp</span>
-						<div class="noCompsArrow">
-							<span>&#8681;</span>
+		<div class="compGridArea">
+			<ul class="compGrid">
+				<li class="newCompArea">
+					<button type="button" class="newCompButton new" on:click={handleNewButtonClick}>
+						<span class="plusIcon">+</span>
+						<span>New</span>
+					</button>
+					<button type="button" class="newCompButton import" on:click={handleImportButtonClick}>
+						<div class="imgContainer">
+							<img draggable="false" class="importButtonIcon" src="./img/utility/import.png" alt="Import">
 						</div>
-					{:else}
-						<span>No Comps Found</span>
-					{/if}
-				</div>
-			{:else}
-				<SortableList
-					list={compList}
-					key="uuid"
-					on:sort={handleCardSort}
-					let:item={comp}
-					let:index={i}>
-					<CompCard
-						comp={comp}
-						idx={i}
-						highlightComp={highlightComp}
-						delCallback={handleDeleteButtonClick}
-						cardClickCallback={handleCompCardClick}
-						exportCallback={handleExportButtonClick}
-						starCallback={handleStarClick}
-					/>
-				</SortableList>
-			{/if}
-		</div>
-		<div class="addButtonArea">
-			<div class="newCompOptionsArea">
-				<button type="button" class="newCompOptionButton" on:click={handleImportButtonClick}>
-					<div class="imgContainer">
-						<img draggable="false" class="importButtonIcon" src="./img/utility/import.png" alt="Import">
-					</div>
-					<span>Import</span>
-				</button>
-				<button type="button" class="newCompOptionButton" on:click={handleNewButtonClick}>
-					<span class="plusIcon">+</span>
-					<span>New</span>
-				</button>
-			</div>
+						<span>Import</span>
+					</button>
+				</li>
+				{#each compList as comp,i}
+					<li>
+						<CompCard
+							comp={comp}
+							idx={i}
+							highlightComp={highlightComp}
+							delCallback={handleDeleteButtonClick}
+							cardClickCallback={handleCompCardClick}
+							exportCallback={handleExportButtonClick}
+							starCallback={handleStarClick}
+						/>
+					</li>
+				{/each}
+			</ul>
+			<!-- <SortableList
+				list={compList}
+				key="uuid"
+				on:sort={handleCardSort}
+				let:item={comp}
+				let:index={i}>
+				<CompCard
+					comp={comp}
+					idx={i}
+					highlightComp={highlightComp}
+					delCallback={handleDeleteButtonClick}
+					cardClickCallback={handleCompCardClick}
+					exportCallback={handleExportButtonClick}
+					starCallback={handleStarClick}
+				/>
+			</SortableList> -->
 		</div>
 	</section>
 	{:else if curView === 'compDetail'}
@@ -1399,6 +1399,7 @@
 		flex-direction: column;
 		height: 100%;
 		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
+		overflow-y: auto;
 		width: 100%;
 		.searchArea {
 			display: flex;
@@ -1560,76 +1561,57 @@
 				font-size: 0.9rem;
 			}
 		}
-		.compScroller {
-			background-color: var(--appBGColorDark);
-			height: calc(100vh - var(--headerHeight) - 40px - 80px);
-			overflow-x: hidden;
-			overflow-y: auto;
-			padding: 5px;
-			padding-bottom: 0px;
-			position: relative;
-			scroll-behavior: smooth;
-			.noComps {
-				bottom: 30%;
-				color: rgba(100, 100, 100, 0.3);
-				font-size: 3rem;
-				font-weight: bold;
-				left: 0;
-				position: absolute;
-				text-align: center;
-				text-transform: uppercase;
-				width: 100%;
-				user-select: none;
-				&.noSearch {
-					top: 0;
+		.compGridArea {
+			padding-top: 10px;
+			.compGrid {
+				display: grid;
+				grid-gap: 5px 5px;
+				grid-template-columns: repeat(auto-fill, minmax(350px, 350px));
+				grid-auto-rows: 155px;
+				justify-content: space-around;
+				margin: 0;
+				padding: 0;
+				list-style-type: none;
+				.newCompArea {
+					display: flex;
+					padding: 10px;
+					.newCompButton {
+						background-color: var(--appColorPrimary);
+						border: 2px solid var(--appColorPrimary);
+						color: var(--appBGColor);
+						cursor: pointer;
+						font-size: 1.1rem;
+						width: 100%;
+						.imgContainer {
+							align-items: center;
+							display: flex;
+							height: 37px;
+							justify-content: center;
+						}
+						img {
+							max-width: 20px;
+						}
+						span {
+							display: block;
+						}
+						&.new {
+							border-top-left-radius: 10px;
+							border-bottom-left-radius: 10px;
+							.plusIcon {
+								display: block;
+								font-size: 2rem;
+								font-weight: bold;
+								margin: 0 auto;
+								transition: transform 0.7s;
+								width: fit-content;
+							}
+						}
+						&.import {
+							border-top-right-radius: 10px;
+							border-bottom-right-radius: 10px;
+						}
+					}
 				}
-			}
-		}
-		.addButtonArea {
-			bottom: 0;
-			height: 80px;
-			left: 0;
-			width: 100%;
-		}
-		.plusIcon {
-			display: block;
-			font-size: 2rem;
-			font-weight: bold;
-			margin: 0 auto;
-			transition: transform 0.7s;
-			width: fit-content;
-		}
-		.newCompOptionsArea {
-			background-color: var(--appColorPrimary);
-			display: flex;
-			flex-direction: row;
-			height: 80px;
-			width: 100%;
-		}
-		.newCompOptionButton {
-			background-color: transparent;
-			border: 0;
-			color: white;
-			cursor: pointer;
-			font-size: 1.1rem;
-			width: 100%;
-			&:first-child {
-				border-right: 3px solid var(--appColorPriAccent);
-			}
-			&:last-child {
-				border-left: 3px solid var(--appColorPriAccent);
-			}
-			.imgContainer {
-				align-items: center;
-				display: flex;
-				height: 37px;
-				justify-content: center;
-			}
-			img {
-				max-width: 20px;
-			}
-			span {
-				display: block;
 			}
 		}
 	}
