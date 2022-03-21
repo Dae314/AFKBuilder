@@ -12,6 +12,7 @@
 	export let category = 'tag';
 	export let curFilter = [];
 	export let onSuccess = () => {};
+	export let source = 'server';
 
 	const { close } = getContext('simple-modal');
 
@@ -29,40 +30,90 @@
 	});
 
 	async function populateEntityList() {
-		let response;
-		switch(category) {
-			case 'tag':
-				response = await getAllTags();
-				break;
-			case 'hero':
-				response = await getAllHeroes();
-				break;
-			case 'author':
-				response = await getAllAuthors();
-				break;
-			default:
-				throw new Error(`ERROR invalid category passed to FilterPicker: ${category}`);
-		}
-		if(response.status !== 200) {
-			errorDisplayConf = {
-				errorCode: response.status,
-				headText: 'Something went wrong',
-				detailText: response.data,
-				showHomeButton: false,
-			};
-			showErrorDisplay = true;
-		} else {
-			if(category === 'hero') {
-				entityList = response.data.map(e => {
-					e.displayName = $HeroData.find(i => i.id === e.name).name
-					return e;
-				});
-			} else {
-				entityList = response.data.map(e => {
-					e.displayName = e.name
-					return e;
-				})
+		if(source === 'server') {
+			let response;
+			switch(category) {
+				case 'tag':
+					response = await getAllTags();
+					break;
+				case 'hero':
+					response = await getAllHeroes();
+					break;
+				case 'author':
+					response = await getAllAuthors();
+					break;
+				default:
+					throw new Error(`ERROR invalid category passed to FilterPicker: ${category}`);
 			}
+			if(response.status !== 200) {
+				errorDisplayConf = {
+					errorCode: response.status,
+					headText: 'Something went wrong',
+					detailText: response.data,
+					showHomeButton: false,
+				};
+				showErrorDisplay = true;
+			} else {
+				if(category === 'hero') {
+					entityList = response.data.map(e => {
+						e.displayName = $HeroData.find(i => i.id === e.name).name
+						return e;
+					});
+				} else {
+					entityList = response.data.map(e => {
+						e.displayName = e.name
+						return e;
+					})
+				}
+			}
+		} else if(source === 'local') {
+			let tempList = [];
+			let idTrack = 0;
+			switch(category) {
+				case 'tag':
+					for(const comp of $AppData.Comps.filter(e => !e.hidden)) {
+						for(const tag of comp.tags) {
+							if(!tempList.some(e => e.name === tag)) {
+								// tag not in list yet, add a new object for it
+								tempList.push({name: tag, totalComps: 1, id: idTrack++, displayName: tag});
+							} else {
+								// tag already in list, increment totalComps
+								let idx = tempList.findIndex(e => e.name === tag);
+								tempList[idx].totalComps++;
+							}
+						}
+					}
+					break;
+				case 'hero':
+					for(const comp of $AppData.Comps.filter(e => !e.hidden)) {
+						for(const hero of Object.keys(comp.heroes)) {
+							if(!tempList.some(e => e.name === hero)) {
+								// hero not in list yet, add a new object for it
+								tempList.push({name: hero, totalComps: 1, id: idTrack++, displayName: $HeroData.find(e => e.id === hero).name});
+							} else {
+								// hero already in list, increment totalComps
+								let idx = tempList.findIndex(e => e.name === hero);
+								tempList[idx].totalComps++;
+							}
+						}
+					}
+					break;
+				case 'author':
+					for(const author of $AppData.Comps.filter(e => !e.hidden)) {
+						if(!tempList.some(e => e.name === author)) {
+							// author not in list yet, add a new object for it
+							tempList.push({name: author, totalComps: 1, id: idTrack++, displayName: author});
+						} else {
+							// author already in list, increment totalComps
+							let idx = tempList.findIndex(e => e.name === author);
+							tempList[idx].totalComps++;
+						}
+					}
+					break;
+				default:
+					throw new Error(`ERROR invalid category passed to FilterPicker: ${category}`);
+			}
+			entityList = tempList;
 		}
 	}
 

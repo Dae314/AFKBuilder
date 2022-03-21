@@ -9,6 +9,7 @@
 	import { mutation } from "svelte-apollo";
 	import RangeSlider from 'svelte-range-slider-pips';
 	import {debounce} from 'lodash';
+	import qs from 'qs';
 	import CompCard from './CompCard.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
@@ -23,7 +24,6 @@
 	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import AscendBox from '../shared/AscendBox.svelte';
-	import SortableList from '../shared/SortableList.svelte';
 	import StarsInput from '../shared/StarsInput.svelte';
 	import ToggleSwitch from '../shared/ToggleSwitch.svelte';
 	import { validateJWT, getCompByUUID, toggleSave } from '../rest/RESTFunctions.svelte';
@@ -686,6 +686,7 @@
 		open(FilterPicker,
 			{ category,
 				curFilter,
+				source: 'local',
 				onSuccess: (filterList) => handleFilterChangeSuccess({filterList, category}),
 			},
 			{ closeButton: ModalCloseButton }
@@ -719,7 +720,6 @@
 			default:
 				throw new Error(`ERROR invalid category passed to handleFilterChangeSuccess: ${category}`);
 		}
-		if(newQS.has('page')) newQS.delete('page');
 		replace(`/comps?${newQS.toString()}`);
 	}
 
