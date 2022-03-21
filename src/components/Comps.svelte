@@ -2185,10 +2185,12 @@
 	}
 	@media only screen and (min-width: 767px) {
 		.sect1 {
+			height: 100vh;
 			max-width: 375px;
 			width: 21%;
 		}
 		.sect2 {
+			height: 100vh;
 			width: 79%;
 		}
 		.owFooterButton {
@@ -2206,6 +2208,7 @@
 			border-right: 3px solid var(--appColorPrimary);
 		}
 		.compScroller {
+			height: 100%;
 			border-right: 3px solid var(--appColorPrimary);
 		}
 		.noComps {
@@ -2215,6 +2218,7 @@
 			max-width: 375px;
 		}
 		.compDetails {
+			height: 100%;
 			max-width: 100%;
 			padding: 10px;
 			position: static;

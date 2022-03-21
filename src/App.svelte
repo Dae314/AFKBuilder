@@ -652,6 +652,7 @@
 	}
 	@media only screen and (min-width: 767px) {
 		main {
+			height: 100vh;
 			padding: 0;
 		}
 	}
