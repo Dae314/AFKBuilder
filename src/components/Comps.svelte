@@ -110,25 +110,25 @@
 		if(valid) dispatch('routeEvent', {action: 'syncLocalComps'});
 	}
 
-	function makeCompList(comps, filters ) {
+	function makeCompList(comps, filters) {
 		let compList = [...comps].filter(e => $AppData.compShowHidden || !e.hidden);
 
-		if(searchStr !== '') {
-			// array of search terms (separate by , trim white space, and make lower case)
-			let searchTerms = searchStr.split(',').map(e => e.trim().toLowerCase());
-			compList = compList.filter(comp => {
-				// array of tags (trim white space and make lower case)
-				const tags = comp.tags.map(i => i.trim().toLowerCase());
-				for(const term of searchTerms) {
-					if(term.charAt(0) === '-') {
-						const sterm = term.slice(1, term.length);
-						if(comp.name.toLowerCase().includes(sterm) || tags.some(e => e.toLowerCase().includes(sterm))) return false;
-					} else {
-						if(!comp.name.toLowerCase().includes(term) && !tags.some(e => e.toLowerCase().includes(term))) return false;
-					}
-				}
-				return true;
-			});
+		if(filters.tag_filter.length > 0) {
+			const incTags = filters.tag_filter.filter(e => e.type === 'include').map(e => e.name);
+			const excTags = filters.tag_filter.filter(e => e.type === 'exclude').map(e => e.name);
+			compList = compList.filter(comp => comp.tags.some(tag => incTags.includes(tag) && !excTags.includes(tag)));
+		}
+
+		if(filters.author_filter.length > 0) {
+			const incAuthors = filters.author_filter.filter(e => e.type === 'include').map(e => e.name);
+			const excAuthors = filters.author_filter.filter(e => e.type === 'exclude').map(e => e.name);
+			compList = compList.filter(comp => incAuthors.includes(comp.author) && !excAuthors.includes(comp.author));
+		}
+
+		if(filters.hero_filter.length > 0) {
+			const incHeroes = filters.hero_filter.filter(e => e.type === 'include').map(e => e.name);
+			const excHeroes = filters.hero_filter.filter(e => e.type === 'exclude').map(e => e.name);
+			compList = compList.filter(comp => Object.keys(comp.heroes).some(hero => incHeroes.includes(hero) && !excHeroes.includes(hero)));
 		}
 
 		return compList;
