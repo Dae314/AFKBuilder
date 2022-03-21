@@ -487,20 +487,15 @@
 	}
 
 	function handleModalClosed() {
-		// handle modals in Comps.svelte and Explore.svelte separately
-		if($AppData.activeView === 'comps') {
-			$AppData.modalClosed = true;
-		} else {
-			const queryString = window.location.search;
-			const urlParams = new URLSearchParams(queryString);
-			if(urlParams.has('modal')) {
-				spaRoutePop();
-				window.addEventListener('popstate', function updateURL(event) {
-					const uri = $querystring ? `${window.location.origin}/#/${$AppData.activeView}?${$querystring}` : `${window.location.origin}/#/${$AppData.activeView}`
-					history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, uri);
-					window.removeEventListener('popstate', updateURL);
-				});
-			}
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		if(urlParams.has('modal')) {
+			spaRoutePop();
+			window.addEventListener('popstate', function updateURL(event) {
+				const uri = $querystring ? `${window.location.origin}/#/${$AppData.activeView}?${$querystring}` : `${window.location.origin}/#/${$AppData.activeView}`
+				history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, uri);
+				window.removeEventListener('popstate', updateURL);
+			});
 		}
 	}
 

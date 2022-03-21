@@ -68,13 +68,13 @@
 	let openDesc = true;
 	let openHero = false;
 	let openSubs = false;
-	let openSuggestions = false;
 	let selectedLine = 0;
 	let selectedHero = '';
 	let showowConfirm = false;
 	let showEditMenu = false;
 	let owText = '';
 	let owPromise;
+	let searchStr = defaultSearchStr;
 	let tag_filter = defaultTagFilter;
 	let author_filter = defaultAuthorFilter;
 	let hero_filter = defaultHeroFilter;
@@ -85,14 +85,12 @@
 	let showFilters = false;
 
 	$: processQS($querystring);
-	$: filterObj = makeFilterObj({tag_filter, author_filter, hero_filter, timeLimits, searchStr: $AppData.compSearchStr})
+	$: filterObj = makeFilterObj({tag_filter, author_filter, hero_filter, timeLimits, searchStr})
 	$: compList = makeCompList($AppData.Comps, curPage, pageLimit, filterObj);
 	$: openComp = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp);
 	$: highlightComp = null;
-	$: searchSuggestions = makeSearchSuggestions();
 	$: editorWidth = isMobile ? '100%' : '75%';
 	$: editorHeight = isMobile ? '70vh' : '80vh';
-	$: $AppData.modalClosed && handleModalClosed();
 
 	onMount(async () => {
 		$AppData.activeView = 'comps';
@@ -101,7 +99,7 @@
 
 	async function processQS(queryString) {
 		const urlqs = new URLSearchParams(queryString);
-		$AppData.compSearchStr = urlqs.has('searchStr') ? decodeURIComponent(urlqs.get('searchStr')) : defaultSearchStr;
+		searchStr = urlqs.has('searchStr') ? decodeURIComponent(urlqs.get('searchStr')) : defaultSearchStr;
 		$AppData.selectedComp = urlqs.has('comp') ? decodeURIComponent(urlqs.get('comp')) : defaultComp;
 		tag_filter = urlqs.has('tag_filter') ? qs.parse(urlqs.get('tag_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultTagFilter;
 		author_filter = urlqs.has('author_filter') ? qs.parse(urlqs.get('author_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultAuthorFilter;
@@ -126,9 +124,9 @@
 	function makeCompList(comps) {
 		let compList = [...comps].filter(e => $AppData.compShowHidden || !e.hidden);
 
-		if($AppData.compSearchStr !== '') {
+		if(searchStr !== '') {
 			// array of search terms (separate by , trim white space, and make lower case)
-			let searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim().toLowerCase());
+			let searchTerms = searchStr.split(',').map(e => e.trim().toLowerCase());
 			compList = compList.filter(comp => {
 				// array of tags (trim white space and make lower case)
 				const tags = comp.tags.map(i => i.trim().toLowerCase());
@@ -144,34 +142,7 @@
 			});
 		}
 
-		searchSuggestions = makeSearchSuggestions();
-
 		return compList;
-	}
-
-	function makeSearchSuggestions() {
-		let suggestions = [];
-
-		// first make a list of all tags and comp names
-		for(const comp of $AppData.Comps) {
-			suggestions.push(comp.name);
-			suggestions = [...suggestions, ...comp.tags];
-		}
-		// remove duplicate suggestions
-		suggestions = [...new Set(suggestions)];
-		// filter suggestions for stuff matching the last search term (split by ,)
-		const searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim());
-		let lastTerm = searchTerms[searchTerms.length - 1].toLowerCase();
-		if(lastTerm.charAt(0) === '-') lastTerm = lastTerm.slice(1, lastTerm.length);
-		suggestions = suggestions.filter(e => e.toLowerCase().includes(lastTerm));
-		// if there's only 1 suggestion, return nothing because the filter should already be applied
-		if(suggestions.length === 1) return [];
-		// take only the first 10 suggestions
-		suggestions = suggestions.slice(0, 10);
-		// finally, sort suggestions before returning
-		suggestions.sort();
-
-		return suggestions;
 	}
 
 	function handleCompCardClick(uuid) {
@@ -230,7 +201,7 @@
 
 	function handleNewButtonClick() {
 		open(CompEditor,
-				{onSuccess: (uuid) => { $AppData.compSearchStr = ''; handleCompChangeSuccess(uuid, 'new') },
+				{onSuccess: (uuid) => { searchStr = ''; handleCompChangeSuccess(uuid, 'new') },
 				 isMobile: isMobile,
 				},
 				{ closeButton: ModalCloseButton,
@@ -241,7 +212,6 @@
 	}
 
 	async function handleCompChangeSuccess(uuid, type) {
-		searchSuggestions = makeSearchSuggestions();
 		highlightComp = compList.findIndex(e => e.uuid === uuid);
 		selectedHero = '';
 		selectedLine = 0;
@@ -566,7 +536,7 @@
 				statusMsg = 'Data import successful';
 			}
 			await tick();
-			$AppData.compSearchStr = ''; // reset any filters
+			searchStr = ''; // reset any filters
 			highlightComp = compList.findIndex(e => e.uuid === returnObj.message.uuid);
 			$AppData.selectedComp = returnObj.message.uuid;
 			selectedHero = '';
@@ -590,7 +560,7 @@
 		$AppData.Comps = [...$AppData.Comps, copyComp];
 		handleCloseButtonClick();
 		await tick();
-		$AppData.compSearchStr = ''; // reset any filters
+		searchStr = ''; // reset any filters
 		highlightComp = compList.findIndex(e => e.uuid === copyComp.uuid);
 		$AppData.selectedComp = copyComp.uuid;
 		selectedHero = '';
@@ -631,63 +601,6 @@
 		{ closeButton: ModalCloseButton,
 			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 		});
-	}
-
-	function handleModalClosed() {
-		$AppData.modalClosed = false;
-	}
-
-	async function handleCardSort(event) {
-		const {from, to} = event.detail;
-		const fromUUID = compList[from].uuid;
-		const toUUID = compList[to].uuid;
-		const mainFromIdx = $AppData.Comps.findIndex(e => e.uuid === fromUUID);
-		const mainToIdx = $AppData.Comps.findIndex(e => e.uuid === toUUID);
-		let newList = [...$AppData.Comps];
-		newList[mainFromIdx] = [newList[mainToIdx], (newList[mainToIdx] = newList[mainFromIdx])][0];
-		// double-check that we didn't lose any comps
-		let allCompsValid = true;
-		for(const comp of $AppData.Comps) {
-			allCompsValid = newList.some(e => e.uuid === comp.uuid);
-		}
-		if(!allCompsValid) {
-			dispatch('routeEvent',
-				{ action: 'showNotice',
-					data: {
-						noticeConf: {
-							type: 'error',
-							message: 'Re-order error occurred',
-						}
-					}
-				}
-			);
-			return;
-		}
-		$AppData.Comps = newList;
-		dispatch('routeEvent', {action: 'saveData'});
-		// // catch if a user dragged something we weren't expecting and exit
-		// if(!Array.isArray(event.detail)) return 0;
-		// // don't allow re-ordering when comp list is filtered (could accidently delete comps)
-		// if($AppData.compSearchStr !== '') return 0;
-		// // don't allow comp overwrite if there are missing comps
-		// if(event.detail.length !== $AppData.Comps.length) {
-		// 	throw new Error(`Received invalid Comps array, must be same length as original. ${event.detail}`);
-		// }
-		// let allCompsValid = true;
-		// for(const comp of event.detail) {
-		// 	let returnObj = await validateComp(comp);
-		// 	allCompsValid = allCompsValid && returnObj.retCode === 0;
-		// }
-		// if(allCompsValid) {
-		// 	// one last check that all comps are present
-		// 	for(const comp of $AppData.Comps) {
-		// 		if(!event.detail.some(e => e.uuid === comp.uuid)) {
-		// 			throw new Error(`Received invalid Comps array, missing comp with uuid: ${comp.uuid}`);
-		// 		}
-		// 	}
-		// 	$AppData.Comps = event.detail;
-		// 	dispatch('routeEvent', {action: 'saveData'});
-		// }
 	}
 
 	async function handleSearchStrChange(event) {
@@ -847,7 +760,7 @@
 	<section class="sect1" id="sect1">
 		<div class="searchArea">
 			<div class="mobileSearchArea">
-				<input id="compSearch" value={$AppData.compSearchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="Search titles or tags" />
+				<input id="compSearch" value={searchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="Search titles or tags" />
 				<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
 					<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
 				</button>
@@ -1574,7 +1487,8 @@
 				list-style-type: none;
 				.newCompArea {
 					display: flex;
-					padding: 10px;
+					height: 146px;
+					width: 350px;
 					.newCompButton {
 						background-color: var(--appColorPrimary);
 						border: 2px solid var(--appColorPrimary);
@@ -1597,6 +1511,7 @@
 						&.new {
 							border-top-left-radius: 10px;
 							border-bottom-left-radius: 10px;
+							border-right-color: var(--appBGColor);
 							.plusIcon {
 								display: block;
 								font-size: 2rem;
@@ -1609,6 +1524,7 @@
 						&.import {
 							border-top-right-radius: 10px;
 							border-bottom-right-radius: 10px;
+							border-left-color: var(--appBGColor);
 						}
 					}
 				}
