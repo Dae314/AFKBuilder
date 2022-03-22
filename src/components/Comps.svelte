@@ -72,6 +72,7 @@
 	let selectedHero = '';
 	let showowConfirm = false;
 	let showEditMenu = false;
+	let showCategories = false;
 	let owText = '';
 	let owPromise;
 	let sortSelectEl;
@@ -86,6 +87,7 @@
 
 	$: processQS($querystring);
 	$: compList = makeCompList($AppData.Comps, {tag_filter, author_filter, hero_filter, timeLimits, searchStr}, curSort);
+	$: categoryList = makeCategoryList($AppData.Comps);
 	$: openComp = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp);
 	$: highlightComp = null;
 	$: editorWidth = isMobile ? '100%' : '75%';
@@ -169,6 +171,10 @@
 		}
 
 		return compList;
+	}
+
+	function makeCategoryList(comps) {
+		return [];
 	}
 
 	function handleCompCardClick(uuid) {
@@ -805,6 +811,9 @@
 				<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
 					<img class="openFiltersImage" src={ showFilters ? './img/utility/filter_color.png' : './img/utility/filter_white.png' } alt="Open Filters">
 				</button>
+				<button type="button" class="headButton openCategoryButton" class:open={showCategories} on:click={() => showCategories = !showCategories}>
+					<img class="openCategoriesImage" class:open={showCategories} src="./img/utility/categories_white.png" alt="Categories">
+				</button>
 			</div>
 		</div>
 		<div class="filterContainer" class:open={showFilters}>
@@ -868,6 +877,7 @@
 				{/each}
 			</select>
 		</div>
+		{#if !showCategories}
 		<div class="compGridArea">
 			<ul class="compGrid">
 				<li class="newCompArea">
@@ -896,23 +906,26 @@
 					</li>
 				{/each}
 			</ul>
-			<!-- <SortableList
-				list={compList}
-				key="uuid"
-				on:sort={handleCardSort}
-				let:item={comp}
-				let:index={i}>
-				<CompCard
-					comp={comp}
-					idx={i}
-					highlightComp={highlightComp}
-					delCallback={handleDeleteButtonClick}
-					cardClickCallback={handleCompCardClick}
-					exportCallback={handleExportButtonClick}
-					starCallback={handleStarClick}
-				/>
-			</SortableList> -->
 		</div>
+		{:else}
+		<div class="categoryGridArea">
+			<ul class="categoryGrid">
+				<li class="newCategoryArea">
+					<button type="button" class="newCategoryButton" on:click={handleNewCategoryClick}>
+						<span class="plusIcon">+</span>
+						<span>New</span>
+					</button>
+				</li>
+				{#each categoryList as category}
+					<li>
+						<button type="button" class="categoryButton" on:click={handleCategoryClick}>
+							{category.name}
+						</button>
+					</li>
+				{/each}
+			</ul>
+		</div>
+		{/if}
 	</section>
 	{:else if curView === 'compDetail'}
 	<section class="sect2">
@@ -1408,6 +1421,12 @@
 					}
 					&.open {
 						background-color: transparent;
+					}
+				}
+				.openCategoryButton {
+					margin-left: 5px;
+					.openCategoriesImage {
+						max-width: 25px;
 					}
 				}
 			}
