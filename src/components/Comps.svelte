@@ -116,20 +116,35 @@
 		if(filters.tag_filter.length > 0) {
 			const incTags = filters.tag_filter.filter(e => e.type === 'include').map(e => e.name);
 			const excTags = filters.tag_filter.filter(e => e.type === 'exclude').map(e => e.name);
-			compList = compList.filter(comp => comp.tags.some(tag => incTags.includes(tag) && !excTags.includes(tag)));
+			if(incTags.length > 0) compList = compList.filter(comp => comp.tags.some(tag => incTags.includes(tag)));
+			if(excTags.length > 0) compList = compList.filter(comp => !comp.tags.some(tag => excTags.includes(tag)));
 		}
 
 		if(filters.author_filter.length > 0) {
 			const incAuthors = filters.author_filter.filter(e => e.type === 'include').map(e => e.name);
 			const excAuthors = filters.author_filter.filter(e => e.type === 'exclude').map(e => e.name);
-			compList = compList.filter(comp => incAuthors.includes(comp.author) && !excAuthors.includes(comp.author));
+			if(incAuthors.length > 0) compList = compList.filter(comp => incAuthors.includes(comp.author));
+			if(excAuthors.length > 0) compList = compList.filter(comp => !excAuthors.includes(comp.author));
 		}
 
 		if(filters.hero_filter.length > 0) {
 			const incHeroes = filters.hero_filter.filter(e => e.type === 'include').map(e => e.name);
 			const excHeroes = filters.hero_filter.filter(e => e.type === 'exclude').map(e => e.name);
-			compList = compList.filter(comp => Object.keys(comp.heroes).some(hero => incHeroes.includes(hero) && !excHeroes.includes(hero)));
+			if(incHeroes.length > 0) compList = compList.filter(comp => Object.keys(comp.heroes).some(hero => incHeroes.includes(hero)));
+			if(excHeroes.length > 0) compList = compList.filter(comp => !Object.keys(comp.heroes).some(hero => excHeroes.includes(hero)));
 		}
+
+		if(filters.searchStr) {
+			compList = compList.filter(comp => {
+				return comp.tags.some(tag => tag.toLowerCase().includes(filters.searchStr.toLowerCase())) ||
+				comp.name.toLowerCase().includes(filters.searchStr.toLowerCase());
+			});
+		}
+
+		// apply time limit filters
+		compList = compList.filter(comp => {
+			return timeValues[filters.timeLimits[0]].value <= comp.lastUpdate && timeValues[filters.timeLimits[1]].value >= comp.lastUpdate;
+		});
 
 		return compList;
 	}
