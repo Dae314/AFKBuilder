@@ -54,6 +54,8 @@
 		{ name: '1d', value: new Date(now - 8.64e7) },
 		{ name: 'now', value: new Date(now - 0) },
 	];
+	const sortOptions = ['title', 'new'];
+	const defaultSort = 'title';
 	const defaultSearchStr = '';
 	const defaultTagFilter = [];
 	const defaultAuthorFilter = [];
@@ -72,6 +74,7 @@
 	let showEditMenu = false;
 	let owText = '';
 	let owPromise;
+	let sortSelectEl;
 	let searchStr = defaultSearchStr;
 	let tag_filter = defaultTagFilter;
 	let author_filter = defaultAuthorFilter;
@@ -79,9 +82,10 @@
 	let timeLimits = [defaultMinTime, defaultMaxTime];
 	let curView = defaultView;
 	let showFilters = false;
+	let curSort = defaultSort;
 
 	$: processQS($querystring);
-	$: compList = makeCompList($AppData.Comps, {tag_filter, author_filter, hero_filter, timeLimits, searchStr});
+	$: compList = makeCompList($AppData.Comps, {tag_filter, author_filter, hero_filter, timeLimits, searchStr}, curSort);
 	$: openComp = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp);
 	$: highlightComp = null;
 	$: editorWidth = isMobile ? '100%' : '75%';
@@ -102,6 +106,7 @@
 		timeLimits[0] = urlqs.has('minDate') ? parseInt(decodeURIComponent(urlqs.get('minDate'))) : defaultMinTime;
 		timeLimits[1] = urlqs.has('maxDate') ? parseInt(decodeURIComponent(urlqs.get('maxDate'))) : defaultMaxTime;
 		curView = urlqs.has('view') ? urlqs.get('view') : defaultView;
+		curSort = urlqs.has('sort') ? urlqs.get('sort') : defaultSort;
 	}
 
 	async function postUpdate() {
@@ -110,7 +115,7 @@
 		if(valid) dispatch('routeEvent', {action: 'syncLocalComps'});
 	}
 
-	function makeCompList(comps, filters) {
+	function makeCompList(comps, filters, sort) {
 		let compList = [...comps].filter(e => $AppData.compShowHidden || !e.hidden);
 
 		if(filters.tag_filter.length > 0) {
@@ -145,6 +150,23 @@
 		compList = compList.filter(comp => {
 			return timeValues[filters.timeLimits[0]].value <= comp.lastUpdate && timeValues[filters.timeLimits[1]].value >= comp.lastUpdate;
 		});
+
+		switch(sort) {
+			case 'title':
+				compList.sort((a, b) => {
+					const nameA = a.name.toLowerCase();
+					const nameB = b.name.toLowerCase();
+					return nameA < nameB ? -1 : 1;
+				});
+				break;
+			case 'new':
+				compList.sort((a, b) => {
+					return a.lastUpdate < b.lastUpdate ? 1 : -1;
+				});
+				break;
+			default:
+				throw new Error(`Invalid sort type passed to makeCompList: ${sort}`);
+		}
 
 		return compList;
 	}
@@ -748,6 +770,16 @@
 		window.location.assign(`${window.location.origin}/#/explore/comp/${uuid}`);
 	}
 
+	function handleSortChange(selectObj) {
+		let newQS = new URLSearchParams($querystring);
+		if(selectObj.value !== defaultSort) {
+			newQS.set('sort', encodeURIComponent(selectObj.value));
+		} else {
+			newQS.delete('sort');
+		}
+		replace(`/comps?${newQS.toString()}`);
+	}
+
 	function resetOpenComp() {
 		let newQS = new URLSearchParams($querystring);
 		if(newQS.has('view')) newQS.delete('view');
@@ -827,6 +859,14 @@
 				bind:state={$AppData.compShowHidden}
 				on:toggleEvent={handleShowHiddenChange}
 			/>
+		</div>
+		<div class="sortArea">
+			<span class="selectText sortText">Sort by:</span>
+			<select class="compsSelect sortSelect" value={curSort} bind:this={sortSelectEl} on:change={() => handleSortChange(sortSelectEl)}>
+				{#each sortOptions as option}
+					<option value={option}>{option}</option>
+				{/each}
+			</select>
 		</div>
 		<div class="compGridArea">
 			<ul class="compGrid">
@@ -1476,6 +1516,16 @@
 			width: 100%;
 			span {
 				font-size: 0.9rem;
+			}
+		}
+		.sortArea {
+			margin-left: auto;
+			padding-right: 10px;
+			.compsSelect {
+				border: 1px solid var(--appColorPrimary);
+				border-radius: 5px;
+				outline: none;
+				padding: 3px;
 			}
 		}
 		.compGridArea {
