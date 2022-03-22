@@ -98,7 +98,7 @@
 		dispatch('routeEvent', {action: 'saveData'});
 	});
 
-	async function processQS(queryString) {
+	function processQS(queryString) {
 		const urlqs = new URLSearchParams(queryString);
 		searchStr = urlqs.has('searchStr') ? decodeURIComponent(urlqs.get('searchStr')) : defaultSearchStr;
 		$AppData.selectedComp = urlqs.has('comp') ? decodeURIComponent(urlqs.get('comp')) : defaultComp;
@@ -782,6 +782,16 @@
 		replace(`/comps?${newQS.toString()}`);
 	}
 
+	function handleGroupEvent(event) {
+		switch(event.detail.action) {
+			case 'change':
+				console.log(event.detail.target);
+				break;
+			default:
+				throw new Error(`Invalid action specified on GroupEvent: ${action}`);
+		}
+	}
+
 	function resetOpenComp() {
 		let newQS = new URLSearchParams($querystring);
 		if(newQS.has('view')) newQS.delete('view');
@@ -808,7 +818,7 @@
 					<img class="openFiltersImage" src={ showFilters ? './img/utility/filter_color.png' : './img/utility/filter_white.png' } alt="Open Filters">
 				</button>
 				<button type="button" class="headButton openGroupButton" class:open={showGroups} on:click={() => showGroups = !showGroups}>
-					<img class="openGroupsImage" class:open={showGroups} src="./img/utility/groups_white.png" alt="Groups">
+					<img class="openGroupImage" class:open={showGroups} src="./img/utility/groups_white.png" alt="Groups">
 				</button>
 			</div>
 		</div>
@@ -857,6 +867,7 @@
 				</div>
 			</div>
 		</div>
+		{#if !showGroups}
 		<div class="hiddenToggleArea">
 			<span>Show Hidden</span>
 			<ToggleSwitch
@@ -873,7 +884,6 @@
 				{/each}
 			</select>
 		</div>
-		{#if !showGroups}
 		<div class="compGridArea">
 			<ul class="compGrid">
 				<li class="newCompArea">
@@ -904,8 +914,8 @@
 			</ul>
 		</div>
 		{:else}
-		<div class="groupArea">
-			<CompGroupBrowser />
+		<div class="compGroupArea">
+			<CompGroupBrowser on:groupEvent={handleGroupEvent} search={searchStr} />
 		</div>
 		{/if}
 	</section>
@@ -1426,7 +1436,7 @@
 			transform: translate(-50%, 0);
 			transition: all 0.2s;
 			visibility: hidden;
-			width: 95%;
+			width: 90%;
 			z-index: 2;
 			&.open {
 				opacity: 1;
@@ -1530,7 +1540,7 @@
 			}
 		}
 		.compGridArea {
-			padding-top: 10px;
+			padding: 10px 15px;
 			.compGrid {
 				display: grid;
 				grid-gap: 5px 5px;
@@ -1584,6 +1594,9 @@
 					}
 				}
 			}
+		}
+		.compGroupArea {
+			padding: 0px 15px;
 		}
 	}
 	.sect2 {
@@ -2360,6 +2373,14 @@
 	@media only screen and (min-width: 767px) {
 		.sect1 {
 			height: 100vh;
+			.searchArea {
+				margin: 0 auto;
+				width: 70%;
+			}
+			.filterContainer {
+				left: 52.5%;
+				width: 70%;
+			}
 		}
 		.sect2 {
 			height: 100vh;
@@ -2375,9 +2396,6 @@
 			&:hover {
 				background-color: var(--appColorPriAccent);
 			}
-		}
-		.searchArea {
-			border-right: 3px solid var(--appColorPrimary);
 		}
 		.compScroller {
 			height: 100%;
@@ -2428,7 +2446,7 @@
 				}
 			}
 		}
-		.newCompOptionButton {
+		.newCompButton {
 			&:hover {
 				background-color: var(--appColorPriAccent);
 				.plusIcon {
