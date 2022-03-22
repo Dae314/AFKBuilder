@@ -11,6 +11,7 @@
 	import {debounce} from 'lodash';
 	import qs from 'qs';
 	import CompCard from './CompCard.svelte';
+	import CompGroupBrowser from './CompGroupBrowser.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
@@ -72,7 +73,7 @@
 	let selectedHero = '';
 	let showowConfirm = false;
 	let showEditMenu = false;
-	let showCategories = false;
+	let showGroups = false;
 	let owText = '';
 	let owPromise;
 	let sortSelectEl;
@@ -87,7 +88,6 @@
 
 	$: processQS($querystring);
 	$: compList = makeCompList($AppData.Comps, {tag_filter, author_filter, hero_filter, timeLimits, searchStr}, curSort);
-	$: categoryList = makeCategoryList($AppData.Comps);
 	$: openComp = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp);
 	$: highlightComp = null;
 	$: editorWidth = isMobile ? '100%' : '75%';
@@ -171,10 +171,6 @@
 		}
 
 		return compList;
-	}
-
-	function makeCategoryList(comps) {
-		return [];
 	}
 
 	function handleCompCardClick(uuid) {
@@ -811,8 +807,8 @@
 				<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
 					<img class="openFiltersImage" src={ showFilters ? './img/utility/filter_color.png' : './img/utility/filter_white.png' } alt="Open Filters">
 				</button>
-				<button type="button" class="headButton openCategoryButton" class:open={showCategories} on:click={() => showCategories = !showCategories}>
-					<img class="openCategoriesImage" class:open={showCategories} src="./img/utility/categories_white.png" alt="Categories">
+				<button type="button" class="headButton openGroupButton" class:open={showGroups} on:click={() => showGroups = !showGroups}>
+					<img class="openGroupsImage" class:open={showGroups} src="./img/utility/groups_white.png" alt="Groups">
 				</button>
 			</div>
 		</div>
@@ -877,7 +873,7 @@
 				{/each}
 			</select>
 		</div>
-		{#if !showCategories}
+		{#if !showGroups}
 		<div class="compGridArea">
 			<ul class="compGrid">
 				<li class="newCompArea">
@@ -908,22 +904,8 @@
 			</ul>
 		</div>
 		{:else}
-		<div class="categoryGridArea">
-			<ul class="categoryGrid">
-				<li class="newCategoryArea">
-					<button type="button" class="newCategoryButton" on:click={handleNewCategoryClick}>
-						<span class="plusIcon">+</span>
-						<span>New</span>
-					</button>
-				</li>
-				{#each categoryList as category}
-					<li>
-						<button type="button" class="categoryButton" on:click={handleCategoryClick}>
-							{category.name}
-						</button>
-					</li>
-				{/each}
-			</ul>
+		<div class="groupArea">
+			<CompGroupBrowser />
 		</div>
 		{/if}
 	</section>
@@ -1414,8 +1396,8 @@
 			.filterButtonArea {
 				align-items: center;
 				display: flex;
-				margin-left: 5px;
 				.openFiltersButton {
+					margin-left: 5px;
 					.openFiltersImage {
 						max-width: 25px;
 					}
@@ -1423,9 +1405,9 @@
 						background-color: transparent;
 					}
 				}
-				.openCategoryButton {
+				.openGroupButton {
 					margin-left: 5px;
-					.openCategoriesImage {
+					.openGroupImage {
 						max-width: 25px;
 					}
 				}
