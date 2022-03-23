@@ -1,8 +1,11 @@
 <script>
-	import {createEventDispatcher} from 'svelte';
+	import {getContext, createEventDispatcher} from 'svelte';
 	import AppData from '../stores/AppData.js';
+	import GroupEditor from '../modals/GroupEditor.svelte';
+	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 
 	const dispatch = createEventDispatcher();
+	const { open } = getContext('simple-modal');
 
 	const sortOptions = ['name', 'comps'];
 	const defaultSort = 'name';
@@ -41,6 +44,14 @@
 	}
 
 	function handleNewGroupClick() {
+		open(GroupEditor,
+				{onConfirm: handleGroupChange, type: 'new'},
+				{closeButton: ModalCloseButton,
+				 styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',}
+				});
+	}
+
+	function handleGroupChange(event) {
 
 	}
 </script>
