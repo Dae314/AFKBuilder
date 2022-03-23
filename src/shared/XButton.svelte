@@ -11,7 +11,7 @@
 	class:med={ size === 'med' || size === 'medium' }
 	class:large={size === 'lg' || size === 'large' }
 	class:hoverable={hoverable}
-	on:click={e => {clickCallback(); e.stopPropagation();}}>
+	on:click|stopPropagation={clickCallback}>
 </button>
 
 <style lang="scss">

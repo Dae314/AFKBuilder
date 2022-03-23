@@ -1,14 +1,13 @@
 <script>
-	import {getContext, createEventDispatcher} from 'svelte';
+	import {createEventDispatcher} from 'svelte';
+	import { v4 as uuidv4 } from 'uuid';
 	import AppData from '../stores/AppData.js';
-	import GroupEditor from '../modals/GroupEditor.svelte';
-	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
+	import XButton from '../shared/XButton.svelte';
 
 	const dispatch = createEventDispatcher();
-	const { open } = getContext('simple-modal');
 
-	const sortOptions = ['name', 'comps'];
-	const defaultSort = 'name';
+	const sortOptions = ['new', 'name', 'comps'];
+	const defaultSort = 'new';
 
 	let sortSelectEl;
 	let curSort = defaultSort;
@@ -20,10 +19,15 @@
 		let groupList = [...groups];
 
 		// apply filters
-		if(filters.search) groupList = groupList.filter(group => group.name.toLowerCase.includes(filters.search.toLowerCase()));
+		if(filters.search) groupList = groupList.filter(group => group.name.toLowerCase().includes(filters.search.toLowerCase()));
 		
 		// apply sort
 		switch(sort) {
+			case 'new':
+				groupList.sort((a, b) => {
+					return a.createdAt >= b.createdAt ? -1 : 1;
+				});
+				break;
 			case 'name':
 				groupList.sort((a, b) => {
 					const nameA = a.name.toLowerCase();
@@ -44,15 +48,36 @@
 	}
 
 	function handleNewGroupClick() {
-		open(GroupEditor,
-				{onConfirm: handleGroupChange, type: 'new'},
-				{closeButton: ModalCloseButton,
-				 styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px',}
-				});
+		$AppData.compGroups = [...$AppData.compGroups, {name: 'New Group', uuid: uuidv4(), comps: [], createdAt: new Date()}];
+		dispatch('groupEvent', {action: 'groupChange'});
 	}
 
-	function handleGroupChange(event) {
+	function handleSortChange(selectObj) {
+		curSort = selectObj.value;
+	}
 
+	function handleDelClick(group) {
+		for(const comp of $AppData.Comps) {
+			if(comp.groups.some(e => e === group.uuid)) comp.groups = comp.groups.filter(e => e !== group.uuid);
+		}
+		$AppData.compGroups = $AppData.compGroups.filter(e => e.uuid !== group.uuid);
+		dispatch('groupEvent', {action: 'groupChange'});
+	}
+
+	function handleGroupClick(group) {
+		dispatch('groupEvent', {action: 'groupNav', data: group.uuid});
+	}
+
+	function handleGroupNameBlur(event, groupID) {
+		const el = event.target;
+		const groupIdx = $AppData.compGroups.findIndex(e => e.uuid === groupID);
+		$AppData.compGroups[groupIdx].name = el.value;
+		dispatch('groupEvent', {action: 'groupChange'});
+	}
+
+	function handleGroupNameKey(event) {
+		const el = event.target;
+		if (event.keyCode === 13) el.blur();
 	}
 </script>
 
@@ -73,8 +98,21 @@
 			</button>
 		</li>
 		{#each groupList as group}
-			<button type="button" class="groupButton">
-				<span>{group.name}</span>
+			<button type="button" class="groupButton" on:click={() => handleGroupClick(group)}>
+				<div class="delArea">
+					<XButton size="medium" clickCallback={() => handleDelClick(group)} />
+				</div>
+				<div class="groupBody">
+					<input
+						class="groupName"
+						type="text"
+						value={group.name}
+						on:click|stopPropagation
+						on:blur={event => handleGroupNameBlur(event, group.uuid)}
+						on:keyup={handleGroupNameKey}
+					/>
+					<span class="count">{group.comps.length}</span>
+				</div>
 			</button>
 		{/each}
 	</ul>
@@ -128,6 +166,50 @@
 				margin: 0 auto;
 				transition: transform 0.7s;
 				width: fit-content;
+			}
+		}
+		.groupButton {
+			align-items: flex-start;
+			border: 2px solid var(--appColorPrimary);
+			border-radius: 10px;
+			background: transparent;
+			color: var(--appColorPrimary);
+			display: flex;
+			cursor: pointer;
+			flex-direction: column;
+			outline: none;
+			padding: 3px;
+			position: relative;
+			.delArea {
+				position: absolute;
+				right: 3px;
+				top: 3px;
+			}
+			.groupBody {
+				align-items: center;
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+				justify-content: center;
+				width: 100%;
+				.groupName {
+					background-color: var(--appBGColor);
+					border: none;
+					border-bottom: 1px solid var(--appColorPrimary);
+					font-size: 1rem;
+					outline: none;
+					text-align: center;
+					width: 100px;
+					&:focus {
+						border-radius: 5px;
+						outline: 1px solid var(--appColorPrimary);
+					}
+				}
+				.count {
+					font-size: 1.3rem;
+					font-weight: bold;
+					padding-top: 10px;
+				}
 			}
 		}
 	}

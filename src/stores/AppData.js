@@ -326,6 +326,12 @@ function buildAppData(data) {
 	const expectedRECProps = [
 		{name: 'openSection', default: 0},
 	];
+	const expectedGroupProps = [
+		{name: 'name', default: 'New Group'},
+		{name: 'uuid', default: ''},
+		{name: 'comps', default: []},
+		{name: 'createdAt', default: new Date()}
+	];
 
 	// make sure that data is an object (and nothing else)
 	if(!isObject(data)) throw new Error('AppData must be a plain Javascript object.');
@@ -380,6 +386,18 @@ function buildAppData(data) {
 	// delete extra REC props
 	for(let prop in data.REC) {
 		if(!expectedRECProps.some(e => e.name === prop)) delete data.REC[prop];
+	}
+
+	// rebuild comp groups
+	for(let group of data.compGroups) {
+		// add group props as required
+		for(const prop of expectedGroupProps) {
+			if(!(prop.name in group)) group[prop.name] = prop.default;
+		}
+		// delete extra group props
+		for(let prop in group) {
+			if(!expectedGroupProps.some(e => e.name === prop)) delete group[prop];
+		}
 	}
 
 	// rebuild Comps
@@ -599,6 +617,9 @@ if(window.localStorage.getItem('appData') !== null) {
 	// JSON doesn't parse date objects correctly, so need to re-initialize them
 	for(let comp of appdata.Comps) {
 		comp.lastUpdate = new Date(comp.lastUpdate);
+	}
+	for(let group of appdata.compGroups) {
+		group.createdAt = new Date(group.createdAt);
 	}
 	appdata.MH.lastUpdate = new Date(appdata.MH.lastUpdate);
 	appdata.compLastUpdate = new Date(appdata.compLastUpdate);

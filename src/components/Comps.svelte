@@ -73,7 +73,6 @@
 	let selectedHero = '';
 	let showowConfirm = false;
 	let showEditMenu = false;
-	let showGroups = false;
 	let owText = '';
 	let owPromise;
 	let sortSelectEl;
@@ -631,18 +630,17 @@
 		});
 	}
 
-	async function handleSearchStrChange(event) {
+	function handleSearchStrChange(event) {
 		let newQS = new URLSearchParams($querystring);
 		if(event.target.value) {
 			newQS.set('searchStr', encodeURIComponent(event.target.value));
 		} else {
 			newQS.delete('searchStr');
 		}
-		if(newQS.has('page')) newQS.delete('page');
 		replace(`/comps?${newQS.toString()}`);
 	}
 
-	async function handleSearchButtonClick() {
+	function handleSearchButtonClick() {
 		const search = document.getElementById('compSearch');
 		let newQS = new URLSearchParams($querystring);
 		if(search.value) {
@@ -650,8 +648,25 @@
 		} else {
 			newQS.delete('searchStr');
 		}
-		if(newQS.has('page')) newQS.delete('page');
 		replace(`/comps?${newQS.toString()}`);
+	}
+
+	function handleGroupButtonClick() {
+		let newQS = new URLSearchParams($querystring);
+		if(newQS.has('view')) {
+			const view = decodeURIComponent(newQS.get('view'));
+			if(view === 'groups') {
+				// we're already on groups, navigate back to compList
+				newQS.delete('view');
+			} else {
+				// we are not on groups yet, navigate to groups
+				newQS.set('view', encodeURIComponent('groups'));
+			}
+		} else {
+			// no view is set, navigate to groups
+			newQS.set('view', encodeURIComponent('groups'));
+		}
+		spaRoutePush(`/comps?${newQS.toString()}`);
 	}
 
 	async function handleHeroClick(hero) {
@@ -784,8 +799,11 @@
 
 	function handleGroupEvent(event) {
 		switch(event.detail.action) {
-			case 'change':
-				console.log(event.detail.target);
+			case 'groupChange':
+				dispatch('routeEvent', {action: 'saveData'});
+				break;
+			case 'groupNav':
+				console.log(event.detail.data);
 				break;
 			default:
 				throw new Error(`Invalid action specified on GroupEvent: ${action}`);
@@ -804,7 +822,7 @@
 </script>
 
 <div class="CompContainer">
-	{#if curView === 'compList'}
+	{#if curView === 'compList' || curView === 'groups'}
 	<section class="sect1" id="sect1">
 		<div class="searchArea">
 			<div class="mobileSearchArea">
@@ -817,8 +835,8 @@
 				<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
 					<img class="openFiltersImage" src={ showFilters ? './img/utility/filter_color.png' : './img/utility/filter_white.png' } alt="Open Filters">
 				</button>
-				<button type="button" class="headButton openGroupButton" class:open={showGroups} on:click={() => showGroups = !showGroups}>
-					<img class="openGroupImage" class:open={showGroups} src="./img/utility/groups_white.png" alt="Groups">
+				<button type="button" class="headButton openGroupButton" class:open={curView === 'groups'} on:click={handleGroupButtonClick}>
+					<img class="openGroupImage" class:open={curView === 'groups'} src="./img/utility/groups_white.png" alt="Groups">
 				</button>
 			</div>
 		</div>
@@ -867,7 +885,7 @@
 				</div>
 			</div>
 		</div>
-		{#if !showGroups}
+		{#if curView === 'compList'}
 		<div class="hiddenToggleArea">
 			<span>Show Hidden</span>
 			<ToggleSwitch
@@ -913,7 +931,7 @@
 				{/each}
 			</ul>
 		</div>
-		{:else}
+		{:else if curView === 'groups'}
 		<div class="compGroupArea">
 			<CompGroupBrowser on:groupEvent={handleGroupEvent} search={searchStr} />
 		</div>
