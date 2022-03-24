@@ -265,7 +265,7 @@
 		$AppData.compGroups[idx] = newGroup;
 
 		await postUpdate();
-		
+
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
@@ -348,10 +348,9 @@
 		});
 	}
 
-	function handleStarClick(event, uuid) {
+	function handleStarClick(uuid) {
 		const idx = $AppData.Comps.findIndex(e => e.uuid === uuid);
 		$AppData.Comps[idx].starred = !$AppData.Comps[idx].starred;
-		event.stopPropagation();
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
@@ -828,6 +827,25 @@
 		replace(`/comps?${newQS.toString()}`);
 	}
 
+	async function handleCardEvent(event) {
+		switch(event.detail.action) {
+			case 'starClick':
+				handleStarClick(event.detail.data);
+				break;
+			case 'exportClick':
+				await handleExportButtonClick(event.detail.data);
+				break;
+			case 'cardClick':
+				handleCompCardClick(event.detail.data);
+				break;
+			case 'deleteClick':
+				handleDeleteButtonClick(event.detail.data);
+				break;
+			default:
+				throw new Error(`ERROR invalid action passed to handleCardEvent: ${event.detail.action}`);
+		}
+	}
+
 	async function handleGroupEvent(event) {
 		switch(event.detail.action) {
 			case 'groupChange':
@@ -969,10 +987,7 @@
 							comp={comp}
 							idx={i}
 							highlightComp={highlightComp}
-							delCallback={handleDeleteButtonClick}
-							cardClickCallback={handleCompCardClick}
-							exportCallback={handleExportButtonClick}
-							starCallback={handleStarClick}
+							on:cardEvent={handleCardEvent}
 						/>
 					</li>
 				{/each}

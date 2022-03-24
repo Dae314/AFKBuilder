@@ -1,31 +1,30 @@
 <script>
+	import {createEventDispatcher} from 'svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	
 	export let comp = {};
 	export let idx = {}
 	export let highlightComp = null;
-	export let delCallback = () => {};
-	export let cardClickCallback = () => {};
-	export let exportCallback = () => {};
-	export let starCallback = () => {};
+
+	const dispatch = createEventDispatcher();
 
 	$: published = $AppData.user.jwt ? $AppData.user.published_comps.some(e => e.uuid === comp.uuid) : false;
 
 	function handleDeleteButtonClick(uuid) {
-		delCallback(uuid);
+		dispatch('cardEvent', {action: 'deleteClick', data: uuid});
 	}
 
 	function handleCompCardClick(uuid) {
-		cardClickCallback(uuid);
+		dispatch('cardEvent', {action: 'cardClick', data: uuid});
 	}
 
 	function handleExportButtonClick(uuid) {
-		exportCallback(uuid);
+		dispatch('cardEvent', {action: 'exportClick', data: uuid});
 	}
 
-	function handleStarClick(event, uuid) {
-		starCallback(event, uuid);
+	function handleStarClick(uuid) {
+		dispatch('cardEvent', {action: 'starClick', data: uuid});
 	}
 </script>
 
@@ -45,7 +44,7 @@
 					<button
 						type="button"
 						class="cardDeleteButton"
-						on:click={(e) => { handleDeleteButtonClick(comp.uuid); e.stopPropagation(); }}>
+						on:click|stopPropagation={() => handleDeleteButtonClick(comp.uuid)}>
 						<img
 							draggable="false"
 							class="deleteIcon"
@@ -58,7 +57,7 @@
 					<img class="publishedIcon" class:published={published} src="./img/utility/explore_white.png" alt="{published ? 'Published' : 'Unpublished'}" draggable="false" />
 					<div class="tooltip publishedTooltip"><span class="tooltipText">{published ? 'Published' : 'Unpublished'}</span></div>
 				</div>
-				<i class="star" class:active={comp.starred} on:click={(e) => handleStarClick(e, comp.uuid)}></i>
+				<i class="star" class:active={comp.starred} on:click|stopPropagation={() => handleStarClick(comp.uuid)}></i>
 			</div>
 			<div class="draftContainer">
 				<div class="draftLabel" class:open={comp.draft}><span>draft</span></div>
