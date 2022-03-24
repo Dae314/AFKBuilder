@@ -22,6 +22,7 @@
 	import CompEditor from '../modals/CompEditor.svelte';
 	import ArtifactDetail from '../modals/ArtifactDetail.svelte';
 	import FilterPicker from '../modals/FilterPicker.svelte';
+	import AddToGroup from '../modals/AddToGroup.svelte';
 	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import AscendBox from '../shared/AscendBox.svelte';
@@ -244,6 +245,38 @@
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 					styleWindow: {width: editorWidth, maxWidth: '1200px',},
 				});
+	}
+
+	function handleAddToGroupClick() {
+		open(AddToGroup,
+				{groupUUID: curGroup, onSuccess: handleAddToGroup},
+				{ closeButton: ModalCloseButton,
+					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+				});
+	}
+
+	function handleAddToGroup(newGroup, removals) {
+		const idx = $AppData.compGroups.findIndex(e => e.uuid === newGroup.uuid);
+
+		// update the group
+		if(idx < 0) throw new Error(`ERROR unable to find Comp Group with UUID: ${newGroup.uuid}`);
+		$AppData.compGroups[idx] = newGroup;
+
+		// add group to comp group lists
+		for(const uuid of newGroup.comps) {
+			let i = $AppData.Comps.findIndex(e => e.uuid === uuid);
+			if(i < 0) throw new Error(`ERROR unable to find Comp with UUID: ${uuid}`);
+			if(!$AppData.Comps[i].groups.includes(newGroup.uuid)) $AppData.Comps[i].groups = [...$AppData.Comps[i].groups, newGroup.uuid];
+		}
+
+		// remove group from comp group lists
+		for(const uuid of removals) {
+			let i = $AppData.Comps.findIndex(e => e.uuid === uuid);
+			if(i < 0) throw new Error(`ERROR unable to find Comp with UUID: ${uuid}`);
+			$AppData.Comps[i].groups = $AppData.Comps[i].groups.filter(e => e !== newGroup.uuid);
+		}
+
+		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	async function handleCompChangeSuccess(uuid, type) {
@@ -921,16 +954,23 @@
 		<div class="compGridArea">
 			<ul class="compGrid">
 				<li class="newCompArea">
-					<button type="button" class="newCompButton new" on:click={handleNewButtonClick}>
-						<span class="plusIcon">+</span>
-						<span>New</span>
-					</button>
-					<button type="button" class="newCompButton import" on:click={handleImportButtonClick}>
-						<div class="imgContainer">
-							<img draggable="false" class="importButtonIcon" src="./img/utility/import.png" alt="Import">
-						</div>
-						<span>Import</span>
-					</button>
+					{#if curGroup}
+						<button type="button" class="newCompButton group" on:click={handleAddToGroupClick}>
+							<span class="plusIcon">+</span>
+							<span>Add Comps</span>
+						</button>
+					{:else}
+						<button type="button" class="newCompButton new" on:click={handleNewButtonClick}>
+							<span class="plusIcon">+</span>
+							<span>New</span>
+						</button>
+						<button type="button" class="newCompButton import" on:click={handleImportButtonClick}>
+							<div class="imgContainer">
+								<img draggable="false" class="importButtonIcon" src="./img/utility/import.png" alt="Import">
+							</div>
+							<span>Import</span>
+						</button>
+					{/if}
 				</li>
 				{#each compList as comp,i}
 					<li>
@@ -1607,18 +1647,21 @@
 						span {
 							display: block;
 						}
+						.plusIcon {
+							display: block;
+							font-size: 2rem;
+							font-weight: bold;
+							margin: 0 auto;
+							transition: transform 0.7s;
+							width: fit-content;
+						}
+						&.group {
+							border-radius: 10px;
+						}
 						&.new {
 							border-top-left-radius: 10px;
 							border-bottom-left-radius: 10px;
 							border-right-color: var(--appBGColor);
-							.plusIcon {
-								display: block;
-								font-size: 2rem;
-								font-weight: bold;
-								margin: 0 auto;
-								transition: transform 0.7s;
-								width: fit-content;
-							}
 						}
 						&.import {
 							border-top-right-radius: 10px;
