@@ -65,6 +65,7 @@
 	const defaultMaxTime = timeValues.length - 1;
 	const defaultView = 'compList'
 	const defaultComp = null;
+	const defaultGroup = '';
 
 	let openDesc = true;
 	let openHero = false;
@@ -84,9 +85,10 @@
 	let curView = defaultView;
 	let showFilters = false;
 	let curSort = defaultSort;
+	let curGroup = defaultGroup;
 
 	$: processQS($querystring);
-	$: compList = makeCompList($AppData.Comps, {tag_filter, author_filter, hero_filter, timeLimits, searchStr}, curSort);
+	$: compList = makeCompList($AppData.Comps, {tag_filter, author_filter, hero_filter, timeLimits, searchStr}, curSort, curGroup);
 	$: openComp = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp);
 	$: highlightComp = null;
 	$: editorWidth = isMobile ? '100%' : '75%';
@@ -108,6 +110,7 @@
 		timeLimits[1] = urlqs.has('maxDate') ? parseInt(decodeURIComponent(urlqs.get('maxDate'))) : defaultMaxTime;
 		curView = urlqs.has('view') ? urlqs.get('view') : defaultView;
 		curSort = urlqs.has('sort') ? urlqs.get('sort') : defaultSort;
+		curGroup = urlqs.has('group') ? urlqs.get('group') : defaultGroup;
 	}
 
 	async function postUpdate() {
@@ -116,8 +119,13 @@
 		if(valid) dispatch('routeEvent', {action: 'syncLocalComps'});
 	}
 
-	function makeCompList(comps, filters, sort) {
-		let compList = [...comps].filter(e => $AppData.compShowHidden || !e.hidden);
+	function makeCompList(comps, filters, sort, group) {
+		let compList;
+		if(group) {
+			compList = [...comps].filter(e => ($AppData.compShowHidden || !e.hidden) && e.groups.includes(group));
+		} else {
+			compList = [...comps].filter(e => $AppData.compShowHidden || !e.hidden);
+		}
 
 		if(filters.tag_filter.length > 0) {
 			const incTags = filters.tag_filter.filter(e => e.type === 'include').map(e => e.name);
@@ -803,7 +811,15 @@
 				dispatch('routeEvent', {action: 'saveData'});
 				break;
 			case 'groupNav':
-				console.log(event.detail.data);
+				let newQS = new URLSearchParams($querystring);
+				const groupUUID = event.detail.data;
+				if(groupUUID !== defaultGroup) {
+					newQS.set('group', encodeURIComponent(groupUUID));
+				} else {
+					newQS.delete('group');
+				}
+				newQS.delete('view');
+				spaRoutePush(`/comps?${newQS.toString()}`);
 				break;
 			default:
 				throw new Error(`Invalid action specified on GroupEvent: ${action}`);
