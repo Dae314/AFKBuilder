@@ -609,6 +609,7 @@
 	}
 
 	async function handleCopyButtonClick(uuid) {
+		// create a copy of the comp and add it to the Comps list
 		const comp = $AppData.Comps.find(e => e.uuid === uuid);
 		const copyComp = JSON.parse(JSON.stringify(comp));
 		copyComp.uuid = uuidv4();
@@ -616,15 +617,22 @@
 		copyComp.source = 'local';
 		copyComp.lastUpdate = new Date(copyComp.lastUpdate);
 		$AppData.Comps = [...$AppData.Comps, copyComp];
-		handleCloseButtonClick();
+
+		// reset the view
+		let newQS = new URLSearchParams($querystring);
+		newQS.delete('searchStr');
+		newQS.delete('view');
+		newQS.delete('comp');
+		newQS.delete('group');
+		replace(`/comps?${newQS.toString()}`);
 		await tick();
-		searchStr = ''; // reset any filters
-		highlightComp = compList.findIndex(e => e.uuid === copyComp.uuid);
-		$AppData.selectedComp = copyComp.uuid;
 		selectedHero = '';
 		selectedLine = 0;
-		const compArea = document.getElementById('sect1');
-		compArea.scrollTop = compArea.scrollHeight;
+
+		// highlight the duplicated comp
+		highlightComp = compList.findIndex(e => e.uuid === copyComp.uuid);
+		// const compEl = document.getElementById(copyComp.uuid);
+		// compEl.scrollIntoView();
 		setTimeout(() => highlightComp = null, 3000);
 		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'});
@@ -831,7 +839,7 @@
 	async function handleCardEvent(event) {
 		switch(event.detail.action) {
 			case 'starClick':
-				handleStarClick(event.detail.data);
+				await handleStarClick(event.detail.data);
 				break;
 			case 'exportClick':
 				await handleExportButtonClick(event.detail.data);
@@ -983,7 +991,7 @@
 					{/if}
 				</li>
 				{#each compList as comp,i}
-					<li>
+					<li id={comp.uuid}>
 						<CompCard
 							comp={comp}
 							idx={i}
