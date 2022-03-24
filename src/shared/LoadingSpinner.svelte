@@ -47,8 +47,8 @@
 <style lang="scss">
 	.lds-dual-ring {
 		display: inline-block;
-		height: var(--spinner-size);
-		width: var(--spinner-size);
+		// height: var(--spinner-size);
+		// width: var(--spinner-size);
 		&:after {
 			content: '';
 			display: block;

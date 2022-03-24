@@ -35,6 +35,7 @@
 	import User from './components/User.svelte';
 	import CompLibDetail from './components/CompLibDetail.svelte';
 	import ErrorDisplay from './components/ErrorDisplay.svelte';
+	import LoadingSpinner from './shared/LoadingSpinner.svelte';
 
 	export let version = '';
 	const menuItems = [
@@ -178,6 +179,7 @@
 	// function assumes that $AppData.user.jwt was set correctly
 	// function will populate $Appdata.user object with data
 	async function populateUserData() {
+		await displayNotice({type: 'loading'});
 		let response;
 
 		response = await getUserDetails($AppData.user.jwt);
@@ -189,6 +191,7 @@
 				showHomeButton: true,
 			};
 			showErrorDisplay = true;
+			clearNotice();
 			return;
 		}
 		const user = response.data;
@@ -213,6 +216,8 @@
 				showHomeButton: true,
 			};
 			showErrorDisplay = true;
+			clearNotice();
+			return;
 		}
 		const likedComps = response.data;
 		$AppData.user.liked_comps = likedComps;
@@ -226,6 +231,8 @@
 				showHomeButton: true,
 			};
 			showErrorDisplay = true;
+			clearNotice();
+			return;
 		}
 		const dislikedComps = response.data;
 		$AppData.user.disliked_comps = dislikedComps;
@@ -239,6 +246,8 @@
 				showHomeButton: true,
 			};
 			showErrorDisplay = true;
+			clearNotice();
+			return;
 		}
 		const publishedComps = response.data;
 		$AppData.user.published_comps = publishedComps;
@@ -252,6 +261,8 @@
 				showHomeButton: true,
 			};
 			showErrorDisplay = true;
+			clearNotice();
+			return;
 		}
 		const savedComps = response.data.map(e => {
 			e.comp_update = new Date(e.comp_update);
@@ -260,6 +271,7 @@
 		$AppData.user.saved_comps = savedComps;
 
 		saveAppData();
+		clearNotice();
 	}
 
 	// function assumes that $AppData.user.jwt was set correctly
@@ -352,6 +364,7 @@
 		}
 		switch(updateType) {
 			case 'push':
+				await displayNotice({type: 'loading'});
 				try {
 					const mhData = await jsurl.compress(JSON.stringify($AppData.MH.List));
 					const response = await gqlUpdateMyHeroes({variables: { id: $AppData.user.id, mh: {lastUpdate: $AppData.MH.lastUpdate, data: mhData} }});
@@ -359,6 +372,7 @@
 					newMyHeroes.lastUpdate = new Date(newMyHeroes.lastUpdate);
 					$AppData.user.my_heroes = newMyHeroes;
 					saveAppData();
+					clearNotice();
 				} catch(err) {
 					console.log(`Error: unable to upload My Heroes data to server`);
 					console.log(err);
@@ -415,6 +429,7 @@
 		switch(updateType) {
 			case 'push':
 				try {
+					await displayNotice({type: 'loading'});
 					const localComps = $AppData.Comps.filter(e => e.source === 'local' && !e.hidden);
 					const compData = await jsurl.compress(JSON.stringify(localComps));
 					const groupData = await jsurl.compress(JSON.stringify($AppData.compGroups));
@@ -423,6 +438,7 @@
 					newLocalComps.lastUpdate = new Date(newLocalComps.lastUpdate);
 					$AppData.user.local_comps = newLocalComps;
 					saveAppData();
+					clearNotice();
 				} catch(err) {
 					console.log(`Error: unable to upload local comp data to server`);
 					console.log(err);
@@ -521,6 +537,16 @@
 		isMobile = window.matchMedia("(max-width: 767px)").matches;
 	}
 
+	function clearError() {
+		showErrorDisplay = false;
+		errorDisplayConf = {};
+	}
+
+	function clearNotice() {
+		showNotice = false;
+		noticeConf = {};
+	}
+
 	async function handleRouteEvent(event) {
 		switch(event.detail.action) {
 			case 'saveData':
@@ -551,8 +577,10 @@
 				await displayNotice(event.detail.data.noticeConf);
 				break;
 			case 'clearError':
-				showErrorDisplay = false;
-				errorDisplayConf = {};
+				clearError();
+				break;
+			case 'clearNotice':
+				clearNotice();
 				break;
 			default:
 				throw new Error(`Invalid action specified for route event: ${event.detail.action}`);
@@ -562,10 +590,7 @@
 	async function displayNotice(notice_config) {
 		noticeConf = notice_config;
 		showNotice = true;
-		setTimeout(() => {
-			showNotice = false;
-			noticeConf = {};
-		}, 2000);
+		if(noticeConf.type !== 'loading') setTimeout(() => clearNotice(), 2000);
 	}
 </script>
 
@@ -602,10 +627,15 @@
 			 class:open={showNotice}
 			 class:info={ !noticeConf.type || noticeConf.type === 'info'}
 			 class:warning={noticeConf.type === 'warning'}
-			 class:error={noticeConf.type === 'error'}>
-		<span>
-			{noticeConf.message}
-		</span>
+			 class:error={noticeConf.type === 'error'}
+			 class:loading={noticeConf.type === 'loading'}>
+		{#if noticeConf.type === 'loading'}
+			<LoadingSpinner type="dual-ring" size="small" color="white" />
+		{:else}
+			<span>
+				{noticeConf.message}
+			</span>
+		{/if}
 	</div>
 </Modal>
 
@@ -660,6 +690,12 @@
 			background-color: rgba(242, 107, 107, 0.7);
 			color: rgba(255, 255, 255, 0.7);
 			font-weight: bold;
+		}
+		&.loading {
+			align-items: center;
+			background-color: rgba(50, 50, 50, 0.7);
+			display: flex;
+			justify-content: center;
 		}
 	}
 	@media only screen and (min-width: 767px) {
