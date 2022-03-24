@@ -348,9 +348,10 @@
 		});
 	}
 
-	function handleStarClick(uuid) {
+	async function handleStarClick(uuid) {
 		const idx = $AppData.Comps.findIndex(e => e.uuid === uuid);
 		$AppData.Comps[idx].starred = !$AppData.Comps[idx].starred;
+		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
