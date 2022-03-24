@@ -417,7 +417,8 @@
 				try {
 					const localComps = $AppData.Comps.filter(e => e.source === 'local' && !e.hidden);
 					const compData = await jsurl.compress(JSON.stringify(localComps));
-					const response = await gqlUpdateLocalComps({variables: { id: $AppData.user.id, comps: {lastUpdate: $AppData.compLastUpdate, data: compData} }});
+					const groupData = await jsurl.compress(JSON.stringify($AppData.compGroups));
+					const response = await gqlUpdateLocalComps({variables: { id: $AppData.user.id, comps: {lastUpdate: $AppData.compLastUpdate, data: compData, groups: groupData} }});
 					const newLocalComps = response.data.updateUsersPermissionsUser.data.attributes.local_comps;
 					newLocalComps.lastUpdate = new Date(newLocalComps.lastUpdate);
 					$AppData.user.local_comps = newLocalComps;
@@ -432,15 +433,19 @@
 			case 'pull':
 				// parse the data
 				let compsData;
+				let groupData;
 				try {
 					const json = await jsurl.decompress($AppData.user.local_comps.data);
 					compsData = JSON.parse(json);
+					const groupJSON = await jsurl.decompress($AppData.user.local_comps.groupData);
+					groupData = JSON.parse(groupJSON);
 				} catch(err) {
 					console.log(`Error: unable to parse local comp data from server`);
 					console.log(err);
 					displayNotice({ type: 'error', message: 'Comps sync failed', });
 					return;
 				}
+				
 				// validate resulting data is good
 				for(const comp of compsData) {
 					comp.lastUpdate = new Date(comp.lastUpdate);
@@ -461,6 +466,14 @@
 						$AppData.Comps = [...$AppData.Comps, returnObj.message];
 					}
 				}
+
+				// repair group dates
+				for(const group of groupData) {
+					group.createdAt = new Date(group.createdAt);
+				}
+				// now update groups
+				$AppData.compGroups = groupData;
+
 				// this function will not delete comps
 				$AppData.compLastUpdate = $AppData.user.local_comps.lastUpdate;
 				saveAppData();

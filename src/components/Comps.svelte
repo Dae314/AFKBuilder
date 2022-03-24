@@ -251,19 +251,21 @@
 
 	function handleAddToGroupClick() {
 		open(AddToGroup,
-				{groupUUID: curGroup, onSuccess: handleAddToGroup},
+				{groupUUID: curGroup, onSuccess: handleGroupChange},
 				{ closeButton: ModalCloseButton,
 					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 				});
 	}
 
-	function handleAddToGroup(newGroup) {
+	async function handleGroupChange(newGroup) {
 		const idx = $AppData.compGroups.findIndex(e => e.uuid === newGroup.uuid);
 
 		// update the group
 		if(idx < 0) throw new Error(`ERROR unable to find Comp Group with UUID: ${newGroup.uuid}`);
 		$AppData.compGroups[idx] = newGroup;
 
+		await postUpdate();
+		
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
@@ -826,9 +828,10 @@
 		replace(`/comps?${newQS.toString()}`);
 	}
 
-	function handleGroupEvent(event) {
+	async function handleGroupEvent(event) {
 		switch(event.detail.action) {
 			case 'groupChange':
+				await postUpdate();
 				dispatch('routeEvent', {action: 'saveData'});
 				break;
 			case 'groupNav':
