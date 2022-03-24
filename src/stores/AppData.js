@@ -471,6 +471,7 @@ function buildCompsData(data) {
 		{name: 'tags', default: []},
 		{name: 'hidden', default: false},
 		{name: 'source', default: 'local'},
+		{name: 'groups', default: []},
 	];
 	const expectedHeroProps = [
 		{name: 'ascendLv', default: 6},
