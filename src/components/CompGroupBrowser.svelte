@@ -8,6 +8,8 @@
 
 	const sortOptions = ['new', 'name', 'comps'];
 	const defaultSort = 'new';
+	const minNameLen = 1;
+	const maxNameLen = 10;
 
 	let sortSelectEl;
 	let curSort = defaultSort;
@@ -71,8 +73,11 @@
 	function handleGroupNameBlur(event, groupID) {
 		const el = event.target;
 		const groupIdx = $AppData.compGroups.findIndex(e => e.uuid === groupID);
-		$AppData.compGroups[groupIdx].name = el.value;
-		dispatch('groupEvent', {action: 'groupChange'});
+		const newName = el.value;
+		if(newName.length >= minNameLen && newName.length <= maxNameLen) {
+			$AppData.compGroups[groupIdx].name = el.value;
+			dispatch('groupEvent', {action: 'groupChange'});
+		}
 	}
 
 	function handleGroupNameKey(event) {
@@ -107,9 +112,12 @@
 						class="groupName"
 						type="text"
 						value={group.name}
+						minlength={minNameLen}
+						maxlength={maxNameLen}
+						required
 						on:click|stopPropagation
 						on:blur={event => handleGroupNameBlur(event, group.uuid)}
-						on:keyup={handleGroupNameKey}
+						on:keyup|preventDefault={handleGroupNameKey}
 					/>
 					<span class="count">{group.comps.length}</span>
 				</div>
@@ -203,6 +211,14 @@
 					&:focus {
 						border-radius: 5px;
 						outline: 1px solid var(--appColorPrimary);
+						&:invalid {
+							border-bottom-color: var(--appDelColor);
+							outline: 1px solid var(--appDelColor);
+						}
+					}
+					&:invalid {
+						border-bottom-color: var(--appDelColor);
+						outline: 1px solid var(--appDelColor);
 					}
 				}
 				.count {
