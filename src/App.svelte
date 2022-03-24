@@ -445,7 +445,7 @@
 					displayNotice({ type: 'error', message: 'Comps sync failed', });
 					return;
 				}
-				
+
 				// validate resulting data is good
 				for(const comp of compsData) {
 					comp.lastUpdate = new Date(comp.lastUpdate);
@@ -549,6 +549,10 @@
 				break;
 			case 'showNotice':
 				await displayNotice(event.detail.data.noticeConf);
+				break;
+			case 'clearError':
+				showErrorDisplay = false;
+				errorDisplayConf = {};
 				break;
 			default:
 				throw new Error(`Invalid action specified for route event: ${event.detail.action}`);

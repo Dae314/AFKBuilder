@@ -25,6 +25,7 @@
 		// note: clears all extraneous URL parameters
 		window.location.assign(`${window.location.origin}/#/${item}`);
 		dispatch('routeEvent', {action: 'saveData'});
+		dispatch('routeEvent', {action: 'clearError'});
 		showMobileMenu = false;
 	}
 
@@ -49,6 +50,7 @@
 		// note: clears all extraneous URL parameters
 		window.location.assign(`${window.location.origin}/#/profile`);
 		dispatch('routeEvent', {action: 'saveData'});
+		dispatch('routeEvent', {action: 'clearError'});
 		showMobileMenu = false;
 	}
 
