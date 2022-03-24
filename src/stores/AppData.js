@@ -69,7 +69,6 @@ window.validateComp = async function(data) {
 		{name: 'tags', type: 'array'},
 		{name: 'hidden', type: 'boolean'},
 		{name: 'source', type: 'string'},
-		{name: 'groups', type: 'array'},
 	];
 	const expectedHeroProps = [
 		{name: 'ascendLv', type: 'number'},
@@ -98,7 +97,6 @@ window.validateComp = async function(data) {
 	// make sure all properties are there
 	if(!('hidden' in data)) data.hidden = false; // add hidden attribute - March 2022 API update
 	if(!('source' in data)) data.source = 'local'; // add source attribute - March 2022 API update
-	if(!('groups' in data)) data.groups = []; // add groups attribute - March 2022 API update
 	for(const prop of expectedProps) {
 		if(!(prop.name in data)) {
 			return {retCode: 1, message: `Data is missing property: ${prop.name}`}
@@ -471,7 +469,6 @@ function buildCompsData(data) {
 		{name: 'tags', default: []},
 		{name: 'hidden', default: false},
 		{name: 'source', default: 'local'},
-		{name: 'groups', default: []},
 	];
 	const expectedHeroProps = [
 		{name: 'ascendLv', default: 6},

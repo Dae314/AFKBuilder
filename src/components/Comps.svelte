@@ -120,10 +120,12 @@
 		if(valid) dispatch('routeEvent', {action: 'syncLocalComps'});
 	}
 
-	function makeCompList(comps, filters, sort, group) {
+	function makeCompList(comps, filters, sort, groupUUID) {
 		let compList;
+		const group = $AppData.compGroups.find(e => e.uuid === groupUUID);
 		if(group) {
-			compList = [...comps].filter(e => ($AppData.compShowHidden || !e.hidden) && e.groups.includes(group));
+			// filter just comps in the group
+			compList = [...comps].filter(e => ($AppData.compShowHidden || !e.hidden) && group.comps.includes(e.uuid));
 		} else {
 			compList = [...comps].filter(e => $AppData.compShowHidden || !e.hidden);
 		}
@@ -255,26 +257,12 @@
 				});
 	}
 
-	function handleAddToGroup(newGroup, removals) {
+	function handleAddToGroup(newGroup) {
 		const idx = $AppData.compGroups.findIndex(e => e.uuid === newGroup.uuid);
 
 		// update the group
 		if(idx < 0) throw new Error(`ERROR unable to find Comp Group with UUID: ${newGroup.uuid}`);
 		$AppData.compGroups[idx] = newGroup;
-
-		// add group to comp group lists
-		for(const uuid of newGroup.comps) {
-			let i = $AppData.Comps.findIndex(e => e.uuid === uuid);
-			if(i < 0) throw new Error(`ERROR unable to find Comp with UUID: ${uuid}`);
-			if(!$AppData.Comps[i].groups.includes(newGroup.uuid)) $AppData.Comps[i].groups = [...$AppData.Comps[i].groups, newGroup.uuid];
-		}
-
-		// remove group from comp group lists
-		for(const uuid of removals) {
-			let i = $AppData.Comps.findIndex(e => e.uuid === uuid);
-			if(i < 0) throw new Error(`ERROR unable to find Comp with UUID: ${uuid}`);
-			$AppData.Comps[i].groups = $AppData.Comps[i].groups.filter(e => e !== newGroup.uuid);
-		}
 
 		dispatch('routeEvent', {action: 'saveData'});
 	}

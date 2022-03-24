@@ -42,12 +42,7 @@
 	}
 	
 	function handleSave() {
-		let removals = [];
-		const oldGroup = $AppData.compGroups.find(e => e.uuid === group.uuid);
-		for(const uuid of oldGroup.comps) {
-			if(!group.comps.includes(uuid)) removals.push(uuid);
-		}
-		onSuccess(group, removals);
+		onSuccess(group);
 		close();
 	}
 </script>
