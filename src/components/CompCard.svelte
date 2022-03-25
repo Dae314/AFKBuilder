@@ -9,6 +9,8 @@
 
 	const dispatch = createEventDispatcher();
 
+	let showGroupMenu = false;
+
 	$: published = $AppData.user.jwt ? $AppData.user.published_comps.some(e => e.uuid === comp.uuid) : false;
 
 	function handleDeleteButtonClick(uuid) {
@@ -21,6 +23,15 @@
 
 	function handleExportButtonClick(uuid) {
 		dispatch('cardEvent', {action: 'exportClick', data: uuid});
+	}
+
+	function handleGroupButtonClick() {
+		showGroupMenu = !showGroupMenu;
+	}
+
+	function handleGroupChange(groupUUID) {
+		showGroupMenu = false;
+		dispatch('cardEvent', {action: 'groupChange', data: {compUUID: comp.uuid, groupUUID}});
 	}
 
 	function handleStarClick(uuid) {
@@ -56,6 +67,34 @@
 				<div class="buttonArea">
 					<img class="publishedIcon" class:published={published} src="./img/utility/explore_white.png" alt="{published ? 'Published' : 'Unpublished'}" draggable="false" />
 					<div class="tooltip publishedTooltip"><span class="tooltipText">{published ? 'Published' : 'Unpublished'}</span></div>
+				</div>
+				<div class="buttonArea groupArea">
+					<button
+						type="button"
+						class="cardGroupButton"
+						on:click|stopPropagation={handleGroupButtonClick}>
+						<img
+							draggable="false"
+							class="groupIcon"
+							src="./img/utility/group_manage_white.png"
+							alt="Edit Groups">
+					</button>
+					<div class="tooltip groupTooltip"><span class="tooltipText">Edit Groups</span></div>
+					<div class="groupListArea" class:open={showGroupMenu} on:click|stopPropagation>
+						<ul class="groupList">
+							{#each $AppData.compGroups as group}
+								<li>
+									<button
+										type="button"
+										class="groupButton"
+										class:claimed={group.comps.includes(comp.uuid)}
+										on:click|stopPropagation={() => handleGroupChange(group.uuid)}>
+										{group.name}
+									</button>
+								</li>
+							{/each}
+						</ul>
+					</div>
 				</div>
 				<i class="star" class:active={comp.starred} on:click|stopPropagation={() => handleStarClick(comp.uuid)}></i>
 			</div>
@@ -106,7 +145,7 @@
 		padding-top: 8px;
 		.titleAuthorContainer {
 			flex-grow: 1;
-			max-width: 80%;
+			max-width: 70%;
 			justify-content: flex-start;
 			padding-right: 5px;
 			.compCardTitleContainer {
@@ -136,12 +175,13 @@
 			flex-direction: column;
 			justify-content: flex-end;
 			min-width: 80px;
-			width: 20%;
+			width: 30%;
 			.cardButtonsContainer {
 				align-items: center;
+				cursor: default;
 				display: grid;
 				grid-gap: 5px;
-				grid-template-columns: 1fr 1fr 1fr;
+				grid-template-columns: 1fr 1fr 1fr 1fr;
 				height: 100%;
 				justify-content: space-evenly;
 				justify-items: center;
@@ -179,6 +219,73 @@
 					opacity: 35%;
 					&.published {
 						opacity: 100%;
+					}
+				}
+				.groupArea {
+					.cardGroupButton {
+						background-color: transparent;
+						border: 0;
+						cursor: pointer;
+						height: fit-content;
+						margin: 0;
+						outline: 0;
+						padding: 0;
+						.groupIcon {
+							filter: invert(1.0);
+							max-width: 15px;
+						}
+					}
+					.groupListArea {
+						background-color: var(--appBGColorDark);
+						border-radius: 5px;
+						opacity: 0;
+						position: absolute;
+						visibility: hidden;
+						top: 23px;
+						transition: all 0.2s;
+						&:before {
+							border-bottom: 5px solid var(--appBGColorDark);
+							border-left: 5px solid transparent;
+							border-right: 5px solid transparent;
+							content: "";
+							height: 0;
+							left: 50%;
+							position: absolute;
+							top: -5px;
+							transform: translate(-50%, 0%);
+							width: 0;
+						}
+						&.open {
+							opacity: 1;
+							visibility: visible;
+						}
+						.groupList {
+							margin: 0;
+							max-height: 100px;
+							max-width: 90px;
+							overflow-y: auto;
+							padding: 3px;
+							list-style-type: none;
+							.groupButton {
+								border: 2px solid var(--appColorPrimary);
+								border-radius: 3px;
+								background-color: transparent;
+								color: var(--appColorPrimary);
+								cursor: pointer;
+								outline: none;
+								overflow: hidden;
+								padding: 3px;
+								margin: 3px 0px;
+								max-width: 75px;
+								text-overflow: ellipsis;
+								user-select: none;
+								white-space: nowrap;
+								&.claimed {
+									background-color: var(--appColorPrimary);
+									color: var(--appBGColor);
+								}
+							}
+						}
 					}
 				}
 				.star {
@@ -343,6 +450,14 @@
 				}
 			}
 			.publishedIcon {
+				&:hover+.tooltip {
+					.tooltipText {
+						opacity: 1;
+						visibility: visible;
+					}
+				}
+			}
+			.cardGroupButton {
 				&:hover+.tooltip {
 					.tooltipText {
 						opacity: 1;

@@ -257,12 +257,34 @@
 				});
 	}
 
+	// handle group change from group add button
 	async function handleGroupChange(newGroup) {
 		const idx = $AppData.compGroups.findIndex(e => e.uuid === newGroup.uuid);
 
 		// update the group
 		if(idx < 0) throw new Error(`ERROR unable to find Comp Group with UUID: ${newGroup.uuid}`);
 		$AppData.compGroups[idx] = newGroup;
+
+		await postUpdate();
+
+		dispatch('routeEvent', {action: 'saveData'});
+	}
+
+	// handle group change from comp card button
+	/*
+		expect config object like:
+		{compUUID, groupUUID}
+	*/
+	async function handleCompGroupChange(config) {
+		const group = $AppData.compGroups.find(e => e.uuid === config.groupUUID);
+		if(!group) throw new Error(`ERROR unable to find group with UUID: ${config.groupUUID}`);
+		if(group.comps.includes(config.compUUID)) {
+			// comp already in group, remove it
+			group.comps = group.comps.filter(e => e !== config.compUUID);
+		} else {
+			// comp not in group, add it
+			group.comps = [...group.comps, config.compUUID];
+		}
 
 		await postUpdate();
 
@@ -849,6 +871,9 @@
 				break;
 			case 'deleteClick':
 				handleDeleteButtonClick(event.detail.data);
+				break;
+			case 'groupChange':
+				handleCompGroupChange(event.detail.data);
 				break;
 			default:
 				throw new Error(`ERROR invalid action passed to handleCardEvent: ${event.detail.action}`);
