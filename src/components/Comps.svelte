@@ -67,6 +67,7 @@
 	const defaultView = 'compList'
 	const defaultComp = null;
 	const defaultGroup = '';
+	const defaultBreadcrumb = [{name: 'All Comps', uri: '/comps'}];
 
 	let openDesc = true;
 	let openHero = false;
@@ -87,6 +88,7 @@
 	let showFilters = false;
 	let curSort = defaultSort;
 	let curGroup = defaultGroup;
+	let breadcrumbs = defaultBreadcrumb;
 
 	$: processQS($querystring);
 	$: compList = makeCompList($AppData.Comps, {tag_filter, author_filter, hero_filter, timeLimits, searchStr}, curSort, curGroup);
@@ -101,17 +103,36 @@
 	});
 
 	function processQS(queryString) {
+		let tempBreadcrumbs = [...defaultBreadcrumb];
 		const urlqs = new URLSearchParams(queryString);
 		searchStr = urlqs.has('searchStr') ? decodeURIComponent(urlqs.get('searchStr')) : defaultSearchStr;
-		$AppData.selectedComp = urlqs.has('comp') ? decodeURIComponent(urlqs.get('comp')) : defaultComp;
 		tag_filter = urlqs.has('tag_filter') ? qs.parse(urlqs.get('tag_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultTagFilter;
 		author_filter = urlqs.has('author_filter') ? qs.parse(urlqs.get('author_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultAuthorFilter;
 		hero_filter = urlqs.has('hero_filter') ? qs.parse(urlqs.get('hero_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultHeroFilter;
 		timeLimits[0] = urlqs.has('minDate') ? parseInt(decodeURIComponent(urlqs.get('minDate'))) : defaultMinTime;
 		timeLimits[1] = urlqs.has('maxDate') ? parseInt(decodeURIComponent(urlqs.get('maxDate'))) : defaultMaxTime;
-		curView = urlqs.has('view') ? urlqs.get('view') : defaultView;
 		curSort = urlqs.has('sort') ? urlqs.get('sort') : defaultSort;
-		curGroup = urlqs.has('group') ? urlqs.get('group') : defaultGroup;
+		if(urlqs.has('comp')) {
+			$AppData.selectedComp = decodeURIComponent(urlqs.get('comp'));
+			const compName = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp).name;
+			tempBreadcrumbs.push({name: `Detail: ${compName}`, uri: `/comps?${urlqs.toString()}`});
+		} else {
+			$AppData.selectedComp = defaultComp;
+		}
+		if(urlqs.has('view')) {
+			curView = decodeURIComponent(urlqs.get('view'));
+			if(curView === 'groups') tempBreadcrumbs.push({name: 'Groups', uri: `/comps?${urlqs.toString()}`});
+		} else {
+			curView = defaultView;
+		}
+		if(urlqs.has('group')) {
+			curGroup = decodeURIComponent(urlqs.get('group'));
+			const groupName = $AppData.compGroups.find(e => e.uuid === curGroup).name;
+			tempBreadcrumbs.push({name: `Group: ${groupName}`, uri: `/comps?${urlqs.toString()}`});
+		} else {
+			curGroup = defaultGroup;
+		}
+		breadcrumbs = tempBreadcrumbs;
 	}
 
 	async function postUpdate() {
@@ -197,6 +218,7 @@
 		selectedLine = 0;
 		selectedHero = '';
 		showEditMenu = false;
+
 		spaRoutePush(`/comps?${newQS.toString()}`);
 		dispatch('routeEvent', {action: 'saveData'});
 	}
@@ -735,6 +757,11 @@
 		spaRoutePush(`/comps?${newQS.toString()}`);
 	}
 
+	function handleBreadcrumbClick(crumb) {
+		// navigate to the breadcrumb URI
+		spaRoutePush(crumb.uri);
+	}
+
 	async function handleHeroClick(hero) {
 		selectedHero = hero;
 		openHero = true;
@@ -900,6 +927,7 @@
 					newQS.delete('group');
 				}
 				newQS.delete('view');
+
 				spaRoutePush(`/comps?${newQS.toString()}`);
 				break;
 			default:
@@ -981,6 +1009,22 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="breadcrumbArea">
+			{#each breadcrumbs as crumb, i}
+				<button
+					type="button"
+					class="breadcrumbButton"
+					on:click={() => handleBreadcrumbClick(crumb)}
+					>
+					<span>{crumb.name}</span>
+				</button>
+				{#if i !== breadcrumbs.length - 1}
+				<div class="breadcrumbSeparator">
+					<span>&#10095;</span>
+				</div>
+				{/if}
+			{/each}
 		</div>
 		{#if curView === 'compList'}
 		<div class="hiddenToggleArea">
@@ -1636,6 +1680,27 @@
 				:global(.rangeBar) {
 					background-color: var(--appColorPrimary);
 				}
+			}
+		}
+		.breadcrumbArea {
+			display: flex;
+			flex-wrap: wrap;
+			max-width: 100%;
+			padding: 3px 8px;
+			.breadcrumbButton {
+				background-color: var(--appBGColorDark);
+				border: none;
+				border-radius: 3px;
+				cursor: pointer;
+				font-size: 0.7rem;
+				margin: 2px 3px;
+				outline: none;
+				padding: 3px;
+			}
+			.breadcrumbSeparator {
+				font-size: 0.7rem;
+				margin: 0px 2px;
+				padding: 4px 0px;
 			}
 		}
 		.hiddenToggleArea {
@@ -2496,6 +2561,10 @@
 		.sect1 {
 			height: 100vh;
 			.searchArea {
+				margin: 0 auto;
+				width: 70%;
+			}
+			.breadcrumbArea {
 				margin: 0 auto;
 				width: 70%;
 			}
