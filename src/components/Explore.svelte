@@ -120,8 +120,14 @@
 			}
 		}
 		if(orArr.length > 0) andArr.push({ or: orArr });
-		andArr.push({ createdAt: { gte: minDate } });
-		andArr.push({ createdAt: { lte: maxDate } });
+
+		// only add time filters if the values are non-default
+		if(timeLimits[0] !== defaultMinTime) {
+			andArr.push({ createdAt: { gte: minDate } });
+		}
+		if(timeLimits[1] !== defaultMaxTime) {
+			andArr.push({ createdAt: {lte: maxDate } });
+		}
 		return { and: andArr };
 	}
 	
