@@ -297,7 +297,7 @@
 		selectedLine = 0;
 		if(type === 'new') $AppData.selectedComp = uuid;
 		await tick();
-		document.getElementById(`comp${highlightComp}`).scrollIntoView();
+		// document.getElementById(`comp${highlightComp}`).scrollIntoView();
 		setTimeout(() => highlightComp = null, 2000);
 		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'});

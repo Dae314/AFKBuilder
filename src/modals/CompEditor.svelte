@@ -34,6 +34,8 @@
 		lines: [],
 		subs: [],
 		tags: [],
+		hidden: false,
+		source: 'local',
 	}
 	let openLine = null;
 	let statusMessage = '';
