@@ -243,6 +243,7 @@
 						visibility: hidden;
 						top: 23px;
 						transition: all 0.2s;
+						z-index: 2;
 						&:before {
 							border-bottom: 5px solid var(--appBGColorDark);
 							border-left: 5px solid transparent;
@@ -261,7 +262,7 @@
 						}
 						.groupList {
 							margin: 0;
-							max-height: 100px;
+							max-height: 260px;
 							max-width: 90px;
 							overflow-y: auto;
 							padding: 3px;
@@ -420,7 +421,6 @@
 		.compCard {
 			&:hover {
 				box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
-				transform: scale(1.02);
 			}
 		}
 		.compCard.active {
