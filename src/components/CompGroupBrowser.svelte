@@ -59,9 +59,6 @@
 	}
 
 	function handleDelClick(group) {
-		for(const comp of $AppData.Comps) {
-			if(comp.groups.some(e => e === group.uuid)) comp.groups = comp.groups.filter(e => e !== group.uuid);
-		}
 		$AppData.compGroups = $AppData.compGroups.filter(e => e.uuid !== group.uuid);
 		dispatch('groupEvent', {action: 'groupChange'});
 	}
