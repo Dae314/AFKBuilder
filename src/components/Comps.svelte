@@ -159,9 +159,14 @@
 		}
 
 		// apply time limit filters
-		compList = compList.filter(comp => {
-			return timeValues[filters.timeLimits[0]].value <= comp.lastUpdate && timeValues[filters.timeLimits[1]].value >= comp.lastUpdate;
-		});
+		if(filters.timeLimits[0] !== defaultMinTime) {
+			// filter for max time only if the setting is non-default
+			compList = compList.filter(comp => timeValues[filters.timeLimits[0]].value <= comp.lastUpdate);
+		}
+		if(filters.timeLimits[1] !== defaultMaxTime) {
+			// filter for min time only if the setting is non-default
+			compList = compList.filter(comp => timeValues[filters.timeLimits[1]].value >= comp.lastUpdate);
+		}
 
 		switch(sort) {
 			case 'title':
