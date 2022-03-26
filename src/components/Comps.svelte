@@ -1117,7 +1117,7 @@
 							on:click={() => handleDeleteButtonClick($AppData.selectedComp)}>
 							<img
 								draggable="false"
-								src={openComp.source === 'local' ? './img/utility/trashcan.png' : './img/utility/favorite_unfilled_white.png'}
+								src={openComp.source === 'local' ? './img/utility/trashcan_white.png' : './img/utility/favorite_unfilled_white.png'}
 								alt={openComp.source === 'local' ? 'Delete' : 'Unfavorite'}>
 							<span>{openComp.source === 'local' ? 'Delete' : 'Unfavorite'}</span>
 						</button>

@@ -59,7 +59,7 @@
 						<img
 							draggable="false"
 							class="deleteIcon"
-							src={comp.source === 'local' ? './img/utility/trashcan.png' : './img/utility/favorite_unfilled_white.png'}
+							src={comp.source === 'local' ? './img/utility/trashcan_white.png' : './img/utility/favorite_unfilled_white.png'}
 							alt="Delete">
 					</button>
 					<div class="tooltip deleteTooltip"><span class="tooltipText">{comp.source === 'local' ? 'Delete' : 'Unfavorite'}</span></div>
