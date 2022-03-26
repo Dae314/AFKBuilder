@@ -17,6 +17,7 @@ html {
 	--appColorPriOpaque: rgb(107, 141, 242, 0.30);
 	--appBGColor: #F0F0F2;
 	--appBGColorDark: #e2e2e2;
+	--appBGColorLight: #f6f6f6;
 	--appDelColor: #F26B6B;
 	--appDelColorOpaque: rgba(242, 107, 107, 0.90);
 	--appColorSecondary: #8AA7FF;
@@ -26,6 +27,8 @@ html {
 	--googleProviderColor: #EA4335;
 	--facebookProviderColor: #1094F4;
 	--discordProviderColor: #5865F2;
+
+	--neu-large-ni-BGColor-shadow: 8px 8px 20px #ccccce, 8px -8px 20px #ffffff;
 
 	--rareColor: #5EAFFA;
 	--rareColorAccent: #4D8DC8;

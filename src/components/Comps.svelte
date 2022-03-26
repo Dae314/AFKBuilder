@@ -1747,6 +1747,9 @@
 			}
 		}
 		.compGridArea {
+			background-color: var(--appBGColorLight);
+			border-radius: 10px;
+			box-shadow: var(--neu-large-ni-BGColor-shadow);
 			padding: 10px 15px;
 			.compGrid {
 				display: grid;
@@ -2616,11 +2619,16 @@
 				left: 52.5%;
 				width: 70%;
 			}
-			.newCompButton {
-				&:hover {
-					background-color: var(--appColorPriAccent);
-					.plusIcon {
-						transform: rotateZ(180deg);
+			.compGridArea {
+				margin: 10px 30px;
+				.compGrid {
+					.newCompButton {
+						&:hover {
+							background-color: var(--appColorPriAccent);
+							.plusIcon {
+								transform: rotateZ(180deg);
+							}
+						}
 					}
 				}
 			}
