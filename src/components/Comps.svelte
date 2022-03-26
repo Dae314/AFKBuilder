@@ -67,7 +67,6 @@
 	const defaultView = 'compList'
 	const defaultComp = null;
 	const defaultGroup = '';
-	const defaultBreadcrumb = [{name: 'All Comps', uri: '/comps'}];
 
 	let openDesc = true;
 	let openHero = false;
@@ -88,7 +87,6 @@
 	let showFilters = false;
 	let curSort = defaultSort;
 	let curGroup = defaultGroup;
-	let breadcrumbs = defaultBreadcrumb;
 
 	$: processQS($querystring);
 	$: compList = makeCompList($AppData.Comps, {tag_filter, author_filter, hero_filter, timeLimits, searchStr}, curSort, curGroup);
@@ -103,7 +101,6 @@
 	});
 
 	function processQS(queryString) {
-		let tempBreadcrumbs = [...defaultBreadcrumb];
 		const urlqs = new URLSearchParams(queryString);
 		searchStr = urlqs.has('searchStr') ? decodeURIComponent(urlqs.get('searchStr')) : defaultSearchStr;
 		tag_filter = urlqs.has('tag_filter') ? qs.parse(urlqs.get('tag_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultTagFilter;
@@ -112,34 +109,9 @@
 		timeLimits[0] = urlqs.has('minDate') ? parseInt(decodeURIComponent(urlqs.get('minDate'))) : defaultMinTime;
 		timeLimits[1] = urlqs.has('maxDate') ? parseInt(decodeURIComponent(urlqs.get('maxDate'))) : defaultMaxTime;
 		curSort = urlqs.has('sort') ? urlqs.get('sort') : defaultSort;
-		if(urlqs.has('view')) {
-			curView = decodeURIComponent(urlqs.get('view'));
-			if(curView === 'groups') tempBreadcrumbs.push({name: 'Groups', uri: `/comps?view=groups`});
-		} else {
-			curView = defaultView;
-		}
-		if(urlqs.has('group')) {
-			curGroup = decodeURIComponent(urlqs.get('group'));
-			const groupName = $AppData.compGroups.find(e => e.uuid === curGroup).name;
-			tempBreadcrumbs.push({name: `Group: ${groupName}`, uri: `/comps?group=${curGroup}`});
-		} else {
-			curGroup = defaultGroup;
-		}
-		if(urlqs.has('comp')) {
-			$AppData.selectedComp = decodeURIComponent(urlqs.get('comp'));
-			const compName = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp).name;
-			if(urlqs.has('group')) {
-				// add the group as well
-				const group = decodeURIComponent(urlqs.get('group'));
-				tempBreadcrumbs.push({name: `Detail: ${compName}`, uri: `/comps?group=${group}&view=compDetail&comp=${$AppData.selectedComp}`});
-			} else {
-				// just add the comp
-				tempBreadcrumbs.push({name: `Detail: ${compName}`, uri: `/comps?view=compDetail&comp=${$AppData.selectedComp}`});
-			}
-		} else {
-			$AppData.selectedComp = defaultComp;
-		}
-		breadcrumbs = tempBreadcrumbs;
+		curView = urlqs.has('view') ? decodeURIComponent(urlqs.get('view')) : defaultView;
+		curGroup = urlqs.has('group') ? decodeURIComponent(urlqs.get('group')) : defaultGroup;
+		$AppData.selectedComp = urlqs.has('comp') ? decodeURIComponent(urlqs.get('comp')) : defaultComp;
 	}
 
 	async function postUpdate() {
@@ -764,11 +736,6 @@
 		spaRoutePush(`/comps?${newQS.toString()}`);
 	}
 
-	function handleBreadcrumbClick(crumb) {
-		// navigate to the breadcrumb URI
-		spaRoutePush(crumb.uri);
-	}
-
 	async function handleHeroClick(hero) {
 		selectedHero = hero;
 		openHero = true;
@@ -1015,23 +982,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="breadcrumbArea">
-			{#each breadcrumbs as crumb, i}
-				<button
-					type="button"
-					class="breadcrumbButton"
-					on:click={() => handleBreadcrumbClick(crumb)}
-					>
-					<span>{crumb.name}</span>
-				</button>
-				{#if i !== breadcrumbs.length - 1}
-				<div class="breadcrumbSeparator">
-					<span>&#10095;</span>
-				</div>
-				{/if}
-			{/each}
-		</div>
-		{#if curView === 'compList'}
 		<div class="hiddenToggleArea">
 			<span>Show Hidden</span>
 			<ToggleSwitch
@@ -1048,43 +998,44 @@
 				{/each}
 			</select>
 		</div>
-		<div class="compGridArea">
-			<ul class="compGrid">
-				<li class="newCompArea">
-					{#if curGroup}
-						<button type="button" class="newCompButton group" on:click={handleAddToGroupClick}>
-							<span class="plusIcon">+</span>
-							<span>Add Comps</span>
-						</button>
-					{:else}
-						<button type="button" class="newCompButton new" on:click={handleNewButtonClick}>
-							<span class="plusIcon">+</span>
-							<span>New</span>
-						</button>
-						<button type="button" class="newCompButton import" on:click={handleImportButtonClick}>
-							<div class="imgContainer">
-								<img draggable="false" class="importButtonIcon" src="./img/utility/import.png" alt="Import">
-							</div>
-							<span>Import</span>
-						</button>
-					{/if}
-				</li>
-				{#each compList as comp,i}
-					<li id={comp.uuid}>
-						<CompCard
-							comp={comp}
-							idx={i}
-							highlightComp={highlightComp}
-							on:cardEvent={handleCardEvent}
-						/>
+		{#if curView === 'compList'}
+			<div class="compGridArea">
+				<ul class="compGrid">
+					<li class="newCompArea">
+						{#if curGroup}
+							<button type="button" class="newCompButton group" on:click={handleAddToGroupClick}>
+								<span class="plusIcon">+</span>
+								<span>Add Comps</span>
+							</button>
+						{:else}
+							<button type="button" class="newCompButton new" on:click={handleNewButtonClick}>
+								<span class="plusIcon">+</span>
+								<span>New</span>
+							</button>
+							<button type="button" class="newCompButton import" on:click={handleImportButtonClick}>
+								<div class="imgContainer">
+									<img draggable="false" class="importButtonIcon" src="./img/utility/import.png" alt="Import">
+								</div>
+								<span>Import</span>
+							</button>
+						{/if}
 					</li>
-				{/each}
-			</ul>
-		</div>
+					{#each compList as comp,i}
+						<li id={comp.uuid}>
+							<CompCard
+								comp={comp}
+								idx={i}
+								highlightComp={highlightComp}
+								on:cardEvent={handleCardEvent}
+							/>
+						</li>
+					{/each}
+				</ul>
+			</div>
 		{:else if curView === 'groups'}
-		<div class="compGroupArea">
-			<CompGroupBrowser on:groupEvent={handleGroupEvent} search={searchStr} />
-		</div>
+			<div class="compGroupArea">
+				<CompGroupBrowser on:groupEvent={handleGroupEvent} search={searchStr} />
+			</div>
 		{/if}
 	</section>
 	{:else if curView === 'compDetail'}
@@ -1188,22 +1139,6 @@
 						on:click={() => handleViewExploreClick(openComp.uuid)}>
 						<span>View in Explore</span>
 					</button>
-				</div>
-				<div class="breadcrumbArea">
-					{#each breadcrumbs as crumb, i}
-						<button
-							type="button"
-							class="breadcrumbButton"
-							on:click={() => handleBreadcrumbClick(crumb)}
-							>
-							<span>{crumb.name}</span>
-						</button>
-						{#if i !== breadcrumbs.length - 1}
-						<div class="breadcrumbSeparator">
-							<span>&#10095;</span>
-						</div>
-						{/if}
-					{/each}
 				</div>
 				<div class="compDetailBody">
 					<div class="lastUpdate">
@@ -1710,27 +1645,6 @@
 				}
 			}
 		}
-		.breadcrumbArea {
-			display: flex;
-			flex-wrap: wrap;
-			max-width: 100%;
-			padding: 3px 8px;
-			.breadcrumbButton {
-				background-color: var(--appBGColorDark);
-				border: none;
-				border-radius: 3px;
-				cursor: pointer;
-				font-size: 0.7rem;
-				margin: 2px 3px;
-				outline: none;
-				padding: 3px;
-			}
-			.breadcrumbSeparator {
-				font-size: 0.7rem;
-				margin: 0px 2px;
-				padding: 4px 0px;
-			}
-		}
 		.hiddenToggleArea {
 			align-items: center;
 			display: flex;
@@ -2046,28 +1960,6 @@
 				&.visible {
 					display: block;
 				}
-			}
-		}
-		.breadcrumbArea {
-			border-bottom: 1px solid black;
-			display: flex;
-			flex-wrap: wrap;
-			max-width: 100%;
-			padding-bottom: 10px;
-			.breadcrumbButton {
-				background-color: var(--appBGColorDark);
-				border: none;
-				border-radius: 3px;
-				cursor: pointer;
-				font-size: 0.7rem;
-				margin: 2px 3px;
-				outline: none;
-				padding: 3px;
-			}
-			.breadcrumbSeparator {
-				font-size: 0.7rem;
-				margin: 0px 2px;
-				padding: 4px 0px;
 			}
 		}
 		.tagDisplay {
@@ -2634,10 +2526,6 @@
 						}
 					}
 				}
-			}
-			.breadcrumbArea {
-				margin: 0 auto;
-				width: 70%;
 			}
 			.filterContainer {
 				left: 52.5%;
