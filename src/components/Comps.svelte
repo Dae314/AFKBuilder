@@ -1728,9 +1728,9 @@
 					height: 146px;
 					width: 350px;
 					.newCompButton {
-						background-color: var(--appColorPrimary);
-						border: 2px solid var(--appColorPrimary);
-						color: var(--appBGColor);
+						border: none;
+						background-color: var(--appBGColor);
+						color: black;
 						cursor: pointer;
 						font-size: 1.1rem;
 						width: 100%;
@@ -1742,6 +1742,7 @@
 						}
 						img {
 							max-width: 20px;
+							filter: invert(1);
 						}
 						span {
 							display: block;
@@ -1760,12 +1761,12 @@
 						&.new {
 							border-top-left-radius: 10px;
 							border-bottom-left-radius: 10px;
-							border-right-color: var(--appBGColor);
+							border-right: 1px solid black;
 						}
 						&.import {
 							border-top-right-radius: 10px;
 							border-bottom-right-radius: 10px;
-							border-left-color: var(--appBGColor);
+							border-left: 1px solid black;
 						}
 					}
 				}
