@@ -28,7 +28,13 @@ html {
 	--facebookProviderColor: #1094F4;
 	--discordProviderColor: #5865F2;
 
+	/* https://neumorphism.io/#f0f0f2
+		size: 250px
+		radius: 50px
+		intensity: 0.15
+	*/
 	--neu-large-ni-BGColor-shadow: 8px 8px 20px #ccccce, 8px -8px 20px #ffffff;
+	--neu-med-i-BGLight-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff;
 
 	--rareColor: #5EAFFA;
 	--rareColorAccent: #4D8DC8;

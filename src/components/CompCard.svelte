@@ -125,8 +125,9 @@
 <style lang="scss">
 	.compCard {
 		background-color: var(--appBGColor);
-		border: 3px solid var(--appColorPrimary);
+		// border: 3px solid var(--appColorPrimary);
 		border-radius: 10px;
+		box-shadow: var(--neu-med-i-BGLight-shadow);
 		cursor: pointer;
 		scroll-snap-align: center;
 		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 0);
@@ -416,11 +417,6 @@
 				user-select: none;
 				visibility: hidden;
 				z-index: 1;
-			}
-		}
-		.compCard {
-			&:hover {
-				box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
 			}
 		}
 		.compCard.active {
