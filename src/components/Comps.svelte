@@ -962,10 +962,8 @@
 				<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
 					<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
 				</button>
-			</div>
-			<div class="filterButtonArea">
 				<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
-					<img class="openFiltersImage" src={ showFilters ? './img/utility/filter_color.png' : './img/utility/filter_white.png' } alt="Open Filters">
+					<img class="openFiltersImage" src="./img/utility/filter_white.png" alt="Open Filters">
 				</button>
 				<button type="button" class="headButton openGroupButton" class:open={curView === 'groups'} on:click={handleGroupButtonClick}>
 					<img class="openGroupImage" class:open={curView === 'groups'} src="./img/utility/groups_white.png" alt="Groups">
@@ -1552,17 +1550,18 @@
 		.searchArea {
 			display: flex;
 			padding: 10px 10px 0px 10px;
+			position: relative;
 			.headButton {
 				align-items: center;
-				background-color: var(--appColorPrimary);
-				border: 2px solid var(--appColorPrimary);
+				background-color: transparent;
+				border: none;
 				border-radius: 10px;
-				box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 				cursor: pointer;
 				display: flex;
 				height: 40px;
 				justify-content: center;
 				outline: none;
+				position: absolute;
 				transition: all 0.2s;
 				width: 40px;
 			}
@@ -1583,30 +1582,35 @@
 						box-shadow: var(--neu-med-i-BGColor-hover-shadow);
 					}
 				}
-				.searchButton {
-					margin-left: 9px;
-					.searchImage {
-						max-width: 25px;
+			}
+			.searchButton {
+				right: 120px;
+				.searchImage {
+					max-width: 25px;
+					opacity: 0.1;
+					filter: invert(1);
+				}
+			}
+			.openFiltersButton {
+				right: 85px;
+				.openFiltersImage {
+					max-width: 25px;
+					opacity: 0.1;
+					filter: invert(1);
+				}
+				&.open {
+					.openFiltersImage {
+						opacity: 0.5;
 					}
 				}
 			}
-			.filterButtonArea {
-				align-items: center;
-				display: flex;
-				.openFiltersButton {
-					margin-left: 5px;
-					.openFiltersImage {
-						max-width: 25px;
-					}
-					&.open {
-						background-color: transparent;
-					}
-				}
-				.openGroupButton {
-					margin-left: 5px;
-					.openGroupImage {
-						max-width: 25px;
-					}
+			.openGroupButton {
+				background: var(--appColorPrimary);
+				margin-left: 10px;
+				position: relative;
+				.openGroupImage {
+					max-width: 25px;
+					filter: invert(1);
 				}
 			}
 		}
@@ -2611,6 +2615,25 @@
 			.searchArea {
 				margin: 0 auto;
 				width: 70%;
+				.searchButton {
+						&:hover {
+						.searchImage {
+							opacity: 0.3;
+						}
+					}
+				}
+				.openFiltersButton {
+					&:hover {
+						.openFiltersImage {
+							opacity: 0.3;
+						}
+					}
+					&.open {
+						.openFiltersImage {
+							opacity: 0.5;
+						}
+					}
+				}
 			}
 			.breadcrumbArea {
 				margin: 0 auto;
