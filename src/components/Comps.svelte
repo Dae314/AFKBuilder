@@ -1004,11 +1004,12 @@
 			</select>
 		</div>
 		<div class="compListTabs">
-			<button type="button" class="tabButton viewCompsButton" on:click={handleViewCompsClick}>
+			<button type="button" class="tabButton viewCompsButton" on:click={handleViewCompsClick} class:open={curView === 'compList'}>
+				<img class="viewCompsImage" src="./img/utility/comps_white.png" alt="Comps">
 				<span>Comps</span>
 			</button>
-			<button type="button" class="tabButton viewGroupsButton" on:click={handleGroupButtonClick}>
-				<img class="viewGroupsImage" class:open={curView === 'groups'} src="./img/utility/groups_white.png" alt="Groups">
+			<button type="button" class="tabButton viewGroupsButton" on:click={handleGroupButtonClick} class:open={curView === 'groups'}>
+				<img class="viewGroupsImage" src="./img/utility/groups_white.png" alt="Groups">
 				<span>Groups</span>
 			</button>
 		</div>
@@ -1533,7 +1534,7 @@
 				}
 			}
 			.searchButton {
-				right: 120px;
+				right: 75px;
 				.searchImage {
 					max-width: 25px;
 					opacity: 0.1;
@@ -1541,7 +1542,7 @@
 				}
 			}
 			.openFiltersButton {
-				right: 85px;
+				right: 38px;
 				.openFiltersImage {
 					max-width: 25px;
 					opacity: 0.1;
@@ -1671,17 +1672,41 @@
 			}
 		}
 		.compListTabs {
-			padding: 0px 30px;
+			display: flex;
+			padding: 0px 5px 10px 5px;
 			width: 100%;
 			.tabButton {
+				align-items: center;
 				border: none;
+				border-radius: 10px;
+				box-shadow: var(--neu-med-i-BGColor-shadow);
 				cursor: pointer;
-				font-size: 1.5rem;
+				display: flex;
+				font-size: 1.2rem;
+				justify-content: center;
 				outline: none;
+				padding: 5px;
 				img {
 					filter: invert(1);
 					max-width: 30px;
+					opacity: 0.3;
 				}
+				span {
+					opacity: 0.3;
+					padding-left: 5px;
+				}
+				&.open {
+					background: var(--neu-convex-BGLight-bg);
+					img {
+						opacity: 1;
+					}
+					span {
+						opacity: 1;
+					}
+				}
+			}
+			.viewGroupsButton {
+				margin-left: auto;
 			}
 		}
 		.compGridArea {
@@ -2549,6 +2574,12 @@
 			.filterContainer {
 				left: 52.5%;
 				width: 70%;
+			}
+			.compListTabs {
+				padding: 0px 30px;
+				.viewGroupsButton {
+					margin-left: 30px;
+				}
 			}
 			.compGridArea {
 				margin: 10px 30px;
