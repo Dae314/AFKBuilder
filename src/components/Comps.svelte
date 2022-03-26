@@ -718,22 +718,30 @@
 		replace(`/comps?${newQS.toString()}`);
 	}
 
+	function handleViewCompsClick() {
+		let newQS = new URLSearchParams($querystring);
+		if(newQS.has('view')) {
+			newQS.delete('view');
+			spaRoutePush(`/comps?${newQS.toString()}`);
+		}
+		// otherwise do nothing because we're already on comps view
+	}
+
 	function handleGroupButtonClick() {
 		let newQS = new URLSearchParams($querystring);
 		if(newQS.has('view')) {
 			const view = decodeURIComponent(newQS.get('view'));
-			if(view === 'groups') {
-				// we're already on groups, navigate back to compList
-				newQS.delete('view');
-			} else {
+			if(view !== 'groups') {
 				// we are not on groups yet, navigate to groups
 				newQS.set('view', encodeURIComponent('groups'));
+				spaRoutePush(`/comps?${newQS.toString()}`);
 			}
+			// otherwise do nothing because we're already on groups view
 		} else {
 			// no view is set, navigate to groups
 			newQS.set('view', encodeURIComponent('groups'));
+			spaRoutePush(`/comps?${newQS.toString()}`);
 		}
-		spaRoutePush(`/comps?${newQS.toString()}`);
 	}
 
 	async function handleHeroClick(hero) {
@@ -932,9 +940,6 @@
 				<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
 					<img class="openFiltersImage" src="./img/utility/filter_white.png" alt="Open Filters">
 				</button>
-				<button type="button" class="headButton openGroupButton" class:open={curView === 'groups'} on:click={handleGroupButtonClick}>
-					<img class="openGroupImage" class:open={curView === 'groups'} src="./img/utility/groups_white.png" alt="Groups">
-				</button>
 			</div>
 		</div>
 		<div class="filterContainer" class:open={showFilters}>
@@ -997,6 +1002,15 @@
 					<option value={option}>{option}</option>
 				{/each}
 			</select>
+		</div>
+		<div class="compListTabs">
+			<button type="button" class="tabButton viewCompsButton" on:click={handleViewCompsClick}>
+				<span>Comps</span>
+			</button>
+			<button type="button" class="tabButton viewGroupsButton" on:click={handleGroupButtonClick}>
+				<img class="viewGroupsImage" class:open={curView === 'groups'} src="./img/utility/groups_white.png" alt="Groups">
+				<span>Groups</span>
+			</button>
 		</div>
 		{#if curView === 'compList'}
 			<div class="compGridArea">
@@ -1539,15 +1553,6 @@
 					}
 				}
 			}
-			.openGroupButton {
-				background: var(--appColorPrimary);
-				margin-left: 10px;
-				position: relative;
-				.openGroupImage {
-					max-width: 25px;
-					filter: invert(1);
-				}
-			}
 		}
 		.filterContainer {
 			background-color: var(--appBGColor);
@@ -1663,6 +1668,20 @@
 				border-radius: 5px;
 				outline: none;
 				padding: 3px;
+			}
+		}
+		.compListTabs {
+			padding: 0px 30px;
+			width: 100%;
+			.tabButton {
+				border: none;
+				cursor: pointer;
+				font-size: 1.5rem;
+				outline: none;
+				img {
+					filter: invert(1);
+					max-width: 30px;
+				}
 			}
 		}
 		.compGridArea {
