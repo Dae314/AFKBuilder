@@ -114,21 +114,28 @@
 		curSort = urlqs.has('sort') ? urlqs.get('sort') : defaultSort;
 		if(urlqs.has('view')) {
 			curView = decodeURIComponent(urlqs.get('view'));
-			if(curView === 'groups') tempBreadcrumbs.push({name: 'Groups', uri: `/comps?${urlqs.toString()}`});
+			if(curView === 'groups') tempBreadcrumbs.push({name: 'Groups', uri: `/comps?view=groups`});
 		} else {
 			curView = defaultView;
 		}
 		if(urlqs.has('group')) {
 			curGroup = decodeURIComponent(urlqs.get('group'));
 			const groupName = $AppData.compGroups.find(e => e.uuid === curGroup).name;
-			tempBreadcrumbs.push({name: `Group: ${groupName}`, uri: `/comps?${urlqs.toString()}`});
+			tempBreadcrumbs.push({name: `Group: ${groupName}`, uri: `/comps?group=${curGroup}`});
 		} else {
 			curGroup = defaultGroup;
 		}
 		if(urlqs.has('comp')) {
 			$AppData.selectedComp = decodeURIComponent(urlqs.get('comp'));
 			const compName = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp).name;
-			tempBreadcrumbs.push({name: `Detail: ${compName}`, uri: `/comps?${urlqs.toString()}`});
+			if(urlqs.has('group')) {
+				// add the group as well
+				const group = decodeURIComponent(urlqs.get('group'));
+				tempBreadcrumbs.push({name: `Detail: ${compName}`, uri: `/comps?group=${group}&view=compDetail&comp=${$AppData.selectedComp}`});
+			} else {
+				// just add the comp
+				tempBreadcrumbs.push({name: `Detail: ${compName}`, uri: `/comps?view=compDetail&comp=${$AppData.selectedComp}`});
+			}
 		} else {
 			$AppData.selectedComp = defaultComp;
 		}
@@ -1184,6 +1191,22 @@
 						<span>View in Explore</span>
 					</button>
 				</div>
+				<div class="breadcrumbArea">
+					{#each breadcrumbs as crumb, i}
+						<button
+							type="button"
+							class="breadcrumbButton"
+							on:click={() => handleBreadcrumbClick(crumb)}
+							>
+							<span>{crumb.name}</span>
+						</button>
+						{#if i !== breadcrumbs.length - 1}
+						<div class="breadcrumbSeparator">
+							<span>&#10095;</span>
+						</div>
+						{/if}
+					{/each}
+				</div>
 				<div class="compDetailBody">
 					<div class="lastUpdate">
 						<span title="{openComp.lastUpdate.toLocaleString()}">Updated {msToString(now - openComp.lastUpdate.getTime())}</span>
@@ -1998,7 +2021,6 @@
 			}
 		}
 		.viewExploreContainer {
-			border-bottom: 1px solid black;
 			display: flex;
 			justify-content: center;
 			padding-bottom: 10px;
@@ -2016,6 +2038,28 @@
 				&.visible {
 					display: block;
 				}
+			}
+		}
+		.breadcrumbArea {
+			border-bottom: 1px solid black;
+			display: flex;
+			flex-wrap: wrap;
+			max-width: 100%;
+			padding-bottom: 10px;
+			.breadcrumbButton {
+				background-color: var(--appBGColorDark);
+				border: none;
+				border-radius: 3px;
+				cursor: pointer;
+				font-size: 0.7rem;
+				margin: 2px 3px;
+				outline: none;
+				padding: 3px;
+			}
+			.breadcrumbSeparator {
+				font-size: 0.7rem;
+				margin: 0px 2px;
+				padding: 4px 0px;
 			}
 		}
 		.tagDisplay {
