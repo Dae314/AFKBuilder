@@ -146,7 +146,7 @@
 		border-radius: 10px;
 		box-shadow: var(--neu-large-ni-BGColor-shadow);
 		display: grid;
-		grid-gap: 5px 5px;
+		grid-gap: 20px 20px;
 		grid-template-columns: repeat(auto-fill, minmax(120px, 120px));
 		grid-auto-rows: 170px;
 		justify-content: space-around;
@@ -178,10 +178,11 @@
 		}
 		.groupButton {
 			align-items: flex-start;
-			border: 2px solid var(--appColorPrimary);
+			background: var(--neu-convex-BGLight-bg);
+			border: none;
 			border-radius: 10px;
-			background: transparent;
-			color: var(--appColorPrimary);
+			box-shadow: var(--neu-med-i-BGLight-shadow);
+			color: black;
 			display: flex;
 			cursor: pointer;
 			flex-direction: column;
@@ -201,16 +202,16 @@
 				justify-content: center;
 				width: 100%;
 				.groupName {
-					background-color: var(--appBGColor);
+					background-color: var(--appBGColorLight);
 					border: none;
-					border-bottom: 1px solid var(--appColorPrimary);
+					border-bottom: 1px solid var(--appBGColorDark);
 					font-size: 1rem;
 					outline: none;
 					text-align: center;
 					width: 100px;
 					&:focus {
 						border-radius: 5px;
-						outline: 1px solid var(--appColorPrimary);
+						outline: 1px solid var(--appBGColorDark);
 						&:invalid {
 							border-bottom-color: var(--appDelColor);
 							outline: 1px solid var(--appDelColor);
