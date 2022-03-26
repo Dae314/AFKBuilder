@@ -112,13 +112,6 @@
 		timeLimits[0] = urlqs.has('minDate') ? parseInt(decodeURIComponent(urlqs.get('minDate'))) : defaultMinTime;
 		timeLimits[1] = urlqs.has('maxDate') ? parseInt(decodeURIComponent(urlqs.get('maxDate'))) : defaultMaxTime;
 		curSort = urlqs.has('sort') ? urlqs.get('sort') : defaultSort;
-		if(urlqs.has('comp')) {
-			$AppData.selectedComp = decodeURIComponent(urlqs.get('comp'));
-			const compName = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp).name;
-			tempBreadcrumbs.push({name: `Detail: ${compName}`, uri: `/comps?${urlqs.toString()}`});
-		} else {
-			$AppData.selectedComp = defaultComp;
-		}
 		if(urlqs.has('view')) {
 			curView = decodeURIComponent(urlqs.get('view'));
 			if(curView === 'groups') tempBreadcrumbs.push({name: 'Groups', uri: `/comps?${urlqs.toString()}`});
@@ -131,6 +124,13 @@
 			tempBreadcrumbs.push({name: `Group: ${groupName}`, uri: `/comps?${urlqs.toString()}`});
 		} else {
 			curGroup = defaultGroup;
+		}
+		if(urlqs.has('comp')) {
+			$AppData.selectedComp = decodeURIComponent(urlqs.get('comp'));
+			const compName = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp).name;
+			tempBreadcrumbs.push({name: `Detail: ${compName}`, uri: `/comps?${urlqs.toString()}`});
+		} else {
+			$AppData.selectedComp = defaultComp;
 		}
 		breadcrumbs = tempBreadcrumbs;
 	}
@@ -1789,6 +1789,718 @@
 	.sect2 {
 		height: 100%;
 		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
+		.noSelectedComp {
+			display: none;
+			visibility: hidden;
+		}
+		.compDetails {
+			background-color: var(--appBGColor);
+			display: flex;
+			flex-direction: column;
+			height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
+			overflow-y: auto;
+			padding: 10px;
+			position: fixed;
+			right: 0;
+			scroll-behavior: smooth;
+			top: var(--headerHeight);
+			transition: all 0.3s ease-out;
+		}
+		.compDetailHead {
+			align-items: center;
+			display: flex;
+			flex-direction: row;
+			position: relative;
+			width: 100%;
+			.closeButtonContainer {
+				width: 25%;
+				.closeDetailButton {
+					align-items: center;
+					background-color: transparent;
+					border: 3px solid var(--appColorPrimary);
+					border-radius: 5px;
+					color: var(--appColorPrimary);
+					cursor: pointer;
+					display: flex;
+					font-size: 1.0rem;
+					justify-content: center;
+					margin: 5px 10px;
+					padding: 3px;
+					.arrow {
+						border: solid var(--appColorPrimary);
+						border-width: 0 3px 3px 0;
+						display: inline-block;
+						margin: 0px 5px;
+						padding: 3px;
+						&.left {
+							transform: rotate(135deg);
+						}
+					}
+				}
+			}
+			.titleContainer {
+				align-items: center;
+				display: flex;
+				flex-direction: column;
+				overflow: hidden;
+				justify-content: center;
+				width: 50%;
+				.compTitle {
+					display: inline-block;
+					font-size: 1.5rem;
+					margin: 0;
+					overflow: hidden;
+					text-align: center;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					width: 100%;
+				}
+				.authorTitle {
+					display: inline-block;
+					font-size: 0.9rem;
+					margin: 0;
+					overflow: hidden;
+					text-align: center;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					width: 100%;
+				}
+			}
+			.editMenuButton {
+				align-items: center;
+				border: 3px solid var(--appColorPrimary);
+				border-radius: 10px;
+				color: var(--appColorPrimary);
+				cursor: pointer;
+				display: flex;
+				flex-direction: column;
+				height: 40px;
+				justify-content: center;
+				margin-left: auto;
+				padding: 0;
+				transition: all 0.2s;
+				width: 40px;
+				.filledCircle {
+					background-color: var(--appColorPrimary);
+					border-radius: 50%;
+					height: 5px;
+					margin: 2px;
+					max-height: 5px;
+					min-height: 5px;
+					max-width: 5px;
+					min-width: 5px;
+					width: 5px;
+				}
+				&.open {
+					background-color: var(--appColorPrimary);
+					.filledCircle {
+						background-color: var(--appBGColor);
+					}
+				}
+			}
+			.editContainer {
+				align-items: center;
+				background-color: var(--appBGColor);
+				border-radius: 10px;
+				border-top-right-radius: 0px;
+				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				opacity: 0;
+				padding: 5px;
+				position: absolute;
+				right: 13px;
+				bottom: -315px;
+				visibility: hidden;
+				transition: all 0.2s;
+				&:after {
+					content: " ";
+					position: absolute;
+					right: 0px;
+					top: -6px;
+					border-top: none;
+					border-right: 6px solid transparent;
+					border-left: 6px solid transparent;
+					border-bottom: 6px solid var(--appBGColor);
+				}
+				&.open {
+					opacity: 1;
+					visibility: visible;
+				}
+				.editDelButton {
+					align-items: center;
+					background-color: var(--appColorPrimary);
+					border: 3px solid var(--appColorPrimary);
+					border-radius: 5px;
+					color: white;
+					cursor: pointer;
+					display: flex;
+					flex-direction: row;
+					font-size: 0.9rem;
+					height: fit-content;
+					justify-content: center;
+					margin: 5px;
+					height: 40px;
+					width: 40px;
+					span {
+						display: none;
+					}
+					&:active {
+						box-shadow: none;
+					}
+					img {
+						max-width: 20px;
+					}
+					&.deleteButton {
+						background-color: var(--appDelColor);
+						border: 3px solid var(--appDelColor);
+					}
+					&:disabled {
+						background-color: var(--appColorDisabled);
+						border-color: var(--appColorDisabled);
+						cursor: not-allowed;
+					}
+				}
+				.deleteButton {
+					background-color: var(--appDelColor);
+					border: 3px solid var(--appDelColor);
+					img {
+						max-width: 16px;
+					}
+				}
+			}
+		}
+		.tagsArea {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+		}
+		.iconsArea {
+			align-items: center;
+			display: flex;
+			justify-content: center;
+			padding-top: 3px;
+			width: 100%;
+			.iconList {
+				display: flex;
+				justify-content: center;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				li {
+					padding: 0px 3px;
+				}
+				img {
+					max-width: 20px;
+					filter: invert(1.0);
+				}
+			}
+		}
+		.viewExploreContainer {
+			border-bottom: 1px solid black;
+			display: flex;
+			justify-content: center;
+			padding-bottom: 10px;
+			width: 100%;
+			.viewExploreButton {
+				background-color: var(--appColorPrimary);
+				border: 2px solid var(--appColorPrimary);
+				border-radius: 7px;
+				color: var(--appBGColor);
+				cursor: pointer;
+				display: none;
+				outline: none;
+				padding: 5px;
+				text-align: center;
+				&.visible {
+					display: block;
+				}
+			}
+		}
+		.tagDisplay {
+			align-items: center;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-bottom: 5px;
+			width: 100%;
+			.tag {
+				position: relative;
+				margin: 0px 5px;
+				margin-bottom: 5px;
+			}
+			.tagText {
+				border: 1px solid var(--appColorPrimary);
+				border-radius: 15px;
+				display: inline-block;
+				background-color: var(--appColorPrimary);
+				color: white;
+				font-size: 0.8rem;
+				padding: 0px 5px;
+				padding-bottom: 4px;
+				text-align: center;
+				user-select: none;
+			}
+		}
+		.compDetailBody {
+			padding-top: 10px;
+			.lastUpdate {
+				display: flex;
+				justify-content: flex-end;
+				padding-bottom: 10px;
+			}
+			.lineExamples {
+				padding-bottom: 10px;
+				width: 100%;
+				.lineSwitcher {
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					justify-content: center;
+					.lineSwitchButton {
+						background-color: transparent;
+						border: 2px solid var(--appColorPrimary);
+						border-bottom: none;
+						border-radius: 5px 5px 0px 0px;
+						color: var(--appColorPrimary);
+						cursor: pointer;
+						font-size: 1.0rem;
+						margin-right: 5px;
+						max-width: 100px;
+						min-height: 26px;
+						min-width: 30px;
+						overflow: hidden;
+						padding: 3px;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						&.active {
+							background-color: var(--appColorPrimary);
+							color: white;
+						}
+					}
+				}
+				.lineDisplay {
+					align-items: center;
+					border: 2px solid var(--appColorPrimary);
+					border-radius: 10px;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					padding: 10px;
+					width: 100%;
+					.lineTitle {
+						padding: 10px;
+						font-size: 1.1rem;
+						font-weight: bold;
+						max-width: 300px;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+					}
+					.lineMembers {
+						align-items: center;
+						border-radius: 10px;
+						display: flex;
+						flex-direction: row;
+						justify-content: center;
+						min-height: 295px;
+						width: 100%;
+					}
+					.detailImgContainer {
+						position: relative;
+					}
+					.detailFrontline {
+						align-items: center;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						width: 80px;
+					}
+					.detailBackline {
+						align-items: center;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						width: 80px;
+						margin-right: 10px;
+					}
+					.lineImg {
+						border-radius: 50%;
+						cursor: pointer;
+						margin: 5px;
+						max-width: 70px;
+						&.claimed {
+							border: 5px solid var(--appColorPrimary);
+						}
+					}
+					.emptyLineSlot {
+						background: transparent;
+						border: 3px solid var(--appColorPriAccent);
+						border-radius: 50%;
+						flex-grow: 0;
+						flex-shrink: 0;
+						height: 70px;
+						margin: 5px;
+						width: 70px;
+					}
+				}
+			}
+			.heroButton {
+				background: transparent;
+				border: none;
+				cursor: pointer;
+				margin: 0;
+				outline: none;
+				padding: 0;
+			}
+			.heroNameButton {
+				background: transparent;
+				border: none;
+				cursor: pointer;
+				margin: 0;
+				outline: none;
+				padding: 0;
+			}
+			.expanderButton {
+				background-color: var(--appColorSecondary);
+				border: none;
+				color: black;
+				cursor: pointer;
+				font-size: 1.1rem;
+				outline: none;
+				padding: 10px;
+				text-align: left;
+				width: 100%;
+				.expanderArrow {
+					border: solid black;
+					border-width: 0 3px 3px 0;
+					display: inline-block;
+					margin-right: 16px;
+					padding: 3px;
+					transition: transform 0.2s ease-out;
+					&.right {
+						transform: rotate(-45deg);
+					}
+					&.down {
+						transform: rotate(45deg);
+					}
+				}
+			}
+			.selectHeroSection {
+				width: 100%;
+				#heroDetailSection {
+					scroll-snap-align: center;
+				}
+				.selectedHero {
+					border: 2px solid var(--appColorPrimary);
+					border-radius: 10px;
+					display: flex;
+					flex-direction: column;
+					margin: 0 auto;
+					padding: 10px;
+					width: 100%;
+				}
+				.upperSelectCard {
+					align-items: center;
+					display: flex;
+					flex-direction: row;
+					justify-content: center;
+					width: 100%;
+					.siFurnBoxContainer {
+						margin-bottom: 50px;
+					}
+					.selectPortraitArea {
+						align-items: center;
+						display: flex;
+						flex-direction: column;
+						padding: 0px 10px;
+					}
+					.portraitContainer {
+						cursor: pointer;
+						position: relative;
+						+ {
+							p {
+								font-size: 1.1rem;
+								font-weight: bold;
+								margin: 0;
+								margin-bottom: 5px;
+								margin-top: -8px;
+								text-align: center;
+							}
+						}
+					}
+					.selectHeroPortrait {
+						border-radius: 50%;
+						margin-bottom: 5px;
+						max-width: 80px;
+						&.claimed {
+							border: 5px solid var(--appColorPrimary);
+						}
+					}
+				}
+				.lowerSelectCard {
+					align-items: center;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					margin-top: 5px;
+					width: 100%;
+					.ascendBoxContainer {
+						margin-bottom: 10px;
+					}
+					.heroNotesArea {
+						width: 100%;
+						margin: 10px 0px;
+						.heroNotes {
+							background-color: var(--appBGColorDark);
+							border-radius: 10px;
+							padding: 10px;
+						}
+					}
+					.artifactsContainer {
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						width: 100%;
+						h5 {
+							font-size: 1rem;
+							margin: 0;
+							text-align: center;
+						}
+					}
+					.artifactLine {
+						h6 {
+							font-size: 0.9rem;
+							margin: 0;
+							margin-top: 7px;
+							margin-bottom: 3px;
+						}
+					}
+					.artifactArea {
+						background: var(--appBGColorDark);
+						border-radius: 10px;
+						display: grid;
+						grid-template-columns: repeat(auto-fill, 90px);
+						min-height: 80px;
+						padding: 5px;
+						width: 100%;
+					}
+					.artifactImgContainer {
+						align-items: center;
+						background: transparent;
+						border: none;
+						cursor: pointer;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						outline: none;
+						padding: 3px;
+						img {
+							border-radius: 50%;
+							max-width: 60px;
+						}
+						p {
+							margin: 0;
+							max-width: 80px;
+							overflow: hidden;
+							text-align: center;
+							text-overflow: ellipsis;
+							user-select: none;
+							white-space: nowrap;
+						}
+					}
+				}
+			}
+			.subDisplay {
+				display: flex;
+				flex-direction: column;
+				padding: 10px 0px;
+				padding-top: 0;
+				width: 100%;
+				.subGroupTitle {
+					border-bottom: 2px solid black;
+					font-size: 1.1rem;
+					font-weight: bold;
+					padding-bottom: 3px;
+					padding-top: 5px;
+					width: 100%;
+					span {
+						display: inline-block;
+						width: 100%;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+					}
+					&:first-child {
+						padding-top: 0;
+					}
+				}
+				.subGroupMembers {
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					padding: 5px;
+					width: 100%;
+				}
+				.subHeroContainer {
+					margin-right: 8px;
+					margin-bottom: 8px;
+					p {
+						font-size: 0.9rem;
+						font-weight: bold;
+						margin: 0;
+						width: 80px;
+						overflow: hidden;
+						text-align: center;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+					}
+				}
+				.subImgContainer {
+					position: relative;
+					.subImg {
+						border-radius: 50%;
+						max-width: 70px;
+						&.claimed {
+							border: 5px solid var(--appColorPrimary);
+						}
+					}
+					.subCoreMark {
+						bottom: 0px;
+						right: -1px;
+					}
+				}
+			}
+			.coreMark {
+				background-color: var(--legendColor);
+				border: 3px solid var(--appBGColor);
+				border-radius: 50%;
+				bottom: 5px;
+				display: none;
+				height: 22px;
+				position: absolute;
+				right: 4px;
+				visibility: hidden;
+				width: 22px;
+				&.visible {
+					display: inline-block;
+					pointer-events: none;
+					visibility: visible;
+				}
+			}
+			.ascMark {
+				left: -6px;
+				position: absolute;
+				top: 3px;
+				img {
+					left: 0;
+					max-width: 35px;
+					pointer-events: none;
+					position: absolute;
+					top: 0;
+				}
+				img.moveup {
+					top: -3.5px;
+				}
+			}
+			.subAscMark {
+				top: -4px;
+				left: -10px;
+			}
+			.mobileExpander {
+				margin-bottom: 10px;
+				max-height: 0px;
+				overflow: hidden;
+				transition: all 0.2s ease-out;
+				&.open {
+					max-height: 5000px;
+					padding-top: 10px;
+				}
+			}
+			.descSection.open {
+				padding-left: 5px;
+			}
+			/* description markdown styling */
+			.descText {
+				:global(hr) {
+					border: 1px solid var(--appColorPrimary);
+					margin: 5px 0px;
+				}
+				:global(p) {
+					line-height: 160%;
+					margin: 5px 0px;
+				}
+				:global(a) {
+					color: var(--appColorPrimary);
+				}
+				:global(ul) {
+					margin: 10px 0px;
+					padding-left: 24px;
+				}
+				:global(ol) {
+					margin: 10px 0px;
+					padding-left: 24px;
+				}
+				:global(h1) {
+					margin: 10px 0px;
+					font-size: 1.7rem;
+				}
+				:global(h2) {
+					margin: 10px 0px;
+				}
+				:global(h3) {
+					margin: 10px 0px;
+				}
+				:global(h4) {
+					margin: 5px 0px;
+				}
+				:global(h5) {
+					margin: 5px 0px;
+				}
+				:global(h6) {
+					margin: 5px 0px;
+				}
+				:global(blockquote) {
+					border-left: 5px solid var(--appColorPriOpaque);
+					color: #999;
+					margin-left: 20px;
+					padding-left: 5px;
+				}
+				:global(pre) {
+					background-color: var(--appBGColorDark);
+					color: black;
+					font-family: 'Courier New', Courier, monospace;
+					font-size: 1.0rem;
+					padding: 10px;
+					white-space: break-spaces;
+				}
+				:global(table) {
+					border-collapse: collapse;
+				}
+				:global(th) {
+					border-bottom: 2px solid var(--appColorPrimary);
+					padding-top: 7px;
+					padding-bottom: 7px;
+					padding-right: 20px;
+					text-align: left;
+				}
+				:global(td) {
+					border-bottom: 1px solid black;
+					padding-top: 7px;
+					padding-bottom: 7px;
+				}
+				:global(tr) {
+					&:nth-child(even) {
+						background-color: var(--appColorPriOpaque);
+					}
+				}
+				:global(img) {
+					max-width: 100px;
+				}
+			}
+		}
 	}
 	.sect3 {
 		display: block;
@@ -1802,759 +2514,47 @@
 		&.visible {
 			visibility: visible;
 		}
-	}
-	.owBackground {
-		align-items: center;
-		background-color: rgba(0, 0, 0, 0.5);
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		justify-content: center;
-		width: 100%;
-	}
-	.owConfirmWindow {
-		background-color: var(--appBGColor);
-		border-radius: 10px;
-		padding: 10px;
-	}
-	.owTitle {
-		display: flex;
-		justify-content: center;
-		padding: 10px;
-		h4 {
-			margin: 0;
-		}
-	}
-	.owBody {
-		padding: 10px;
-	}
-	.owFooter {
-		display: flex;
-		justify-content: flex-end;
-		padding-top: 10px;
-	}
-	.owFooterButton {
-		background-color: transparent;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 10px;
-		color: var(--appColorPrimary);
-		margin-right: 10px;
-		outline: none;
-		padding: 5px;
-		&:last-child {
-			margin-right: 0;
-		}
-	}
-	.noSelectedComp {
-		display: none;
-		visibility: hidden;
-	}
-	.compDetails {
-		background-color: var(--appBGColor);
-		display: flex;
-		flex-direction: column;
-		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
-		overflow-y: auto;
-		padding: 10px;
-		position: fixed;
-		right: 0;
-		scroll-behavior: smooth;
-		top: var(--headerHeight);
-		transition: all 0.3s ease-out;
-	}
-	.compDetailHead {
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		position: relative;
-		width: 100%;
-	}
-	.closeButtonContainer {
-		width: 25%;
-	}
-	.closeDetailButton {
-		align-items: center;
-		background-color: transparent;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 5px;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		display: flex;
-		font-size: 1.0rem;
-		justify-content: center;
-		margin: 5px 10px;
-		padding: 3px;
-	}
-	.arrow {
-		border: solid var(--appColorPrimary);
-		border-width: 0 3px 3px 0;
-		display: inline-block;
-		margin: 0px 5px;
-		padding: 3px;
-	}
-	.left {
-		transform: rotate(135deg);
-	}
-	.titleContainer {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		overflow: hidden;
-		justify-content: center;
-		width: 50%;
-	}
-	.compTitle {
-		display: inline-block;
-		font-size: 1.5rem;
-		margin: 0;
-		overflow: hidden;
-		text-align: center;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		width: 100%;
-	}
-	.authorTitle {
-		display: inline-block;
-		font-size: 0.9rem;
-		margin: 0;
-		overflow: hidden;
-		text-align: center;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		width: 100%;
-	}
-	.editMenuButton {
-		align-items: center;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 10px;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		display: flex;
-		flex-direction: column;
-		height: 40px;
-		justify-content: center;
-		margin-left: auto;
-		padding: 0;
-		transition: all 0.2s;
-		width: 40px;
-		.filledCircle {
-			background-color: var(--appColorPrimary);
-			border-radius: 50%;
-			height: 5px;
-			margin: 2px;
-			max-height: 5px;
-			min-height: 5px;
-			max-width: 5px;
-			min-width: 5px;
-			width: 5px;
-		}
-		&.open {
-			background-color: var(--appColorPrimary);
-			.filledCircle {
-				background-color: var(--appBGColor);
-			}
-		}
-	}
-	.editContainer {
-		align-items: center;
-		background-color: var(--appBGColor);
-		border-radius: 10px;
-		border-top-right-radius: 0px;
-		box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		opacity: 0;
-		padding: 5px;
-		position: absolute;
-		right: 13px;
-		bottom: -315px;
-		visibility: hidden;
-		transition: all 0.2s;
-		&:after {
-			content: " ";
-			position: absolute;
-			right: 0px;
-			top: -6px;
-			border-top: none;
-			border-right: 6px solid transparent;
-			border-left: 6px solid transparent;
-			border-bottom: 6px solid var(--appBGColor);
-		}
-		&.open {
-			opacity: 1;
-			visibility: visible;
-		}
-		.editDelButton {
+		.owBackground {
 			align-items: center;
-			background-color: var(--appColorPrimary);
-			border: 3px solid var(--appColorPrimary);
-			border-radius: 5px;
-			color: white;
-			cursor: pointer;
+			background-color: rgba(0, 0, 0, 0.5);
 			display: flex;
-			flex-direction: row;
-			font-size: 0.9rem;
-			height: fit-content;
+			flex-direction: column;
+			height: 100%;
 			justify-content: center;
-			margin: 5px;
-			height: 40px;
-			width: 40px;
-			span {
-				display: none;
-			}
-			&:active {
-				box-shadow: none;
-			}
-			img {
-				max-width: 20px;
-			}
-			&.deleteButton {
-				background-color: var(--appDelColor);
-				border: 3px solid var(--appDelColor);
-			}
-			&:disabled {
-				background-color: var(--appColorDisabled);
-				border-color: var(--appColorDisabled);
-				cursor: not-allowed;
-			}
+			width: 100%;
 		}
-	}
-	.deleteButton {
-		background-color: var(--appDelColor);
-		border: 3px solid var(--appDelColor);
-		img {
-			max-width: 16px;
-		}
-	}
-	.tagsArea {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-	}
-	.iconsArea {
-		align-items: center;
-		display: flex;
-		justify-content: center;
-		padding-top: 3px;
-		width: 100%;
-		.iconList {
-			display: flex;
-			justify-content: center;
-			list-style-type: none;
-			margin: 0;
-			padding: 0;
-			li {
-				padding: 0px 3px;
-			}
-			img {
-				max-width: 20px;
-				filter: invert(1.0);
-			}
-		}
-	}
-	.viewExploreContainer {
-		border-bottom: 1px solid black;
-		display: flex;
-		justify-content: center;
-		padding-bottom: 10px;
-		width: 100%;
-		.viewExploreButton {
-			background-color: var(--appColorPrimary);
-			border: 2px solid var(--appColorPrimary);
-			border-radius: 7px;
-			color: var(--appBGColor);
-			cursor: pointer;
-			display: none;
-			outline: none;
-			padding: 5px;
-			text-align: center;
-			&.visible {
-				display: block;
-			}
-		}
-	}
-	.tagDisplay {
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-		margin-bottom: 5px;
-		width: 100%;
-		.tag {
-			position: relative;
-			margin: 0px 5px;
-			margin-bottom: 5px;
-		}
-		.tagText {
-			border: 1px solid var(--appColorPrimary);
-			border-radius: 15px;
-			display: inline-block;
-			background-color: var(--appColorPrimary);
-			color: white;
-			font-size: 0.8rem;
-			padding: 0px 5px;
-			padding-bottom: 4px;
-			text-align: center;
-			user-select: none;
-		}
-	}
-	.compDetailBody {
-		padding-top: 10px;
-	}
-	.lastUpdate {
-		display: flex;
-		justify-content: flex-end;
-		padding-bottom: 10px;
-	}
-	.lineExamples {
-		padding-bottom: 10px;
-		width: 100%;
-	}
-	.lineSwitcher {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-	}
-	.lineSwitchButton {
-		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
-		border-bottom: none;
-		border-radius: 5px 5px 0px 0px;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		font-size: 1.0rem;
-		margin-right: 5px;
-		max-width: 100px;
-		min-height: 26px;
-		min-width: 30px;
-		overflow: hidden;
-		padding: 3px;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-	.lineSwitchButton.active {
-		background-color: var(--appColorPrimary);
-		color: white;
-	}
-	.lineDisplay {
-		align-items: center;
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 10px;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		padding: 10px;
-		width: 100%;
-	}
-	.lineTitle {
-		padding: 10px;
-		font-size: 1.1rem;
-		font-weight: bold;
-		max-width: 300px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-	.lineMembers {
-		align-items: center;
-		border-radius: 10px;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		min-height: 295px;
-		width: 100%;
-	}
-	.detailImgContainer {
-		position: relative;
-	}
-	.detailFrontline {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		width: 80px;
-	}
-	.detailBackline {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		width: 80px;
-		margin-right: 10px;
-	}
-	.heroButton {
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		margin: 0;
-		outline: none;
-		padding: 0;
-	}
-	.heroNameButton {
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		margin: 0;
-		outline: none;
-		padding: 0;
-	}
-	.lineImg {
-		border-radius: 50%;
-		cursor: pointer;
-		margin: 5px;
-		max-width: 70px;
-	}
-	.lineImg.claimed {
-		border: 5px solid var(--appColorPrimary);
-	}
-	.emptyLineSlot {
-		background: transparent;
-		border: 3px solid var(--appColorPriAccent);
-		border-radius: 50%;
-		flex-grow: 0;
-		flex-shrink: 0;
-		height: 70px;
-		margin: 5px;
-		width: 70px;
-	}
-	.expanderButton {
-		background-color: var(--appColorSecondary);
-		border: none;
-		color: black;
-		cursor: pointer;
-		font-size: 1.1rem;
-		outline: none;
-		padding: 10px;
-		text-align: left;
-		width: 100%;
-	}
-	.expanderArrow {
-		border: solid black;
-		border-width: 0 3px 3px 0;
-		display: inline-block;
-		margin-right: 16px;
-		padding: 3px;
-		transition: transform 0.2s ease-out;
-	}
-	.expanderArrow.right {
-		transform: rotate(-45deg);
-	}
-	.expanderArrow.down {
-		transform: rotate(45deg);
-	}
-	.selectHeroSection {
-		width: 100%;
-	}
-	#heroDetailSection {
-		scroll-snap-align: center;
-	}
-	.selectedHero {
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 10px;
-		display: flex;
-		flex-direction: column;
-		margin: 0 auto;
-		padding: 10px;
-		width: 100%;
-	}
-	.upperSelectCard {
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		width: 100%;
-	}
-	.siFurnBoxContainer {
-		margin-bottom: 50px;
-	}
-	.selectPortraitArea {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		padding: 0px 10px;
-	}
-	.portraitContainer {
-		cursor: pointer;
-		position: relative;
-		+ {
-			p {
-				font-size: 1.1rem;
-				font-weight: bold;
-				margin: 0;
-				margin-bottom: 5px;
-				margin-top: -8px;
-				text-align: center;
-			}
-		}
-	}
-	.selectHeroPortrait {
-		border-radius: 50%;
-		margin-bottom: 5px;
-		max-width: 80px;
-	}
-	.selectHeroPortrait.claimed {
-		border: 5px solid var(--appColorPrimary);
-	}
-	.coreMark {
-		background-color: var(--legendColor);
-		border: 3px solid var(--appBGColor);
-		border-radius: 50%;
-		bottom: 5px;
-		display: none;
-		height: 22px;
-		position: absolute;
-		right: 4px;
-		visibility: hidden;
-		width: 22px;
-	}
-	.coreMark.visible {
-		display: inline-block;
-		pointer-events: none;
-		visibility: visible;
-	}
-	.ascMark {
-		left: -6px;
-		position: absolute;
-		top: 3px;
-		img {
-			left: 0;
-			max-width: 35px;
-			pointer-events: none;
-			position: absolute;
-			top: 0;
-		}
-		img.moveup {
-			top: -3.5px;
-		}
-	}
-	.subAscMark {
-		top: -4px;
-		left: -10px;
-	}
-	.lowerSelectCard {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		margin-top: 5px;
-		width: 100%;
-	}
-	.ascendBoxContainer {
-		margin-bottom: 10px;
-	}
-	.heroNotesArea {
-		width: 100%;
-		margin: 10px 0px;
-		.heroNotes {
-			background-color: var(--appBGColorDark);
+		.owConfirmWindow {
+			background-color: var(--appBGColor);
 			border-radius: 10px;
 			padding: 10px;
 		}
-	}
-	.artifactsContainer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		width: 100%;
-		h5 {
-			font-size: 1rem;
-			margin: 0;
-			text-align: center;
-		}
-	}
-	.artifactLine {
-		h6 {
-			font-size: 0.9rem;
-			margin: 0;
-			margin-top: 7px;
-			margin-bottom: 3px;
-		}
-	}
-	.artifactArea {
-		background: var(--appBGColorDark);
-		border-radius: 10px;
-		display: grid;
-		grid-template-columns: repeat(auto-fill, 90px);
-		min-height: 80px;
-		padding: 5px;
-		width: 100%;
-	}
-	.artifactImgContainer {
-		align-items: center;
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		outline: none;
-		padding: 3px;
-		img {
-			border-radius: 50%;
-			max-width: 60px;
-		}
-		p {
-			margin: 0;
-			max-width: 80px;
-			overflow: hidden;
-			text-align: center;
-			text-overflow: ellipsis;
-			user-select: none;
-			white-space: nowrap;
-		}
-	}
-	.subDisplay {
-		display: flex;
-		flex-direction: column;
-		padding: 10px 0px;
-		padding-top: 0;
-		width: 100%;
-	}
-	.subGroupTitle {
-		border-bottom: 2px solid black;
-		font-size: 1.1rem;
-		font-weight: bold;
-		padding-bottom: 3px;
-		padding-top: 5px;
-		width: 100%;
-		span {
-			display: inline-block;
-			width: 100%;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-		&:first-child {
-			padding-top: 0;
-		}
-	}
-	.subGroupMembers {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		padding: 5px;
-		width: 100%;
-	}
-	.subHeroContainer {
-		margin-right: 8px;
-		margin-bottom: 8px;
-		p {
-			font-size: 0.9rem;
-			font-weight: bold;
-			margin: 0;
-			width: 80px;
-			overflow: hidden;
-			text-align: center;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-	}
-	.subImgContainer {
-		position: relative;
-	}
-	.subImg {
-		border-radius: 50%;
-		max-width: 70px;
-	}
-	.subImg.claimed {
-		border: 5px solid var(--appColorPrimary);
-	}
-	.subCoreMark {
-		bottom: 0px;
-		right: -1px;
-	}
-	.mobileExpander {
-		margin-bottom: 10px;
-		max-height: 0px;
-		overflow: hidden;
-		transition: all 0.2s ease-out;
-	}
-	.mobileExpander.open {
-		max-height: 5000px;
-		padding-top: 10px;
-	}
-	.descSection.open {
-		padding-left: 5px;
-	}
-	/* description markdown styling */
-	.descText {
-		:global(hr) {
-			border: 1px solid var(--appColorPrimary);
-			margin: 5px 0px;
-		}
-		:global(p) {
-			line-height: 160%;
-			margin: 5px 0px;
-		}
-		:global(a) {
-			color: var(--appColorPrimary);
-		}
-		:global(ul) {
-			margin: 10px 0px;
-			padding-left: 24px;
-		}
-		:global(ol) {
-			margin: 10px 0px;
-			padding-left: 24px;
-		}
-		:global(h1) {
-			margin: 10px 0px;
-			font-size: 1.7rem;
-		}
-		:global(h2) {
-			margin: 10px 0px;
-		}
-		:global(h3) {
-			margin: 10px 0px;
-		}
-		:global(h4) {
-			margin: 5px 0px;
-		}
-		:global(h5) {
-			margin: 5px 0px;
-		}
-		:global(h6) {
-			margin: 5px 0px;
-		}
-		:global(blockquote) {
-			border-left: 5px solid var(--appColorPriOpaque);
-			color: #999;
-			margin-left: 20px;
-			padding-left: 5px;
-		}
-		:global(pre) {
-			background-color: var(--appBGColorDark);
-			color: black;
-			font-family: 'Courier New', Courier, monospace;
-			font-size: 1.0rem;
+		.owTitle {
+			display: flex;
+			justify-content: center;
 			padding: 10px;
-			white-space: break-spaces;
-		}
-		:global(table) {
-			border-collapse: collapse;
-		}
-		:global(th) {
-			border-bottom: 2px solid var(--appColorPrimary);
-			padding-top: 7px;
-			padding-bottom: 7px;
-			padding-right: 20px;
-			text-align: left;
-		}
-		:global(td) {
-			border-bottom: 1px solid black;
-			padding-top: 7px;
-			padding-bottom: 7px;
-		}
-		:global(tr) {
-			&:nth-child(even) {
-				background-color: var(--appColorPriOpaque);
+			h4 {
+				margin: 0;
 			}
 		}
-		:global(img) {
-			max-width: 100px;
+		.owBody {
+			padding: 10px;
+		}
+		.owFooter {
+			display: flex;
+			justify-content: flex-end;
+			padding-top: 10px;
+		}
+		.owFooterButton {
+			background-color: transparent;
+			border: 3px solid var(--appColorPrimary);
+			border-radius: 10px;
+			color: var(--appColorPrimary);
+			margin-right: 10px;
+			outline: none;
+			padding: 5px;
+			&:last-child {
+				margin-right: 0;
+			}
 		}
 	}
 	@media only screen and (min-width: 767px) {
@@ -2572,188 +2572,184 @@
 				left: 52.5%;
 				width: 70%;
 			}
+			.newCompButton {
+				&:hover {
+					background-color: var(--appColorPriAccent);
+					.plusIcon {
+						transform: rotateZ(180deg);
+					}
+				}
+			}
 		}
 		.sect2 {
 			height: 100vh;
-			width: 79%;
-		}
-		.owFooterButton {
-			&:hover {
-				background-color: var(--appColorPrimary);
-				color: white;
+			width: 100%;
+			.noSelectedComp {
+				color: rgba(100, 100, 100, 0.3);
+				display: block;
+				font-size: 4rem;
+				font-weight: bold;
+				height: 100%;
+				text-transform: uppercase;
+				user-select: none;
+				visibility: visible;
 			}
-		}
-		.owCancel {
-			&:hover {
-				background-color: var(--appColorPriAccent);
+			.compDetails {
+				height: 100%;
+				max-width: 100%;
+				padding: 10px;
+				position: static;
+				overflow-y: auto;
+				visibility: visible;
 			}
-		}
-		.compScroller {
-			height: 100%;
-			border-right: 3px solid var(--appColorPrimary);
-		}
-		.noComps {
-			font-size: 2.5rem;
-		}
-		.newCompOptionsArea {
-			max-width: 375px;
-		}
-		.compDetails {
-			height: 100%;
-			max-width: 100%;
-			padding: 10px;
-			position: static;
-			overflow-y: auto;
-			visibility: visible;
-		}
-		.closeButtonContainer {
-			visibility: hidden;
-			width: 25%;
-		}
-		.titleContainer {
-			width: 50%;
-		}
-		.editContainer {
-			align-items: flex-end;
-			bottom: -286px;
-			.exportButton {
+			.compDetailHead {
+				.closeButtonContainer {
+					visibility: hidden;
+					width: 25%;
+					.closeDetailButton {
+						&:hover {
+							background-color: var(--appColorPrimary);
+							color: white;
+							.arrow {
+								border-color: white;
+							}
+						}
+					}
+				}
+				.titleContainer {
+					width: 50%;
+				}
+				.editContainer {
+					align-items: flex-end;
+					bottom: -286px;
+					.exportButton {
+						display: flex;
+					}
+					.editDelButton {
+						height: fit-content;
+						width: fit-content;
+						padding: 6px;
+						span {
+							display: block;
+						}
+						img {
+							margin-right: 8px;
+							max-width: 15px;
+						}
+					}
+					.deleteButton {
+						img {
+							max-width: 12px;
+						}
+					}
+				}
+			}
+			.bodyArea1 {
 				display: flex;
 			}
-			.editDelButton {
-				height: fit-content;
-				width: fit-content;
-				padding: 6px;
-				span {
-					display: block;
+			.bodyArea2 {
+				display: flex;
+			}
+			.compDetailBody {
+				.lastUpdate {
+					padding-bottom: 0px;
 				}
-				img {
-					margin-right: 8px;
-					max-width: 15px;
+				.lineExamples {
+					flex-grow: 0;
+					flex-shrink: 0;
+					margin-right: 10px;
+					width: 340px;
+					.lineSwitcher {
+						display: flex;
+						flex-direction: row;
+						justify-content: flex-start;
+						.lineSwitchButton {
+							margin-right: 0px;
+						}
+					}
+					.lineDisplay {
+						border-radius: 0px 10px 10px 10px;
+						max-height: 375px;
+						min-height: 375px;
+						.lineImg {
+							transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
+							&:hover {
+								transform: scale(1.1);
+							}
+						}
+					}
+				}
+				.description {
+					width: 100%;
+				}
+				.heroDetails {
+					flex-grow: 0;
+					flex-shrink: 0;
+					margin-right: 10px;
+				}
+				.selectHeroSection {
+					margin: 0;
+					padding: 0;
+					width: 340px;
+					.selectedHero {
+						margin: 0;
+						width: 340px;
+					}
+				}
+				.expanderButton {
+					display: none;
+				}
+				.mobileExpander {
+					max-height: 5000px;
+					padding: 0;
+					&.open {
+						padding: 0;
+					}
+					&.descSection {
+						border: 2px solid var(--appColorPrimary);
+						border-radius: 10px 0px 0px 10px;
+						margin-top: 27px;
+						max-height: 375px;
+						overflow-y: auto;
+						padding: 10px;
+					}
+				}
+				.subGroups {
+					width: 100%;
+				}
+				.subDisplay {
+					display: grid;
+					grid-gap: 5px 20px;
+					grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+					grid-template-rows: repeat(auto-fit, minmax(95px, 1fr));
+					justify-content: space-evenly;
+					margin-top: -4px;
+					overflow: hidden;
+					padding: 0;
+					.subImg {
+						transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
+						&:hover {
+							transform: scale(1.1);
+						}
+					}
+					.subGroupTitle {
+						padding-top: 0;
+					}
 				}
 			}
-			.deleteButton {
-				img {
-					max-width: 12px;
+		}
+		.sect3 {
+			.owFooterButton {
+				&:hover {
+					background-color: var(--appColorPrimary);
+					color: white;
 				}
 			}
-		}
-		.newCompButton {
-			&:hover {
-				background-color: var(--appColorPriAccent);
-				.plusIcon {
-					transform: rotateZ(180deg);
+			.owCancel {
+				&:hover {
+					background-color: var(--appColorPriAccent);
 				}
 			}
-		}
-		.bodyArea1 {
-			display: flex;
-		}
-		.bodyArea2 {
-			display: flex;
-		}
-		.noSelectedComp {
-			color: rgba(100, 100, 100, 0.3);
-			display: block;
-			font-size: 4rem;
-			font-weight: bold;
-			height: 100%;
-			text-transform: uppercase;
-			user-select: none;
-			visibility: visible;
-		}
-		.closeDetailButton {
-			&:hover {
-				background-color: var(--appColorPrimary);
-				color: white;
-				.arrow {
-					border-color: white;
-				}
-			}
-		}
-		.lastUpdate {
-			padding-bottom: 0px;
-		}
-		.lineExamples {
-			flex-grow: 0;
-			flex-shrink: 0;
-			margin-right: 10px;
-			width: 340px;
-		}
-		.lineSwitcher {
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-start;
-		}
-		.lineSwitchButton {
-			margin-right: 0px;
-		}
-		.lineDisplay {
-			border-radius: 0px 10px 10px 10px;
-			max-height: 375px;
-			min-height: 375px;
-		}
-		.lineImg {
-			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-			&:hover {
-				transform: scale(1.1);
-			}
-		}
-		.description {
-			width: 100%;
-		}
-		.heroDetails {
-			flex-grow: 0;
-			flex-shrink: 0;
-			margin-right: 10px;
-		}
-		.selectHeroSection {
-			margin: 0;
-			padding: 0;
-			width: 340px;
-		}
-		.selectedHero {
-			margin: 0;
-			width: 340px;
-		}
-		.expanderButton {
-			display: none;
-		}
-		.mobileExpander {
-			max-height: 5000px;
-			padding: 0;
-		}
-		.mobileExpander.open {
-			padding: 0;
-		}
-		.mobileExpander.descSection {
-			border: 2px solid var(--appColorPrimary);
-			border-radius: 10px 0px 0px 10px;
-			margin-top: 27px;
-			max-height: 375px;
-			overflow-y: auto;
-			padding: 10px;
-		}
-		.subGroups {
-			width: 100%;
-		}
-		.subDisplay {
-			display: grid;
-			grid-gap: 5px 20px;
-			grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-			grid-template-rows: repeat(auto-fit, minmax(95px, 1fr));
-			justify-content: space-evenly;
-			margin-top: -4px;
-			overflow: hidden;
-			padding: 0;
-		}
-		.subImg {
-			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-			&:hover {
-				transform: scale(1.1);
-			}
-		}
-		.subGroupTitle {
-			padding-top: 0;
 		}
 	}
 </style>
