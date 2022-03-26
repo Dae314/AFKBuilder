@@ -1571,15 +1571,16 @@
 				display: flex;
 				width: 100%;
 				.filterInput {
-					border: 1px solid var(--appColorPrimary);
+					background-color: var(--appBGColorLight);
+					border: none;
 					border-radius: 5px;
+					box-shadow: var(--neu-med-i-BGColor-shadow);
 					font-size: 1.2rem;
+					outline: none;
 					padding: 8px;
 					width: 100%;
 					&:focus {
-						border-color: var(--appColorPrimary);
-						box-shadow: 0 0 0 2px var(--appColorPrimary);
-						outline: 0;
+						box-shadow: var(--neu-med-i-BGColor-hover-shadow);
 					}
 				}
 				.searchButton {
