@@ -142,13 +142,16 @@
 		}
 	}
 	.groupGrid {
+		background-color: var(--appBGColorLight);
+		border-radius: 10px;
+		box-shadow: var(--neu-large-ni-BGColor-shadow);
 		display: grid;
 		grid-gap: 5px 5px;
 		grid-template-columns: repeat(auto-fill, minmax(120px, 120px));
 		grid-auto-rows: 170px;
 		justify-content: space-around;
 		margin: 0;
-		padding: 0;
+		padding: 10px 15px;
 		list-style-type: none;
 		li {
 			align-items: center;
@@ -156,10 +159,10 @@
 			justify-content: center;
 		}
 		.newGroupButton {
-			background-color: var(--appColorPrimary);
-			border: 2px solid var(--appColorPrimary);
+			background-color: var(--appBGColor);
+			border: none;
 			border-radius: 10px;
-			color: var(--appBGColor);
+			color: black;
 			cursor: pointer;
 			height: 100%;
 			outline: none;
@@ -227,10 +230,13 @@
 		}
 	}
 	@media only screen and (min-width: 767px) {
-		.newGroupButton {
-			&:hover {
-				.plusIcon {
-					transform: rotateZ(180deg);
+		.groupGrid {
+			margin: 10px 15px;
+			.newGroupButton {
+				&:hover {
+					.plusIcon {
+						transform: rotateZ(180deg);
+					}
 				}
 			}
 		}
