@@ -67,7 +67,8 @@
 			</div>
 		</button>
 		<button class="expandButton" on:click={handleExpandButtonClick}>
-			<i class="arrow" class:right={!$AppData.expandHeader} class:left={$AppData.expandHeader}></i>
+			<!-- <i class="arrow" class:right={!$AppData.expandHeader} class:left={$AppData.expandHeader}></i> -->
+			<img class="expandImage" src={$AppData.expandHeader ? './img/utility/collapse_white.png' : './img/utility/expand_white.png'}>
 		</button>
 		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
 			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].name.toLowerCase().replace(/\s/g, ''))}>
@@ -380,6 +381,10 @@
 				&.left {
 					transform: rotate(135deg);
 				}
+			}
+			.expandImage {
+				max-width: 12px;
+				opacity: 50%;
 			}
 		}
 		nav {
