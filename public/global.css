@@ -37,8 +37,9 @@ html {
 	--neu-large-ni-BGColor-shadow: 8px 8px 20px #ccccce, 8px -8px 20px #ffffff;
 	--neu-med-i-BGLight-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff;
 	--neu-med-i-BGLight-hover-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
-	--neu-med-i-BGColor-shadow: 5px 5px 10px #ccccce, -5px -5px 10px #ffffff;
+	--neu-med-i-BGColor-shadow: 5px 5px 8px #ccccce, -5px -5px 8px #ffffff;
 	--neu-med-i-BGColor-hover-shadow: 8px 8px 16px #ccccce, -8px -8px 16px #ffffff;
+	--neu-sm-i-BGColor-shadow: 5px 5px 5px #ccccce, -5px -5px 5px #ffffff;
 	
 
 	--rareColor: #5EAFFA;

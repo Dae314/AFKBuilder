@@ -1558,14 +1558,14 @@
 		.filterContainer {
 			background-color: var(--appBGColor);
 			border-radius: 10px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+			box-shadow: var(--neu-large-ni-BGColor-shadow);
 			left: 50%;
-			margin-top: 56px;
+			margin-top: 65px;
 			opacity: 0;
 			overflow: hidden;
 			padding: 10px 0px;
 			position: absolute;
-			transform: translate(-50%, 0);
+			transform: translate(-51.5%, 0);
 			transition: all 0.2s;
 			visibility: hidden;
 			width: 90%;
@@ -1586,10 +1586,11 @@
 						border-right: none;
 					}
 					.addFilterButton {
-						background-color: var(--appColorPrimary);
-						border: 2px solid var(--appColorPrimary);
+						background-color: var(--appBGColor);
+						border: none;
 						border-radius: 10px;
-						color: var(--appBGColor);
+						box-shadow: var(--neu-sm-i-BGColor-shadow);
+						color: black;
 						cursor: pointer;
 						padding: 5px;
 						font-size: 1rem;
@@ -1600,31 +1601,33 @@
 						display: flex;
 						flex-wrap: wrap;
 						justify-content: center;
-						margin-top: 5px;
+						margin-top: 10px;
 						.rmFilterButton {
-							background: var(--appColorPrimary);
-							border: 2px solid var(--appColorPrimary);
+							background: var(--appBGColor);
+							border: none;
 							border-radius: 30px;
-							color: var(--appBGColor);
+							box-shadow: var(--neu-sm-i-BGColor-shadow);
+							color: black;
 							cursor: pointer;
 							font-size: 0.7rem;
 							flex-grow: 0;
 							flex-shrink: 0;
-							margin: 2px 5px;
+							margin: 5px 5px;
 							max-width: 125px;
 							outline: none;
 							overflow: hidden;
-							padding: 2px;
+							padding: 4px;
 							text-overflow: ellipsis;
+							transition: all 0.2s;
 							white-space: nowrap;
 							&:before {
-								background-color: var(--appBGColor);
+								background-color: var(--appDelColor);
 								border-radius: 50%;
-								color: var(--appColorPrimary);
+								color: var(--appBGColor);
 								content: '—';
 								font-weight: bold;
 								font-size: 0.6rem;
-								margin-right: 3px;
+								margin-right: 2px;
 								text-align: center;
 							}
 							&.exclude {
@@ -1647,7 +1650,12 @@
 			}
 			:global(#timeSlider) {
 				:global(.rangeBar) {
-					background-color: var(--appColorPrimary);
+					background-color: var(--appColorPriDark);
+				}
+				:global(.rangeHandle) {
+					:global(.rangeNub) {
+						background-color: black;
+					}
 				}
 			}
 		}
@@ -2573,8 +2581,24 @@
 				}
 			}
 			.filterContainer {
-				left: 52.5%;
+				transform: translate(-47%, 0);
 				width: 70%;
+				.primaryFilters {
+					.filterArea {
+						.filterItems {
+							.rmFilterButton {
+								&:hover {
+									background-color: var(--appDelColor);
+									color: var(--appBGColor);
+									&:before {
+										background-color: var(--appBGColor);
+										color: var(--appDelColor);
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			.compListTabs {
 				padding: 0px 30px;
