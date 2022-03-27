@@ -995,14 +995,6 @@
 				on:toggleEvent={handleShowHiddenChange}
 			/>
 		</div>
-		<div class="sortArea">
-			<span class="selectText sortText">Sort by:</span>
-			<select class="compsSelect sortSelect" value={curSort} bind:this={sortSelectEl} on:change={() => handleSortChange(sortSelectEl)}>
-				{#each sortOptions as option}
-					<option value={option}>{option}</option>
-				{/each}
-			</select>
-		</div>
 		<div class="compListTabs">
 			<button type="button" class="tabButton viewCompsButton" on:click={handleViewCompsClick} class:open={curView === 'compList'}>
 				<img class="viewCompsImage" src="./img/utility/comps_white.png" alt="Comps">
@@ -1012,6 +1004,14 @@
 				<img class="viewGroupsImage" src="./img/utility/groups_white.png" alt="Groups">
 				<span>Groups</span>
 			</button>
+			<div class="sortArea">
+				<span class="selectText sortText">Sort by:</span>
+				<select class="compsSelect sortSelect" value={curSort} bind:this={sortSelectEl} on:change={() => handleSortChange(sortSelectEl)}>
+					{#each sortOptions as option}
+						<option value={option}>{option}</option>
+					{/each}
+				</select>
+			</div>
 		</div>
 		{#if curView === 'compList'}
 			<div class="compGridArea">
@@ -1682,6 +1682,7 @@
 		.compListTabs {
 			display: flex;
 			padding: 0px 5px 10px 5px;
+			position: relative;
 			width: 100%;
 			.tabButton {
 				align-items: center;
@@ -1715,6 +1716,12 @@
 			}
 			.viewGroupsButton {
 				margin-left: auto;
+			}
+			.sortArea {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
 			}
 		}
 		.compGridArea {
@@ -2604,6 +2611,13 @@
 				padding: 0px 30px;
 				.viewGroupsButton {
 					margin-left: 30px;
+				}
+				.sortArea {
+					bottom: 0px;
+					left: auto;
+					right: 20px;
+					top: auto;
+					transform: translate(0%, 0%);
 				}
 			}
 			.compGridArea {
