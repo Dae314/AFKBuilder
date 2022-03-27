@@ -943,6 +943,14 @@
 			</div>
 		</div>
 		<div class="filterContainer" class:open={showFilters}>
+			<div class="hiddenToggleArea">
+				<span>Show Hidden</span>
+				<ToggleSwitch
+					size="small"
+					bind:state={$AppData.compShowHidden}
+					on:toggleEvent={handleShowHiddenChange}
+				/>
+			</div>
 			<div class="primaryFilters">
 				<div class="filterArea">
 					<button type="button" class="addFilterButton addTagButton" on:click={() => handleAddFilterButtonClick('tag')}>Add Tags</button>
@@ -986,14 +994,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="hiddenToggleArea">
-			<span>Show Hidden</span>
-			<ToggleSwitch
-				size="small"
-				bind:state={$AppData.compShowHidden}
-				on:toggleEvent={handleShowHiddenChange}
-			/>
 		</div>
 		<div class="compListTabs">
 			<button type="button" class="tabButton viewCompsButton" on:click={handleViewCompsClick} class:open={curView === 'compList'}>
@@ -1574,6 +1574,16 @@
 				opacity: 1;
 				visibility: visible;
 			}
+			.hiddenToggleArea {
+				align-items: center;
+				display: flex;
+				justify-content: flex-end;
+				padding: 0px 10px 10px 0px;
+				width: 100%;
+				span {
+					font-size: 0.9rem;
+				}
+			}
 			.primaryFilters {
 				display: flex;
 				.filterArea {
@@ -1659,17 +1669,8 @@
 				}
 			}
 		}
-		.hiddenToggleArea {
-			align-items: center;
-			display: flex;
-			justify-content: flex-end;
-			padding: 3px 10px 0px 0px;
-			width: 100%;
-			span {
-				font-size: 0.9rem;
-			}
-		}
 		.sortArea {
+			font-size: 0.9rem;
 			margin-left: auto;
 			padding-right: 10px;
 			.compsSelect {
@@ -1681,7 +1682,7 @@
 		}
 		.compListTabs {
 			display: flex;
-			padding: 0px 5px 10px 5px;
+			padding: 20px 5px 10px 5px;
 			position: relative;
 			width: 100%;
 			.tabButton {
@@ -1720,8 +1721,8 @@
 			.sortArea {
 				position: absolute;
 				left: 50%;
-				top: 50%;
-				transform: translate(-50%, -50%);
+				bottom: 8px;
+				transform: translate(-50%, 0%);
 			}
 		}
 		.compGridArea {
@@ -2608,7 +2609,7 @@
 				}
 			}
 			.compListTabs {
-				padding: 0px 30px;
+				padding: 20px 30px 0px 30px;
 				.viewGroupsButton {
 					margin-left: 30px;
 				}
