@@ -35,6 +35,7 @@ html {
 	*/
 	--neu-convex-BGLight-bg: linear-gradient(145deg, #ffffff, #ebebeb);
 	--neu-convex-BGColor-bg: linear-gradient(145deg, #ffffff, #d8d8da);
+	--neu-convex-BGColor-wide-bg: linear-gradient(160deg, #ffffff, #d8d8da);
 	--neu-concave-BGColor-bg: linear-gradient(145deg, #d8d8da, #ffffff);
 	--neu-large-ni-BGColor-shadow: 8px 8px 20px #ccccce, 8px -8px 20px #ffffff;
 	--neu-med-i-BGLight-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff;

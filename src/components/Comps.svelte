@@ -2037,17 +2037,20 @@
 		.viewExploreContainer {
 			display: flex;
 			justify-content: center;
+			margin-top: 10px;
 			padding-bottom: 10px;
 			width: 100%;
 			.viewExploreButton {
-				background-color: var(--appColorPrimary);
-				border: 2px solid var(--appColorPrimary);
-				border-radius: 7px;
-				color: var(--appBGColor);
+				background-color: var(--appBGColor);
+				border: none;
+				border-radius: 10px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				color: var(--appColorPrimary);
 				cursor: pointer;
+				font-weight: bold;
 				display: none;
 				outline: none;
-				padding: 5px;
+				padding: 10px;
 				text-align: center;
 				&.visible {
 					display: block;
@@ -2055,6 +2058,8 @@
 			}
 		}
 		.compDetailBody {
+			border-top: 1px solid rgba(0, 0, 0, 0.25);
+			margin-top: 5px;
 			padding-top: 10px;
 			.lastUpdate {
 				display: flex;
@@ -2699,6 +2704,13 @@
 						img {
 							max-width: 12px;
 						}
+					}
+				}
+			}
+			.viewExploreContainer {
+				.viewExploreButton {
+					&:hover {
+						background: var(--neu-convex-BGColor-wide-bg);
 					}
 				}
 			}
