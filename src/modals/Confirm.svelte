@@ -60,7 +60,8 @@
 			box-shadow: var(--neu-sm-i-BGColor-shadow);
 			color: black;
 			cursor: pointer;
-			font-size: 1rem;
+			font-size: 0.9rem;
+			font-weight: bold;
 			outline: none;
 			padding: 5px;
 			transition: all 0.2s;
