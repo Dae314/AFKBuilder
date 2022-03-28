@@ -1824,7 +1824,7 @@
 			position: relative;
 			width: 100%;
 			.closeButtonContainer {
-				width: 25%;
+				position: absolute;
 				.closeDetailButton {
 					align-items: center;
 					background-color: transparent;
@@ -1855,7 +1855,7 @@
 				flex-direction: column;
 				overflow: hidden;
 				justify-content: center;
-				width: 50%;
+				width: 100%;
 				.compTitle {
 					display: inline-block;
 					font-size: 1.5rem;
@@ -1889,6 +1889,8 @@
 				justify-content: center;
 				margin-left: auto;
 				padding: 0;
+				position: absolute;
+				right: 0px;
 				transition: all 0.2s;
 				width: 40px;
 				.filledCircle {
@@ -2663,8 +2665,6 @@
 			}
 			.compDetailHead {
 				.closeButtonContainer {
-					visibility: hidden;
-					width: 25%;
 					.closeDetailButton {
 						&:hover {
 							background-color: var(--appColorPrimary);
@@ -2674,9 +2674,6 @@
 							}
 						}
 					}
-				}
-				.titleContainer {
-					width: 50%;
 				}
 				.editContainer {
 					align-items: flex-end;
