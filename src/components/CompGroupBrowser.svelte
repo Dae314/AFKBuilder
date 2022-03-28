@@ -209,8 +209,8 @@
 			position: relative;
 			.delArea {
 				position: absolute;
-				right: 3px;
-				top: 3px;
+				right: 5px;
+				top: 5px;
 			}
 			.groupBody {
 				align-items: center;

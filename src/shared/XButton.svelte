@@ -17,11 +17,11 @@
 <style lang="scss">
 	.xButton{
 		align-items: center;
-		color: white;
+		color: var(--appDelColor);
 		cursor: pointer;
 		display: flex;
 		justify-content: center;
-		background: var(--appDelColor);
+		background: var(--appBGColor);
 		border-radius: 50%;
 		flex-grow: 0;
 		flex-shrink: 0;
@@ -34,7 +34,8 @@
 		content: "×";
 	}
 	.xButton.large {
-		border: 2px solid var(--appDelColor);
+		border: none;
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		font-size: 1.3rem;
 		height: 25px;
 		line-height: 1.3rem;
@@ -43,7 +44,8 @@
 		width: 25px;
 	}
 	.xButton.med {
-		border: 2px solid var(--appDelColor);
+		border: none;
+		box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
 		font-size: 0.8rem;
 		height: 18px;
 		line-height: 0.8rem;
@@ -51,7 +53,8 @@
 		width: 18px;
 	}
 	.xButton.small {
-		border: 1px solid var(--appDelColor);
+		border: none;
+		box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
 		font-size: 0.4rem;
 		height: 10px;
 		line-height: 0.4rem;
