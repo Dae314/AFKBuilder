@@ -700,7 +700,7 @@
 			<button type="button" class="inOutButton" on:click={handleImportData}><img src="./img/utility/import_white.png" alt="import"></button>
 			<div class="tooltip tooltip-inOutButton2"><span class="tooltipText">Import Data</span></div>
 		</div>
-		<button type="button" class="inOutMenuButton" on:click={(e) => {openInOutMenu = !openInOutMenu; e.stopPropagation();}}><img src="./img/utility/export_import_white.png" alt="Import/Export"></button>
+		<button type="button" class="inOutMenuButton" on:click={(e) => {openInOutMenu = !openInOutMenu; e.stopPropagation();}}><img src="./img/utility/import_export_white.png" alt="Import/Export"></button>
 	</section>
 	<section class="sect4">
 		<div class="copyConfirm" class:visible={copyConfirmVisible}><span>My Hero Data Copied to Clipboard</span></div>
@@ -1091,7 +1091,7 @@
 		transition: transform 0.3s ease-out;
 		width: 50px;
 		img {
-			max-width: 40px;
+			max-width: 25px;
 		}
 	}
 	.inOutMenu.open {
