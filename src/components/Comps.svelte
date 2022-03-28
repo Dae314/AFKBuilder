@@ -1873,8 +1873,9 @@
 			}
 			.editMenuButton {
 				align-items: center;
-				border: 3px solid var(--appColorPrimary);
+				border: none;
 				border-radius: 10px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
 				color: var(--appColorPrimary);
 				cursor: pointer;
 				display: flex;
@@ -1899,10 +1900,7 @@
 					width: 5px;
 				}
 				&.open {
-					background-color: var(--appColorPrimary);
-					.filledCircle {
-						background-color: var(--appBGColor);
-					}
+					background: var(--neu-concave-BGColor-bg);
 				}
 			}
 			.editContainer {
@@ -1910,7 +1908,7 @@
 				background-color: var(--appBGColor);
 				border-radius: 10px;
 				border-top-right-radius: 0px;
-				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+				box-shadow: var(--neu-med-i-BGColor-shadow);
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
@@ -1921,6 +1919,7 @@
 				bottom: -315px;
 				visibility: hidden;
 				transition: all 0.2s;
+				z-index: 1;
 				&:after {
 					content: " ";
 					position: absolute;
@@ -2663,6 +2662,14 @@
 						&:hover {
 							background: var(--neu-convex-BGColor-bg);
 						}
+					}
+				}
+				.editMenuButton {
+					&:hover {
+						background: var(--neu-convex-BGColor-bg);
+					}
+					&.open {
+						background: var(--neu-concave-BGColor-bg);
 					}
 				}
 				.editContainer {
