@@ -1062,7 +1062,7 @@
 				<div class="compDetailHead">
 					<div class="closeButtonContainer">
 						<button type="button" class="detailButton closeDetailButton" on:click={handleCloseButtonClick}>
-							<img class="closeImage" draggable="false" src="./img/utility/back_white.png" alt="Back">
+							<img class="closeImage" draggable="false" src="./img/utility/back_color.png" alt="Back">
 						</button>
 					</div>
 					<div class="titleContainer">
@@ -1830,18 +1830,16 @@
 				.closeDetailButton {
 					align-items: center;
 					background-color: transparent;
-					border: 3px solid var(--appColorPrimary);
-					border-radius: 5px;
-					color: var(--appColorPrimary);
+					border: none;
+					border-radius: 10px;
+					box-shadow: var(--neu-sm-i-BGColor-shadow);
 					cursor: pointer;
 					display: flex;
-					font-size: 1.0rem;
+					height: 40px;
 					justify-content: center;
-					margin: 5px 10px;
-					padding: 3px;
+					width: 40px;
 					.closeImage {
-						max-width: 25px;
-						filter: invert(1);
+						max-width: 20px;
 					}
 				}
 			}
@@ -2663,11 +2661,7 @@
 				.closeButtonContainer {
 					.closeDetailButton {
 						&:hover {
-							background-color: var(--appColorPrimary);
-							color: white;
-							.arrow {
-								border-color: white;
-							}
+							background: var(--neu-convex-BGColor-bg);
 						}
 					}
 				}
