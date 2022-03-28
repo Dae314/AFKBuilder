@@ -1674,7 +1674,7 @@
 			margin-left: auto;
 			padding-right: 10px;
 			.compsSelect {
-				border: 1px solid var(--appColorPrimary);
+				border: 1px solid black;
 				border-radius: 5px;
 				outline: none;
 				padding: 3px;
