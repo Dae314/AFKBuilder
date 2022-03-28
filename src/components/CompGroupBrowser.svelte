@@ -39,7 +39,7 @@
 				break;
 			case 'comps':
 				groupList.sort((a, b) => {
-					return a.comps.length > b.comps.length ? 1 : -1;
+					return a.comps.length > b.comps.length ? -1 : 1;
 				});
 				break;
 			default:
