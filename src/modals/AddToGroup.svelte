@@ -92,7 +92,7 @@
 	}
 	.compGrid {
 		display: grid;
-		grid-gap: 5px 5px;
+		grid-gap: 15px 15px;
 		grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
 		grid-auto-rows: 100px;
 		list-style-type: none;
@@ -106,8 +106,9 @@
 	.optionButton {
 		display: flex;
 		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
+		border: none;
 		border-radius: 10px;
+		box-shadow: var(--neu-med-i-BGColor-shadow);
 		cursor: pointer;
 		flex-direction: column;
 		outline: none;
@@ -136,6 +137,7 @@
 		}
 		&.claimed {
 			background-color: var(--appColorPrimary);
+			box-shadow: var(--neu-med-i-BGColor-pressed-shadow);
 			color: var(--appBGColor);
 		}
 	}
@@ -143,20 +145,20 @@
 		align-items: center;
 		display: flex;
 		justify-content: flex-end;
-		padding-top: 10px;
+		padding-top: 20px;
 		.footerButton {
-			background-color: var(--appColorPrimary);
-			border: 2px solid var(--appColorPrimary);
+			background-color: var(--appBGColor);
+			border: none;
 			border-radius: 10px;
-			color: var(--appBGColor);
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			color: var(--appColorPrimary);
 			cursor: pointer;
 			font-size: 0.9rem;
 			font-weight: bold;
-			margin: 0px 5px;
+			margin: 0px 8px;
 			padding: 5px;
 			&.cancel {
-				background-color: var(--appColorDisabled);
-				border-color: var(--appColorDisabled);
+				color: black;
 				margin-right: 0;
 			}
 		}
