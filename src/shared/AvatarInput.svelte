@@ -42,7 +42,7 @@
 			<LoadingSpinner type="dual-ring" size="small" color="{window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')}" />
 		{:else}
 			<button type="button" class="pencilButton" on:click={openAvatarPicker} disabled={!editable}>
-				<img src="./img/utility/pencil.png" alt="edit avatar">
+				<img src="./img/utility/pencil_white.png" alt="edit avatar">
 			</button>
 		{/if}
 	</span>

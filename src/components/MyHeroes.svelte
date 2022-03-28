@@ -695,12 +695,12 @@
 	</section>
 	<section class="sect3">
 		<div class="inOutMenu {openInOutMenu ? 'open' : ''}">
-			<button type="button" class="inOutButton" on:click={handleExportData}><img src="./img/utility/export.png" alt="export"></button>
+			<button type="button" class="inOutButton" on:click={handleExportData}><img src="./img/utility/export_white.png" alt="export"></button>
 			<div class="tooltip tooltip-inOutButton1"><span class="tooltipText">Export Data</span></div>
-			<button type="button" class="inOutButton" on:click={handleImportData}><img src="./img/utility/import.png" alt="import"></button>
+			<button type="button" class="inOutButton" on:click={handleImportData}><img src="./img/utility/import_white.png" alt="import"></button>
 			<div class="tooltip tooltip-inOutButton2"><span class="tooltipText">Import Data</span></div>
 		</div>
-		<button type="button" class="inOutMenuButton" on:click={(e) => {openInOutMenu = !openInOutMenu; e.stopPropagation();}}><img src="./img/utility/export_import.png" alt="Import/Export"></button>
+		<button type="button" class="inOutMenuButton" on:click={(e) => {openInOutMenu = !openInOutMenu; e.stopPropagation();}}><img src="./img/utility/export_import_white.png" alt="Import/Export"></button>
 	</section>
 	<section class="sect4">
 		<div class="copyConfirm" class:visible={copyConfirmVisible}><span>My Hero Data Copied to Clipboard</span></div>

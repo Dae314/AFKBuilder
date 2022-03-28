@@ -1031,7 +1031,7 @@
 							</button>
 							<button type="button" class="newCompButton import" on:click={handleImportButtonClick}>
 								<div class="imgContainer">
-									<img draggable="false" class="importButtonIcon" src="./img/utility/import.png" alt="Import">
+									<img draggable="false" class="importButtonIcon" src="./img/utility/import_white.png" alt="Import">
 								</div>
 								<span>Import</span>
 							</button>
@@ -1061,7 +1061,9 @@
 			{#if openComp}
 				<div class="compDetailHead">
 					<div class="closeButtonContainer">
-						<button type="button" class="detailButton closeDetailButton" on:click={handleCloseButtonClick}><i class="arrow left"></i>Close</button>
+						<button type="button" class="detailButton closeDetailButton" on:click={handleCloseButtonClick}>
+							<img class="closeImage" draggable="false" src="./img/utility/back_white.png" alt="Back">
+						</button>
 					</div>
 					<div class="titleContainer">
 						<h3 class="compTitle">{openComp.name}</h3>
@@ -1078,7 +1080,7 @@
 							class="editDelButton editButton"
 							disabled={openComp.source !== 'local'}
 							on:click={() => handleEditButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src="./img/utility/pencil.png" alt="Edit">
+							<img draggable="false" src="./img/utility/pencil_white.png" alt="Edit">
 							<span>Edit</span>
 						</button>
 						<button
@@ -1094,7 +1096,7 @@
 							type="button"
 							class="editDelButton exportButton"
 							on:click={() => handleExportButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src="./img/utility/export.png" alt="Export">
+							<img draggable="false" src="./img/utility/export_white.png" alt="Export">
 							<span>Export</span>
 						</button>
 						<button
@@ -1837,15 +1839,9 @@
 					justify-content: center;
 					margin: 5px 10px;
 					padding: 3px;
-					.arrow {
-						border: solid var(--appColorPrimary);
-						border-width: 0 3px 3px 0;
-						display: inline-block;
-						margin: 0px 5px;
-						padding: 3px;
-						&.left {
-							transform: rotate(135deg);
-						}
+					.closeImage {
+						max-width: 25px;
+						filter: invert(1);
 					}
 				}
 			}

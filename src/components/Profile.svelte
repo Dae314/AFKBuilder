@@ -225,7 +225,7 @@
 								<LoadingSpinner type="dual-ring" size="small" color="{window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')}" />
 							{:else}
 								<button class="usernameEditButton" on:click={handleUsernameEditClick}>
-									<img src="./img/utility/pencil.png" alt="edit username">
+									<img src="./img/utility/pencil_white.png" alt="edit username">
 								</button>
 							{/if}
 						</span>
