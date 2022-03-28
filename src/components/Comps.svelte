@@ -903,7 +903,9 @@
 			case 'groupNav':
 				let newQS = new URLSearchParams($querystring);
 				const groupUUID = event.detail.data;
-				if(groupUUID !== defaultGroup) {
+				if(groupUUID === 'ALLCOMPS') {
+					newQS.delete('group');
+				} else if(groupUUID !== defaultGroup) {
 					newQS.set('group', encodeURIComponent(groupUUID));
 				} else {
 					newQS.delete('group');

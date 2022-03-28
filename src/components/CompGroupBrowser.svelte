@@ -99,6 +99,16 @@
 				<span class="buttonText">New Group</span>
 			</button>
 		</li>
+		<li class="allComps">
+			<button type="button" class="groupButton allCompsButton" on:click={() => handleGroupClick({uuid: 'ALLCOMPS'})}>
+				<div class="groupBody">
+					<div class="groupName">
+						All Comps
+					</div>
+					<span class="count">{$AppData.Comps.length}</span>
+				</div>
+			</button>
+		</li>
 		{#each groupList as group}
 			<button type="button" class="groupButton" on:click={() => handleGroupClick(group)}>
 				<div class="delArea">
@@ -227,6 +237,10 @@
 					font-weight: bold;
 					padding-top: 10px;
 				}
+			}
+			&.allCompsButton {
+				height: 100%;
+				width: 100%;
 			}
 		}
 	}
