@@ -238,8 +238,9 @@
 						}
 					}
 					.groupListArea {
-						background-color: var(--appBGColorDark);
+						background-color: var(--appBGColor);
 						border-radius: 5px;
+						box-shadow: var(--neu-sm-ni-BGColor-shadow);
 						opacity: 0;
 						position: absolute;
 						visibility: hidden;
@@ -270,21 +271,22 @@
 							padding: 3px;
 							list-style-type: none;
 							.groupButton {
-								border: 2px solid var(--appColorPrimary);
+								border: none;
 								border-radius: 3px;
-								background-color: transparent;
-								color: var(--appColorPrimary);
+								background-color: var(--appBGColor);
+								box-shadow: var(--neu-sm-ni-BGColor-shadow);
 								cursor: pointer;
 								outline: none;
 								overflow: hidden;
 								padding: 3px;
-								margin: 3px 0px;
+								margin: 5px 0px;
 								max-width: 75px;
 								text-overflow: ellipsis;
 								user-select: none;
 								white-space: nowrap;
 								&.claimed {
-									background-color: var(--appColorPrimary);
+									background: var(--appColorPrimary);
+									box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
 									color: var(--appBGColor);
 								}
 							}

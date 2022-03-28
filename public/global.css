@@ -35,12 +35,14 @@ html {
 	*/
 	--neu-convex-BGLight-bg: linear-gradient(145deg, #ffffff, #ebebeb);
 	--neu-convex-BGColor-bg: linear-gradient(145deg, #ffffff, #d8d8da);
+	--neu-concave-BGColor-bg: linear-gradient(145deg, #d8d8da, #ffffff);
 	--neu-large-ni-BGColor-shadow: 8px 8px 20px #ccccce, 8px -8px 20px #ffffff;
 	--neu-med-i-BGLight-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff;
 	--neu-med-i-BGLight-hover-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
 	--neu-med-i-BGColor-shadow: 5px 5px 8px #ccccce, -5px -5px 8px #ffffff;
 	--neu-med-i-BGColor-hover-shadow: 8px 8px 16px #ccccce, -8px -8px 16px #ffffff;
 	--neu-sm-i-BGColor-shadow: 5px 5px 5px #ccccce, -5px -5px 5px #ffffff;
+	--neu-sm-i-BGColor-pressed-shadow: 3px 3px 3px #ccccce, -3px -3px 3px #ffffff;;
 	--neu-sm-ni-BGColor-shadow: 5px 5px 5px #ccccce, -5px -5px 5px #ffffff;
 	
 
