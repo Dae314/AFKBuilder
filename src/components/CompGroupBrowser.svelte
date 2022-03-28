@@ -85,12 +85,14 @@
 
 <div class="groupBrowserContainer">
 	<div class="sortArea">
-		<span class="selectText sortText">Sort by:</span>
-		<select class="groupSelect sortSelect" value={curSort} bind:this={sortSelectEl} on:change={() => handleSortChange(sortSelectEl)}>
-			{#each sortOptions as option}
-				<option value={option}>{option}</option>
-			{/each}
-		</select>
+		<div class="sortElements">
+			<span class="selectText sortText">Sort by:</span>
+			<select class="groupSelect sortSelect" value={curSort} bind:this={sortSelectEl} on:change={() => handleSortChange(sortSelectEl)}>
+				{#each sortOptions as option}
+					<option value={option}>{option}</option>
+				{/each}
+			</select>
+		</div>
 	</div>
 	<ul class="groupGrid">
 		<li class="newGroup">
@@ -139,16 +141,22 @@
 		width: 100%;
 	}
 	.sortArea {
-		display: flex;
-		justify-content: flex-end;
-		.selectText {
-			margin-right: 5px;
-		}
-		.groupSelect {
-			border: 1px solid var(--appColorPrimary);
-			border-radius: 5px;
-			outline: none;
-			padding: 3px;
+		position: relative;
+		width: 100%;
+		.sortElements {
+			position: absolute;
+			left: 50%;
+			top: -32px;
+			transform: translate(-50%, 0%);
+			.selectText {
+				font-size: 0.9rem;
+			}
+			.groupSelect {
+				border: 1px solid black;
+				border-radius: 5px;
+				outline: none;
+				padding: 3px;
+			}
 		}
 	}
 	.groupGrid {
@@ -245,6 +253,16 @@
 		}
 	}
 	@media only screen and (min-width: 767px) {
+		.sortArea {
+			display: flex;
+			justify-content: flex-end;
+			.sortElements {
+				left: auto;
+				right: 15px;
+				top: -23px;
+				transform: none;
+			}
+		}
 		.groupGrid {
 			margin: 10px 15px;
 			.newGroupButton {

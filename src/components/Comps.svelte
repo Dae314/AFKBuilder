@@ -1006,7 +1006,7 @@
 				<img class="viewGroupsImage" src="./img/utility/groups_white.png" alt="Groups">
 				<span>Groups</span>
 			</button>
-			<div class="sortArea">
+			<div class="sortArea" class:hidden={curView === 'groups'}>
 				<span class="selectText sortText">Sort by:</span>
 				<select class="compsSelect sortSelect" value={curSort} bind:this={sortSelectEl} on:change={() => handleSortChange(sortSelectEl)}>
 					{#each sortOptions as option}
@@ -1680,6 +1680,9 @@
 				border-radius: 5px;
 				outline: none;
 				padding: 3px;
+			}
+			&.hidden {
+				display: none;
 			}
 		}
 		.compListTabs {
