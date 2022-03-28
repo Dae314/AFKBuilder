@@ -34,6 +34,7 @@ html {
 		intensity: 0.15
 	*/
 	--neu-convex-BGLight-bg: linear-gradient(145deg, #ffffff, #ebebeb);
+	--neu-convex-BGColor-bg: linear-gradient(145deg, #ffffff, #d8d8da);
 	--neu-large-ni-BGColor-shadow: 8px 8px 20px #ccccce, 8px -8px 20px #ffffff;
 	--neu-med-i-BGLight-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff;
 	--neu-med-i-BGLight-hover-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;

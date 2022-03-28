@@ -230,7 +230,7 @@
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
-				 styleWindow: { width: 'fit-content', },
+				 styleWindow: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px', },
 				 styleContent: { width: 'fit-content', },
 				});
 	}
@@ -331,7 +331,7 @@
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
 				 styleWindow: { width: 'fit-content', },
-				 styleContent: { width: 'fit-content', },
+				 styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px',},
 				});
 	}
 
