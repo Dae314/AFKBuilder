@@ -189,8 +189,10 @@
 					align-items: center;
 					display: flex;
 					flex-direction: column;
+					height: 20px;
 					justify-content: center;
 					position: relative;
+					width: 20px;
 				}
 				.cardDeleteButton {
 					background-color: transparent;
@@ -401,12 +403,12 @@
 			justify-content: center;
 			position: absolute;
 			text-align: center;
-			left: -32px;
+			left: -29px;
 			width: 80px;
 			.tooltipText {
-				background-color: var(--appColorPrimary);
+				background-color: var(--appBGColor);
 				border-radius: 6px;
-				color: white;
+				box-shadow: var(--neu-sm-ni-BGColor-shadow);
 				font-size: 0.8rem;
 				opacity: 0;
 				padding: 4px;
