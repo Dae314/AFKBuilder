@@ -235,6 +235,7 @@
 			margin: 10px 15px;
 			.newGroupButton {
 				&:hover {
+					background-color: var(--appColorPriAccent);
 					.plusIcon {
 						transform: rotateZ(180deg);
 					}
