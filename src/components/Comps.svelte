@@ -1107,7 +1107,6 @@
 							<img draggable="false" src={openComp.hidden ? './img/utility/view_white.png' : './img/utility/hidden_white.png'} alt={openComp.hidden ? 'Unhide' : 'Hide'}>
 							<span>{openComp.hidden ? 'Unhide' : 'Hide'}</span>
 						</button>
-						<!-- eye icons by https://uxwing.com/ -->
 						<button
 							type="button"
 							class="editDelButton copyButton"
@@ -1129,6 +1128,11 @@
 				</div>
 				<div class="iconsArea">
 					<ul class="iconList">
+						{#if $AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
+						<li>
+							<img class="iconAreaImage" src="./img/utility/explore_white.png" alt="Published">
+						</li>
+						{/if}
 						{#if openComp.hidden}
 						<li>
 							<img class="iconAreaImage" src="./img/utility/hidden_white.png" alt="Hidden">
