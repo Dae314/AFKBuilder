@@ -1981,15 +1981,11 @@
 				}
 			}
 		}
-		.tagsArea {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-		}
 		.iconsArea {
 			align-items: center;
 			display: flex;
 			justify-content: center;
+			margin-bottom: 10px;
 			padding-top: 3px;
 			width: 100%;
 			.iconList {
@@ -2004,6 +2000,37 @@
 				img {
 					max-width: 20px;
 					filter: invert(1.0);
+				}
+			}
+		}
+		.tagsArea {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			.tagDisplay {
+				align-items: center;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				justify-content: center;
+				margin-bottom: 5px;
+				width: 100%;
+				.tag {
+					position: relative;
+					margin: 0px 8px;
+					margin-bottom: 10px;
+				}
+				.tagText {
+					border: none;
+					border-radius: 15px;
+					display: inline-block;
+					background-color: var(--appBGColor);
+					box-shadow: var(--neu-sm-ni-BGColor-shadow);
+					font-size: 0.8rem;
+					padding: 0px 8px;
+					padding-bottom: 2px;
+					text-align: center;
+					user-select: none;
 				}
 			}
 		}
@@ -2025,32 +2052,6 @@
 				&.visible {
 					display: block;
 				}
-			}
-		}
-		.tagDisplay {
-			align-items: center;
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			justify-content: center;
-			margin-bottom: 5px;
-			width: 100%;
-			.tag {
-				position: relative;
-				margin: 0px 5px;
-				margin-bottom: 5px;
-			}
-			.tagText {
-				border: 1px solid var(--appColorPrimary);
-				border-radius: 15px;
-				display: inline-block;
-				background-color: var(--appColorPrimary);
-				color: white;
-				font-size: 0.8rem;
-				padding: 0px 5px;
-				padding-bottom: 4px;
-				text-align: center;
-				user-select: none;
 			}
 		}
 		.compDetailBody {
