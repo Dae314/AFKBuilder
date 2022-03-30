@@ -12,6 +12,7 @@
 	import qs from 'qs';
 	import CompCard from './CompCard.svelte';
 	import CompGroupBrowser from './CompGroupBrowser.svelte';
+	import CompLineEditor from './CompLineEditor.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
@@ -919,6 +920,16 @@
 		}
 	}
 
+	async function handleLineEvent(event) {
+		switch(event.detail.action) {
+			case 'heroClick':
+				await handleHeroClick(event.detail.data);
+				break;
+			default:
+				throw new Error(`Invalid action specified on compLineEvent: ${action}`);
+		}
+	}
+
 	function resetOpenComp() {
 		let newQS = new URLSearchParams($querystring);
 		if(newQS.has('view')) newQS.delete('view');
@@ -1168,124 +1179,12 @@
 						<span title="{openComp.lastUpdate.toLocaleString()}">Updated {msToString(now - openComp.lastUpdate.getTime())}</span>
 					</div>
 					<div class="bodyArea1">
-						<div class="lineExamples">
-							<div class="lineSwitcher">
-								{#each openComp.lines as line, i}
-								<button type="button" class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}>{line.name}</button>
-								{/each}
-							</div>
-							<div class="lineDisplay">
-								{#if openComp.lines.length > 0}
-									<div class="lineTitle"><span>{openComp.lines[selectedLine].name}</span></div>
-								{/if}
-								<div class="lineMembers">
-									<div class="detailBackline">
-										{#if openComp.lines.length > 0}
-											{#each openComp.lines[selectedLine].heroes as hero, i}
-												{#if i >= 2}
-													{#if $HeroData.some(e => e.id === hero)}
-														<div class="detailImgContainer">
-															<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
-															<span class="coreMark" class:visible={openComp.heroes[hero].core}></span>
-															<div class="ascMark">
-																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																	{#if openComp.heroes[hero].ascendLv >= 6}
-																		<img src="./img/markers/ascended.png" alt="ascended">
-																	{:else if openComp.heroes[hero].ascendLv >= 4}
-																		<img src="./img/markers/mythic.png" alt="mythic">
-																	{:else if openComp.heroes[hero].ascendLv >= 2}
-																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else}
-																		<img src="./img/markers/elite.png" alt="elite">
-																	{/if}
-																{:else}
-																	{#if openComp.heroes[hero].ascendLv >= 4}
-																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else if openComp.heroes[hero].ascendLv >= 2}
-																		<img src="./img/markers/elite.png" alt="elite">
-																	{:else}
-																		<img src="./img/markers/rare.png" alt="rare">
-																	{/if}
-																{/if}
-																{#if openComp.heroes[hero].si >= 30}
-																	<img src="./img/markers/si30.png" alt="si30">
-																{:else if openComp.heroes[hero].si >= 20}
-																	<img src="./img/markers/si20.png" alt="si20">
-																{:else if openComp.heroes[hero].si >= 10}
-																	<img src="./img/markers/si10.png" alt="si10">
-																{:else}
-																	<img src="./img/markers/si0.png" alt="si0">
-																{/if}
-																{#if openComp.heroes[hero].furn >= 9}
-																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																{:else if openComp.heroes[hero].furn >= 3}
-																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-																{/if}
-															</div>
-														</div>
-														<button type="button" class="heroNameButton"><span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span></button>
-													{:else}
-														<i class="emptyLineSlot"></i>
-													{/if}
-												{/if}
-											{/each}
-										{/if}
-									</div>
-									<div class="detailFrontline">
-										{#if openComp.lines.length > 0}
-											{#each openComp.lines[selectedLine].heroes as hero, i}
-												{#if i < 2}
-													{#if $HeroData.some(e => e.id === hero)}
-														<div class="detailImgContainer">
-															<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
-															<span class="coreMark" class:visible={openComp.heroes[hero].core}></span>
-															<div class="ascMark">
-																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																	{#if openComp.heroes[hero].ascendLv >= 6}
-																		<img src="./img/markers/ascended.png" alt="ascended">
-																	{:else if openComp.heroes[hero].ascendLv >= 4}
-																		<img src="./img/markers/mythic.png" alt="mythic">
-																	{:else if openComp.heroes[hero].ascendLv >= 2}
-																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else}
-																		<img src="./img/markers/elite.png" alt="elite">
-																	{/if}
-																{:else}
-																	{#if openComp.heroes[hero].ascendLv >= 4}
-																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else if openComp.heroes[hero].ascendLv >= 2}
-																		<img src="./img/markers/elite.png" alt="elite">
-																	{:else}
-																		<img src="./img/markers/rare.png" alt="rare">
-																	{/if}
-																{/if}
-																{#if openComp.heroes[hero].si >= 30}
-																	<img src="./img/markers/si30.png" alt="si30">
-																{:else if openComp.heroes[hero].si >= 20}
-																	<img src="./img/markers/si20.png" alt="si20">
-																{:else if openComp.heroes[hero].si >= 10}
-																	<img src="./img/markers/si10.png" alt="si10">
-																{:else}
-																	<img src="./img/markers/si0.png" alt="si0">
-																{/if}
-																{#if openComp.heroes[hero].furn >= 9}
-																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																{:else if openComp.heroes[hero].furn >= 3}
-																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-																{/if}
-															</div>
-														</div>
-														<button type="button" class="heroNameButton"><span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span></button>
-													{:else}
-														<i class="emptyLineSlot"></i>
-													{/if}
-												{/if}
-											{/each}
-										{/if}
-									</div>
-								</div>
-							</div>
-						</div>
+						<CompLineEditor
+							lines={openComp.lines}
+							compHeroes={openComp.heroes}
+							bind:selectedLine={selectedLine}
+							on:compLineEvent={handleLineEvent}
+						/>
 						<div class="description">
 							<div class="mobileExpanderTitle">
 								<button type="button" class="expanderButton" on:click={() => openDesc = !openDesc}><i class="expanderArrow {openDesc ? 'down' : 'right' }"></i><span>Description</span></button>
@@ -2066,111 +1965,7 @@
 				justify-content: flex-end;
 				padding-bottom: 10px;
 			}
-			.lineExamples {
-				padding-bottom: 10px;
-				width: 100%;
-				.lineSwitcher {
-					display: flex;
-					flex-direction: row;
-					flex-wrap: wrap;
-					justify-content: center;
-					.lineSwitchButton {
-						background-color: transparent;
-						border: 2px solid var(--appColorPrimary);
-						border-bottom: none;
-						border-radius: 5px 5px 0px 0px;
-						color: var(--appColorPrimary);
-						cursor: pointer;
-						font-size: 1.0rem;
-						margin-right: 5px;
-						max-width: 100px;
-						min-height: 26px;
-						min-width: 30px;
-						overflow: hidden;
-						padding: 3px;
-						text-overflow: ellipsis;
-						white-space: nowrap;
-						&.active {
-							background-color: var(--appColorPrimary);
-							color: white;
-						}
-					}
-				}
-				.lineDisplay {
-					align-items: center;
-					border: 2px solid var(--appColorPrimary);
-					border-radius: 10px;
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-					padding: 10px;
-					width: 100%;
-					.lineTitle {
-						padding: 10px;
-						font-size: 1.1rem;
-						font-weight: bold;
-						max-width: 300px;
-						overflow: hidden;
-						text-overflow: ellipsis;
-						white-space: nowrap;
-					}
-					.lineMembers {
-						align-items: center;
-						border-radius: 10px;
-						display: flex;
-						flex-direction: row;
-						justify-content: center;
-						min-height: 295px;
-						width: 100%;
-					}
-					.detailImgContainer {
-						position: relative;
-					}
-					.detailFrontline {
-						align-items: center;
-						display: flex;
-						flex-direction: column;
-						justify-content: center;
-						width: 80px;
-					}
-					.detailBackline {
-						align-items: center;
-						display: flex;
-						flex-direction: column;
-						justify-content: center;
-						width: 80px;
-						margin-right: 10px;
-					}
-					.lineImg {
-						border-radius: 50%;
-						cursor: pointer;
-						margin: 5px;
-						max-width: 70px;
-						&.claimed {
-							border: 5px solid var(--appColorPrimary);
-						}
-					}
-					.emptyLineSlot {
-						background: transparent;
-						border: 3px solid var(--appColorPriAccent);
-						border-radius: 50%;
-						flex-grow: 0;
-						flex-shrink: 0;
-						height: 70px;
-						margin: 5px;
-						width: 70px;
-					}
-				}
-			}
 			.heroButton {
-				background: transparent;
-				border: none;
-				cursor: pointer;
-				margin: 0;
-				outline: none;
-				padding: 0;
-			}
-			.heroNameButton {
 				background: transparent;
 				border: none;
 				cursor: pointer;
@@ -2723,31 +2518,6 @@
 			.compDetailBody {
 				.lastUpdate {
 					padding-bottom: 0px;
-				}
-				.lineExamples {
-					flex-grow: 0;
-					flex-shrink: 0;
-					margin-right: 10px;
-					width: 340px;
-					.lineSwitcher {
-						display: flex;
-						flex-direction: row;
-						justify-content: flex-start;
-						.lineSwitchButton {
-							margin-right: 0px;
-						}
-					}
-					.lineDisplay {
-						border-radius: 0px 10px 10px 10px;
-						max-height: 375px;
-						min-height: 375px;
-						.lineImg {
-							transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-							&:hover {
-								transform: scale(1.1);
-							}
-						}
-					}
 				}
 				.description {
 					width: 100%;
