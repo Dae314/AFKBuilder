@@ -169,7 +169,7 @@
 		}
 		.lineNavButton {
 			align-items: center;
-			background-color: var(--appBGColorDark);
+			background-color: transparent;
 			border: none;
 			cursor: pointer;
 			display: flex;
@@ -178,6 +178,7 @@
 			outline: none;
 			justify-content: center;
 			position: absolute;
+			transition: all 0.2s;
 			width: 50px;
 			&.prevLineButton {
 				border-radius: 10px 0px 0px 10px;
@@ -220,6 +221,11 @@
 		.lineDisplay {
 			max-height: 375px;
 			min-height: 375px;
+			.lineNavButton {
+				&:hover {
+					background-color: var(--appBGColorDark);
+				}
+			}
 		}
 	}
 </style>
