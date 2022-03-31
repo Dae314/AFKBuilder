@@ -1811,7 +1811,7 @@
 				background-color: var(--appBGColor);
 				border-radius: 10px;
 				border-top-right-radius: 0px;
-				box-shadow: var(--neu-med-i-BGColor-shadow);
+				box-shadow: var(--neu-med-ni-BGColor-shadow);
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
@@ -2006,8 +2006,9 @@
 					scroll-snap-align: center;
 				}
 				.selectedHero {
-					border: 2px solid var(--appColorPrimary);
+					background-color: var(--appBGColor);
 					border-radius: 10px;
+					box-shadow: var(--neu-med-ni-BGColor-shadow);
 					display: flex;
 					flex-direction: column;
 					margin: 0 auto;
@@ -2524,7 +2525,7 @@
 				}
 				.description {
 					border-radius: 10px;
-					box-shadow: var(--neu-med-i-BGColor-shadow);
+					box-shadow: var(--neu-med-ni-BGColor-shadow);
 					margin-left: 10px;
 					max-height: 375px;
 					overflow-y: auto;

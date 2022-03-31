@@ -26,7 +26,7 @@
 <style lang="scss">
 	.infoBox {
 		border-radius: 10px;
-		box-shadow: var(--neu-med-i-BGColor-shadow);
+		box-shadow: var(--neu-med-ni-BGColor-shadow);
 		margin: 10px;
 		padding: 5px;
 	}

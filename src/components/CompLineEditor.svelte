@@ -114,7 +114,7 @@
 	.lineDisplay {
 		align-items: center;
 		border-radius: 10px;
-		box-shadow: var(--neu-med-i-BGColor-shadow);
+		box-shadow: var(--neu-med-ni-BGColor-shadow);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
