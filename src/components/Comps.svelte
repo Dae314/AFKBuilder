@@ -2058,7 +2058,7 @@
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
-					margin-top: 5px;
+					margin-top: 10px;
 					width: 100%;
 					.ascendBoxContainer {
 						margin-bottom: 10px;
@@ -2067,8 +2067,8 @@
 						width: 100%;
 						margin: 10px 0px;
 						.heroNotes {
-							background-color: var(--appBGColorDark);
 							border-radius: 10px;
+							box-shadow: var(--neu-sm-ni-BGColor-shadow);
 							padding: 10px;
 						}
 					}
@@ -2092,8 +2092,8 @@
 						}
 					}
 					.artifactArea {
-						background: var(--appBGColorDark);
 						border-radius: 10px;
+						box-shadow: var(--neu-sm-ni-BGColor-inset-shadow);
 						display: grid;
 						grid-template-columns: repeat(auto-fill, 90px);
 						min-height: 80px;
