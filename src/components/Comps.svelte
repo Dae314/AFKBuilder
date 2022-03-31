@@ -1974,8 +1974,10 @@
 				padding: 0;
 			}
 			.expanderButton {
-				background-color: var(--appColorSecondary);
+				background-color: var(--appBGColor);
 				border: none;
+				border-radius: 10px;
+				box-shadow: var(--neu-med-i-BGColor-shadow);
 				color: black;
 				cursor: pointer;
 				font-size: 1.1rem;
@@ -2517,9 +2519,15 @@
 			}
 			.compDetailBody {
 				.lastUpdate {
-					padding-bottom: 0px;
+					padding-bottom: 10px;
 				}
 				.description {
+					border-radius: 10px;
+					box-shadow: var(--neu-med-i-BGColor-shadow);
+					margin-left: 10px;
+					max-height: 375px;
+					overflow-y: auto;
+					padding: 10px;
 					width: 100%;
 				}
 				.heroDetails {
@@ -2544,14 +2552,6 @@
 					padding: 0;
 					&.open {
 						padding: 0;
-					}
-					&.descSection {
-						border: 2px solid var(--appColorPrimary);
-						border-radius: 10px 0px 0px 10px;
-						margin-top: 27px;
-						max-height: 375px;
-						overflow-y: auto;
-						padding: 10px;
 					}
 				}
 				.subGroups {
