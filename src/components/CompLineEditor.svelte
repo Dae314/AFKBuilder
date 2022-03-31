@@ -24,7 +24,7 @@
 		}
 	*/
 	export let compHeroes = [];
-	export let selectedLine = 0;
+	export let selectedLine = 0; // must be a binding
 	export let editMode = false;
 
 	function handleHeroButtonEvent(event) {
@@ -36,16 +36,24 @@
 				throw new Error(`Invalid action specified on heroButtonEvent: ${action}`);
 		}
 	}
+
+	function handleLineNavClick(type) {
+		switch(type) {
+			case 'prev':
+				if(--selectedLine < 0) selectedLine = 0;
+				break;
+			case 'next':
+				if(++selectedLine >= lines.length) selectedLine = lines.length - 1;
+				break;
+			default:
+				throw new Error(`Invalid type specified for lineNavClick: ${type}`);
+		}
+	}
 </script>
 
 <div class="compLineEditorContainer">
-	<div class="lineSwitcher">
-		{#each lines as line, i}
-		<button type="button" class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}>{line.name}</button>
-		{/each}
-	</div>
 	<div class="lineDisplay">
-		{#if lines.length > 0}
+		{#if lines[selectedLine]}
 			<div class="lineTitle"><span>{lines[selectedLine].name}</span></div>
 		{/if}
 		<div class="lineMembers">
@@ -54,11 +62,13 @@
 					{#each lines[selectedLine].heroes as hero, i}
 						{#if i >= 2}
 							{#if $HeroData.some(e => e.id === hero)}
-								<HeroButton
-									hero={hero}
-									heroDetails={compHeroes[hero]}
-									on:heroButtonEvent={handleHeroButtonEvent}
-								/>
+								<div class="heroButtonArea">
+									<HeroButton
+										hero={hero}
+										heroDetails={compHeroes[hero]}
+										on:heroButtonEvent={handleHeroButtonEvent}
+									/>
+								</div>
 							{:else}
 								<i class="emptyLineSlot"></i>
 							{/if}
@@ -71,11 +81,13 @@
 					{#each lines[selectedLine].heroes as hero, i}
 						{#if i < 2}
 							{#if $HeroData.some(e => e.id === hero)}
-								<HeroButton
-									hero={hero}
-									heroDetails={compHeroes[hero]}
-									on:heroButtonEvent={handleHeroButtonEvent}
-								/>
+								<div class="heroButtonArea">
+									<HeroButton
+										hero={hero}
+										heroDetails={compHeroes[hero]}
+										on:heroButtonEvent={handleHeroButtonEvent}
+									/>
+								</div>
 							{:else}
 								<i class="emptyLineSlot"></i>
 							{/if}
@@ -84,6 +96,13 @@
 				{/if}
 			</div>
 		</div>
+		<button type="button" class="lineNavButton prevLineButton" on:click={() => handleLineNavClick('prev')}>&#10096;</button>
+		<button type="button" class="lineNavButton nextLineButton" on:click={() => handleLineNavClick('next')}>&#10097;</button>
+	</div>
+	<div class="lineSwitcher">
+		{#each lines as line, i}
+			<button type="button" class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}></button>
+		{/each}
 	</div>
 </div>
 
@@ -92,41 +111,15 @@
 		padding-bottom: 10px;
 		width: 100%;
 	}
-	.lineSwitcher {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-		.lineSwitchButton {
-			background-color: transparent;
-			border: 2px solid var(--appColorPrimary);
-			border-bottom: none;
-			border-radius: 5px 5px 0px 0px;
-			color: var(--appColorPrimary);
-			cursor: pointer;
-			font-size: 1.0rem;
-			margin-right: 5px;
-			max-width: 100px;
-			min-height: 26px;
-			min-width: 30px;
-			overflow: hidden;
-			padding: 3px;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			&.active {
-				background-color: var(--appColorPrimary);
-				color: white;
-			}
-		}
-	}
 	.lineDisplay {
 		align-items: center;
-		border: 2px solid var(--appColorPrimary);
 		border-radius: 10px;
+		box-shadow: var(--neu-med-i-BGColor-shadow);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		padding: 10px;
+		position: relative;
 		width: 100%;
 		.lineTitle {
 			padding: 10px;
@@ -161,6 +154,9 @@
 			width: 80px;
 			margin-right: 10px;
 		}
+		.heroButtonArea {
+			margin: 5px;
+		}
 		.emptyLineSlot {
 			background: transparent;
 			border: 3px solid var(--appColorPriAccent);
@@ -171,6 +167,48 @@
 			margin: 5px;
 			width: 70px;
 		}
+		.lineNavButton {
+			align-items: center;
+			background-color: var(--appBGColorDark);
+			border: none;
+			cursor: pointer;
+			display: flex;
+			font-size: 2rem;
+			height: 100%;
+			outline: none;
+			justify-content: center;
+			position: absolute;
+			width: 50px;
+			&.prevLineButton {
+				border-radius: 10px 0px 0px 10px;
+				left: 0px;
+			}
+			&.nextLineButton {
+				border-radius: 0px 10px 10px 0px;
+				right: 0px;
+			}
+		}
+	}
+	.lineSwitcher {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin-top: 10px;
+		width: 100%;
+		.lineSwitchButton {
+			background-color: var(--appColorDisabled);
+			border: none;
+			border-radius: 50%;
+			cursor: pointer;
+			height: 10px;
+			margin: 5px;
+			width: 10px;
+			&.active {
+				background-color: var(--appColorPrimary);
+			}
+		}
 	}
 	@media only screen and (min-width: 767px) {
 		.compLineEditorContainer {
@@ -179,16 +217,7 @@
 			margin-right: 10px;
 			width: 340px;
 		}
-		.lineSwitcher {
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-start;
-			.lineSwitchButton {
-				margin-right: 0px;
-			}
-		}
 		.lineDisplay {
-			border-radius: 0px 10px 10px 10px;
 			max-height: 375px;
 			min-height: 375px;
 		}
