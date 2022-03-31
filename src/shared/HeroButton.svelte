@@ -62,11 +62,13 @@
 			{/if}
 		</div>
 	</div>
-	<div class="nameArea">
-		<button type="button" class="heroNameButton">
-			<span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span>
-		</button>
-	</div>
+	{#if !hideName}
+		<div class="nameArea">
+			<button type="button" class="heroNameButton">
+				<span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span>
+			</button>
+		</div>
+	{/if}
 </div>
 
 <style lang="scss">
