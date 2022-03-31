@@ -29,6 +29,7 @@
 	import AscendBox from '../shared/AscendBox.svelte';
 	import StarsInput from '../shared/StarsInput.svelte';
 	import ToggleSwitch from '../shared/ToggleSwitch.svelte';
+	import HeroButton from '../shared/HeroButton.svelte';
 	import { validateJWT, getCompByUUID, toggleSave } from '../rest/RESTFunctions.svelte';
 	import { gql_CREATE_COMP, gql_UPDATE_COMP } from '../gql/queries.svelte';
 	import { msToString } from '../utilities/Utilities.svelte';
@@ -930,6 +931,16 @@
 		}
 	}
 
+	async function handleHeroButtonEvent(event) {
+		switch(event.detail.action) {
+			case 'heroClick':
+				await handleHeroClick(event.detail.data);
+				break;
+			default:
+				throw new Error(`Invalid action specified on heroButtonEvent: ${action}`);
+		}
+	}
+
 	function resetOpenComp() {
 		let newQS = new URLSearchParams($querystring);
 		if(newQS.has('view')) newQS.delete('view');
@@ -1306,48 +1317,11 @@
 										<div class="subGroupMembers">
 											{#each subgroup.heroes as hero}
 												<div class="subHeroContainer">
-													<button type="button" class="heroButton">
-														<div class="subImgContainer">
-															<img draggable="false" on:click={() => handleHeroClick(hero)} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
-															<span class="coreMark subCoreMark" class:visible={openComp.heroes[hero].core}></span>
-															<div class="ascMark subAscMark">
-																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																	{#if openComp.heroes[hero].ascendLv >= 6}
-																		<img src="./img/markers/ascended.png" alt="ascended">
-																	{:else if openComp.heroes[hero].ascendLv >= 4}
-																		<img src="./img/markers/mythic.png" alt="mythic">
-																	{:else if openComp.heroes[hero].ascendLv >= 2}
-																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else}
-																		<img src="./img/markers/elite.png" alt="elite">
-																	{/if}
-																{:else}
-																	{#if openComp.heroes[hero].ascendLv >= 4}
-																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else if openComp.heroes[hero].ascendLv >= 2}
-																		<img src="./img/markers/elite.png" alt="elite">
-																	{:else}
-																		<img src="./img/markers/rare.png" alt="rare">
-																	{/if}
-																{/if}
-																{#if openComp.heroes[hero].si >= 30}
-																	<img src="./img/markers/si30.png" alt="si30">
-																{:else if openComp.heroes[hero].si >= 20}
-																	<img src="./img/markers/si20.png" alt="si20">
-																{:else if openComp.heroes[hero].si >= 10}
-																	<img src="./img/markers/si10.png" alt="si10">
-																{:else}
-																	<img src="./img/markers/si0.png" alt="si0">
-																{/if}
-																{#if openComp.heroes[hero].furn >= 9}
-																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																{:else if openComp.heroes[hero].furn >= 3}
-																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-																{/if}
-															</div>
-														</div>
-														<p on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</p>
-													</button>
+													<HeroButton
+														hero={hero}
+														heroDetails={openComp.heroes[hero]}
+														on:heroButtonEvent={handleHeroButtonEvent}
+													/>
 												</div>
 											{/each}
 										</div>
@@ -1965,14 +1939,6 @@
 				justify-content: flex-end;
 				padding-bottom: 10px;
 			}
-			.heroButton {
-				background: transparent;
-				border: none;
-				cursor: pointer;
-				margin: 0;
-				outline: none;
-				padding: 0;
-			}
 			.expanderButton {
 				background-color: var(--appBGColor);
 				border: none;
@@ -2158,69 +2124,8 @@
 					width: 100%;
 				}
 				.subHeroContainer {
-					margin-right: 8px;
-					margin-bottom: 8px;
-					p {
-						font-size: 0.9rem;
-						font-weight: bold;
-						margin: 0;
-						width: 80px;
-						overflow: hidden;
-						text-align: center;
-						text-overflow: ellipsis;
-						white-space: nowrap;
-					}
+					margin: 5px 8px;
 				}
-				.subImgContainer {
-					position: relative;
-					.subImg {
-						border-radius: 50%;
-						max-width: 70px;
-						&.claimed {
-							border: 5px solid var(--appColorPrimary);
-						}
-					}
-					.subCoreMark {
-						bottom: 0px;
-						right: -1px;
-					}
-				}
-			}
-			.coreMark {
-				background-color: var(--legendColor);
-				border: 3px solid var(--appBGColor);
-				border-radius: 50%;
-				bottom: 5px;
-				display: none;
-				height: 22px;
-				position: absolute;
-				right: 4px;
-				visibility: hidden;
-				width: 22px;
-				&.visible {
-					display: inline-block;
-					pointer-events: none;
-					visibility: visible;
-				}
-			}
-			.ascMark {
-				left: -6px;
-				position: absolute;
-				top: 3px;
-				img {
-					left: 0;
-					max-width: 35px;
-					pointer-events: none;
-					position: absolute;
-					top: 0;
-				}
-				img.moveup {
-					top: -3.5px;
-				}
-			}
-			.subAscMark {
-				top: -4px;
-				left: -10px;
 			}
 			.mobileExpander {
 				margin-bottom: 10px;
@@ -2569,12 +2474,6 @@
 					margin-top: -4px;
 					overflow: hidden;
 					padding: 0;
-					.subImg {
-						transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-						&:hover {
-							transform: scale(1.1);
-						}
-					}
 					.subGroupTitle {
 						padding-top: 0;
 					}
