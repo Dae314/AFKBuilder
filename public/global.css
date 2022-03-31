@@ -24,6 +24,7 @@ html {
 	--appColorTertiary: #3854A6;
 	--appColorQuaternary: #94C6F2;
 	--appColorDisabled: #7e7e7e;
+	--appColorBlack: #333;
 	--googleProviderColor: #EA4335;
 	--facebookProviderColor: #1094F4;
 	--discordProviderColor: #5865F2;
@@ -49,7 +50,6 @@ html {
 	--neu-med-ni-BGColor-shadow: 5px 5px 8px #ccccce, -5px -5px 8px #ffffff;
 	--neu-sm-ni-BGColor-shadow: 5px 5px 5px #ccccce, -5px -5px 5px #ffffff;
 	--neu-sm-ni-BGColor-pressed-shadow: 3px 3px 3px #ccccce, -3px -3px 3px #ffffff;
-	
 
 	--rareColor: #5EAFFA;
 	--rareColorAccent: #4D8DC8;
