@@ -140,15 +140,5 @@
 		}
 	}
 	@media only screen and (min-width: 767px) {
-		.portraitArea {
-			.heroButton {
-				.heroImage {
-					transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-					&:hover {
-						transform: scale(1.1);
-					}
-				}
-			}
-		}
 	}
 </style>
