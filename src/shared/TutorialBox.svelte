@@ -25,36 +25,37 @@
 
 <style lang="scss">
 	.infoBox {
-		border: 2px solid var(--appColorPrimary);
 		border-radius: 10px;
+		box-shadow: var(--neu-med-i-BGColor-shadow);
 		margin: 10px;
+		padding: 5px;
 	}
 	.infoBox.noMargin {
 		margin: 0;
 	}
 	.infoBox.warning {
-		border: 2px solid var(--legendColor);
+		background-color: #f5e6bd;
 	}
 	.infoBox.error {
-		border: 2px solid var(--appDelColor);
+		background-color: #f0b6b6;
 	}
 	.infoBox.clickable {
 		cursor: pointer;
 	}
 	.infoIcon {
 		align-items: center;
-		background-color: var(--appColorPrimary);
-		border: 3px solid var(--appColorPrimary);
+		background-color: var(--appBGColor);
 		border-radius: 50%;
-		color: white;
+		box-shadow: var(--neu-sm-ni-BGColor-pressed-shadow);
+		color: var(--appColorPrimary);
 		display: flex;
 		font-family: 'Times New Roman';
 		font-weight: bold;
-		height: 20px;
+		height: 23px;
 		justify-content: center;
 		margin: 5px;
 		padding: 3px;
-		width: 20px;
+		width: 23px;
 	}
 	.warningIcon {
 		margin: 0;
@@ -79,7 +80,7 @@
 			border-bottom-color: #fd3;
 			border-bottom-width: 1em;
 			border-top-width: 0;
-			box-shadow: 0 1px 1px #999;
+			box-shadow: 0 1px 1px #ccccce;
 			content: "";
 			display: block;
 			left: 0.0em;
@@ -107,17 +108,17 @@
 	.errorIcon {
 		align-items: center;
 		background-color: var(--appDelColor);
-		border: 3px solid black;
 		border-radius: 50%;
+		box-shadow: 3px 3px 3px #cc9b9b, -3px -3px 3px #ffd1d1;
 		color: black;
 		display: flex;
 		font-family: 'Times New Roman';
 		font-weight: bold;
-		height: 20px;
+		height: 23px;
 		justify-content: center;
 		margin: 5px;
 		padding: 3px;
-		width: 20px;
+		width: 23px;
 	}
 	.textArea {
 		padding: 10px;

@@ -1288,7 +1288,7 @@
 										</div>
 									</div>
 								{:else}
-									<TutorialBox noMargin={true}>
+									<TutorialBox noMargin>
 										<span>Select hero to see Ascension, SI, Furniture, and Artifact details.</span>
 									</TutorialBox>
 								{/if}
@@ -2228,6 +2228,7 @@
 				transition: all 0.2s ease-out;
 				&.open {
 					max-height: 5000px;
+					overflow: visible;
 					padding-top: 10px;
 				}
 			}
@@ -2549,6 +2550,7 @@
 				}
 				.mobileExpander {
 					max-height: 5000px;
+					overflow: visible;
 					padding: 0;
 					&.open {
 						padding: 0;
