@@ -918,7 +918,7 @@
 						background-color: var(--appBGColor);
 						border: none;
 						border-radius: 0px 0px 10px 10px;
-						box-shadow: var(--neu-med-i-BGColor-shadow);
+						box-shadow: 5px 5px 8px #ccccce;
 						display: flex;
 						flex-direction: column;
 						left: 22.5px;
