@@ -44,10 +44,9 @@
 	}
 	.infoIcon {
 		align-items: center;
-		background-color: var(--appBGColor);
+		background-color: var(--appColorPrimary);
 		border-radius: 50%;
-		box-shadow: var(--neu-sm-ni-BGColor-pressed-shadow);
-		color: var(--appColorPrimary);
+		color: var(--appBGColor);
 		display: flex;
 		font-family: 'Times New Roman';
 		font-weight: bold;
@@ -109,8 +108,7 @@
 		align-items: center;
 		background-color: var(--appDelColor);
 		border-radius: 50%;
-		box-shadow: 3px 3px 3px #cc9b9b, -3px -3px 3px #ffd1d1;
-		color: black;
+		color: var(--appBGColor);
 		display: flex;
 		font-family: 'Times New Roman';
 		font-weight: bold;
