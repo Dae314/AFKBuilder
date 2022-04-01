@@ -17,10 +17,6 @@
 
 	const { close } = getContext('simple-modal');
 
-	$: tagSuggestions = makeTagSuggestions();
-	$: isValidTag = newTagText !== '' && tagValidation.test(newTagText);
-	$: validLogin = $AppData.user.jwt && validateJWT($AppData.user.jwt);
-
 	// this will hold the comp as it's edited
 	let comp = {
 		name: '',
@@ -53,6 +49,10 @@
 	let tagInputEl;
 	const tagValidation = new RegExp('^[A-Za-z0-9-_.~]*$');
 	const heroLookup = makeHeroLookup();
+
+	$: tagSuggestions = makeTagSuggestions();
+	$: isValidTag = newTagText !== '' && tagValidation.test(newTagText);
+	$: validLogin = $AppData.user.jwt && validateJWT($AppData.user.jwt);
 
 	onMount(async () => {
 		const queryString = window.location.search;
@@ -103,21 +103,26 @@
 	function makeTagSuggestions() {
 		let suggestions = [];
 		// start suggestions off as an array of all tags in all comps
-		for(const comp of $AppData.Comps) {
+		for(const comp of $AppData.Comps.filter(e => !e.hidden)) {
 			for(const tag of comp.tags) {
-				suggestions.push(tag);
+				if(suggestions.find(e => e.name === tag)) {
+					// tag already counted
+					suggestions.find(e => e.name === tag).count++;
+				} else {
+					// tag not yet counted
+					suggestions.push({name: tag, count: 1});
+				}
 			}
 		}
-		// remove duplicate tags
-		suggestions = [...new Set(suggestions)];
 		// filter suggestions to just strings that match what's already been typed
-		suggestions = suggestions.filter(e => e.toLowerCase().includes(newTagText));
+		suggestions = suggestions.filter(e => e.name.toLowerCase().includes(newTagText.toLowerCase()));
+		// sort suggestions by frequency
+		suggestions = suggestions.sort((a, b) => b.count - a.count);
 		// take only the first 10 suggestions
 		suggestions = suggestions.slice(0, 10);
-		// finally, sort suggestions before returning
-		suggestions.sort();
 
-		return suggestions;
+		// finally make suggestions into an array of strings
+		return suggestions.map(e => e.name);
 	}
 
 	function makeHeroLookup() {
