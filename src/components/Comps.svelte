@@ -1256,7 +1256,6 @@
 											{/if}
 											{#if openComp.heroes[selectedHero].artifacts.primary.length > 0 || openComp.heroes[selectedHero].artifacts.secondary.length > 0 || openComp.heroes[selectedHero].artifacts.situational.length > 0}
 												<div class="artifactsContainer">
-													<h5>Artifacts</h5>
 													<div class="artifactLine priArtifactLine">
 														<h6>Primary</h6>
 														<div class="artifactArea">
@@ -2043,11 +2042,6 @@
 						flex-direction: column;
 						justify-content: center;
 						width: 100%;
-						h5 {
-							font-size: 1rem;
-							margin: 0;
-							text-align: center;
-						}
 					}
 					.artifactLine {
 						h6 {
