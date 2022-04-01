@@ -112,6 +112,11 @@ window.validateComp = async function(data) {
 			return {retCode: 1, message: `Incorrect type for key ${key}, expected ${expectedPropType}`};
 		}
 	}
+
+	// comp name and author length checks
+	if(data.name.length >= 50 || data.name.length <= 0) return {retCode: 1, message: 'Comp name must be be 1-50 characters long'};
+	if(data.author.length >= 50 || data.author.length <= 0) return {retCode: 1, message: 'Comp author must be 1-50 characters long'};
+
 	// perform detailed checks on finalized comps
 	if(!data.draft) {
 		if(data.lines.length < 1) return {retCode: 1, message: 'Comps must have at least 1 line'};

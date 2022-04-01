@@ -450,8 +450,8 @@
 <div class="editorContainer">
 	<section class="sect1">
 		<div class="editorHead">
-			<input class="titleInput" type="text" bind:value={comp.name} placeholder="Title" maxlength="50" class:maxed={comp.name.length >= 50}>
-			<input disabled={validLogin} class="authorInput" type="text" bind:value={comp.author} placeholder="Author" maxlength="50" class:maxed={comp.author.length >= 50}>
+			<input class="titleInput" type="text" bind:value={comp.name} placeholder="Title" maxlength="50" class:invalid={comp.name.length >= 50 || comp.name.length <= 0}>
+			<input disabled={validLogin} class="authorInput" type="text" bind:value={comp.author} placeholder="Author" maxlength="50" class:invalid={comp.author.length >= 50 || comp.author.length <= 0}>
 			{#if comp.draft}
 				<div class="draftContainer"><span class="draftLabel">draft</span></div>
 			{/if}
@@ -706,21 +706,6 @@
 	.editorContainer {
 		padding: 10px;
 	}
-	input {
-		border: 1px solid var(--appColorPrimary);
-		border-radius: 5px;
-		transition: box-shadow 0.1s;
-		&:focus {
-			border-color: var(--appColorPrimary);
-			box-shadow: 0 0 0 2px var(--appColorPrimary);
-			outline: 0;
-		}
-	}
-	input.maxed {
-		border-color: var(--appDelColor);
-		outline: 0;
-		box-shadow: 0 0 0 2px var(--appDelColor);
-	}
 	.sect2 {
 		display: none;
 		visibility: hidden;
@@ -766,14 +751,14 @@
 		padding: 5px;
 		transition: visibility 0.3s, opacity 0.3s;
 		visibility: hidden;
-	}
-	.statusMessage.visible {
-		display: block;
-		opacity: 1;
-		visibility: visible;
-	}
-	.statusMessage.error {
-		background-color: var(--appDelColorOpaque);
+		&.visible {
+			display: block;
+			opacity: 1;
+			visibility: visible;
+		}
+		&.error {
+			background-color: var(--appDelColorOpaque);
+		}
 	}
 	h4 {
 		margin: 0;
@@ -788,123 +773,6 @@
 		font-weight: bold;
 		font-style: italic;
 	}
-	.tagsArea {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		h5 {
-			margin: 5px 0px;
-			text-align: center;
-		}
-	}
-	.tagDisplay {
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-		margin-bottom: 10px;
-		width: 100%;
-		.tag {
-			position: relative;
-			margin: 0px 5px;
-			margin-bottom: 5px;
-		}
-		.tagText {
-			border: 1px solid var(--appColorPrimary);
-			border-radius: 15px;
-			display: inline-block;
-			background-color: var(--appColorPrimary);
-			color: white;
-			font-size: 0.8rem;
-			padding: 0px 5px;
-			padding-bottom: 4px;
-			text-align: center;
-			user-select: none;
-		}
-		.removeTagButtonContainer {
-			position: absolute;
-			right: -5px;
-			top: 0;
-		}
-		.addTagButton {
-			align-items: center;
-			background-color: transparent;
-			border: 3px solid var(--appColorPrimary);
-			border-radius: 50%;
-			color: var(--appColorPrimary);
-			cursor: pointer;
-			display: flex;
-			font-size: 1rem;
-			font-weight: bold;
-			height: 20px;
-			justify-content: center;
-			margin-left: 10px;
-			padding: 0;
-			user-select: none;
-			-webkit-appearance: none;
-			width: 20px;
-			&:disabled {
-				border-color: #BEBEBE;
-				color: #BEBEBE;
-				cursor: default;
-			}
-		}
-		.newTagInputArea {
-			position: relative;
-		}
-		.tagInput {
-			margin-left: 10px;
-			&.invalid {
-				border: 1px solid var(--appDelColor);
-				outline: 2px solid var(--appDelColor);
-			}
-		}
-		.addTagButton.noMargin, .tagInput.noMargin {
-			margin: 0;
-		}
-		.suggestions {
-			background-color: white;
-			border: 1px solid var(--appColorPrimary);
-			border-radius: 0px 0px 10px 10px;
-			border-top: 0;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-			display: flex;
-			flex-direction: column;
-			left: 22.5px;
-			opacity: 0;
-			position: absolute;
-			top: 22px;
-			transition: all 0.2s;
-			visibility: hidden;
-			width: 80%;
-			z-index: 5;
-			.suggestionButton {
-				background: transparent;
-				border: 0;
-				border-bottom: 1px solid var(--appColorPrimary);
-				color: var(--appColorPrimary);
-				cursor: pointer;
-				font-size: 1rem;
-				outline: 0;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				&:hover {
-					color: white;
-					background-color: var(--appColorPrimary);
-				}
-				&:last-child {
-					border-bottom: 0;
-					border-radius: 0px 0px 10px 10px;
-				}
-			}
-		}
-		.suggestions.open {
-			visibility: visible;
-			opacity: 1;
-		}
-	}
 	.lineEditorTitle {
 		margin-top: 0;
 	}
@@ -913,16 +781,159 @@
 		border-bottom: 1px solid black;
 		display: flex;
 		flex-direction: column;
-	}
-	.titleInput {
-		font-size: 1.5rem;
-		margin-bottom: 10px;
-		margin-bottom: 5px;
-		text-align: center;
-		width: 80%;
-	}
-	.authorInput {
-		text-align: center;
+		.titleInput {
+			background-color: var(--appBGColor);
+			border: none;
+			border-radius: 5px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			font-size: 1.5rem;
+			margin-bottom: 15px;
+			outline: none;
+			text-align: center;
+			width: 80%;
+			&:focus {
+				background-color: white;
+				box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+			}
+			&.invalid {
+				outline: 2px solid var(--appDelColor);
+			}
+		}
+		.authorInput {
+			background-color: var(--appBGColor);
+			border: none;
+			border-radius: 5px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			outline: none;
+			text-align: center;
+			&:focus {
+				background-color: white;
+				box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+			}
+			&.invalid {
+				outline: 2px solid var(--appDelColor);
+			}
+			&:disabled {
+				color: var(--appColorDisabled);
+			}
+		}
+		.tagsArea {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			h5 {
+				margin: 5px 0px;
+				text-align: center;
+			}
+			.tagDisplay {
+				align-items: center;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				justify-content: center;
+				margin-bottom: 10px;
+				width: 100%;
+				.tag {
+					position: relative;
+					margin: 0px 5px;
+					margin-bottom: 5px;
+				}
+				.tagText {
+					border: 1px solid var(--appColorPrimary);
+					border-radius: 15px;
+					display: inline-block;
+					background-color: var(--appColorPrimary);
+					color: white;
+					font-size: 0.8rem;
+					padding: 0px 5px;
+					padding-bottom: 4px;
+					text-align: center;
+					user-select: none;
+				}
+				.removeTagButtonContainer {
+					position: absolute;
+					right: -5px;
+					top: 0;
+				}
+				.addTagButton {
+					align-items: center;
+					background-color: transparent;
+					border: 3px solid var(--appColorPrimary);
+					border-radius: 50%;
+					color: var(--appColorPrimary);
+					cursor: pointer;
+					display: flex;
+					font-size: 1rem;
+					font-weight: bold;
+					height: 20px;
+					justify-content: center;
+					margin-left: 10px;
+					padding: 0;
+					user-select: none;
+					-webkit-appearance: none;
+					width: 20px;
+					&:disabled {
+						border-color: #BEBEBE;
+						color: #BEBEBE;
+						cursor: default;
+					}
+				}
+				.newTagInputArea {
+					position: relative;
+				}
+				.tagInput {
+					margin-left: 10px;
+					&.invalid {
+						border: 1px solid var(--appDelColor);
+						outline: 2px solid var(--appDelColor);
+					}
+				}
+				.addTagButton.noMargin, .tagInput.noMargin {
+					margin: 0;
+				}
+				.suggestions {
+					background-color: white;
+					border: 1px solid var(--appColorPrimary);
+					border-radius: 0px 0px 10px 10px;
+					border-top: 0;
+					box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+					display: flex;
+					flex-direction: column;
+					left: 22.5px;
+					opacity: 0;
+					position: absolute;
+					top: 22px;
+					transition: all 0.2s;
+					visibility: hidden;
+					width: 80%;
+					z-index: 5;
+					.suggestionButton {
+						background: transparent;
+						border: 0;
+						border-bottom: 1px solid var(--appColorPrimary);
+						color: var(--appColorPrimary);
+						cursor: pointer;
+						font-size: 1rem;
+						outline: 0;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						&:hover {
+							color: white;
+							background-color: var(--appColorPrimary);
+						}
+						&:last-child {
+							border-bottom: 0;
+							border-radius: 0px 0px 10px 10px;
+						}
+					}
+				}
+				.suggestions.open {
+					visibility: visible;
+					opacity: 1;
+				}
+			}
+		}
 	}
 	.lineEditor {
 		padding: 10px 0px;
@@ -1193,15 +1204,17 @@
 		margin-right: 0;
 	}
 	@media only screen and (min-width: 767px) {
-		.tagDisplay {
-			.addTagButton {
-				&:hover {
-					background-color: var(--appColorPrimary);
-					color: white;
-				}
-				&:disabled:hover {
-					background-color: transparent;
-					color: #BEBEBE;
+		.editorHead {
+			.tagDisplay {
+				.addTagButton {
+					&:hover {
+						background-color: var(--appColorPrimary);
+						color: white;
+					}
+					&:disabled:hover {
+						background-color: transparent;
+						color: #BEBEBE;
+					}
 				}
 			}
 		}
