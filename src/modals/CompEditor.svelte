@@ -50,6 +50,7 @@
 	let openSuggestions = false;
 	let autosave;
 	let editor; // ToastUI editor
+	let tagInputEl;
 	const tagValidation = new RegExp('^[A-Za-z0-9-_.~]*$');
 	const heroLookup = makeHeroLookup();
 
@@ -358,7 +359,8 @@
 	}
 
 	function handleAddTag() {
-		if(isValidTag) {
+		const valid = newTagText !== '' && tagValidation.test(newTagText);
+		if(valid) {
 			comp.tags = [...comp.tags, newTagText];
 		}
 		newTagText = '';
@@ -381,7 +383,7 @@
 
 	function takeTagSuggestion(suggestion) {
 		newTagText = suggestion;
-		handleAddTag();
+		tagInputEl.blur();
 	}
 
 	function validateLineEditHead(list) {
@@ -488,6 +490,7 @@
 								class:invalid={!isValidTag}
 								type="text"
 								bind:value={newTagText}
+								bind:this={tagInputEl}
 								on:focus={() => {tagSuggestions = makeTagSuggestions(); openSuggestions = true; }}
 								on:blur={handleAddTag}
 								on:keyup={(e) => handleTagKeyUp(e)}
@@ -804,6 +807,7 @@
 			border: none;
 			border-radius: 5px;
 			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			margin-bottom: 10px;
 			outline: none;
 			text-align: center;
 			&:focus {
@@ -822,7 +826,8 @@
 			display: flex;
 			flex-direction: column;
 			h5 {
-				margin: 5px 0px;
+				margin: 0px;
+				margin-bottom: 10px;
 				text-align: center;
 			}
 			.tagDisplay {
@@ -835,18 +840,18 @@
 				width: 100%;
 				.tag {
 					position: relative;
-					margin: 0px 5px;
-					margin-bottom: 5px;
+					margin: 0px 8px;
+					margin-bottom: 10px;
 				}
 				.tagText {
-					border: 1px solid var(--appColorPrimary);
+					border: none;
 					border-radius: 15px;
 					display: inline-block;
-					background-color: var(--appColorPrimary);
-					color: white;
+					background-color: var(--appBGColor);
+					box-shadow: var(--neu-sm-ni-BGColor-shadow);
 					font-size: 0.8rem;
-					padding: 0px 5px;
-					padding-bottom: 4px;
+					padding: 0px 8px;
+					padding-bottom: 2px;
 					text-align: center;
 					user-select: none;
 				}
@@ -858,79 +863,87 @@
 				.addTagButton {
 					align-items: center;
 					background-color: transparent;
-					border: 3px solid var(--appColorPrimary);
+					border: none;
 					border-radius: 50%;
+					box-shadow: var(--neu-sm-i-BGColor-shadow);
 					color: var(--appColorPrimary);
 					cursor: pointer;
 					display: flex;
 					font-size: 1rem;
 					font-weight: bold;
-					height: 20px;
+					height: 23px;
 					justify-content: center;
+					margin-bottom: 7px;
 					margin-left: 10px;
 					padding: 0;
 					user-select: none;
 					-webkit-appearance: none;
-					width: 20px;
+					width: 23px;
 					&:disabled {
-						border-color: #BEBEBE;
 						color: #BEBEBE;
 						cursor: default;
+					}
+					&.noMargin {
+						margin: 0;
 					}
 				}
 				.newTagInputArea {
 					position: relative;
-				}
-				.tagInput {
-					margin-left: 10px;
-					&.invalid {
-						border: 1px solid var(--appDelColor);
-						outline: 2px solid var(--appDelColor);
-					}
-				}
-				.addTagButton.noMargin, .tagInput.noMargin {
-					margin: 0;
-				}
-				.suggestions {
-					background-color: white;
-					border: 1px solid var(--appColorPrimary);
-					border-radius: 0px 0px 10px 10px;
-					border-top: 0;
-					box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-					display: flex;
-					flex-direction: column;
-					left: 22.5px;
-					opacity: 0;
-					position: absolute;
-					top: 22px;
-					transition: all 0.2s;
-					visibility: hidden;
-					width: 80%;
-					z-index: 5;
-					.suggestionButton {
-						background: transparent;
-						border: 0;
-						border-bottom: 1px solid var(--appColorPrimary);
-						color: var(--appColorPrimary);
-						cursor: pointer;
-						font-size: 1rem;
-						outline: 0;
-						overflow: hidden;
-						text-overflow: ellipsis;
-						white-space: nowrap;
-						&:hover {
-							color: white;
-							background-color: var(--appColorPrimary);
+					.tagInput {
+						background-color: var(--appBGColor);
+						border: none;
+						border-radius: 5px;
+						box-shadow: var(--neu-sm-i-BGColor-shadow);
+						margin-left: 10px;
+						margin-bottom: 7px;
+						outline: none;
+						text-align: center;
+						&:focus {
+							background-color: white;
+							box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
 						}
-						&:last-child {
-							border-bottom: 0;
-							border-radius: 0px 0px 10px 10px;
+						&.invalid {
+							outline: 2px solid var(--appDelColor);
+						}
+						&.noMargin {
+							margin: 0;
 						}
 					}
-				}
-				.suggestions.open {
-					visibility: visible;
-					opacity: 1;
+					.suggestions {
+						background-color: var(--appBGColor);
+						border: none;
+						border-radius: 0px 0px 10px 10px;
+						box-shadow: var(--neu-med-i-BGColor-shadow);
+						display: flex;
+						flex-direction: column;
+						left: 22.5px;
+						opacity: 0;
+						position: absolute;
+						top: 22px;
+						transition: all 0.2s;
+						visibility: hidden;
+						width: 80%;
+						z-index: 5;
+						&.open {
+							visibility: visible;
+							opacity: 1;
+						}
+						.suggestionButton {
+							background: transparent;
+							border: none;
+							color: var(--appBlack);
+							cursor: pointer;
+							font-size: 1rem;
+							outline: none;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							&:last-child {
+								border-bottom: 0;
+								border-radius: 0px 0px 10px 10px;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -1205,15 +1218,26 @@
 	}
 	@media only screen and (min-width: 767px) {
 		.editorHead {
-			.tagDisplay {
-				.addTagButton {
-					&:hover {
-						background-color: var(--appColorPrimary);
-						color: white;
+			.tagsArea {
+				.tagDisplay {
+					.addTagButton {
+						&:hover {
+							background: var(--neu-convex-BGColor-bg);
+						}
+						&:disabled {
+							&:hover {
+								background: var(--appBGColor);
+							}
+						}
 					}
-					&:disabled:hover {
-						background-color: transparent;
-						color: #BEBEBE;
+					.newTagInputArea {
+						.suggestions {
+							.suggestionButton {
+								&:hover {
+									background-color: var(--appBGColorDark);
+								}
+							}
+						}
 					}
 				}
 			}
