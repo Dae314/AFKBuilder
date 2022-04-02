@@ -3,6 +3,7 @@
 	import HeroData from '../stores/HeroData.js';
 	import HeroButton from '../shared/HeroButton.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
+	import XButton from '../shared/XButton.svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -63,6 +64,10 @@
 		dispatch('compLineEvent', {action: 'addLine'});
 	}
 
+	function handleDeleteLineClick() {
+		dispatch('compLineEvent', {action: 'deleteLine', data: selectedLine});
+	}
+
 	function validateLineDisplay(list) {
 		// catch if a user dragged something we weren't expecting and exit
 		if(!Array.isArray(list)) return false;
@@ -103,9 +108,12 @@
 <div class="compLineEditorContainer">
 	<div class="lineDisplay">
 		{#if lines[selectedLine]}
-			<div class="lineTitle">
+			<div class="lineTitle" class:edit={editMode}>
 				{#if editMode}
 					<input type="text" class="titleInput" bind:value={lines[selectedLine].name} maxlength="30" class:invalid={lines[selectedLine].name.length <= 0 || lines[selectedLine].name.length >= 30}>
+					<div class="deleteLineArea">
+						<XButton clickCallback={handleDeleteLineClick} size="medium" hoverable />
+					</div>
 				{:else}
 					<span>{lines[selectedLine].name}</span>
 				{/if}
@@ -224,8 +232,12 @@
 			font-weight: bold;
 			max-width: 300px;
 			overflow: hidden;
+			position: relative;
 			text-overflow: ellipsis;
 			white-space: nowrap;
+			&.edit {
+				overflow: visible;
+			}
 			.titleInput {
 				background-color: var(--appBGColor);
 				border: none;
@@ -235,6 +247,7 @@
 				outline: none;
 				padding: 3px;
 				text-align: center;
+				width: 170px;
 				&:focus {
 					background-color: white;
 					box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
@@ -242,6 +255,11 @@
 				&.invalid {
 					outline: 2px solid var(--appDelColor);
 				}
+			}
+			.deleteLineArea {
+				position: absolute;
+				right: 0px;
+				top: 5px;
 			}
 		}
 		.lineEditMembers {

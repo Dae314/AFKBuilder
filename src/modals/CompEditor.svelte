@@ -433,6 +433,9 @@
 			case 'addLine':
 				addLine();
 				break;
+			case 'deleteLine':
+				deleteLine(event.detail.data);
+				break;
 			case 'lineDisplaySort':
 				handleLineDisplaySort(event.detail.data);
 				break;
