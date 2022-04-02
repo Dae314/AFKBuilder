@@ -183,7 +183,7 @@ window.validateComp = async function(data) {
 				}
 			}
 			// make sure title is the correct length
-			if(sub.name.length <= minSubTitleLen || line.name.length >= maxSubTitleLen) return {retCode: 1, message: `Substitute line titles must be ${minSubTitleLen}-${maxSubTitleLen} characters`};
+			if(sub.name.length <= minSubTitleLen || sub.name.length >= maxSubTitleLen) return {retCode: 1, message: `Substitute line titles must be ${minSubTitleLen}-${maxSubTitleLen} characters`};
 			// make sure every hero in a sub line is also in heroes
 			for(const hero of sub.heroes) {
 				if(!(hero in data.heroes)) {
