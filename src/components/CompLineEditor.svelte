@@ -2,6 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import HeroData from '../stores/HeroData.js';
 	import HeroButton from '../shared/HeroButton.svelte';
+	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -27,10 +28,14 @@
 	export let selectedLine = 0; // must be a binding
 	export let editMode = false;
 
-	function handleHeroButtonEvent(event) {
+	function handleHeroButtonEvent(event, config) {
 		switch(event.detail.action) {
 			case 'heroClick':
-				dispatch('compLineEvent', {action: 'heroClick', data: event.detail.data});
+				if(editMode) {
+					dispatch('compLineEvent', {action: 'addHero', data: config});
+				} else {
+					dispatch('compLineEvent', {action: 'heroClick', data: event.detail.data});
+				}
 				break;
 			default:
 				throw new Error(`Invalid action specified on heroButtonEvent: ${action}`);
@@ -57,6 +62,26 @@
 	function handleAddLineClick() {
 		dispatch('compLineEvent', {action: 'addLine'});
 	}
+
+	function validateLineDisplay(list) {
+		// catch if a user dragged something we weren't expecting and exit
+		if(!Array.isArray(list)) return false;
+		// don't allow overwrite if there are missing/additional heroes
+		if(list.length !== 5) return false;
+		for(const item of list) {
+			// don't allow overwrite if hero isn't in HeroData and isn't 'unknown'
+			if(!$HeroData.some(e => e.id === item) && !item === 'unknown') return false;
+		}
+		return true;
+	}
+
+	function handleLineDisplaySort(event) {
+		dispatch('compLineEvent', {action: 'lineDisplaySort', data: event});
+	}
+
+	function handleAddHeroClick(config) {
+		dispatch('compLineEvent', {action: 'addHero', data: config});
+	}
 </script>
 
 <div class="compLineEditorContainer">
@@ -69,46 +94,72 @@
 					<span>{lines[selectedLine].name}</span>
 				{/if}
 			</div>
-			<div class="lineMembers">
-				<div class="detailBackline">
-					{#if lines.length > 0}
-						{#each lines[selectedLine].heroes as hero, i}
-							{#if i >= 2}
-								{#if $HeroData.some(e => e.id === hero)}
-									<div class="heroButtonArea">
-										<HeroButton
-											hero={hero}
-											heroDetails={compHeroes[hero]}
-											on:heroButtonEvent={handleHeroButtonEvent}
-										/>
-									</div>
-								{:else}
-									<i class="emptyLineSlot"></i>
-								{/if}
-							{/if}
-						{/each}
-					{/if}
+			{#if editMode}
+				<div class="lineEditMembers">
+					<SimpleSortableList
+						list={[...lines[selectedLine].heroes].reverse()}
+						groupID="lineDisplay"
+						validate={validateLineDisplay}
+						on:sort={handleLineDisplaySort}
+						let:item={hero}
+						let:i={i}>
+						{#if hero === 'unknown'}
+							<button type="button" class="addHeroButton" on:click={() => handleAddHeroClick({idx: selectedLine, pos: i, compHeroData: compHeroes})}>
+								<span>+</span>
+							</button>
+						{:else}
+							<div class="heroButtonArea">
+								<HeroButton
+									hero={hero}
+									heroDetails={compHeroes[hero]}
+									on:heroButtonEvent={(event) => handleHeroButtonEvent(event, {idx: selectedLine, pos: i, oldHeroID: hero, compHeroData: comp.heroes})}
+								/>
+							</div>
+						{/if}
+					</SimpleSortableList>
 				</div>
-				<div class="detailFrontline">
-					{#if lines.length > 0}
-						{#each lines[selectedLine].heroes as hero, i}
-							{#if i < 2}
-								{#if $HeroData.some(e => e.id === hero)}
-									<div class="heroButtonArea">
-										<HeroButton
-											hero={hero}
-											heroDetails={compHeroes[hero]}
-											on:heroButtonEvent={handleHeroButtonEvent}
-										/>
-									</div>
-								{:else}
-									<i class="emptyLineSlot"></i>
+			{:else}
+				<div class="lineMembers">
+					<div class="detailBackline">
+						{#if lines.length > 0}
+							{#each lines[selectedLine].heroes as hero, i}
+								{#if i >= 2}
+									{#if $HeroData.some(e => e.id === hero)}
+										<div class="heroButtonArea">
+											<HeroButton
+												hero={hero}
+												heroDetails={compHeroes[hero]}
+												on:heroButtonEvent={handleHeroButtonEvent}
+											/>
+										</div>
+									{:else}
+										<i class="emptyLineSlot"></i>
+									{/if}
 								{/if}
-							{/if}
-						{/each}
-					{/if}
+							{/each}
+						{/if}
+					</div>
+					<div class="detailFrontline">
+						{#if lines.length > 0}
+							{#each lines[selectedLine].heroes as hero, i}
+								{#if i < 2}
+									{#if $HeroData.some(e => e.id === hero)}
+										<div class="heroButtonArea">
+											<HeroButton
+												hero={hero}
+												heroDetails={compHeroes[hero]}
+												on:heroButtonEvent={handleHeroButtonEvent}
+											/>
+										</div>
+									{:else}
+										<i class="emptyLineSlot"></i>
+									{/if}
+								{/if}
+							{/each}
+						{/if}
+					</div>
 				</div>
-			</div>
+			{/if}
 		{:else}
 			<div class="noLine">
 				<span>Select a line below</span>
@@ -166,6 +217,31 @@
 				&.invalid {
 					outline: 2px solid var(--appDelColor);
 				}
+			}
+		}
+		.lineEditMembers {
+			align-items: center;
+			display: flex;
+			width: 170px;
+			flex-direction: column-reverse;
+			height: 290px;
+			flex-wrap: wrap;
+			justify-content: center;
+			.addHeroButton {
+				background: transparent;
+				border: 3px solid var(--appColorPrimary);
+				border-radius: 50%;
+				color: var(--appColorPrimary);
+				cursor: pointer;
+				flex-grow: 0;
+				flex-shrink: 0;
+				font-size: 1.5rem;
+				height: 60px;
+				margin: 5px;
+				width: 60px;
+			}
+			.heroButtonArea {
+				margin: 5px;
 			}
 		}
 		.lineMembers {

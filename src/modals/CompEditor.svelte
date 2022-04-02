@@ -418,18 +418,6 @@
 		}
 	}
 
-	function validateLineDisplay(list) {
-		// catch if a user dragged something we weren't expecting and exit
-		if(!Array.isArray(list)) return false;
-		// don't allow overwrite if there are missing/additional heroes
-		if(list.length !== 5) return false;
-		for(const item of list) {
-			// don't allow overwrite if hero isn't in HeroData and isn't 'unknown'
-			if(!$HeroData.some(e => e.id === item) && !item === 'unknown') return false;
-		}
-		return true;
-	}
-
 	function handleLineDisplaySort(event) {
 		const newList = event.detail.newList.reverse();
 		comp.lines[openLine].heroes = newList;
@@ -456,6 +444,15 @@
 		switch(event.detail.action) {
 			case 'addLine':
 				addLine();
+				break;
+			case 'lineDisplaySort':
+				handleLineDisplaySort(event.detail.data);
+				break;
+			case 'addHero':
+				let config = event.detail.data;
+				config.onSuccess = updateLineHero;
+				config.close = closeHeroFinder;
+				openHeroFinder(config);
 				break;
 			default:
 				throw new Error(`Invalid action specified on compLineEvent: ${action}`);
