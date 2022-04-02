@@ -8,6 +8,12 @@ const herodata = get(HeroData); // data from HeroData store
 const maxDescLen = 5000;
 const maxCompTags = 10;
 const maxNoteLen = 280;
+const minCompTitleLen = 0;
+const maxCompTitleLen = 50;
+const minCompAuthorLen = 0;
+const maxCompAuthorLen = 50;
+const minLineTitleLen = 0;
+const maxLineTitleLen = 30;
 // const testcomps = get(TestComps); // data from TestComps store
 
 // validation function for MH.List
@@ -114,8 +120,8 @@ window.validateComp = async function(data) {
 	}
 
 	// comp name and author length checks
-	if(data.name.length >= 50 || data.name.length <= 0) return {retCode: 1, message: 'Comp name must be be 1-50 characters long'};
-	if(data.author.length >= 50 || data.author.length <= 0) return {retCode: 1, message: 'Comp author must be 1-50 characters long'};
+	if(data.name.length <= minCompTitleLen || data.name.length >= maxCompTitleLen) return {retCode: 1, message: 'Comp name must be be 1-50 characters long'};
+	if(data.author.length <= minCompAuthorLen || data.author.length >= maxCompAuthorLen) return {retCode: 1, message: 'Comp author must be 1-50 characters long'};
 
 	// perform detailed checks on finalized comps
 	if(!data.draft) {
@@ -143,6 +149,8 @@ window.validateComp = async function(data) {
 					return {retCode: 1, message: `Incorrect type for key ${key} in line named ${line.name}, expected ${expectedPropType}`};
 				}
 			}
+			// make sure title is the correct length
+			if(line.name.length <= minLineTitleLen || line.name.length >= maxLineTitleLen) return {retCode: 1, message: `Line titles must be ${minLineTitleLen}-${maxLineTitleLen} characters`};
 			// make sure every hero in a line is also in heroes or is unknown
 			for(const hero of line.heroes) {
 				if(!(hero in data.heroes) && hero !== 'unknown') {

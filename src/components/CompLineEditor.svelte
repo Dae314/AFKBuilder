@@ -53,12 +53,22 @@
 				throw new Error(`Invalid type specified for lineNavClick: ${type}`);
 		}
 	}
+
+	function handleAddLineClick() {
+		dispatch('compLineEvent', {action: 'addLine'});
+	}
 </script>
 
 <div class="compLineEditorContainer">
 	<div class="lineDisplay">
 		{#if lines[selectedLine]}
-			<div class="lineTitle"><span>{lines[selectedLine].name}</span></div>
+			<div class="lineTitle">
+				{#if editMode}
+					<input type="text" class="titleInput" bind:value={lines[selectedLine].name} maxlength="30" class:invalid={lines[selectedLine].name.length <= 0 || lines[selectedLine].name.length >= 30}>
+				{:else}
+					<span>{lines[selectedLine].name}</span>
+				{/if}
+			</div>
 			<div class="lineMembers">
 				<div class="detailBackline">
 					{#if lines.length > 0}
@@ -111,6 +121,9 @@
 		{#each lines as line, i}
 			<button type="button" class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}></button>
 		{/each}
+		{#if editMode}
+			<button type="button" class="addLineButton" on:click={handleAddLineClick}>+</button>
+		{/if}
 	</div>
 </div>
 
@@ -137,6 +150,23 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
+			.titleInput {
+				background-color: var(--appBGColor);
+				border: none;
+				border-radius: 5px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				font-weight: bold;
+				outline: none;
+				padding: 3px;
+				text-align: center;
+				&:focus {
+					background-color: white;
+					box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+				}
+				&.invalid {
+					outline: 2px solid var(--appDelColor);
+				}
+			}
 		}
 		.lineMembers {
 			align-items: center;
@@ -231,6 +261,24 @@
 			&.active {
 				background-color: var(--appColorPrimary);
 			}
+		}
+		.addLineButton {
+			align-items: center;
+			background-color: transparent;
+			border: none;
+			border-radius: 50%;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			color: var(--appColorPrimary);
+			cursor: pointer;
+			display: flex;
+			font-size: 1rem;
+			font-weight: bold;
+			height: 23px;
+			justify-content: center;
+			margin-left: 5px;
+			padding: 0;
+			user-select: none;
+			width: 23px;
 		}
 	}
 	@media only screen and (min-width: 767px) {

@@ -451,6 +451,16 @@
 		const subIdx = parseInt(group.slice(8, group.length));
 		comp.subs[subIdx].heroes = newList;
 	}
+
+	async function handleLineEvent(event) {
+		switch(event.detail.action) {
+			case 'addLine':
+				addLine();
+				break;
+			default:
+				throw new Error(`Invalid action specified on compLineEvent: ${action}`);
+		}
+	}
 </script>
 
 <svelte:window on:popstate={handlePopState} />
@@ -611,6 +621,7 @@
 					compHeroes={comp.heroes}
 					bind:selectedLine={openLine}
 					editMode
+					on:compLineEvent={handleLineEvent}
 				/>
 			</div>
 			<div class="descEditor">
