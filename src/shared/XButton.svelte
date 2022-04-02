@@ -63,8 +63,8 @@
 	}
 	@media only screen and (min-width: 767px) {
 		.xButton.hoverable:hover {
-			background: transparent;
-			color: var(--appDelColor);
+			background: var(--appDelColor);
+			color: var(--appBGColor);
 		}
 	}
 </style>
