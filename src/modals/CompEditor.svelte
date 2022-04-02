@@ -429,6 +429,7 @@
 	}
 
 	async function handleLineEvent(event) {
+		let config;
 		switch(event.detail.action) {
 			case 'addLine':
 				addLine();
@@ -440,7 +441,7 @@
 				handleLineDisplaySort(event.detail.data);
 				break;
 			case 'addHero':
-				let config = event.detail.data;
+				config = event.detail.data;
 				config.onSuccess = updateLineHero;
 				config.close = closeHeroFinder;
 				openHeroFinder(config);
@@ -450,6 +451,12 @@
 				break;
 			case 'lineSort':
 				handleLineSort(event.detail.data);
+				break;
+			case 'importLine':
+				config = event.detail.data;
+				config.onSuccess = handleImportLine;
+				config.close = closeImportLine;
+				handleImportLineClick(config);
 				break;
 			default:
 				throw new Error(`Invalid action specified on compLineEvent: ${action}`);

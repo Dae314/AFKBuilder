@@ -109,7 +109,7 @@
 	}
 
 	function handleImportLineClick() {
-		console.log('import line clicked');
+		dispatch('compLineEvent', {action: 'importLine', data: {idx: selectedLine}});
 	}
 </script>
 
