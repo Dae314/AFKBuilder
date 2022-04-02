@@ -14,6 +14,8 @@ const minCompAuthorLen = 0;
 const maxCompAuthorLen = 50;
 const minLineTitleLen = 0;
 const maxLineTitleLen = 30;
+const minSubTitleLen = 0;
+const maxSubTitleLen = 50;
 // const testcomps = get(TestComps); // data from TestComps store
 
 // validation function for MH.List
@@ -180,6 +182,8 @@ window.validateComp = async function(data) {
 					return {retCode: 1, message: `Incorrect type for key ${key} in sub line named ${sub.name}, expected ${expectedPropType}`};
 				}
 			}
+			// make sure title is the correct length
+			if(sub.name.length <= minSubTitleLen || line.name.length >= maxSubTitleLen) return {retCode: 1, message: `Substitute line titles must be ${minSubTitleLen}-${maxSubTitleLen} characters`};
 			// make sure every hero in a sub line is also in heroes
 			for(const hero of sub.heroes) {
 				if(!(hero in data.heroes)) {
