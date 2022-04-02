@@ -107,6 +107,10 @@
 	function handleDeleteHeroClick(config) {
 		dispatch('compLineEvent', {action: 'deleteHero', data: config});
 	}
+
+	function handleImportLineClick() {
+		console.log('import line clicked');
+	}
 </script>
 
 <div class="compLineEditorContainer">
@@ -116,7 +120,20 @@
 				{#if editMode}
 					<input type="text" class="titleInput" bind:value={lines[selectedLine].name} maxlength="30" class:invalid={lines[selectedLine].name.length <= 0 || lines[selectedLine].name.length >= 30}>
 					<div class="deleteLineArea">
-						<XButton clickCallback={handleDeleteLineClick} size="medium" hoverable />
+						<button type="button" class="titleButton deleteLineButton" on:click|stopPropagation={handleDeleteLineClick}>
+							<img class="deleteLineImage" src="./img/utility/trashcan_white.png" alt="Delete Line">
+						</button>
+						<div class="tooltip">
+							<span class="tooltipText">Delete</span>
+						</div>
+					</div>
+					<div class="importLineArea">
+						<button type="button" class="titleButton importLineButton" on:click|stopPropagation={handleImportLineClick}>
+							<img class="importLineImage" src="./img/utility/import_line_white.png" alt="Import Line">
+						</button>
+						<div class="tooltip">
+							<span class="tooltipText">Import</span>
+						</div>
 					</div>
 				{:else}
 					<span>{lines[selectedLine].name}</span>
@@ -267,9 +284,47 @@
 			}
 			.deleteLineArea {
 				position: absolute;
-				right: 0px;
-				top: 5px;
+				right: -20px;
+				top: 13px;
+				.deleteLineButton {
+					align-items: center;
+					background-color: var(--appDelColor);
+					border: none;
+					border-radius: 5px;
+					box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+					cursor: pointer;
+					display: flex;
+					justify-content: center;
+					outline: none;
+					padding: 5px;
+					.deleteLineImage {
+						max-width: 12px;
+					}
+				}
 			}
+			.importLineArea {
+				position: absolute;
+				left: -20px;
+				top: 13px;
+				.importLineButton {
+					align-items: center;
+					background-color: var(--appColorPrimary);
+					border: none;
+					border-radius: 5px;
+					box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+					cursor: pointer;
+					display: flex;
+					justify-content: center;
+					outline: none;
+					padding: 5px;
+					.importLineImage {
+						max-width: 12px;
+					}
+				}
+			}
+		}
+		.tooltip {
+			display: none;
 		}
 		.lineEditMembers {
 			align-items: center;
@@ -425,6 +480,30 @@
 			width: 340px;
 		}
 		.lineDisplay {
+			.lineTitle {
+				.tooltip {
+					bottom: -28px;
+					display: block;
+					opacity: 0;
+					position: absolute;
+					left: -9px;
+					transition: all 0.2s;
+					visibility: hidden;
+					.tooltipText {
+						background: var(--appBGColor);
+						box-shadow: var(--neu-sm-ni-BGColor-pressed-shadow);
+						font-size: 0.8rem;
+						font-weight: normal;
+						padding: 3px;
+					}
+				}
+				.titleButton:hover {
+					+.tooltip {
+						opacity: 1;
+						visibility: visible;
+					}
+				}
+			}
 			.lineNavButton {
 				&:hover {
 					background-color: var(--appBGColorDark);
