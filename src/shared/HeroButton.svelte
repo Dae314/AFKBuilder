@@ -130,13 +130,18 @@
 	.nameArea {
 		display: flex;
 		width: 100%;
+		max-width: 70px;
 		.heroNameButton {
 			background: transparent;
 			border: none;
 			cursor: pointer;
 			margin: 0 auto;
+			max-width: 70px;
 			outline: none;
+			overflow: hidden;
 			padding: 0;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 	}
 	@media only screen and (min-width: 767px) {

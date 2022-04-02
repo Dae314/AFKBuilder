@@ -230,6 +230,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		max-height: 390px;
+		min-height: 390px;
 		padding: 10px;
 		position: relative;
 		width: 100%;
@@ -274,7 +276,7 @@
 			display: flex;
 			width: 170px;
 			flex-direction: column-reverse;
-			height: 290px;
+			height: 340px;
 			flex-wrap: wrap;
 			justify-content: center;
 			.addHeroButton {
@@ -288,6 +290,7 @@
 				font-size: 1.5rem;
 				height: 60px;
 				margin: 5px;
+				margin-bottom: 20px;
 				width: 60px;
 			}
 			.heroButtonArea {
@@ -335,6 +338,7 @@
 			flex-shrink: 0;
 			height: 70px;
 			margin: 5px;
+			margin-bottom: 20px;
 			width: 70px;
 		}
 		.lineNavButton {
@@ -421,8 +425,6 @@
 			width: 340px;
 		}
 		.lineDisplay {
-			max-height: 375px;
-			min-height: 375px;
 			.lineNavButton {
 				&:hover {
 					background-color: var(--appBGColorDark);

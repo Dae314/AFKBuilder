@@ -2426,7 +2426,7 @@
 					border-radius: 10px;
 					box-shadow: var(--neu-med-ni-BGColor-shadow);
 					margin-left: 10px;
-					max-height: 375px;
+					max-height: 390px;
 					overflow-y: auto;
 					padding: 10px;
 					width: 100%;
