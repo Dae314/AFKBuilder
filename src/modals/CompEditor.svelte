@@ -10,6 +10,7 @@
 	import CompLineEditor from '../components/CompLineEditor.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
 	import XButton from '../shared/XButton.svelte';
+	import HeroButton from '../shared/HeroButton.svelte';
 	import {validateJWT} from '../rest/RESTFunctions.svelte';
 
 	export let compID = null; // uuid for comp to be edited
@@ -462,6 +463,16 @@
 				throw new Error(`Invalid action specified on compLineEvent: ${action}`);
 		}
 	}
+
+	async function handleHeroButtonEvent(event, config) {
+		switch(event.detail.action) {
+			case 'heroClick':
+				openHeroFinder(config);
+				break;
+			default:
+				throw new Error(`Invalid action specified on heroButtonEvent: ${action}`);
+		}
+	}
 </script>
 
 <svelte:window on:popstate={handlePopState} />
@@ -545,7 +556,7 @@
 					{#each comp.subs as sub, i}
 						<div class="subGroup">
 							<div class="subTitle">
-								<input class="subTitleInput" type="text" bind:value={sub.name} placeholder="Subgroup Name" maxlength="50" class:maxed={sub.name.length >= 50}>
+								<input class="subTitleInput" type="text" bind:value={sub.name} placeholder="Subgroup Name" maxlength="50" class:invalid={sub.name.length <= 0 || sub.name.length >= 50}>
 								<div class="removeButtonContainer">
 									<XButton clickCallback={() => deleteSub(i)} size="large" hoverable={true} />
 								</div>
@@ -559,52 +570,14 @@
 									let:item={hero}
 									let:i={j}>
 									<div class="subGroupMember">
-										<button type="button" class="heroButton" on:click={() => openHeroFinder({idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>
-											<img
-												draggable="false"
-												src={$HeroData.some(e => e.id === hero) ? heroLookup[hero].portrait : './img/portraits/unavailable.png'}
-												alt={$HeroData.some(e => e.id === hero) ? heroLookup[hero].name : 'Pick a Hero'}>
-											<div class="removeHeroButtonContainer">
-												<XButton clickCallback={() => removeSubHero(i, j)} size="medium" hoverable={false} />
-											</div>
-											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-											<div class="ascMark subAscMark">
-												{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-													{#if comp.heroes[hero].ascendLv >= 6}
-														<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
-													{:else if comp.heroes[hero].ascendLv >= 4}
-														<img draggable="false" src="./img/markers/mythic.png" alt="mythic">
-													{:else if comp.heroes[hero].ascendLv >= 2}
-														<img draggable="false" src="./img/markers/legendary.png" alt="legendary">
-													{:else}
-														<img draggable="false" src="./img/markers/elite.png" alt="elite">
-													{/if}
-												{:else}
-													{#if comp.heroes[hero].ascendLv >= 4}
-														<img draggable="false" src="./img/markers/legendary.png" alt="ascended">
-													{:else if comp.heroes[hero].ascendLv >= 2}
-														<img draggable="false" src="./img/markers/elite.png" alt="mythic">
-													{:else}
-														<img draggable="false" src="./img/markers/rare.png" alt="elite">
-													{/if}
-												{/if}
-												{#if comp.heroes[hero].si >= 30}
-													<img draggable="false" src="./img/markers/si30.png" alt="si30">
-												{:else if comp.heroes[hero].si >= 20}
-													<img draggable="false" src="./img/markers/si20.png" alt="si20">
-												{:else if comp.heroes[hero].si >= 10}
-													<img draggable="false" src="./img/markers/si10.png" alt="si10">
-												{:else}
-													<img draggable="false" src="./img/markers/si0.png" alt="si0">
-												{/if}
-												{#if comp.heroes[hero].furn >= 9}
-													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-												{:else if comp.heroes[hero].furn >= 3}
-													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-												{/if}
-											</div>
-										</button>
-										<p>{heroLookup[hero].name}</p>
+										<HeroButton 
+											hero={hero}
+											heroDetails={comp.heroes[hero]}
+											on:heroButtonEvent={(event) => handleHeroButtonEvent(event, {idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes,})}
+										/>
+										<div class="removeHeroContainer">
+											<XButton clickCallback={() => removeSubHero(i, j)} size="medium" hoverable />
+										</div>
 									</div>
 								</SimpleSortableList>
 								<button type="button" class="addHeroButton" on:click={() => openHeroFinder({idx: i, pos: sub.heroes.length, onSuccess: updateSubHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>+</button>
@@ -883,74 +856,7 @@
 			padding: 10px 0px;
 		}
 	}
-	.heroButton {
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		padding: 0;
-		position: relative;
-		img {
-			border-radius: 50%;
-			max-width: 60px;
-		}
-	}
-	.coreMark {
-		background-color: var(--legendColor);
-		border: 3px solid var(--appBGColor);
-		border-radius: 50%;
-		bottom: 0px;
-		display: none;
-		height: 22px;
-		position: absolute;
-		right: -4px;
-		visibility: hidden;
-		width: 22px;
-	}
-	.coreMark.visible {
-		display: inline-block;
-		pointer-events: none;
-		visibility: visible;
-	}
-	.removeHeroButtonContainer {
-		position: absolute;
-		right: -6px;
-		top: 0;
-	}
-	.ascMark {
-		left: -11px;
-		position: absolute;
-		top: -5px;
-		img {
-			border-radius: 0;
-			left: 0;
-			max-width: 35px;
-			pointer-events: none;
-			position: absolute;
-			top: 0;
-		}
-		img.moveup {
-			top: -3.5px;
-		}
-	}
-	.heroButton+p {
-		color: black;
-		font-size: 0.8rem;
-		font-weight: bold;
-		margin: 0;
-		overflow: hidden;
-		text-align: center;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		width: 70px;
-	}
 	.subLine {
-		p {
-			color: black;
-		}
 		display: flex;
 		flex-wrap: wrap;
 		max-width: 100%;
@@ -973,17 +879,39 @@
 		flex-direction: row;
 		margin-bottom: 5px;
 		padding: 5px;
+		padding-bottom: 10px;
+		.subTitleInput {
+			background-color: var(--appBGColor);
+			border: none;
+			border-radius: 5px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			font-weight: bold;
+			outline: none;
+			padding: 3px;
+			text-align: center;
+			&:focus {
+				background-color: white;
+				box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+			}
+			&.invalid {
+				outline: 2px solid var(--appDelColor);
+			}
+		}
 		.removeButtonContainer {
-			margin-left: 5px;
+			margin-left: 10px;
 		}
 	}
 	.subGroupMember {
 		align-items: center;
 		display: flex;
 		flex-direction: column;
-		margin-left: 5px;
-		margin-right: 7px;
-		margin-bottom: 7px;
+		margin: 10px;
+		position: relative;
+		.removeHeroContainer {
+			position: absolute;
+			right: -7px;
+			top: -10px;
+		}
 	}
 	.addHeroButton {
 		background: transparent;
@@ -995,23 +923,26 @@
 		flex-shrink: 0;
 		font-size: 1.5rem;
 		height: 60px;
-		margin-left: 5px;
+		margin: 10px;
+		margin-top: 20px;
 		width: 60px;
 	}
 	.newSubArea {
 		align-items: center;
 		display: flex;
 		justify-content: center;
-	}
-	.subAddButton {
-		background-color: var(--appColorPrimary);
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 10px;
-		color: white;
-		cursor: pointer;
-		height: fit-content;
-		padding: 5px;
-		width: fit-content;
+		.subAddButton {
+			background-color: var(--appBGColor);
+			border: none;
+			border-radius: 10px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			color: var(--appColorPrimary);
+			cursor: pointer;
+			font-weight: bold;
+			height: fit-content;
+			padding: 5px;
+			width: fit-content;
+		}
 	}
 	.footer {
 		display: flex;
