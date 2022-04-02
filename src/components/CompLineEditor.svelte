@@ -40,9 +40,13 @@
 	function handleLineNavClick(type) {
 		switch(type) {
 			case 'prev':
-				if(--selectedLine < 0) selectedLine = 0;
+				if(selectedLine === null || selectedLine === undefined || --selectedLine < 0) selectedLine = 0;
 				break;
 			case 'next':
+				if(selectedLine === null || selectedLine === undefined) {
+					selectedLine = 0;
+					break;
+				}
 				if(++selectedLine >= lines.length) selectedLine = lines.length - 1;
 				break;
 			default:
@@ -55,49 +59,53 @@
 	<div class="lineDisplay">
 		{#if lines[selectedLine]}
 			<div class="lineTitle"><span>{lines[selectedLine].name}</span></div>
+			<div class="lineMembers">
+				<div class="detailBackline">
+					{#if lines.length > 0}
+						{#each lines[selectedLine].heroes as hero, i}
+							{#if i >= 2}
+								{#if $HeroData.some(e => e.id === hero)}
+									<div class="heroButtonArea">
+										<HeroButton
+											hero={hero}
+											heroDetails={compHeroes[hero]}
+											on:heroButtonEvent={handleHeroButtonEvent}
+										/>
+									</div>
+								{:else}
+									<i class="emptyLineSlot"></i>
+								{/if}
+							{/if}
+						{/each}
+					{/if}
+				</div>
+				<div class="detailFrontline">
+					{#if lines.length > 0}
+						{#each lines[selectedLine].heroes as hero, i}
+							{#if i < 2}
+								{#if $HeroData.some(e => e.id === hero)}
+									<div class="heroButtonArea">
+										<HeroButton
+											hero={hero}
+											heroDetails={compHeroes[hero]}
+											on:heroButtonEvent={handleHeroButtonEvent}
+										/>
+									</div>
+								{:else}
+									<i class="emptyLineSlot"></i>
+								{/if}
+							{/if}
+						{/each}
+					{/if}
+				</div>
+			</div>
+		{:else}
+			<div class="noLine">
+				<span>Select a line below</span>
+			</div>
 		{/if}
-		<div class="lineMembers">
-			<div class="detailBackline">
-				{#if lines.length > 0}
-					{#each lines[selectedLine].heroes as hero, i}
-						{#if i >= 2}
-							{#if $HeroData.some(e => e.id === hero)}
-								<div class="heroButtonArea">
-									<HeroButton
-										hero={hero}
-										heroDetails={compHeroes[hero]}
-										on:heroButtonEvent={handleHeroButtonEvent}
-									/>
-								</div>
-							{:else}
-								<i class="emptyLineSlot"></i>
-							{/if}
-						{/if}
-					{/each}
-				{/if}
-			</div>
-			<div class="detailFrontline">
-				{#if lines.length > 0}
-					{#each lines[selectedLine].heroes as hero, i}
-						{#if i < 2}
-							{#if $HeroData.some(e => e.id === hero)}
-								<div class="heroButtonArea">
-									<HeroButton
-										hero={hero}
-										heroDetails={compHeroes[hero]}
-										on:heroButtonEvent={handleHeroButtonEvent}
-									/>
-								</div>
-							{:else}
-								<i class="emptyLineSlot"></i>
-							{/if}
-						{/if}
-					{/each}
-				{/if}
-			</div>
-		</div>
-		<button type="button" class="lineNavButton prevLineButton" on:click={() => handleLineNavClick('prev')}>&#10096;</button>
-		<button type="button" class="lineNavButton nextLineButton" on:click={() => handleLineNavClick('next')}>&#10097;</button>
+		<button type="button" class="lineNavButton prevLineButton" disabled={selectedLine <= 0} on:click={() => handleLineNavClick('prev')}>&#10096;</button>
+		<button type="button" class="lineNavButton nextLineButton" disabled={selectedLine >= lines.length - 1} on:click={() => handleLineNavClick('next')}>&#10097;</button>
 	</div>
 	<div class="lineSwitcher">
 		{#each lines as line, i}
@@ -188,6 +196,20 @@
 				border-radius: 0px 10px 10px 0px;
 				right: 0px;
 			}
+			&:disabled {
+				color: var(--appColorDisabled);
+				cursor: default;
+			}
+		}
+		.noLine {
+			align-items: center;
+			height: 100%;
+			color: var(--appColorDisabled);
+			font-size: 1.5rem;
+			font-weight: bold;
+			justify-content: center;
+			text-align: center;
+			width: 100%;
 		}
 	}
 	.lineSwitcher {
@@ -224,6 +246,11 @@
 			.lineNavButton {
 				&:hover {
 					background-color: var(--appBGColorDark);
+				}
+				&:disabled {
+					&:hover {
+						background-color: transparent;
+					}
 				}
 			}
 		}

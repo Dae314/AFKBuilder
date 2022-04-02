@@ -7,6 +7,7 @@
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from './HeroFinder.svelte';
 	import ImportLine from './ImportLine.svelte';
+	import CompLineEditor from '../components/CompLineEditor.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
 	import XButton from '../shared/XButton.svelte';
 	import {validateJWT} from '../rest/RESTFunctions.svelte';
@@ -511,7 +512,7 @@
 			</div>
 		</div>
 		<div class="row1">
-			<div class="lineEditor">
+			<!-- <div class="lineEditor">
 				<h4 class="lineEditorTitle">Lines</h4>
 				<div class="lineEditHead">
 					<SimpleSortableList
@@ -603,6 +604,14 @@
 						</div>
 					{/if}
 				</div>
+			</div> -->
+			<div class="lineEditArea">
+				<CompLineEditor
+					lines={comp.lines}
+					compHeroes={comp.heroes}
+					bind:selectedLine={openLine}
+					editMode
+				/>
 			</div>
 			<div class="descEditor">
 				<h4>Description</h4>
@@ -953,111 +962,10 @@
 			}
 		}
 	}
-	.lineEditor {
-		padding: 10px 0px;
-		width: 100%;
-	}
-	.lineEditHead {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		width: 100%;
-		:global(div) {
-			border: 0;
-			margin: 0;
-			padding: 0;
+	.row1 {
+		.lineEditArea {
+			padding: 10px 0px;
 		}
-	}
-	.linePickerOption {
-		align-items: center;
-		border: 0;
-		border: 2px solid var(--appColorPrimary);
-		border-bottom: none;
-		border-radius: 10px 10px 0px 0px;
-		cursor: pointer;
-		display: flex;
-		justify-content: center;
-		max-width: 100px;
-		min-width: 40px;
-		min-height: 26px;
-		padding: 3px;
-		span {
-			display: inline-block;
-			width: 100%;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-		.removeButtonContainer {
-			margin-left: 3px;
-		}
-	}
-	.linePickerOption.open {
-		background-color: var(--appColorPrimary);
-		color: white;
-	}
-	.addLineButton {
-		min-width: 20px;
-		padding: 3px;
-		user-select: none;
-	}
-	.lineEditBody {
-		align-items: center;
-		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 10px;
-		color: black;
-		display: flex;
-		flex-direction: column;
-		padding: 5px;
-		width: 100%;
-		.lineDisplayHead {
-			display: flex;
-			justify-content: center;
-			position: relative;
-			width: 100%;
-			.lineNameInput {
-				text-align: center;
-			}
-			.importLineButton {
-				align-items: center;
-				background-color: var(--appColorPrimary);
-				border: 2px solid var(--appColorPrimary);
-				border-radius: 5px;
-				cursor: pointer;
-				display: flex;
-				justify-content: center;
-				margin-left: auto;
-				outline: none;
-				padding: 3px;
-				position: absolute;
-				right: 0px;
-				.importLineImage {
-					max-width: 15px;
-				}
-			}
-		}
-	}
-	.noLine {
-		color: rgba(100, 100, 100, 0.5);
-		font-size: 1rem;
-		font-weight: bold;
-		text-align: center;
-		text-transform: uppercase;
-		user-select: none;
-		width: 100%;
-	}
-	.lineDisplay {
-		align-items: center;
-		display: flex;
-		width: 170px;
-		flex-direction: column-reverse;
-		height: 290px;
-		flex-wrap: wrap;
-		justify-content: center;
-	}
-	.lineButton {
-		margin: 5px;
 	}
 	.heroButton {
 		background: transparent;
@@ -1250,33 +1158,6 @@
 		.row1 {
 			display: flex;
 			flex-direction: row;
-		}
-		.lineEditor {
-			flex-grow: 0;
-			flex-shrink: 0;
-			margin-right: 10px;
-			width: 340px;
-		}
-		.lineEditHead {
-			justify-content: flex-start;
-		}
-		.linePickerOption {
-			.removeButtonContainer {
-				opacity: 0;
-				transition: opacity 0.2s;
-				visibility: hidden;
-			}
-			&:hover .removeButtonContainer {
-				opacity: 1;
-				visibility: visible;
-			}
-			.removeButtonContainer.open {
-				opacity: 1;
-				visibility: visible;
-			}
-		}
-		.lineEditBody {
-			border-radius: 0px 10px 10px 10px;
 		}
 		.descEditor {
 			width: 100%;
