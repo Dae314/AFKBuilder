@@ -50,7 +50,6 @@
 	let editor; // ToastUI editor
 	let tagInputEl;
 	const tagValidation = new RegExp('^[A-Za-z0-9-_.~]*$');
-	const heroLookup = makeHeroLookup();
 
 	$: tagSuggestions = makeTagSuggestions();
 	$: isValidTag = newTagText !== '' && tagValidation.test(newTagText);
@@ -125,17 +124,6 @@
 
 		// finally make suggestions into an array of strings
 		return suggestions.map(e => e.name);
-	}
-
-	function makeHeroLookup() {
-		let lookup = {}
-		for(const hero of $HeroData) {
-			lookup[hero.id] = {
-				portrait: hero.portrait,
-				name: hero.name
-			};
-		}
-		return lookup;
 	}
 
 	function deleteLine(lineIdx) {
