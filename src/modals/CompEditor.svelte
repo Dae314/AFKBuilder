@@ -445,6 +445,9 @@
 				config.close = closeHeroFinder;
 				openHeroFinder(config);
 				break;
+			case 'deleteHero':
+				removeLineHero(event.detail.data.lineIdx, event.detail.data.heroIdx);
+				break;
 			case 'lineSort':
 				handleLineSort(event.detail.data);
 				break;

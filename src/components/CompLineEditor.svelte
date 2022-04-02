@@ -103,6 +103,10 @@
 	function handleAddHeroClick(config) {
 		dispatch('compLineEvent', {action: 'addHero', data: config});
 	}
+
+	function handleDeleteHeroClick(config) {
+		dispatch('compLineEvent', {action: 'deleteHero', data: config});
+	}
 </script>
 
 <div class="compLineEditorContainer">
@@ -138,6 +142,9 @@
 									heroDetails={compHeroes[hero]}
 									on:heroButtonEvent={(event) => handleHeroButtonEvent(event, {idx: selectedLine, pos: i, oldHeroID: hero, compHeroData: compHeroes})}
 								/>
+								<div class="deleteHeroArea">
+									<XButton clickCallback={() => handleDeleteHeroClick({lineIdx: selectedLine, heroIdx: i})} size="medium" hoverable />
+								</div>
 							</div>
 						{/if}
 					</SimpleSortableList>
@@ -313,6 +320,12 @@
 		}
 		.heroButtonArea {
 			margin: 5px;
+			position: relative;
+			.deleteHeroArea {
+				position: absolute;
+				top: -10px;
+				right: -7px;
+			}
 		}
 		.emptyLineSlot {
 			background: transparent;
