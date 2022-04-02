@@ -32,7 +32,7 @@
 		switch(event.detail.action) {
 			case 'heroClick':
 				if(editMode) {
-					dispatch('compLineEvent', {action: 'addHero', data: config});
+					handleAddHeroClick(config);
 				} else {
 					dispatch('compLineEvent', {action: 'heroClick', data: event.detail.data});
 				}
@@ -75,8 +75,24 @@
 		return true;
 	}
 
+	function validateLineEditHead(list) {
+		// catch if a user dragged something we weren't expecting and exit
+		if(!Array.isArray(list)) return false;
+		// don't allow overwrite if there are missing lines
+		if(list.length !== lines.length) return false;
+		for(const item of list) {
+			// don't allow overwrite if list is not a list of objects
+			if(Object.prototype.toString.call(item) !== '[object Object]') return false;
+		}
+		return true;
+	}
+
 	function handleLineDisplaySort(event) {
 		dispatch('compLineEvent', {action: 'lineDisplaySort', data: event});
+	}
+
+	function handleLineSort(event) {
+		dispatch('compLineEvent', {action: 'lineSort', data: event});
 	}
 
 	function handleAddHeroClick(config) {
@@ -112,7 +128,7 @@
 								<HeroButton
 									hero={hero}
 									heroDetails={compHeroes[hero]}
-									on:heroButtonEvent={(event) => handleHeroButtonEvent(event, {idx: selectedLine, pos: i, oldHeroID: hero, compHeroData: comp.heroes})}
+									on:heroButtonEvent={(event) => handleHeroButtonEvent(event, {idx: selectedLine, pos: i, oldHeroID: hero, compHeroData: compHeroes})}
 								/>
 							</div>
 						{/if}
@@ -169,11 +185,20 @@
 		<button type="button" class="lineNavButton nextLineButton" disabled={selectedLine >= lines.length - 1} on:click={() => handleLineNavClick('next')}>&#10097;</button>
 	</div>
 	<div class="lineSwitcher">
-		{#each lines as line, i}
-			<button type="button" class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}></button>
-		{/each}
 		{#if editMode}
+			<SimpleSortableList
+				list={lines}
+				groupID="lineEditHead"
+				validate={validateLineEditHead}
+				on:sort={handleLineSort}
+				let:i={i}>
+				<button type="button" class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}></button>
+			</SimpleSortableList>
 			<button type="button" class="addLineButton" on:click={handleAddLineClick}>+</button>
+		{:else}
+			{#each lines as line, i}
+				<button type="button" class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}></button>
+			{/each}
 		{/if}
 	</div>
 </div>

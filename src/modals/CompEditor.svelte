@@ -392,18 +392,6 @@
 		tagInputEl.blur();
 	}
 
-	function validateLineEditHead(list) {
-		// catch if a user dragged something we weren't expecting and exit
-		if(!Array.isArray(list)) return false;
-		// don't allow overwrite if there are missing lines
-		if(list.length !== comp.lines.length) return false;
-		for(const item of list) {
-			// don't allow overwrite if list is not a list of objects
-			if(Object.prototype.toString.call(item) !== '[object Object]') return false;
-		}
-		return true;
-	}
-
 	function handleLineSort(event) {
 		const newList = event.detail.newList;
 		const from = parseInt(event.detail.from);
@@ -453,6 +441,9 @@
 				config.onSuccess = updateLineHero;
 				config.close = closeHeroFinder;
 				openHeroFinder(config);
+				break;
+			case 'lineSort':
+				handleLineSort(event.detail.data);
 				break;
 			default:
 				throw new Error(`Invalid action specified on compLineEvent: ${action}`);
