@@ -523,99 +523,6 @@
 			</div>
 		</div>
 		<div class="row1">
-			<!-- <div class="lineEditor">
-				<h4 class="lineEditorTitle">Lines</h4>
-				<div class="lineEditHead">
-					<SimpleSortableList
-						list={comp.lines}
-						groupID="lineEditHead"
-						validate={validateLineEditHead}
-						on:sort={handleLineSort}
-						let:item={line}
-						let:i={i}>
-						<button type="button" class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
-							<span>{line.name}</span>
-							<div class="removeButtonContainer" class:open={openLine === i}>
-								<XButton clickCallback={() => deleteLine(i)} size="small" hoverable={false} />
-							</div>
-						</button>
-					</SimpleSortableList>
-					<button type="button" class="linePickerOption addLineButton" on:click={addLine}>+</button>
-				</div>
-				<div class="lineEditBody">
-					{#if openLine === null}
-						<span class="noLine">Select a line to edit.</span>
-					{:else}
-						<div class="lineDisplayHead">
-							<input type="text" class="lineNameInput" bind:value={comp.lines[openLine].name} placeholder="Line Name" maxlength="30" class:maxed={comp.lines[openLine].name.length >= 30}>
-							<button type="button" class="importLineButton" on:click={() => handleImportLineClick({idx: openLine, onSuccess: handleImportLine, close: closeImportLine, })}>
-								<img class="importLineImage" src="./img/utility/import_line_white.png" alt="Import Line">
-							</button>
-						</div>
-						<div class="lineDisplay">
-							<SimpleSortableList
-								list={[...comp.lines[openLine].heroes].reverse()}
-								groupID="lineDisplay"
-								validate={validateLineDisplay}
-								on:sort={handleLineDisplaySort}
-								let:item={hero}
-								let:i={i}>
-								{#if hero === 'unknown'}
-									<button type="button" class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
-										<span>+</span>
-									</button>
-								{:else}
-									<button type="button" class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
-										<div class="imgContainer">
-											<img draggable="false" src={heroLookup[hero].portrait} alt={heroLookup[hero].name}>
-											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-											<div class="removeHeroButtonContainer">
-												<XButton clickCallback={() => removeLineHero(openLine, i)} size="medium" hoverable={false} />
-											</div>
-											<div class="ascMark">
-												{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-													{#if comp.heroes[hero].ascendLv >= 6}
-														<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
-													{:else if comp.heroes[hero].ascendLv >= 4}
-														<img draggable="false" src="./img/markers/mythic.png" alt="mythic">
-													{:else if comp.heroes[hero].ascendLv >= 2}
-														<img draggable="false" src="./img/markers/legendary.png" alt="legendary">
-													{:else}
-														<img draggable="false" src="./img/markers/elite.png" alt="elite">
-													{/if}
-												{:else}
-													{#if comp.heroes[hero].ascendLv >= 4}
-														<img draggable="false" src="./img/markers/legendary.png" alt="ascended">
-													{:else if comp.heroes[hero].ascendLv >= 2}
-														<img draggable="false" src="./img/markers/elite.png" alt="mythic">
-													{:else}
-														<img draggable="false" src="./img/markers/rare.png" alt="elite">
-													{/if}
-												{/if}
-												{#if comp.heroes[hero].si >= 30}
-													<img draggable="false" src="./img/markers/si30.png" alt="si30">
-												{:else if comp.heroes[hero].si >= 20}
-													<img draggable="false" src="./img/markers/si20.png" alt="si20">
-												{:else if comp.heroes[hero].si >= 10}
-													<img draggable="false" src="./img/markers/si10.png" alt="si10">
-												{:else}
-													<img draggable="false" src="./img/markers/si0.png" alt="si0">
-												{/if}
-												{#if comp.heroes[hero].furn >= 9}
-													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-												{:else if comp.heroes[hero].furn >= 3}
-													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-												{/if}
-											</div>
-										</div>
-										<p>{heroLookup[hero].name}</p>
-									</button>
-								{/if}
-							</SimpleSortableList>
-						</div>
-					{/if}
-				</div>
-			</div> -->
 			<div class="lineEditArea">
 				<CompLineEditor
 					lines={comp.lines}
@@ -801,9 +708,6 @@
 		color: var(--appDelColor);
 		font-weight: bold;
 		font-style: italic;
-	}
-	.lineEditorTitle {
-		margin-top: 0;
 	}
 	.editorHead {
 		align-items: center;
@@ -993,20 +897,6 @@
 			border-radius: 50%;
 			max-width: 60px;
 		}
-		p {
-			font-weight: bold;
-			margin: 0;
-			overflow: hidden;
-			text-align: center;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			width: 70px;
-		}
-	}
-	.imgContainer {
-		height: fit-content;
-		position: relative;
-		width: fit-content;
 	}
 	.coreMark {
 		background-color: var(--legendColor);
