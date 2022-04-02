@@ -515,5 +515,12 @@
 				}
 			}
 		}
+		.lineSwitcher {
+			.addLineButton {
+				&:hover {
+					background: var(--neu-convex-BGColor-bg);
+				}
+			}
+		}
 	}
 </style>

@@ -950,17 +950,21 @@
 		margin-top: 15px;
 	}
 	.footerButton {
-		background-color: transparent;
-		border: 3px solid var(--appColorPrimary);
+		background-color: var(--appBGColor);
+		border: none;
 		border-radius: 10px;
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		color: var(--appColorPrimary);
 		cursor: pointer;
 		font-size: 1.05rem;
+		font-weight: bold;
 		margin-right: 10px;
+		outline: none;
 		padding: 5px;
 	}
 	.cancelButton {
 		margin-right: 0;
+		color: var(--appColorDisabled);
 	}
 	@media only screen and (min-width: 767px) {
 		.editorHead {
@@ -1006,14 +1010,7 @@
 		}
 		.footerButton {
 			&:hover {
-				background-color: var(--appColorPrimary);
-				color: white;
-			}
-		}
-		.cancelButton {
-			&:hover {
-				background-color: var(--appColorPriAccent);
-				color: white;
+				background: var(--neu-convex-BGColor-wide-bg);
 			}
 		}
 	}
