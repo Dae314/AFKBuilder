@@ -11,6 +11,7 @@
 	let lineIdx = 0;
 	let section = 1;
 	let selectedUUID = '';
+	let importLineContainer;
 
 	$: displayComps = $AppData.Comps.filter(e => !e.hidden);
 	$: selectedComp = $AppData.Comps.some(e => e.uuid === selectedUUID) ? $AppData.Comps.find(e => e.uuid === selectedUUID) : {};
@@ -25,11 +26,13 @@
 	function handleCompClick(uuid) {
 		selectedUUID = uuid;
 		section = 2;
+		importLineContainer.scrollTop = 0;
 	}
 
 	function handleBackButtonClick() {
 		section = 1;
 		selectedUUID = '';
+		importLineContainer.scrollTop = 0;
 	}
 
 	function handleLineClick(idx) {
@@ -42,7 +45,7 @@
 	<div class="modalCloseContainer">
 		<ModalCloseButton onClose={close} />
 	</div>
-	<div id="ilContainer" class="importLineContainer" on:click={(e) => e.stopPropagation()}>
+	<div bind:this={importLineContainer} id="ilContainer" class="importLineContainer" on:click={(e) => e.stopPropagation()}>
 		{#if section === 1}
 			<div class="compBrowser">
 				<div class="compBrowserTitle">Import line from:</div>
@@ -70,7 +73,9 @@
 		{:else if section === 2}
 			<div class="lineBrowser">
 				<div class="lineBrowserHead">
-					<button type="button" class="backButton" on:click={handleBackButtonClick}><span>&#60; Back</span></button>
+					<button type="button" class="backButton" on:click={handleBackButtonClick}>
+						<img class="backImage" draggable="false" src="./img/utility/back_color.png" alt="Back">
+					</button>
 					<div class="lineBrowserTitle">
 						Import Line:
 					</div>
@@ -129,13 +134,13 @@
 		.compBrowserTitle {
 			font-size: 2.0rem;
 			font-weight: bold;
-			margin-bottom: 10px;
+			margin-bottom: 20px;
 			text-align: center;
 			width: 100%;
 		}
 		ul {
 			display: grid;
-			grid-gap: 5px 5px;
+			grid-gap: 20px 10px;
 			grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
 			grid-auto-rows: 100px;
 			list-style-type: none;
@@ -152,28 +157,35 @@
 			position: relative;
 			width: 100%;
 			.backButton {
-				background-color: var(--appColorPrimary);
-				border: 2px solid var(--appColorPrimary);
-				border-radius: 5px;
-				color: var(--appBGColor);
+				align-items: center;
+				background-color: var(--appBGColor);
+				border: none;
+				border-radius: 10px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
 				cursor: pointer;
+				display: flex;
+				height: 33px;
+				justify-content: center;
 				left: 0px;
 				outline: none;
-				padding: 3px;
 				position: absolute;
 				top: 10px;
+				width: 33px;
+				.backImage {
+					max-width: 17px;
+				}
 			}
 			.lineBrowserTitle {
 				font-size: 2.0rem;
 				font-weight: bold;
 				text-align: center;
-				padding-bottom: 10px;
+				padding-bottom: 20px;
 				width: 100%;
 			}
 		}
 		ul {
 			display: grid;
-			grid-gap: 5px 5px;
+			grid-gap: 20px 10px;
 			grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
 			grid-auto-rows: 100px;
 			list-style-type: none;
@@ -187,9 +199,10 @@
 	}
 	.optionButton {
 		display: flex;
-		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
+		background-color: var(--appBGColor);
+		border: none;
 		border-radius: 10px;
+		box-shadow: var(--neu-med-i-BGColor-shadow);
 		cursor: pointer;
 		flex-direction: column;
 		outline: none;
