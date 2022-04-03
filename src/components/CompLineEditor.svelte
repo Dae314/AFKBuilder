@@ -476,7 +476,7 @@
 		.compLineEditorContainer {
 			flex-grow: 0;
 			flex-shrink: 0;
-			margin-right: 10px;
+			margin-right: 20px;
 			width: 340px;
 		}
 		.lineDisplay {
