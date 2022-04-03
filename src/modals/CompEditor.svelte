@@ -546,7 +546,10 @@
 							<div class="subTitle">
 								<input class="subTitleInput" type="text" bind:value={sub.name} placeholder="Subgroup Name" maxlength="50" class:invalid={sub.name.length <= 0 || sub.name.length >= 50}>
 								<div class="removeButtonContainer">
-									<XButton clickCallback={() => deleteSub(i)} size="large" hoverable={true} />
+									<button type="button" class="deleteSubButton" on:click|stopPropagation={() => deleteSub(i)}>
+										<img class="deleteSubImage" src="./img/utility/trashcan_white.png" alt="Delete Sub">
+									</button>
+									<!-- <XButton clickCallback={() => deleteSub(i)} size="large" hoverable={true} /> -->
 								</div>
 							</div>
 							<div class="subLine">
@@ -887,6 +890,21 @@
 		}
 		.removeButtonContainer {
 			margin-left: 10px;
+			.deleteSubButton {
+				align-items: center;
+				background-color: var(--appDelColor);
+				border: none;
+				border-radius: 5px;
+				box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+				cursor: pointer;
+				display: flex;
+				justify-content: center;
+				outline: none;
+				padding: 5px;
+				.deleteSubImage {
+					max-width: 12px;
+				}
+			}
 		}
 	}
 	.subGroupMember {
