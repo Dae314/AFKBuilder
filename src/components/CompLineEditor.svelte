@@ -482,15 +482,16 @@
 		.lineDisplay {
 			.lineTitle {
 				.tooltip {
-					bottom: -28px;
 					display: block;
 					opacity: 0;
 					position: absolute;
-					left: -9px;
+					left: -11px;
+					top: -30px;
 					transition: all 0.2s;
 					visibility: hidden;
 					.tooltipText {
 						background: var(--appBGColor);
+						border-radius: 5px;
 						box-shadow: var(--neu-sm-ni-BGColor-pressed-shadow);
 						font-size: 0.8rem;
 						font-weight: normal;
