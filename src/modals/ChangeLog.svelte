@@ -5,6 +5,11 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.13.46',
+			changes: [
+				'Added new hero Audrae',
+			],
+		},
 		{ version: 'v1.13.45',
 			changes: [
 				'Added new hero Alaro',
@@ -37,12 +42,6 @@
 				'Added new hero Melusina',
 				'Updated LDV benchmark to E36',
 				'Adjusted spacing on Ainz skill Magic Caster',
-			],
-		},
-		{ version: 'v1.13.27',
-			changes: [
-				'Added Scarlet with accurate skill descriptions (Thanks Bob49)',
-				'Fixed typo on Khazard SI +30 description',
 			],
 		},
 	]
