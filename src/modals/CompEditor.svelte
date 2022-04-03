@@ -549,7 +549,6 @@
 									<button type="button" class="deleteSubButton" on:click|stopPropagation={() => deleteSub(i)}>
 										<img class="deleteSubImage" src="./img/utility/trashcan_white.png" alt="Delete Sub">
 									</button>
-									<!-- <XButton clickCallback={() => deleteSub(i)} size="large" hoverable={true} /> -->
 								</div>
 							</div>
 							<div class="subLine">
