@@ -64,7 +64,7 @@
 	$: pageSettings = makePageSettings({curPage, compPageLimit});
 	$: sortSettings = makeSortSettings({curSort});
 	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings, sort: sortSettings } });
-	$: if(!$compsQuery.loading) processCompsPromise = processComps($compsQuery.data.comps.data);
+	$: if(!$compsQuery.loading && $compsQuery.data.comps) processCompsPromise = processComps($compsQuery.data.comps.data);
 	$: if(!$compsQuery.loading) pageInfo = $compsQuery.data.comps.meta.pagination;
 
 	onMount(async () => {
