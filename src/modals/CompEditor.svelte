@@ -477,12 +477,9 @@
 				<h5>Tags</h5>
 				<div class="tagDisplay">
 					{#each comp.tags as tag, i}
-						<div class="tag">
+						<button type="button" class="rmTagButton" on:click={() => removeTag(i)}>
 							<span class="tagText">{tag}</span>
-							<div class="removeTagButtonContainer">
-								<XButton clickCallback={() => removeTag(i)} size="small" hoverable={false} />
-							</div>
-						</div>
+						</button>
 					{/each}
 					{#if !addTagOpen}
 						<button
@@ -731,27 +728,35 @@
 				justify-content: center;
 				margin-bottom: 10px;
 				width: 100%;
-				.tag {
-					position: relative;
-					margin: 0px 8px;
-					margin-bottom: 10px;
-				}
-				.tagText {
+				.rmTagButton {
+					background-color: var(--appBGColor);
 					border: none;
 					border-radius: 15px;
-					display: inline-block;
-					background-color: var(--appBGColor);
 					box-shadow: var(--neu-sm-ni-BGColor-shadow);
+					cursor: pointer;
+					display: inline-block;
 					font-size: 0.8rem;
-					padding: 0px 8px;
-					padding-bottom: 2px;
+					margin: 0px 8px;
+					margin-bottom: 10px;
+					outline: none;
+					padding: 2px 8px;
 					text-align: center;
-					user-select: none;
-				}
-				.removeTagButtonContainer {
-					position: absolute;
-					right: -5px;
-					top: 0;
+					.tagText {
+						border: none;
+						border-radius: 15px;
+						display: inline-block;
+						user-select: none;
+					}
+					&:before {
+						background-color: var(--appDelColor);
+						border-radius: 50%;
+						color: var(--appBGColor);
+						content: '—';
+						font-weight: bold;
+						font-size: 0.6rem;
+						margin-right: 5px;
+						text-align: center;
+					}
 				}
 				.addTagButton {
 					align-items: center;
