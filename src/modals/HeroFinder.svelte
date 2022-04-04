@@ -536,7 +536,9 @@
 		{:else if section === 2}
 			<div class="section2">
 				<div class="heroEditHead">
-					<button type="button" class="backButton" on:click={() => changeSection(1)}><span>&lt; Heroes</span></button>
+					<button type="button" class="backButton" on:click={() => changeSection(1)}>
+						<img class="backImage" draggable="false" src="./img/utility/back_color.png" alt="Back">
+					</button>
 					<button type="button" class="saveButton" on:click={() => saveHero()}><span>Save</span></button>
 				</div>
 				<div class="heroEditor">
@@ -922,202 +924,242 @@
 			}
 		}
 	}
-	.heroEditHead {
-		border-bottom: 1px solid black;
-		display: flex;
-		height: 40px;
-		padding: 5px;
-		position: relative;
-		width: 100%;
-	}
-	.heroName {
-		font-size: 1.3rem;
-		font-weight: bold;
-		text-align: center;
-		width: 100%;
-	}
-	.starsInputContainer {
-		margin-top: 5px;
-	}
-	.backButton {
-		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 5px;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		font-size: 1.1rem;
-		left: 5px;
-		outline: none;
-		padding: 2px;
-		position: absolute;
-		&:active {
-			box-shadow: none;
-		}
-	}
-	.saveButton {
-		background-color: var(--appColorPrimary);
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 5px;
-		color: white;
-		cursor: pointer;
-		font-size: 1.1rem;
-		outline: none;
-		padding: 2px;
-		position: absolute;
-		right: 5px;
-		&:active {
-			box-shadow: none;
-		}
-	}
-	.heroEditor {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		padding: 10px;
-		h4 {
-			margin: 10px 0px;
-			text-align: center;
+	.section2 {
+		.heroEditHead {
+			display: flex;
+			height: 50px;
+			padding: 10px;
+			position: relative;
 			width: 100%;
+			.backButton {
+				align-items: center;
+				background-color: var(--appBGColor);
+				border: none;
+				border-radius: 5px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				color: var(--appColorPrimary);
+				cursor: pointer;
+				display: flex;
+				height: 30px;
+				justify-content: center;
+				left: 10px;
+				outline: none;
+				padding: 0;
+				position: absolute;
+				width: 30px;
+				.backImage {
+					max-width: 15px;
+				}
+			}
+			.saveButton {
+				background-color: var(--appBGColor);
+				border: none;
+				border-radius: 5px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				color: var(--appColorPrimary);
+				cursor: pointer;
+				font-size: 1.1rem;
+				font-weight: bold;
+				outline: none;
+				padding: 5px;
+				position: absolute;
+				right: 10px;
+			}
 		}
-	}
-	.portraitArea {
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		max-width: 400px;
-		padding: 5px;
-		width: 100%;
-	}
-	.siFlipButtonArea {
-		align-items: center;
-		display: flex;
-		justify-content: center;
-		width: 33%;
-	}
-	.portraitContainer {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		width: 33%;
-	}
-	.editorPortrait {
-		border-radius: 50%;
-		max-width: 150px;
-	}
-	.engraveInputContainer {
-		margin: 10px 0px;
-	}
-	.furnFlipButtonArea {
-		align-items: center;
-		display: flex;
-		justify-content: center;
-		width: 33%;
-	}
-	.ascFlipButtonArea {
-		display: flex;
-		justify-content: center;
-		padding: 5px;
-		width: 100%;
-	}
-	.coreArea {
-		align-items: center;
-		display: flex;
-		justify-content: center;
-		padding-top: 10px;
-		width: 100%;
-	}
-	.coreButton {
-		background-color: #aaa;
-		border: none;
-		border-radius: 10px;
-		color: white;
-		cursor: pointer;
-		font-size: 1rem;
-		padding: 5px;
-	}
-	.coreButton.on {
-		background-color: var(--legendColor);
-		box-shadow: none;
-	}
-	.notesArea {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		width: 100%;
-		.notesEditor {
-			border: 1px solid var(--appColorPrimary);
-			height: 100px;
-			outline: 0;
-			width: 100%;
-		}
-		.noteLimitArea {
-			font-size: 0.8rem;
-			text-align: right;
-			width: 100%;
-		}
-		.noteLimitArea.maxed {
-			color: var(--appDelColor);
+		.heroName {
+			font-size: 1.3rem;
 			font-weight: bold;
-		}
-	}
-	.selectedArtifacts {
-		display: grid;
-		grid-gap: 5px 5px;
-		grid-template-columns: 100%;
-		justify-content: space-evenly;
-		overflow: hidden;
-		width: 100%;
-	}
-	.gridCell {
-		h5 {
-			margin: 0;
-			margin-top: 5px;
-			padding-left: 5px;
-		}
-	}
-	.artifactLine {
-		align-items: center;
-		background-color: var(--appBGColorDark);
-		border-radius: 10px;
-		display: grid;
-		grid-auto-flow: column;
-		grid-gap: 5px;
-		grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
-		margin-top: 5px;
-		min-height: 90px;
-		overflow-x: auto;
-		padding: 5px;
-		padding-left: 10px;
-		width: 100%;
-	}
-	.mobileArtifactPicker {
-		display: grid;
-		grid-gap: 5px;
-		grid-auto-flow: column;
-		grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
-	}
-	.artifactContainer {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		p {
-			font-size: 0.8rem;
-			margin: 0;
-			width: 80px;
-			overflow: hidden;
 			text-align: center;
-			text-overflow: ellipsis;
-			user-select: none;
-			white-space: nowrap;
+			width: 100%;
 		}
-	}
-	.artifactImgContainer {
-		position: relative;
+		.starsInputContainer {
+			margin-top: 5px;
+		}
+		.heroEditor {
+			align-items: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			padding: 10px;
+			padding-top: 0px;
+			h4 {
+				margin: 10px 0px;
+				text-align: center;
+				width: 100%;
+			}
+			.portraitArea {
+				align-items: center;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				max-width: 400px;
+				padding: 5px;
+				width: 100%;
+			}
+			.siFlipButtonArea {
+				align-items: center;
+				display: flex;
+				justify-content: center;
+				width: 33%;
+			}
+			.portraitContainer {
+				align-items: center;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				width: 33%;
+				.editorPortrait {
+					border-radius: 50%;
+					max-width: 150px;
+				}
+			}
+			.furnFlipButtonArea {
+				align-items: center;
+				display: flex;
+				justify-content: center;
+				width: 33%;
+			}
+			.ascFlipButtonArea {
+				display: flex;
+				justify-content: center;
+				padding: 5px;
+				width: 100%;
+			}
+			.engraveInputContainer {
+				margin: 10px 0px;
+			}
+			.coreArea {
+				align-items: center;
+				display: flex;
+				justify-content: center;
+				padding-top: 10px;
+				width: 100%;
+				.coreButton {
+					background-color: var(--appBGColor);
+					border: none;
+					border-radius: 10px;
+					box-shadow: var(--neu-sm-i-BGColor-shadow);
+					color: var(--appColorBlack);
+					cursor: pointer;
+					font-size: 1rem;
+					padding: 5px;
+					&.on {
+						background-color: var(--legendColor);
+						color: white;
+					}
+				}
+			}
+			.notesArea {
+				align-items: center;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				width: 100%;
+				.notesEditor {
+					background: var(--appBGColor);
+					border: none;
+					border-radius: 10px;
+					box-shadow: var(--neu-sm-i-BGColor-shadow);
+					height: 100px;
+					outline: 0;
+					width: 100%;
+					&:focus {
+						background-color: white;
+					}
+				}
+				.noteLimitArea {
+					font-size: 0.8rem;
+					margin-top: 5px;
+					text-align: right;
+					width: 100%;
+					&.maxed {
+						color: var(--appDelColor);
+						font-weight: bold;
+					}
+				}
+			}
+			.selectedArtifacts {
+				display: grid;
+				grid-gap: 5px 5px;
+				grid-template-columns: 100%;
+				justify-content: space-evenly;
+				overflow: hidden;
+				width: 100%;
+				.gridCell {
+					h5 {
+						margin: 0;
+						margin-top: 5px;
+						padding-left: 5px;
+					}
+					.artifactLine {
+						align-items: end;
+						background-color: var(--appBGColor);
+						border-radius: 10px;
+						box-shadow: var(--neu-sm-ni-BGColor-inset-shadow);
+						display: grid;
+						grid-auto-flow: column;
+						grid-gap: 5px;
+						grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
+						margin-top: 5px;
+						min-height: 105px;
+						overflow-x: auto;
+						padding: 5px;
+						padding-left: 10px;
+						width: 100%;
+					}
+					.mobileArtifactPicker {
+						display: grid;
+						grid-gap: 5px;
+						grid-auto-flow: column;
+						grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
+					}
+					.artifactContainer {
+						align-items: center;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						p {
+							font-size: 0.8rem;
+							margin: 0;
+							width: 80px;
+							overflow: hidden;
+							text-align: center;
+							text-overflow: ellipsis;
+							user-select: none;
+							white-space: nowrap;
+						}
+						.artifactImgContainer {
+							position: relative;
+							.artifactImg {
+								border-radius: 50%;
+								max-width: 60px;
+							}
+							.removeArtifactButtonContainer {
+								position: absolute;
+								right: -10px;
+								top: -10px;
+							}
+						}
+					}
+					.addArtifactButton {
+						background: transparent;
+						border: 3px solid var(--appColorPrimary);
+						border-radius: 50%;
+						color: var(--appColorPrimary);
+						cursor: pointer;
+						flex-grow: 0;
+						flex-shrink: 0;
+						font-size: 1.5rem;
+						height: 60px;
+						margin-bottom: 20px;
+						margin-left: auto;
+						margin-right: auto;
+						padding: 0;
+						width: 60px;
+					}
+				}
+			}
+		}
 	}
 	.artifactButton {
 		align-items: center;
@@ -1128,6 +1170,10 @@
 		flex-direction: column;
 		justify-content: center;
 		outline: none;
+		.artifactImg {
+			border-radius: 50%;
+			max-width: 60px;
+		}
 		p {
 			margin: 0;
 			width: 80px;
@@ -1136,30 +1182,6 @@
 			user-select: none;
 			white-space: nowrap;
 		}
-	}
-	.artifactImg {
-		border-radius: 50%;
-		max-width: 60px;
-	}
-	.removeArtifactButtonContainer {
-		position: absolute;
-		right: -3px;
-		top: 0;
-	}
-	.addArtifactButton {
-		background: transparent;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 50%;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		flex-grow: 0;
-		flex-shrink: 0;
-		font-size: 1.5rem;
-		height: 60px;
-		margin-bottom: 20px;
-		margin-left: auto;
-		margin-right: auto;
-		width: 60px;
 	}
 	.desktopArtifactPicker {
 		display: none;
@@ -1189,31 +1211,39 @@
 				}
 			}
 		}
-		.backButton {
-			&:hover {
-				background-color: var(--appColorPrimary);
-				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-				color: white;
+		.section2 {
+			.heroEditHead {
+				.backButton {
+					&:hover {
+						background: var(--neu-convex-BGColor-wide-bg);
+					}
+				}
+				.saveButton {
+					&:hover {
+						background: var(--neu-convex-BGColor-wide-bg);
+					}
+				}
 			}
-		}
-		.saveButton {
-			&:hover {
-				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+			.heroEditor {
+				.notesArea {
+					.notesEditor {
+						width: 75%;
+					}
+					.noteLimitArea {
+						width: 75%;
+					}
+				}
+				.selectedArtifacts {
+					.gridCell {
+						.mobileArtifactPicker {
+							display: none;
+						}
+						.artifactLine {
+							grid-auto-flow: row;
+						}
+					}
+				}
 			}
-		}
-		.notesArea {
-			.notesEditor {
-				width: 75%;
-			}
-			.noteLimitArea {
-				width: 75%;
-			}
-		}
-		.mobileArtifactPicker {
-			display: none;
-		}
-		.artifactLine {
-			grid-auto-flow: row;
 		}
 		.desktopArtifactPicker {
 			display: none;
@@ -1224,44 +1254,30 @@
 				width: 100%;
 				z-index: 5;
 			}
-		}
-		.desktopArtifactPicker.open {
-			display: block;
-			height: 100%;
-			position: fixed;
-			left: 0;
-			top: 0;
-			visibility: visible;
-			width: 100%;
-			z-index: 5;
-		}
-		.artifactModalCloseContainer {
-			margin-left: auto;
-			position: relative;
-			right: 37.5%;
-		}
-		.artifactPickerWindow {
-			background-color: var(--appBGColor);
-			border-radius: 10px;
-			display: grid;
-			grid-gap: 5px;
-			grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-			padding: 10px;
-			width: 25%;
-			z-index: 5;
-		}
-		.artifactButton {
-			&:hover {
-				p {
-					overflow: visible;
-					width: fit-content;
-				}
+			&.open {
+				display: block;
+				height: 100%;
+				position: fixed;
+				left: 0;
+				top: 0;
+				visibility: visible;
+				width: 100%;
+				z-index: 5;
 			}
-			p {
-				&:hover {
-					overflow: visible;
-					width: fit-content;
-				}
+			.artifactModalCloseContainer {
+				margin-left: auto;
+				position: relative;
+				right: 37.5%;
+			}
+			.artifactPickerWindow {
+				background-color: var(--appBGColor);
+				border-radius: 10px;
+				display: grid;
+				grid-gap: 5px;
+				grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+				padding: 10px;
+				width: 25%;
+				z-index: 5;
 			}
 		}
 	}
