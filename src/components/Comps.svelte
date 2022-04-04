@@ -1678,7 +1678,6 @@
 	.sect2 {
 		height: 100%;
 		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
-		min-width: 100%;
 		.noSelectedComp {
 			display: none;
 			visibility: hidden;
@@ -1688,6 +1687,7 @@
 			display: flex;
 			flex-direction: column;
 			height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
+			min-width: 100%;
 			overflow-y: auto;
 			padding: 10px;
 			position: fixed;
