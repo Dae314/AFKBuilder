@@ -273,7 +273,7 @@
 				outline: none;
 				padding: 3px;
 				text-align: center;
-				width: 170px;
+				width: 100px;
 				&:focus {
 					background-color: white;
 					box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
@@ -346,6 +346,7 @@
 				height: 60px;
 				margin: 5px;
 				margin-bottom: 20px;
+				padding: 0;
 				width: 60px;
 			}
 			.heroButtonArea {
@@ -446,8 +447,11 @@
 			border: none;
 			border-radius: 50%;
 			cursor: pointer;
+			flex-grow: 0;
+			flex-shrink: 0;
 			height: 10px;
 			margin: 5px;
+			padding: 0;
 			width: 10px;
 			&.active {
 				background-color: var(--appColorPrimary);
@@ -481,6 +485,9 @@
 		}
 		.lineDisplay {
 			.lineTitle {
+				.titleInput {
+					width: 170px;
+				}
 				.tooltip {
 					display: block;
 					opacity: 0;
