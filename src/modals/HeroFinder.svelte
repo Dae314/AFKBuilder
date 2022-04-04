@@ -24,7 +24,7 @@
 	let close = () => {};
 	let section = 1;
 	let selectedHero = {};
-	let openFilters = !isMobile;
+	let showFilters = false;
 	let idx = 0;
 	let pos = 0;
 	let onSuccess = () => {};
@@ -444,6 +444,10 @@
 		// scroll back to top
 		document.getElementById('hfContainer').scrollTop = 0;
 	}
+
+	function handleSearchButtonClick() {
+		heroes = makeHeroList();
+	}
 </script>
 
 <div class="background">
@@ -453,16 +457,17 @@
 	<div id="hfContainer" class="heroFinderContainer" on:click={(e) => e.stopPropagation()}>
 		{#if section === 1}
 			<div class="section1">
-				<div class="mobileExpanderTitle">
-					<button type="button" class="filtersButton" on:click={() => openFilters = !openFilters}><i class="arrow {openFilters ? 'open' : 'right' }"></i><span>Search and Filters</span></button>
-				</div>
-				<div class="mobileExpander" class:filterOpen={openFilters}>
+				<div class="heroFinderHead">
 					<div class="searchContainer">
-						<div class="search">
-							<input id="searchBox" type="search" placeholder="Search" bind:value={searchStr} on:keyup={() => heroes = makeHeroList()} on:search={() => heroes = makeHeroList()}>
-						</div>
+						<input id="searchBox" type="search" placeholder="Search" bind:value={searchStr} on:keyup={() => heroes = makeHeroList()} on:search={() => heroes = makeHeroList()}>
+						<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
+							<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
+						</button>
+						<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
+							<img class="openFiltersImage" src="./img/utility/filter_white.png" alt="Open Filters">
+						</button>
 					</div>
-					<div class="filters">
+					<div class="filters" class:open={showFilters}>
 						<div class="filterSection">
 							<button type="button" class="filterMasterButton" class:filterMasterDisabled={!allFactionsEnabled} on:click={() => handleFilterMasterButtonClick('faction')}>ALL</button>
 							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('LB')}}>
@@ -749,148 +754,172 @@
 		position: relative;
 		width: 80%;
 	}
-	.filtersButton {
-		background-color: var(--appColorSecondary);
-		border: none;
-		color: black;
-		cursor: pointer;
-		font-size: 1.1rem;
-		height: 40px;
-		outline: none;
-		padding: 10px;
-		text-align: left;
-		width: 100%;
-	}
-	.arrow {
-		border: solid black;
-		border-width: 0 3px 3px 0;
-		display: inline-block;
-		margin-right: 16px;
-		padding: 3px;
-		transition: transform 0.2s ease-out;
-	}
-	.arrow.right {
-		transform: rotate(-45deg);
-	}
-	.arrow.open {
-		transform: rotate(45deg);
-	}
-	.mobileExpander {
-		background-color: var(--appBGColor);
-		margin-bottom: 10px;
-		max-height: 0;
-		overflow: hidden;
-		transition: max-height 0.2s ease;
-	}
-	.mobileExpander.filterOpen {
-		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
-		max-height: 500px;
-	}
-	.filters {
-		display: flex;
-		flex-direction: row;
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		width: 100%;
-	}
-	.searchContainer {
-		border-bottom: 1px solid black;
-		padding-bottom: 15px;
-		padding-top: 15px;
-		text-align: center;
-	}
-	.search {
-		display: inline-block;
-		width: 100%;
-		input {
-			height: 1.6rem;
-			width: 50%;
+	.section1 {
+		.heroFinderHead {
+			padding: 10px;
+			position: relative;
+			.searchContainer {
+				display: flex;
+				justify-content: center;
+				padding: 5px;
+				padding-bottom: 10px;
+				input {
+					background-color: var(--appBGColor);
+					border: none;
+					border-radius: 5px;
+					box-shadow: var(--neu-sm-i-BGColor-shadow);
+					font-size: 1rem;
+					outline: none;
+					padding: 5px;
+					width: 100%;
+				}
+				.headButton {
+					align-items: center;
+					background-color: transparent;
+					border: none;
+					border-radius: 10px;
+					cursor: pointer;
+					display: flex;
+					height: 40px;
+					justify-content: center;
+					outline: none;
+					position: absolute;
+					top: 10px;
+					transition: all 0.2s;
+					width: 40px;
+				}
+				.searchButton {
+					right: 65px;
+					.searchImage {
+						max-width: 20px;
+						opacity: 0.1;
+						filter: invert(1);
+					}
+				}
+				.openFiltersButton {
+					right: 33px;
+					.openFiltersImage {
+						max-width: 20px;
+						opacity: 0.1;
+						filter: invert(1);
+					}
+					&.open {
+						.openFiltersImage {
+							opacity: 0.5;
+						}
+					}
+				}
+			}
+			.filters {
+				display: flex;
+				flex-direction: row;
+				background: var(--appBGColor);
+				border-radius: 10px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				display: flex;
+				flex-direction: column;
+				left: 50%;
+				opacity: 0;
+				position: absolute;
+				top: 60px;
+				transform: translate(-50%, 0);
+				transition: all 0.2s;
+				visibility: hidden;
+				width: 90%;
+				&.open {
+					visibility: visible;
+					opacity: 1;
+				}
+				.filterSection {
+					border-bottom: 1px solid black;
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					justify-content: center;
+					padding-bottom: 7px;
+					padding-left: 10px;
+					width: 100%;
+					&:last-child {
+						border-bottom: none;
+					}
+				}
+				.filterMasterButton {
+					align-items: center;
+					border: 3px solid var(--appColorPrimary);
+					border-radius: 50%;
+					color: var(--appColorPrimary);
+					display: flex;
+					font-size: 0.6rem;
+					height: 33px;
+					justify-content: center;
+					margin-right: 15px;
+					margin-top: 7px;
+					padding: 0;
+					text-decoration: none;
+					transition: all .3s;
+					width: 33px;
+					&:active {
+						background-color: var(--appColorPriDark);
+						border-color: var(--appColorPriDark);
+						color: white;
+					}
+					&.filterMasterDisabled {
+						border-color: #888;
+						color: #888;
+						&:active {
+							background-color: #666;
+							border-color: #666;
+							color: white;
+						}
+					}
+				}
+				.filterButton {
+					background: transparent;
+					border: 0;
+					cursor: pointer;
+					display: block;
+					margin-right: 10px;
+					margin-top: 7px;
+					padding: 0;
+					.filterImg {
+						max-width: 33px;
+						&.filterInactive {
+							filter: grayscale(100%);
+						}
+						&.filterSelected {
+							border-radius: 50%;
+							box-shadow: 0 0 7px 2px var(--appColorPrimary);
+						}
+					}
+				}
+			}
 		}
-	}
-	.filterMasterButton {
-		align-items: center;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 50%;
-		color: var(--appColorPrimary);
-		display: flex;
-		font-size: 0.6rem;
-		height: 33px;
-		justify-content: center;
-		margin-right: 15px;
-		margin-top: 7px;
-		text-decoration: none;
-		transition: all .3s;
-		width: 33px;
-		&:active {
-			background-color: var(--appColorPriDark);
-			border-color: var(--appColorPriDark);
-			color: white;
+		.heroGrid {
+			display: grid;
+			grid-gap: 10px 10px;
+			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+			grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+			justify-content: space-evenly;
+			overflow: hidden;
 		}
-	}
-	.filterMasterDisabled {
-		border-color: #888;
-		color: #888;
-		&:active {
-			background-color: #666;
-			border-color: #666;
-			color: white;
-		}
-	}
-	.filterSection {
-		border-bottom: 1px solid black;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-		padding-bottom: 7px;
-		padding-left: 10px;
-		width: 100%;
-	}
-	.filterButton {
-		background: transparent;
-		border: 0;
-		cursor: pointer;
-		display: block;
-		margin-right: 10px;
-		margin-top: 7px;
-	}
-	.filterImg {
-		max-width: 33px;
-	}
-	.filterInactive {
-		filter: grayscale(100%);
-	}
-	.filterSelected {
-		border-radius: 50%;
-		box-shadow: 0 0 7px 2px var(--appColorPrimary);
-	}
-	.heroGrid {
-		display: grid;
-		grid-gap: 10px 10px;
-		grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-		grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
-		justify-content: space-evenly;
-		overflow: hidden;
-	}
-	.heroPortrait {
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		outline: none;
-		img {
-			border-radius: 50%;
-			max-width: 100px;
-		}
-		p {
-			font-weight: bold;
-			margin: 0;
-		}
-	}
-	.heroPortrait.active {
-		img {
-			border: 5px solid var(--appColorPrimary);
+		.heroPortrait {
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			outline: none;
+			img {
+				border-radius: 50%;
+				max-width: 100px;
+			}
+			p {
+				font-weight: bold;
+				margin: 0;
+			}
+			&.active {
+				img {
+					border: 5px solid var(--appColorPrimary);
+				}
+			}
 		}
 	}
 	.heroEditHead {
@@ -1142,16 +1171,22 @@
 		.heroFinderContainer {
 			width: 50%;
 		}
-		.filterMasterButton {
-			&:hover {
-				background-color: var(--appColorPrimary);
-				color: rgba(255, 255, 255, 0.9);
-			}
-		}
-		.filterMasterDisabled {
-			&:hover {
-				background-color: #888;
-				color: rgba(255, 255, 255, 0.9);
+		.section1 {
+			.heroFinderHead {
+				.filters {
+					.filterMasterButton {
+						&:hover {
+							background-color: var(--appColorPrimary);
+							color: rgba(255, 255, 255, 0.9);
+						}
+						&.filterMasterDisabled {
+							&:hover {
+								background-color: #888;
+								color: rgba(255, 255, 255, 0.9);
+							}
+						}
+					}
+				}
 			}
 		}
 		.backButton {
