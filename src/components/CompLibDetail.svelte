@@ -748,13 +748,15 @@
 				}
 				.headButton {
 					align-items: center;
-					background-color: transparent;
-					border: 2px solid black;
+					background-color: var(--appBGColor);
+					border: none;
 					border-radius: 10px;
+					box-shadow: var(--neu-sm-i-BGColor-shadow);
 					cursor: pointer;
 					display: flex;
+					height: 35px;
 					justify-content: center;
-					margin: 0px 5px;
+					margin: 0px 8px;
 					outline: none;
 					padding: 5px;
 					.headImage {
@@ -767,7 +769,6 @@
 					}
 				}
 				.likeButton {
-					border: 2px solid var(--appColorPrimary);
 					p {
 						color: var(--appColorPrimary);
 					}
@@ -779,7 +780,6 @@
 					}
 				}
 				.dislikeButton {
-					border: 2px solid var(--appDelColor);
 					p {
 						color: var(--appDelColor);
 					}
@@ -791,7 +791,6 @@
 					}
 				}
 				.favoriteButton {
-					border: 2px solid var(--mythicColor);
 					p {
 						color: var(--mythicColor);
 					}
@@ -804,7 +803,6 @@
 				}
 				.unpublishButton {
 					background-color: var(--appDelColor);
-					border: 2px solid var(--appDelColor);
 					p {
 						color: var(--appBGColor);
 						display: none;
