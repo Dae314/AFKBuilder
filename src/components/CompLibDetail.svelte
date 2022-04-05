@@ -710,7 +710,8 @@
 
 <style lang="scss">
 	.compLibDetailContainer {
-		min-height: calc(100vh - var(--headerHeight));
+		height: 100vh;
+		overflow-y: auto;
 		width: 100%;
 	}
 	.compLibDetailHead {
