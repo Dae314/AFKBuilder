@@ -789,8 +789,10 @@
 			width: 100%;
 		}
 		.expanderButton {
-			background-color: var(--appColorSecondary);
+			background-color: var(--appBGColor);
 			border: none;
+			border-radius: 10px;
+			box-shadow: var(--neu-med-i-BGColor-shadow);
 			color: black;
 			cursor: pointer;
 			font-size: 1.1rem;
