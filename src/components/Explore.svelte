@@ -666,7 +666,7 @@
 			}
 			:global(.rangeHandle) {
 				:global(.rangeNub) {
-					background-color: black;
+					background-color: var(--appColorBlack);
 				}
 			}
 		}
