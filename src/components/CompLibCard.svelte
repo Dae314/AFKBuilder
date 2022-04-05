@@ -228,6 +228,7 @@
 		}
 	}
 	.compLibCardContainer {
+		background: var(--neu-convex-BGColor-bg);
 		border-radius: 10px;
 		box-shadow: var(--neu-med-i-BGColor-shadow);
 		display: flex;
