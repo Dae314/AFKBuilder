@@ -724,6 +724,15 @@
 		display: flex;
 		.pageLimitArea {
 			margin-left: auto;
+			.selectText {
+				font-size: 0.9rem;
+			}
+			.exploreSelect {
+				border: 1px solid black;
+				border-radius: 5px;
+				outline: none;
+				padding: 3px;
+			}
 		}
 	}
 	@media only screen and (min-width: 767px) {
