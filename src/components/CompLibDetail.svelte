@@ -7,6 +7,7 @@
 	import Emoji from 'markdown-it-emoji';
 	import qs from 'qs';
 	import ErrorDisplay from './ErrorDisplay.svelte';
+	import CompLineEditor from './CompLineEditor.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
@@ -305,6 +306,16 @@
 			}
 		);
 	}
+
+	async function handleLineEvent(event) {
+		switch(event.detail.action) {
+			case 'heroClick':
+				await handleHeroClick(event.detail.data);
+				break;
+			default:
+				throw new Error(`Invalid action specified on compLineEvent: ${action}`);
+		}
+	}
 </script>
 
 {#if $compQuery.loading}
@@ -405,124 +416,12 @@
 							<span class="updateAge" title="{comp_update.toLocaleString()}">Updated {msToString(updateAge)}</span>
 						</div>
 						<div class="bodyArea1">
-							<div class="lineExamples">
-								<div class="lineSwitcher">
-									{#each comp.lines as line, i}
-									<button type="button" class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}>{line.name}</button>
-									{/each}
-								</div>
-								<div class="lineDisplay">
-									{#if comp.lines.length > 0}
-										<div class="lineTitle"><span>{comp.lines[selectedLine].name}</span></div>
-									{/if}
-									<div class="lineMembers">
-										<div class="detailBackline">
-											{#if comp.lines.length > 0}
-												{#each comp.lines[selectedLine].heroes as hero, i}
-													{#if i >= 2}
-														{#if $HeroData.some(e => e.id === hero)}
-															<div class="detailImgContainer">
-																<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
-																<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-																<div class="ascMark">
-																	{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																		{#if comp.heroes[hero].ascendLv >= 6}
-																			<img src="./img/markers/ascended.png" alt="ascended">
-																		{:else if comp.heroes[hero].ascendLv >= 4}
-																			<img src="./img/markers/mythic.png" alt="mythic">
-																		{:else if comp.heroes[hero].ascendLv >= 2}
-																			<img src="./img/markers/legendary.png" alt="legendary">
-																		{:else}
-																			<img src="./img/markers/elite.png" alt="elite">
-																		{/if}
-																	{:else}
-																		{#if comp.heroes[hero].ascendLv >= 4}
-																			<img src="./img/markers/legendary.png" alt="legendary">
-																		{:else if comp.heroes[hero].ascendLv >= 2}
-																			<img src="./img/markers/elite.png" alt="elite">
-																		{:else}
-																			<img src="./img/markers/rare.png" alt="rare">
-																		{/if}
-																	{/if}
-																	{#if comp.heroes[hero].si >= 30}
-																		<img src="./img/markers/si30.png" alt="si30">
-																	{:else if comp.heroes[hero].si >= 20}
-																		<img src="./img/markers/si20.png" alt="si20">
-																	{:else if comp.heroes[hero].si >= 10}
-																		<img src="./img/markers/si10.png" alt="si10">
-																	{:else}
-																		<img src="./img/markers/si0.png" alt="si0">
-																	{/if}
-																	{#if comp.heroes[hero].furn >= 9}
-																		<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																	{:else if comp.heroes[hero].furn >= 3}
-																		<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-																	{/if}
-																</div>
-															</div>
-															<button type="button" class="heroNameButton"><span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span></button>
-														{:else}
-															<i class="emptyLineSlot"></i>
-														{/if}
-													{/if}
-												{/each}
-											{/if}
-										</div>
-										<div class="detailFrontline">
-											{#if comp.lines.length > 0}
-												{#each comp.lines[selectedLine].heroes as hero, i}
-													{#if i < 2}
-														{#if $HeroData.some(e => e.id === hero)}
-															<div class="detailImgContainer">
-																<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
-																<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-																<div class="ascMark">
-																	{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																		{#if comp.heroes[hero].ascendLv >= 6}
-																			<img src="./img/markers/ascended.png" alt="ascended">
-																		{:else if comp.heroes[hero].ascendLv >= 4}
-																			<img src="./img/markers/mythic.png" alt="mythic">
-																		{:else if comp.heroes[hero].ascendLv >= 2}
-																			<img src="./img/markers/legendary.png" alt="legendary">
-																		{:else}
-																			<img src="./img/markers/elite.png" alt="elite">
-																		{/if}
-																	{:else}
-																		{#if comp.heroes[hero].ascendLv >= 4}
-																			<img src="./img/markers/legendary.png" alt="legendary">
-																		{:else if comp.heroes[hero].ascendLv >= 2}
-																			<img src="./img/markers/elite.png" alt="elite">
-																		{:else}
-																			<img src="./img/markers/rare.png" alt="rare">
-																		{/if}
-																	{/if}
-																	{#if comp.heroes[hero].si >= 30}
-																		<img src="./img/markers/si30.png" alt="si30">
-																	{:else if comp.heroes[hero].si >= 20}
-																		<img src="./img/markers/si20.png" alt="si20">
-																	{:else if comp.heroes[hero].si >= 10}
-																		<img src="./img/markers/si10.png" alt="si10">
-																	{:else}
-																		<img src="./img/markers/si0.png" alt="si0">
-																	{/if}
-																	{#if comp.heroes[hero].furn >= 9}
-																		<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																	{:else if comp.heroes[hero].furn >= 3}
-																		<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-																	{/if}
-																</div>
-															</div>
-															<button type="button" class="heroNameButton"><span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span></button>
-														{:else}
-															<i class="emptyLineSlot"></i>
-														{/if}
-													{/if}
-												{/each}
-											{/if}
-										</div>
-									</div>
-								</div>
-							</div>
+							<CompLineEditor
+								lines={comp.lines}
+								compHeroes={comp.heroes}
+								bind:selectedLine={selectedLine}
+								on:compLineEvent={handleLineEvent}
+							/>
 							<div class="description">
 								<div class="mobileExpanderTitle">
 									<button type="button" class="expanderButton" on:click={() => openDesc = !openDesc}><i class="expanderArrow {openDesc ? 'down' : 'right' }"></i><span>Description</span></button>
