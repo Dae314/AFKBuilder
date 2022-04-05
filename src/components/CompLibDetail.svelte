@@ -1173,6 +1173,7 @@
 				display: flex;
 			}
 			.description {
+				padding-right: 10px;
 				width: 100%;
 			}
 			.heroDetails {
@@ -1199,12 +1200,14 @@
 					padding: 0;
 				}
 				&.descSection {
-					border: 2px solid var(--appColorPrimary);
-					border-radius: 10px 0px 0px 10px;
-					margin-top: 27px;
-					max-height: 375px;
+					border-radius: 10px;
+					box-shadow: var(--neu-med-ni-BGColor-shadow);
+					height: 100%;
+					margin-left: 10px;
+					max-height: 390px;
 					overflow-y: auto;
 					padding: 10px;
+					width: 100%;
 				}
 			}
 			.subGroups {
