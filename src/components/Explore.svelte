@@ -364,6 +364,12 @@
 			case 'syncFavorites':
 				dispatch('routeEvent', {action: 'syncFavorites'});
 				break;
+			case 'loading':
+				dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
+				break;
+			case 'stopLoading':
+				dispatch('routeEvent', {action: 'clearNotice'});
+				break;
 			default:
 				throw new Error(`Invalid action specified for card event: ${event.detail.action}`);
 		}
