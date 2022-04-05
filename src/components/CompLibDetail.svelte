@@ -135,6 +135,7 @@
 	}
 
 	async function handleFavoriteClick() {
+		dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
 		const valid = await validateJWT($AppData.user.jwt);
 		if(valid) {
 			// user is valid, perform query
@@ -155,10 +156,12 @@
 		} else {
 			dispatch('routeEvent', {action: 'logout'});
 		}
+		dispatch('routeEvent', {action: 'clearNotice'});
 	}
 
 	async function handleLikeClick() {
 		if(!$AppData.user.disliked_comps.some(e => e.uuid === comp.uuid)) {
+			dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
 			const valid = await validateJWT($AppData.user.jwt);
 			if(valid) {
 				// user is valid, perform query
@@ -178,11 +181,13 @@
 			} else {
 				dispatch('routeEvent', {action: 'logout'});
 			}
+			dispatch('routeEvent', {action: 'clearNotice'});
 		}
 	}
 
 	async function handleDislikeClick() {
 		if(!$AppData.user.liked_comps.some(e => e.uuid === comp.uuid)) {
+			dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
 			const valid = await validateJWT($AppData.user.jwt);
 			if(valid) {
 				// user is valid, perform query
@@ -202,6 +207,7 @@
 			} else {
 				dispatch('routeEvent', {action: 'logout'});
 			}
+			dispatch('routeEvent', {action: 'clearNotice'});
 		}
 	}
 
@@ -259,6 +265,7 @@
 
 	async function handleUnpublishComp() {
 		try {
+			dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
 			// check user's JWT before making queries
 			const valid = await validateJWT($AppData.user.jwt);
 			if(valid) {
@@ -270,7 +277,9 @@
 			} else {
 				dispatch('routeEvent', {action: 'logout'});;
 			}
+			dispatch('routeEvent', {action: 'clearNotice'});
 		} catch(error) {
+			dispatch('routeEvent', {action: 'clearNotice'});
 			errorDisplayConf = {
 				errorCode: 500,
 				headText: 'Something went wrong',
