@@ -64,7 +64,7 @@
 	$: pageSettings = makePageSettings({curPage, compPageLimit});
 	$: sortSettings = makeSortSettings({curSort});
 	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings, sort: sortSettings } });
-	$: if(!$compsQuery.loading && $compsQuery.data.comps) processCompsPromise = processComps($compsQuery.data.comps.data);
+	$: if(!$compsQuery.loading && $compsQuery.data) processCompsPromise = processComps($compsQuery.data.comps.data);
 	$: if(!$compsQuery.loading) pageInfo = $compsQuery.data.comps.meta.pagination;
 
 	onMount(async () => {
@@ -374,13 +374,11 @@
 	<div class="exploreHead">
 		<div class="mobileSearchArea">
 			<input id="compSearch" value={searchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="Search titles or tags" />
-			<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
+			<button type="button" class="headButton searchButton" on:click|stopPropagation={handleSearchButtonClick}>
 				<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
 			</button>
-		</div>
-		<div class="filterButtonArea">
-			<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
-				<img class="openFiltersImage" src={ showFilters ? './img/utility/filter_color.png' : './img/utility/filter_white.png' } alt="Open Filters">
+			<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click|stopPropagation={() => showFilters = !showFilters}>
+				<img class="openFiltersImage" src='./img/utility/filter_white.png' alt="Open Filters">
 			</button>
 		</div>
 	</div>
@@ -503,9 +501,10 @@
 
 <style lang="scss">
 	.exploreContainer {
-		height: calc(100vh - var(--headerHeight));
+		height: 100vh;
 		overflow-y: auto;
 		padding: 0px 10px;
+		padding-bottom: 10px;
 		position: relative;
 		width: 100%;
 	}
@@ -514,51 +513,56 @@
 		padding-top: 15px;
 		.headButton {
 			align-items: center;
-			background-color: var(--appColorPrimary);
-			border: 2px solid var(--appColorPrimary);
+			background-color: transparent;
+			border: none;
 			border-radius: 10px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 			cursor: pointer;
 			display: flex;
 			height: 40px;
 			justify-content: center;
 			outline: none;
+			padding: 0;
+			position: absolute;
 			transition: all 0.2s;
 			width: 40px;
 		}
 		.mobileSearchArea {
 			align-items: center;
 			display: flex;
+			position: relative;
 			width: 100%;
 			.filterInput {
-				border: 1px solid var(--appColorPrimary);
+				background-color: var(--appBGColorLight);
+				border: none;
 				border-radius: 5px;
+				box-shadow: var(--neu-med-i-BGColor-shadow);
 				font-size: 1.2rem;
+				outline: none;
 				padding: 8px;
 				width: 100%;
 				&:focus {
-					border-color: var(--appColorPrimary);
-					box-shadow: 0 0 0 2px var(--appColorPrimary);
-					outline: 0;
+					box-shadow: var(--neu-med-i-BGColor-hover-shadow);
 				}
 			}
 			.searchButton {
-				margin-left: 9px;
+				right: 71px;
 				.searchImage {
 					max-width: 25px;
+					opacity: 0.1;
+					filter: invert(1);
 				}
 			}
-		}
-		.filterButtonArea {
-			align-items: center;
-			display: flex;
-			margin-left: 5px;
 			.openFiltersButton {
+				right: 31px;
 				.openFiltersImage {
 					max-width: 25px;
+					opacity: 0.1;
+					filter: invert(1);
 				}
 				&.open {
-					background-color: transparent;
+					.openFiltersImage {
+						opacity: 0.5;
+					}
 				}
 			}
 		}
@@ -717,6 +721,27 @@
 		.exploreHead {
 			padding-left: 12.5%;
 			padding-right: 12.5%;
+			.mobileSearchArea {
+				.searchButton {
+					&:hover {
+						.searchImage {
+							opacity: 0.3;
+						}
+					}
+				}
+				.openFiltersButton {
+					&:hover {
+						.openFiltersImage {
+							opacity: 0.3;
+						}
+					}
+					&.open {
+						.openFiltersImage {
+							opacity: 0.5;
+						}
+					}
+				}
+			}
 		}
 		.filterContainer {
 			width: 75%;
