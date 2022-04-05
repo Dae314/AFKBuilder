@@ -67,11 +67,10 @@
 			</div>
 		</button>
 		<button class="expandButton" on:click={handleExpandButtonClick}>
-			<!-- <i class="arrow" class:right={!$AppData.expandHeader} class:left={$AppData.expandHeader}></i> -->
-			<img class="expandImage" src={$AppData.expandHeader ? './img/utility/collapse_white.png' : './img/utility/expand_white.png'}>
+			<img class="expandImage" src={$AppData.expandHeader ? './img/utility/collapse_white.png' : './img/utility/expand_white.png'} alt={$AppData.expandHeader ? 'collapse' : 'expand'}>
 		</button>
 		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
-			<li class="logoContainer" on:click={() => handleMenuChange(menu[0].name.toLowerCase().replace(/\s/g, ''))}>
+			<li class="logoContainer" on:click={() => handleMenuChange(menu[1].name.toLowerCase().replace(/\s/g, ''))}>
 				<button type="button" class="logo"><img src="./img/app/afkbuilder_logo.png" alt="AFKBuilder"></button>
 			</li>
 			{#each menu as item}
