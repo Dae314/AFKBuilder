@@ -58,7 +58,7 @@
 			border: none;
 			border-radius: 10px;
 			box-shadow: var(--neu-sm-i-BGColor-shadow);
-			color: black;
+			color: var(--appColorBlack);
 			cursor: pointer;
 			font-size: 0.9rem;
 			font-weight: bold;
