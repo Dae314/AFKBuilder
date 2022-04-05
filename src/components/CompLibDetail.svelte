@@ -609,7 +609,8 @@
 
 <style lang="scss">
 	.compLibDetailContainer {
-		height: 100vh;
+		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		overflow-y: auto;
 		width: 100%;
 	}
@@ -1142,6 +1143,9 @@
 		padding-right: 10px;
 	}
 	@media only screen and (min-width: 767px) {
+		.compLibDetailContainer {
+			height: 100vh;
+		}
 		.compLibDetailHead {
 			.authorButtonsContainer {
 				.buttonsContainer {
