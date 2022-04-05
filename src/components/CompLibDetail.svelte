@@ -788,102 +788,6 @@
 			padding-bottom: 10px;
 			width: 100%;
 		}
-		.lineExamples {
-			padding-bottom: 10px;
-			width: 100%;
-		}
-		.lineSwitcher {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			justify-content: center;
-			.lineSwitchButton {
-				background-color: transparent;
-				border: 2px solid var(--appColorPrimary);
-				border-bottom: none;
-				border-radius: 5px 5px 0px 0px;
-				color: var(--appColorPrimary);
-				cursor: pointer;
-				font-size: 1.0rem;
-				margin-right: 5px;
-				max-width: 100px;
-				min-height: 26px;
-				min-width: 30px;
-				overflow: hidden;
-				padding: 3px;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				&.active {
-					background-color: var(--appColorPrimary);
-					color: white;
-				}
-			}
-		}
-		.lineDisplay {
-			align-items: center;
-			border: 2px solid var(--appColorPrimary);
-			border-radius: 10px;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			padding: 10px;
-			width: 100%;
-			.lineTitle {
-				padding: 10px;
-				font-size: 1.1rem;
-				font-weight: bold;
-				max-width: 300px;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-			}
-			.lineMembers {
-				align-items: center;
-				border-radius: 10px;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				min-height: 295px;
-				width: 100%;
-			}
-			.detailImgContainer {
-				position: relative;
-			}
-			.detailFrontline {
-				align-items: center;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				width: 80px;
-			}
-			.detailBackline {
-				align-items: center;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				width: 80px;
-				margin-right: 10px;
-			}
-			.lineImg {
-				border-radius: 50%;
-				cursor: pointer;
-				margin: 5px;
-				max-width: 70px;
-			}
-			.lineImg.claimed {
-				border: 5px solid var(--appColorPrimary);
-			}
-			.emptyLineSlot {
-				background: transparent;
-				border: 3px solid var(--appColorPriAccent);
-				border-radius: 50%;
-				flex-grow: 0;
-				flex-shrink: 0;
-				height: 70px;
-				margin: 5px;
-				width: 70px;
-			}
-		}
 		.expanderButton {
 			background-color: var(--appColorSecondary);
 			border: none;
@@ -1048,14 +952,6 @@
 			}
 		}
 		.heroButton {
-			background: transparent;
-			border: none;
-			cursor: pointer;
-			margin: 0;
-			outline: none;
-			padding: 0;
-		}
-		.heroNameButton {
 			background: transparent;
 			border: none;
 			cursor: pointer;
@@ -1269,31 +1165,6 @@
 			}
 			.bodyArea2 {
 				display: flex;
-			}
-			.lineExamples {
-				flex-grow: 0;
-				flex-shrink: 0;
-				margin-right: 10px;
-				width: 340px;
-			}
-			.lineSwitcher {
-				display: flex;
-				flex-direction: row;
-				justify-content: flex-start;
-				.lineSwitchButton {
-					margin-right: 0px;
-				}
-			}
-			.lineDisplay {
-				border-radius: 0px 10px 10px 10px;
-				max-height: 375px;
-				min-height: 375px;
-				.lineImg {
-					transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-					&:hover {
-						transform: scale(1.1);
-					}
-				}
 			}
 			.description {
 				width: 100%;
