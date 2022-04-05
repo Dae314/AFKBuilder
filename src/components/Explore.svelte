@@ -572,7 +572,7 @@
 		border-radius: 10px;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 		left: 50%;
-		margin-top: 10px;
+		margin-top: 15px;
 		opacity: 0;
 		overflow: hidden;
 		padding: 10px 0px;
@@ -663,17 +663,18 @@
 			}
 		}
 	}
-	.exploreSelect {
-		border: 1px solid var(--appColorPrimary);
-		border-radius: 5px;
-		outline: none;
-		padding: 3px;
-	}
 	.pageSortArea {
 		display: flex;
 		padding-top: 10px;
 		.sortArea {
+			font-size: 0.9rem;
 			margin-left: auto;
+			.exploreSelect {
+				border: 1px solid black;
+				border-radius: 5px;
+				outline: none;
+				padding: 3px;
+			}
 		}
 	}
 	.noComps {
