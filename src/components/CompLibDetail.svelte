@@ -803,6 +803,7 @@
 				}
 				.unpublishButton {
 					background-color: var(--appDelColor);
+					padding: 0px 8px;
 					p {
 						color: var(--appBGColor);
 						display: none;
@@ -857,20 +858,22 @@
 			margin-bottom: 5px;
 			width: 100%;
 			.tag {
-				background-color: var(--appColorPrimary);
-				border: 1px solid var(--appColorPrimary);
+				background-color: var(--appBGColor);
+				border: none;
+				box-shadow: var(--neu-sm-ni-BGColor-shadow);
 				border-radius: 15px;
 				cursor: pointer;
 				outline: none;
+				padding: 0;
 				position: relative;
-				margin: 0px 5px;
-				margin-bottom: 5px;
+				margin: 0px 8px;
+				margin-bottom: 10px;
 			}
 			.tagText {
 				display: inline-block;
-				color: white;
+				color: var(--appColorPrimary);
 				font-size: 0.8rem;
-				padding: 0px 5px;
+				padding: 3px 8px;
 				text-align: center;
 				user-select: none;
 			}
@@ -1346,9 +1349,17 @@
 			.authorButtonsContainer {
 				.buttonsContainer {
 					.unpublishButton {
+						padding: 5px;
 						p {
 							display: block;
 						}
+					}
+				}
+			}
+			.tagDisplay {
+				.tag {
+					&:hover {
+						background: var(--neu-convex-BGColor-wide-bg);
 					}
 				}
 			}
