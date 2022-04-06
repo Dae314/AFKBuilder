@@ -924,14 +924,6 @@
 				}
 			}
 		}
-		.heroButton {
-			background: transparent;
-			border: none;
-			cursor: pointer;
-			margin: 0;
-			outline: none;
-			padding: 0;
-		}
 		.subDisplay {
 			display: flex;
 			flex-direction: column;
@@ -966,56 +958,6 @@
 			.subHeroContainer {
 				margin: 5px 8px;
 			}
-			.subImgContainer {
-				position: relative;
-				.subImg {
-					border-radius: 50%;
-					max-width: 70px;
-					&.claimed {
-						border: 5px solid var(--appColorPrimary);
-					}
-				}
-			}
-		}
-		.coreMark {
-			background-color: var(--legendColor);
-			border: 3px solid var(--appBGColor);
-			border-radius: 50%;
-			bottom: 5px;
-			display: none;
-			height: 22px;
-			position: absolute;
-			right: 4px;
-			visibility: hidden;
-			width: 22px;
-			&.visible {
-				display: inline-block;
-				pointer-events: none;
-				visibility: visible;
-			}
-		}
-		.ascMark {
-			left: -6px;
-			position: absolute;
-			top: 3px;
-			img {
-				left: 0;
-				max-width: 35px;
-				pointer-events: none;
-				position: absolute;
-				top: 0;
-			}
-			img.moveup {
-				top: -3.5px;
-			}
-		}
-		.subCoreMark {
-			bottom: 0px;
-			right: -1px;
-		}
-		.subAscMark {
-			top: -4px;
-			left: -10px;
 		}
 		/* description markdown styling */
 		.descText {
@@ -1182,12 +1124,6 @@
 				margin-top: -4px;
 				overflow: hidden;
 				padding: 0;
-				.subImg {
-					transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-					&:hover {
-						transform: scale(1.1);
-					}
-				}
 				.subGroupTitle {
 					padding-top: 0;
 				}
