@@ -493,7 +493,6 @@
 												{/if}
 												{#if comp.heroes[selectedHero].artifacts.primary.length > 0 || comp.heroes[selectedHero].artifacts.secondary.length > 0 || comp.heroes[selectedHero].artifacts.situational.length > 0}
 													<div class="artifactsContainer">
-														<h5>Artifacts</h5>
 														<div class="artifactLine priArtifactLine">
 															<h6>Primary</h6>
 															<div class="artifactArea">
