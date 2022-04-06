@@ -835,8 +835,9 @@
 		#heroDetailSection {
 			scroll-snap-align: center;
 			.selectedHero {
-				border: 2px solid var(--appColorPrimary);
+				background-color: var(--appBGColor);
 				border-radius: 10px;
+				box-shadow: var(--neu-med-ni-BGColor-shadow);
 				display: flex;
 				flex-direction: column;
 				margin: 0 auto;
@@ -857,27 +858,27 @@
 					display: flex;
 					flex-direction: column;
 					padding: 0px 10px;
-					.portraitContainer {
-						cursor: pointer;
-						position: relative;
-						.selectHeroPortrait {
-							border-radius: 50%;
+				}
+				.portraitContainer {
+					cursor: pointer;
+					position: relative;
+					+ {
+						p {
+							font-size: 1.1rem;
+							font-weight: bold;
+							margin: 0;
 							margin-bottom: 5px;
-							max-width: 80px;
-							&.claimed {
-								border: 5px solid var(--appColorPrimary);
-							}
+							margin-top: -8px;
+							text-align: center;
 						}
-						+ {
-							p {
-								font-size: 1.1rem;
-								font-weight: bold;
-								margin: 0;
-								margin-bottom: 5px;
-								margin-top: -8px;
-								text-align: center;
-							}
-						}
+					}
+				}
+				.selectHeroPortrait {
+					border-radius: 50%;
+					margin-bottom: 5px;
+					max-width: 80px;
+					&.claimed {
+						border: 5px solid var(--appColorPrimary);
 					}
 				}
 			}
@@ -886,7 +887,7 @@
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
-				margin-top: 5px;
+				margin-top: 10px;
 				width: 100%;
 				.ascendBoxContainer {
 					margin-bottom: 10px;
@@ -895,8 +896,8 @@
 					width: 100%;
 					margin: 10px 0px;
 					.heroNotes {
-						background-color: var(--appBGColorDark);
 						border-radius: 10px;
+						box-shadow: var(--neu-sm-ni-BGColor-shadow);
 						padding: 10px;
 					}
 				}
@@ -905,51 +906,46 @@
 					flex-direction: column;
 					justify-content: center;
 					width: 100%;
-					h5 {
-						font-size: 1rem;
+				}
+				.artifactLine {
+					h6 {
+						font-size: 0.9rem;
 						margin: 0;
-						text-align: center;
+						margin-top: 7px;
+						margin-bottom: 3px;
 					}
-					.artifactLine {
-						h6 {
-							font-size: 0.9rem;
-							margin: 0;
-							margin-top: 7px;
-							margin-bottom: 3px;
-						}
-						.artifactArea {
-							background: var(--appBGColorDark);
-							border-radius: 10px;
-							display: grid;
-							grid-template-columns: repeat(auto-fill, 90px);
-							min-height: 80px;
-							padding: 5px;
-							width: 100%;
-							.artifactImgContainer {
-								align-items: center;
-								background: transparent;
-								border: none;
-								cursor: pointer;
-								display: flex;
-								flex-direction: column;
-								justify-content: center;
-								outline: none;
-								padding: 3px;
-								img {
-									border-radius: 50%;
-									max-width: 60px;
-								}
-								p {
-									margin: 0;
-									max-width: 80px;
-									overflow: hidden;
-									text-align: center;
-									text-overflow: ellipsis;
-									user-select: none;
-									white-space: nowrap;
-								}
-							}
-						}
+				}
+				.artifactArea {
+					border-radius: 10px;
+					box-shadow: var(--neu-sm-ni-BGColor-inset-shadow);
+					display: grid;
+					grid-template-columns: repeat(auto-fill, 90px);
+					min-height: 80px;
+					padding: 5px;
+					width: 100%;
+				}
+				.artifactImgContainer {
+					align-items: center;
+					background: transparent;
+					border: none;
+					cursor: pointer;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					outline: none;
+					padding: 3px;
+					img {
+						border-radius: 50%;
+						max-width: 60px;
+					}
+					p {
+						margin: 0;
+						max-width: 80px;
+						overflow: hidden;
+						text-align: center;
+						text-overflow: ellipsis;
+						user-select: none;
+						white-space: nowrap;
 					}
 				}
 			}
@@ -1185,16 +1181,17 @@
 				margin: 0;
 				padding: 0;
 				width: 340px;
-			}
-			.selectedHero {
-				margin: 0;
-				width: 340px;
+				.selectedHero {
+					margin: 0;
+					width: 340px;
+				}
 			}
 			.expanderButton {
 				display: none;
 			}
 			.mobileExpander {
 				max-height: 5000px;
+				overflow: visible;
 				padding: 0;
 				&.open {
 					padding: 0;
