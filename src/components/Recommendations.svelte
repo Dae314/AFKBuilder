@@ -395,7 +395,7 @@
 			outline: none;
 			padding: 5px;
 			span {
-				opacity: 0.3;
+				opacity: 0.5;
 			}
 			&.active {
 				background: var(--neu-convex-BGLight-bg);
@@ -557,6 +557,11 @@
 					.sectionButton {
 						margin-left: 0px;
 					}
+				}
+			}
+			.sectionButton {
+				&:hover {
+					background: var(--neu-convex-BGColor-wide-bg);
 				}
 			}
 		}
