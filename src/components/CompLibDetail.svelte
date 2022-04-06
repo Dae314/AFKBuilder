@@ -1042,6 +1042,7 @@
 	.reportContainer {
 		display: flex;
 		justify-content: flex-end;
+		padding-bottom: 10px;
 		padding-right: 10px;
 	}
 	@media only screen and (min-width: 767px) {
