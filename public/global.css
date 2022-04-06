@@ -44,6 +44,7 @@ html {
 	--neu-med-i-BGColor-shadow: 5px 5px 8px #ccccce, -5px -5px 8px #ffffff;
 	--neu-med-i-BGColor-hover-shadow: 8px 8px 16px #ccccce, -8px -8px 16px #ffffff;
 	--neu-med-i-BGColor-pressed-shadow: 3px 3px 5px #ccccce, -3px -3px 5px #ffffff;
+	--neu-med-i-BGColor-inset-shadow: inset 5px 5px 8px #ccccce, inset -5px -5px 8px #ffffff;
 	--neu-sm-i-BGColor-shadow: 5px 5px 5px #ccccce, -5px -5px 5px #ffffff;
 	--neu-sm-i-BGColor-hover-shadow: 8px 8px 10px #ccccce, -8px -8px 10px #ffffff;
 	--neu-sm-i-BGColor-pressed-shadow: 3px 3px 3px #ccccce, -3px -3px 3px #ffffff;

@@ -231,7 +231,9 @@
 				curFilter,
 				onSuccess: (filterList) => handleFilterChangeSuccess({filterList, category}),
 			},
-			{ closeButton: ModalCloseButton }
+			{ closeButton: ModalCloseButton,
+				styleContent: {background: '#F0F0F2', borderRadius: '10px'},
+			}
 		);
 	}
 

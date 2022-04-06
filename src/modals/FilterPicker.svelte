@@ -226,8 +226,12 @@
 			<div class="filterSortArea">
 				<h5>Sort by:</h5>
 				<div class="sortButtonArea">
-					<button type="button" class="sortButton popular" class:selected={sortType === 'popular'} on:click={() => sortType = 'popular'}>Popular</button>
-					<button type="button" class="sortButton alpha" class:selected={sortType === 'alpha'} on:click={() => sortType = 'alpha'}>A-Z</button>
+					<button type="button" class="sortButton popular" class:selected={sortType === 'popular'} on:click={() => sortType = 'popular'}>
+						<span>Popular</span>
+					</button>
+					<button type="button" class="sortButton alpha" class:selected={sortType === 'alpha'} on:click={() => sortType = 'alpha'}>
+						<span>A-Z</span>
+					</button>
 				</div>
 			</div>
 			<div class="filterPickerBody">
@@ -266,14 +270,16 @@
 	}
 	.filterPickerHead {
 		.searchInput {
-			border: 2px solid var(--appColorPrimary);
-			border-radius: 10px;
+			background-color: var(--appBGColorLight);
+			border: none;
+			border-radius: 5px;
+			box-shadow: var(--neu-med-i-BGColor-shadow);
 			font-size: 1rem;
 			outline: none;
-			padding: 5px;
+			padding: 8px;
 			width: 100%;
 			&:focus {
-				outline: 1px solid var(--appColorPrimary);
+				background-color: white;
 			}
 		}
 		.modeArea {
@@ -302,28 +308,34 @@
 			display: flex;
 			justify-content: center;
 			.sortButton {
-				background-color: transparent;
-				border: 2px solid var(--appColorPrimary);
+				background-color: var(--appBGColor);
+				border: none;
 				border-radius: 10px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
 				color: var(--appColorPrimary);
-				margin: 0px 10px;
+				cursor: pointer;
+				font-weight: bold;
+				margin: 5px 10px;
 				padding: 5px;
+				span {
+					opacity: 0.5;
+				}
 				&.selected {
-					background-color: var(--appColorPrimary);
-					color: var(--appBGColor);
+					span {
+						opacity: 1;
+					}
 				}
 			}
 		}
 	}
 	.filterPickerBody {
-		background: white;
+		background: var(--appBGColor);
 		border-radius: 10px;
-		box-shadow: inset 7px 7px 14px #e6e6e6,
-								inset -7px -7px 14px white;
+		box-shadow: var(--neu-med-i-BGColor-inset-shadow);
 		max-height: 350px;
 		margin-top: 10px;
 		overflow-y: auto;
-		padding: 10px 0px;
+		padding: 15px 15px;
 		.entityList {
 			display: grid;
 			grid-auto-rows: 25px;
@@ -345,10 +357,10 @@
 					height: 25px;
 					justify-content: center;
 					span {
-						background-color: var(--appColorDisabled);
-						border: 2px solid var(--appColorDisabled);
+						background-color: #d6d6d6;
+						border: 2px solid #d6d6d6;
 						border-radius: 7px;
-						color: var(--appBGColor);
+						color: var(--appColorBlack);
 						padding: 1px 5px;
 						text-align: center;
 						&.entityName {
@@ -361,17 +373,19 @@
 							white-space: nowrap;
 						}
 						&.entityCount {
-							background-color: #666;
-							border-color: #666;
+							background-color: #999;
+							border-color: #999;
 							border-bottom-left-radius: 0px;
 							border-left: none;
 							border-top-left-radius: 0px;
+							color: var(--appBGColor);
 						}
 					}
 					&.include {
 						span {
 							background-color: var(--appColorPrimary);
 							border-color: var(--appColorPrimary);
+							color: var(--appBGColor);
 							&.entityCount {
 								background-color: var(--appColorPriDark);
 								border-color: var(--appColorPriDark);
@@ -382,6 +396,7 @@
 						span {
 							background-color: var(--appDelColor);
 							border-color: var(--appDelColor);
+							color: var(--appBGColor);
 							&.entityCount {
 								background-color: #b13f3f;
 								border-color: #b13f3f;
@@ -398,19 +413,35 @@
 		justify-content: flex-end;
 		padding-top: 10px;
 		.footerButton {
-			background-color: var(--appColorPrimary);
-			border: 2px solid var(--appColorPrimary);
+			background-color: var(--appBGColor);
+			border: none;
 			border-radius: 10px;
-			color: var(--appBGColor);
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			color: var(--appColorPrimary);
 			cursor: pointer;
 			font-size: 0.9rem;
 			font-weight: bold;
-			margin: 0px 5px;
+			margin: 0px 8px;
 			padding: 5px;
 			&.cancel {
-				background-color: var(--appColorDisabled);
-				border-color: var(--appColorDisabled);
+				color: var(--appColorDisabled);
 				margin-right: 0;
+			}
+		}
+	}
+	@media only screen and (min-width: 767px) {
+		.sortButtonArea {
+			.sortButton {
+				&:hover {
+					background: var(--neu-convex-BGColor-wide-bg);
+				}
+			}
+		}
+		.filterPickerFooter {
+			.footerButton {
+				&:hover {
+					background: var(--neu-convex-BGColor-wide-bg);
+				}
 			}
 		}
 	}
