@@ -86,7 +86,7 @@
 				{/each}
 			</select>
 			<label for="desc">Description (optional):</label>
-			<textarea name="desc" rows="4"></textarea>
+			<textarea name="desc" rows="4" placeholder="type here"></textarea>
 			{#if showErrorDisplay}
 				<div class="errorMessage">
 					Submission failed, please close this window and try again.
@@ -135,34 +135,44 @@
 			padding-bottom: 3px;
 		}
 		select {
-			border: 1px solid var(--appColorPrimary);
+			border: 1px solid black;
 			border-radius: 5px;
 			outline: none;
 			padding: 3px;
 			width: fit-content;
 		}
 		textarea {
-			border: 1px solid var(--appColorPrimary);
-			border-radius: 5px;
-			outline: none;
-			padding: 3px;
+			background: var(--appBGColor);
+			border: none;
+			border-radius: 10px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			height: 100px;
+			margin-top: 5px;
+			outline: 0;
+			padding: 5px;
+			width: 100%;
+			&:focus {
+				background-color: white;
+			}
 		}
 		.submitArea {
 			display: flex;
 			margin-left: auto;
-			padding-top: 10px;
+			padding-top: 20px;
 			button {
-				background-color: var(--appColorPrimary);
-				border: 2px solid var(--appColorPrimary);
+				background-color: var(--appBGColor);
+				border: none;
 				border-radius: 5px;
-				color: var(--appBGColor);
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				color: var(--appColorPrimary);
 				cursor: pointer;
-				margin: 0px 3px;
+				font-weight: bold;
+				margin: 0px 8px;
 				outline: none;
 				padding: 5px;
 				&.cancelButton {
-					background-color: var(--appColorDisabled);
-					border-color: var(--appColorDisabled);
+					color: var(--appColorBlack);
+					margin-right: 0px;
 				}
 			}
 		}
