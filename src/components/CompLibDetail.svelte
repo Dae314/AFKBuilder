@@ -797,6 +797,7 @@
 			transition: all 0.2s ease-out;
 			&.open {
 				max-height: 5000px;
+				overflow: visible;
 				padding-top: 10px;
 			}
 		}
