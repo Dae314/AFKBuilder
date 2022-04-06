@@ -146,7 +146,7 @@
 
 		dispatch('routeEvent', {action: 'saveData'})
 		// navigate to comps page and clear all query parameters except the one specified below
-		window.location.assign(`${window.location.origin}/?comp=true#/comps`);
+		window.location.assign(`${window.location.origin}/#/comps?view=compDetail&comp=${compID}`);
 	}
 
 	function handlePortraitClick(heroID) {
