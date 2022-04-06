@@ -21,6 +21,7 @@
 	import AscendBox from '../shared/AscendBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import ReportButton from '../shared/ReportButton.svelte';
+	import HeroButton from '../shared/HeroButton.svelte';
 	import { gql_GET_COMP, gql_DELETE_COMP } from '../gql/queries.svelte';
 	import { getCompAuthor, validateJWT, toggleSave, toggleUpvote, toggleDownvote } from '../rest/RESTFunctions.svelte';
 	import { msToString, votesToString } from '../utilities/Utilities.svelte';
@@ -316,6 +317,16 @@
 				throw new Error(`Invalid action specified on compLineEvent: ${action}`);
 		}
 	}
+
+	async function handleHeroButtonEvent(event) {
+		switch(event.detail.action) {
+			case 'heroClick':
+				await handleHeroClick(event.detail.data);
+				break;
+			default:
+				throw new Error(`Invalid action specified on heroButtonEvent: ${action}`);
+		}
+	}
 </script>
 
 {#if $compQuery.loading}
@@ -543,48 +554,11 @@
 											<div class="subGroupMembers">
 												{#each subgroup.heroes as hero}
 													<div class="subHeroContainer">
-														<button type="button" class="heroButton">
-															<div class="subImgContainer">
-																<img draggable="false" on:click={() => handleHeroClick(hero)} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
-																<span class="coreMark subCoreMark" class:visible={comp.heroes[hero].core}></span>
-																<div class="ascMark subAscMark">
-																	{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																		{#if comp.heroes[hero].ascendLv >= 6}
-																			<img src="./img/markers/ascended.png" alt="ascended">
-																		{:else if comp.heroes[hero].ascendLv >= 4}
-																			<img src="./img/markers/mythic.png" alt="mythic">
-																		{:else if comp.heroes[hero].ascendLv >= 2}
-																			<img src="./img/markers/legendary.png" alt="legendary">
-																		{:else}
-																			<img src="./img/markers/elite.png" alt="elite">
-																		{/if}
-																	{:else}
-																		{#if comp.heroes[hero].ascendLv >= 4}
-																			<img src="./img/markers/legendary.png" alt="legendary">
-																		{:else if comp.heroes[hero].ascendLv >= 2}
-																			<img src="./img/markers/elite.png" alt="elite">
-																		{:else}
-																			<img src="./img/markers/rare.png" alt="rare">
-																		{/if}
-																	{/if}
-																	{#if comp.heroes[hero].si >= 30}
-																		<img src="./img/markers/si30.png" alt="si30">
-																	{:else if comp.heroes[hero].si >= 20}
-																		<img src="./img/markers/si20.png" alt="si20">
-																	{:else if comp.heroes[hero].si >= 10}
-																		<img src="./img/markers/si10.png" alt="si10">
-																	{:else}
-																		<img src="./img/markers/si0.png" alt="si0">
-																	{/if}
-																	{#if comp.heroes[hero].furn >= 9}
-																		<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																	{:else if comp.heroes[hero].furn >= 3}
-																		<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-																	{/if}
-																</div>
-															</div>
-															<p on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</p>
-														</button>
+														<HeroButton
+															hero={hero}
+															heroDetails={comp.heroes[hero]}
+															on:heroButtonEvent={handleHeroButtonEvent}
+														/>
 													</div>
 												{/each}
 											</div>
@@ -990,18 +964,7 @@
 				width: 100%;
 			}
 			.subHeroContainer {
-				margin-right: 8px;
-				margin-bottom: 8px;
-				p {
-					font-size: 0.9rem;
-					font-weight: bold;
-					margin: 0;
-					width: 80px;
-					overflow: hidden;
-					text-align: center;
-					text-overflow: ellipsis;
-					white-space: nowrap;
-				}
+				margin: 5px 8px;
 			}
 			.subImgContainer {
 				position: relative;
