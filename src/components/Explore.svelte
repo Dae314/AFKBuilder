@@ -65,7 +65,7 @@
 	$: sortSettings = makeSortSettings({curSort});
 	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings, sort: sortSettings } });
 	$: if(!$compsQuery.loading && $compsQuery.data) processCompsPromise = processComps($compsQuery.data.comps.data);
-	$: if(!$compsQuery.loading) pageInfo = $compsQuery.data.comps.meta.pagination;
+	$: if(!$compsQuery.loading && $compsQuery.data) pageInfo = $compsQuery.data.comps.meta.pagination;
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
