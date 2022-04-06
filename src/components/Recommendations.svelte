@@ -377,6 +377,7 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
+		justify-content: center;
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
@@ -390,14 +391,11 @@
 			display: flex;
 			font-size: 1.2rem;
 			justify-content: center;
-			margin: 0px 8px;
+			margin: 5px 8px;
 			outline: none;
 			padding: 5px;
 			span {
 				opacity: 0.3;
-			}
-			&:first-child {
-				margin-left: 0px;
 			}
 			&.active {
 				background: var(--neu-convex-BGLight-bg);
@@ -554,8 +552,12 @@
 		}
 		.sectionPicker {
 			justify-content: flex-start;
-			.sectionButton {
-				margin-right: 15px;
+			li {
+				&:first-child {
+					.sectionButton {
+						margin-left: 0px;
+					}
+				}
 			}
 		}
 		.recSection {
