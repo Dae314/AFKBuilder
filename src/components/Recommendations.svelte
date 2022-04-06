@@ -529,6 +529,9 @@
 		}
 	}
 	@media only screen and (min-width: 767px) {
+		.recContainer {
+			height: 100vh;
+		}
 		.sectionPicker {
 			justify-content: flex-start;
 			.sectionButton {
