@@ -540,7 +540,7 @@
 				margin: 5px 8px;
 				max-width: 100px;
 				overflow: hidden;
-				padding: 2px;
+				padding: 3px;
 				text-overflow: ellipsis;
 				white-space: nowrap;
 			}
