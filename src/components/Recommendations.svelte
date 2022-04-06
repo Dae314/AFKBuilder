@@ -8,6 +8,7 @@
 	import AscendBox from '../shared/AscendBox.svelte';
 	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
 	import StarsInput from '../shared/StarsInput.svelte';
+	import { validateJWT } from '../rest/RESTFunctions.svelte';
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
@@ -118,6 +119,12 @@
 		return buffer;
 	}
 
+	async function postUpdate() {
+		$AppData.MH.lastUpdate = new Date();
+		const valid = await validateJWT($AppData.user.jwt);
+		if(valid) dispatch('routeEvent', {action: 'syncMyHeroes'});
+	}
+
 	function sortByCore(a, b) {
 		if(a.core && !b.core) {
 			return -1;
@@ -150,7 +157,7 @@
 		});
 	}
 
-	function handleClaimClick(heroID, value, type) {
+	async function handleClaimClick(heroID, value, type) {
 		$AppData.MH.List[heroID].claimed = true;
 		switch(type) {
 			case 'asc':
@@ -178,6 +185,7 @@
 				throw new Error(`Invalid type received ${type} should be 'asc', 'si', or 'furn'.`);
 		}
 		recommendations = buildRecs();
+		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'})
 	}
 </script>
