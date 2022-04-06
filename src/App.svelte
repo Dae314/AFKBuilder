@@ -4,7 +4,7 @@
 	import AppData from './stores/AppData.js';
 	import Modal from 'svelte-simple-modal';
 	import Router from 'svelte-spa-router';
-	import {pop as spaRoutePop, querystring} from 'svelte-spa-router';
+	import {pop as spaRoutePop, querystring, location} from 'svelte-spa-router';
 	import {wrap} from 'svelte-spa-router/wrap';
 	import JSONURL from 'json-url';
 	import {
@@ -521,7 +521,7 @@
 		if(urlParams.has('modal')) {
 			spaRoutePop();
 			window.addEventListener('popstate', function updateURL(event) {
-				const uri = $querystring ? `${window.location.origin}/#/${$AppData.activeView}?${$querystring}` : `${window.location.origin}/#/${$AppData.activeView}`
+				const uri = $querystring ? `${window.location.origin}/#${$location}?${$querystring}` : `${window.location.origin}/#${$location}`;
 				history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, uri);
 				window.removeEventListener('popstate', updateURL);
 			});
