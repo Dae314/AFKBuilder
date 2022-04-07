@@ -5,6 +5,14 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v1.13.50',
+			changes: [
+				'Added Terms of Service',
+				'Added Privacy Policy',
+				'Updated Haelus benchmark E36',
+				'Updated Awakened Ezizh benchmark E60',
+			],
+		},
 		{ version: 'v1.13.46',
 			changes: [
 				'Added new hero Audrae',
@@ -35,13 +43,6 @@
 				'Updated Tasi Slumber skill description',
 				'Updated Treznor\'s SI description',
 				'Fixed typo on Satrana 3f',
-			],
-		},
-		{ version: 'v1.13.30',
-			changes: [
-				'Added new hero Melusina',
-				'Updated LDV benchmark to E36',
-				'Adjusted spacing on Ainz skill Magic Caster',
 			],
 		},
 	]
