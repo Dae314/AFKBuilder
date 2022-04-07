@@ -33,7 +33,6 @@
 
 	let openFilters = false;
 	let openInOutMenu = false;
-	let copyConfirmVisible = false;
 	let showFilters = false;
 	let sections = ['Owned', 'Unowned'];
 	let sortOptions = ['Name', 'Asc.', 'Copies', 'Eng.'];
@@ -411,8 +410,14 @@
 	async function handleExportData() {
 		const output = await jsurl.compress(JSON.stringify($AppData.MH.List));
 		navigator.clipboard.writeText(output).then(() => {
-			copyConfirmVisible = true;
-			setTimeout(() => copyConfirmVisible = false, 1000);
+			dispatch('routeEvent', { action: 'showNotice',
+				data: {
+					noticeConf: {
+						type: 'info',
+						message: 'My Hero Data Copied to Clipboard',
+					}
+				}
+			});
 		}, () => {
 			throw new Error("Error copying Comp data to clipboard.");
 		});
@@ -536,7 +541,9 @@
 			<ul class="sectionPicker">
 				{#each sections as section, i}
 				<li>
-					<button type="button" class="sectionButton" class:active={$AppData.MH.openSection === i} on:click={() => { $AppData.MH.openSection = i; dispatch('routeEvent', {action: 'saveData'})} }>{section}</button>
+					<button type="button" class="sectionButton" class:active={$AppData.MH.openSection === i} on:click={() => { $AppData.MH.openSection = i; dispatch('routeEvent', {action: 'saveData'})} }>
+						<span>{section}</span>
+					</button>
 				</li>
 				{/each}
 			</ul>
@@ -690,9 +697,6 @@
 			<div class="tooltip tooltip-inOutButton2"><span class="tooltipText">Import Data</span></div>
 		</div>
 		<button type="button" class="inOutMenuButton" on:click={(e) => {openInOutMenu = !openInOutMenu; e.stopPropagation();}}><img src="./img/utility/import_export_white.png" alt="Import/Export"></button>
-	</section>
-	<section class="sect4">
-		<div class="copyConfirm" class:visible={copyConfirmVisible}><span>My Hero Data Copied to Clipboard</span></div>
 	</section>
 </div>
 
@@ -866,16 +870,9 @@
 		width: 60px;
 		z-index: 2;
 	}
-	.sect4 {
-		left: 50%;
-		position: fixed;
-		top: 80px;
-		transform: translate(-50%, 0);
-		width: fit-content;
-	}
 	.sectionPickerSection {
-		margin: 0;
-		width: 100%;
+		margin: 10px;
+		width: 95%;
 	}
 	.sectionPicker {
 		display: flex;
@@ -886,25 +883,30 @@
 		margin: 0;
 		padding: 0;
 		.sectionButton {
-			background-color: transparent;
-			border: 3px solid var(--appColorPrimary);
-			border-bottom: none;
-			border-radius: 10px 10px 0px 0px;
+			align-items: center;
+			border: none;
+			border-radius: 10px;
+			box-shadow: var(--neu-med-i-BGColor-shadow);
 			color: var(--appColorPrimary);
 			cursor: pointer;
-			font-size: 1rem;
-			margin-right: 15px;
+			display: flex;
+			font-size: 1.2rem;
+			justify-content: center;
+			margin: 5px 8px;
 			outline: none;
 			padding: 5px;
-		}
-		.sectionButton.active {
-			background-color: var(--appColorPrimary);
-			color: white;
+			span {
+				opacity: 0.5;
+			}
+			&.active {
+				background: var(--neu-convex-BGLight-bg);
+				span {
+					opacity: 1;
+				}
+			}
 		}
 	}
 	.MHSection {
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 10px;
 		padding: 10px;
 		width: 100%;
 	}
@@ -918,21 +920,6 @@
 		text-transform: uppercase;
 		width: 100%;
 		user-select: none;
-	}
-	.copyConfirm {
-		background-color: rgba(50, 50, 50, 0.7);
-		border-radius: 10px;
-		color: rgba(255, 255, 255, 0.7);
-		display: none;
-		opacity: 0;
-		padding: 5px;
-		transition: visibility 0.3s, opacity 0.3s;
-		visibility: hidden;
-	}
-	.copyConfirm.visible {
-		display: block;
-		opacity: 1;
-		visibility: visible;
 	}
 	.MHGrid {
 		display: grid;
@@ -1217,9 +1204,18 @@
 		}
 		.sectionPicker {
 			justify-content: flex-start;
-		}
-		.sectionButton {
-			margin-right: 0px;
+			li {
+				&:first-child {
+					.sectionButton {
+						margin-left: 0px;
+					}
+				}
+			}
+			.sectionButton {
+				&:hover {
+					background: var(--neu-convex-BGColor-wide-bg);
+				}
+			}
 		}
 		.MHSection {
 			border-radius: 0px 10px 10px 10px;
