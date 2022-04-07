@@ -10045,7 +10045,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 60,
+		engraving_benchmark: 36,
 	},
 	{ id: 'talene_aw',
 		name: 'Talene (Awakened)',
