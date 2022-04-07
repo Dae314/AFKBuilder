@@ -509,7 +509,6 @@
 
 	async function resetTutorial() {
 		$AppData.dismissImportWarn = false;
-		$AppData.dismissMHSearchInfo = false;
 		$AppData.dismissHLSearchInfo = false;
 		await saveAppData();
 		location.reload();
