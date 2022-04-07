@@ -379,7 +379,7 @@
 	}
 	.sectionPickerSection {
 		margin: 10px;
-		width: 100%;
+		width: 95%;
 	}
 	.sectionPicker {
 		display: flex;
