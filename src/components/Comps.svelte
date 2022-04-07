@@ -1411,7 +1411,7 @@
 					padding: 8px;
 					width: 100%;
 					&:focus {
-						box-shadow: var(--neu-med-i-BGColor-hover-shadow);
+						background-color: white;
 					}
 				}
 			}
@@ -1419,7 +1419,7 @@
 				right: 75px;
 				.searchImage {
 					max-width: 25px;
-					opacity: 0.1;
+					opacity: 0.3;
 					filter: invert(1);
 				}
 			}
@@ -1427,12 +1427,12 @@
 				right: 38px;
 				.openFiltersImage {
 					max-width: 25px;
-					opacity: 0.1;
+					opacity: 0.3;
 					filter: invert(1);
 				}
 				&.open {
 					.openFiltersImage {
-						opacity: 0.5;
+						opacity: 0.7;
 					}
 				}
 			}
@@ -2282,19 +2282,19 @@
 				.searchButton {
 						&:hover {
 						.searchImage {
-							opacity: 0.3;
+							opacity: 0.5;
 						}
 					}
 				}
 				.openFiltersButton {
 					&:hover {
 						.openFiltersImage {
-							opacity: 0.3;
+							opacity: 0.5;
 						}
 					}
 					&.open {
 						.openFiltersImage {
-							opacity: 0.5;
+							opacity: 0.7;
 						}
 					}
 				}

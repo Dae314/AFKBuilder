@@ -766,7 +766,7 @@
 				padding: 5px;
 				padding-bottom: 10px;
 				input {
-					background-color: var(--appBGColor);
+					background-color: var(--appBGColorLight);
 					border: none;
 					border-radius: 5px;
 					box-shadow: var(--neu-sm-i-BGColor-shadow);
@@ -774,6 +774,9 @@
 					outline: none;
 					padding: 5px;
 					width: 100%;
+					&:focus {
+						background-color: white;
+					}
 				}
 				.headButton {
 					align-items: center;
@@ -794,7 +797,7 @@
 					right: 65px;
 					.searchImage {
 						max-width: 20px;
-						opacity: 0.1;
+						opacity: 0.3;
 						filter: invert(1);
 					}
 				}
@@ -802,12 +805,12 @@
 					right: 33px;
 					.openFiltersImage {
 						max-width: 20px;
-						opacity: 0.1;
+						opacity: 0.3;
 						filter: invert(1);
 					}
 					&.open {
 						.openFiltersImage {
-							opacity: 0.5;
+							opacity: 0.7;
 						}
 					}
 				}
@@ -1195,6 +1198,25 @@
 		}
 		.section1 {
 			.heroFinderHead {
+				.searchContainer {
+					.headButton {
+						&:hover {
+							.searchImage {
+								opacity: 0.5;
+							}
+							.openFiltersImage {
+								opacity: 0.5;
+							}
+						}
+					}
+					.openFiltersButton {
+						&.open {
+							.openFiltersImage {
+								opacity: 0.7;
+							}
+						}
+					}
+				}
 				.filters {
 					.filterMasterButton {
 						&:hover {
