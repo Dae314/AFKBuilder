@@ -145,6 +145,9 @@
 		<div class="disclaimer">
 			<span>AFKBuilder has no affiliation with <a href="https://www.lilithgames.com/" target="_blank" rel="noreferrer noopener">Lilith Games</a> or <a href="https://www.afkarena.com/" target="_blank" rel="noreferrer noopener">AFK Arena</a></span> 
 		</div>
+		<div class="disclaimer">
+			<span>View our <a href={`${window.location.origin}/#/terms`} target="_blank" rel="noreferrer noopener">Terms of Service</a> and <a href={`${window.location.origin}/#/privacy`} target="_blank" rel="noreferrer noopener">Privacy Policy</a></span>
+		</div>
 	</section>
 	<section class="config">
 		<button type="button" class="configButton clearButton" on:click={handleClearDataButtonClick}><span>Clear Data</span></button>

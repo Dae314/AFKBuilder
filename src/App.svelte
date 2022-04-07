@@ -13,6 +13,8 @@
 	import MyHeroes from './components/MyHeroes.svelte';
 	import Recommendations from './components/Recommendations.svelte';
 	import About from './components/About.svelte';
+	import TOS from './components/TOS.svelte';
+	import PrivPolicy from './components/PrivPolicy.svelte';
 
 	export let version = '';
 	const menuItems = [ 'Comps', 'Recommendations', 'My Heroes', 'Hero List', 'About' ];
@@ -46,6 +48,14 @@
 					version: version,
 					isMobile: isMobile,
 					},
+			}),
+		'/privacy': wrap({
+				component: PrivPolicy,
+				props: {},
+			}),
+		'/terms': wrap({
+				component: TOS,
+				props: {}
 			}),
 	}
 
