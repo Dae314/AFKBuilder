@@ -1,7 +1,8 @@
 <script>
-	import {onMount} from 'svelte';
+	import {onMount, createEventDispatcher} from 'svelte';
 	import AppData from '../stores/AppData.js';
 
+	const dispatch = createEventDispatcher();
 	const lastUpdate = '7 April 2022';
 
 	onMount(async () => {
