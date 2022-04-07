@@ -2,7 +2,7 @@
 	import {onMount} from 'svelte';
 	import AppData from '../stores/AppData.js';
 
-	const lastUpdate = '6 April 2022';
+	const lastUpdate = '7 April 2022';
 
 	onMount(async () => {
 		$AppData.activeView = 'about';
@@ -22,10 +22,8 @@
 	<p>Permission is granted to temporarily download one copy of the materials on AFKBuilder's Website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
 
 	<ul>
-			<li>modify or copy the materials;</li>
-			<li>attempt to reverse engineer any software contained on AFKBuilder's Website;</li>
-			<li>remove any copyright or other proprietary notations from the materials; or</li>
-			<li>transferring the materials to another person or "mirror" the materials on any other server.</li>
+		<li>remove any copyright or other proprietary notations from the materials; or</li>
+		<li>transferring the materials to another person or "mirror" the materials on any other server.</li>
 	</ul>
 
 	<p>This will let AFKBuilder to terminate upon violations of any of these restrictions. Upon termination, your viewing right will also be terminated and you should destroy any downloaded materials in your possession whether it is printed or electronic format. These Terms of Service has been created with the help of the <a href="https://www.termsofservicegenerator.net" target="_blank" rel="noreferrer noopener">Terms Of Service Generator</a>.</p>

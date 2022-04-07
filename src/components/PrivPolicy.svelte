@@ -2,7 +2,7 @@
 	import {onMount} from 'svelte';
 	import AppData from '../stores/AppData.js';
 
-	const lastUpdate = '6 April 2022';
+	const lastUpdate = '7 April 2022';
 
 	onMount(async () => {
 		$AppData.activeView = 'about';
@@ -44,8 +44,8 @@
 	<h3>What data do we collect?</h3>
 	
 	<ul>
-		<li>Name (only collected when logging in with oauth, and may be changed on the <a href="${window.location.origin}/#/profile" target="_blank" rel="noreferrer noopener">Profile</a> settings</li>
-		<li>Email (only collected when logging in with oauth, will only be stored and never used in the website or given out to third parties)</li>
+		<li>Name (only collected when logging in with oauth, and may be changed on the <a href="${window.location.origin}/#/profile" target="_blank" rel="noreferrer noopener">Profile</a> settings)</li>
+		<li>Email (only collected when logging in with oauth, and will only be stored and never displayed on the website or given out to third parties)</li>
 		<li>Necessary cookies</li>
 	</ul>
 
@@ -56,6 +56,10 @@
 	<ul>
 		<li>Enable core functionality on the website</li>
 	</ul>
+
+	<h3>How do I delete my data?</h3>
+	
+	<p>Deleting your account from the <a href="${window.location.origin}/#/profile" target="_blank" rel="noreferrer noopener">Profile</a> page will remove all of your personal data from our servers. However, any comp data that you uploaded on the account will remain published, and you will lose access to modify or delete it. If you want to delete your comp data, you will need to manually unpublish your comps before deleting your account.</p>
 
 	<h3>Cookies and Web Beacons</h3>
 
