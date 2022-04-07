@@ -36,6 +36,8 @@
 	import CompLibDetail from './components/CompLibDetail.svelte';
 	import ErrorDisplay from './components/ErrorDisplay.svelte';
 	import LoadingSpinner from './shared/LoadingSpinner.svelte';
+	import TOS from './components/TOS.svelte';
+	import PrivPolicy from './components/PrivPolicy.svelte';
 
 	export let version = '';
 	const menuItems = [
@@ -56,32 +58,32 @@
 
 	const routes = {
 		'/': wrap({
-				component: Comps,
-				props: { isMobile: isMobile},
-			}),
+			component: Comps,
+			props: { isMobile: isMobile},
+		}),
 		'/comps': wrap({
-				component: Comps,
-				props: { isMobile: isMobile},
-			}),
+			component: Comps,
+			props: { isMobile: isMobile},
+		}),
 		'/recommendations': wrap({
-				component: Recommendations,
-				props: { isMobile: isMobile },
-			}),
+			component: Recommendations,
+			props: { isMobile: isMobile },
+		}),
 		'/myheroes': wrap({
-				component: MyHeroes,
-				props: { isMobile: isMobile },
-			}),
+			component: MyHeroes,
+			props: { isMobile: isMobile },
+		}),
 		'/herolist': wrap({
-				component: HeroList,
-				props: { isMobile: isMobile },
-			}),
+			component: HeroList,
+			props: { isMobile: isMobile },
+		}),
 		'/about': wrap({
-				component: About,
-				props: {
-					version: version,
-					isMobile: isMobile,
-					},
-			}),
+			component: About,
+			props: {
+				version: version,
+				isMobile: isMobile,
+			},
+		}),
 		'/profile': wrap({
 			component: Profile,
 			props: {},
@@ -101,6 +103,14 @@
 		'/connect/:provider/redirect': wrap({
 			component: PostLogin,
 			props: {},
+		}),
+		'/privacy': wrap({
+			component: PrivPolicy,
+			props: {},
+		}),
+		'/terms': wrap({
+			component: TOS,
+			props: {}
 		}),
 		'*': wrap({
 			component: ErrorDisplay,
