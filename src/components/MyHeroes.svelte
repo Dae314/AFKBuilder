@@ -1194,7 +1194,7 @@
 				}
 			}
 			.filterArea {
-				left: 52.2%;
+				left: 52%;
 				top: 75px;
 				width: 65%;
 				.filterMasterButton {
