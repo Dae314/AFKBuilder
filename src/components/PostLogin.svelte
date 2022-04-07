@@ -26,7 +26,7 @@
 			} else {
 				throw new Error(`Login did not complete successfully, please try again.`);
 			}
-			setTimeout(() => window.location.assign(`${window.location.origin}/#/`), 2000);
+			setTimeout(() => window.location.assign(`${window.location.origin}/#/profile`), 2000);
 		}
 	}
 </script>
