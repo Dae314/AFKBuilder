@@ -670,6 +670,7 @@
 		transform: translate(-50%, 0);
 		transition: visibility 0.3s, opacity 0.3s;
 		visibility: hidden;
+		z-index: 4;
 		&.open {
 			display: block;
 			opacity: 1;
