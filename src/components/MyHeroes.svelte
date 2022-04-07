@@ -847,10 +847,6 @@
 					&.filterInactive {
 						filter: grayscale(100%);
 					}
-					&.filterSelected {
-						border-radius: 50%;
-						box-shadow: 0 0 7px 2px var(--appColorPrimary);
-					}
 				}
 			}
 			&.open {
@@ -1244,11 +1240,6 @@
 				padding: 5px;
 				text-align: left;
 			}
-		}
-		.tooltip-expander {
-			top: -35px;
-			left: 5px;
-			width: fit-content;
 		}
 		.tooltip-inOutButton1 {
 			bottom: 85px;
