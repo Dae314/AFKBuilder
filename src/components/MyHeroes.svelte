@@ -923,104 +923,106 @@
 	}
 	.MHGrid {
 		display: grid;
-		grid-gap: 10px 5px;
+		grid-gap: 20px 20px;
 		grid-template-columns: repeat(auto-fill, minmax(330px, 330px));
 		grid-auto-rows: 380px;
 		justify-content: space-evenly;
 	}
 	.heroCard {
-		border: 3px solid var(--appColorPrimary);
+		background-color: var(--appBGColor);
+		border: none;
 		border-radius: 10px;
+		box-shadow: var(--neu-med-i-BGColor-shadow);
 		display: flex;
 		flex-direction: column;
 		max-width: 330px;
 		padding: 10px;
 		position: relative;
-	}
-	.removeArea {
-		z-index: 1;
-	}
-	.removeHeroButtonContainer {
-		position: absolute;
-		top: 5px;
-		right: 5px;
-	}
-	.heroHeader {
-		display: flex;
-		flex-direction: row;
-	}
-	.portraitArea {
-		border-radius: 10px 10px 0px 0px;
-		display: flex;
-		height: 50%;
-		justify-content: center;
-		left: -1px;
-		overflow: hidden;
-		padding-top: 5px;
-		position: absolute;
-		top: -1px;
-		width: 100%;
-	}
-	.portrait {
-		border-radius: 50%;
-		cursor: pointer;
-		height: 160px;
-		width: 160px;
-	}
-	.heroName {
-		display: flex;
-		font-size: 1.7rem;
-		font-weight: bold;
-		justify-content: center;
-		margin: 0;
-		margin-top: 45px;
-		width: 100%;
-	}
-	.starsInputArea {
-		display: flex;
-		justify-content: center;
-		margin-bottom: 15px;
-	}
-	.attrArea {
-		background-color: rgba(0, 0, 0, 0.75);
-		border-radius: 30px;
-		height: fit-content;
-		padding: 5px;
-		position: relative;
-		top: -5px;
-		z-index: 1;
-	}
-	.attrImgContainer {
-		position: relative;
-		.attrImage {
-			max-width: 30px;
+		.removeArea {
+			z-index: 1;
 		}
-	}
-	.tooltip {
-		display: none;
-	}
-	.flipButtonContainer {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-	.ascButtonArea {
-		padding-bottom: 10px;
-	}
-	.siFurnButtonArea {
-		display: flex;
-		flex-direction: row;
-		.flipButtonArea {
-			&:first-child {
-				margin-right: 10px;
+		.removeHeroButtonContainer {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+		}
+		.heroHeader {
+			display: flex;
+			flex-direction: row;
+		}
+		.portraitArea {
+			border-radius: 10px 10px 0px 0px;
+			display: flex;
+			height: 50%;
+			justify-content: center;
+			left: -1px;
+			overflow: hidden;
+			padding-top: 5px;
+			position: absolute;
+			top: -1px;
+			width: 100%;
+			.portrait {
+				border-radius: 50%;
+				cursor: pointer;
+				height: 160px;
+				width: 160px;
 			}
 		}
-	}
-	.numInputArea {
-		display: flex;
-		justify-content: center;
-		padding-top: 5px;
+		.heroName {
+			display: flex;
+			font-size: 1.7rem;
+			font-weight: bold;
+			justify-content: center;
+			margin: 0;
+			margin-top: 45px;
+			width: 100%;
+		}
+		.starsInputArea {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 15px;
+		}
+		.attrArea {
+			background-color: rgba(0, 0, 0, 0.75);
+			border-radius: 30px;
+			height: fit-content;
+			padding: 5px;
+			position: relative;
+			top: -5px;
+			z-index: 1;
+		}
+		.attrImgContainer {
+			position: relative;
+			.attrImage {
+				max-width: 30px;
+			}
+		}
+		.tooltip {
+			display: none;
+		}
+		.flipButtonContainer {
+			align-items: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+		.ascButtonArea {
+			padding-bottom: 10px;
+		}
+		.siFurnButtonArea {
+			display: flex;
+			flex-direction: row;
+			.flipButtonArea {
+				&:first-child {
+					margin-right: 10px;
+				}
+			}
+		}
+		.numInputArea {
+			display: flex;
+			justify-content: center;
+			padding-top: 5px;
+		}
 	}
 	.unownedSection {
 		.MHGrid {
@@ -1220,21 +1222,23 @@
 		.MHSection {
 			border-radius: 0px 10px 10px 10px;
 		}
-		.tooltip {
-			display: flex;
-			justify-content: center;
-			opacity: 0;
-			position: absolute;
-			transition: opacity 0.2s;
-			visibility: hidden;
-			width: 200px;
-			z-index: 1;
-			.tooltipText {
-				background-color: var(--appColorPrimary);
-				border-radius: 6px;
-				color: white;
-				padding: 5px;
-				text-align: left;
+		.heroCard {
+			.tooltip {
+				display: flex;
+				justify-content: center;
+				opacity: 0;
+				position: absolute;
+				transition: opacity 0.2s;
+				visibility: hidden;
+				width: 200px;
+				z-index: 1;
+				.tooltipText {
+					background-color: var(--appColorPrimary);
+					border-radius: 6px;
+					color: white;
+					padding: 5px;
+					text-align: left;
+				}
 			}
 		}
 		.tooltip-inOutButton1 {
