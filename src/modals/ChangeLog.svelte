@@ -5,7 +5,7 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
-		{ version: 'v1.13.50',
+		{ version: 'v1.13.51',
 			changes: [
 				'Added Terms of Service',
 				'Added Privacy Policy',
