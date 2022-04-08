@@ -168,7 +168,7 @@
 		flex-direction: column;
 		height: calc(100vh - var(--headerHeight));
 		overflow-y: auto;
-		padding-top: 10px;
+		padding: 10px;
 		width: 100%;
 	}
 	.titleArea {
@@ -191,6 +191,7 @@
 			.userHeadline {
 				h3 {
 					margin: 0;
+					text-align: center;
 				}
 				.userSubtitle {
 					font-size: 0.8rem;
@@ -200,10 +201,9 @@
 			}
 		}
 		.reportArea {
-			display: flex;
-			justify-content: center;
-			padding-top: 10px;
-			width: 100%;
+			position: absolute;
+			right: 0px;
+			top: 0px;
 		}
 	}
 	.bodyArea {
@@ -293,7 +293,7 @@
 	@media only screen and (min-width: 767px) {
 		.userContainer {
 			height: 100vh;
-			padding: 0px 30px;
+			padding: 10px 30px;
 		}
 		.titleArea {
 			&:after {
@@ -304,6 +304,9 @@
 				justify-content: flex-start;
 				.userHeadline {
 					margin-left: 10px;
+					h3 {
+						text-align: left;
+					}
 					.userSubtitle {
 						text-align: left;
 					}
