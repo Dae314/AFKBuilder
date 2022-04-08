@@ -83,56 +83,68 @@
 	.title {
 		font-size: 1.3rem;
 		margin: 0;
+		margin-bottom: 5px;
 		user-select: none;
 	}
 	.dataInput {
+		background-color: var(--appBGColor);
+		border: none;
+		border-radius: 10px;
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		height: 250px;
-		width: 100%;
+		margin: 0 auto;
+		outline: 0;
+		padding: 5px;
+		width: 95%;
+		&:focus {
+			background-color: white;
+		}
 	}
 	.footer {
 		display: flex;
 		flex-direction: row;
 		justify-content: right;
-		padding-top: 10px;
+		padding-top: 15px;
 		width: 100%;
 	}
 	.status {
 		width: 75%;
 	}
 	.statusText {
-		background-color: rgba(173, 255, 159, 0.7);
+		background-color: #a7fc92;
+		border: none;
 		border-radius: 5px;
-		color: black;
+		box-shadow: var(--neu-sm-ni-BGColor-shadow);
+		color: var(--appColorBlack);
 		padding: 3px 10px;
 		visibility: hidden;
 		width: fit-content;
-	}
-	.statusText.visible {
-		visibility: visible;
-	}
-	.statusText.error {
-		background-color: rgba(255, 0, 0, 0.5);
+		&.visible {
+			visibility: visible;
+		}
+		&.error {
+			background-color: var(--appDelColor);
+			color: var(--appBGColor);
+		}
 	}
 	.submitArea {
 		margin-left: auto;
 	}
 	.submitButton {
-		background-color: transparent;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 10px;
+		background-color: var(--appBGColor);
+		border: none;
+		border-radius: 5px;
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		color: var(--appColorPrimary);
+		font-weight: bold;
 		padding: 5px;
 		transition: transform 0.2s;
 		width: 100px;
-		&:active {
-			transform: scale(0.9);
-		}
 	}
 	@media only screen and (min-width: 767px) {
 		.submitButton {
 			&:hover {
-				background-color: var(--appColorPrimary);
-				color: white;
+				background: var(--neu-convex-BGColor-bg);
 			}
 		}
 	}
