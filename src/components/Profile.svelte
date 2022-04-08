@@ -23,7 +23,6 @@
 	let showErrorDisplay = false;
 	let errorDisplayConf = {};
 	let showUsernameSuccess = false;
-	let showAvatarLoading = false;
 	let showAvatarSuccess = false;
 
 	onMount(async () => {
@@ -114,21 +113,21 @@
 		if($AppData.user.avatar !== avatar) {
 			try {
 				// check user's JWT before making queries
-				showAvatarLoading = true;
+				dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
 				const valid = await validateJWT($AppData.user.jwt);
 				if(valid) {
 					const response = await gqlUpdateAvatar({variables: { id: $AppData.user.id, avatar: avatar }});
 					$AppData.user.avatar = response.data.updateUsersPermissionsUser.data.attributes.avatar;
-					showAvatarLoading = false;
+					dispatch('routeEvent', {action: 'clearNotice'});
 					showAvatarSuccess = true;
 					setTimeout(() => showAvatarSuccess = false, 1000);
 					dispatch('routeEvent', {action: 'saveData'});
 				} else {
-					showAvatarLoading = false;
+					dispatch('routeEvent', {action: 'clearNotice'});
 					dispatch('routeEvent', {action: 'logout'});;
 				}
 			} catch (error) {
-				showAvatarLoading = false;
+				dispatch('routeEvent', {action: 'clearNotice'});
 				errorDisplayConf = {
 					errorCode: 500,
 					headText: 'Something went wrong',
@@ -228,7 +227,6 @@
 					</div>
 					<div class="avatarInputArea">
 						<AvatarInput
-							loading={showAvatarLoading}
 							success={showAvatarSuccess}
 							avatar={avatar}
 							on:avatarChanged={handleAvatarChange}
@@ -423,10 +421,6 @@
 				opacity: 0;
 				transition: all 0.1s;
 				visibility: hidden;
-				&.loading {
-					opacity: 1;
-					visibility: visible;
-				}
 			}
 		}
 		.headlineArea {

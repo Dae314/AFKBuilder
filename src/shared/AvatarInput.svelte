@@ -11,7 +11,6 @@
 	export let avatar = 'hogan';
 	export let editable = true;
 	export let size = '70px';
-	export let loading = false;
 	export let success = false;
 
 	$: avatarHero = $HeroData.find(e => e.id === avatar);
@@ -37,14 +36,10 @@
 			style="max-width: {size}"
 			draggable="false">
 	</button>
-	<span class="avatarEdit" class:loading={loading} class:editLock={!editable}>
-		{#if loading}
-			<LoadingSpinner type="dual-ring" size="small" color="{window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')}" />
-		{:else}
-			<button type="button" class="pencilButton" on:click={openAvatarPicker} disabled={!editable}>
-				<img src="./img/utility/pencil_white.png" alt="edit avatar">
-			</button>
-		{/if}
+	<span class="avatarEdit" class:editLock={!editable}>
+		<button type="button" class="pencilButton" on:click={openAvatarPicker} disabled={!editable}>
+			<img src="./img/utility/pencil_white.png" alt="edit avatar">
+		</button>
 	</span>
 </div>
 
@@ -99,10 +94,6 @@
 			opacity: 0;
 			transition: all 0.1s;
 			visibility: hidden;
-			&.loading {
-				opacity: 1;
-				visibility: visible;
-			}
 			&.editLock {
 				display: none;
 			}
