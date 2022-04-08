@@ -22,7 +22,6 @@
 	const usernameError = {state: false, text: ''};
 	let showErrorDisplay = false;
 	let errorDisplayConf = {};
-	let showUsernameLoading = false;
 	let showUsernameSuccess = false;
 	let showAvatarLoading = false;
 	let showAvatarSuccess = false;
@@ -67,21 +66,21 @@
 		if($AppData.user.username !== username) {
 			try {
 				// check user's JWT before making queries
-				showUsernameLoading = true;
+				dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
 				const valid = await validateJWT($AppData.user.jwt);
 				if(valid) {
 					const response = await gqlUpdateUsername({variables: { id: $AppData.user.id, username: username }});
 					$AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
-					showUsernameLoading = false;
+					dispatch('routeEvent', {action: 'clearNotice'});
 					showUsernameSuccess = true;
 					setTimeout(() => showUsernameSuccess = false, 1000);
 					dispatch('routeEvent', {action: 'saveData'});
 				} else {
-					showUsernameLoading = false;
+					dispatch('routeEvent', {action: 'clearNotice'});
 					dispatch('routeEvent', {action: 'logout'});;
 				}
 			} catch (error) {
-				showUsernameLoading = false;
+				dispatch('routeEvent', {action: 'clearNotice'});
 				switch(error.graphQLErrors[0].extensions.code) {
 					case 'BAD_USER_INPUT':
 					case 'FORBIDDEN':
@@ -220,14 +219,10 @@
 							disabled={editUsernameDisabled}
 							on:blur={handleUsernameBlur}
 							on:keyup={handleUsernameKeyup} />
-						<span class="usernameEdit" class:loading={showUsernameLoading}>
-							{#if showUsernameLoading}
-								<LoadingSpinner type="dual-ring" size="small" color="{window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')}" />
-							{:else}
-								<button class="usernameEditButton" on:click={handleUsernameEditClick}>
-									<img src="./img/utility/pencil_white.png" alt="edit username">
-								</button>
-							{/if}
+						<span class="usernameEdit">
+							<button class="usernameEditButton" on:click={handleUsernameEditClick}>
+								<img src="./img/utility/pencil_white.png" alt="edit username">
+							</button>
 						</span>
 						<div class="usernameErrorText" class:visible={usernameError.state}><span>{usernameError.text}</span></div>
 					</div>
@@ -414,6 +409,9 @@
 		}
 	}
 	@media only screen and (min-width: 767px) {
+		.profileContainer {
+			height: 100vh;
+		}
 		.titleArea {
 			.usernameInputArea {
 				&:hover > .usernameEdit {
