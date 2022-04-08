@@ -519,7 +519,7 @@
 
 	async function resetTutorial() {
 		$AppData.dismissImportWarn = false;
-		$AppData.dismissHLSearchInfo = false;
+		$AppData.dismissCookieConsent = false;
 		await saveAppData();
 		location.reload();
 	}

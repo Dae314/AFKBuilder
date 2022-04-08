@@ -296,15 +296,6 @@
 		</div>
 	</section>
 	<section class="sect2">
-		{#if !$AppData.dismissHLSearchInfo}
-			<div class="searchInfo">
-				<div class="tutorialBoxContainer">
-					<TutorialBox clickable={true} onClick={() => {$AppData.dismissHLSearchInfo = true; dispatch('routeEvent', {action: 'saveData'});}}>
-						Just start typing to search! Pressing tab will also open and close the filter area.
-					</TutorialBox>
-				</div>
-			</div>
-		{/if}
 		<div class='tableContainer'>
 			<table class='heroTable'>
 				<thead>
@@ -363,7 +354,7 @@
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight) - 40px); /* gymnastics to set height for mobile browsers */
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		padding-top: 10px;
 		overflow-y: auto;
 		width: 100%;
@@ -589,8 +580,7 @@
 		.HLContainer {
 			display: flex;
 			flex-direction: row;
-			height: 100%;
-			height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
+			height: 100vh;
 		}
 		.sect1 {
 			display: flex;

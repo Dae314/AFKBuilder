@@ -267,7 +267,6 @@ function buildAppData(data) {
 		{name: 'selectedComp', default: null},
 		{name: 'selectedUUID', default: null},
 		{name: 'dismissImportWarn', default: false},
-		{name: 'dismissHLSearchInfo', default: false},
 		{name: 'dismissCookieConsent', default: false},
 		{name: 'expandHeader', default: false},
 		{name: 'maxDescLen', default: maxDescLen},
