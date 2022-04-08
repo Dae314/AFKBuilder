@@ -3,7 +3,6 @@
 	import HeroData from '../stores/HeroData.js';
 	import AvatarPicker from '../modals/AvatarPicker.svelte';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
-	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
 
 	const dispatch = createEventDispatcher();
 	const { open } = getContext('simple-modal');
@@ -21,7 +20,11 @@
 
 	function openAvatarPicker() {
 		if(editable) {
-			open(AvatarPicker, { onChange: handleAvatarChange, }, { closeButton: ModalCloseButton });
+			open(AvatarPicker,
+			{ onChange: handleAvatarChange, },
+			{ closeButton: ModalCloseButton,
+				styleContent: {background: '#F0F0F2', borderRadius: '10px'},}
+			);
 		}
 	}
 </script>
