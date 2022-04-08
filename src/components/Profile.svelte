@@ -387,9 +387,10 @@
 		margin-top: auto;
 		padding: 15px;
 		.logoutButton {
-			background-color: transparent;
-			border: 3px solid var(--appDelColor);
+			background-color: var(--appBGColor);
+			border: none;
 			border-radius: 10px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
 			color: var(--appDelColor);
 			cursor: pointer;
 			font-size: 1rem;
@@ -397,10 +398,6 @@
 			outline: none;
 			padding: 10px;
 			transition: all 0.2s;
-			&:hover {
-				background-color: var(--appDelColor);
-				color: white;
-			}
 			&.deleteButton {
 				margin-left: auto;
 			}
@@ -428,6 +425,13 @@
 			justify-content: center;
 			.headBox {
 				margin: 0px 20px;
+			}
+		}
+		.logoutArea {
+			.logoutButton {
+				&:hover {
+					background: var(--neu-convex-BGColor-bg);
+				}
 			}
 		}
 	}
