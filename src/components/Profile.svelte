@@ -357,10 +357,10 @@
 		width: 100%;
 		.headBox {
 			align-items: center;
-			background-color: var(--appColorPrimary);
-			border: 2px solid var(--appColorSecondary);
+			background-color: var(--appBGColor);
+			border: none;
 			border-radius: 10px;
-			color: white;
+			box-shadow: var(--neu-med-i-BGColor-shadow);
 			display: flex;
 			flex-direction: column;
 			height: 120px;
@@ -372,7 +372,7 @@
 			.headButton {
 				background-color: transparent;
 				border: none;
-				color: white;
+				color: var(--appColorPrimary);
 				cursor: pointer;
 				height: 100%;
 				outline: none;
@@ -381,6 +381,7 @@
 			.headNumber {
 				font-size: 2.0rem;
 				font-weight: bold;
+				height: 37px;
 			}
 			.headText {
 				font-size: 1.3rem;
@@ -415,6 +416,7 @@
 			height: 100vh;
 		}
 		.titleArea {
+			margin-top: 10%;
 			.usernameInputArea {
 				&:hover > .usernameEdit {
 					opacity: 1;
@@ -432,6 +434,11 @@
 			justify-content: center;
 			.headBox {
 				margin: 0px 20px;
+				.headButton {
+					&:hover {
+						background: var(--neu-convex-BGColor-bg);
+					}
+				}
 			}
 		}
 		.logoutArea {
