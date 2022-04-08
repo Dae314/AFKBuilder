@@ -1069,21 +1069,23 @@
 		background-color: var(--appColorPrimary);
 		border: 2px solid var(--appColorPrimary);
 		border-radius: 50%;
-		box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		cursor: pointer;
 		display: flex;
 		height: 50px;
 		justify-content: center;
-		transition: transform 0.3s ease-out;
 		width: 50px;
 		img {
 			max-width: 25px;
+			transition: transform 0.3s ease-out;
 		}
 	}
 	.inOutMenu.open {
 		+ {
 			.inOutMenuButton {
-				transform: rotate(180deg);
+				img {
+					transform: rotate(180deg);
+				}
 			}
 		}
 		max-height: 350px;
