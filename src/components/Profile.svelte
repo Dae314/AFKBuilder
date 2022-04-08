@@ -190,6 +190,12 @@
 		// note: clears all extraneous URL parameters
 		window.location.assign(`${window.location.origin}/#/users/${encodeURIComponent($AppData.user.username)}`);
 	}
+
+	function handleFavoriteCompsClick() {
+		// navigate to comps
+		// note: clears all extraneous URL parameters
+		window.location.assign(`${window.location.origin}/#/comps`);
+	}
 </script>
 
 {#await populateReceivedUpvotes()}
@@ -240,8 +246,10 @@
 						</button>
 					</div>
 					<div class="headBox favoriteCompsBox">
-						<div class="headNumber">{$AppData.user.saved_comps.length}</div>
-						<div class="headText">Favorite Comps</div>
+						<button type="button" class="headButton" on:click={handleFavoriteCompsClick}>
+							<div class="headNumber">{$AppData.user.saved_comps.length}</div>
+							<div class="headText">Favorite Comps</div>
+						</button>
 					</div>
 					<div class="headBox totalLikesBox">
 						<div class="headNumber">{receivedLikes}</div>
