@@ -215,15 +215,15 @@
 	}
 	.contributorGrid {
 		display: grid;
-		grid-gap: 10px;
+		grid-gap: 20px;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 330px));
 		justify-content: space-evenly;
 		margin-bottom: 10px;
-		overflow: hidden;
 	}
 	.contributorCard {
-		border: 3px solid var(--appColorPrimary);
+		border: none;
 		border-radius: 10px;
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		display: flex;
 		flex-direction: row;
 		height: 100%;
@@ -316,6 +316,9 @@
 		font-weight: bold;
 	}
 	@media only screen and (min-width: 767px) {
+		.aboutContainer {
+			height: 100vh;
+		}
 		.generalDesc {
 			margin: 0 auto;
 			width: 70%;
