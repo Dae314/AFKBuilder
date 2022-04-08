@@ -72,7 +72,9 @@
 	<section class="aboutApp">
 		<div class="generalDesc">
 			<p>AFKBuilder is an <a href="https://github.com/Dae314/AFKBuilder" target="_blank" rel="noreferrer noopener">open source</a> tool designed to help players build, share, and use community made team compositions for AFK Arena.</p>
-			<p>AFKBuilder runs entirely on your browser, and your data is stored in its local storage. None of your information is shared outside of the application. <em>Be sure to make a backup of your comps and hero list before clearing your browser data.</em></p>
+			<p>Login to get the most out of AFKBuilder! Until you login, AFKBuilder runs entirely on your browser, and your data is stored in its local storage. If you do not login, you will still be able to view community comps and make your own, but you will not be able to like, dislike, favorite, or share your comps. Also, be sure to make a backup of your comps and hero list before clearing your browser data. Users who login will have their Comps and My Heroes saved to their server profile.</p>
+			<p>We store minimal personal information only when you login. We store no information on users who do not login. For more information about the data we store, see our <a href={`${window.location.origin}/#/privacy`} target="_blank" rel="noreferrer noopener">Privacy Policy</a></p>
+			<p>By using AFKBuilder, you agree to our <a href={`${window.location.origin}/#/terms`} target="_blank" rel="noreferrer noopener">Terms of Service</a></p>
 		</div>
 		<div class="areaDesc">
 			<div class="compDesc areaDescSect">
@@ -144,9 +146,6 @@
 	<section class="affiliate">
 		<div class="disclaimer">
 			<span>AFKBuilder has no affiliation with <a href="https://www.lilithgames.com/" target="_blank" rel="noreferrer noopener">Lilith Games</a> or <a href="https://www.afkarena.com/" target="_blank" rel="noreferrer noopener">AFK Arena</a></span> 
-		</div>
-		<div class="disclaimer">
-			<span>View our <a href={`${window.location.origin}/#/terms`} target="_blank" rel="noreferrer noopener">Terms of Service</a> and <a href={`${window.location.origin}/#/privacy`} target="_blank" rel="noreferrer noopener">Privacy Policy</a></span>
 		</div>
 	</section>
 	<section class="config">
