@@ -136,6 +136,7 @@
 		border-radius: 5px;
 		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		color: var(--appColorPrimary);
+		cursor: pointer;
 		font-weight: bold;
 		padding: 5px;
 		transition: transform 0.2s;
