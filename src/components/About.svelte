@@ -171,10 +171,13 @@
 		justify-content: flex-end;
 	}
 	.versionButton {
-		background: transparent;
+		background-color: var(--appBGColor);
 		border: none;
+		border-radius: 5px;
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		cursor: pointer;
 		outline: none;
+		padding: 5px;
 	}
 	.titleContainer {
 		padding-bottom: 10px;
@@ -318,6 +321,11 @@
 	@media only screen and (min-width: 767px) {
 		.aboutContainer {
 			height: 100vh;
+		}
+		.versionButton {
+			&:hover {
+				background: var(--neu-convex-BGColor-bg);
+			}
 		}
 		.generalDesc {
 			margin: 0 auto;
