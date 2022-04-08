@@ -983,10 +983,11 @@
 			margin-bottom: 15px;
 		}
 		.attrArea {
-			background-color: rgba(0, 0, 0, 0.75);
+			background-color: var(--appBGColor);
 			border-radius: 30px;
+			box-shadow: var(--neu-sm-ni-BGColor-shadow);
 			height: fit-content;
-			padding: 5px;
+			padding: 6px;
 			position: relative;
 			top: -5px;
 			z-index: 1;
@@ -1231,7 +1232,6 @@
 				transition: opacity 0.2s;
 				visibility: hidden;
 				width: 200px;
-				z-index: 1;
 				.tooltipText {
 					background-color: var(--appColorPrimary);
 					border-radius: 6px;
@@ -1240,9 +1240,24 @@
 					text-align: left;
 				}
 			}
+			.tooltip-faction {
+				justify-content: flex-start;
+				left: 45px;
+				top: 0px;
+			}
+			.tooltip-type {
+				justify-content: flex-start;
+				left: 45px;
+				top: 0px;
+			}
+			.tooltip-class {
+				justify-content: flex-start;
+				left: 45px;
+				top: 0px;
+			}
 		}
 		.tooltip-inOutButton1 {
-			bottom: 85px;
+			bottom: 46px;
 			right: 70px;
 			width: fit-content;
 		}
@@ -1252,21 +1267,6 @@
 			width: fit-content;
 			bottom: 35px;
 		}
-		.tooltip-faction {
-			justify-content: flex-start;
-			left: 40px;
-			top: 0px;
-		}
-		.tooltip-type {
-			justify-content: flex-start;
-			left: 40px;
-			top: 0px;
-		}
-		.tooltip-class {
-			justify-content: flex-start;
-			left: 40px;
-			top: 0px;
-		}
 		.attrImage {
 			&:hover+.tooltip {
 				opacity: 1;
@@ -1274,6 +1274,10 @@
 			}
 		}
 		.inOutButton {
+			+.tooltip {
+				opacity: 0;
+				visibility: hidden;
+			}
 			&:hover+.tooltip {
 				opacity: 1;
 				visibility: visible;
