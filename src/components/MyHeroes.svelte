@@ -1186,9 +1186,8 @@
 				}
 			}
 			.filterArea {
-				left: 52%;
 				top: 75px;
-				width: 65%;
+				width: 700px;
 				.filterMasterButton {
 					&:hover {
 						background-color: var(--appColorPrimary);
