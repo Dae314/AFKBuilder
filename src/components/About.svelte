@@ -294,9 +294,10 @@
 		margin-top: 10px;
 		padding: 15px;
 		.configButton {
-			background-color: transparent;
-			border: 3px solid var(--appColorPrimary);
+			background-color: var(--appBGColor);
+			border: none;
 			border-radius: 10px;
+			box-shadow: var(--neu-med-i-BGColor-shadow);
 			color: var(--appColorPrimary);
 			cursor: pointer;
 			font-size: 1rem;
@@ -347,14 +348,12 @@
 			justify-content: flex-start;
 			.configButton {
 				&:hover {
-					background-color: var(--appColorPrimary);
-					color: white;
+					background: var(--neu-convex-BGColor-wide-bg);
 				}
 			}
 			.clearButton {
 				&:hover {
-					background-color: var(--appDelColor);
-					color: white;
+					background: var(--neu-convex-BGColor-wide-bg);
 				}
 			}
 			form {
