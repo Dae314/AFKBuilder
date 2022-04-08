@@ -507,9 +507,9 @@
 		width: 100%;
 	}
 	table {
-		border-radius: 6px;
+		border-radius: 10px;
 		border-spacing: 0;
-		box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15);
+		box-shadow: var(--neu-large-ni-BGColor-shadow);
 		margin: 0;
 		padding: 0;
 		table-layout: fixed;
@@ -536,6 +536,9 @@
 		}
 	}
 	.sortHeader {
+		cursor: pointer;
+	}
+	.heroRow {
 		cursor: pointer;
 	}
 	.spanHiddenMobile {
@@ -640,14 +643,16 @@
 			width: 90%;
 		}
 		.sortHeader {
+			transition: all 0.2s;
 			&:hover {
-				background-color: var(--appColorPriAccent);
+				box-shadow: var(--neu-med-i-BGColor-shadow);
+				transition: none;
 			}
 		}
 		.heroRow {
-			transition: background-color 0.4s;
+			transition: all 0.2s;
 			&:hover {
-				background-color: var(--appColorQuaternary);
+				box-shadow: var(--neu-med-i-BGColor-shadow);
 				transition: none;
 			}
 		}
