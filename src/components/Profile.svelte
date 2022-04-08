@@ -6,7 +6,6 @@
 	import { mutation } from "svelte-apollo";
 	import AvatarInput from '../shared/AvatarInput.svelte';
 	import LoadingPage from '../shared/LoadingPage.svelte';
-	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
 	import ErrorDisplay from '../components/ErrorDisplay.svelte';
 	import Confirm from '../modals/Confirm.svelte';
 
@@ -240,9 +239,9 @@
 							<div class="headText">Published Comps</div>
 						</button>
 					</div>
-					<div class="headBox likedCompsBox">
-						<div class="headNumber">{$AppData.user.liked_comps.length}</div>
-						<div class="headText">Liked Comps</div>
+					<div class="headBox favoriteCompsBox">
+						<div class="headNumber">{$AppData.user.saved_comps.length}</div>
+						<div class="headText">Favorite Comps</div>
 					</div>
 					<div class="headBox totalLikesBox">
 						<div class="headNumber">{receivedLikes}</div>
