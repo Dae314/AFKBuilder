@@ -85,4 +85,9 @@
 			color: var(--appColorPrimary);
 		}
 	}
+	@media only screen and (min-width: 767px) {
+		.TOSContainer {
+			height: 100vh;
+		}
+	}
 </style>
