@@ -194,36 +194,7 @@
 		displayList = sortDisplayList($AppData.HL.Sort, $AppData.HL.Order, makeDisplayList());
 		dispatch('routeEvent', {action: 'saveData'});
 	}
-
-	function isCharacterKeyPress(event) {
-		let keycode = event.keyCode;
-		let valid = 
-			(keycode > 47 && keycode < 58)   || // number keys
-			(keycode > 64 && keycode < 91)   || // letter keys
-			(keycode > 95 && keycode < 112)  || // numpad keys
-			(keycode > 185 && keycode < 193) || // ;=,-./` (in order)
-			(keycode > 218 && keycode < 223) || // [\]' (in order)
-			(keycode === 9);										// tab
-		return valid;
-	}
-
-	function dynamicSearch(event) {
-		if(isCharacterKeyPress(event) && !event.ctrlKey && !event.metaKey) {
-			if(event.keyCode === 9) {
-				// tab pressed, toggle openFilters
-				openFilters = !openFilters;
-				openFilters ? document.querySelector('#searchBox').focus() : document.querySelector('#searchBox').blur();
-			} else if(!openFilters) {
-				openFilters = true;
-				$AppData.HL.SearchStr = $AppData.HL.SearchStr + event.key;
-				document.querySelector('#searchBox').focus();
-				updateSearch();
-			}
-		}
-	}
 </script>
-
-<svelte:window on:keyup={dynamicSearch} />
 
 <div class="HLContainer">
 	<section class="sect1">

@@ -423,31 +423,6 @@
 		});
 	}
 
-	function isCharacterKeyPress(event) {
-		let keycode = event.keyCode;
-		let valid = 
-			(keycode > 64 && keycode < 91)   || // letter keys
-			(keycode > 185 && keycode < 193) || // ;=,-./` (in order)
-			(keycode > 218 && keycode < 223) || // [\]' (in order)
-			(keycode === 9);										// tab
-		return valid;
-	}
-
-	function dynamicSearch(event) {
-		if(isCharacterKeyPress(event) && !event.ctrlKey && !event.metaKey) {
-			if(event.keyCode === 9) {
-				// tab pressed, toggle openFilters
-				openFilters = !openFilters;
-				openFilters ? document.querySelector('#searchBox').focus() : document.querySelector('#searchBox').blur();
-			} else if(!openFilters) {
-				openFilters = true;
-				$AppData.MH.SearchStr = $AppData.MH.SearchStr + event.key;
-				document.querySelector('#searchBox').focus();
-				updateSearch();
-			}
-		}
-	}
-
 	function handleHeroDetailClick(heroID) {
 		open(HeroDetail, 
 		{ heroID: heroID, },
@@ -456,8 +431,6 @@
 		});
 	}
 </script>
-
-<svelte:window on:keyup={dynamicSearch} />
 
 <div class="MHContainer" on:click={() => openInOutMenu = false}>
 	<section class="sect1">
