@@ -163,4 +163,13 @@
 			}
 		}
 	}
+	@media only screen and (min-width: 767px) {
+		.footer {
+			.footerButton {
+				&:hover {
+					background: var(--neu-convex-BGColor-bg);
+				}
+			}
+		}
+	}
 </style>
