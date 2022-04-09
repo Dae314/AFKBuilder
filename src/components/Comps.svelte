@@ -967,6 +967,11 @@
 					<img class="openFiltersImage" src="./img/utility/filter_white.png" alt="Open Filters">
 				</button>
 			</div>
+			{#if curView === 'compList' && $AppData.compGroups.some(e => e.uuid === curGroup)}
+				<div class="groupTitle">
+					<h3>{$AppData.compGroups.find(e => e.uuid === curGroup).name}</h3>
+				</div>
+			{/if}
 		</div>
 		<div class="filterContainer" class:open={showFilters}>
 			<div class="hiddenToggleArea">
@@ -1030,11 +1035,6 @@
 				<img class="viewGroupsImage" src="./img/utility/groups_white.png" alt="Groups">
 				<span>Groups</span>
 			</button>
-			{#if curView === 'compList' && $AppData.compGroups.some(e => e.uuid === curGroup)}
-				<div class="groupTitle">
-					<h3>Group: {$AppData.compGroups.find(e => e.uuid === curGroup).name}</h3>
-				</div>
-			{/if}
 			<div class="sortArea" class:hidden={curView === 'groups'}>
 				<span class="selectText sortText">Sort by:</span>
 				<select class="compsSelect sortSelect" value={curSort} bind:this={sortSelectEl} on:change={() => handleSortChange(sortSelectEl)}>
@@ -1386,6 +1386,7 @@
 		width: 100%;
 		.searchArea {
 			display: flex;
+			flex-direction: column;
 			padding: 10px 10px 0px 10px;
 			position: relative;
 			.headButton {
@@ -1401,6 +1402,16 @@
 				position: absolute;
 				transition: all 0.2s;
 				width: 40px;
+			}
+			.groupTitle {
+				align-items: center;
+				display: flex;
+				justify-content: center;
+				margin-top: 10px;
+				text-align: center;
+				h3 {
+					margin: 0;
+				}
 			}
 			.mobileSearchArea {
 				align-items: center;
@@ -1607,16 +1618,6 @@
 			}
 			.viewGroupsButton {
 				margin-left: auto;
-			}
-			.groupTitle {
-				align-items: center;
-				display: flex;
-				justify-content: center;
-				margin-left: 200px;
-				text-align: center;
-				h3 {
-					margin: 0;
-				}
 			}
 			.sortArea {
 				position: absolute;
