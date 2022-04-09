@@ -61,10 +61,6 @@
 			unusedArtifacts = makeUnusedArtifactList();
 		}
 		heroes = makeHeroList();
-		if(section === 1) {
-			await tick();
-			if(!isMobile) document.querySelector('#searchBox').focus();
-		}
 	});
 
 	// filter variables
