@@ -1,10 +1,13 @@
 <script>
-	import {createEventDispatcher} from 'svelte';
+	import {getContext, createEventDispatcher} from 'svelte';
 	import { v4 as uuidv4 } from 'uuid';
+	import {replace, querystring} from 'svelte-spa-router';
 	import AppData from '../stores/AppData.js';
 	import XButton from '../shared/XButton.svelte';
+	import Confirm from '../modals/Confirm.svelte';
 
 	const dispatch = createEventDispatcher();
+	const { open } = getContext('simple-modal');
 
 	const sortOptions = ['new', 'name', 'comps'];
 	const defaultSort = 'new';
@@ -59,6 +62,27 @@
 	}
 
 	function handleDelClick(group) {
+		const message = `Delete group named ${group.name}?`;
+		open(Confirm,
+				{onConfirm: handleDeleteGroup, confirmData: group, message: message},
+				{closeButton: false,
+				 closeOnEsc: true,
+				 closeOnOuterClick: true,
+				 styleWindow: { width: 'fit-content', },
+				 styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
+				});
+	}
+
+	function handleDeleteGroup(group) {
+		let newQS = new URLSearchParams($querystring);
+		if(newQS.has('group')) {
+			const groupID = decodeURIComponent(newQS.get('group'));
+			if(groupID === group.uuid) {
+				// group to delete is active group, remove group URL query parameter
+				newQS.delete('group');
+				replace(`/comps?${newQS.toString()}`);
+			}
+		}
 		$AppData.compGroups = $AppData.compGroups.filter(e => e.uuid !== group.uuid);
 		dispatch('groupEvent', {action: 'groupChange'});
 	}

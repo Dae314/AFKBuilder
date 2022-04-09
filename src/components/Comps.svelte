@@ -1030,7 +1030,7 @@
 				<img class="viewGroupsImage" src="./img/utility/groups_white.png" alt="Groups">
 				<span>Groups</span>
 			</button>
-			{#if curGroup}
+			{#if curView === 'compList' && $AppData.compGroups.some(e => e.uuid === curGroup)}
 				<div class="groupTitle">
 					<h3>Group: {$AppData.compGroups.find(e => e.uuid === curGroup).name}</h3>
 				</div>
