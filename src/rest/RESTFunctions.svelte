@@ -31,6 +31,9 @@
 	export async function postLoginProvider(token, provider) {
 		const response = await fetch(`${uri}/auth/${provider}/callback?access_token=${token}`,
 		{
+			method: 'GET',
+			mode: 'cors',
+			cache: 'no-cache',
 			headers: {
 				Authorization: `token ${token}`
 			}
@@ -246,7 +249,7 @@
 		}
 	}
 
-	// get a list of comps that the user has published
+	// get a list of comps that the user has saved (favorited)
 	/*{
 		status: response status,
 		data: [{ id: ID, uuid: ID }] OR error object
@@ -527,7 +530,7 @@
 			const response = await fetch(`${uri}/custom-comps/getauthor/${encodeURIComponent(author)}`, {
 				method: 'GET',
 				mode: 'cors',
-				cache: 'no-cache',
+				cache: 'default',
 				headers: {},
 			});
 			const responseData = await response.json();
@@ -558,7 +561,7 @@
 			const response = await fetch(`${uri}/custom-comps/getcompauthor/${uuid}`, {
 				method: 'GET',
 				mode: 'cors',
-				cache: 'no-cache',
+				cache: 'default',
 				headers: {},
 			});
 			const responseData = await response.json();
