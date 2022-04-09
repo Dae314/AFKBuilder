@@ -401,7 +401,7 @@
 							background-color: var(--mythicColor);
 							border-radius: 5px;
 							color: var(--appBGColor);
-							font-size: 0.65rem;
+							font-size: 0.6rem;
 							font-weight: bold;
 							padding: 3px;
 						}
