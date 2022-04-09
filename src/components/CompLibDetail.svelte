@@ -275,6 +275,8 @@
 				const response = await gqlDeleteComp({variables: { id: svrComp.id }});
 				const delUUID = response.data.deleteComp.data.attributes.uuid;
 				$AppData.user.published_comps = $AppData.user.published_comps.filter(e => e.uuid !== delUUID);
+				dispatch('routeEvent', {action: 'populateUserData'});
+				dispatch('routeEvent', {action: 'syncFavorites'});
 				dispatch('routeEvent', {action: 'saveData'});
 				window.location.assign(`${window.location.origin}/#/`);
 			} else {
