@@ -336,7 +336,7 @@
 	<LoadingPage />
 {:else if $compQuery.error}
 	<ErrorDisplay
-		errorCode="503"
+		errorCode="500"
 		headText="Something went wrong"
 		detailText="Check the console for details."
 		showHomeButton={false}
