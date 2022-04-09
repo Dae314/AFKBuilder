@@ -266,7 +266,9 @@
 						.groupList {
 							margin: 0;
 							max-height: 260px;
+							min-height: 37px;
 							max-width: 90px;
+							min-width: 80px;
 							overflow-y: auto;
 							padding: 3px;
 							list-style-type: none;
