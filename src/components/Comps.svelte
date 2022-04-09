@@ -13,6 +13,7 @@
 	import CompCard from './CompCard.svelte';
 	import CompGroupBrowser from './CompGroupBrowser.svelte';
 	import CompLineEditor from './CompLineEditor.svelte';
+	import ErrorDisplay from './ErrorDisplay.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
@@ -90,6 +91,8 @@
 	let showFilters = false;
 	let curSort = defaultSort;
 	let curGroup = defaultGroup;
+	let showErrorDisplay = false;
+	let errorDisplayConf = {};
 
 	$: processQS($querystring);
 	$: compList = makeCompList($AppData.Comps, {tag_filter, author_filter, hero_filter, timeLimits, searchStr}, curSort, curGroup);
@@ -414,8 +417,16 @@
 							}
 						}
 					);
-					console.log(`An error occurred attempting to unfavorite comp with uuid: ${delUUID}`)
+					errorDisplayConf = {
+						errorCode: response.status,
+						headText: 'Something went wrong',
+						detailText: response.data,
+						showHomeButton: true,
+					};
+					showErrorDisplay = true;
+					console.log(`An error occurred attempting to unfavorite comp with uuid: ${delUUID}`);
 					console.log(response.data);
+					return;
 				} else {
 					if($AppData.selectedComp === uuid) resetOpenComp();
 					$AppData.user.saved_comps = response.data.comps;
@@ -439,14 +450,13 @@
 			let compCheck = [];
 			const response = await getCompByUUID(comp.uuid);
 			if(response.status !== 200) {
-				// errorDisplayConf = {
-				// 	errorCode: response.status,
-				// 	headText: 'Something went wrong',
-				// 	detailText: response.data,
-				// 	showHomeButton: true,
-				// };
-				// showErrorDisplay = true;
-				console.log('an error occurred');
+				errorDisplayConf = {
+					errorCode: response.status,
+					headText: 'Something went wrong',
+					detailText: response.data,
+					showHomeButton: true,
+				};
+				showErrorDisplay = true;
 				return;
 			} else {
 				compCheck = response.data;
@@ -491,9 +501,25 @@
 						}
 					);
 					if(error.graphQLErrors[0]) {
+						errorDisplayConf = {
+							errorCode: 500,
+							headText: 'Something went wrong',
+							detailText: error.graphQLErrors[0].message,
+							showHomeButton: true,
+						};
+						showErrorDisplay = true;
 						console.log(error.graphQLErrors[0].message);
+						return;
 					} else {
+						errorDisplayConf = {
+							errorCode: 500,
+							headText: 'Something went wrong',
+							detailText: error.message,
+							showHomeButton: true,
+						};
+						showErrorDisplay = true;
 						console.log(error.message);
+						return;
 					}
 					return;
 				}
@@ -550,9 +576,25 @@
 							}
 						);
 						if(error.graphQLErrors[0]) {
+							errorDisplayConf = {
+								errorCode: 500,
+								headText: 'Something went wrong',
+								detailText: error.graphQLErrors[0].message,
+								showHomeButton: true,
+							};
+							showErrorDisplay = true;
 							console.log(error.graphQLErrors[0].message);
+							return;
 						} else {
+							errorDisplayConf = {
+								errorCode: 500,
+								headText: 'Something went wrong',
+								detailText: error.message,
+								showHomeButton: true,
+							};
+							showErrorDisplay = true;
 							console.log(error.message);
+							return;
 						}
 						return;
 					}
@@ -959,439 +1001,448 @@
 	}
 </script>
 
-<div class="CompContainer">
-	{#if curView === 'compList' || curView === 'groups'}
-	<section class="sect1" id="sect1">
-		<div class="searchArea">
-			<div class="mobileSearchArea">
-				<input id="compSearch" value={searchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="Search titles or tags" />
-				<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
-					<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
-				</button>
-				<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
-					<img class="openFiltersImage" src="./img/utility/filter_white.png" alt="Open Filters">
-				</button>
-			</div>
-			{#if curView === 'compList' && $AppData.compGroups.some(e => e.uuid === curGroup)}
-				<div class="groupTitle">
-					<h3>{$AppData.compGroups.find(e => e.uuid === curGroup).name}</h3>
-				</div>
-			{/if}
-		</div>
-		<div class="filterContainer" class:open={showFilters}>
-			<div class="hiddenToggleArea">
-				<span>Show Hidden</span>
-				<ToggleSwitch
-					size="small"
-					bind:state={$AppData.compShowHidden}
-					on:toggleEvent={handleShowHiddenChange}
-				/>
-			</div>
-			<div class="primaryFilters">
-				<div class="filterArea">
-					<button type="button" class="addFilterButton addTagButton" on:click={() => handleAddFilterButtonClick('tag')}>Add Tags</button>
-					<div class="filterItems tagFilters">
-						{#each tag_filter as tag, i}
-							<button type="button" class="rmFilterButton tag {tag.type}" on:click={() => handleRemoveFilter('tag', i)}>{tag.displayName}</button>
-						{/each}
-					</div>
-				</div>
-				<div class="filterArea">
-					<button type="button" class="addFilterButton addAuthorButton" on:click={() => handleAddFilterButtonClick('author')}>Add Authors</button>
-					<div class="filterItems authorFilters">
-						{#each author_filter as author, i}
-							<button type="button" class="rmFilterButton author {author.type}" on:click={() => handleRemoveFilter('author', i)}>{author.displayName}</button>
-						{/each}
-					</div>
-				</div>
-				<div class="filterArea">
-					<button type="button" class="addFilterButton addHeroButton" on:click={() => handleAddFilterButtonClick('hero')}>Add Heroes</button>
-					<div class="filterItems heroFilters">
-						{#each hero_filter as hero, i}
-							<button type="button" class="rmFilterButton hero {hero.type}" on:click={() => handleRemoveFilter('hero', i)}>{hero.displayName}</button>
-						{/each}
-					</div>
-				</div>
-			</div>
-			<div class="secondaryFilters">
-				<div class="filterArea">
-					<div class="timeFilterArea">
-						<RangeSlider
-							id="timeSlider"
-							values={timeLimits}
-							min={0}
-							max={timeValues.length - 1}
-							formatter={ v => timeValues[v].name }
-							on:change={debounce(handleTimeValueChange, 300)}
-							pips
-							all='label'
-							range
-						/>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="compListTabs">
-			<button type="button" class="tabButton viewCompsButton" on:click={handleViewCompsClick} class:open={curView === 'compList'}>
-				<img class="viewCompsImage" src="./img/utility/comps_white.png" alt="Comps">
-				<span>Comps</span>
-			</button>
-			<button type="button" class="tabButton viewGroupsButton" on:click={handleGroupButtonClick} class:open={curView === 'groups'}>
-				<img class="viewGroupsImage" src="./img/utility/groups_white.png" alt="Groups">
-				<span>Groups</span>
-			</button>
-			<div class="sortArea" class:hidden={curView === 'groups'}>
-				<span class="selectText sortText">Sort by:</span>
-				<select class="compsSelect sortSelect" value={curSort} bind:this={sortSelectEl} on:change={() => handleSortChange(sortSelectEl)}>
-					{#each sortOptions as option}
-						<option value={option}>{option}</option>
-					{/each}
-				</select>
-			</div>
-		</div>
-		{#if curView === 'compList'}
-			<div class="compGridArea">
-				<ul class="compGrid">
-					<li class="newCompArea">
-						{#if curGroup}
-							<button type="button" class="newCompButton group" on:click={handleAddToGroupClick}>
-								<span class="plusIcon">+</span>
-								<span>Add Comps</span>
-							</button>
-						{:else}
-							<button type="button" class="newCompButton new" on:click={handleNewButtonClick}>
-								<span class="plusIcon">+</span>
-								<span>New</span>
-							</button>
-							<button type="button" class="newCompButton import" on:click={handleImportButtonClick}>
-								<div class="imgContainer">
-									<img draggable="false" class="importButtonIcon" src="./img/utility/import_white.png" alt="Import">
-								</div>
-								<span>Import</span>
-							</button>
-						{/if}
-					</li>
-					{#each compList as comp,i}
-						<li id={comp.uuid}>
-							<CompCard
-								comp={comp}
-								idx={i}
-								highlightComp={highlightComp}
-								on:cardEvent={handleCardEvent}
-							/>
-						</li>
-					{/each}
-				</ul>
-			</div>
-		{:else if curView === 'groups'}
-			<div class="compGroupArea">
-				<CompGroupBrowser on:groupEvent={handleGroupEvent} search={searchStr} />
-			</div>
-		{/if}
-	</section>
-	{:else if curView === 'compDetail'}
-	<section class="sect2">
-		<div class="compDetails">
-			{#if openComp}
-				<div class="compDetailHead">
-					<div class="closeButtonContainer">
-						<button type="button" class="detailButton closeDetailButton" on:click={handleCloseButtonClick}>
-							<img class="closeImage" draggable="false" src="./img/utility/back_color.png" alt="Back">
-						</button>
-					</div>
-					<div class="titleContainer">
-						<h3 class="compTitle">{openComp.name}</h3>
-						<p class="authorTitle">{openComp.author}</p>
-					</div>
-					<button type="button" class="editMenuButton" class:open={showEditMenu} on:click={() => showEditMenu = !showEditMenu}>
-						<i class="filledCircle"></i>
-						<i class="filledCircle"></i>
-						<i class="filledCircle"></i>
+{#if showErrorDisplay}
+	<ErrorDisplay
+		errorCode={errorDisplayConf.errorCode}
+		headText={errorDisplayConf.headText}
+		detailText={errorDisplayConf.detailText}
+		showHomeButton={errorDisplayConf.showHomeButton}
+	/>
+{:else}
+	<div class="CompContainer">
+		{#if curView === 'compList' || curView === 'groups'}
+		<section class="sect1" id="sect1">
+			<div class="searchArea">
+				<div class="mobileSearchArea">
+					<input id="compSearch" value={searchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="Search titles or tags" />
+					<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
+						<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
 					</button>
-					<div class="editContainer" class:open={showEditMenu}>
-						<button
-							type="button"
-							class="editDelButton editButton"
-							disabled={openComp.source !== 'local'}
-							on:click={() => handleEditButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src="./img/utility/pencil_white.png" alt="Edit">
-							<span>Edit</span>
-						</button>
-						<button
-							type="button"
-							class="editDelButton publishButton"
-							class:update={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
-							disabled={openComp.source !== 'local'}
-							on:click={() => handlePublishButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src="./img/utility/explore_white.png" alt="Publish">
-							<span>{$AppData.user.published_comps.some(e => e.uuid === openComp.uuid) ? 'Update' : 'Publish'}</span>
-						</button>
-						<button
-							type="button"
-							class="editDelButton exportButton"
-							on:click={() => handleExportButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src="./img/utility/export_white.png" alt="Export">
-							<span>Export</span>
-						</button>
-						<button
-							type="button"
-							class="editDelButton hideButton"
-							class:hidden={openComp.hidden}
-							on:click={() => handleHideButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src={openComp.hidden ? './img/utility/view_white.png' : './img/utility/hidden_white.png'} alt={openComp.hidden ? 'Unhide' : 'Hide'}>
-							<span>{openComp.hidden ? 'Unhide' : 'Hide'}</span>
-						</button>
-						<button
-							type="button"
-							class="editDelButton copyButton"
-							on:click={() => handleCopyButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src="./img/utility/copy_white.png" alt="Copy">
-							<span>Copy</span>
-						</button>
-						<button
-							type="button"
-							class="editDelButton deleteButton"
-							on:click={() => handleDeleteButtonClick($AppData.selectedComp)}>
-							<img
-								draggable="false"
-								src={openComp.source === 'local' ? './img/utility/trashcan_white.png' : './img/utility/favorite_unfilled_white.png'}
-								alt={openComp.source === 'local' ? 'Delete' : 'Unfavorite'}>
-							<span>{openComp.source === 'local' ? 'Delete' : 'Unfavorite'}</span>
-						</button>
+					<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
+						<img class="openFiltersImage" src="./img/utility/filter_white.png" alt="Open Filters">
+					</button>
+				</div>
+				{#if curView === 'compList' && $AppData.compGroups.some(e => e.uuid === curGroup)}
+					<div class="groupTitle">
+						<h3>{$AppData.compGroups.find(e => e.uuid === curGroup).name}</h3>
+					</div>
+				{/if}
+			</div>
+			<div class="filterContainer" class:open={showFilters}>
+				<div class="hiddenToggleArea">
+					<span>Show Hidden</span>
+					<ToggleSwitch
+						size="small"
+						bind:state={$AppData.compShowHidden}
+						on:toggleEvent={handleShowHiddenChange}
+					/>
+				</div>
+				<div class="primaryFilters">
+					<div class="filterArea">
+						<button type="button" class="addFilterButton addTagButton" on:click={() => handleAddFilterButtonClick('tag')}>Add Tags</button>
+						<div class="filterItems tagFilters">
+							{#each tag_filter as tag, i}
+								<button type="button" class="rmFilterButton tag {tag.type}" on:click={() => handleRemoveFilter('tag', i)}>{tag.displayName}</button>
+							{/each}
+						</div>
+					</div>
+					<div class="filterArea">
+						<button type="button" class="addFilterButton addAuthorButton" on:click={() => handleAddFilterButtonClick('author')}>Add Authors</button>
+						<div class="filterItems authorFilters">
+							{#each author_filter as author, i}
+								<button type="button" class="rmFilterButton author {author.type}" on:click={() => handleRemoveFilter('author', i)}>{author.displayName}</button>
+							{/each}
+						</div>
+					</div>
+					<div class="filterArea">
+						<button type="button" class="addFilterButton addHeroButton" on:click={() => handleAddFilterButtonClick('hero')}>Add Heroes</button>
+						<div class="filterItems heroFilters">
+							{#each hero_filter as hero, i}
+								<button type="button" class="rmFilterButton hero {hero.type}" on:click={() => handleRemoveFilter('hero', i)}>{hero.displayName}</button>
+							{/each}
+						</div>
 					</div>
 				</div>
-				<div class="iconsArea">
-					<ul class="iconList">
-						{#if $AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
-						<li>
-							<img class="iconAreaImage" src="./img/utility/explore_white.png" alt="Published">
+				<div class="secondaryFilters">
+					<div class="filterArea">
+						<div class="timeFilterArea">
+							<RangeSlider
+								id="timeSlider"
+								values={timeLimits}
+								min={0}
+								max={timeValues.length - 1}
+								formatter={ v => timeValues[v].name }
+								on:change={debounce(handleTimeValueChange, 300)}
+								pips
+								all='label'
+								range
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="compListTabs">
+				<button type="button" class="tabButton viewCompsButton" on:click={handleViewCompsClick} class:open={curView === 'compList'}>
+					<img class="viewCompsImage" src="./img/utility/comps_white.png" alt="Comps">
+					<span>Comps</span>
+				</button>
+				<button type="button" class="tabButton viewGroupsButton" on:click={handleGroupButtonClick} class:open={curView === 'groups'}>
+					<img class="viewGroupsImage" src="./img/utility/groups_white.png" alt="Groups">
+					<span>Groups</span>
+				</button>
+				<div class="sortArea" class:hidden={curView === 'groups'}>
+					<span class="selectText sortText">Sort by:</span>
+					<select class="compsSelect sortSelect" value={curSort} bind:this={sortSelectEl} on:change={() => handleSortChange(sortSelectEl)}>
+						{#each sortOptions as option}
+							<option value={option}>{option}</option>
+						{/each}
+					</select>
+				</div>
+			</div>
+			{#if curView === 'compList'}
+				<div class="compGridArea">
+					<ul class="compGrid">
+						<li class="newCompArea">
+							{#if curGroup}
+								<button type="button" class="newCompButton group" on:click={handleAddToGroupClick}>
+									<span class="plusIcon">+</span>
+									<span>Add Comps</span>
+								</button>
+							{:else}
+								<button type="button" class="newCompButton new" on:click={handleNewButtonClick}>
+									<span class="plusIcon">+</span>
+									<span>New</span>
+								</button>
+								<button type="button" class="newCompButton import" on:click={handleImportButtonClick}>
+									<div class="imgContainer">
+										<img draggable="false" class="importButtonIcon" src="./img/utility/import_white.png" alt="Import">
+									</div>
+									<span>Import</span>
+								</button>
+							{/if}
 						</li>
-						{/if}
-						{#if openComp.hidden}
-						<li>
-							<img class="iconAreaImage" src="./img/utility/hidden_white.png" alt="Hidden">
-						</li>
-						{/if}
-						{#if openComp.source === 'favorite'}
-						<li>
-							<img class="iconAreaImage" src="./img/utility/favorite_filled_white.png" alt="Favorite">
-						</li>
-						{/if}
+						{#each compList as comp,i}
+							<li id={comp.uuid}>
+								<CompCard
+									comp={comp}
+									idx={i}
+									highlightComp={highlightComp}
+									on:cardEvent={handleCardEvent}
+								/>
+							</li>
+						{/each}
 					</ul>
 				</div>
-				<div class="tagsArea">
-					<div class="tagDisplay">
-						{#each openComp.tags as tag}
-							<div class="tag">
-								<span class="tagText">{tag}</span>
-							</div>
-						{/each}
-					</div>
+			{:else if curView === 'groups'}
+				<div class="compGroupArea">
+					<CompGroupBrowser on:groupEvent={handleGroupEvent} search={searchStr} />
 				</div>
-				<div class="viewExploreContainer">
-					<button
-						type="button"
-						class="viewExploreButton"
-						class:visible={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid) || $AppData.user.saved_comps.some(e => e.uuid === openComp.uuid)}
-						on:click={() => handleViewExploreClick(openComp.uuid)}>
-						<span>View in Explore</span>
-					</button>
-				</div>
-				<div class="compDetailBody">
-					<div class="lastUpdate">
-						<span title="{openComp.lastUpdate.toLocaleString()}">Updated {msToString(now - openComp.lastUpdate.getTime())}</span>
-					</div>
-					<div class="bodyArea1">
-						<CompLineEditor
-							lines={openComp.lines}
-							compHeroes={openComp.heroes}
-							bind:selectedLine={selectedLine}
-							on:compLineEvent={handleLineEvent}
-						/>
-						<div class="description">
-							<div class="mobileExpanderTitle">
-								<button type="button" class="expanderButton" on:click={() => openDesc = !openDesc}><i class="expanderArrow {openDesc ? 'down' : 'right' }"></i><span>Description</span></button>
-							</div>
-							<div class="mobileExpander descSection" class:open={openDesc}>
-								<span class="descText">{@html renderMarkdown(openComp.desc)}</span>
-							</div>
+			{/if}
+		</section>
+		{:else if curView === 'compDetail'}
+		<section class="sect2">
+			<div class="compDetails">
+				{#if openComp}
+					<div class="compDetailHead">
+						<div class="closeButtonContainer">
+							<button type="button" class="detailButton closeDetailButton" on:click={handleCloseButtonClick}>
+								<img class="closeImage" draggable="false" src="./img/utility/back_color.png" alt="Back">
+							</button>
+						</div>
+						<div class="titleContainer">
+							<h3 class="compTitle">{openComp.name}</h3>
+							<p class="authorTitle">{openComp.author}</p>
+						</div>
+						<button type="button" class="editMenuButton" class:open={showEditMenu} on:click={() => showEditMenu = !showEditMenu}>
+							<i class="filledCircle"></i>
+							<i class="filledCircle"></i>
+							<i class="filledCircle"></i>
+						</button>
+						<div class="editContainer" class:open={showEditMenu}>
+							<button
+								type="button"
+								class="editDelButton editButton"
+								disabled={openComp.source !== 'local'}
+								on:click={() => handleEditButtonClick($AppData.selectedComp)}>
+								<img draggable="false" src="./img/utility/pencil_white.png" alt="Edit">
+								<span>Edit</span>
+							</button>
+							<button
+								type="button"
+								class="editDelButton publishButton"
+								class:update={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
+								disabled={openComp.source !== 'local'}
+								on:click={() => handlePublishButtonClick($AppData.selectedComp)}>
+								<img draggable="false" src="./img/utility/explore_white.png" alt="Publish">
+								<span>{$AppData.user.published_comps.some(e => e.uuid === openComp.uuid) ? 'Update' : 'Publish'}</span>
+							</button>
+							<button
+								type="button"
+								class="editDelButton exportButton"
+								on:click={() => handleExportButtonClick($AppData.selectedComp)}>
+								<img draggable="false" src="./img/utility/export_white.png" alt="Export">
+								<span>Export</span>
+							</button>
+							<button
+								type="button"
+								class="editDelButton hideButton"
+								class:hidden={openComp.hidden}
+								on:click={() => handleHideButtonClick($AppData.selectedComp)}>
+								<img draggable="false" src={openComp.hidden ? './img/utility/view_white.png' : './img/utility/hidden_white.png'} alt={openComp.hidden ? 'Unhide' : 'Hide'}>
+								<span>{openComp.hidden ? 'Unhide' : 'Hide'}</span>
+							</button>
+							<button
+								type="button"
+								class="editDelButton copyButton"
+								on:click={() => handleCopyButtonClick($AppData.selectedComp)}>
+								<img draggable="false" src="./img/utility/copy_white.png" alt="Copy">
+								<span>Copy</span>
+							</button>
+							<button
+								type="button"
+								class="editDelButton deleteButton"
+								on:click={() => handleDeleteButtonClick($AppData.selectedComp)}>
+								<img
+									draggable="false"
+									src={openComp.source === 'local' ? './img/utility/trashcan_white.png' : './img/utility/favorite_unfilled_white.png'}
+									alt={openComp.source === 'local' ? 'Delete' : 'Unfavorite'}>
+								<span>{openComp.source === 'local' ? 'Delete' : 'Unfavorite'}</span>
+							</button>
 						</div>
 					</div>
-					<div class="bodyArea2">
-						<div class="heroDetails" id="heroDetailSection">
-							<div class="mobileExpanderTitle">
-								<button type="button" class="expanderButton" on:click={() => openHero = !openHero}><i class="expanderArrow {openHero ? 'down' : 'right' }"></i><span>Hero Info</span></button>
-							</div>
-							<div class="mobileExpander selectHeroSection" class:open={openHero}>
-								{#if selectedHero !== ''}
-									<div class="selectedHero" in:fade="{{duration: 200}}">
-										<div class="upperSelectCard">
-											<div class="siFurnBoxContainer">
-												<SIFurnEngBox type='si' num={openComp.heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
-											</div>
-											<div class="selectPortraitArea">
-												<div class="portraitContainer" on:click={() => handleHeroDetailClick(selectedHero)}>
-													<img draggable="false" class="selectHeroPortrait" class:claimed={$AppData.MH.List[selectedHero].claimed} src="{$HeroData.find(e => e.id === selectedHero).portrait}" alt="{selectedHero}">
-													<span class="coreMark" class:visible={openComp.heroes[selectedHero].core}></span>
-												</div>
-												<p>{$HeroData.find(e => e.id === selectedHero).name}</p>
-												<div>
-													<StarsInput
-														value={openComp.heroes[selectedHero].stars}
-														enabled={openComp.heroes[selectedHero].ascendLv === 6}
-														engraving={openComp.heroes[selectedHero].engraving}
-														displayOnly={true} />
-												</div>
-											</div>
-											<div class="siFurnBoxContainer">
-												<SIFurnEngBox type='furn' num={openComp.heroes[selectedHero].furn} maxWidth='50px' fontSize='1.2rem' />
-											</div>
-										</div>
-										<div class="lowerSelectCard">
-											<div class="ascendBoxContainer">
-												<AscendBox
-													ascendLv="{openComp.heroes[selectedHero].ascendLv}"
-													tier={$HeroData.find(e => e.id === selectedHero).tier}
-												/>
-											</div>
-											{#if openComp.heroes[selectedHero].stars > 0}
-												<div class="engraveBoxContainer">
-													<SIFurnEngBox type='engraving' num={openComp.heroes[selectedHero].engraving} maxWidth='50px' fontSize='1.2rem' />
-												</div>
-											{/if}
-											{#if openComp.heroes[selectedHero].notes.length > 0}
-												<div class="heroNotesArea">
-													<div class="heroNotes">
-														<span>{openComp.heroes[selectedHero].notes}</span>
-													</div>
-												</div>
-											{/if}
-											{#if openComp.heroes[selectedHero].artifacts.primary.length > 0 || openComp.heroes[selectedHero].artifacts.secondary.length > 0 || openComp.heroes[selectedHero].artifacts.situational.length > 0}
-												<div class="artifactsContainer">
-													<div class="artifactLine priArtifactLine">
-														<h6>Primary</h6>
-														<div class="artifactArea">
-															{#each openComp.heroes[selectedHero].artifacts.primary as artifact}
-																<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
-																	<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-																	<p>{$Artifacts[artifact].name}</p>
-																</button>
-															{/each}
-														</div>
-													</div>
-													{#if openComp.heroes[selectedHero].artifacts.secondary.length > 0}
-														<div class="artifactLine secArtifactLine">
-															<h6>Secondary</h6>
-															<div class="artifactArea">
-																{#each openComp.heroes[selectedHero].artifacts.secondary as artifact}
-																	<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
-																		<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-																		<p>{$Artifacts[artifact].name}</p>
-																	</button>
-																{/each}
-															</div>
-														</div>
-													{/if}
-													{#if openComp.heroes[selectedHero].artifacts.situational.length > 0}
-														<div class="artifactLine sitArtifactLine">
-															<h6>Situational</h6>
-															<div class="artifactArea">
-																{#each openComp.heroes[selectedHero].artifacts.situational as artifact}
-																	<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
-																		<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-																		<p>{$Artifacts[artifact].name}</p>
-																	</button>
-																{/each}
-															</div>
-														</div>
-													{/if}
-												</div>
-											{/if}
-										</div>
-									</div>
-								{:else}
-									<TutorialBox noMargin>
-										<span>Select hero to see Ascension, SI, Furniture, and Artifact details.</span>
-									</TutorialBox>
-								{/if}
+					<div class="iconsArea">
+						<ul class="iconList">
+							{#if $AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
+							<li>
+								<img class="iconAreaImage" src="./img/utility/explore_white.png" alt="Published">
+							</li>
+							{/if}
+							{#if openComp.hidden}
+							<li>
+								<img class="iconAreaImage" src="./img/utility/hidden_white.png" alt="Hidden">
+							</li>
+							{/if}
+							{#if openComp.source === 'favorite'}
+							<li>
+								<img class="iconAreaImage" src="./img/utility/favorite_filled_white.png" alt="Favorite">
+							</li>
+							{/if}
+						</ul>
+					</div>
+					<div class="tagsArea">
+						<div class="tagDisplay">
+							{#each openComp.tags as tag}
+								<div class="tag">
+									<span class="tagText">{tag}</span>
+								</div>
+							{/each}
+						</div>
+					</div>
+					<div class="viewExploreContainer">
+						<button
+							type="button"
+							class="viewExploreButton"
+							class:visible={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid) || $AppData.user.saved_comps.some(e => e.uuid === openComp.uuid)}
+							on:click={() => handleViewExploreClick(openComp.uuid)}>
+							<span>View in Explore</span>
+						</button>
+					</div>
+					<div class="compDetailBody">
+						<div class="lastUpdate">
+							<span title="{openComp.lastUpdate.toLocaleString()}">Updated {msToString(now - openComp.lastUpdate.getTime())}</span>
+						</div>
+						<div class="bodyArea1">
+							<CompLineEditor
+								lines={openComp.lines}
+								compHeroes={openComp.heroes}
+								bind:selectedLine={selectedLine}
+								on:compLineEvent={handleLineEvent}
+							/>
+							<div class="description">
+								<div class="mobileExpanderTitle">
+									<button type="button" class="expanderButton" on:click={() => openDesc = !openDesc}><i class="expanderArrow {openDesc ? 'down' : 'right' }"></i><span>Description</span></button>
+								</div>
+								<div class="mobileExpander descSection" class:open={openDesc}>
+									<span class="descText">{@html renderMarkdown(openComp.desc)}</span>
+								</div>
 							</div>
 						</div>
-						<div class="subGroups">
-							<div class="mobileExpanderTitle">
-								<button type="button" class="expanderButton" on:click={() => openSubs = !openSubs}><i class="expanderArrow {openSubs ? 'down' : 'right' }"></i><span>Substitutes</span></button>
-							</div>
-							<div class="mobileExpander subGroupExpander" class:open={openSubs}>
-								<div class="subDisplay">
-									{#each openComp.subs as subgroup}
-									<div class="subGroup">
-										<div class="subGroupTitle"><span>{subgroup.name}</span></div>
-										<div class="subGroupMembers">
-											{#each subgroup.heroes as hero}
-												<div class="subHeroContainer">
-													<HeroButton
-														hero={hero}
-														heroDetails={openComp.heroes[hero]}
-														on:heroButtonEvent={handleHeroButtonEvent}
+						<div class="bodyArea2">
+							<div class="heroDetails" id="heroDetailSection">
+								<div class="mobileExpanderTitle">
+									<button type="button" class="expanderButton" on:click={() => openHero = !openHero}><i class="expanderArrow {openHero ? 'down' : 'right' }"></i><span>Hero Info</span></button>
+								</div>
+								<div class="mobileExpander selectHeroSection" class:open={openHero}>
+									{#if selectedHero !== ''}
+										<div class="selectedHero" in:fade="{{duration: 200}}">
+											<div class="upperSelectCard">
+												<div class="siFurnBoxContainer">
+													<SIFurnEngBox type='si' num={openComp.heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
+												</div>
+												<div class="selectPortraitArea">
+													<div class="portraitContainer" on:click={() => handleHeroDetailClick(selectedHero)}>
+														<img draggable="false" class="selectHeroPortrait" class:claimed={$AppData.MH.List[selectedHero].claimed} src="{$HeroData.find(e => e.id === selectedHero).portrait}" alt="{selectedHero}">
+														<span class="coreMark" class:visible={openComp.heroes[selectedHero].core}></span>
+													</div>
+													<p>{$HeroData.find(e => e.id === selectedHero).name}</p>
+													<div>
+														<StarsInput
+															value={openComp.heroes[selectedHero].stars}
+															enabled={openComp.heroes[selectedHero].ascendLv === 6}
+															engraving={openComp.heroes[selectedHero].engraving}
+															displayOnly={true} />
+													</div>
+												</div>
+												<div class="siFurnBoxContainer">
+													<SIFurnEngBox type='furn' num={openComp.heroes[selectedHero].furn} maxWidth='50px' fontSize='1.2rem' />
+												</div>
+											</div>
+											<div class="lowerSelectCard">
+												<div class="ascendBoxContainer">
+													<AscendBox
+														ascendLv="{openComp.heroes[selectedHero].ascendLv}"
+														tier={$HeroData.find(e => e.id === selectedHero).tier}
 													/>
 												</div>
-											{/each}
+												{#if openComp.heroes[selectedHero].stars > 0}
+													<div class="engraveBoxContainer">
+														<SIFurnEngBox type='engraving' num={openComp.heroes[selectedHero].engraving} maxWidth='50px' fontSize='1.2rem' />
+													</div>
+												{/if}
+												{#if openComp.heroes[selectedHero].notes.length > 0}
+													<div class="heroNotesArea">
+														<div class="heroNotes">
+															<span>{openComp.heroes[selectedHero].notes}</span>
+														</div>
+													</div>
+												{/if}
+												{#if openComp.heroes[selectedHero].artifacts.primary.length > 0 || openComp.heroes[selectedHero].artifacts.secondary.length > 0 || openComp.heroes[selectedHero].artifacts.situational.length > 0}
+													<div class="artifactsContainer">
+														<div class="artifactLine priArtifactLine">
+															<h6>Primary</h6>
+															<div class="artifactArea">
+																{#each openComp.heroes[selectedHero].artifacts.primary as artifact}
+																	<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																		<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																		<p>{$Artifacts[artifact].name}</p>
+																	</button>
+																{/each}
+															</div>
+														</div>
+														{#if openComp.heroes[selectedHero].artifacts.secondary.length > 0}
+															<div class="artifactLine secArtifactLine">
+																<h6>Secondary</h6>
+																<div class="artifactArea">
+																	{#each openComp.heroes[selectedHero].artifacts.secondary as artifact}
+																		<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																			<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																			<p>{$Artifacts[artifact].name}</p>
+																		</button>
+																	{/each}
+																</div>
+															</div>
+														{/if}
+														{#if openComp.heroes[selectedHero].artifacts.situational.length > 0}
+															<div class="artifactLine sitArtifactLine">
+																<h6>Situational</h6>
+																<div class="artifactArea">
+																	{#each openComp.heroes[selectedHero].artifacts.situational as artifact}
+																		<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																			<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																			<p>{$Artifacts[artifact].name}</p>
+																		</button>
+																	{/each}
+																</div>
+															</div>
+														{/if}
+													</div>
+												{/if}
+											</div>
 										</div>
+									{:else}
+										<TutorialBox noMargin>
+											<span>Select hero to see Ascension, SI, Furniture, and Artifact details.</span>
+										</TutorialBox>
+									{/if}
+								</div>
+							</div>
+							<div class="subGroups">
+								<div class="mobileExpanderTitle">
+									<button type="button" class="expanderButton" on:click={() => openSubs = !openSubs}><i class="expanderArrow {openSubs ? 'down' : 'right' }"></i><span>Substitutes</span></button>
+								</div>
+								<div class="mobileExpander subGroupExpander" class:open={openSubs}>
+									<div class="subDisplay">
+										{#each openComp.subs as subgroup}
+										<div class="subGroup">
+											<div class="subGroupTitle"><span>{subgroup.name}</span></div>
+											<div class="subGroupMembers">
+												{#each subgroup.heroes as hero}
+													<div class="subHeroContainer">
+														<HeroButton
+															hero={hero}
+															heroDetails={openComp.heroes[hero]}
+															on:heroButtonEvent={handleHeroButtonEvent}
+														/>
+													</div>
+												{/each}
+											</div>
+										</div>
+										{/each}
 									</div>
-									{/each}
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			{:else}
-				<div class="noSelectedComp">
-					<div class="noSelectedCompText">
-						<span>&#8678; Select a Comp</span>
+				{:else}
+					<div class="noSelectedComp">
+						<div class="noSelectedCompText">
+							<span>&#8678; Select a Comp</span>
+						</div>
 					</div>
-				</div>
-			{/if}
-		</div>
-	</section>
-	{/if}
-	<section class="sect3" class:visible={showowConfirm}>
-		{#if showowConfirm}
-			<div class="owBackground">
-				<div class="owConfirmWindow">
-					<div class="owTitle">
-						<h4>Previous Comp Found</h4>
-					</div>
-					<div class="owBody">
-						<span>{owText}</span>
-					</div>
-					<div class="owFooter">
-						<button type="button" class="owFooterButton owUpdate" on:click={owPromise('update')}>Update</button>
-						<button type="button" class="owFooterButton owNew" on:click={owPromise('new')}>New</button>
-						<button type="button" class="owFooterButton owCancel" on:click={owPromise('cancel')}>Cancel</button>
-					</div>
-				</div>
+				{/if}
 			</div>
+		</section>
 		{/if}
-	</section>
-	<section class="sect4" class:visible={curView === 'compList'}>
-		<div class="mobileNewCompMenu" class:visible={openMobileCompMenu} class:group={curGroup}>
-			{#if curGroup}
-				<button type="button" class="mobileNewCompButton" on:click={handleAddToGroupClick}>
-					<img draggable="false" class="groupModifyIcon" src="./img/utility/group_manage_white.png" alt="Add Comps">
-				</button>
-			{:else}
-				<button type="button" class="mobileNewCompButton new" on:click={handleNewButtonClick}>
-					<img draggable="false" class="newCompIcon" src="./img/utility/comps_white.png" alt="Add Comp">
-				</button>
-				<button type="button" class="mobileNewCompButton import" on:click={handleImportButtonClick}>
-					<img draggable="false" class="importButtonIcon" src="./img/utility/import_white.png" alt="Import">
-				</button>
+		<section class="sect3" class:visible={showowConfirm}>
+			{#if showowConfirm}
+				<div class="owBackground">
+					<div class="owConfirmWindow">
+						<div class="owTitle">
+							<h4>Previous Comp Found</h4>
+						</div>
+						<div class="owBody">
+							<span>{owText}</span>
+						</div>
+						<div class="owFooter">
+							<button type="button" class="owFooterButton owUpdate" on:click={owPromise('update')}>Update</button>
+							<button type="button" class="owFooterButton owNew" on:click={owPromise('new')}>New</button>
+							<button type="button" class="owFooterButton owCancel" on:click={owPromise('cancel')}>Cancel</button>
+						</div>
+					</div>
+				</div>
 			{/if}
-		</div>
-		<button type="button" class="mobileMenuButton" on:click={handleOpenMobileCompMenuClick}>
-			<span class="plusIcon">+</span>
-		</button>
-	</section>
-</div>
+		</section>
+		<section class="sect4" class:visible={curView === 'compList'}>
+			<div class="mobileNewCompMenu" class:visible={openMobileCompMenu} class:group={curGroup}>
+				{#if curGroup}
+					<button type="button" class="mobileNewCompButton" on:click={handleAddToGroupClick}>
+						<img draggable="false" class="groupModifyIcon" src="./img/utility/group_manage_white.png" alt="Add Comps">
+					</button>
+				{:else}
+					<button type="button" class="mobileNewCompButton new" on:click={handleNewButtonClick}>
+						<img draggable="false" class="newCompIcon" src="./img/utility/comps_white.png" alt="Add Comp">
+					</button>
+					<button type="button" class="mobileNewCompButton import" on:click={handleImportButtonClick}>
+						<img draggable="false" class="importButtonIcon" src="./img/utility/import_white.png" alt="Import">
+					</button>
+				{/if}
+			</div>
+			<button type="button" class="mobileMenuButton" on:click={handleOpenMobileCompMenuClick}>
+				<span class="plusIcon">+</span>
+			</button>
+		</section>
+	</div>
+{/if}
 
 <style lang="scss">
 	img {
