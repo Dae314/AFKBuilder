@@ -51,7 +51,8 @@
 	md.use(Emoji);
 	const { open } = getContext('simple-modal');
 	const compQuery = query(gql_GET_COMP, {
-		variables: { uuid: params.uuid }
+		variables: { uuid: params.uuid },
+		fetchPolicy: 'no-cache',
 	});
 	const gqlDeleteComp = mutation(gql_DELETE_COMP);
 	const now = Date.now();

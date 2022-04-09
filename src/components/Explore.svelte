@@ -63,7 +63,7 @@
 	$: gqlFilter = makeFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits});
 	$: pageSettings = makePageSettings({curPage, compPageLimit});
 	$: sortSettings = makeSortSettings({curSort});
-	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings, sort: sortSettings } });
+	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings, sort: sortSettings }, fetchPolicy: 'no-cache' });
 	$: if(!$compsQuery.loading && $compsQuery.data) processCompsPromise = processComps($compsQuery.data.comps.data);
 	$: if(!$compsQuery.loading && $compsQuery.data) pageInfo = $compsQuery.data.comps.meta.pagination;
 
