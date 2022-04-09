@@ -509,7 +509,8 @@
 
 <style lang="scss">
 	.exploreContainer {
-		height: 100vh;
+		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		overflow-y: auto;
 		padding: 0px 10px;
 		padding-bottom: 10px;
@@ -730,6 +731,9 @@
 	}
 	.exploreFooter {
 		display: flex;
+		.resultInfo {
+			display: none;
+		}
 		.pageLimitArea {
 			margin-left: auto;
 			.selectText {
@@ -744,6 +748,9 @@
 		}
 	}
 	@media only screen and (min-width: 767px) {
+		.exploreContainer {
+			height: 100vh;
+		}
 		.exploreHead {
 			padding-left: 12.5%;
 			padding-right: 12.5%;
