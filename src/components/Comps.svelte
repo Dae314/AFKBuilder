@@ -73,6 +73,7 @@
 	let openDesc = true;
 	let openHero = false;
 	let openSubs = false;
+	let openMobileCompMenu = false;
 	let selectedLine = 0;
 	let selectedHero = '';
 	let showowConfirm = false;
@@ -206,6 +207,10 @@
 
 	function renderMarkdown(mdText) {
 		return md.render(mdText);
+	}
+
+	function handleOpenMobileCompMenuClick() {
+		openMobileCompMenu = !openMobileCompMenu;
 	}
 
 	function handleShowHiddenChange() {
@@ -1367,6 +1372,25 @@
 			</div>
 		{/if}
 	</section>
+	<section class="sect4" class:visible={curView === 'compList'}>
+		<div class="mobileNewCompMenu" class:visible={openMobileCompMenu} class:group={curGroup}>
+			{#if curGroup}
+				<button type="button" class="mobileNewCompButton" on:click={handleAddToGroupClick}>
+					<img draggable="false" class="groupModifyIcon" src="./img/utility/group_manage_white.png" alt="Add Comps">
+				</button>
+			{:else}
+				<button type="button" class="mobileNewCompButton new" on:click={handleNewButtonClick}>
+					<img draggable="false" class="newCompIcon" src="./img/utility/comps_white.png" alt="Add Comp">
+				</button>
+				<button type="button" class="mobileNewCompButton import" on:click={handleImportButtonClick}>
+					<img draggable="false" class="importButtonIcon" src="./img/utility/import_white.png" alt="Import">
+				</button>
+			{/if}
+		</div>
+		<button type="button" class="mobileMenuButton" on:click={handleOpenMobileCompMenuClick}>
+			<span class="plusIcon">+</span>
+		</button>
+	</section>
 </div>
 
 <style lang="scss">
@@ -1630,6 +1654,7 @@
 			background-color: var(--appBGColorLight);
 			border-radius: 10px;
 			box-shadow: var(--neu-large-ni-BGColor-shadow);
+			margin-bottom: 100px;
 			padding: 10px 15px;
 			.compGrid {
 				display: grid;
@@ -1641,7 +1666,7 @@
 				padding: 0;
 				list-style-type: none;
 				.newCompArea {
-					display: flex;
+					display: none;
 					height: 146px;
 					width: 350px;
 					.newCompButton {
@@ -2289,6 +2314,83 @@
 			}
 		}
 	}
+	.sect4 {
+		bottom: 25px;
+		display: none;
+		position: fixed;
+		right: 25px;
+		&.visible {
+			display: block;
+		}
+		.mobileNewCompMenu {
+			border-radius: 10px;
+			opacity: 0;
+			position: absolute;
+			right: 0px;
+			top: -132px;
+			transition: all 0.2s;
+			visibility: hidden;
+			&.visible {
+				opacity: 1;
+				visibility: visible;
+			}
+			&.group {
+				top: -70px;
+			}
+			.mobileNewCompButton {
+				align-items: center;
+				background-color: var(--appColorPrimary);
+				border: none;
+				border-radius: 50%;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				display: flex;
+				cursor: pointer;
+				height: 50px;
+				justify-content: center;
+				margin: 10px 0px;
+				padding: 0;
+				width: 50px;
+				.plusIcon {
+					color: var(--appBGColor);
+					display: block;
+					font-size: 2rem;
+					font-weight: bold;
+					margin: 0 auto;
+					transition: transform 0.7s;
+					width: fit-content;
+				}
+				img {
+					max-width: 20px;
+					&.newCompIcon {
+						max-width: 25px;
+					}
+				}
+			}
+		}
+		.mobileMenuButton {
+			align-items: center;
+			background-color: var(--appColorPrimary);
+			border: none;
+			border-radius: 50%;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			display: flex;
+			cursor: pointer;
+			height: 50px;
+			justify-content: center;
+			margin: 0;
+			padding: 0;
+			width: 50px;
+			.plusIcon {
+				color: var(--appBGColor);
+				display: block;
+				font-size: 2rem;
+				font-weight: bold;
+				margin: 0 auto;
+				transition: transform 0.7s;
+				width: fit-content;
+			}
+		}
+	}
 	@media only screen and (min-width: 767px) {
 		.sect1 {
 			height: 100vh;
@@ -2351,11 +2453,14 @@
 			.compGridArea {
 				margin: 10px 30px;
 				.compGrid {
-					.newCompButton {
-						&:hover {
-							background-color: var(--appColorPriAccent);
-							.plusIcon {
-								transform: rotateZ(180deg);
+					.newCompArea {
+						display: flex;
+						.newCompButton {
+							&:hover {
+								background-color: var(--appColorPriAccent);
+								.plusIcon {
+									transform: rotateZ(180deg);
+								}
 							}
 						}
 					}
@@ -2504,6 +2609,12 @@
 				&:hover {
 					background-color: var(--appColorPriAccent);
 				}
+			}
+		}
+		.sect4 {
+			display: none;
+			&.visible {
+				display: none;
 			}
 		}
 	}
