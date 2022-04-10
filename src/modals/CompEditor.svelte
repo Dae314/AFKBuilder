@@ -1015,7 +1015,6 @@
 			grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
 			grid-template-rows: repeat(auto-fit, minmax(95px, 1fr));
 			justify-content: space-evenly;
-			overflow: hidden;
 			padding: 0;
 		}
 		.footerButton {
