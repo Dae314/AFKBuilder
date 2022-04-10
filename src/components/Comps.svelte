@@ -1031,10 +1031,12 @@
 					</button>
 				</div>
 				<div class="groupTitle">
-					{#if curView === 'compList' && $AppData.compGroups.some(e => e.uuid === curGroup)}
-						<h3>{$AppData.compGroups.find(e => e.uuid === curGroup).name}</h3>
-					{:else}
-						<h3>All Comps</h3>
+					{#if curView === 'compList'}
+						{#if $AppData.compGroups.some(e => e.uuid === curGroup)}
+							<h3>{$AppData.compGroups.find(e => e.uuid === curGroup).name}</h3>
+						{:else}
+							<h3>All Comps</h3>
+						{/if}
 					{/if}
 				</div>
 			</div>
