@@ -18,10 +18,12 @@
 	function makeCompList(group) {
 		const comps = [...$AppData.Comps].filter(e => !e.hidden);
 		let compList = [];
+		let tempComp;
 
 		for(const comp of comps) {
-			comp.inGroup = group.comps.includes(comp.uuid);
-			compList.push(comp);
+			tempComp = JSON.parse(JSON.stringify(comp));
+			tempComp.inGroup = group.comps.includes(comp.uuid);
+			compList.push(tempComp);
 		}
 
 		return compList;
