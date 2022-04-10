@@ -1030,11 +1030,13 @@
 						<img class="openFiltersImage" src="./img/utility/filter_white.png" alt="Open Filters">
 					</button>
 				</div>
-				{#if curView === 'compList' && $AppData.compGroups.some(e => e.uuid === curGroup)}
-					<div class="groupTitle">
+				<div class="groupTitle">
+					{#if curView === 'compList' && $AppData.compGroups.some(e => e.uuid === curGroup)}
 						<h3>{$AppData.compGroups.find(e => e.uuid === curGroup).name}</h3>
-					</div>
-				{/if}
+					{:else}
+						<h3>All Comps</h3>
+					{/if}
+				</div>
 			</div>
 			<div class="filterContainer" class:open={showFilters}>
 				<div class="hiddenToggleArea">
