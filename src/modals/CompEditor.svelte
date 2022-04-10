@@ -268,10 +268,20 @@
 	function handleImportLine({srcUUID, srcLine, destLine}) {
 		const srcComp = $AppData.Comps.find(e => e.uuid === srcUUID);
 		const srcHeroes = srcComp.lines[srcLine].heroes;
+		// remove any heroes who already exist in the line
+		let heroID;
+		for(let i = 0; i < comp.lines[destLine].heroes.length; i++) {
+			if(comp.lines[destLine].heroes[i] !== 'unknown') {
+				heroID = comp.lines[destLine].heroes[i];
+				comp.lines[destLine].heroes[i] = 'unknown';
+				removeHeroesReference(heroID);
+			}
+		}
+		// import all hero details from source
 		for(const hero of srcHeroes) {
-			// import all hero details
 			if($HeroData.some(e => e.id === hero)) comp.heroes[hero] = srcComp.heroes[hero];
 		}
+		// replace the line with the one from source
 		comp.lines[destLine] = srcComp.lines[srcLine];
 	}
 
