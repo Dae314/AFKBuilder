@@ -398,6 +398,10 @@
 		if(comp.source === 'local') {
 			$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== uuid);
 			if($AppData.selectedComp === uuid) resetOpenComp();
+			// remove comp from any groups it was in
+			for(const group of $AppData.compGroups) {
+				group.comps = group.comps.filter(e => e !== uuid);
+			}
 			await postUpdate();
 			dispatch('routeEvent', {action: 'saveData'});
 		} else {
@@ -430,6 +434,10 @@
 				} else {
 					if($AppData.selectedComp === uuid) resetOpenComp();
 					$AppData.user.saved_comps = response.data.comps;
+					// remove comp from any groups it was in
+					for(const group of $AppData.compGroups) {
+						group.comps = group.comps.filter(e => e !== uuid);
+					}
 					dispatch('routeEvent', {action: 'saveData'});
 					dispatch('routeEvent', {action: 'syncFavorites'});
 				}
