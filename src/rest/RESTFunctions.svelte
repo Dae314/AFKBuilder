@@ -549,6 +549,38 @@
 		}
 	}
 
+	// get comps (populate explore page)
+	/*{
+		status: response status,
+		data: {
+			comps: [{comp}, {comp},...],
+			meta: { pagination: {pageInfoObj} }
+		} OR error object
+	}*/
+	export async function getComps(filterStr) {
+		try {
+			const response = await fetch(`${uri}/comps?${filterStr}`, {
+				method: 'GET',
+				mode: 'cors',
+				cache: 'no-cache',
+				headers: {},
+			});
+			const responseData = await response.json();
+			if(response.status !== 200) {
+				return { status: response.status, data: responseData.error };
+			} else {
+				return { status: response.status, data: {comps: responseData.data, meta: responseData.meta} };
+			}
+		} catch(err) {
+			if(err instanceof TypeError && err.message) {
+				// network error occurred
+				return { status: 503, data: err.message }
+			} else {
+				throw new Error(`An error occurred while fetching comps: ${err}`);
+			}
+		}
+	}
+
 	// get author of a comp
 	/*{
 		status: response status,

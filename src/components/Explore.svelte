@@ -13,7 +13,7 @@
 	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
 	import PageNav from '../shared/PageNav.svelte';
 	import { gql_GET_COMP_LIST } from '../gql/queries.svelte';
-	import { getCompAuthor } from '../rest/RESTFunctions.svelte';
+	import { getCompAuthor, getComps } from '../rest/RESTFunctions.svelte';
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
@@ -60,12 +60,15 @@
 	let pageLimitSelectEl;
 
 	$: processQS($querystring);
-	$: gqlFilter = makeFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits});
+	// $: gqlFilter = makeFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits});
+	$: restFilter = makeRestFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits});
 	$: pageSettings = makePageSettings({curPage, compPageLimit});
 	$: sortSettings = makeSortSettings({curSort});
-	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings, sort: sortSettings }, fetchPolicy: 'no-cache' });
-	$: if(!$compsQuery.loading && $compsQuery.data) processCompsPromise = processComps($compsQuery.data.comps.data);
-	$: if(!$compsQuery.loading && $compsQuery.data) pageInfo = $compsQuery.data.comps.meta.pagination;
+	$: restQS = makeRESTQS({restFilter, pageSettings, sortSettings});
+	$: restPromise = populateCompsData(restQS);
+	// $: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings, sort: sortSettings }, fetchPolicy: 'no-cache' });
+	// $: if(!$compsQuery.loading && $compsQuery.data) processCompsPromise = processComps($compsQuery.data.comps.data);
+	// $: if(!$compsQuery.loading && $compsQuery.data) pageInfo = $compsQuery.data.comps.meta.pagination;
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
@@ -82,6 +85,40 @@
 		curPage = urlqs.has('page') ? parseInt(decodeURIComponent(urlqs.get('page'))) : defaultStartPage;
 		compPageLimit = urlqs.has('pageLimit') ? parseInt(decodeURIComponent(urlqs.get('pageLimit'))) : defaultPageLimit;
 		curSort = urlqs.has('sort') ? decodeURIComponent(urlqs.get('sort')) : defaultSort;
+	}
+
+	async function populateCompsData(restQS) {
+		const response = await getComps(restQS);
+		if(response.status !== 200) {
+			errorDisplayConf = {
+				errorCode: response.status,
+				headText: 'Something went wrong',
+				detailText: response.data,
+				showHomeButton: true,
+			};
+			showErrorDisplay = true;
+			return;
+		}
+		let processedList = [];
+		let procHeroes;
+		for(const comp of response.data.comps) {
+			procHeroes = comp.attributes.heroes.data.map(e => {
+				return { id: e.id, name: e.attributes.name};
+			});
+			processedList.push({
+				id: comp.id,
+				uuid: comp.attributes.uuid,
+				name: comp.attributes.name,
+				upvotes: comp.attributes.upvotes,
+				downvotes: comp.attributes.downvotes,
+				createdAt: comp.attributes.createdAt,
+				heroes: procHeroes,
+				author: comp.attributes.author,
+				comp_update: comp.attributes.comp_update,
+			});
+		}
+		processedComps = processedList;
+		pageInfo = response.data.meta.pagination;
 	}
 
 	function makeFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits}) {
@@ -130,6 +167,53 @@
 		}
 		return { and: andArr };
 	}
+
+	function makeRestFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits}) {
+		let andArr = [];
+		let orArr = [];
+
+		const minDate = timeValues[timeLimits[0]].value.toISOString();
+		const maxDate = timeValues[timeLimits[1]].value.toISOString();
+
+		// create filter array
+		if(searchStr) andArr.push({
+			$or: [
+				{ name: { $containsi: searchStr } },
+				{ tags: { name: { $containsi: searchStr} } },
+			]
+		});
+		for(let tag of tag_filter) {
+			if(tag.type === 'include') {
+				andArr.push({ tags: { id: { $eq: tag.id } } });
+			} else {
+				andArr.push({ tags: { id: { $not: { $eq: tag.id } } } });
+			}
+		}
+		for(let hero of hero_filter) {
+			if(hero.type === 'include') {
+				andArr.push({ heroes: { id: { $eq: hero.id } } });
+			} else {
+				andArr.push({ heroes: { id: { $not: { $eq: hero.id } } } });
+			}
+		}
+		for(let author of author_filter) {
+			if(author.type === 'include') {
+				orArr.push({ author: { id: { $eq: author.id } } });
+			} else {
+				andArr.push({ author: { id: { $not: { $eq: author.id } } } });
+			}
+		}
+		if(orArr.length > 0) andArr.push({ $or: orArr });
+
+		// only add time filters if the values are non-default
+		if(timeLimits[0] !== defaultMinTime) {
+			andArr.push({ createdAt: { $gte: minDate } });
+		}
+		if(timeLimits[1] !== defaultMaxTime) {
+			andArr.push({ createdAt: { $lte: maxDate } });
+		}
+		return { $and: andArr };
+	}
 	
 	function makePageSettings({curPage, compPageLimit}) {
 		return {
@@ -151,6 +235,15 @@
 			default:
 				return ['score:desc', 'name:asc'];
 		}
+	}
+
+	function makeRESTQS({restFilter, pageSettings, sortSettings}) {
+		return qs.stringify({
+			filters: restFilter,
+			pagination: pageSettings,
+			sort: sortSettings,
+			populate: ['heroes'],
+		});
 	}
 
 	function handleSearchStrChange(event) {
@@ -446,7 +539,7 @@
 		</div>
 	</div>
 	<div class="compListArea">
-		{#if $compsQuery.loading}
+		<!-- {#if $compsQuery.loading}
 			<div class="loadingDiv">
 				<LoadingSpinner type="dual-ring" size="medium" color={window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')} />
 			</div>
@@ -457,7 +550,12 @@
 				detailText="Check the console for details."
 				showHomeButton={false}
 			/>
-		{:else}
+		{:else} -->
+		{#await restPromise}
+			<div class="loadingDiv">
+				<LoadingSpinner type="dual-ring" size="medium" color={window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')} />
+			</div>
+		{:then _}
 			{#if showErrorDisplay}
 				<ErrorDisplay
 					errorCode={errorDisplayConf.errorCode}
@@ -466,11 +564,11 @@
 					showHomeButton={errorDisplayConf.showHomeButton}
 				/>
 			{:else}
-				{#await processCompsPromise}
+				<!-- {#await processCompsPromise}
 					<div class="loadingDiv">
 						<LoadingSpinner type="dual-ring" size="medium" color={window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')} />
 					</div>
-				{:then _}
+				{:then _} -->
 					{#if processedComps.length <= 0}
 						<div class="noComps">
 							<span>No comps found :(</span>
@@ -488,9 +586,10 @@
 							<PageNav pageInfo={pageInfo} on:pageEvent={handlePageEvent} viewLimit={pageViewLimit} />
 						</div>
 					{/if}
-				{/await}
+				<!-- {/await} -->
 			{/if}
-		{/if}
+		{/await}
+		<!-- {/if} -->
 	</div>
 	<div class="exploreFooter">
 		<div class="resultInfo">
