@@ -72,21 +72,21 @@
 	<section class="aboutApp">
 		<div class="generalDesc">
 			<p>AFKBuilder is an <a href="https://github.com/Dae314/AFKBuilder" target="_blank" rel="noreferrer noopener">open source</a> tool designed to help players build, share, and use community made team compositions for AFK Arena.</p>
-			<p>Login to get the most out of AFKBuilder! Until you login, AFKBuilder runs entirely on your browser, and your data is stored in its local storage. If you do not login, you will still be able to view community comps and make your own, <em>but you will not be able to like, dislike, favorite, or publish comps.</em> Users who login will have full access to all of the features in AFKBuilder, and their Comps and My Heroes saved to their server profile so if you login on multiple devices, you will be able to see the same data.</p>
+			<p>Login to get the most out of AFKBuilder! Until you login, AFKBuilder runs entirely on your browser, and your data is stored in its local storage. If you do not login, you will still be able to explore community comps and make your own, <em>but you will not be able to like, dislike, favorite, or publish comps.</em> Users who login will have full access to all of the features in AFKBuilder, and their Comps and My Heroes saved to their server profile so if you login on multiple devices, you will be able to see the same data.</p>
 			<p>AFKBuilder stores minimal personal information only when you login. We store no information on users who do not login. For more information about the data we store, see our <a href={`${window.location.origin}/#/privacy`} target="_blank" rel="noreferrer noopener">Privacy Policy</a>. Cookies in the form of local storage entries are used to store your configuration.</p>
 			<p>By using AFKBuilder, you agree to our <a href={`${window.location.origin}/#/terms`} target="_blank" rel="noreferrer noopener">Terms of Service</a></p>
 		</div>
 		<div class="areaDesc">
-			<div class="compDesc areaDescSect">
+			<div class="exploreDesc areaDescSect">
 				<h2>Explore</h2>
 				<div class="text">
 					<p>
 						Explore community made comps! Use our deep filtering system to filter for specific authors, heroes, or tags. Vote for the best comps, and favorite the ones that you want to keep and get recommendations for. Click on a comp to see more details for it, and share that comp simply by copying the URL! You can also sort results how you want:
 					</p>
 					<ul>
-						<li>best - Bayesian statistical analysis determines the best comps based on upvotes and downvotes</li>
+						<li>best - comps are sorted based on upvote and downvote ratio</li>
 						<li>top - for those who don't like algorithms and just want to see the comps with the most upvotes</li>
-						<li>new - see the newest comps uploaded to the server</li>
+						<li>new - see the newest comps uploaded to the site</li>
 						<li>updated - see comps that have recently been updated by their authors</li>
 					</ul>
 				</div>
@@ -95,7 +95,7 @@
 				<h2>Comps</h2>
 				<div class="text">
 					<p>
-						Create, edit, import, and export your comps all in one area. Any comps you favorite in <em>Explore</em> will appear here (although you won't be able to edit them). Starring comps in this area automatically sends all of their heroes into your personalized recommendation section. Create or edit comps with our powerful editor, and when you're done, publish your creation so others can find it!
+						Create, edit, import, export, and publish your comps all in one area. Any comps you favorite in <em>Explore</em> will appear here (although you won't be able to edit them). Starring comps in this area automatically sends all of their heroes into your personalized recommendation section. Create or edit comps with our powerful editor, and when you're done, publish your creation so others can find it!
 					</p>
 					<p>
 						Want to get organized? Group comps however you want with the group engine. Of course you can still search, sort, and filter comps in this area just like you can in <em>Explore</em>. Note: only comps you have saved locally will appear in <em>Comps</em>. For community comps, check out the <em>Explore</em> section.
@@ -122,7 +122,7 @@
 				<h2>Hero List</h2>
 				<div class="text">
 					<p>
-						Say hello to our database of every hero in Esperia. Don't remember what Mortas' 'Greed' skill does? Come here and find out (or just tap on his portrait in a comp). Want to see how many Celestial Rangers are in the game? Use our powerful search and filters to find exactly what you want.
+						Say hello to our database of every hero in Esperia. Don't remember what Mortas' 'Greed' skill does? Come here and find out (or just tap on his portrait in a comp). Want to see how many Celestial Rangers are in the game? Use our powerful search and filters to find exactly what you want. Hero SI, Furniture, and Engraving recommendations are gathered from various publically available community guides.
 					</p>
 				</div>
 			</div>
@@ -205,9 +205,7 @@
 		}
 	}
 	h2 {
-		margin: 0;
-		margin-bottom: 10px;
-		margin-top: 20px;
+		margin: 10px 0px;
 		text-align: center;
 	}
 	.generalDesc {
