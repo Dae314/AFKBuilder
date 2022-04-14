@@ -173,6 +173,7 @@
 			$AppData.user.local_comps = [];
 			$AppData.user.published_comps = [];
 			$AppData.user.saved_comps = [];
+			window.localStorage.removeItem('tokenCache');
 			await saveAppData();
 			window.location.assign(`${window.location.origin}/#/`);
 		} else {
