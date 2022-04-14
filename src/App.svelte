@@ -464,7 +464,7 @@
 				try {
 					const json = await jsurl.decompress($AppData.user.local_comps.data);
 					compsData = JSON.parse(json);
-					const groupJSON = await jsurl.decompress($AppData.user.local_comps.groupData);
+					const groupJSON = await jsurl.decompress($AppData.user.local_comps.groups);
 					groupData = JSON.parse(groupJSON);
 				} catch(err) {
 					console.log(`Error: unable to parse local comp data from server`);
