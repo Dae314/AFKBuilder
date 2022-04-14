@@ -13015,7 +13015,7 @@ const HeroData = readable([
 				{ desc: 'Enemies are dealt more damage from Leonardo\'s cannon the farther away they are from it. Damage dealt can be raised up to <em>80%</em>.',
 					unlock: 20,
 				},
-				{ desc: 'When Leonardo triggeres "Evacuation" as a result of receiving damage, the damage he receives shall not exceed <em>10%</em> of his max health.',
+				{ desc: 'When Leonardo triggers "Evacuation" as a result of receiving damage, the damage he receives shall not exceed <em>10%</em> of his max health.',
 					unlock: 30,
 				},
 			],
