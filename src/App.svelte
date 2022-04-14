@@ -4,7 +4,7 @@
 	import AppData from './stores/AppData.js';
 	import Modal from 'svelte-simple-modal';
 	import Router from 'svelte-spa-router';
-	import {pop as spaRoutePop, querystring} from 'svelte-spa-router';
+	import {pop as spaRoutePop, querystring, location} from 'svelte-spa-router';
 	import {wrap} from 'svelte-spa-router/wrap';
 	import JSONURL from 'json-url';
 	import {
@@ -35,17 +35,18 @@
 	import User from './components/User.svelte';
 	import CompLibDetail from './components/CompLibDetail.svelte';
 	import ErrorDisplay from './components/ErrorDisplay.svelte';
+	import LoadingSpinner from './shared/LoadingSpinner.svelte';
 	import TOS from './components/TOS.svelte';
 	import PrivPolicy from './components/PrivPolicy.svelte';
 
 	export let version = '';
 	const menuItems = [
 		{ name: 'Explore', icon: './img/utility/explore_white.png' },
-		{ name: 'Comps', icon: '' },
-		{ name: 'Recommendations', icon: ''},
-		{ name: 'My Heroes', icon: ''},
-		{ name: 'Hero List', icon: ''},
-		{ name: 'About', icon: ''},
+		{ name: 'Comps', icon: './img/utility/comps_white.png' },
+		{ name: 'Recommendations', icon: './img/utility/recommendations_white.png'},
+		{ name: 'My Heroes', icon: './img/utility/my_heroes_white.png'},
+		{ name: 'Hero List', icon: './img/utility/hero_list_white.png'},
+		{ name: 'About', icon: './img/utility/about_white.png'},
 	];
 	const defaultView = 'comps';
 	const jsurl = JSONURL('lzma'); // json-url compressor
@@ -172,6 +173,7 @@
 			$AppData.user.local_comps = [];
 			$AppData.user.published_comps = [];
 			$AppData.user.saved_comps = [];
+			window.localStorage.removeItem('tokenCache');
 			await saveAppData();
 			window.location.assign(`${window.location.origin}/#/`);
 		} else {
@@ -188,6 +190,7 @@
 	// function assumes that $AppData.user.jwt was set correctly
 	// function will populate $Appdata.user object with data
 	async function populateUserData() {
+		await displayNotice({type: 'loading'});
 		let response;
 
 		response = await getUserDetails($AppData.user.jwt);
@@ -199,6 +202,7 @@
 				showHomeButton: true,
 			};
 			showErrorDisplay = true;
+			clearNotice();
 			return;
 		}
 		const user = response.data;
@@ -223,6 +227,8 @@
 				showHomeButton: true,
 			};
 			showErrorDisplay = true;
+			clearNotice();
+			return;
 		}
 		const likedComps = response.data;
 		$AppData.user.liked_comps = likedComps;
@@ -236,6 +242,8 @@
 				showHomeButton: true,
 			};
 			showErrorDisplay = true;
+			clearNotice();
+			return;
 		}
 		const dislikedComps = response.data;
 		$AppData.user.disliked_comps = dislikedComps;
@@ -249,6 +257,8 @@
 				showHomeButton: true,
 			};
 			showErrorDisplay = true;
+			clearNotice();
+			return;
 		}
 		const publishedComps = response.data;
 		$AppData.user.published_comps = publishedComps;
@@ -262,6 +272,8 @@
 				showHomeButton: true,
 			};
 			showErrorDisplay = true;
+			clearNotice();
+			return;
 		}
 		const savedComps = response.data.map(e => {
 			e.comp_update = new Date(e.comp_update);
@@ -270,6 +282,7 @@
 		$AppData.user.saved_comps = savedComps;
 
 		saveAppData();
+		clearNotice();
 	}
 
 	// function assumes that $AppData.user.jwt was set correctly
@@ -362,6 +375,7 @@
 		}
 		switch(updateType) {
 			case 'push':
+				await displayNotice({type: 'loading'});
 				try {
 					const mhData = await jsurl.compress(JSON.stringify($AppData.MH.List));
 					const response = await gqlUpdateMyHeroes({variables: { id: $AppData.user.id, mh: {lastUpdate: $AppData.MH.lastUpdate, data: mhData} }});
@@ -369,6 +383,7 @@
 					newMyHeroes.lastUpdate = new Date(newMyHeroes.lastUpdate);
 					$AppData.user.my_heroes = newMyHeroes;
 					saveAppData();
+					clearNotice();
 				} catch(err) {
 					console.log(`Error: unable to upload My Heroes data to server`);
 					console.log(err);
@@ -425,13 +440,16 @@
 		switch(updateType) {
 			case 'push':
 				try {
+					await displayNotice({type: 'loading'});
 					const localComps = $AppData.Comps.filter(e => e.source === 'local' && !e.hidden);
 					const compData = await jsurl.compress(JSON.stringify(localComps));
-					const response = await gqlUpdateLocalComps({variables: { id: $AppData.user.id, comps: {lastUpdate: $AppData.compLastUpdate, data: compData} }});
+					const groupData = await jsurl.compress(JSON.stringify($AppData.compGroups));
+					const response = await gqlUpdateLocalComps({variables: { id: $AppData.user.id, comps: {lastUpdate: $AppData.compLastUpdate, data: compData, groups: groupData} }});
 					const newLocalComps = response.data.updateUsersPermissionsUser.data.attributes.local_comps;
 					newLocalComps.lastUpdate = new Date(newLocalComps.lastUpdate);
 					$AppData.user.local_comps = newLocalComps;
 					saveAppData();
+					clearNotice();
 				} catch(err) {
 					console.log(`Error: unable to upload local comp data to server`);
 					console.log(err);
@@ -442,15 +460,19 @@
 			case 'pull':
 				// parse the data
 				let compsData;
+				let groupData;
 				try {
 					const json = await jsurl.decompress($AppData.user.local_comps.data);
 					compsData = JSON.parse(json);
+					const groupJSON = await jsurl.decompress($AppData.user.local_comps.groupData);
+					groupData = JSON.parse(groupJSON);
 				} catch(err) {
 					console.log(`Error: unable to parse local comp data from server`);
 					console.log(err);
 					displayNotice({ type: 'error', message: 'Comps sync failed', });
 					return;
 				}
+
 				// validate resulting data is good
 				for(const comp of compsData) {
 					comp.lastUpdate = new Date(comp.lastUpdate);
@@ -471,6 +493,14 @@
 						$AppData.Comps = [...$AppData.Comps, returnObj.message];
 					}
 				}
+
+				// repair group dates
+				for(const group of groupData) {
+					group.createdAt = new Date(group.createdAt);
+				}
+				// now update groups
+				$AppData.compGroups = groupData;
+
 				// this function will not delete comps
 				$AppData.compLastUpdate = $AppData.user.local_comps.lastUpdate;
 				saveAppData();
@@ -485,32 +515,27 @@
 
 	async function clearAppData() {
 		window.localStorage.removeItem('appData');
+		window.localStorage.removeItem('tokenCache');
 		location.reload();
 	}
 
 	async function resetTutorial() {
 		$AppData.dismissImportWarn = false;
-		$AppData.dismissMHSearchInfo = false;
-		$AppData.dismissHLSearchInfo = false;
+		$AppData.dismissCookieConsent = false;
 		await saveAppData();
 		location.reload();
 	}
 
 	function handleModalClosed() {
-		// handle modals in Comps.svelte and Explore.svelte separately
-		if($AppData.activeView === 'comps') {
-			$AppData.modalClosed = true;
-		} else {
-			const queryString = window.location.search;
-			const urlParams = new URLSearchParams(queryString);
-			if(urlParams.has('modal')) {
-				spaRoutePop();
-				window.addEventListener('popstate', function updateURL(event) {
-					const uri = $querystring ? `${window.location.origin}/#/${$AppData.activeView}?${$querystring}` : `${window.location.origin}/#/${$AppData.activeView}`
-					history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, uri);
-					window.removeEventListener('popstate', updateURL);
-				});
-			}
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		if(urlParams.has('modal')) {
+			spaRoutePop();
+			window.addEventListener('popstate', function updateURL(event) {
+				const uri = $querystring ? `${window.location.origin}/#${$location}?${$querystring}` : `${window.location.origin}/#${$location}`;
+				history.replaceState({view: $AppData.activeView, modal: false}, $AppData.activeView, uri);
+				window.removeEventListener('popstate', updateURL);
+			});
 		}
 	}
 
@@ -521,6 +546,16 @@
 
 		// convienence variable to track if window is mobile width or desktop width
 		isMobile = window.matchMedia("(max-width: 767px)").matches;
+	}
+
+	function clearError() {
+		showErrorDisplay = false;
+		errorDisplayConf = {};
+	}
+
+	function clearNotice() {
+		showNotice = false;
+		noticeConf = {};
 	}
 
 	async function handleRouteEvent(event) {
@@ -552,6 +587,12 @@
 			case 'showNotice':
 				await displayNotice(event.detail.data.noticeConf);
 				break;
+			case 'clearError':
+				clearError();
+				break;
+			case 'clearNotice':
+				clearNotice();
+				break;
 			default:
 				throw new Error(`Invalid action specified for route event: ${event.detail.action}`);
 		}
@@ -560,10 +601,7 @@
 	async function displayNotice(notice_config) {
 		noticeConf = notice_config;
 		showNotice = true;
-		setTimeout(() => {
-			showNotice = false;
-			noticeConf = {};
-		}, 2000);
+		if(noticeConf.type !== 'loading') setTimeout(() => clearNotice(), 2000);
 	}
 </script>
 
@@ -577,7 +615,7 @@
 
 <Modal on:closed={handleModalClosed}>
 	<div class="AppContainer">
-		<Header menu={menuItems} on:saveData={saveAppData} />
+		<Header menu={menuItems} on:routeEvent={handleRouteEvent} />
 		{#if showErrorDisplay}
 			<ErrorDisplay
 				errorCode={errorDisplayConf.errorCode}
@@ -600,17 +638,21 @@
 			 class:open={showNotice}
 			 class:info={ !noticeConf.type || noticeConf.type === 'info'}
 			 class:warning={noticeConf.type === 'warning'}
-			 class:error={noticeConf.type === 'error'}>
-		<span>
-			{noticeConf.message}
-		</span>
+			 class:error={noticeConf.type === 'error'}
+			 class:loading={noticeConf.type === 'loading'}>
+		{#if noticeConf.type === 'loading'}
+			<LoadingSpinner type="dual-ring" size="small" color="white" />
+		{:else}
+			<span>
+				{noticeConf.message}
+			</span>
+		{/if}
 	</div>
 </Modal>
 
 <style lang="scss">
 	.AppContainer {
 		display: flex;
-		flex-direction: column;
 		height: 100%;
 		width: 100%;
 		padding: 0px;
@@ -640,6 +682,7 @@
 		transform: translate(-50%, 0);
 		transition: visibility 0.3s, opacity 0.3s;
 		visibility: hidden;
+		z-index: 4;
 		&.open {
 			display: block;
 			opacity: 1;
@@ -660,9 +703,16 @@
 			color: rgba(255, 255, 255, 0.7);
 			font-weight: bold;
 		}
+		&.loading {
+			align-items: center;
+			background-color: rgba(50, 50, 50, 0.7);
+			display: flex;
+			justify-content: center;
+		}
 	}
 	@media only screen and (min-width: 767px) {
 		main {
+			height: 100vh;
 			padding: 0;
 		}
 	}

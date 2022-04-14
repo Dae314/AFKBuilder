@@ -6,7 +6,6 @@
 	import { mutation } from "svelte-apollo";
 	import AvatarInput from '../shared/AvatarInput.svelte';
 	import LoadingPage from '../shared/LoadingPage.svelte';
-	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
 	import ErrorDisplay from '../components/ErrorDisplay.svelte';
 	import Confirm from '../modals/Confirm.svelte';
 
@@ -22,9 +21,7 @@
 	const usernameError = {state: false, text: ''};
 	let showErrorDisplay = false;
 	let errorDisplayConf = {};
-	let showUsernameLoading = false;
 	let showUsernameSuccess = false;
-	let showAvatarLoading = false;
 	let showAvatarSuccess = false;
 
 	onMount(async () => {
@@ -67,21 +64,21 @@
 		if($AppData.user.username !== username) {
 			try {
 				// check user's JWT before making queries
-				showUsernameLoading = true;
+				dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
 				const valid = await validateJWT($AppData.user.jwt);
 				if(valid) {
 					const response = await gqlUpdateUsername({variables: { id: $AppData.user.id, username: username }});
 					$AppData.user.username = response.data.updateUsersPermissionsUser.data.attributes.username;
-					showUsernameLoading = false;
+					dispatch('routeEvent', {action: 'clearNotice'});
 					showUsernameSuccess = true;
 					setTimeout(() => showUsernameSuccess = false, 1000);
 					dispatch('routeEvent', {action: 'saveData'});
 				} else {
-					showUsernameLoading = false;
+					dispatch('routeEvent', {action: 'clearNotice'});
 					dispatch('routeEvent', {action: 'logout'});;
 				}
 			} catch (error) {
-				showUsernameLoading = false;
+				dispatch('routeEvent', {action: 'clearNotice'});
 				switch(error.graphQLErrors[0].extensions.code) {
 					case 'BAD_USER_INPUT':
 					case 'FORBIDDEN':
@@ -115,21 +112,21 @@
 		if($AppData.user.avatar !== avatar) {
 			try {
 				// check user's JWT before making queries
-				showAvatarLoading = true;
+				dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
 				const valid = await validateJWT($AppData.user.jwt);
 				if(valid) {
 					const response = await gqlUpdateAvatar({variables: { id: $AppData.user.id, avatar: avatar }});
 					$AppData.user.avatar = response.data.updateUsersPermissionsUser.data.attributes.avatar;
-					showAvatarLoading = false;
+					dispatch('routeEvent', {action: 'clearNotice'});
 					showAvatarSuccess = true;
 					setTimeout(() => showAvatarSuccess = false, 1000);
 					dispatch('routeEvent', {action: 'saveData'});
 				} else {
-					showAvatarLoading = false;
+					dispatch('routeEvent', {action: 'clearNotice'});
 					dispatch('routeEvent', {action: 'logout'});;
 				}
 			} catch (error) {
-				showAvatarLoading = false;
+				dispatch('routeEvent', {action: 'clearNotice'});
 				errorDisplayConf = {
 					errorCode: 500,
 					headText: 'Something went wrong',
@@ -151,8 +148,8 @@
 			{ closeButton: false,
 				closeOnEsc: true,
 				closeOnOuterClick: true,
-				styleWindow: { width: 'fit-content', },
-				styleContent: { width: 'fit-content', },
+				styleWindow: { width: 'fit-content' },
+				styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
 			});
 	}
 
@@ -162,8 +159,8 @@
 			{ closeButton: false,
 				closeOnEsc: true,
 				closeOnOuterClick: true,
-				styleWindow: { width: 'fit-content', },
-				styleContent: { width: 'fit-content', },
+				styleWindow: { width: 'fit-content' },
+				styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
 			});
 	}
 
@@ -193,6 +190,12 @@
 		// note: clears all extraneous URL parameters
 		window.location.assign(`${window.location.origin}/#/users/${encodeURIComponent($AppData.user.username)}`);
 	}
+
+	function handleFavoriteCompsClick() {
+		// navigate to comps
+		// note: clears all extraneous URL parameters
+		window.location.assign(`${window.location.origin}/#/comps`);
+	}
 </script>
 
 {#await populateReceivedUpvotes()}
@@ -220,20 +223,15 @@
 							disabled={editUsernameDisabled}
 							on:blur={handleUsernameBlur}
 							on:keyup={handleUsernameKeyup} />
-						<span class="usernameEdit" class:loading={showUsernameLoading}>
-							{#if showUsernameLoading}
-								<LoadingSpinner type="dual-ring" size="small" color="{window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')}" />
-							{:else}
-								<button class="usernameEditButton" on:click={handleUsernameEditClick}>
-									<img src="./img/utility/pencil.png" alt="edit username">
-								</button>
-							{/if}
+						<span class="usernameEdit">
+							<button class="usernameEditButton" on:click={handleUsernameEditClick}>
+								<img src="./img/utility/pencil_white.png" alt="edit username">
+							</button>
 						</span>
 						<div class="usernameErrorText" class:visible={usernameError.state}><span>{usernameError.text}</span></div>
 					</div>
 					<div class="avatarInputArea">
 						<AvatarInput
-							loading={showAvatarLoading}
 							success={showAvatarSuccess}
 							avatar={avatar}
 							on:avatarChanged={handleAvatarChange}
@@ -247,9 +245,11 @@
 							<div class="headText">Published Comps</div>
 						</button>
 					</div>
-					<div class="headBox likedCompsBox">
-						<div class="headNumber">{$AppData.user.liked_comps.length}</div>
-						<div class="headText">Liked Comps</div>
+					<div class="headBox favoriteCompsBox">
+						<button type="button" class="headButton" on:click={handleFavoriteCompsClick}>
+							<div class="headNumber">{$AppData.user.saved_comps.length}</div>
+							<div class="headText">Favorite Comps</div>
+						</button>
 					</div>
 					<div class="headBox totalLikesBox">
 						<div class="headNumber">{receivedLikes}</div>
@@ -357,10 +357,10 @@
 		width: 100%;
 		.headBox {
 			align-items: center;
-			background-color: var(--appColorPrimary);
-			border: 2px solid var(--appColorSecondary);
+			background-color: var(--appBGColor);
+			border: none;
 			border-radius: 10px;
-			color: white;
+			box-shadow: var(--neu-med-i-BGColor-shadow);
 			display: flex;
 			flex-direction: column;
 			height: 120px;
@@ -372,7 +372,7 @@
 			.headButton {
 				background-color: transparent;
 				border: none;
-				color: white;
+				color: var(--appColorPrimary);
 				cursor: pointer;
 				height: 100%;
 				outline: none;
@@ -381,6 +381,7 @@
 			.headNumber {
 				font-size: 2.0rem;
 				font-weight: bold;
+				height: 37px;
 			}
 			.headText {
 				font-size: 1.3rem;
@@ -394,9 +395,10 @@
 		margin-top: auto;
 		padding: 15px;
 		.logoutButton {
-			background-color: transparent;
-			border: 3px solid var(--appDelColor);
+			background-color: var(--appBGColor);
+			border: none;
 			border-radius: 10px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
 			color: var(--appDelColor);
 			cursor: pointer;
 			font-size: 1rem;
@@ -404,17 +406,17 @@
 			outline: none;
 			padding: 10px;
 			transition: all 0.2s;
-			&:hover {
-				background-color: var(--appDelColor);
-				color: white;
-			}
 			&.deleteButton {
 				margin-left: auto;
 			}
 		}
 	}
 	@media only screen and (min-width: 767px) {
+		.profileContainer {
+			height: 100vh;
+		}
 		.titleArea {
+			margin-top: 10%;
 			.usernameInputArea {
 				&:hover > .usernameEdit {
 					opacity: 1;
@@ -425,10 +427,6 @@
 				opacity: 0;
 				transition: all 0.1s;
 				visibility: hidden;
-				&.loading {
-					opacity: 1;
-					visibility: visible;
-				}
 			}
 		}
 		.headlineArea {
@@ -436,6 +434,18 @@
 			justify-content: center;
 			.headBox {
 				margin: 0px 20px;
+				.headButton {
+					&:hover {
+						background: var(--neu-convex-BGColor-bg);
+					}
+				}
+			}
+		}
+		.logoutArea {
+			.logoutButton {
+				&:hover {
+					background: var(--neu-convex-BGColor-bg);
+				}
 			}
 		}
 	}

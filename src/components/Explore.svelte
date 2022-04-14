@@ -13,7 +13,7 @@
 	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
 	import PageNav from '../shared/PageNav.svelte';
 	import { gql_GET_COMP_LIST } from '../gql/queries.svelte';
-	import { getCompAuthor } from '../rest/RESTFunctions.svelte';
+	import { getCompAuthor, getComps } from '../rest/RESTFunctions.svelte';
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
@@ -32,7 +32,7 @@
 	const pageViewLimit = 2;
 	const sortOptions = ['best', 'top', 'new', 'updated'];
 	const defaultSort = 'best';
-	const compPageOptions = [1, 10, 25, 50, 100];
+	const compPageOptions = [1, 5, 10, 25];
 	const defaultStartPage = 1;
 	const defaultPageLimit = 25;
 	const defaultSearchStr = '';
@@ -60,12 +60,15 @@
 	let pageLimitSelectEl;
 
 	$: processQS($querystring);
-	$: gqlFilter = makeFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits});
+	// $: gqlFilter = makeFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits});
+	$: restFilter = makeRestFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits});
 	$: pageSettings = makePageSettings({curPage, compPageLimit});
 	$: sortSettings = makeSortSettings({curSort});
-	$: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings, sort: sortSettings } });
-	$: if(!$compsQuery.loading) processCompsPromise = processComps($compsQuery.data.comps.data);
-	$: if(!$compsQuery.loading) pageInfo = $compsQuery.data.comps.meta.pagination;
+	$: restQS = makeRESTQS({restFilter, pageSettings, sortSettings});
+	$: restPromise = populateCompsData(restQS);
+	// $: compsQuery = query(gql_GET_COMP_LIST, { variables: { filter: gqlFilter, pagination: pageSettings, sort: sortSettings }, fetchPolicy: 'no-cache' });
+	// $: if(!$compsQuery.loading && $compsQuery.data) processCompsPromise = processComps($compsQuery.data.comps.data);
+	// $: if(!$compsQuery.loading && $compsQuery.data) pageInfo = $compsQuery.data.comps.meta.pagination;
 
 	onMount(async () => {
 		$AppData.activeView = 'explore';
@@ -82,6 +85,40 @@
 		curPage = urlqs.has('page') ? parseInt(decodeURIComponent(urlqs.get('page'))) : defaultStartPage;
 		compPageLimit = urlqs.has('pageLimit') ? parseInt(decodeURIComponent(urlqs.get('pageLimit'))) : defaultPageLimit;
 		curSort = urlqs.has('sort') ? decodeURIComponent(urlqs.get('sort')) : defaultSort;
+	}
+
+	async function populateCompsData(restQS) {
+		const response = await getComps(restQS);
+		if(response.status !== 200) {
+			errorDisplayConf = {
+				errorCode: response.status,
+				headText: 'Something went wrong',
+				detailText: response.data,
+				showHomeButton: true,
+			};
+			showErrorDisplay = true;
+			return;
+		}
+		let processedList = [];
+		let procHeroes;
+		for(const comp of response.data.comps) {
+			procHeroes = comp.attributes.heroes.data.map(e => {
+				return { id: e.id, name: e.attributes.name};
+			});
+			processedList.push({
+				id: comp.id,
+				uuid: comp.attributes.uuid,
+				name: comp.attributes.name,
+				upvotes: comp.attributes.upvotes,
+				downvotes: comp.attributes.downvotes,
+				createdAt: comp.attributes.createdAt,
+				heroes: procHeroes,
+				author: comp.attributes.author,
+				comp_update: comp.attributes.comp_update,
+			});
+		}
+		processedComps = processedList;
+		pageInfo = response.data.meta.pagination;
 	}
 
 	function makeFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits}) {
@@ -120,9 +157,62 @@
 			}
 		}
 		if(orArr.length > 0) andArr.push({ or: orArr });
-		andArr.push({ createdAt: { gte: minDate } });
-		andArr.push({ createdAt: { lte: maxDate } });
+
+		// only add time filters if the values are non-default
+		if(timeLimits[0] !== defaultMinTime) {
+			andArr.push({ createdAt: { gte: minDate } });
+		}
+		if(timeLimits[1] !== defaultMaxTime) {
+			andArr.push({ createdAt: {lte: maxDate } });
+		}
 		return { and: andArr };
+	}
+
+	function makeRestFilter({searchStr, tag_filter, author_filter, hero_filter, timeLimits}) {
+		let andArr = [];
+		let orArr = [];
+
+		const minDate = timeValues[timeLimits[0]].value.toISOString();
+		const maxDate = timeValues[timeLimits[1]].value.toISOString();
+
+		// create filter array
+		if(searchStr) andArr.push({
+			$or: [
+				{ name: { $containsi: searchStr } },
+				{ tags: { name: { $containsi: searchStr} } },
+			]
+		});
+		for(let tag of tag_filter) {
+			if(tag.type === 'include') {
+				andArr.push({ tags: { id: { $eq: tag.id } } });
+			} else {
+				andArr.push({ tags: { id: { $not: { $eq: tag.id } } } });
+			}
+		}
+		for(let hero of hero_filter) {
+			if(hero.type === 'include') {
+				andArr.push({ heroes: { id: { $eq: hero.id } } });
+			} else {
+				andArr.push({ heroes: { id: { $not: { $eq: hero.id } } } });
+			}
+		}
+		for(let author of author_filter) {
+			if(author.type === 'include') {
+				orArr.push({ author: { id: { $eq: author.id } } });
+			} else {
+				andArr.push({ author: { id: { $not: { $eq: author.id } } } });
+			}
+		}
+		if(orArr.length > 0) andArr.push({ $or: orArr });
+
+		// only add time filters if the values are non-default
+		if(timeLimits[0] !== defaultMinTime) {
+			andArr.push({ createdAt: { $gte: minDate } });
+		}
+		if(timeLimits[1] !== defaultMaxTime) {
+			andArr.push({ createdAt: { $lte: maxDate } });
+		}
+		return { $and: andArr };
 	}
 	
 	function makePageSettings({curPage, compPageLimit}) {
@@ -145,6 +235,15 @@
 			default:
 				return ['score:desc', 'name:asc'];
 		}
+	}
+
+	function makeRESTQS({restFilter, pageSettings, sortSettings}) {
+		return qs.stringify({
+			filters: restFilter,
+			pagination: pageSettings,
+			sort: sortSettings,
+			populate: ['heroes'],
+		});
 	}
 
 	function handleSearchStrChange(event) {
@@ -225,7 +324,9 @@
 				curFilter,
 				onSuccess: (filterList) => handleFilterChangeSuccess({filterList, category}),
 			},
-			{ closeButton: ModalCloseButton }
+			{ closeButton: ModalCloseButton,
+				styleContent: {background: '#F0F0F2', borderRadius: '10px'},
+			}
 		);
 	}
 
@@ -358,6 +459,12 @@
 			case 'syncFavorites':
 				dispatch('routeEvent', {action: 'syncFavorites'});
 				break;
+			case 'loading':
+				dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
+				break;
+			case 'stopLoading':
+				dispatch('routeEvent', {action: 'clearNotice'});
+				break;
 			default:
 				throw new Error(`Invalid action specified for card event: ${event.detail.action}`);
 		}
@@ -368,13 +475,11 @@
 	<div class="exploreHead">
 		<div class="mobileSearchArea">
 			<input id="compSearch" value={searchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="Search titles or tags" />
-			<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
+			<button type="button" class="headButton searchButton" on:click|stopPropagation={handleSearchButtonClick}>
 				<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
 			</button>
-		</div>
-		<div class="filterButtonArea">
-			<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
-				<img class="openFiltersImage" src={ showFilters ? './img/utility/filter_color.png' : './img/utility/filter_white.png' } alt="Open Filters">
+			<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click|stopPropagation={() => showFilters = !showFilters}>
+				<img class="openFiltersImage" src='./img/utility/filter_white.png' alt="Open Filters">
 			</button>
 		</div>
 	</div>
@@ -434,7 +539,7 @@
 		</div>
 	</div>
 	<div class="compListArea">
-		{#if $compsQuery.loading}
+		<!-- {#if $compsQuery.loading}
 			<div class="loadingDiv">
 				<LoadingSpinner type="dual-ring" size="medium" color={window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')} />
 			</div>
@@ -445,7 +550,12 @@
 				detailText="Check the console for details."
 				showHomeButton={false}
 			/>
-		{:else}
+		{:else} -->
+		{#await restPromise}
+			<div class="loadingDiv">
+				<LoadingSpinner type="dual-ring" size="medium" color={window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')} />
+			</div>
+		{:then _}
 			{#if showErrorDisplay}
 				<ErrorDisplay
 					errorCode={errorDisplayConf.errorCode}
@@ -454,11 +564,11 @@
 					showHomeButton={errorDisplayConf.showHomeButton}
 				/>
 			{:else}
-				{#await processCompsPromise}
+				<!-- {#await processCompsPromise}
 					<div class="loadingDiv">
 						<LoadingSpinner type="dual-ring" size="medium" color={window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')} />
 					</div>
-				{:then _}
+				{:then _} -->
 					{#if processedComps.length <= 0}
 						<div class="noComps">
 							<span>No comps found :(</span>
@@ -476,9 +586,10 @@
 							<PageNav pageInfo={pageInfo} on:pageEvent={handlePageEvent} viewLimit={pageViewLimit} />
 						</div>
 					{/if}
-				{/await}
+				<!-- {/await} -->
 			{/if}
-		{/if}
+		{/await}
+		<!-- {/if} -->
 	</div>
 	<div class="exploreFooter">
 		<div class="resultInfo">
@@ -497,9 +608,11 @@
 
 <style lang="scss">
 	.exploreContainer {
-		height: calc(100vh - var(--headerHeight));
+		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		overflow-y: auto;
 		padding: 0px 10px;
+		padding-bottom: 10px;
 		position: relative;
 		width: 100%;
 	}
@@ -508,51 +621,56 @@
 		padding-top: 15px;
 		.headButton {
 			align-items: center;
-			background-color: var(--appColorPrimary);
-			border: 2px solid var(--appColorPrimary);
+			background-color: transparent;
+			border: none;
 			border-radius: 10px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 			cursor: pointer;
 			display: flex;
 			height: 40px;
 			justify-content: center;
 			outline: none;
+			padding: 0;
+			position: absolute;
 			transition: all 0.2s;
 			width: 40px;
 		}
 		.mobileSearchArea {
 			align-items: center;
 			display: flex;
+			position: relative;
 			width: 100%;
 			.filterInput {
-				border: 1px solid var(--appColorPrimary);
+				background-color: var(--appBGColorLight);
+				border: none;
 				border-radius: 5px;
+				box-shadow: var(--neu-med-i-BGColor-shadow);
 				font-size: 1.2rem;
+				outline: none;
 				padding: 8px;
 				width: 100%;
 				&:focus {
-					border-color: var(--appColorPrimary);
-					box-shadow: 0 0 0 2px var(--appColorPrimary);
-					outline: 0;
+					background-color: white;
 				}
 			}
 			.searchButton {
-				margin-left: 9px;
+				right: 71px;
 				.searchImage {
 					max-width: 25px;
+					opacity: 0.3;
+					filter: invert(1);
 				}
 			}
-		}
-		.filterButtonArea {
-			align-items: center;
-			display: flex;
-			margin-left: 5px;
 			.openFiltersButton {
+				right: 31px;
 				.openFiltersImage {
 					max-width: 25px;
+					opacity: 0.3;
+					filter: invert(1);
 				}
 				&.open {
-					background-color: transparent;
+					.openFiltersImage {
+						opacity: 0.7;
+					}
 				}
 			}
 		}
@@ -560,9 +678,9 @@
 	.filterContainer {
 		background-color: var(--appBGColor);
 		border-radius: 10px;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+		box-shadow: var(--neu-large-ni-BGColor-shadow);
 		left: 50%;
-		margin-top: 10px;
+		margin-top: 15px;
 		opacity: 0;
 		overflow: hidden;
 		padding: 10px 0px;
@@ -588,10 +706,11 @@
 					border-right: none;
 				}
 				.addFilterButton {
-					background-color: var(--appColorPrimary);
-					border: 2px solid var(--appColorPrimary);
+					background-color: var(--appBGColor);
+					border: none;
 					border-radius: 10px;
-					color: var(--appBGColor);
+					box-shadow: var(--neu-sm-i-BGColor-shadow);
+					color: black;
 					cursor: pointer;
 					padding: 5px;
 					font-size: 1rem;
@@ -602,31 +721,33 @@
 					display: flex;
 					flex-wrap: wrap;
 					justify-content: center;
-					margin-top: 5px;
+					margin-top: 10px;
 					.rmFilterButton {
-						background: var(--appColorPrimary);
-						border: 2px solid var(--appColorPrimary);
+						background: var(--appBGColor);
+						border: none;
 						border-radius: 30px;
-						color: var(--appBGColor);
+						box-shadow: var(--neu-sm-i-BGColor-shadow);
+						color: black;
 						cursor: pointer;
 						font-size: 0.7rem;
 						flex-grow: 0;
 						flex-shrink: 0;
-						margin: 2px 5px;
+						margin: 5px 5px;
 						max-width: 125px;
 						outline: none;
 						overflow: hidden;
-						padding: 2px;
+						padding: 4px;
 						text-overflow: ellipsis;
+						transition: all 0.2s;
 						white-space: nowrap;
 						&:before {
-							background-color: var(--appBGColor);
+							background-color: var(--appDelColor);
 							border-radius: 50%;
-							color: var(--appColorPrimary);
+							color: var(--appBGColor);
 							content: '—';
 							font-weight: bold;
 							font-size: 0.6rem;
-							margin-right: 3px;
+							margin-right: 2px;
 							text-align: center;
 						}
 						&.exclude {
@@ -649,21 +770,27 @@
 		}
 		:global(#timeSlider) {
 			:global(.rangeBar) {
-				background-color: var(--appColorPrimary);
+				background-color: var(--appColorPriDark);
+			}
+			:global(.rangeHandle) {
+				:global(.rangeNub) {
+					background-color: var(--appColorBlack);
+				}
 			}
 		}
-	}
-	.exploreSelect {
-		border: 1px solid var(--appColorPrimary);
-		border-radius: 5px;
-		outline: none;
-		padding: 3px;
 	}
 	.pageSortArea {
 		display: flex;
 		padding-top: 10px;
 		.sortArea {
+			font-size: 0.9rem;
 			margin-left: auto;
+			.exploreSelect {
+				border: 1px solid black;
+				border-radius: 5px;
+				outline: none;
+				padding: 3px;
+			}
 		}
 	}
 	.noComps {
@@ -703,14 +830,50 @@
 	}
 	.exploreFooter {
 		display: flex;
+		.resultInfo {
+			display: none;
+		}
 		.pageLimitArea {
 			margin-left: auto;
+			.selectText {
+				font-size: 0.9rem;
+			}
+			.exploreSelect {
+				border: 1px solid black;
+				border-radius: 5px;
+				outline: none;
+				padding: 3px;
+			}
 		}
 	}
 	@media only screen and (min-width: 767px) {
+		.exploreContainer {
+			height: 100vh;
+		}
 		.exploreHead {
 			padding-left: 12.5%;
 			padding-right: 12.5%;
+			.mobileSearchArea {
+				.searchButton {
+					&:hover {
+						.searchImage {
+							opacity: 0.5;
+						}
+					}
+				}
+				.openFiltersButton {
+					&:hover {
+						.openFiltersImage {
+							opacity: 0.5;
+						}
+					}
+					&.open {
+						.openFiltersImage {
+							opacity: 0.7;
+						}
+					}
+				}
+			}
 		}
 		.filterContainer {
 			width: 75%;

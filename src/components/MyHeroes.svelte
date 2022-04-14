@@ -8,7 +8,6 @@
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import ImportData from '../modals/ImportData.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
-	import TutorialBox from '../shared/TutorialBox.svelte';
 	import XButton from '../shared/XButton.svelte';
 	import AscensionMenu from '../shared/AscensionMenu.svelte';
 	import SIMenu from '../shared/SIMenu.svelte';
@@ -34,7 +33,7 @@
 
 	let openFilters = false;
 	let openInOutMenu = false;
-	let copyConfirmVisible = false;
+	let showFilters = false;
 	let sections = ['Owned', 'Unowned'];
 	let sortOptions = ['Name', 'Asc.', 'Copies', 'Eng.'];
 
@@ -411,36 +410,17 @@
 	async function handleExportData() {
 		const output = await jsurl.compress(JSON.stringify($AppData.MH.List));
 		navigator.clipboard.writeText(output).then(() => {
-			copyConfirmVisible = true;
-			setTimeout(() => copyConfirmVisible = false, 1000);
+			dispatch('routeEvent', { action: 'showNotice',
+				data: {
+					noticeConf: {
+						type: 'info',
+						message: 'My Hero Data Copied to Clipboard',
+					}
+				}
+			});
 		}, () => {
 			throw new Error("Error copying Comp data to clipboard.");
 		});
-	}
-
-	function isCharacterKeyPress(event) {
-		let keycode = event.keyCode;
-		let valid = 
-			(keycode > 64 && keycode < 91)   || // letter keys
-			(keycode > 185 && keycode < 193) || // ;=,-./` (in order)
-			(keycode > 218 && keycode < 223) || // [\]' (in order)
-			(keycode === 9);										// tab
-		return valid;
-	}
-
-	function dynamicSearch(event) {
-		if(isCharacterKeyPress(event) && !event.ctrlKey && !event.metaKey) {
-			if(event.keyCode === 9) {
-				// tab pressed, toggle openFilters
-				openFilters = !openFilters;
-				openFilters ? document.querySelector('#searchBox').focus() : document.querySelector('#searchBox').blur();
-			} else if(!openFilters) {
-				openFilters = true;
-				$AppData.MH.SearchStr = $AppData.MH.SearchStr + event.key;
-				document.querySelector('#searchBox').focus();
-				updateSearch();
-			}
-		}
 	}
 
 	function handleHeroDetailClick(heroID) {
@@ -452,16 +432,18 @@
 	}
 </script>
 
-<svelte:window on:keyup={dynamicSearch} />
-
 <div class="MHContainer" on:click={() => openInOutMenu = false}>
 	<section class="sect1">
-		<div class="mobileExpander {openFilters ? 'filterOpen' : ''}">
-			<div class="searchContainer">
-				<div class="search">
-					<input id="searchBox" type="search" placeholder="Search" bind:value={$AppData.MH.SearchStr} on:keyup={updateSearch} on:search={updateSearch}>
-				</div>
-			</div>
+		<div class="searchArea">
+			<input id="searchBox" type="search" placeholder="Search" bind:value={$AppData.MH.SearchStr} on:keyup={updateSearch} on:search={updateSearch}>
+			<button type="button" class="headButton searchButton" on:click={updateSearch}>
+				<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
+			</button>
+			<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
+				<img class="openFiltersImage" src="./img/utility/filter_white.png" alt="Open Filters">
+			</button>
+		</div>
+		<div class="filterArea" class:open={showFilters}>
 			<div class="sortContainer">
 				<div class="sortTitle">Sort by:</div>
 				<HRadioPicker
@@ -471,83 +453,70 @@
 					disabled={$AppData.MH.openSection !== 0}
 				/>
 			</div>
-			<div class="filters">
-				<div class="filterSection">
-					<button type="button" class="filterMasterButton { allFactionsEnabled ? '' : 'filterMasterDisabled' }" on:click={() => handleFilterMasterButtonClick('faction')}>ALL</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowLB')}>
-						<img class="filterImg {$AppData.MH.ShowLB ? '' : 'filterInactive'}" src="./img/factions/lightbearer.png" alt="Lightbearer">
-					</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowM')}>
-						<img class="filterImg {$AppData.MH.ShowM ? '' : 'filterInactive'}" src="./img/factions/mauler.png" alt="Mauler">
-					</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowW')}>
-						<img class="filterImg {$AppData.MH.ShowW ? '' : 'filterInactive'}" src="./img/factions/wilder.png" alt="wilder">
-					</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowGB')}>
-						<img class="filterImg {$AppData.MH.ShowGB ? '' : 'filterInactive'}" src="./img/factions/graveborn.png" alt="Graveborn">
-					</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowC')}>
-						<img class="filterImg {$AppData.MH.ShowC ? '' : 'filterInactive'}" src="./img/factions/celestial.png" alt="Celestial">
-					</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowH')}>
-						<img class="filterImg {$AppData.MH.ShowH ? '' : 'filterInactive'}" src="./img/factions/hypogean.png" alt="Hypogean">
-					</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowD')}>
-						<img class="filterImg {$AppData.MH.ShowD ? '' : 'filterInactive'}" src="./img/factions/dimensional.png" alt="Dimensional">
-					</button>
-				</div>
-				<div class="filterSection">
-					<button type="button" class="filterMasterButton { allTypesEnabled ? '' : 'filterMasterDisabled' }" on:click={() => handleFilterMasterButtonClick('type')}>ALL</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowInt')}>
-						<img class="filterImg {$AppData.MH.ShowInt ? '' : 'filterInactive'}" src="./img/types/intelligence.png" alt="Intelligence">
-					</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowAgi')}>
-						<img class="filterImg {$AppData.MH.ShowAgi ? '' : 'filterInactive'}" src="./img/types/agility.png" alt="Agility">
-					</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowStr')}>
-						<img class="filterImg {$AppData.MH.ShowStr ? '' : 'filterInactive'}" src="./img/types/strength.png" alt="Strength">
-					</button>
-				</div>
-				<div class="filterSection">
-					<button type="button" class="filterMasterButton { allClassEnabled ? '' : 'filterMasterDisabled' }" on:click={() => handleFilterMasterButtonClick('class')}>ALL</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowMage')}>
-						<img class="filterImg {$AppData.MH.ShowMage ? '' : 'filterInactive'}" src="./img/classes/mage.png" alt="Mage">
-					</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowWar')}>
-						<img class="filterImg {$AppData.MH.ShowWar ? '' : 'filterInactive'}" src="./img/classes/warrior.png" alt="Warrior">
-					</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowTank')}>
-						<img class="filterImg {$AppData.MH.ShowTank ? '' : 'filterInactive'}" src="./img/classes/tank.png" alt="Tank">
-					</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowSup')}>
-						<img class="filterImg {$AppData.MH.ShowSup ? '' : 'filterInactive'}" src="./img/classes/support.png" alt="Support">
-					</button>
-					<button type="button" class="filterButton" on:click={() => updateFilters('ShowRan')}>
-						<img class="filterImg {$AppData.MH.ShowRan ? '' : 'filterInactive'}" src="./img/classes/ranger.png" alt="Ranger">
-					</button>
-				</div>
+			<div class="filterSection">
+				<button type="button" class="filterMasterButton { allFactionsEnabled ? '' : 'filterMasterDisabled' }" on:click={() => handleFilterMasterButtonClick('faction')}>ALL</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowLB')}>
+					<img class="filterImg {$AppData.MH.ShowLB ? '' : 'filterInactive'}" src="./img/factions/lightbearer.png" alt="Lightbearer">
+				</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowM')}>
+					<img class="filterImg {$AppData.MH.ShowM ? '' : 'filterInactive'}" src="./img/factions/mauler.png" alt="Mauler">
+				</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowW')}>
+					<img class="filterImg {$AppData.MH.ShowW ? '' : 'filterInactive'}" src="./img/factions/wilder.png" alt="wilder">
+				</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowGB')}>
+					<img class="filterImg {$AppData.MH.ShowGB ? '' : 'filterInactive'}" src="./img/factions/graveborn.png" alt="Graveborn">
+				</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowC')}>
+					<img class="filterImg {$AppData.MH.ShowC ? '' : 'filterInactive'}" src="./img/factions/celestial.png" alt="Celestial">
+				</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowH')}>
+					<img class="filterImg {$AppData.MH.ShowH ? '' : 'filterInactive'}" src="./img/factions/hypogean.png" alt="Hypogean">
+				</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowD')}>
+					<img class="filterImg {$AppData.MH.ShowD ? '' : 'filterInactive'}" src="./img/factions/dimensional.png" alt="Dimensional">
+				</button>
 			</div>
-		</div>
-		<div class="mobileExpanderTitle">
-			<button type="button" class="filtersButton" on:click={() => openFilters = !openFilters}><i class="arrow {openFilters ? 'open' : 'right' }"></i><span>Search and Filters</span></button>
-			<div class="tooltip tooltip-expander"><span class="tooltipText">Filters</span></div>
+			<div class="filterSection">
+				<button type="button" class="filterMasterButton { allTypesEnabled ? '' : 'filterMasterDisabled' }" on:click={() => handleFilterMasterButtonClick('type')}>ALL</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowInt')}>
+					<img class="filterImg {$AppData.MH.ShowInt ? '' : 'filterInactive'}" src="./img/types/intelligence.png" alt="Intelligence">
+				</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowAgi')}>
+					<img class="filterImg {$AppData.MH.ShowAgi ? '' : 'filterInactive'}" src="./img/types/agility.png" alt="Agility">
+				</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowStr')}>
+					<img class="filterImg {$AppData.MH.ShowStr ? '' : 'filterInactive'}" src="./img/types/strength.png" alt="Strength">
+				</button>
+			</div>
+			<div class="filterSection">
+				<button type="button" class="filterMasterButton { allClassEnabled ? '' : 'filterMasterDisabled' }" on:click={() => handleFilterMasterButtonClick('class')}>ALL</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowMage')}>
+					<img class="filterImg {$AppData.MH.ShowMage ? '' : 'filterInactive'}" src="./img/classes/mage.png" alt="Mage">
+				</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowWar')}>
+					<img class="filterImg {$AppData.MH.ShowWar ? '' : 'filterInactive'}" src="./img/classes/warrior.png" alt="Warrior">
+				</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowTank')}>
+					<img class="filterImg {$AppData.MH.ShowTank ? '' : 'filterInactive'}" src="./img/classes/tank.png" alt="Tank">
+				</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowSup')}>
+					<img class="filterImg {$AppData.MH.ShowSup ? '' : 'filterInactive'}" src="./img/classes/support.png" alt="Support">
+				</button>
+				<button type="button" class="filterButton" on:click={() => updateFilters('ShowRan')}>
+					<img class="filterImg {$AppData.MH.ShowRan ? '' : 'filterInactive'}" src="./img/classes/ranger.png" alt="Ranger">
+				</button>
+			</div>
 		</div>
 	</section>
 	<section class="sect2">
-		{#if !$AppData.dismissMHSearchInfo}
-			<div class="searchInfo">
-				<div class="tutorialBoxContainer">
-					<TutorialBox clickable={true} onClick={() => {$AppData.dismissMHSearchInfo = true; dispatch('routeEvent', {action: 'saveData'})}}>
-						Just start typing to search! Pressing tab will also open and close the filter area.
-					</TutorialBox>
-				</div>
-			</div>
-		{/if}
 		<div class="sectionPickerSection">
 			<ul class="sectionPicker">
 				{#each sections as section, i}
 				<li>
-					<button type="button" class="sectionButton" class:active={$AppData.MH.openSection === i} on:click={() => { $AppData.MH.openSection = i; dispatch('routeEvent', {action: 'saveData'})} }>{section}</button>
+					<button type="button" class="sectionButton" class:active={$AppData.MH.openSection === i} on:click={() => { $AppData.MH.openSection = i; dispatch('routeEvent', {action: 'saveData'})} }>
+						<span>{section}</span>
+					</button>
 				</li>
 				{/each}
 			</ul>
@@ -695,31 +664,173 @@
 	</section>
 	<section class="sect3">
 		<div class="inOutMenu {openInOutMenu ? 'open' : ''}">
-			<button type="button" class="inOutButton" on:click={handleExportData}><img src="./img/utility/export.png" alt="export"></button>
+			<button type="button" class="inOutButton" on:click={handleExportData}><img src="./img/utility/export_white.png" alt="export"></button>
 			<div class="tooltip tooltip-inOutButton1"><span class="tooltipText">Export Data</span></div>
-			<button type="button" class="inOutButton" on:click={handleImportData}><img src="./img/utility/import.png" alt="import"></button>
+			<button type="button" class="inOutButton" on:click={handleImportData}><img src="./img/utility/import_white.png" alt="import"></button>
 			<div class="tooltip tooltip-inOutButton2"><span class="tooltipText">Import Data</span></div>
 		</div>
-		<button type="button" class="inOutMenuButton" on:click={(e) => {openInOutMenu = !openInOutMenu; e.stopPropagation();}}><img src="./img/utility/export_import.png" alt="Import/Export"></button>
-	</section>
-	<section class="sect4">
-		<div class="copyConfirm" class:visible={copyConfirmVisible}><span>My Hero Data Copied to Clipboard</span></div>
+		<button type="button" class="inOutMenuButton" on:click={(e) => {openInOutMenu = !openInOutMenu; e.stopPropagation();}}><img src="./img/utility/import_export_white.png" alt="Import/Export"></button>
 	</section>
 </div>
 
 <style lang="scss">
 	.MHContainer {
 		height: 100%;
-		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight) - 40px); /* gymnastics to set height for mobile browsers */
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		overflow-y: auto;
 		padding: 10px;
 	}
 	.sect1 {
-		bottom: 0;
-		left: 0;
-		position: fixed;
 		width: 100%;
-		z-index: 3;
+		.searchArea {
+			align-items: center;
+			display: flex;
+			justify-content: center;
+			padding: 15px;
+			padding-top: 5px;
+			position: relative;
+			width: 100%;
+			#searchBox {
+				background-color: var(--appBGColorLight);
+				border: none;
+				border-radius: 5px;
+				box-shadow: var(--neu-med-i-BGColor-shadow);
+				font-size: 1.2rem;
+				outline: none;
+				padding: 8px;
+				width: 100%;
+				&:focus {
+					background-color: white;
+				}
+			}
+			.headButton {
+				align-items: center;
+				background-color: transparent;
+				border: none;
+				border-radius: 10px;
+				cursor: pointer;
+				display: flex;
+				height: 40px;
+				justify-content: center;
+				outline: none;
+				position: absolute;
+				transition: all 0.2s;
+				width: 40px;
+			}
+			.searchButton {
+				right: 79px;
+				.searchImage {
+					max-width: 25px;
+					opacity: 0.3;
+					filter: invert(1);
+				}
+			}
+			.openFiltersButton {
+				right: 42px;
+				.openFiltersImage {
+					max-width: 25px;
+					opacity: 0.3;
+					filter: invert(1);
+				}
+				&.open {
+					.openFiltersImage {
+						opacity: 0.7;
+					}
+				}
+			}
+		}
+		.filterArea {
+			display: flex;
+			flex-direction: row;
+			background: var(--appBGColor);
+			border-radius: 10px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			display: flex;
+			flex-direction: column;
+			left: 50%;
+			opacity: 0;
+			position: absolute;
+			top: 115px;
+			transform: translate(-50%, 0);
+			transition: all 0.2s;
+			visibility: hidden;
+			width: 90%;
+			z-index: 2;
+			.sortContainer {
+				align-items: center;
+				border-bottom: 1px solid black;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				padding: 5px;
+				.sortTitle {
+					margin-bottom: 5px;
+				}
+			}
+			.filterSection {
+				border-bottom: 1px solid black;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				justify-content: center;
+				padding-bottom: 7px;
+				padding-left: 10px;
+				width: 100%;
+				&:last-child {
+					border-bottom: none;
+				}
+			}
+			.filterMasterButton {
+				align-items: center;
+				border: 3px solid var(--appColorPrimary);
+				border-radius: 50%;
+				color: var(--appColorPrimary);
+				cursor: pointer;
+				display: flex;
+				font-size: 0.6rem;
+				height: 33px;
+				justify-content: center;
+				margin-right: 15px;
+				margin-top: 7px;
+				padding: 0;
+				text-decoration: none;
+				transition: all .3s;
+				width: 33px;
+				&:active {
+					background-color: var(--appColorPriDark);
+					border-color: var(--appColorPriDark);
+					color: white;
+				}
+				&.filterMasterDisabled {
+					border-color: #888;
+					color: #888;
+					&:active {
+						background-color: #666;
+						border-color: #666;
+						color: white;
+					}
+				}
+			}
+			.filterButton {
+				background: transparent;
+				border: 0;
+				cursor: pointer;
+				display: block;
+				margin-right: 10px;
+				margin-top: 7px;
+				padding: 0;
+				.filterImg {
+					max-width: 33px;
+					&.filterInactive {
+						filter: grayscale(100%);
+					}
+				}
+			}
+			&.open {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
 	}
 	.sect2 {
 		padding: 10px;
@@ -732,16 +843,9 @@
 		width: 60px;
 		z-index: 2;
 	}
-	.sect4 {
-		left: 50%;
-		position: fixed;
-		top: 80px;
-		transform: translate(-50%, 0);
-		width: fit-content;
-	}
 	.sectionPickerSection {
-		margin: 0;
-		width: 100%;
+		margin: 10px;
+		width: 95%;
 	}
 	.sectionPicker {
 		display: flex;
@@ -752,41 +856,32 @@
 		margin: 0;
 		padding: 0;
 		.sectionButton {
-			background-color: transparent;
-			border: 3px solid var(--appColorPrimary);
-			border-bottom: none;
-			border-radius: 10px 10px 0px 0px;
+			align-items: center;
+			border: none;
+			border-radius: 10px;
+			box-shadow: var(--neu-med-i-BGColor-shadow);
 			color: var(--appColorPrimary);
 			cursor: pointer;
-			font-size: 1rem;
-			margin-right: 15px;
+			display: flex;
+			font-size: 1.2rem;
+			justify-content: center;
+			margin: 5px 8px;
 			outline: none;
 			padding: 5px;
-		}
-		.sectionButton.active {
-			background-color: var(--appColorPrimary);
-			color: white;
+			span {
+				opacity: 0.5;
+			}
+			&.active {
+				background: var(--neu-convex-BGLight-bg);
+				span {
+					opacity: 1;
+				}
+			}
 		}
 	}
 	.MHSection {
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 10px;
 		padding: 10px;
 		width: 100%;
-	}
-	input {
-		border: 1px solid var(--appColorPrimary);
-		border-radius: 5px;
-		transition: box-shadow 0.1s;
-		&:focus {
-			border-color: var(--appColorPrimary);
-			box-shadow: 0 0 0 2px var(--appColorPrimary);
-			outline: 0;
-		}
-	}
-	.searchInfo {
-		display: none;
-		visibility: hidden;
 	}
 	.noHeroes {
 		color: rgba(100, 100, 100, 0.3);
@@ -799,245 +894,109 @@
 		width: 100%;
 		user-select: none;
 	}
-	.copyConfirm {
-		background-color: rgba(50, 50, 50, 0.7);
-		border-radius: 10px;
-		color: rgba(255, 255, 255, 0.7);
-		display: none;
-		opacity: 0;
-		padding: 5px;
-		transition: visibility 0.3s, opacity 0.3s;
-		visibility: hidden;
-	}
-	.copyConfirm.visible {
-		display: block;
-		opacity: 1;
-		visibility: visible;
-	}
-	.filtersButton {
-		background-color: var(--appColorSecondary);
-		border: none;
-		color: black;
-		cursor: pointer;
-		font-size: 1.1rem;
-		outline: none;
-		padding: 10px;
-		text-align: left;
-		width: 100%;
-	}
-	.arrow {
-		border: solid black;
-		border-width: 0 3px 3px 0;
-		display: inline-block;
-		margin-right: 16px;
-		padding: 3px;
-		transition: transform 0.2s ease-out;
-	}
-	.arrow.right {
-		transform: rotate(-45deg);
-	}
-	.arrow.open {
-		transform: rotate(-135deg);
-	}
-	.filters {
-		display: flex;
-		flex-direction: row;
-		height: 500px;
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		width: 100%;
-	}
-	.mobileExpander {
-		background-color: var(--appBGColor);
-		max-height: 0;
-		overflow: hidden;
-		transition: max-height 0.2s ease;
-	}
-	.mobileExpander.filterOpen {
-		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
-		max-height: 500px;
-	}
-	.searchContainer {
-		border-bottom: 1px solid black;
-		padding-bottom: 15px;
-		padding-top: 15px;
-		text-align: center;
-		.search {
-			display: inline-block;
-			width: 100%;
-			input {
-				height: 1.6rem;
-				width: 50%;
-			}
-		}
-	}
-	.sortContainer {
-		align-items: center;
-		border-bottom: 1px solid black;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		padding: 5px;
-		.sortTitle {
-			margin-bottom: 5px;
-		}
-	}
-	.filterSection {
-		border-bottom: 1px solid black;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-		padding-bottom: 7px;
-		padding-left: 10px;
-		width: 100%;
-		.filterMasterButton {
-			align-items: center;
-			border: 3px solid var(--appColorPrimary);
-			border-radius: 50%;
-			color: var(--appColorPrimary);
-			cursor: pointer;
-			display: flex;
-			font-size: 0.6rem;
-			height: 33px;
-			justify-content: center;
-			margin-right: 15px;
-			margin-top: 7px;
-			text-decoration: none;
-			transition: all .3s;
-			width: 33px;
-			&:active {
-				background-color: var(--appColorPriDark);
-				border-color: var(--appColorPriDark);
-				color: white;
-			}
-		}
-		.filterMasterDisabled {
-			border-color: #888;
-			color: #888;
-			&:active {
-				background-color: #666;
-				border-color: #666;
-				color: white;
-			}
-		}
-		.filterButton {
-			background: transparent;
-			border: 0;
-			cursor: pointer;
-			display: block;
-			margin-right: 10px;
-			margin-top: 7px;
-		}
-		.filterImg {
-			max-width: 33px;
-		}
-		.filterInactive {
-			filter: grayscale(100%);
-		}
-	}
 	.MHGrid {
 		display: grid;
-		grid-gap: 10px 5px;
+		grid-gap: 20px 20px;
 		grid-template-columns: repeat(auto-fill, minmax(330px, 330px));
 		grid-auto-rows: 380px;
 		justify-content: space-evenly;
 	}
 	.heroCard {
-		border: 3px solid var(--appColorPrimary);
+		background-color: var(--appBGColor);
+		border: none;
 		border-radius: 10px;
+		box-shadow: var(--neu-med-i-BGColor-shadow);
 		display: flex;
 		flex-direction: column;
 		max-width: 330px;
 		padding: 10px;
 		position: relative;
-	}
-	.removeArea {
-		z-index: 1;
-	}
-	.removeHeroButtonContainer {
-		position: absolute;
-		top: 5px;
-		right: 5px;
-	}
-	.heroHeader {
-		display: flex;
-		flex-direction: row;
-	}
-	.portraitArea {
-		border-radius: 10px 10px 0px 0px;
-		display: flex;
-		height: 50%;
-		justify-content: center;
-		left: -1px;
-		overflow: hidden;
-		padding-top: 5px;
-		position: absolute;
-		top: -1px;
-		width: 100%;
-	}
-	.portrait {
-		border-radius: 50%;
-		cursor: pointer;
-		height: 160px;
-		width: 160px;
-	}
-	.heroName {
-		display: flex;
-		font-size: 1.7rem;
-		font-weight: bold;
-		justify-content: center;
-		margin: 0;
-		margin-top: 45px;
-		width: 100%;
-	}
-	.starsInputArea {
-		display: flex;
-		justify-content: center;
-		margin-bottom: 15px;
-	}
-	.attrArea {
-		background-color: rgba(0, 0, 0, 0.75);
-		border-radius: 30px;
-		height: fit-content;
-		padding: 5px;
-		position: relative;
-		top: -5px;
-		z-index: 1;
-	}
-	.attrImgContainer {
-		position: relative;
-		.attrImage {
-			max-width: 30px;
+		.removeArea {
+			z-index: 1;
 		}
-	}
-	.tooltip {
-		display: none;
-	}
-	.flipButtonContainer {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-	.ascButtonArea {
-		padding-bottom: 10px;
-	}
-	.siFurnButtonArea {
-		display: flex;
-		flex-direction: row;
-		.flipButtonArea {
-			&:first-child {
-				margin-right: 10px;
+		.removeHeroButtonContainer {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+		}
+		.heroHeader {
+			display: flex;
+			flex-direction: row;
+		}
+		.portraitArea {
+			border-radius: 10px 10px 0px 0px;
+			display: flex;
+			height: 50%;
+			justify-content: center;
+			left: -1px;
+			overflow: hidden;
+			padding-top: 5px;
+			position: absolute;
+			top: -1px;
+			width: 100%;
+			.portrait {
+				border-radius: 50%;
+				cursor: pointer;
+				height: 160px;
+				width: 160px;
 			}
 		}
-	}
-	.numInputArea {
-		display: flex;
-		justify-content: center;
-		padding-top: 5px;
+		.heroName {
+			display: flex;
+			font-size: 1.7rem;
+			font-weight: bold;
+			justify-content: center;
+			margin: 0;
+			margin-top: 45px;
+			width: 100%;
+		}
+		.starsInputArea {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 15px;
+		}
+		.attrArea {
+			background-color: var(--appBGColor);
+			border-radius: 30px;
+			box-shadow: var(--neu-sm-ni-BGColor-shadow);
+			height: fit-content;
+			padding: 6px;
+			position: relative;
+			top: -5px;
+			z-index: 1;
+		}
+		.attrImgContainer {
+			position: relative;
+			.attrImage {
+				max-width: 30px;
+			}
+		}
+		.tooltip {
+			display: none;
+		}
+		.flipButtonContainer {
+			align-items: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+		.ascButtonArea {
+			padding-bottom: 10px;
+		}
+		.siFurnButtonArea {
+			display: flex;
+			flex-direction: row;
+			.flipButtonArea {
+				&:first-child {
+					margin-right: 10px;
+				}
+			}
+		}
+		.numInputArea {
+			display: flex;
+			justify-content: center;
+			padding-top: 5px;
+		}
 	}
 	.unownedSection {
 		.MHGrid {
@@ -1083,21 +1042,23 @@
 		background-color: var(--appColorPrimary);
 		border: 2px solid var(--appColorPrimary);
 		border-radius: 50%;
-		box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		cursor: pointer;
 		display: flex;
 		height: 50px;
 		justify-content: center;
-		transition: transform 0.3s ease-out;
 		width: 50px;
 		img {
-			max-width: 40px;
+			max-width: 25px;
+			transition: transform 0.3s ease-out;
 		}
 	}
 	.inOutMenu.open {
 		+ {
 			.inOutMenuButton {
-				transform: rotate(180deg);
+				img {
+					transform: rotate(180deg);
+				}
 			}
 		}
 		max-height: 350px;
@@ -1171,18 +1132,48 @@
 		.MHContainer {
 			display: flex;
 			flex-direction: column;
-			height: 100%;
-			height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
+			height: 100vh;
 			padding: 0px;
 		}
 		.sect1 {
-			display: flex;
-			flex-direction: row;
-			height: fit-content;
-			left: 0;
-			position: fixed;
-			top: 150px;
-			width: max-content;
+			.searchArea {
+				margin: 0 auto;
+				padding-top: 15px;
+				width: 70%;
+				.headButton {
+					&:hover {
+						.searchImage {
+							opacity: 0.5;
+						}
+						.openFiltersImage {
+							opacity: 0.5;
+						}
+					}
+				}
+				.openFiltersButton {
+					&.open {
+						.openFiltersImage {
+							opacity: 0.7;
+						}
+					}
+				}
+			}
+			.filterArea {
+				top: 75px;
+				width: 700px;
+				.filterMasterButton {
+					&:hover {
+						background-color: var(--appColorPrimary);
+						color: rgba(255, 255, 255, 0.9);
+					}
+					&.filterMasterDisabled {
+						&:hover {
+							background-color: #888;
+							color: rgba(255, 255, 255, 0.9);
+						}
+					}
+				}
+			}
 		}
 		.sect2 {
 			padding-left: 50px;
@@ -1190,62 +1181,57 @@
 		}
 		.sectionPicker {
 			justify-content: flex-start;
-		}
-		.sectionButton {
-			margin-right: 0px;
+			li {
+				&:first-child {
+					.sectionButton {
+						margin-left: 0px;
+					}
+				}
+			}
+			.sectionButton {
+				&:hover {
+					background: var(--neu-convex-BGColor-wide-bg);
+				}
+			}
 		}
 		.MHSection {
 			border-radius: 0px 10px 10px 10px;
 		}
-		.searchInfo {
-			display: flex;
-			justify-content: center;
-			visibility: visible;
-			width: 100%;
-		}
-		.tutorialBoxContainer {
-			width: 50%;
-		}
-		.mobileExpanderTitle {
-			height: auto;
-			width: 35px;
-		}
-		.filtersButton {
-			border-radius: 0 50px 50px 0;
-			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-			height: 50px;
-			span {
-				display: none;
+		.heroCard {
+			.tooltip {
+				display: flex;
+				justify-content: center;
+				opacity: 0;
+				position: absolute;
+				transition: opacity 0.2s;
+				visibility: hidden;
+				width: 200px;
+				.tooltipText {
+					background-color: var(--appColorPrimary);
+					border-radius: 6px;
+					color: white;
+					padding: 5px;
+					text-align: left;
+				}
 			}
-			&:hover+.tooltip {
-				opacity: 1;
-				visibility: visible;
+			.tooltip-faction {
+				justify-content: flex-start;
+				left: 45px;
+				top: 0px;
 			}
-		}
-		.tooltip {
-			display: flex;
-			justify-content: center;
-			opacity: 0;
-			position: absolute;
-			transition: opacity 0.2s;
-			visibility: hidden;
-			width: 200px;
-			z-index: 1;
-			.tooltipText {
-				background-color: var(--appColorPrimary);
-				border-radius: 6px;
-				color: white;
-				padding: 5px;
-				text-align: left;
+			.tooltip-type {
+				justify-content: flex-start;
+				left: 45px;
+				top: 0px;
 			}
-		}
-		.tooltip-expander {
-			top: -35px;
-			left: 5px;
-			width: fit-content;
+			.tooltip-class {
+				justify-content: flex-start;
+				left: 45px;
+				top: 0px;
+			}
 		}
 		.tooltip-inOutButton1 {
-			bottom: 85px;
+			bottom: 46px;
 			right: 70px;
 			width: fit-content;
 		}
@@ -1255,21 +1241,6 @@
 			width: fit-content;
 			bottom: 35px;
 		}
-		.tooltip-faction {
-			justify-content: flex-start;
-			left: 40px;
-			top: 0px;
-		}
-		.tooltip-type {
-			justify-content: flex-start;
-			left: 40px;
-			top: 0px;
-		}
-		.tooltip-class {
-			justify-content: flex-start;
-			left: 40px;
-			top: 0px;
-		}
 		.attrImage {
 			&:hover+.tooltip {
 				opacity: 1;
@@ -1277,75 +1248,14 @@
 			}
 		}
 		.inOutButton {
+			+.tooltip {
+				opacity: 0;
+				visibility: hidden;
+			}
 			&:hover+.tooltip {
 				opacity: 1;
 				visibility: visible;
 				width: 100px;
-			}
-		}
-		.mobileExpander {
-			background-color: var(--appBGColor);
-			max-height: 465px;
-			max-width: 0;
-			overflow: none;
-			transition: max-width 0.2s ease;
-		}
-		.mobileExpander.filterOpen {
-			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-			max-height: fit-content;
-			max-width: 100%;
-			padding: 10px;
-		}
-		.mobileExpander.filterOpen+.mobileExpanderTitle {
-			.tooltip {
-				opacity: 0;
-				visibility: hidden;
-			}
-		}
-		.arrow.open {
-			transform: rotate(135deg);
-		}
-		.searchContainer {
-			padding-bottom: 20px;
-			padding-top: 10px;
-			text-align: center;
-			.search {
-				display: inline-block;
-				input {
-					height: 1.5rem;
-					width: 220px;
-				}
-			}
-		}
-		.filters {
-			display: flex;
-			flex-direction: row;
-			height: fit-content;
-			padding-top: 10px;
-		}
-		.filterSection {
-			border: 0;
-			display: block;
-			padding: 0;
-			width: 33%;
-			height: fit-content;
-			.filterMasterButton {
-				&:hover {
-					background-color: var(--appColorPrimary);
-					color: rgba(255, 255, 255, 0.9);
-				}
-				margin: 0 auto;
-				margin-bottom: 10px;
-			}
-			.filterMasterDisabled {
-				&:hover {
-					background-color: #888;
-					color: rgba(255, 255, 255, 0.9);
-				}
-			}
-			.filterButton {
-				margin: 0 auto;
-				margin-bottom: 10px;
 			}
 		}
 	}

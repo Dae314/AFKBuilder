@@ -7,8 +7,10 @@
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from './HeroFinder.svelte';
 	import ImportLine from './ImportLine.svelte';
+	import CompLineEditor from '../components/CompLineEditor.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
 	import XButton from '../shared/XButton.svelte';
+	import HeroButton from '../shared/HeroButton.svelte';
 	import {validateJWT} from '../rest/RESTFunctions.svelte';
 
 	export let compID = null; // uuid for comp to be edited
@@ -16,10 +18,6 @@
 	export let isMobile = false;
 
 	const { close } = getContext('simple-modal');
-
-	$: tagSuggestions = makeTagSuggestions();
-	$: isValidTag = newTagText !== '' && tagValidation.test(newTagText);
-	$: validLogin = $AppData.user.jwt && validateJWT($AppData.user.jwt);
 
 	// this will hold the comp as it's edited
 	let comp = {
@@ -34,6 +32,8 @@
 		lines: [],
 		subs: [],
 		tags: [],
+		hidden: false,
+		source: 'local',
 	}
 	let openLine = null;
 	let statusMessage = '';
@@ -48,8 +48,12 @@
 	let openSuggestions = false;
 	let autosave;
 	let editor; // ToastUI editor
+	let tagInputEl;
 	const tagValidation = new RegExp('^[A-Za-z0-9-_.~]*$');
-	const heroLookup = makeHeroLookup();
+
+	$: tagSuggestions = makeTagSuggestions();
+	$: isValidTag = newTagText !== '' && tagValidation.test(newTagText);
+	$: validLogin = $AppData.user.jwt && validateJWT($AppData.user.jwt);
 
 	onMount(async () => {
 		const queryString = window.location.search;
@@ -100,32 +104,26 @@
 	function makeTagSuggestions() {
 		let suggestions = [];
 		// start suggestions off as an array of all tags in all comps
-		for(const comp of $AppData.Comps) {
+		for(const comp of $AppData.Comps.filter(e => !e.hidden)) {
 			for(const tag of comp.tags) {
-				suggestions.push(tag);
+				if(suggestions.find(e => e.name === tag)) {
+					// tag already counted
+					suggestions.find(e => e.name === tag).count++;
+				} else {
+					// tag not yet counted
+					suggestions.push({name: tag, count: 1});
+				}
 			}
 		}
-		// remove duplicate tags
-		suggestions = [...new Set(suggestions)];
 		// filter suggestions to just strings that match what's already been typed
-		suggestions = suggestions.filter(e => e.toLowerCase().includes(newTagText));
+		suggestions = suggestions.filter(e => e.name.toLowerCase().includes(newTagText.toLowerCase()));
+		// sort suggestions by frequency
+		suggestions = suggestions.sort((a, b) => b.count - a.count);
 		// take only the first 10 suggestions
 		suggestions = suggestions.slice(0, 10);
-		// finally, sort suggestions before returning
-		suggestions.sort();
 
-		return suggestions;
-	}
-
-	function makeHeroLookup() {
-		let lookup = {}
-		for(const hero of $HeroData) {
-			lookup[hero.id] = {
-				portrait: hero.portrait,
-				name: hero.name
-			};
-		}
-		return lookup;
+		// finally make suggestions into an array of strings
+		return suggestions.map(e => e.name);
 	}
 
 	function deleteLine(lineIdx) {
@@ -268,13 +266,26 @@
 	}
 
 	function handleImportLine({srcUUID, srcLine, destLine}) {
-		const srcComp = $AppData.Comps.find(e => e.uuid === srcUUID);
-		const srcHeroes = srcComp.lines[srcLine].heroes;
-		for(const hero of srcHeroes) {
-			// import all hero details
-			if($HeroData.some(e => e.id === hero)) comp.heroes[hero] = srcComp.heroes[hero];
+		if(srcUUID !== comp.uuid || srcLine !== destLine) {
+			const srcComp = $AppData.Comps.find(e => e.uuid === srcUUID);
+			const srcHeroes = srcComp.lines[srcLine].heroes;
+			// remove any heroes who already exist in the line
+			let heroID;
+			for(let i = 0; i < comp.lines[destLine].heroes.length; i++) {
+				if(comp.lines[destLine].heroes[i] !== 'unknown') {
+					heroID = comp.lines[destLine].heroes[i];
+					comp.lines[destLine].heroes[i] = 'unknown';
+					removeHeroesReference(heroID);
+				}
+			}
+			// import all hero details from source
+			for(const hero of srcHeroes) {
+				if($HeroData.some(e => e.id === hero)) comp.heroes[hero] = srcComp.heroes[hero];
+			}
+			// replace the line with the one from source
+			comp.lines[destLine] = srcComp.lines[srcLine];
 		}
-		comp.lines[destLine] = srcComp.lines[srcLine];
+		// do nothing if user requested to import the same line into itself
 	}
 
 	function closeImportLine() {
@@ -356,7 +367,8 @@
 	}
 
 	function handleAddTag() {
-		if(isValidTag) {
+		const valid = newTagText !== '' && tagValidation.test(newTagText);
+		if(valid) {
 			comp.tags = [...comp.tags, newTagText];
 		}
 		newTagText = '';
@@ -379,19 +391,7 @@
 
 	function takeTagSuggestion(suggestion) {
 		newTagText = suggestion;
-		handleAddTag();
-	}
-
-	function validateLineEditHead(list) {
-		// catch if a user dragged something we weren't expecting and exit
-		if(!Array.isArray(list)) return false;
-		// don't allow overwrite if there are missing lines
-		if(list.length !== comp.lines.length) return false;
-		for(const item of list) {
-			// don't allow overwrite if list is not a list of objects
-			if(Object.prototype.toString.call(item) !== '[object Object]') return false;
-		}
-		return true;
+		tagInputEl.blur();
 	}
 
 	function handleLineSort(event) {
@@ -406,18 +406,6 @@
 				openLine = from;
 			}
 		}
-	}
-
-	function validateLineDisplay(list) {
-		// catch if a user dragged something we weren't expecting and exit
-		if(!Array.isArray(list)) return false;
-		// don't allow overwrite if there are missing/additional heroes
-		if(list.length !== 5) return false;
-		for(const item of list) {
-			// don't allow overwrite if hero isn't in HeroData and isn't 'unknown'
-			if(!$HeroData.some(e => e.id === item) && !item === 'unknown') return false;
-		}
-		return true;
 	}
 
 	function handleLineDisplaySort(event) {
@@ -441,6 +429,51 @@
 		const subIdx = parseInt(group.slice(8, group.length));
 		comp.subs[subIdx].heroes = newList;
 	}
+
+	async function handleLineEvent(event) {
+		let config;
+		switch(event.detail.action) {
+			case 'addLine':
+				addLine();
+				break;
+			case 'deleteLine':
+				deleteLine(event.detail.data);
+				break;
+			case 'lineDisplaySort':
+				handleLineDisplaySort(event.detail.data);
+				break;
+			case 'addHero':
+				config = event.detail.data;
+				config.onSuccess = updateLineHero;
+				config.close = closeHeroFinder;
+				openHeroFinder(config);
+				break;
+			case 'deleteHero':
+				removeLineHero(event.detail.data.lineIdx, event.detail.data.heroIdx);
+				break;
+			case 'lineSort':
+				handleLineSort(event.detail.data);
+				break;
+			case 'importLine':
+				config = event.detail.data;
+				config.onSuccess = handleImportLine;
+				config.close = closeImportLine;
+				handleImportLineClick(config);
+				break;
+			default:
+				throw new Error(`Invalid action specified on compLineEvent: ${action}`);
+		}
+	}
+
+	async function handleHeroButtonEvent(event, config) {
+		switch(event.detail.action) {
+			case 'heroClick':
+				openHeroFinder(config);
+				break;
+			default:
+				throw new Error(`Invalid action specified on heroButtonEvent: ${action}`);
+		}
+	}
 </script>
 
 <svelte:window on:popstate={handlePopState} />
@@ -448,8 +481,8 @@
 <div class="editorContainer">
 	<section class="sect1">
 		<div class="editorHead">
-			<input class="titleInput" type="text" bind:value={comp.name} placeholder="Title" maxlength="50" class:maxed={comp.name.length >= 50}>
-			<input disabled={validLogin} class="authorInput" type="text" bind:value={comp.author} placeholder="Author" maxlength="50" class:maxed={comp.author.length >= 50}>
+			<input class="titleInput" type="text" bind:value={comp.name} placeholder="Title" maxlength="50" class:invalid={comp.name.length >= 50 || comp.name.length <= 0}>
+			<input disabled={validLogin} class="authorInput" type="text" bind:value={comp.author} placeholder="Author" maxlength="50" class:invalid={comp.author.length >= 50 || comp.author.length <= 0}>
 			{#if comp.draft}
 				<div class="draftContainer"><span class="draftLabel">draft</span></div>
 			{/if}
@@ -457,12 +490,9 @@
 				<h5>Tags</h5>
 				<div class="tagDisplay">
 					{#each comp.tags as tag, i}
-						<div class="tag">
+						<button type="button" class="rmTagButton" on:click={() => removeTag(i)}>
 							<span class="tagText">{tag}</span>
-							<div class="removeTagButtonContainer">
-								<XButton clickCallback={() => removeTag(i)} size="small" hoverable={false} />
-							</div>
-						</div>
+						</button>
 					{/each}
 					{#if !addTagOpen}
 						<button
@@ -486,6 +516,7 @@
 								class:invalid={!isValidTag}
 								type="text"
 								bind:value={newTagText}
+								bind:this={tagInputEl}
 								on:focus={() => {tagSuggestions = makeTagSuggestions(); openSuggestions = true; }}
 								on:blur={handleAddTag}
 								on:keyup={(e) => handleTagKeyUp(e)}
@@ -501,98 +532,14 @@
 			</div>
 		</div>
 		<div class="row1">
-			<div class="lineEditor">
-				<h4 class="lineEditorTitle">Lines</h4>
-				<div class="lineEditHead">
-					<SimpleSortableList
-						list={comp.lines}
-						groupID="lineEditHead"
-						validate={validateLineEditHead}
-						on:sort={handleLineSort}
-						let:item={line}
-						let:i={i}>
-						<button type="button" class="linePickerOption" class:open={openLine === i} on:click={() => openLine = i}>
-							<span>{line.name}</span>
-							<div class="removeButtonContainer" class:open={openLine === i}>
-								<XButton clickCallback={() => deleteLine(i)} size="small" hoverable={false} />
-							</div>
-						</button>
-					</SimpleSortableList>
-					<button type="button" class="linePickerOption addLineButton" on:click={addLine}>+</button>
-				</div>
-				<div class="lineEditBody">
-					{#if openLine === null}
-						<span class="noLine">Select a line to edit.</span>
-					{:else}
-						<div class="lineDisplayHead">
-							<input type="text" class="lineNameInput" bind:value={comp.lines[openLine].name} placeholder="Line Name" maxlength="30" class:maxed={comp.lines[openLine].name.length >= 30}>
-							<button type="button" class="importLineButton" on:click={() => handleImportLineClick({idx: openLine, onSuccess: handleImportLine, close: closeImportLine, })}>
-								<img class="importLineImage" src="./img/utility/import_line_white.png" alt="Import Line">
-							</button>
-						</div>
-						<div class="lineDisplay">
-							<SimpleSortableList
-								list={[...comp.lines[openLine].heroes].reverse()}
-								groupID="lineDisplay"
-								validate={validateLineDisplay}
-								on:sort={handleLineDisplaySort}
-								let:item={hero}
-								let:i={i}>
-								{#if hero === 'unknown'}
-									<button type="button" class="addHeroButton lineButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>
-										<span>+</span>
-									</button>
-								{:else}
-									<button type="button" class="heroButton" on:click={() => openHeroFinder({idx: openLine, pos: i, onSuccess: updateLineHero, close: closeHeroFinder, oldHeroID: hero, compHeroData: comp.heroes, })}>
-										<div class="imgContainer">
-											<img draggable="false" src={heroLookup[hero].portrait} alt={heroLookup[hero].name}>
-											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-											<div class="removeHeroButtonContainer">
-												<XButton clickCallback={() => removeLineHero(openLine, i)} size="medium" hoverable={false} />
-											</div>
-											<div class="ascMark">
-												{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-													{#if comp.heroes[hero].ascendLv >= 6}
-														<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
-													{:else if comp.heroes[hero].ascendLv >= 4}
-														<img draggable="false" src="./img/markers/mythic.png" alt="mythic">
-													{:else if comp.heroes[hero].ascendLv >= 2}
-														<img draggable="false" src="./img/markers/legendary.png" alt="legendary">
-													{:else}
-														<img draggable="false" src="./img/markers/elite.png" alt="elite">
-													{/if}
-												{:else}
-													{#if comp.heroes[hero].ascendLv >= 4}
-														<img draggable="false" src="./img/markers/legendary.png" alt="ascended">
-													{:else if comp.heroes[hero].ascendLv >= 2}
-														<img draggable="false" src="./img/markers/elite.png" alt="mythic">
-													{:else}
-														<img draggable="false" src="./img/markers/rare.png" alt="elite">
-													{/if}
-												{/if}
-												{#if comp.heroes[hero].si >= 30}
-													<img draggable="false" src="./img/markers/si30.png" alt="si30">
-												{:else if comp.heroes[hero].si >= 20}
-													<img draggable="false" src="./img/markers/si20.png" alt="si20">
-												{:else if comp.heroes[hero].si >= 10}
-													<img draggable="false" src="./img/markers/si10.png" alt="si10">
-												{:else}
-													<img draggable="false" src="./img/markers/si0.png" alt="si0">
-												{/if}
-												{#if comp.heroes[hero].furn >= 9}
-													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-												{:else if comp.heroes[hero].furn >= 3}
-													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-												{/if}
-											</div>
-										</div>
-										<p>{heroLookup[hero].name}</p>
-									</button>
-								{/if}
-							</SimpleSortableList>
-						</div>
-					{/if}
-				</div>
+			<div class="lineEditArea">
+				<CompLineEditor
+					lines={comp.lines}
+					compHeroes={comp.heroes}
+					bind:selectedLine={openLine}
+					editMode
+					on:compLineEvent={handleLineEvent}
+				/>
 			</div>
 			<div class="descEditor">
 				<h4>Description</h4>
@@ -607,9 +554,11 @@
 					{#each comp.subs as sub, i}
 						<div class="subGroup">
 							<div class="subTitle">
-								<input class="subTitleInput" type="text" bind:value={sub.name} placeholder="Subgroup Name" maxlength="50" class:maxed={sub.name.length >= 50}>
+								<input class="subTitleInput" type="text" bind:value={sub.name} placeholder="Subgroup Name" maxlength="50" class:invalid={sub.name.length <= 0 || sub.name.length >= 50}>
 								<div class="removeButtonContainer">
-									<XButton clickCallback={() => deleteSub(i)} size="large" hoverable={true} />
+									<button type="button" class="deleteSubButton" on:click|stopPropagation={() => deleteSub(i)}>
+										<img class="deleteSubImage" src="./img/utility/trashcan_white.png" alt="Delete Sub">
+									</button>
 								</div>
 							</div>
 							<div class="subLine">
@@ -621,52 +570,14 @@
 									let:item={hero}
 									let:i={j}>
 									<div class="subGroupMember">
-										<button type="button" class="heroButton" on:click={() => openHeroFinder({idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes, })}>
-											<img
-												draggable="false"
-												src={$HeroData.some(e => e.id === hero) ? heroLookup[hero].portrait : './img/portraits/unavailable.png'}
-												alt={$HeroData.some(e => e.id === hero) ? heroLookup[hero].name : 'Pick a Hero'}>
-											<div class="removeHeroButtonContainer">
-												<XButton clickCallback={() => removeSubHero(i, j)} size="medium" hoverable={false} />
-											</div>
-											<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-											<div class="ascMark subAscMark">
-												{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-													{#if comp.heroes[hero].ascendLv >= 6}
-														<img draggable="false" src="./img/markers/ascended.png" alt="ascended">
-													{:else if comp.heroes[hero].ascendLv >= 4}
-														<img draggable="false" src="./img/markers/mythic.png" alt="mythic">
-													{:else if comp.heroes[hero].ascendLv >= 2}
-														<img draggable="false" src="./img/markers/legendary.png" alt="legendary">
-													{:else}
-														<img draggable="false" src="./img/markers/elite.png" alt="elite">
-													{/if}
-												{:else}
-													{#if comp.heroes[hero].ascendLv >= 4}
-														<img draggable="false" src="./img/markers/legendary.png" alt="ascended">
-													{:else if comp.heroes[hero].ascendLv >= 2}
-														<img draggable="false" src="./img/markers/elite.png" alt="mythic">
-													{:else}
-														<img draggable="false" src="./img/markers/rare.png" alt="elite">
-													{/if}
-												{/if}
-												{#if comp.heroes[hero].si >= 30}
-													<img draggable="false" src="./img/markers/si30.png" alt="si30">
-												{:else if comp.heroes[hero].si >= 20}
-													<img draggable="false" src="./img/markers/si20.png" alt="si20">
-												{:else if comp.heroes[hero].si >= 10}
-													<img draggable="false" src="./img/markers/si10.png" alt="si10">
-												{:else}
-													<img draggable="false" src="./img/markers/si0.png" alt="si0">
-												{/if}
-												{#if comp.heroes[hero].furn >= 9}
-													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-												{:else if comp.heroes[hero].furn >= 3}
-													<img draggable="false" class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-												{/if}
-											</div>
-										</button>
-										<p>{heroLookup[hero].name}</p>
+										<HeroButton 
+											hero={hero}
+											heroDetails={comp.heroes[hero]}
+											on:heroButtonEvent={(event) => handleHeroButtonEvent(event, {idx: i, pos: j, onSuccess: updateSubHero, close: closeHeroFinder, oldHeroData: comp.heroes[hero], oldHeroID: hero, compHeroData: comp.heroes,})}
+										/>
+										<div class="removeHeroContainer">
+											<XButton clickCallback={() => removeSubHero(i, j)} size="medium" hoverable />
+										</div>
 									</div>
 								</SimpleSortableList>
 								<button type="button" class="addHeroButton" on:click={() => openHeroFinder({idx: i, pos: sub.heroes.length, onSuccess: updateSubHero, close: closeHeroFinder, compHeroData: comp.heroes, })}>+</button>
@@ -703,21 +614,6 @@
 <style lang="scss">
 	.editorContainer {
 		padding: 10px;
-	}
-	input {
-		border: 1px solid var(--appColorPrimary);
-		border-radius: 5px;
-		transition: box-shadow 0.1s;
-		&:focus {
-			border-color: var(--appColorPrimary);
-			box-shadow: 0 0 0 2px var(--appColorPrimary);
-			outline: 0;
-		}
-	}
-	input.maxed {
-		border-color: var(--appDelColor);
-		outline: 0;
-		box-shadow: 0 0 0 2px var(--appDelColor);
 	}
 	.sect2 {
 		display: none;
@@ -764,14 +660,14 @@
 		padding: 5px;
 		transition: visibility 0.3s, opacity 0.3s;
 		visibility: hidden;
-	}
-	.statusMessage.visible {
-		display: block;
-		opacity: 1;
-		visibility: visible;
-	}
-	.statusMessage.error {
-		background-color: var(--appDelColorOpaque);
+		&.visible {
+			display: block;
+			opacity: 1;
+			visibility: visible;
+		}
+		&.error {
+			background-color: var(--appDelColorOpaque);
+		}
 	}
 	h4 {
 		margin: 0;
@@ -786,330 +682,189 @@
 		font-weight: bold;
 		font-style: italic;
 	}
-	.tagsArea {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		h5 {
-			margin: 5px 0px;
-			text-align: center;
-		}
-	}
-	.tagDisplay {
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-		margin-bottom: 10px;
-		width: 100%;
-		.tag {
-			position: relative;
-			margin: 0px 5px;
-			margin-bottom: 5px;
-		}
-		.tagText {
-			border: 1px solid var(--appColorPrimary);
-			border-radius: 15px;
-			display: inline-block;
-			background-color: var(--appColorPrimary);
-			color: white;
-			font-size: 0.8rem;
-			padding: 0px 5px;
-			padding-bottom: 4px;
-			text-align: center;
-			user-select: none;
-		}
-		.removeTagButtonContainer {
-			position: absolute;
-			right: -5px;
-			top: 0;
-		}
-		.addTagButton {
-			align-items: center;
-			background-color: transparent;
-			border: 3px solid var(--appColorPrimary);
-			border-radius: 50%;
-			color: var(--appColorPrimary);
-			cursor: pointer;
-			display: flex;
-			font-size: 1rem;
-			font-weight: bold;
-			height: 20px;
-			justify-content: center;
-			margin-left: 10px;
-			padding: 0;
-			user-select: none;
-			-webkit-appearance: none;
-			width: 20px;
-			&:disabled {
-				border-color: #BEBEBE;
-				color: #BEBEBE;
-				cursor: default;
-			}
-		}
-		.newTagInputArea {
-			position: relative;
-		}
-		.tagInput {
-			margin-left: 10px;
-			&.invalid {
-				border: 1px solid var(--appDelColor);
-				outline: 2px solid var(--appDelColor);
-			}
-		}
-		.addTagButton.noMargin, .tagInput.noMargin {
-			margin: 0;
-		}
-		.suggestions {
-			background-color: white;
-			border: 1px solid var(--appColorPrimary);
-			border-radius: 0px 0px 10px 10px;
-			border-top: 0;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-			display: flex;
-			flex-direction: column;
-			left: 22.5px;
-			opacity: 0;
-			position: absolute;
-			top: 22px;
-			transition: all 0.2s;
-			visibility: hidden;
-			width: 80%;
-			z-index: 5;
-			.suggestionButton {
-				background: transparent;
-				border: 0;
-				border-bottom: 1px solid var(--appColorPrimary);
-				color: var(--appColorPrimary);
-				cursor: pointer;
-				font-size: 1rem;
-				outline: 0;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				&:hover {
-					color: white;
-					background-color: var(--appColorPrimary);
-				}
-				&:last-child {
-					border-bottom: 0;
-					border-radius: 0px 0px 10px 10px;
-				}
-			}
-		}
-		.suggestions.open {
-			visibility: visible;
-			opacity: 1;
-		}
-	}
-	.lineEditorTitle {
-		margin-top: 0;
-	}
 	.editorHead {
 		align-items: center;
 		border-bottom: 1px solid black;
 		display: flex;
 		flex-direction: column;
-	}
-	.titleInput {
-		font-size: 1.5rem;
-		margin-bottom: 10px;
-		margin-bottom: 5px;
-		text-align: center;
-		width: 80%;
-	}
-	.authorInput {
-		text-align: center;
-	}
-	.lineEditor {
-		padding: 10px 0px;
-		width: 100%;
-	}
-	.lineEditHead {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		width: 100%;
-		:global(div) {
-			border: 0;
-			margin: 0;
-			padding: 0;
+		.titleInput {
+			background-color: var(--appBGColor);
+			border: none;
+			border-radius: 5px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			font-size: 1.5rem;
+			margin-bottom: 15px;
+			outline: none;
+			text-align: center;
+			width: 80%;
+			&:focus {
+				background-color: white;
+				box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+			}
+			&.invalid {
+				outline: 2px solid var(--appDelColor);
+			}
 		}
-	}
-	.linePickerOption {
-		align-items: center;
-		border: 0;
-		border: 2px solid var(--appColorPrimary);
-		border-bottom: none;
-		border-radius: 10px 10px 0px 0px;
-		cursor: pointer;
-		display: flex;
-		justify-content: center;
-		max-width: 100px;
-		min-width: 40px;
-		min-height: 26px;
-		padding: 3px;
-		span {
-			display: inline-block;
+		.authorInput {
+			background-color: var(--appBGColor);
+			border: none;
+			border-radius: 5px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			margin-bottom: 10px;
+			outline: none;
+			text-align: center;
+			&:focus {
+				background-color: white;
+				box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+			}
+			&.invalid {
+				outline: 2px solid var(--appDelColor);
+			}
+			&:disabled {
+				color: var(--appColorDisabled);
+			}
+		}
+		.tagsArea {
 			width: 100%;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-		.removeButtonContainer {
-			margin-left: 3px;
-		}
-	}
-	.linePickerOption.open {
-		background-color: var(--appColorPrimary);
-		color: white;
-	}
-	.addLineButton {
-		min-width: 20px;
-		padding: 3px;
-		user-select: none;
-	}
-	.lineEditBody {
-		align-items: center;
-		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 10px;
-		color: black;
-		display: flex;
-		flex-direction: column;
-		padding: 5px;
-		width: 100%;
-		.lineDisplayHead {
 			display: flex;
-			justify-content: center;
-			position: relative;
-			width: 100%;
-			.lineNameInput {
+			flex-direction: column;
+			h5 {
+				margin: 0px;
+				margin-bottom: 10px;
 				text-align: center;
 			}
-			.importLineButton {
+			.tagDisplay {
 				align-items: center;
-				background-color: var(--appColorPrimary);
-				border: 2px solid var(--appColorPrimary);
-				border-radius: 5px;
-				cursor: pointer;
 				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
 				justify-content: center;
-				margin-left: auto;
-				outline: none;
-				padding: 3px;
-				position: absolute;
-				right: 0px;
-				.importLineImage {
-					max-width: 15px;
+				margin-bottom: 10px;
+				width: 100%;
+				.rmTagButton {
+					background-color: var(--appBGColor);
+					border: none;
+					border-radius: 15px;
+					box-shadow: var(--neu-sm-ni-BGColor-shadow);
+					cursor: pointer;
+					display: inline-block;
+					font-size: 0.8rem;
+					margin: 0px 8px;
+					margin-bottom: 10px;
+					outline: none;
+					padding: 2px 8px;
+					text-align: center;
+					.tagText {
+						border: none;
+						border-radius: 15px;
+						display: inline-block;
+						user-select: none;
+					}
+					&:before {
+						background-color: var(--appDelColor);
+						border-radius: 50%;
+						color: var(--appBGColor);
+						content: '—';
+						font-weight: bold;
+						font-size: 0.6rem;
+						margin-right: 5px;
+						text-align: center;
+					}
+				}
+				.addTagButton {
+					align-items: center;
+					background-color: transparent;
+					border: none;
+					border-radius: 50%;
+					box-shadow: var(--neu-sm-i-BGColor-shadow);
+					color: var(--appColorPrimary);
+					cursor: pointer;
+					display: flex;
+					font-size: 1rem;
+					font-weight: bold;
+					height: 23px;
+					justify-content: center;
+					margin-bottom: 7px;
+					margin-left: 10px;
+					padding: 0;
+					user-select: none;
+					-webkit-appearance: none;
+					width: 23px;
+					&:disabled {
+						color: #BEBEBE;
+						cursor: default;
+					}
+					&.noMargin {
+						margin: 0;
+					}
+				}
+				.newTagInputArea {
+					position: relative;
+					.tagInput {
+						background-color: var(--appBGColor);
+						border: none;
+						border-radius: 5px;
+						box-shadow: var(--neu-sm-i-BGColor-shadow);
+						margin-left: 10px;
+						margin-bottom: 7px;
+						outline: none;
+						text-align: center;
+						&:focus {
+							background-color: white;
+							box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+						}
+						&.invalid {
+							outline: 2px solid var(--appDelColor);
+						}
+						&.noMargin {
+							margin: 0;
+						}
+					}
+					.suggestions {
+						background-color: var(--appBGColor);
+						border: none;
+						border-radius: 0px 0px 10px 10px;
+						box-shadow: 5px 5px 8px #ccccce;
+						display: flex;
+						flex-direction: column;
+						left: 22.5px;
+						opacity: 0;
+						position: absolute;
+						top: 22px;
+						transition: all 0.2s;
+						visibility: hidden;
+						width: 80%;
+						z-index: 5;
+						&.open {
+							visibility: visible;
+							opacity: 1;
+						}
+						.suggestionButton {
+							background: transparent;
+							border: none;
+							color: var(--appBlack);
+							cursor: pointer;
+							font-size: 1rem;
+							outline: none;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							&:last-child {
+								border-bottom: 0;
+								border-radius: 0px 0px 10px 10px;
+							}
+						}
+					}
 				}
 			}
 		}
 	}
-	.noLine {
-		color: rgba(100, 100, 100, 0.5);
-		font-size: 1rem;
-		font-weight: bold;
-		text-align: center;
-		text-transform: uppercase;
-		user-select: none;
-		width: 100%;
-	}
-	.lineDisplay {
-		align-items: center;
-		display: flex;
-		width: 170px;
-		flex-direction: column-reverse;
-		height: 290px;
-		flex-wrap: wrap;
-		justify-content: center;
-	}
-	.lineButton {
-		margin: 5px;
-	}
-	.heroButton {
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		padding: 0;
-		position: relative;
-		img {
-			border-radius: 50%;
-			max-width: 60px;
+	.row1 {
+		.lineEditArea {
+			padding: 10px 0px;
 		}
-		p {
-			font-weight: bold;
-			margin: 0;
-			overflow: hidden;
-			text-align: center;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			width: 70px;
-		}
-	}
-	.imgContainer {
-		height: fit-content;
-		position: relative;
-		width: fit-content;
-	}
-	.coreMark {
-		background-color: var(--legendColor);
-		border: 3px solid var(--appBGColor);
-		border-radius: 50%;
-		bottom: 0px;
-		display: none;
-		height: 22px;
-		position: absolute;
-		right: -4px;
-		visibility: hidden;
-		width: 22px;
-	}
-	.coreMark.visible {
-		display: inline-block;
-		pointer-events: none;
-		visibility: visible;
-	}
-	.removeHeroButtonContainer {
-		position: absolute;
-		right: -6px;
-		top: 0;
-	}
-	.ascMark {
-		left: -11px;
-		position: absolute;
-		top: -5px;
-		img {
-			border-radius: 0;
-			left: 0;
-			max-width: 35px;
-			pointer-events: none;
-			position: absolute;
-			top: 0;
-		}
-		img.moveup {
-			top: -3.5px;
-		}
-	}
-	.heroButton+p {
-		color: black;
-		font-size: 0.8rem;
-		font-weight: bold;
-		margin: 0;
-		overflow: hidden;
-		text-align: center;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		width: 70px;
 	}
 	.subLine {
-		p {
-			color: black;
-		}
 		display: flex;
 		flex-wrap: wrap;
 		max-width: 100%;
@@ -1132,17 +887,54 @@
 		flex-direction: row;
 		margin-bottom: 5px;
 		padding: 5px;
+		padding-bottom: 10px;
+		.subTitleInput {
+			background-color: var(--appBGColor);
+			border: none;
+			border-radius: 5px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			font-weight: bold;
+			outline: none;
+			padding: 3px;
+			text-align: center;
+			&:focus {
+				background-color: white;
+				box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+			}
+			&.invalid {
+				outline: 2px solid var(--appDelColor);
+			}
+		}
 		.removeButtonContainer {
-			margin-left: 5px;
+			margin-left: 10px;
+			.deleteSubButton {
+				align-items: center;
+				background-color: var(--appDelColor);
+				border: none;
+				border-radius: 5px;
+				box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+				cursor: pointer;
+				display: flex;
+				justify-content: center;
+				outline: none;
+				padding: 5px;
+				.deleteSubImage {
+					max-width: 12px;
+				}
+			}
 		}
 	}
 	.subGroupMember {
 		align-items: center;
 		display: flex;
 		flex-direction: column;
-		margin-left: 5px;
-		margin-right: 7px;
-		margin-bottom: 7px;
+		margin: 10px;
+		position: relative;
+		.removeHeroContainer {
+			position: absolute;
+			right: -7px;
+			top: -10px;
+		}
 	}
 	.addHeroButton {
 		background: transparent;
@@ -1154,23 +946,26 @@
 		flex-shrink: 0;
 		font-size: 1.5rem;
 		height: 60px;
-		margin-left: 5px;
+		margin: 10px;
+		margin-top: 20px;
 		width: 60px;
 	}
 	.newSubArea {
 		align-items: center;
 		display: flex;
 		justify-content: center;
-	}
-	.subAddButton {
-		background-color: var(--appColorPrimary);
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 10px;
-		color: white;
-		cursor: pointer;
-		height: fit-content;
-		padding: 5px;
-		width: fit-content;
+		.subAddButton {
+			background-color: var(--appBGColor);
+			border: none;
+			border-radius: 10px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			color: var(--appColorPrimary);
+			cursor: pointer;
+			font-weight: bold;
+			height: fit-content;
+			padding: 5px;
+			width: fit-content;
+		}
 	}
 	.footer {
 		display: flex;
@@ -1178,61 +973,51 @@
 		margin-top: 15px;
 	}
 	.footerButton {
-		background-color: transparent;
-		border: 3px solid var(--appColorPrimary);
+		background-color: var(--appBGColor);
+		border: none;
 		border-radius: 10px;
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		color: var(--appColorPrimary);
 		cursor: pointer;
 		font-size: 1.05rem;
+		font-weight: bold;
 		margin-right: 10px;
+		outline: none;
 		padding: 5px;
 	}
 	.cancelButton {
 		margin-right: 0;
+		color: var(--appColorDisabled);
 	}
 	@media only screen and (min-width: 767px) {
-		.tagDisplay {
-			.addTagButton {
-				&:hover {
-					background-color: var(--appColorPrimary);
-					color: white;
-				}
-				&:disabled:hover {
-					background-color: transparent;
-					color: #BEBEBE;
+		.editorHead {
+			.tagsArea {
+				.tagDisplay {
+					.addTagButton {
+						&:hover {
+							background: var(--neu-convex-BGColor-bg);
+						}
+						&:disabled {
+							&:hover {
+								background: var(--appBGColor);
+							}
+						}
+					}
+					.newTagInputArea {
+						.suggestions {
+							.suggestionButton {
+								&:hover {
+									background-color: var(--appBGColorDark);
+								}
+							}
+						}
+					}
 				}
 			}
 		}
 		.row1 {
 			display: flex;
 			flex-direction: row;
-		}
-		.lineEditor {
-			flex-grow: 0;
-			flex-shrink: 0;
-			margin-right: 10px;
-			width: 340px;
-		}
-		.lineEditHead {
-			justify-content: flex-start;
-		}
-		.linePickerOption {
-			.removeButtonContainer {
-				opacity: 0;
-				transition: opacity 0.2s;
-				visibility: hidden;
-			}
-			&:hover .removeButtonContainer {
-				opacity: 1;
-				visibility: visible;
-			}
-			.removeButtonContainer.open {
-				opacity: 1;
-				visibility: visible;
-			}
-		}
-		.lineEditBody {
-			border-radius: 0px 10px 10px 10px;
 		}
 		.descEditor {
 			width: 100%;
@@ -1243,19 +1028,11 @@
 			grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
 			grid-template-rows: repeat(auto-fit, minmax(95px, 1fr));
 			justify-content: space-evenly;
-			overflow: hidden;
 			padding: 0;
 		}
 		.footerButton {
 			&:hover {
-				background-color: var(--appColorPrimary);
-				color: white;
-			}
-		}
-		.cancelButton {
-			&:hover {
-				background-color: var(--appColorPriAccent);
-				color: white;
+				background: var(--neu-convex-BGColor-wide-bg);
 			}
 		}
 	}

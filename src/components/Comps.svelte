@@ -5,9 +5,15 @@
 	import Emoji from 'markdown-it-emoji';
 	import { v4 as uuidv4 } from 'uuid';
 	import JSONURL from 'json-url';
-	import {pop as spaRoutePop} from 'svelte-spa-router';
+	import {pop as spaRoutePop, push as spaRoutePush, querystring, replace} from 'svelte-spa-router';
 	import { mutation } from "svelte-apollo";
+	import RangeSlider from 'svelte-range-slider-pips';
+	import {debounce} from 'lodash';
+	import qs from 'qs';
 	import CompCard from './CompCard.svelte';
+	import CompGroupBrowser from './CompGroupBrowser.svelte';
+	import CompLineEditor from './CompLineEditor.svelte';
+	import ErrorDisplay from './ErrorDisplay.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
@@ -17,12 +23,14 @@
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import CompEditor from '../modals/CompEditor.svelte';
 	import ArtifactDetail from '../modals/ArtifactDetail.svelte';
+	import FilterPicker from '../modals/FilterPicker.svelte';
+	import AddToGroup from '../modals/AddToGroup.svelte';
 	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import AscendBox from '../shared/AscendBox.svelte';
-	import SortableList from '../shared/SortableList.svelte';
 	import StarsInput from '../shared/StarsInput.svelte';
 	import ToggleSwitch from '../shared/ToggleSwitch.svelte';
+	import HeroButton from '../shared/HeroButton.svelte';
 	import { validateJWT, getCompByUUID, toggleSave } from '../rest/RESTFunctions.svelte';
 	import { gql_CREATE_COMP, gql_UPDATE_COMP } from '../gql/queries.svelte';
 	import { msToString } from '../utilities/Utilities.svelte';
@@ -42,38 +50,75 @@
 		breaks: true,
 	});
 	md.use(Emoji);
+	const timeValues = [
+		{ name: 'forever', value: new Date(now - 3.156e+11) }, // 10 years
+		{ name: '1yr', value: new Date(now - 3.156e10) },
+		{ name: '6mo', value: new Date(now - 1.577e10) },
+		{ name: '1mo', value: new Date(now - 2.628e9) },
+		{ name: '1w', value: new Date(now - 6.048e8) },
+		{ name: '1d', value: new Date(now - 8.64e7) },
+		{ name: 'now', value: new Date(now - 0) },
+	];
+	const sortOptions = ['title', 'new'];
+	const defaultSort = 'title';
+	const defaultSearchStr = '';
+	const defaultTagFilter = [];
+	const defaultAuthorFilter = [];
+	const defaultHeroFilter = [];
+	const defaultMinTime = 0;
+	const defaultMaxTime = timeValues.length - 1;
+	const defaultView = 'compList'
+	const defaultComp = null;
+	const defaultGroup = '';
 
-	$: compList = makeCompList($AppData.Comps);
-	$: openComp = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp);
-	$: highlightComp = null;
-	$: searchSuggestions = makeSearchSuggestions();
-	$: editorWidth = isMobile ? '100%' : '75%';
-	$: editorHeight = isMobile ? '70vh' : '80vh';
-	$: $AppData.modalClosed && handleModalClosed();
-
-	let openDetail = false;
 	let openDesc = true;
 	let openHero = false;
 	let openSubs = false;
-	let openSuggestions = false;
+	let openMobileCompMenu = false;
 	let selectedLine = 0;
 	let selectedHero = '';
 	let showowConfirm = false;
 	let showEditMenu = false;
 	let owText = '';
 	let owPromise;
-	let modalStack = [];
+	let sortSelectEl;
+	let searchStr = defaultSearchStr;
+	let tag_filter = defaultTagFilter;
+	let author_filter = defaultAuthorFilter;
+	let hero_filter = defaultHeroFilter;
+	let timeLimits = [defaultMinTime, defaultMaxTime];
+	let curView = defaultView;
+	let showFilters = false;
+	let curSort = defaultSort;
+	let curGroup = defaultGroup;
+	let showErrorDisplay = false;
+	let errorDisplayConf = {};
+
+	$: processQS($querystring);
+	$: compList = makeCompList($AppData.Comps, {tag_filter, author_filter, hero_filter, timeLimits, searchStr}, curSort, curGroup);
+	$: openComp = $AppData.Comps.find(e => e.uuid === $AppData.selectedComp);
+	$: highlightComp = null;
+	$: editorWidth = isMobile ? '100%' : '75%';
+	$: editorHeight = isMobile ? '70vh' : '80vh';
 
 	onMount(async () => {
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		
-		openDetail = urlParams.has('comp');
-		modalStack = openDetail ? ['base', 'comp'] : ['base']
-
 		$AppData.activeView = 'comps';
 		dispatch('routeEvent', {action: 'saveData'});
 	});
+
+	function processQS(queryString) {
+		const urlqs = new URLSearchParams(queryString);
+		searchStr = urlqs.has('searchStr') ? decodeURIComponent(urlqs.get('searchStr')) : defaultSearchStr;
+		tag_filter = urlqs.has('tag_filter') ? qs.parse(urlqs.get('tag_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultTagFilter;
+		author_filter = urlqs.has('author_filter') ? qs.parse(urlqs.get('author_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultAuthorFilter;
+		hero_filter = urlqs.has('hero_filter') ? qs.parse(urlqs.get('hero_filter')).filter.map(e => {e.id = parseInt(e.id); return e}) : defaultHeroFilter;
+		timeLimits[0] = urlqs.has('minDate') ? parseInt(decodeURIComponent(urlqs.get('minDate'))) : defaultMinTime;
+		timeLimits[1] = urlqs.has('maxDate') ? parseInt(decodeURIComponent(urlqs.get('maxDate'))) : defaultMaxTime;
+		curSort = urlqs.has('sort') ? urlqs.get('sort') : defaultSort;
+		curView = urlqs.has('view') ? decodeURIComponent(urlqs.get('view')) : defaultView;
+		curGroup = urlqs.has('group') ? decodeURIComponent(urlqs.get('group')) : defaultGroup;
+		$AppData.selectedComp = urlqs.has('comp') ? decodeURIComponent(urlqs.get('comp')) : defaultComp;
+	}
 
 	async function postUpdate() {
 		$AppData.compLastUpdate = new Date();
@@ -81,69 +126,85 @@
 		if(valid) dispatch('routeEvent', {action: 'syncLocalComps'});
 	}
 
-	function makeCompList(comps) {
-		let compList = [...comps].filter(e => $AppData.compShowHidden || !e.hidden);
+	function makeCompList(comps, filters, sort, groupUUID) {
+		let compList;
+		const group = $AppData.compGroups.find(e => e.uuid === groupUUID);
+		if(group) {
+			// filter just comps in the group
+			compList = [...comps].filter(e => ($AppData.compShowHidden || !e.hidden) && group.comps.includes(e.uuid));
+		} else {
+			compList = [...comps].filter(e => $AppData.compShowHidden || !e.hidden);
+		}
 
-		if($AppData.compSearchStr !== '') {
-			// array of search terms (separate by , trim white space, and make lower case)
-			let searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim().toLowerCase());
+		if(filters.tag_filter.length > 0) {
+			const incTags = filters.tag_filter.filter(e => e.type === 'include').map(e => e.name);
+			const excTags = filters.tag_filter.filter(e => e.type === 'exclude').map(e => e.name);
+			if(incTags.length > 0) compList = compList.filter(comp => comp.tags.some(tag => incTags.includes(tag)));
+			if(excTags.length > 0) compList = compList.filter(comp => !comp.tags.some(tag => excTags.includes(tag)));
+		}
+
+		if(filters.author_filter.length > 0) {
+			const incAuthors = filters.author_filter.filter(e => e.type === 'include').map(e => e.name);
+			const excAuthors = filters.author_filter.filter(e => e.type === 'exclude').map(e => e.name);
+			if(incAuthors.length > 0) compList = compList.filter(comp => incAuthors.includes(comp.author));
+			if(excAuthors.length > 0) compList = compList.filter(comp => !excAuthors.includes(comp.author));
+		}
+
+		if(filters.hero_filter.length > 0) {
+			const incHeroes = filters.hero_filter.filter(e => e.type === 'include').map(e => e.name);
+			const excHeroes = filters.hero_filter.filter(e => e.type === 'exclude').map(e => e.name);
+			if(incHeroes.length > 0) compList = compList.filter(comp => Object.keys(comp.heroes).some(hero => incHeroes.includes(hero)));
+			if(excHeroes.length > 0) compList = compList.filter(comp => !Object.keys(comp.heroes).some(hero => excHeroes.includes(hero)));
+		}
+
+		if(filters.searchStr) {
 			compList = compList.filter(comp => {
-				// array of tags (trim white space and make lower case)
-				const tags = comp.tags.map(i => i.trim().toLowerCase());
-				for(const term of searchTerms) {
-					if(term.charAt(0) === '-') {
-						const sterm = term.slice(1, term.length);
-						if(comp.name.toLowerCase().includes(sterm) || tags.some(e => e.toLowerCase().includes(sterm))) return false;
-					} else {
-						if(!comp.name.toLowerCase().includes(term) && !tags.some(e => e.toLowerCase().includes(term))) return false;
-					}
-				}
-				return true;
+				return comp.tags.some(tag => tag.toLowerCase().includes(filters.searchStr.toLowerCase())) ||
+				comp.name.toLowerCase().includes(filters.searchStr.toLowerCase());
 			});
 		}
 
-		searchSuggestions = makeSearchSuggestions();
+		// apply time limit filters
+		if(filters.timeLimits[0] !== defaultMinTime) {
+			// filter for max time only if the setting is non-default
+			compList = compList.filter(comp => timeValues[filters.timeLimits[0]].value <= comp.lastUpdate);
+		}
+		if(filters.timeLimits[1] !== defaultMaxTime) {
+			// filter for min time only if the setting is non-default
+			compList = compList.filter(comp => timeValues[filters.timeLimits[1]].value >= comp.lastUpdate);
+		}
+
+		switch(sort) {
+			case 'title':
+				compList.sort((a, b) => {
+					const nameA = a.name.toLowerCase();
+					const nameB = b.name.toLowerCase();
+					return nameA < nameB ? -1 : 1;
+				});
+				break;
+			case 'new':
+				compList.sort((a, b) => {
+					return a.lastUpdate < b.lastUpdate ? 1 : -1;
+				});
+				break;
+			default:
+				throw new Error(`Invalid sort type passed to makeCompList: ${sort}`);
+		}
 
 		return compList;
 	}
 
-	function makeSearchSuggestions() {
-		let suggestions = [];
-
-		// first make a list of all tags and comp names
-		for(const comp of $AppData.Comps) {
-			suggestions.push(comp.name);
-			suggestions = [...suggestions, ...comp.tags];
-		}
-		// remove duplicate suggestions
-		suggestions = [...new Set(suggestions)];
-		// filter suggestions for stuff matching the last search term (split by ,)
-		const searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim());
-		let lastTerm = searchTerms[searchTerms.length - 1].toLowerCase();
-		if(lastTerm.charAt(0) === '-') lastTerm = lastTerm.slice(1, lastTerm.length);
-		suggestions = suggestions.filter(e => e.toLowerCase().includes(lastTerm));
-		// if there's only 1 suggestion, return nothing because the filter should already be applied
-		if(suggestions.length === 1) return [];
-		// take only the first 10 suggestions
-		suggestions = suggestions.slice(0, 10);
-		// finally, sort suggestions before returning
-		suggestions.sort();
-
-		return suggestions;
-	}
-
 	function handleCompCardClick(uuid) {
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		if(!urlParams.has('comp')) {
-			history.pushState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?comp=true${window.location.hash}`);
-		}
-		modalStack.push('comp');
+		let newQS = new URLSearchParams($querystring);
+		newQS.set('view', encodeURIComponent('compDetail'));
+		newQS.set('comp', encodeURIComponent(uuid));
+
 		$AppData.selectedComp = uuid;
-		openDetail = true;
 		selectedLine = 0;
 		selectedHero = '';
 		showEditMenu = false;
+
+		spaRoutePush(`/comps?${newQS.toString()}`);
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
@@ -151,12 +212,15 @@
 		return md.render(mdText);
 	}
 
+	function handleOpenMobileCompMenuClick() {
+		openMobileCompMenu = !openMobileCompMenu;
+	}
+
 	function handleShowHiddenChange() {
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function handleEditButtonClick(uuid) {
-		modalStack.push('editor');
 		open(CompEditor,
 				{compID: uuid,
 				 onSuccess: (uuid) => handleCompChangeSuccess(uuid, 'edit'),
@@ -170,15 +234,14 @@
 	}
 	
 	function handlePublishButtonClick(uuid) {
-		modalStack.push('confirm');
 		const comp = $AppData.Comps.find(e => e.uuid === uuid);
 		open(Confirm,
 				{onConfirm: handlePublishComp, confirmData: uuid, message: `Publish comp named ${comp.name}?`},
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
-				 styleWindow: { width: 'fit-content', },
-				 styleContent: { width: 'fit-content', },
+				 styleWindow: { width: 'fit-content', background: '#F0F0F2' },
+				 styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
 				});
 	}
 
@@ -191,9 +254,8 @@
 	}
 
 	function handleNewButtonClick() {
-		modalStack.push('editor');
 		open(CompEditor,
-				{onSuccess: (uuid) => { $AppData.compSearchStr = ''; handleCompChangeSuccess(uuid, 'new') },
+				{onSuccess: (uuid) => { searchStr = ''; handleCompChangeSuccess(uuid, 'new') },
 				 isMobile: isMobile,
 				},
 				{ closeButton: ModalCloseButton,
@@ -203,21 +265,61 @@
 				});
 	}
 
+	function handleAddToGroupClick() {
+		open(AddToGroup,
+				{groupUUID: curGroup, onSuccess: handleGroupChange},
+				{ closeButton: ModalCloseButton,
+					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+				});
+	}
+
+	// handle group change from group add button
+	async function handleGroupChange(newGroup) {
+		const idx = $AppData.compGroups.findIndex(e => e.uuid === newGroup.uuid);
+
+		// update the group
+		if(idx < 0) throw new Error(`ERROR unable to find Comp Group with UUID: ${newGroup.uuid}`);
+		$AppData.compGroups[idx] = newGroup;
+
+		await postUpdate();
+
+		dispatch('routeEvent', {action: 'saveData'});
+	}
+
+	// handle group change from comp card button
+	/*
+		expect config object like:
+		{compUUID, groupUUID}
+	*/
+	async function handleCompGroupChange(config) {
+		const group = $AppData.compGroups.find(e => e.uuid === config.groupUUID);
+		if(!group) throw new Error(`ERROR unable to find group with UUID: ${config.groupUUID}`);
+		if(group.comps.includes(config.compUUID)) {
+			// comp already in group, remove it
+			group.comps = group.comps.filter(e => e !== config.compUUID);
+		} else {
+			// comp not in group, add it
+			group.comps = [...group.comps, config.compUUID];
+		}
+
+		await postUpdate();
+
+		dispatch('routeEvent', {action: 'saveData'});
+	}
+
 	async function handleCompChangeSuccess(uuid, type) {
-		searchSuggestions = makeSearchSuggestions();
 		highlightComp = compList.findIndex(e => e.uuid === uuid);
 		selectedHero = '';
 		selectedLine = 0;
 		if(type === 'new') $AppData.selectedComp = uuid;
 		await tick();
-		document.getElementById(`comp${highlightComp}`).scrollIntoView();
+		// document.getElementById(`comp${highlightComp}`).scrollIntoView();
 		setTimeout(() => highlightComp = null, 2000);
 		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
 	function handleDeleteButtonClick(uuid) {
-		modalStack.push('confirm');
 		const comp = $AppData.Comps.find(e => e.uuid === uuid);
 		let message;
 		if($AppData.user.published_comps.some(e => e.uuid === uuid)) {
@@ -239,12 +341,11 @@
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
 				 styleWindow: { width: 'fit-content', },
-				 styleContent: { width: 'fit-content', },
+				 styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
 				});
 	}
 
 	function handleImportButtonClick() {
-		modalStack.push('import');
 		open(ImportData, 
 		{ dataHandler: handleCompImport,
 			saveAppData: () => dispatch('routeEvent', {action: 'saveData'}),
@@ -285,10 +386,10 @@
 		});
 	}
 
-	function handleStarClick(event, uuid) {
+	async function handleStarClick(uuid) {
 		const idx = $AppData.Comps.findIndex(e => e.uuid === uuid);
 		$AppData.Comps[idx].starred = !$AppData.Comps[idx].starred;
-		event.stopPropagation();
+		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'});
 	}
 
@@ -297,6 +398,10 @@
 		if(comp.source === 'local') {
 			$AppData.Comps = $AppData.Comps.filter(e => e.uuid !== uuid);
 			if($AppData.selectedComp === uuid) resetOpenComp();
+			// remove comp from any groups it was in
+			for(const group of $AppData.compGroups) {
+				group.comps = group.comps.filter(e => e !== uuid);
+			}
 			await postUpdate();
 			dispatch('routeEvent', {action: 'saveData'});
 		} else {
@@ -316,11 +421,23 @@
 							}
 						}
 					);
-					console.log(`An error occurred attempting to unfavorite comp with uuid: ${delUUID}`)
+					errorDisplayConf = {
+						errorCode: response.status,
+						headText: 'Something went wrong',
+						detailText: response.data,
+						showHomeButton: true,
+					};
+					showErrorDisplay = true;
+					console.log(`An error occurred attempting to unfavorite comp with uuid: ${delUUID}`);
 					console.log(response.data);
+					return;
 				} else {
 					if($AppData.selectedComp === uuid) resetOpenComp();
 					$AppData.user.saved_comps = response.data.comps;
+					// remove comp from any groups it was in
+					for(const group of $AppData.compGroups) {
+						group.comps = group.comps.filter(e => e !== uuid);
+					}
 					dispatch('routeEvent', {action: 'saveData'});
 					dispatch('routeEvent', {action: 'syncFavorites'});
 				}
@@ -341,14 +458,13 @@
 			let compCheck = [];
 			const response = await getCompByUUID(comp.uuid);
 			if(response.status !== 200) {
-				// errorDisplayConf = {
-				// 	errorCode: response.status,
-				// 	headText: 'Something went wrong',
-				// 	detailText: response.data,
-				// 	showHomeButton: true,
-				// };
-				// showErrorDisplay = true;
-				console.log('an error occurred');
+				errorDisplayConf = {
+					errorCode: response.status,
+					headText: 'Something went wrong',
+					detailText: response.data,
+					showHomeButton: true,
+				};
+				showErrorDisplay = true;
 				return;
 			} else {
 				compCheck = response.data;
@@ -393,9 +509,25 @@
 						}
 					);
 					if(error.graphQLErrors[0]) {
+						errorDisplayConf = {
+							errorCode: 500,
+							headText: 'Something went wrong',
+							detailText: error.graphQLErrors[0].message,
+							showHomeButton: true,
+						};
+						showErrorDisplay = true;
 						console.log(error.graphQLErrors[0].message);
+						return;
 					} else {
+						errorDisplayConf = {
+							errorCode: 500,
+							headText: 'Something went wrong',
+							detailText: error.message,
+							showHomeButton: true,
+						};
+						showErrorDisplay = true;
 						console.log(error.message);
+						return;
 					}
 					return;
 				}
@@ -452,9 +584,25 @@
 							}
 						);
 						if(error.graphQLErrors[0]) {
+							errorDisplayConf = {
+								errorCode: 500,
+								headText: 'Something went wrong',
+								detailText: error.graphQLErrors[0].message,
+								showHomeButton: true,
+							};
+							showErrorDisplay = true;
 							console.log(error.graphQLErrors[0].message);
+							return;
 						} else {
+							errorDisplayConf = {
+								errorCode: 500,
+								headText: 'Something went wrong',
+								detailText: error.message,
+								showHomeButton: true,
+							};
+							showErrorDisplay = true;
 							console.log(error.message);
+							return;
 						}
 						return;
 					}
@@ -531,13 +679,13 @@
 				statusMsg = 'Data import successful';
 			}
 			await tick();
-			$AppData.compSearchStr = ''; // reset any filters
+			searchStr = ''; // reset any filters
 			highlightComp = compList.findIndex(e => e.uuid === returnObj.message.uuid);
 			$AppData.selectedComp = returnObj.message.uuid;
 			selectedHero = '';
 			selectedLine = 0;
-			const compScroller = document.getElementById('compScroller');
-			compScroller.scrollTop = compScroller.scrollHeight;
+			const compArea = document.getElementById('sect1');
+			compArea.scrollTop = compArea.scrollHeight;
 			setTimeout(() => highlightComp = null, 3000);
 			await postUpdate();
 			dispatch('routeEvent', {action: 'saveData'});
@@ -546,6 +694,7 @@
 	}
 
 	async function handleCopyButtonClick(uuid) {
+		// create a copy of the comp and add it to the Comps list
 		const comp = $AppData.Comps.find(e => e.uuid === uuid);
 		const copyComp = JSON.parse(JSON.stringify(comp));
 		copyComp.uuid = uuidv4();
@@ -553,15 +702,22 @@
 		copyComp.source = 'local';
 		copyComp.lastUpdate = new Date(copyComp.lastUpdate);
 		$AppData.Comps = [...$AppData.Comps, copyComp];
-		handleCloseButtonClick();
+
+		// reset the view
+		let newQS = new URLSearchParams($querystring);
+		newQS.delete('searchStr');
+		newQS.delete('view');
+		newQS.delete('comp');
+		newQS.delete('group');
+		replace(`/comps?${newQS.toString()}`);
 		await tick();
-		$AppData.compSearchStr = ''; // reset any filters
-		highlightComp = compList.findIndex(e => e.uuid === copyComp.uuid);
-		$AppData.selectedComp = copyComp.uuid;
 		selectedHero = '';
 		selectedLine = 0;
-		const compScroller = document.getElementById('compScroller');
-		compScroller.scrollTop = compScroller.scrollHeight;
+
+		// highlight the duplicated comp
+		highlightComp = compList.findIndex(e => e.uuid === copyComp.uuid);
+		// const compEl = document.getElementById(copyComp.uuid);
+		// compEl.scrollIntoView();
 		setTimeout(() => highlightComp = null, 3000);
 		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'});
@@ -579,14 +735,10 @@
 	}
 
 	function handleCloseButtonClick() {
-		if(modalStack.pop() === 'comp') {
-			spaRoutePop();
-		}
-		openDetail = false;
+		spaRoutePop();
 	}
 
 	function handleHeroDetailClick(heroID) {
-		modalStack.push('detail');
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
@@ -595,7 +747,6 @@
 	}
 
 	function openArtifactDetail(artifactID) {
-		modalStack.push('detail');
 		open(ArtifactDetail, 
 		{ artifactID: artifactID, },
 		{ closeButton: ModalCloseButton,
@@ -603,127 +754,51 @@
 		});
 	}
 
-	function handlePopState(event) {
-		const component = modalStack.pop();
-		switch(component) {
-			case 'detail':
-			case 'import':
-			case 'editor':
-				break;
-			case 'base':
-				modalStack.push('base');
-				break;
-			case 'comp':
-				openDetail = false;
-				history.replaceState({view: $AppData.activeView, comp: false}, $AppData.activeView, `?${window.location.hash}`);
-				break;
-			case 'confirm':
-				showowConfirm = false;
-				owText = '';
-				break;
-			default:
-				throw new Error(`Error invalid Comp.svelte modal stack component detected: ${component}`);
-		}
-	}
-
-	function handleModalClosed() {
-		$AppData.modalClosed = false;
-		const component = modalStack.pop();
-		switch(component) {
-			case 'detail':
-			case 'import':
-			case 'editor':
-				if(modalStack[modalStack.length - 1] !== 'comp') {
-					spaRoutePop();
-				} else {
-					history.replaceState({view: $AppData.activeView, comp: true}, $AppData.activeView, `?comp=true${window.location.hash}`);
-				}
-				break;
-			case 'base':
-				modalStack.push('base');
-				break;
-			case 'comp':
-				modalStack.push('comp');
-				break;
-			case 'confirm':
-				showowConfirm = false;
-				owText = '';
-				break;
-			default:
-				Error(`Error invalid Comp.svelte modal stack component detected: ${component}`);
-		}
-	}
-
-	async function handleCardSort(event) {
-		const {from, to} = event.detail;
-		const fromUUID = compList[from].uuid;
-		const toUUID = compList[to].uuid;
-		const mainFromIdx = $AppData.Comps.findIndex(e => e.uuid === fromUUID);
-		const mainToIdx = $AppData.Comps.findIndex(e => e.uuid === toUUID);
-		let newList = [...$AppData.Comps];
-		newList[mainFromIdx] = [newList[mainToIdx], (newList[mainToIdx] = newList[mainFromIdx])][0];
-		// double-check that we didn't lose any comps
-		let allCompsValid = true;
-		for(const comp of $AppData.Comps) {
-			allCompsValid = newList.some(e => e.uuid === comp.uuid);
-		}
-		if(!allCompsValid) {
-			dispatch('routeEvent',
-				{ action: 'showNotice',
-					data: {
-						noticeConf: {
-							type: 'error',
-							message: 'Re-order error occurred',
-						}
-					}
-				}
-			);
-			return;
-		}
-		$AppData.Comps = newList;
-		dispatch('routeEvent', {action: 'saveData'});
-		// // catch if a user dragged something we weren't expecting and exit
-		// if(!Array.isArray(event.detail)) return 0;
-		// // don't allow re-ordering when comp list is filtered (could accidently delete comps)
-		// if($AppData.compSearchStr !== '') return 0;
-		// // don't allow comp overwrite if there are missing comps
-		// if(event.detail.length !== $AppData.Comps.length) {
-		// 	throw new Error(`Received invalid Comps array, must be same length as original. ${event.detail}`);
-		// }
-		// let allCompsValid = true;
-		// for(const comp of event.detail) {
-		// 	let returnObj = await validateComp(comp);
-		// 	allCompsValid = allCompsValid && returnObj.retCode === 0;
-		// }
-		// if(allCompsValid) {
-		// 	// one last check that all comps are present
-		// 	for(const comp of $AppData.Comps) {
-		// 		if(!event.detail.some(e => e.uuid === comp.uuid)) {
-		// 			throw new Error(`Received invalid Comps array, missing comp with uuid: ${comp.uuid}`);
-		// 		}
-		// 	}
-		// 	$AppData.Comps = event.detail;
-		// 	dispatch('routeEvent', {action: 'saveData'});
-		// }
-	}
-
-	function updateSearch() {
-		if(!compList.some(e => e.uuid === $AppData.selectedComp)) resetOpenComp();
-		searchSuggestions = makeSearchSuggestions();
-		openSuggestions = true;
-		dispatch('routeEvent', {action: 'saveData'});
-	}
-
-	function takeSuggestion(suggestion) {
-		let searchTerms = $AppData.compSearchStr.split(',').map(e => e.trim());
-		if(searchTerms[searchTerms.length - 1].charAt(0) === '-') {
-			searchTerms[searchTerms.length - 1] = '-' + suggestion;
+	function handleSearchStrChange(event) {
+		let newQS = new URLSearchParams($querystring);
+		if(event.target.value) {
+			newQS.set('searchStr', encodeURIComponent(event.target.value));
 		} else {
-			searchTerms[searchTerms.length - 1] = suggestion;
+			newQS.delete('searchStr');
 		}
-		$AppData.compSearchStr = searchTerms.join(', ');
-		updateSearch();
-		openSuggestions = false;
+		replace(`/comps?${newQS.toString()}`);
+	}
+
+	function handleSearchButtonClick() {
+		const search = document.getElementById('compSearch');
+		let newQS = new URLSearchParams($querystring);
+		if(search.value) {
+			newQS.set('searchStr', encodeURIComponent(search.value));
+		} else {
+			newQS.delete('searchStr');
+		}
+		replace(`/comps?${newQS.toString()}`);
+	}
+
+	function handleViewCompsClick() {
+		let newQS = new URLSearchParams($querystring);
+		if(newQS.has('view')) {
+			newQS.delete('view');
+			spaRoutePush(`/comps?${newQS.toString()}`);
+		}
+		// otherwise do nothing because we're already on comps view
+	}
+
+	function handleGroupButtonClick() {
+		let newQS = new URLSearchParams($querystring);
+		if(newQS.has('view')) {
+			const view = decodeURIComponent(newQS.get('view'));
+			if(view !== 'groups') {
+				// we are not on groups yet, navigate to groups
+				newQS.set('view', encodeURIComponent('groups'));
+				spaRoutePush(`/comps?${newQS.toString()}`);
+			}
+			// otherwise do nothing because we're already on groups view
+		} else {
+			// no view is set, navigate to groups
+			newQS.set('view', encodeURIComponent('groups'));
+			spaRoutePush(`/comps?${newQS.toString()}`);
+		}
 	}
 
 	async function handleHeroClick(hero) {
@@ -733,394 +808,532 @@
 		document.getElementById('heroDetailSection').scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
 	}
 
+	async function handleRemoveFilter(category, idx) {
+		let newQS = new URLSearchParams($querystring);
+		let new_filter = [];
+		switch(category) {
+			case 'tag':
+				new_filter = tag_filter.filter((e, i) => i !== idx);
+				if(new_filter.length !== 0) {
+					newQS.set('tag_filter', qs.stringify({filter: new_filter}));
+				} else {
+					newQS.delete('tag_filter');
+				}
+				break;
+			case 'author':
+				new_filter = author_filter.filter((e, i) => i !== idx);
+				if(new_filter.length !== 0) {
+					newQS.set('author_filter', qs.stringify({filter: new_filter}));
+				} else {
+					newQS.delete('author_filter');
+				}
+				break;
+			case 'hero':
+				new_filter = hero_filter.filter((e, i) => i !== idx);
+				if(new_filter.length !== 0) {
+					newQS.set('hero_filter', qs.stringify({filter: new_filter}));
+				} else {
+					newQS.delete('hero_filter');
+				}
+				break;
+			default:
+				throw new Error(`ERROR invalid category passed to handleRemoveFilter: ${category}`)
+		}
+		if(newQS.has('page')) newQS.delete('page');
+		replace(`/comps?${newQS.toString()}`);
+	}
+
+	async function handleAddFilterButtonClick(category) {
+		let curFilter;
+		switch(category) {
+			case 'tag':
+				curFilter = tag_filter;
+				break;
+			case 'author':
+				curFilter = author_filter;
+				break;
+			case 'hero':
+				curFilter = hero_filter;
+				break;
+			default:
+				throw new Error(`ERROR invalid category passed to handleAddFilterButtonClick: ${category}`);
+		}
+		open(FilterPicker,
+			{ category,
+				curFilter,
+				source: 'local',
+				onSuccess: (filterList) => handleFilterChangeSuccess({filterList, category}),
+			},
+			{ closeButton: ModalCloseButton,
+				styleContent: {background: '#F0F0F2', borderRadius: '10px'},
+			}
+		);
+	}
+
+	async function handleFilterChangeSuccess({filterList, category}) {
+		let newQS = new URLSearchParams($querystring);
+		switch(category) {
+			case 'tag':
+				if(filterList.length !== 0) {
+					newQS.set('tag_filter', qs.stringify({filter: filterList}));
+				} else {
+					newQS.delete('tag_filter');
+				}
+				break;
+			case 'author':
+				if(filterList.length !== 0) {
+					newQS.set('author_filter', qs.stringify({filter: filterList}));
+				} else {
+					newQS.delete('author_filter');
+				}
+				break;
+			case 'hero':
+				if(filterList.length !== 0) {
+					newQS.set('hero_filter', qs.stringify({filter: filterList}));
+				} else {
+					newQS.delete('hero_filter');
+				}
+				break;
+			default:
+				throw new Error(`ERROR invalid category passed to handleFilterChangeSuccess: ${category}`);
+		}
+		replace(`/comps?${newQS.toString()}`);
+	}
+
+	function handleTimeValueChange(event) {
+		let newQS = new URLSearchParams($querystring);
+		const newLimits = event.detail.values;
+		if(newLimits[0] !== defaultMinTime) {
+			newQS.set('minDate', encodeURIComponent(newLimits[0]));
+		} else {
+			newQS.delete('minDate');
+		}
+		if(newLimits[1] !== defaultMaxTime) {
+			newQS.set('maxDate', encodeURIComponent(newLimits[1]));
+		} else {
+			newQS.delete('maxDate');
+		}
+		if(newQS.has('page')) newQS.delete('page');
+		replace(`/comps?${newQS.toString()}`);
+	}
+
 	function handleViewExploreClick(uuid) {
 		window.location.assign(`${window.location.origin}/#/explore/comp/${uuid}`);
 	}
 
+	function handleSortChange(selectObj) {
+		let newQS = new URLSearchParams($querystring);
+		if(selectObj.value !== defaultSort) {
+			newQS.set('sort', encodeURIComponent(selectObj.value));
+		} else {
+			newQS.delete('sort');
+		}
+		replace(`/comps?${newQS.toString()}`);
+	}
+
+	async function handleCardEvent(event) {
+		switch(event.detail.action) {
+			case 'starClick':
+				await handleStarClick(event.detail.data);
+				break;
+			case 'exportClick':
+				await handleExportButtonClick(event.detail.data);
+				break;
+			case 'cardClick':
+				handleCompCardClick(event.detail.data);
+				break;
+			case 'deleteClick':
+				handleDeleteButtonClick(event.detail.data);
+				break;
+			case 'groupChange':
+				handleCompGroupChange(event.detail.data);
+				break;
+			default:
+				throw new Error(`ERROR invalid action passed to handleCardEvent: ${event.detail.action}`);
+		}
+	}
+
+	async function handleGroupEvent(event) {
+		switch(event.detail.action) {
+			case 'groupChange':
+				await postUpdate();
+				dispatch('routeEvent', {action: 'saveData'});
+				break;
+			case 'groupNav':
+				let newQS = new URLSearchParams($querystring);
+				const groupUUID = event.detail.data;
+				if(groupUUID === 'ALLCOMPS') {
+					newQS.delete('group');
+				} else if(groupUUID !== defaultGroup) {
+					newQS.set('group', encodeURIComponent(groupUUID));
+				} else {
+					newQS.delete('group');
+				}
+				newQS.delete('view');
+
+				spaRoutePush(`/comps?${newQS.toString()}`);
+				break;
+			default:
+				throw new Error(`Invalid action specified on GroupEvent: ${action}`);
+		}
+	}
+
+	async function handleLineEvent(event) {
+		switch(event.detail.action) {
+			case 'heroClick':
+				await handleHeroClick(event.detail.data);
+				break;
+			default:
+				throw new Error(`Invalid action specified on compLineEvent: ${action}`);
+		}
+	}
+
+	async function handleHeroButtonEvent(event) {
+		switch(event.detail.action) {
+			case 'heroClick':
+				await handleHeroClick(event.detail.data);
+				break;
+			default:
+				throw new Error(`Invalid action specified on heroButtonEvent: ${action}`);
+		}
+	}
+
 	function resetOpenComp() {
-		$AppData.selectedComp = null;
+		let newQS = new URLSearchParams($querystring);
+		if(newQS.has('view')) newQS.delete('view');
+		if(newQS.has('comp')) newQS.delete('comp');
 		selectedHero = '';
 		selectedLine = 0;
-		openDetail = false;
 		showEditMenu = false;
+		replace(`/comps?${newQS.toString()}`);
 	}
 </script>
 
-<svelte:window on:popstate={handlePopState} />
-
-<div class="CompContainer">
-	<section class="sect1">
-		<div class="searchArea">
-			<input
-				bind:value={$AppData.compSearchStr}
-				on:keyup={updateSearch}
-				on:search={updateSearch}
-				on:focus={() => openSuggestions = true}
-				on:blur={() => openSuggestions = false}
-				class="searchBox"
-				type="search"
-				placeholder="Filter name or tags">
-			<div class="suggestions" class:open={openSuggestions}>
-				{#each searchSuggestions as suggestion}
-					<button type="button" class="suggestionButton" on:click={() => takeSuggestion(suggestion)}><span>{suggestion}</span></button>
-				{/each}
-			</div>
-			<div class="hiddenToggleArea">
-				<span>Show Hidden</span>
-				<ToggleSwitch
-					size="small"
-					bind:state={$AppData.compShowHidden}
-					on:toggleEvent={handleShowHiddenChange}
-				/>
-			</div>
-		</div>
-		<div class="compScroller" id="compScroller">
-			{#if compList.length === 0}
-				<div class="noComps" class:noSearch={$AppData.compSearchStr !== ''}>
-					{#if $AppData.compSearchStr === ''}
-						<span>Add or Import a New Comp</span>
-						<div class="noCompsArrow">
-							<span>&#8681;</span>
-						</div>
-					{:else}
-						<span>No Comps Found</span>
+{#if showErrorDisplay}
+	<ErrorDisplay
+		errorCode={errorDisplayConf.errorCode}
+		headText={errorDisplayConf.headText}
+		detailText={errorDisplayConf.detailText}
+		showHomeButton={errorDisplayConf.showHomeButton}
+	/>
+{:else}
+	<div class="CompContainer">
+		{#if curView === 'compList' || curView === 'groups'}
+		<section class="sect1" id="sect1">
+			<div class="searchArea">
+				<div class="mobileSearchArea">
+					<input id="compSearch" value={searchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="Search titles or tags" />
+					<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
+						<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
+					</button>
+					<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
+						<img class="openFiltersImage" src="./img/utility/filter_white.png" alt="Open Filters">
+					</button>
+				</div>
+				<div class="groupTitle">
+					{#if curView === 'compList'}
+						{#if $AppData.compGroups.some(e => e.uuid === curGroup)}
+							<h3>{$AppData.compGroups.find(e => e.uuid === curGroup).name}</h3>
+						{:else}
+							<h3>All Comps</h3>
+						{/if}
 					{/if}
 				</div>
-			{:else}
-				<SortableList
-					list={compList}
-					key="uuid"
-					on:sort={handleCardSort}
-					let:item={comp}
-					let:index={i}>
-					<CompCard
-						comp={comp}
-						idx={i}
-						highlightComp={highlightComp}
-						delCallback={handleDeleteButtonClick}
-						cardClickCallback={handleCompCardClick}
-						exportCallback={handleExportButtonClick}
-						starCallback={handleStarClick}
-					/>
-				</SortableList>
-			{/if}
-		</div>
-		<div class="addButtonArea">
-			<div class="newCompOptionsArea">
-				<button type="button" class="newCompOptionButton" on:click={handleImportButtonClick}>
-					<div class="imgContainer">
-						<img draggable="false" class="importButtonIcon" src="./img/utility/import.png" alt="Import">
-					</div>
-					<span>Import</span>
-				</button>
-				<button type="button" class="newCompOptionButton" on:click={handleNewButtonClick}>
-					<span class="plusIcon">+</span>
-					<span>New</span>
-				</button>
 			</div>
-		</div>
-	</section>
-	<section class="sect2">
-		<div class="compDetails" class:open={openDetail}>
-			{#if openComp}
-				<div class="compDetailHead">
-					<div class="closeButtonContainer">
-						<button type="button" class="detailButton closeDetailButton" on:click={handleCloseButtonClick}><i class="arrow left"></i>Close</button>
+			<div class="filterContainer" class:open={showFilters}>
+				<div class="hiddenToggleArea">
+					<span>Show Hidden</span>
+					<ToggleSwitch
+						size="small"
+						bind:state={$AppData.compShowHidden}
+						on:toggleEvent={handleShowHiddenChange}
+					/>
+				</div>
+				<div class="primaryFilters">
+					<div class="filterArea">
+						<button type="button" class="addFilterButton addTagButton" on:click={() => handleAddFilterButtonClick('tag')}>Add Tags</button>
+						<div class="filterItems tagFilters">
+							{#each tag_filter as tag, i}
+								<button type="button" class="rmFilterButton tag {tag.type}" on:click={() => handleRemoveFilter('tag', i)}>{tag.displayName}</button>
+							{/each}
+						</div>
 					</div>
-					<div class="titleContainer">
-						<h3 class="compTitle">{openComp.name}</h3>
-						<p class="authorTitle">{openComp.author}</p>
+					<div class="filterArea">
+						<button type="button" class="addFilterButton addAuthorButton" on:click={() => handleAddFilterButtonClick('author')}>Add Authors</button>
+						<div class="filterItems authorFilters">
+							{#each author_filter as author, i}
+								<button type="button" class="rmFilterButton author {author.type}" on:click={() => handleRemoveFilter('author', i)}>{author.displayName}</button>
+							{/each}
+						</div>
 					</div>
-					<button type="button" class="editMenuButton" class:open={showEditMenu} on:click={() => showEditMenu = !showEditMenu}>
-						<i class="filledCircle"></i>
-						<i class="filledCircle"></i>
-						<i class="filledCircle"></i>
-					</button>
-					<div class="editContainer" class:open={showEditMenu}>
-						<button
-							type="button"
-							class="editDelButton editButton"
-							disabled={openComp.source !== 'local'}
-							on:click={() => handleEditButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src="./img/utility/pencil.png" alt="Edit">
-							<span>Edit</span>
-						</button>
-						<button
-							type="button"
-							class="editDelButton publishButton"
-							class:update={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
-							disabled={openComp.source !== 'local'}
-							on:click={() => handlePublishButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src="./img/utility/explore_white.png" alt="Publish">
-							<span>{$AppData.user.published_comps.some(e => e.uuid === openComp.uuid) ? 'Update' : 'Publish'}</span>
-						</button>
-						<button
-							type="button"
-							class="editDelButton exportButton"
-							on:click={() => handleExportButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src="./img/utility/export.png" alt="Export">
-							<span>Export</span>
-						</button>
-						<button
-							type="button"
-							class="editDelButton hideButton"
-							class:hidden={openComp.hidden}
-							on:click={() => handleHideButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src={openComp.hidden ? './img/utility/view_white.png' : './img/utility/hidden_white.png'} alt={openComp.hidden ? 'Unhide' : 'Hide'}>
-							<span>{openComp.hidden ? 'Unhide' : 'Hide'}</span>
-						</button>
-						<!-- eye icons by https://uxwing.com/ -->
-						<button
-							type="button"
-							class="editDelButton copyButton"
-							on:click={() => handleCopyButtonClick($AppData.selectedComp)}>
-							<img draggable="false" src="./img/utility/copy_white.png" alt="Copy">
-							<span>Copy</span>
-						</button>
-						<button
-							type="button"
-							class="editDelButton deleteButton"
-							on:click={() => handleDeleteButtonClick($AppData.selectedComp)}>
-							<img
-								draggable="false"
-								src={openComp.source === 'local' ? './img/utility/trashcan.png' : './img/utility/favorite_unfilled_white.png'}
-								alt={openComp.source === 'local' ? 'Delete' : 'Unfavorite'}>
-							<span>{openComp.source === 'local' ? 'Delete' : 'Unfavorite'}</span>
-						</button>
+					<div class="filterArea">
+						<button type="button" class="addFilterButton addHeroButton" on:click={() => handleAddFilterButtonClick('hero')}>Add Heroes</button>
+						<div class="filterItems heroFilters">
+							{#each hero_filter as hero, i}
+								<button type="button" class="rmFilterButton hero {hero.type}" on:click={() => handleRemoveFilter('hero', i)}>{hero.displayName}</button>
+							{/each}
+						</div>
 					</div>
 				</div>
-				<div class="iconsArea">
-					<ul class="iconList">
-						{#if openComp.hidden}
-						<li>
-							<img class="iconAreaImage" src="./img/utility/hidden_white.png" alt="Hidden">
+				<div class="secondaryFilters">
+					<div class="filterArea">
+						<div class="timeFilterArea">
+							<RangeSlider
+								id="timeSlider"
+								values={timeLimits}
+								min={0}
+								max={timeValues.length - 1}
+								formatter={ v => timeValues[v].name }
+								on:change={debounce(handleTimeValueChange, 300)}
+								pips
+								all='label'
+								range
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="compListTabs">
+				<button type="button" class="tabButton viewCompsButton" on:click={handleViewCompsClick} class:open={curView === 'compList'}>
+					<img class="viewCompsImage" src="./img/utility/comps_white.png" alt="Comps">
+					<span>Comps</span>
+				</button>
+				<button type="button" class="tabButton viewGroupsButton" on:click={handleGroupButtonClick} class:open={curView === 'groups'}>
+					<img class="viewGroupsImage" src="./img/utility/groups_white.png" alt="Groups">
+					<span>Groups</span>
+				</button>
+				<div class="sortArea" class:hidden={curView === 'groups'}>
+					<span class="selectText sortText">Sort by:</span>
+					<select class="compsSelect sortSelect" value={curSort} bind:this={sortSelectEl} on:change={() => handleSortChange(sortSelectEl)}>
+						{#each sortOptions as option}
+							<option value={option}>{option}</option>
+						{/each}
+					</select>
+				</div>
+			</div>
+			{#if curView === 'compList'}
+				<div class="compGridArea">
+					<ul class="compGrid">
+						<li class="newCompArea">
+							{#if curGroup}
+								<button type="button" class="newCompButton group" on:click={handleAddToGroupClick}>
+									<span class="plusIcon">+</span>
+									<span>Add Comps</span>
+								</button>
+							{:else}
+								<button type="button" class="newCompButton new" on:click={handleNewButtonClick}>
+									<span class="plusIcon">+</span>
+									<span>New</span>
+								</button>
+								<button type="button" class="newCompButton import" on:click={handleImportButtonClick}>
+									<div class="imgContainer">
+										<img draggable="false" class="importButtonIcon" src="./img/utility/import_white.png" alt="Import">
+									</div>
+									<span>Import</span>
+								</button>
+							{/if}
 						</li>
-						{/if}
-						{#if openComp.source === 'favorite'}
-						<li>
-							<img class="iconAreaImage" src="./img/utility/favorite_filled_white.png" alt="Favorite">
-						</li>
-						{/if}
+						{#each compList as comp,i}
+							<li id={comp.uuid}>
+								<CompCard
+									comp={comp}
+									idx={i}
+									highlightComp={highlightComp}
+									on:cardEvent={handleCardEvent}
+								/>
+							</li>
+						{/each}
 					</ul>
 				</div>
-				<div class="tagsArea">
-					<div class="tagDisplay">
-						{#each openComp.tags as tag}
-							<div class="tag">
-								<span class="tagText">{tag}</span>
-							</div>
-						{/each}
-					</div>
+			{:else if curView === 'groups'}
+				<div class="compGroupArea">
+					<CompGroupBrowser on:groupEvent={handleGroupEvent} search={searchStr} />
 				</div>
-				<div class="viewExploreContainer">
-					<button
-						type="button"
-						class="viewExploreButton"
-						class:visible={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid) || $AppData.user.saved_comps.some(e => e.uuid === openComp.uuid)}
-						on:click={() => handleViewExploreClick(openComp.uuid)}>
-						<span>View in Explore</span>
-					</button>
-				</div>
-				<div class="compDetailBody">
-					<div class="lastUpdate">
-						<span title="{openComp.lastUpdate.toLocaleString()}">Updated {msToString(now - openComp.lastUpdate.getTime())}</span>
+			{/if}
+		</section>
+		{:else if curView === 'compDetail'}
+		<section class="sect2">
+			<div class="compDetails">
+				{#if openComp}
+					<div class="compDetailHead">
+						<div class="closeButtonContainer">
+							<button type="button" class="detailButton closeDetailButton" on:click={handleCloseButtonClick}>
+								<img class="closeImage" draggable="false" src="./img/utility/back_color.png" alt="Back">
+							</button>
+						</div>
+						<div class="titleContainer">
+							<h3 class="compTitle">{openComp.name}</h3>
+							<p class="authorTitle">{openComp.author}</p>
+						</div>
+						<button type="button" class="editMenuButton" class:open={showEditMenu} on:click={() => showEditMenu = !showEditMenu}>
+							<i class="filledCircle"></i>
+							<i class="filledCircle"></i>
+							<i class="filledCircle"></i>
+						</button>
+						<div class="editContainer" class:open={showEditMenu}>
+							<button
+								type="button"
+								class="editDelButton editButton"
+								disabled={openComp.source !== 'local'}
+								on:click={() => handleEditButtonClick($AppData.selectedComp)}>
+								<img draggable="false" src="./img/utility/pencil_white.png" alt="Edit">
+								<span>Edit</span>
+							</button>
+							<button
+								type="button"
+								class="editDelButton publishButton"
+								class:update={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
+								disabled={openComp.source !== 'local'}
+								on:click={() => handlePublishButtonClick($AppData.selectedComp)}>
+								<img draggable="false" src="./img/utility/explore_white.png" alt="Publish">
+								<span>{$AppData.user.published_comps.some(e => e.uuid === openComp.uuid) ? 'Update' : 'Publish'}</span>
+							</button>
+							<button
+								type="button"
+								class="editDelButton exportButton"
+								on:click={() => handleExportButtonClick($AppData.selectedComp)}>
+								<img draggable="false" src="./img/utility/export_white.png" alt="Export">
+								<span>Export</span>
+							</button>
+							<button
+								type="button"
+								class="editDelButton hideButton"
+								class:hidden={openComp.hidden}
+								on:click={() => handleHideButtonClick($AppData.selectedComp)}>
+								<img draggable="false" src={openComp.hidden ? './img/utility/view_white.png' : './img/utility/hidden_white.png'} alt={openComp.hidden ? 'Unhide' : 'Hide'}>
+								<span>{openComp.hidden ? 'Unhide' : 'Hide'}</span>
+							</button>
+							<button
+								type="button"
+								class="editDelButton copyButton"
+								on:click={() => handleCopyButtonClick($AppData.selectedComp)}>
+								<img draggable="false" src="./img/utility/copy_white.png" alt="Copy">
+								<span>Copy</span>
+							</button>
+							<button
+								type="button"
+								class="editDelButton deleteButton"
+								on:click={() => handleDeleteButtonClick($AppData.selectedComp)}>
+								<img
+									draggable="false"
+									src={openComp.source === 'local' ? './img/utility/trashcan_white.png' : './img/utility/favorite_unfilled_white.png'}
+									alt={openComp.source === 'local' ? 'Delete' : 'Unfavorite'}>
+								<span>{openComp.source === 'local' ? 'Delete' : 'Unfavorite'}</span>
+							</button>
+						</div>
 					</div>
-					<div class="bodyArea1">
-						<div class="lineExamples">
-							<div class="lineSwitcher">
-								{#each openComp.lines as line, i}
-								<button type="button" class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}>{line.name}</button>
-								{/each}
-							</div>
-							<div class="lineDisplay">
-								{#if openComp.lines.length > 0}
-									<div class="lineTitle"><span>{openComp.lines[selectedLine].name}</span></div>
-								{/if}
-								<div class="lineMembers">
-									<div class="detailBackline">
-										{#if openComp.lines.length > 0}
-											{#each openComp.lines[selectedLine].heroes as hero, i}
-												{#if i >= 2}
-													{#if $HeroData.some(e => e.id === hero)}
-														<div class="detailImgContainer">
-															<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
-															<span class="coreMark" class:visible={openComp.heroes[hero].core}></span>
-															<div class="ascMark">
-																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																	{#if openComp.heroes[hero].ascendLv >= 6}
-																		<img src="./img/markers/ascended.png" alt="ascended">
-																	{:else if openComp.heroes[hero].ascendLv >= 4}
-																		<img src="./img/markers/mythic.png" alt="mythic">
-																	{:else if openComp.heroes[hero].ascendLv >= 2}
-																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else}
-																		<img src="./img/markers/elite.png" alt="elite">
-																	{/if}
-																{:else}
-																	{#if openComp.heroes[hero].ascendLv >= 4}
-																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else if openComp.heroes[hero].ascendLv >= 2}
-																		<img src="./img/markers/elite.png" alt="elite">
-																	{:else}
-																		<img src="./img/markers/rare.png" alt="rare">
-																	{/if}
-																{/if}
-																{#if openComp.heroes[hero].si >= 30}
-																	<img src="./img/markers/si30.png" alt="si30">
-																{:else if openComp.heroes[hero].si >= 20}
-																	<img src="./img/markers/si20.png" alt="si20">
-																{:else if openComp.heroes[hero].si >= 10}
-																	<img src="./img/markers/si10.png" alt="si10">
-																{:else}
-																	<img src="./img/markers/si0.png" alt="si0">
-																{/if}
-																{#if openComp.heroes[hero].furn >= 9}
-																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																{:else if openComp.heroes[hero].furn >= 3}
-																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-																{/if}
-															</div>
-														</div>
-														<button type="button" class="heroNameButton"><span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span></button>
-													{:else}
-														<i class="emptyLineSlot"></i>
-													{/if}
-												{/if}
-											{/each}
-										{/if}
-									</div>
-									<div class="detailFrontline">
-										{#if openComp.lines.length > 0}
-											{#each openComp.lines[selectedLine].heroes as hero, i}
-												{#if i < 2}
-													{#if $HeroData.some(e => e.id === hero)}
-														<div class="detailImgContainer">
-															<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
-															<span class="coreMark" class:visible={openComp.heroes[hero].core}></span>
-															<div class="ascMark">
-																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																	{#if openComp.heroes[hero].ascendLv >= 6}
-																		<img src="./img/markers/ascended.png" alt="ascended">
-																	{:else if openComp.heroes[hero].ascendLv >= 4}
-																		<img src="./img/markers/mythic.png" alt="mythic">
-																	{:else if openComp.heroes[hero].ascendLv >= 2}
-																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else}
-																		<img src="./img/markers/elite.png" alt="elite">
-																	{/if}
-																{:else}
-																	{#if openComp.heroes[hero].ascendLv >= 4}
-																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else if openComp.heroes[hero].ascendLv >= 2}
-																		<img src="./img/markers/elite.png" alt="elite">
-																	{:else}
-																		<img src="./img/markers/rare.png" alt="rare">
-																	{/if}
-																{/if}
-																{#if openComp.heroes[hero].si >= 30}
-																	<img src="./img/markers/si30.png" alt="si30">
-																{:else if openComp.heroes[hero].si >= 20}
-																	<img src="./img/markers/si20.png" alt="si20">
-																{:else if openComp.heroes[hero].si >= 10}
-																	<img src="./img/markers/si10.png" alt="si10">
-																{:else}
-																	<img src="./img/markers/si0.png" alt="si0">
-																{/if}
-																{#if openComp.heroes[hero].furn >= 9}
-																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																{:else if openComp.heroes[hero].furn >= 3}
-																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-																{/if}
-															</div>
-														</div>
-														<button type="button" class="heroNameButton"><span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span></button>
-													{:else}
-														<i class="emptyLineSlot"></i>
-													{/if}
-												{/if}
-											{/each}
-										{/if}
-									</div>
+					<div class="iconsArea">
+						<ul class="iconList">
+							{#if $AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
+							<li>
+								<img class="iconAreaImage" src="./img/utility/explore_white.png" alt="Published">
+							</li>
+							{/if}
+							{#if openComp.hidden}
+							<li>
+								<img class="iconAreaImage" src="./img/utility/hidden_white.png" alt="Hidden">
+							</li>
+							{/if}
+							{#if openComp.source === 'favorite'}
+							<li>
+								<img class="iconAreaImage" src="./img/utility/favorite_filled_white.png" alt="Favorite">
+							</li>
+							{/if}
+						</ul>
+					</div>
+					<div class="tagsArea">
+						<div class="tagDisplay">
+							{#each openComp.tags as tag}
+								<div class="tag">
+									<span class="tagText">{tag}</span>
+								</div>
+							{/each}
+						</div>
+					</div>
+					<div class="viewExploreContainer">
+						<button
+							type="button"
+							class="viewExploreButton"
+							class:visible={$AppData.user.published_comps.some(e => e.uuid === openComp.uuid) || $AppData.user.saved_comps.some(e => e.uuid === openComp.uuid)}
+							on:click={() => handleViewExploreClick(openComp.uuid)}>
+							<span>View in Explore</span>
+						</button>
+					</div>
+					<div class="compDetailBody">
+						<div class="lastUpdate">
+							<span title="{openComp.lastUpdate.toLocaleString()}">Updated {msToString(now - openComp.lastUpdate.getTime())}</span>
+						</div>
+						<div class="bodyArea1">
+							<CompLineEditor
+								lines={openComp.lines}
+								compHeroes={openComp.heroes}
+								bind:selectedLine={selectedLine}
+								on:compLineEvent={handleLineEvent}
+							/>
+							<div class="description">
+								<div class="mobileExpanderTitle">
+									<button type="button" class="expanderButton" on:click={() => openDesc = !openDesc}><i class="expanderArrow {openDesc ? 'down' : 'right' }"></i><span>Description</span></button>
+								</div>
+								<div class="mobileExpander descSection" class:open={openDesc}>
+									<span class="descText">{@html renderMarkdown(openComp.desc)}</span>
 								</div>
 							</div>
 						</div>
-						<div class="description">
-							<div class="mobileExpanderTitle">
-								<button type="button" class="expanderButton" on:click={() => openDesc = !openDesc}><i class="expanderArrow {openDesc ? 'down' : 'right' }"></i><span>Description</span></button>
-							</div>
-							<div class="mobileExpander descSection" class:open={openDesc}>
-								<span class="descText">{@html renderMarkdown(openComp.desc)}</span>
-							</div>
-						</div>
-					</div>
-					<div class="bodyArea2">
-						<div class="heroDetails" id="heroDetailSection">
-							<div class="mobileExpanderTitle">
-								<button type="button" class="expanderButton" on:click={() => openHero = !openHero}><i class="expanderArrow {openHero ? 'down' : 'right' }"></i><span>Hero Info</span></button>
-							</div>
-							<div class="mobileExpander selectHeroSection" class:open={openHero}>
-								{#if selectedHero !== ''}
-									<div class="selectedHero" in:fade="{{duration: 200}}">
-										<div class="upperSelectCard">
-											<div class="siFurnBoxContainer">
-												<SIFurnEngBox type='si' num={openComp.heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
-											</div>
-											<div class="selectPortraitArea">
-												<div class="portraitContainer" on:click={() => handleHeroDetailClick(selectedHero)}>
-													<img draggable="false" class="selectHeroPortrait" class:claimed={$AppData.MH.List[selectedHero].claimed} src="{$HeroData.find(e => e.id === selectedHero).portrait}" alt="{selectedHero}">
-													<span class="coreMark" class:visible={openComp.heroes[selectedHero].core}></span>
+						<div class="bodyArea2">
+							<div class="heroDetails" id="heroDetailSection">
+								<div class="mobileExpanderTitle">
+									<button type="button" class="expanderButton" on:click={() => openHero = !openHero}><i class="expanderArrow {openHero ? 'down' : 'right' }"></i><span>Hero Info</span></button>
+								</div>
+								<div class="mobileExpander selectHeroSection" class:open={openHero}>
+									{#if selectedHero !== ''}
+										<div class="selectedHero" in:fade="{{duration: 200}}">
+											<div class="upperSelectCard">
+												<div class="siFurnBoxContainer">
+													<SIFurnEngBox type='si' num={openComp.heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
 												</div>
-												<p>{$HeroData.find(e => e.id === selectedHero).name}</p>
-												<div>
-													<StarsInput
-														value={openComp.heroes[selectedHero].stars}
-														enabled={openComp.heroes[selectedHero].ascendLv === 6}
-														engraving={openComp.heroes[selectedHero].engraving}
-														displayOnly={true} />
-												</div>
-											</div>
-											<div class="siFurnBoxContainer">
-												<SIFurnEngBox type='furn' num={openComp.heroes[selectedHero].furn} maxWidth='50px' fontSize='1.2rem' />
-											</div>
-										</div>
-										<div class="lowerSelectCard">
-											<div class="ascendBoxContainer">
-												<AscendBox
-													ascendLv="{openComp.heroes[selectedHero].ascendLv}"
-													tier={$HeroData.find(e => e.id === selectedHero).tier}
-												/>
-											</div>
-											{#if openComp.heroes[selectedHero].stars > 0}
-												<div class="engraveBoxContainer">
-													<SIFurnEngBox type='engraving' num={openComp.heroes[selectedHero].engraving} maxWidth='50px' fontSize='1.2rem' />
-												</div>
-											{/if}
-											{#if openComp.heroes[selectedHero].notes.length > 0}
-												<div class="heroNotesArea">
-													<div class="heroNotes">
-														<span>{openComp.heroes[selectedHero].notes}</span>
+												<div class="selectPortraitArea">
+													<div class="portraitContainer" on:click={() => handleHeroDetailClick(selectedHero)}>
+														<img draggable="false" class="selectHeroPortrait" class:claimed={$AppData.MH.List[selectedHero].claimed} src="{$HeroData.find(e => e.id === selectedHero).portrait}" alt="{selectedHero}">
+														<span class="coreMark" class:visible={openComp.heroes[selectedHero].core}></span>
+													</div>
+													<p>{$HeroData.find(e => e.id === selectedHero).name}</p>
+													<div>
+														<StarsInput
+															value={openComp.heroes[selectedHero].stars}
+															enabled={openComp.heroes[selectedHero].ascendLv === 6}
+															engraving={openComp.heroes[selectedHero].engraving}
+															displayOnly={true} />
 													</div>
 												</div>
-											{/if}
-											{#if openComp.heroes[selectedHero].artifacts.primary.length > 0 || openComp.heroes[selectedHero].artifacts.secondary.length > 0 || openComp.heroes[selectedHero].artifacts.situational.length > 0}
-												<div class="artifactsContainer">
-													<h5>Artifacts</h5>
-													<div class="artifactLine priArtifactLine">
-														<h6>Primary</h6>
-														<div class="artifactArea">
-															{#each openComp.heroes[selectedHero].artifacts.primary as artifact}
-																<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
-																	<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-																	<p>{$Artifacts[artifact].name}</p>
-																</button>
-															{/each}
+												<div class="siFurnBoxContainer">
+													<SIFurnEngBox type='furn' num={openComp.heroes[selectedHero].furn} maxWidth='50px' fontSize='1.2rem' />
+												</div>
+											</div>
+											<div class="lowerSelectCard">
+												<div class="ascendBoxContainer">
+													<AscendBox
+														ascendLv="{openComp.heroes[selectedHero].ascendLv}"
+														tier={$HeroData.find(e => e.id === selectedHero).tier}
+													/>
+												</div>
+												{#if openComp.heroes[selectedHero].stars > 0}
+													<div class="engraveBoxContainer">
+														<SIFurnEngBox type='engraving' num={openComp.heroes[selectedHero].engraving} maxWidth='50px' fontSize='1.2rem' />
+													</div>
+												{/if}
+												{#if openComp.heroes[selectedHero].notes.length > 0}
+													<div class="heroNotesArea">
+														<div class="heroNotes">
+															<span>{openComp.heroes[selectedHero].notes}</span>
 														</div>
 													</div>
-													{#if openComp.heroes[selectedHero].artifacts.secondary.length > 0}
-														<div class="artifactLine secArtifactLine">
-															<h6>Secondary</h6>
+												{/if}
+												{#if openComp.heroes[selectedHero].artifacts.primary.length > 0 || openComp.heroes[selectedHero].artifacts.secondary.length > 0 || openComp.heroes[selectedHero].artifacts.situational.length > 0}
+													<div class="artifactsContainer">
+														<div class="artifactLine priArtifactLine">
+															<h6>Primary</h6>
 															<div class="artifactArea">
-																{#each openComp.heroes[selectedHero].artifacts.secondary as artifact}
+																{#each openComp.heroes[selectedHero].artifacts.primary as artifact}
 																	<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
 																		<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 																		<p>{$Artifacts[artifact].name}</p>
@@ -1128,124 +1341,120 @@
 																{/each}
 															</div>
 														</div>
-													{/if}
-													{#if openComp.heroes[selectedHero].artifacts.situational.length > 0}
-														<div class="artifactLine sitArtifactLine">
-															<h6>Situational</h6>
-															<div class="artifactArea">
-																{#each openComp.heroes[selectedHero].artifacts.situational as artifact}
-																	<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
-																		<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-																		<p>{$Artifacts[artifact].name}</p>
-																	</button>
-																{/each}
+														{#if openComp.heroes[selectedHero].artifacts.secondary.length > 0}
+															<div class="artifactLine secArtifactLine">
+																<h6>Secondary</h6>
+																<div class="artifactArea">
+																	{#each openComp.heroes[selectedHero].artifacts.secondary as artifact}
+																		<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																			<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																			<p>{$Artifacts[artifact].name}</p>
+																		</button>
+																	{/each}
+																</div>
 															</div>
-														</div>
-													{/if}
-												</div>
-											{/if}
-										</div>
-									</div>
-								{:else}
-									<TutorialBox noMargin={true}>
-										<span>Select hero to see Ascension, SI, Furniture, and Artifact details.</span>
-									</TutorialBox>
-								{/if}
-							</div>
-						</div>
-						<div class="subGroups">
-							<div class="mobileExpanderTitle">
-								<button type="button" class="expanderButton" on:click={() => openSubs = !openSubs}><i class="expanderArrow {openSubs ? 'down' : 'right' }"></i><span>Substitutes</span></button>
-							</div>
-							<div class="mobileExpander subGroupExpander" class:open={openSubs}>
-								<div class="subDisplay">
-									{#each openComp.subs as subgroup}
-									<div class="subGroup">
-										<div class="subGroupTitle"><span>{subgroup.name}</span></div>
-										<div class="subGroupMembers">
-											{#each subgroup.heroes as hero}
-												<div class="subHeroContainer">
-													<button type="button" class="heroButton">
-														<div class="subImgContainer">
-															<img draggable="false" on:click={() => handleHeroClick(hero)} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
-															<span class="coreMark subCoreMark" class:visible={openComp.heroes[hero].core}></span>
-															<div class="ascMark subAscMark">
-																{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																	{#if openComp.heroes[hero].ascendLv >= 6}
-																		<img src="./img/markers/ascended.png" alt="ascended">
-																	{:else if openComp.heroes[hero].ascendLv >= 4}
-																		<img src="./img/markers/mythic.png" alt="mythic">
-																	{:else if openComp.heroes[hero].ascendLv >= 2}
-																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else}
-																		<img src="./img/markers/elite.png" alt="elite">
-																	{/if}
-																{:else}
-																	{#if openComp.heroes[hero].ascendLv >= 4}
-																		<img src="./img/markers/legendary.png" alt="legendary">
-																	{:else if openComp.heroes[hero].ascendLv >= 2}
-																		<img src="./img/markers/elite.png" alt="elite">
-																	{:else}
-																		<img src="./img/markers/rare.png" alt="rare">
-																	{/if}
-																{/if}
-																{#if openComp.heroes[hero].si >= 30}
-																	<img src="./img/markers/si30.png" alt="si30">
-																{:else if openComp.heroes[hero].si >= 20}
-																	<img src="./img/markers/si20.png" alt="si20">
-																{:else if openComp.heroes[hero].si >= 10}
-																	<img src="./img/markers/si10.png" alt="si10">
-																{:else}
-																	<img src="./img/markers/si0.png" alt="si0">
-																{/if}
-																{#if openComp.heroes[hero].furn >= 9}
-																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																{:else if openComp.heroes[hero].furn >= 3}
-																	<img class:moveup={openComp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-																{/if}
+														{/if}
+														{#if openComp.heroes[selectedHero].artifacts.situational.length > 0}
+															<div class="artifactLine sitArtifactLine">
+																<h6>Situational</h6>
+																<div class="artifactArea">
+																	{#each openComp.heroes[selectedHero].artifacts.situational as artifact}
+																		<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																			<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																			<p>{$Artifacts[artifact].name}</p>
+																		</button>
+																	{/each}
+																</div>
 															</div>
-														</div>
-														<p on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</p>
-													</button>
-												</div>
-											{/each}
+														{/if}
+													</div>
+												{/if}
+											</div>
 										</div>
+									{:else}
+										<TutorialBox noMargin>
+											<span>Select hero to see Ascension, SI, Furniture, and Artifact details.</span>
+										</TutorialBox>
+									{/if}
+								</div>
+							</div>
+							<div class="subGroups">
+								<div class="mobileExpanderTitle">
+									<button type="button" class="expanderButton" on:click={() => openSubs = !openSubs}><i class="expanderArrow {openSubs ? 'down' : 'right' }"></i><span>Substitutes</span></button>
+								</div>
+								<div class="mobileExpander subGroupExpander" class:open={openSubs}>
+									<div class="subDisplay">
+										{#each openComp.subs as subgroup}
+										<div class="subGroup">
+											<div class="subGroupTitle"><span>{subgroup.name}</span></div>
+											<div class="subGroupMembers">
+												{#each subgroup.heroes as hero}
+													<div class="subHeroContainer">
+														<HeroButton
+															hero={hero}
+															heroDetails={openComp.heroes[hero]}
+															on:heroButtonEvent={handleHeroButtonEvent}
+														/>
+													</div>
+												{/each}
+											</div>
+										</div>
+										{/each}
 									</div>
-									{/each}
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			{:else}
-				<div class="noSelectedComp">
-					<div class="noSelectedCompText">
-						<span>&#8678; Select a Comp</span>
+				{:else}
+					<div class="noSelectedComp">
+						<div class="noSelectedCompText">
+							<span>&#8678; Select a Comp</span>
+						</div>
+					</div>
+				{/if}
+			</div>
+		</section>
+		{/if}
+		<section class="sect3" class:visible={showowConfirm}>
+			{#if showowConfirm}
+				<div class="owBackground">
+					<div class="owConfirmWindow">
+						<div class="owTitle">
+							<h4>Previous Comp Found</h4>
+						</div>
+						<div class="owBody">
+							<span>{owText}</span>
+						</div>
+						<div class="owFooter">
+							<button type="button" class="owFooterButton owUpdate" on:click={owPromise('update')}>Update</button>
+							<button type="button" class="owFooterButton owNew" on:click={owPromise('new')}>New</button>
+							<button type="button" class="owFooterButton owCancel" on:click={owPromise('cancel')}>Cancel</button>
+						</div>
 					</div>
 				</div>
 			{/if}
-		</div>
-	</section>
-	<section class="sect3" class:visible={showowConfirm}>
-		{#if showowConfirm}
-			<div class="owBackground">
-				<div class="owConfirmWindow">
-					<div class="owTitle">
-						<h4>Previous Comp Found</h4>
-					</div>
-					<div class="owBody">
-						<span>{owText}</span>
-					</div>
-					<div class="owFooter">
-						<button type="button" class="owFooterButton owUpdate" on:click={owPromise('update')}>Update</button>
-						<button type="button" class="owFooterButton owNew" on:click={owPromise('new')}>New</button>
-						<button type="button" class="owFooterButton owCancel" on:click={owPromise('cancel')}>Cancel</button>
-					</div>
-				</div>
+		</section>
+		<section class="sect4" class:visible={curView === 'compList'}>
+			<div class="mobileNewCompMenu" class:visible={openMobileCompMenu} class:group={curGroup}>
+				{#if curGroup}
+					<button type="button" class="mobileNewCompButton" on:click={handleAddToGroupClick}>
+						<img draggable="false" class="groupModifyIcon" src="./img/utility/group_manage_white.png" alt="Add Comps">
+					</button>
+				{:else}
+					<button type="button" class="mobileNewCompButton new" on:click={handleNewButtonClick}>
+						<img draggable="false" class="newCompIcon" src="./img/utility/comps_white.png" alt="Add Comp">
+					</button>
+					<button type="button" class="mobileNewCompButton import" on:click={handleImportButtonClick}>
+						<img draggable="false" class="importButtonIcon" src="./img/utility/import_white.png" alt="Import">
+					</button>
+				{/if}
 			</div>
-		{/if}
-	</section>
-</div>
+			<button type="button" class="mobileMenuButton" on:click={handleOpenMobileCompMenuClick}>
+				<span class="plusIcon">+</span>
+			</button>
+		</section>
+	</div>
+{/if}
 
 <style lang="scss">
 	img {
@@ -1260,11 +1469,858 @@
 		flex-direction: column;
 		height: 100%;
 		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
+		overflow-y: auto;
 		width: 100%;
+		.searchArea {
+			display: flex;
+			flex-direction: column;
+			padding: 10px 10px 0px 10px;
+			position: relative;
+			.headButton {
+				align-items: center;
+				background-color: transparent;
+				border: none;
+				border-radius: 10px;
+				cursor: pointer;
+				display: flex;
+				height: 40px;
+				justify-content: center;
+				outline: none;
+				position: absolute;
+				transition: all 0.2s;
+				width: 40px;
+			}
+			.groupTitle {
+				align-items: center;
+				display: flex;
+				justify-content: center;
+				margin-top: 10px;
+				text-align: center;
+				h3 {
+					margin: 0;
+				}
+			}
+			.mobileSearchArea {
+				align-items: center;
+				display: flex;
+				width: 100%;
+				.filterInput {
+					background-color: var(--appBGColorLight);
+					border: none;
+					border-radius: 5px;
+					box-shadow: var(--neu-med-i-BGColor-shadow);
+					font-size: 1.2rem;
+					outline: none;
+					padding: 8px;
+					width: 100%;
+					&:focus {
+						background-color: white;
+					}
+				}
+			}
+			.searchButton {
+				right: 75px;
+				.searchImage {
+					max-width: 25px;
+					opacity: 0.3;
+					filter: invert(1);
+				}
+			}
+			.openFiltersButton {
+				right: 38px;
+				.openFiltersImage {
+					max-width: 25px;
+					opacity: 0.3;
+					filter: invert(1);
+				}
+				&.open {
+					.openFiltersImage {
+						opacity: 0.7;
+					}
+				}
+			}
+		}
+		.filterContainer {
+			background-color: var(--appBGColor);
+			border-radius: 10px;
+			box-shadow: var(--neu-large-ni-BGColor-shadow);
+			left: 50%;
+			margin-top: 65px;
+			opacity: 0;
+			overflow: hidden;
+			padding: 10px 0px;
+			position: absolute;
+			transform: translate(-51.5%, 0);
+			transition: all 0.2s;
+			visibility: hidden;
+			width: 90%;
+			z-index: 2;
+			&.open {
+				opacity: 1;
+				visibility: visible;
+			}
+			.hiddenToggleArea {
+				align-items: center;
+				display: flex;
+				justify-content: flex-end;
+				padding: 0px 10px 10px 0px;
+				width: 100%;
+				span {
+					font-size: 0.9rem;
+				}
+			}
+			.primaryFilters {
+				display: flex;
+				.filterArea {
+					align-items: center;
+					border-right: 1px solid black;
+					display: flex;
+					flex-direction: column;
+					width: 33.33%;
+					&:last-child {
+						border-right: none;
+					}
+					.addFilterButton {
+						background-color: var(--appBGColor);
+						border: none;
+						border-radius: 10px;
+						box-shadow: var(--neu-sm-i-BGColor-shadow);
+						color: black;
+						cursor: pointer;
+						padding: 5px;
+						font-size: 1rem;
+						outline: none;
+					}
+					.filterItems {
+						align-items: center;
+						display: flex;
+						flex-wrap: wrap;
+						justify-content: center;
+						margin-top: 10px;
+						.rmFilterButton {
+							background: var(--appBGColor);
+							border: none;
+							border-radius: 30px;
+							box-shadow: var(--neu-sm-i-BGColor-shadow);
+							color: black;
+							cursor: pointer;
+							font-size: 0.7rem;
+							flex-grow: 0;
+							flex-shrink: 0;
+							margin: 5px 5px;
+							max-width: 125px;
+							outline: none;
+							overflow: hidden;
+							padding: 4px;
+							text-overflow: ellipsis;
+							transition: all 0.2s;
+							white-space: nowrap;
+							&:before {
+								background-color: var(--appDelColor);
+								border-radius: 50%;
+								color: var(--appBGColor);
+								content: '—';
+								font-weight: bold;
+								font-size: 0.6rem;
+								margin-right: 2px;
+								text-align: center;
+							}
+							&.exclude {
+								background: var(--appDelColor);
+								border-color: var(--appDelColor);
+								&:before {
+									color: var(--appDelColor);
+								}
+							}
+						}
+					}
+				}
+			}
+			.secondaryFilters {
+				.filterArea {
+					.timeFilterArea {
+						padding: 0px 30px;
+					}
+				}
+			}
+			:global(#timeSlider) {
+				:global(.rangeBar) {
+					background-color: var(--appColorPriDark);
+				}
+				:global(.rangeHandle) {
+					:global(.rangeNub) {
+						background-color: var(--appColorBlack);
+					}
+				}
+			}
+		}
+		.sortArea {
+			font-size: 0.9rem;
+			margin-left: auto;
+			padding-right: 10px;
+			.compsSelect {
+				border: 1px solid black;
+				border-radius: 5px;
+				outline: none;
+				padding: 3px;
+			}
+			&.hidden {
+				display: none;
+			}
+		}
+		.compListTabs {
+			display: flex;
+			padding: 20px 5px 10px 5px;
+			position: relative;
+			width: 100%;
+			.tabButton {
+				align-items: center;
+				border: none;
+				border-radius: 10px;
+				box-shadow: var(--neu-med-i-BGColor-shadow);
+				cursor: pointer;
+				display: flex;
+				font-size: 1.2rem;
+				justify-content: center;
+				outline: none;
+				padding: 5px;
+				img {
+					filter: invert(1);
+					max-width: 30px;
+					opacity: 0.3;
+				}
+				span {
+					opacity: 0.3;
+					padding-left: 5px;
+				}
+				&.open {
+					background: var(--neu-convex-BGLight-bg);
+					img {
+						opacity: 1;
+					}
+					span {
+						opacity: 1;
+					}
+				}
+			}
+			.viewGroupsButton {
+				margin-left: auto;
+			}
+			.sortArea {
+				position: absolute;
+				left: 50%;
+				bottom: 8px;
+				transform: translate(-50%, 0%);
+			}
+		}
+		.compGridArea {
+			background-color: var(--appBGColorLight);
+			border-radius: 10px;
+			box-shadow: var(--neu-large-ni-BGColor-shadow);
+			margin-bottom: 100px;
+			padding: 10px 15px;
+			.compGrid {
+				display: grid;
+				grid-gap: 5px 5px;
+				grid-template-columns: repeat(auto-fill, minmax(350px, 350px));
+				grid-auto-rows: 155px;
+				justify-content: space-around;
+				margin: 0;
+				padding: 0;
+				list-style-type: none;
+				.newCompArea {
+					display: none;
+					height: 146px;
+					width: 350px;
+					.newCompButton {
+						border: none;
+						background-color: var(--appBGColor);
+						color: black;
+						cursor: pointer;
+						font-size: 1.1rem;
+						width: 100%;
+						.imgContainer {
+							align-items: center;
+							display: flex;
+							height: 37px;
+							justify-content: center;
+						}
+						img {
+							max-width: 20px;
+							filter: invert(1);
+						}
+						span {
+							display: block;
+						}
+						.plusIcon {
+							display: block;
+							font-size: 2rem;
+							font-weight: bold;
+							margin: 0 auto;
+							transition: transform 0.7s;
+							width: fit-content;
+						}
+						&.group {
+							border-radius: 10px;
+						}
+						&.new {
+							border-top-left-radius: 10px;
+							border-bottom-left-radius: 10px;
+							border-right: 1px solid black;
+						}
+						&.import {
+							border-top-right-radius: 10px;
+							border-bottom-right-radius: 10px;
+							border-left: 1px solid black;
+						}
+					}
+				}
+			}
+		}
+		.compGroupArea {
+			padding: 0px 15px;
+		}
 	}
 	.sect2 {
 		height: 100%;
 		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
+		.noSelectedComp {
+			display: none;
+			visibility: hidden;
+		}
+		.compDetails {
+			background-color: var(--appBGColor);
+			display: flex;
+			flex-direction: column;
+			height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
+			min-width: 100%;
+			overflow-y: auto;
+			padding: 10px;
+			position: fixed;
+			right: 0;
+			scroll-behavior: smooth;
+			top: var(--headerHeight);
+			transition: all 0.3s ease-out;
+		}
+		.compDetailHead {
+			align-items: center;
+			display: flex;
+			flex-direction: row;
+			position: relative;
+			width: 100%;
+			.closeButtonContainer {
+				position: absolute;
+				.closeDetailButton {
+					align-items: center;
+					background-color: transparent;
+					border: none;
+					border-radius: 10px;
+					box-shadow: var(--neu-sm-i-BGColor-shadow);
+					cursor: pointer;
+					display: flex;
+					height: 40px;
+					justify-content: center;
+					width: 40px;
+					.closeImage {
+						max-width: 20px;
+					}
+				}
+			}
+			.titleContainer {
+				align-items: center;
+				display: flex;
+				flex-direction: column;
+				overflow: hidden;
+				justify-content: center;
+				width: 100%;
+				.compTitle {
+					display: inline-block;
+					font-size: 1.5rem;
+					margin: 0;
+					overflow: hidden;
+					text-align: center;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					width: 100%;
+				}
+				.authorTitle {
+					display: inline-block;
+					font-size: 0.9rem;
+					margin: 0;
+					overflow: hidden;
+					text-align: center;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					width: 100%;
+				}
+			}
+			.editMenuButton {
+				align-items: center;
+				border: none;
+				border-radius: 10px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				color: var(--appColorPrimary);
+				cursor: pointer;
+				display: flex;
+				flex-direction: column;
+				height: 40px;
+				justify-content: center;
+				margin-left: auto;
+				padding: 0;
+				position: absolute;
+				right: 0px;
+				transition: all 0.2s;
+				width: 40px;
+				.filledCircle {
+					background-color: var(--appColorPrimary);
+					border-radius: 50%;
+					height: 5px;
+					margin: 2px;
+					max-height: 5px;
+					min-height: 5px;
+					max-width: 5px;
+					min-width: 5px;
+					width: 5px;
+				}
+				&.open {
+					background: var(--neu-concave-BGColor-bg);
+				}
+			}
+			.editContainer {
+				align-items: center;
+				background-color: var(--appBGColor);
+				border-radius: 10px;
+				border-top-right-radius: 0px;
+				box-shadow: var(--neu-med-ni-BGColor-shadow);
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				opacity: 0;
+				padding: 5px;
+				position: absolute;
+				right: 13px;
+				bottom: -315px;
+				visibility: hidden;
+				transition: all 0.2s;
+				z-index: 1;
+				&:after {
+					content: " ";
+					position: absolute;
+					right: 0px;
+					top: -6px;
+					border-top: none;
+					border-right: 6px solid transparent;
+					border-left: 6px solid transparent;
+					border-bottom: 6px solid var(--appBGColor);
+				}
+				&.open {
+					opacity: 1;
+					visibility: visible;
+				}
+				.editDelButton {
+					align-items: center;
+					background-color: var(--appColorPrimary);
+					border: 3px solid var(--appColorPrimary);
+					border-radius: 5px;
+					color: white;
+					cursor: pointer;
+					display: flex;
+					flex-direction: row;
+					font-size: 0.9rem;
+					height: fit-content;
+					justify-content: center;
+					margin: 5px;
+					height: 40px;
+					width: 40px;
+					span {
+						display: none;
+					}
+					&:active {
+						box-shadow: none;
+					}
+					img {
+						max-width: 20px;
+					}
+					&.deleteButton {
+						background-color: var(--appDelColor);
+						border: 3px solid var(--appDelColor);
+					}
+					&:disabled {
+						background-color: var(--appColorDisabled);
+						border-color: var(--appColorDisabled);
+						cursor: not-allowed;
+					}
+				}
+				.deleteButton {
+					background-color: var(--appDelColor);
+					border: 3px solid var(--appDelColor);
+					img {
+						max-width: 16px;
+					}
+				}
+			}
+		}
+		.iconsArea {
+			align-items: center;
+			display: flex;
+			justify-content: center;
+			margin-bottom: 10px;
+			padding-top: 3px;
+			width: 100%;
+			.iconList {
+				display: flex;
+				justify-content: center;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				li {
+					padding: 0px 3px;
+				}
+				img {
+					max-width: 20px;
+					filter: invert(1.0);
+				}
+			}
+		}
+		.tagsArea {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			.tagDisplay {
+				align-items: center;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				justify-content: center;
+				margin-bottom: 5px;
+				width: 100%;
+				.tag {
+					position: relative;
+					margin: 0px 8px;
+					margin-bottom: 10px;
+				}
+				.tagText {
+					border: none;
+					border-radius: 15px;
+					display: inline-block;
+					background-color: var(--appBGColor);
+					box-shadow: var(--neu-sm-ni-BGColor-shadow);
+					font-size: 0.8rem;
+					padding: 0px 8px;
+					padding-bottom: 2px;
+					text-align: center;
+					user-select: none;
+				}
+			}
+		}
+		.viewExploreContainer {
+			display: flex;
+			justify-content: center;
+			margin-top: 10px;
+			padding-bottom: 10px;
+			width: 100%;
+			.viewExploreButton {
+				background-color: var(--appBGColor);
+				border: none;
+				border-radius: 10px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				color: var(--appColorPrimary);
+				cursor: pointer;
+				font-weight: bold;
+				display: none;
+				outline: none;
+				padding: 10px;
+				text-align: center;
+				&.visible {
+					display: block;
+				}
+			}
+		}
+		.compDetailBody {
+			border-top: 1px solid rgba(0, 0, 0, 0.25);
+			margin-top: 5px;
+			padding-top: 10px;
+			.lastUpdate {
+				display: flex;
+				justify-content: flex-end;
+				padding-bottom: 10px;
+			}
+			.expanderButton {
+				background-color: var(--appBGColor);
+				border: none;
+				border-radius: 10px;
+				box-shadow: var(--neu-med-i-BGColor-shadow);
+				color: black;
+				cursor: pointer;
+				font-size: 1.1rem;
+				outline: none;
+				padding: 10px;
+				text-align: left;
+				width: 100%;
+				.expanderArrow {
+					border: solid black;
+					border-width: 0 3px 3px 0;
+					display: inline-block;
+					margin-right: 16px;
+					padding: 3px;
+					transition: transform 0.2s ease-out;
+					&.right {
+						transform: rotate(-45deg);
+					}
+					&.down {
+						transform: rotate(45deg);
+					}
+				}
+			}
+			.selectHeroSection {
+				width: 100%;
+				#heroDetailSection {
+					scroll-snap-align: center;
+				}
+				.selectedHero {
+					background-color: var(--appBGColor);
+					border-radius: 10px;
+					box-shadow: var(--neu-med-ni-BGColor-shadow);
+					display: flex;
+					flex-direction: column;
+					margin: 0 auto;
+					padding: 10px;
+					width: 100%;
+				}
+				.upperSelectCard {
+					align-items: center;
+					display: flex;
+					flex-direction: row;
+					justify-content: center;
+					width: 100%;
+					.siFurnBoxContainer {
+						margin-bottom: 50px;
+					}
+					.selectPortraitArea {
+						align-items: center;
+						display: flex;
+						flex-direction: column;
+						padding: 0px 10px;
+					}
+					.portraitContainer {
+						cursor: pointer;
+						position: relative;
+						+ {
+							p {
+								font-size: 1.1rem;
+								font-weight: bold;
+								margin: 0;
+								margin-bottom: 5px;
+								margin-top: -8px;
+								text-align: center;
+							}
+						}
+					}
+					.selectHeroPortrait {
+						border-radius: 50%;
+						margin-bottom: 5px;
+						max-width: 80px;
+						&.claimed {
+							border: 5px solid var(--appColorPrimary);
+						}
+					}
+				}
+				.lowerSelectCard {
+					align-items: center;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					margin-top: 10px;
+					width: 100%;
+					.ascendBoxContainer {
+						margin-bottom: 10px;
+					}
+					.heroNotesArea {
+						width: 100%;
+						margin: 10px 0px;
+						.heroNotes {
+							border-radius: 10px;
+							box-shadow: var(--neu-sm-ni-BGColor-shadow);
+							padding: 10px;
+						}
+					}
+					.artifactsContainer {
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						width: 100%;
+					}
+					.artifactLine {
+						h6 {
+							font-size: 0.9rem;
+							margin: 0;
+							margin-top: 7px;
+							margin-bottom: 3px;
+						}
+					}
+					.artifactArea {
+						border-radius: 10px;
+						box-shadow: var(--neu-sm-ni-BGColor-inset-shadow);
+						display: grid;
+						grid-template-columns: repeat(auto-fill, 90px);
+						min-height: 80px;
+						padding: 5px;
+						width: 100%;
+					}
+					.artifactImgContainer {
+						align-items: center;
+						background: transparent;
+						border: none;
+						cursor: pointer;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						outline: none;
+						padding: 3px;
+						img {
+							border-radius: 50%;
+							max-width: 60px;
+						}
+						p {
+							margin: 0;
+							max-width: 80px;
+							overflow: hidden;
+							text-align: center;
+							text-overflow: ellipsis;
+							user-select: none;
+							white-space: nowrap;
+						}
+					}
+				}
+			}
+			.subDisplay {
+				display: flex;
+				flex-direction: column;
+				padding: 10px 0px;
+				padding-top: 0;
+				width: 100%;
+				.subGroupTitle {
+					border-bottom: 2px solid black;
+					font-size: 1.1rem;
+					font-weight: bold;
+					padding-bottom: 3px;
+					padding-top: 5px;
+					width: 100%;
+					span {
+						display: inline-block;
+						width: 100%;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+					}
+					&:first-child {
+						padding-top: 0;
+					}
+				}
+				.subGroupMembers {
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					padding: 5px;
+					width: 100%;
+				}
+				.subHeroContainer {
+					margin: 5px 8px;
+				}
+			}
+			.mobileExpander {
+				margin-bottom: 10px;
+				max-height: 0px;
+				overflow: hidden;
+				transition: all 0.2s ease-out;
+				&.open {
+					max-height: 5000px;
+					overflow: visible;
+					padding-top: 10px;
+				}
+			}
+			.descSection.open {
+				padding-left: 5px;
+			}
+			/* description markdown styling */
+			.descText {
+				:global(hr) {
+					border: 1px solid var(--appColorPrimary);
+					margin: 5px 0px;
+				}
+				:global(p) {
+					line-height: 160%;
+					margin: 5px 0px;
+				}
+				:global(a) {
+					color: var(--appColorPrimary);
+				}
+				:global(ul) {
+					margin: 10px 0px;
+					padding-left: 24px;
+				}
+				:global(ol) {
+					margin: 10px 0px;
+					padding-left: 24px;
+				}
+				:global(h1) {
+					margin: 10px 0px;
+					font-size: 1.7rem;
+				}
+				:global(h2) {
+					margin: 10px 0px;
+				}
+				:global(h3) {
+					margin: 10px 0px;
+				}
+				:global(h4) {
+					margin: 5px 0px;
+				}
+				:global(h5) {
+					margin: 5px 0px;
+				}
+				:global(h6) {
+					margin: 5px 0px;
+				}
+				:global(blockquote) {
+					border-left: 5px solid var(--appColorPriOpaque);
+					color: #999;
+					margin-left: 20px;
+					padding-left: 5px;
+				}
+				:global(pre) {
+					background-color: var(--appBGColorDark);
+					color: black;
+					font-family: 'Courier New', Courier, monospace;
+					font-size: 1.0rem;
+					padding: 10px;
+					white-space: break-spaces;
+				}
+				:global(table) {
+					border-collapse: collapse;
+				}
+				:global(th) {
+					border-bottom: 2px solid var(--appColorPrimary);
+					padding-top: 7px;
+					padding-bottom: 7px;
+					padding-right: 20px;
+					text-align: left;
+				}
+				:global(td) {
+					border-bottom: 1px solid black;
+					padding-top: 7px;
+					padding-bottom: 7px;
+				}
+				:global(tr) {
+					&:nth-child(even) {
+						background-color: var(--appColorPriOpaque);
+					}
+				}
+				:global(img) {
+					max-width: 100px;
+				}
+			}
+		}
 	}
 	.sect3 {
 		display: block;
@@ -1278,1097 +2334,351 @@
 		&.visible {
 			visibility: visible;
 		}
-	}
-	.owBackground {
-		align-items: center;
-		background-color: rgba(0, 0, 0, 0.5);
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		justify-content: center;
-		width: 100%;
-	}
-	.owConfirmWindow {
-		background-color: var(--appBGColor);
-		border-radius: 10px;
-		padding: 10px;
-	}
-	.owTitle {
-		display: flex;
-		justify-content: center;
-		padding: 10px;
-		h4 {
-			margin: 0;
-		}
-	}
-	.owBody {
-		padding: 10px;
-	}
-	.owFooter {
-		display: flex;
-		justify-content: flex-end;
-		padding-top: 10px;
-	}
-	.owFooterButton {
-		background-color: transparent;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 10px;
-		color: var(--appColorPrimary);
-		margin-right: 10px;
-		outline: none;
-		padding: 5px;
-		&:last-child {
-			margin-right: 0;
-		}
-	}
-	.searchArea {
-		align-items: center;
-		background-color: var(--appBGColorDark);
-		border-bottom: 3px solid var(--appColorPrimary);
-		display: flex;
-		flex-direction: column;
-		height: 65px;
-		padding: 5px 10px;
-		position: relative;
-		justify-content: center;
-		.searchBox {
-			border: 1px solid var(--appColorPrimary);
-			border-radius: 5px;
-			font-size: 1.1rem;
-			outline: none;
-			width: 100%;
-			&:focus {
-				box-shadow: 0 0 0 2px var(--appColorPrimary);
-			}
-		}
-		.suggestions {
-			background-color: white;
-			border: 1px solid var(--appColorPrimary);
-			border-radius: 0px 0px 10px 10px;
-			border-top: 0;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+		.owBackground {
+			align-items: center;
+			background-color: rgba(0, 0, 0, 0.5);
 			display: flex;
 			flex-direction: column;
-			opacity: 0;
-			position: absolute;
-			top: 30px;
-			transition: all 0.2s;
-			visibility: hidden;
-			width: 80%;
-			z-index: 1;
-			.suggestionButton {
-				background: transparent;
-				border: 0;
-				border-bottom: 1px solid var(--appColorPrimary);
-				color: var(--appColorPrimary);
-				cursor: pointer;
-				font-size: 1rem;
-				outline: 0;
-				user-select: none;
-				&:hover {
-					color: white;
-					background-color: var(--appColorPrimary);
-				}
-				&:last-child {
-					border-bottom: 0;
-					border-radius: 0px 0px 10px 10px;
-				}
-			}
-		}
-		.suggestions.open {
-			visibility: visible;
-			opacity: 1;
-		}
-		.hiddenToggleArea {
-			align-items: center;
-			display: flex;
-			justify-content: flex-end;
-			padding-top: 3px;
+			height: 100%;
+			justify-content: center;
 			width: 100%;
-			span {
-				font-size: 0.9rem;
-			}
 		}
-	}
-	.compScroller {
-		background-color: var(--appBGColorDark);
-		height: calc(100vh - var(--headerHeight) - 40px - 80px);
-		overflow-x: hidden;
-		overflow-y: auto;
-		padding: 5px;
-		padding-bottom: 0px;
-		position: relative;
-		scroll-behavior: smooth;
-	}
-	.noComps {
-		bottom: 30%;
-		color: rgba(100, 100, 100, 0.3);
-		font-size: 3rem;
-		font-weight: bold;
-		left: 0;
-		position: absolute;
-		text-align: center;
-		text-transform: uppercase;
-		width: 100%;
-		user-select: none;
-	}
-	.noComps.noSearch {
-		top: 0;
-	}
-	.addButtonArea {
-		bottom: 0;
-		height: 80px;
-		left: 0;
-		width: 100%;
-	}
-	.plusIcon {
-		display: block;
-		font-size: 2rem;
-		font-weight: bold;
-		margin: 0 auto;
-		transition: transform 0.7s;
-		width: fit-content;
-	}
-	.newCompOptionsArea {
-		background-color: var(--appColorPrimary);
-		display: flex;
-		flex-direction: row;
-		height: 80px;
-		width: 100%;
-	}
-	.newCompOptionButton {
-		background-color: transparent;
-		border: 0;
-		color: white;
-		cursor: pointer;
-		font-size: 1.1rem;
-		width: 100%;
-		&:first-child {
-			border-right: 3px solid var(--appColorPriAccent);
-		}
-		&:last-child {
-			border-left: 3px solid var(--appColorPriAccent);
-		}
-		.imgContainer {
-			align-items: center;
-			display: flex;
-			height: 37px;
-			justify-content: center;
-		}
-		img {
-			max-width: 20px;
-		}
-		span {
-			display: block;
-		}
-	}
-	.noSelectedComp {
-		display: none;
-		visibility: hidden;
-	}
-	.compDetails {
-		background-color: var(--appBGColor);
-		display: flex;
-		flex-direction: column;
-		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
-		max-width: 0px;
-		overflow-x: hidden;
-		overflow-y: hidden;
-		position: fixed;
-		right: 0;
-		scroll-behavior: smooth;
-		top: var(--headerHeight);
-		transition: all 0.3s ease-out;
-		visibility: hidden;
-	}
-	.compDetails.open {
-		max-width: 100%;
-		overflow-y: auto;
-		padding: 10px;
-		width: 100%;
-		visibility: visible;
-	}
-	.compDetailHead {
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		position: relative;
-		width: 100%;
-	}
-	.closeButtonContainer {
-		width: 25%;
-	}
-	.closeDetailButton {
-		align-items: center;
-		background-color: transparent;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 5px;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		display: flex;
-		font-size: 1.0rem;
-		justify-content: center;
-		margin: 5px 10px;
-		padding: 3px;
-	}
-	.arrow {
-		border: solid var(--appColorPrimary);
-		border-width: 0 3px 3px 0;
-		display: inline-block;
-		margin: 0px 5px;
-		padding: 3px;
-	}
-	.left {
-		transform: rotate(135deg);
-	}
-	.titleContainer {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		overflow: hidden;
-		justify-content: center;
-		width: 50%;
-	}
-	.compTitle {
-		display: inline-block;
-		font-size: 1.5rem;
-		margin: 0;
-		overflow: hidden;
-		text-align: center;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		width: 100%;
-	}
-	.authorTitle {
-		display: inline-block;
-		font-size: 0.9rem;
-		margin: 0;
-		overflow: hidden;
-		text-align: center;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		width: 100%;
-	}
-	.editMenuButton {
-		align-items: center;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 10px;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		display: flex;
-		flex-direction: column;
-		height: 40px;
-		justify-content: center;
-		margin-left: auto;
-		padding: 0;
-		transition: all 0.2s;
-		width: 40px;
-		.filledCircle {
-			background-color: var(--appColorPrimary);
-			border-radius: 50%;
-			height: 5px;
-			margin: 2px;
-			max-height: 5px;
-			min-height: 5px;
-			max-width: 5px;
-			min-width: 5px;
-			width: 5px;
-		}
-		&.open {
-			background-color: var(--appColorPrimary);
-			.filledCircle {
-				background-color: var(--appBGColor);
-			}
-		}
-	}
-	.editContainer {
-		align-items: center;
-		background-color: var(--appBGColor);
-		border-radius: 10px;
-		border-top-right-radius: 0px;
-		box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		opacity: 0;
-		padding: 5px;
-		position: absolute;
-		right: 13px;
-		bottom: -315px;
-		visibility: hidden;
-		transition: all 0.2s;
-		&:after {
-			content: " ";
-			position: absolute;
-			right: 0px;
-			top: -6px;
-			border-top: none;
-			border-right: 6px solid transparent;
-			border-left: 6px solid transparent;
-			border-bottom: 6px solid var(--appBGColor);
-		}
-		&.open {
-			opacity: 1;
-			visibility: visible;
-		}
-		.editDelButton {
-			align-items: center;
-			background-color: var(--appColorPrimary);
-			border: 3px solid var(--appColorPrimary);
-			border-radius: 5px;
-			color: white;
-			cursor: pointer;
-			display: flex;
-			flex-direction: row;
-			font-size: 0.9rem;
-			height: fit-content;
-			justify-content: center;
-			margin: 5px;
-			height: 40px;
-			width: 40px;
-			span {
-				display: none;
-			}
-			&:active {
-				box-shadow: none;
-			}
-			img {
-				max-width: 20px;
-			}
-			&.deleteButton {
-				background-color: var(--appDelColor);
-				border: 3px solid var(--appDelColor);
-			}
-			&:disabled {
-				background-color: var(--appColorDisabled);
-				border-color: var(--appColorDisabled);
-				cursor: not-allowed;
-			}
-		}
-	}
-	.deleteButton {
-		background-color: var(--appDelColor);
-		border: 3px solid var(--appDelColor);
-		img {
-			max-width: 16px;
-		}
-	}
-	.tagsArea {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-	}
-	.iconsArea {
-		align-items: center;
-		display: flex;
-		justify-content: center;
-		padding-top: 3px;
-		width: 100%;
-		.iconList {
-			display: flex;
-			justify-content: center;
-			list-style-type: none;
-			margin: 0;
-			padding: 0;
-			li {
-				padding: 0px 3px;
-			}
-			img {
-				max-width: 20px;
-				filter: invert(1.0);
-			}
-		}
-	}
-	.viewExploreContainer {
-		border-bottom: 1px solid black;
-		display: flex;
-		justify-content: center;
-		padding-bottom: 10px;
-		width: 100%;
-		.viewExploreButton {
-			background-color: var(--appColorPrimary);
-			border: 2px solid var(--appColorPrimary);
-			border-radius: 7px;
-			color: var(--appBGColor);
-			cursor: pointer;
-			display: none;
-			outline: none;
-			padding: 5px;
-			text-align: center;
-			&.visible {
-				display: block;
-			}
-		}
-	}
-	.tagDisplay {
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-		margin-bottom: 5px;
-		width: 100%;
-		.tag {
-			position: relative;
-			margin: 0px 5px;
-			margin-bottom: 5px;
-		}
-		.tagText {
-			border: 1px solid var(--appColorPrimary);
-			border-radius: 15px;
-			display: inline-block;
-			background-color: var(--appColorPrimary);
-			color: white;
-			font-size: 0.8rem;
-			padding: 0px 5px;
-			padding-bottom: 4px;
-			text-align: center;
-			user-select: none;
-		}
-	}
-	.compDetailBody {
-		padding-top: 10px;
-	}
-	.lastUpdate {
-		display: flex;
-		justify-content: flex-end;
-		padding-bottom: 10px;
-	}
-	.lineExamples {
-		padding-bottom: 10px;
-		width: 100%;
-	}
-	.lineSwitcher {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-	}
-	.lineSwitchButton {
-		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
-		border-bottom: none;
-		border-radius: 5px 5px 0px 0px;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		font-size: 1.0rem;
-		margin-right: 5px;
-		max-width: 100px;
-		min-height: 26px;
-		min-width: 30px;
-		overflow: hidden;
-		padding: 3px;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-	.lineSwitchButton.active {
-		background-color: var(--appColorPrimary);
-		color: white;
-	}
-	.lineDisplay {
-		align-items: center;
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 10px;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		padding: 10px;
-		width: 100%;
-	}
-	.lineTitle {
-		padding: 10px;
-		font-size: 1.1rem;
-		font-weight: bold;
-		max-width: 300px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-	.lineMembers {
-		align-items: center;
-		border-radius: 10px;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		min-height: 295px;
-		width: 100%;
-	}
-	.detailImgContainer {
-		position: relative;
-	}
-	.detailFrontline {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		width: 80px;
-	}
-	.detailBackline {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		width: 80px;
-		margin-right: 10px;
-	}
-	.heroButton {
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		margin: 0;
-		outline: none;
-		padding: 0;
-	}
-	.heroNameButton {
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		margin: 0;
-		outline: none;
-		padding: 0;
-	}
-	.lineImg {
-		border-radius: 50%;
-		cursor: pointer;
-		margin: 5px;
-		max-width: 70px;
-	}
-	.lineImg.claimed {
-		border: 5px solid var(--appColorPrimary);
-	}
-	.emptyLineSlot {
-		background: transparent;
-		border: 3px solid var(--appColorPriAccent);
-		border-radius: 50%;
-		flex-grow: 0;
-		flex-shrink: 0;
-		height: 70px;
-		margin: 5px;
-		width: 70px;
-	}
-	.expanderButton {
-		background-color: var(--appColorSecondary);
-		border: none;
-		color: black;
-		cursor: pointer;
-		font-size: 1.1rem;
-		outline: none;
-		padding: 10px;
-		text-align: left;
-		width: 100%;
-	}
-	.expanderArrow {
-		border: solid black;
-		border-width: 0 3px 3px 0;
-		display: inline-block;
-		margin-right: 16px;
-		padding: 3px;
-		transition: transform 0.2s ease-out;
-	}
-	.expanderArrow.right {
-		transform: rotate(-45deg);
-	}
-	.expanderArrow.down {
-		transform: rotate(45deg);
-	}
-	.selectHeroSection {
-		width: 100%;
-	}
-	#heroDetailSection {
-		scroll-snap-align: center;
-	}
-	.selectedHero {
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 10px;
-		display: flex;
-		flex-direction: column;
-		margin: 0 auto;
-		padding: 10px;
-		width: 100%;
-	}
-	.upperSelectCard {
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		width: 100%;
-	}
-	.siFurnBoxContainer {
-		margin-bottom: 50px;
-	}
-	.selectPortraitArea {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		padding: 0px 10px;
-	}
-	.portraitContainer {
-		cursor: pointer;
-		position: relative;
-		+ {
-			p {
-				font-size: 1.1rem;
-				font-weight: bold;
-				margin: 0;
-				margin-bottom: 5px;
-				margin-top: -8px;
-				text-align: center;
-			}
-		}
-	}
-	.selectHeroPortrait {
-		border-radius: 50%;
-		margin-bottom: 5px;
-		max-width: 80px;
-	}
-	.selectHeroPortrait.claimed {
-		border: 5px solid var(--appColorPrimary);
-	}
-	.coreMark {
-		background-color: var(--legendColor);
-		border: 3px solid var(--appBGColor);
-		border-radius: 50%;
-		bottom: 5px;
-		display: none;
-		height: 22px;
-		position: absolute;
-		right: 4px;
-		visibility: hidden;
-		width: 22px;
-	}
-	.coreMark.visible {
-		display: inline-block;
-		pointer-events: none;
-		visibility: visible;
-	}
-	.ascMark {
-		left: -6px;
-		position: absolute;
-		top: 3px;
-		img {
-			left: 0;
-			max-width: 35px;
-			pointer-events: none;
-			position: absolute;
-			top: 0;
-		}
-		img.moveup {
-			top: -3.5px;
-		}
-	}
-	.subAscMark {
-		top: -4px;
-		left: -10px;
-	}
-	.lowerSelectCard {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		margin-top: 5px;
-		width: 100%;
-	}
-	.ascendBoxContainer {
-		margin-bottom: 10px;
-	}
-	.heroNotesArea {
-		width: 100%;
-		margin: 10px 0px;
-		.heroNotes {
-			background-color: var(--appBGColorDark);
+		.owConfirmWindow {
+			background-color: var(--appBGColor);
 			border-radius: 10px;
 			padding: 10px;
 		}
-	}
-	.artifactsContainer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		width: 100%;
-		h5 {
-			font-size: 1rem;
-			margin: 0;
-			text-align: center;
-		}
-	}
-	.artifactLine {
-		h6 {
-			font-size: 0.9rem;
-			margin: 0;
-			margin-top: 7px;
-			margin-bottom: 3px;
-		}
-	}
-	.artifactArea {
-		background: var(--appBGColorDark);
-		border-radius: 10px;
-		display: grid;
-		grid-template-columns: repeat(auto-fill, 90px);
-		min-height: 80px;
-		padding: 5px;
-		width: 100%;
-	}
-	.artifactImgContainer {
-		align-items: center;
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		outline: none;
-		padding: 3px;
-		img {
-			border-radius: 50%;
-			max-width: 60px;
-		}
-		p {
-			margin: 0;
-			max-width: 80px;
-			overflow: hidden;
-			text-align: center;
-			text-overflow: ellipsis;
-			user-select: none;
-			white-space: nowrap;
-		}
-	}
-	.subDisplay {
-		display: flex;
-		flex-direction: column;
-		padding: 10px 0px;
-		padding-top: 0;
-		width: 100%;
-	}
-	.subGroupTitle {
-		border-bottom: 2px solid black;
-		font-size: 1.1rem;
-		font-weight: bold;
-		padding-bottom: 3px;
-		padding-top: 5px;
-		width: 100%;
-		span {
-			display: inline-block;
-			width: 100%;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-		&:first-child {
-			padding-top: 0;
-		}
-	}
-	.subGroupMembers {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		padding: 5px;
-		width: 100%;
-	}
-	.subHeroContainer {
-		margin-right: 8px;
-		margin-bottom: 8px;
-		p {
-			font-size: 0.9rem;
-			font-weight: bold;
-			margin: 0;
-			width: 80px;
-			overflow: hidden;
-			text-align: center;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-	}
-	.subImgContainer {
-		position: relative;
-	}
-	.subImg {
-		border-radius: 50%;
-		max-width: 70px;
-	}
-	.subImg.claimed {
-		border: 5px solid var(--appColorPrimary);
-	}
-	.subCoreMark {
-		bottom: 0px;
-		right: -1px;
-	}
-	.mobileExpander {
-		margin-bottom: 10px;
-		max-height: 0px;
-		overflow: hidden;
-		transition: all 0.2s ease-out;
-	}
-	.mobileExpander.open {
-		max-height: 5000px;
-		padding-top: 10px;
-	}
-	.descSection.open {
-		padding-left: 5px;
-	}
-	/* description markdown styling */
-	.descText {
-		:global(hr) {
-			border: 1px solid var(--appColorPrimary);
-			margin: 5px 0px;
-		}
-		:global(p) {
-			line-height: 160%;
-			margin: 5px 0px;
-		}
-		:global(a) {
-			color: var(--appColorPrimary);
-		}
-		:global(ul) {
-			margin: 10px 0px;
-			padding-left: 24px;
-		}
-		:global(ol) {
-			margin: 10px 0px;
-			padding-left: 24px;
-		}
-		:global(h1) {
-			margin: 10px 0px;
-			font-size: 1.7rem;
-		}
-		:global(h2) {
-			margin: 10px 0px;
-		}
-		:global(h3) {
-			margin: 10px 0px;
-		}
-		:global(h4) {
-			margin: 5px 0px;
-		}
-		:global(h5) {
-			margin: 5px 0px;
-		}
-		:global(h6) {
-			margin: 5px 0px;
-		}
-		:global(blockquote) {
-			border-left: 5px solid var(--appColorPriOpaque);
-			color: #999;
-			margin-left: 20px;
-			padding-left: 5px;
-		}
-		:global(pre) {
-			background-color: var(--appBGColorDark);
-			color: black;
-			font-family: 'Courier New', Courier, monospace;
-			font-size: 1.0rem;
+		.owTitle {
+			display: flex;
+			justify-content: center;
 			padding: 10px;
-			white-space: break-spaces;
-		}
-		:global(table) {
-			border-collapse: collapse;
-		}
-		:global(th) {
-			border-bottom: 2px solid var(--appColorPrimary);
-			padding-top: 7px;
-			padding-bottom: 7px;
-			padding-right: 20px;
-			text-align: left;
-		}
-		:global(td) {
-			border-bottom: 1px solid black;
-			padding-top: 7px;
-			padding-bottom: 7px;
-		}
-		:global(tr) {
-			&:nth-child(even) {
-				background-color: var(--appColorPriOpaque);
+			h4 {
+				margin: 0;
 			}
 		}
-		:global(img) {
-			max-width: 100px;
+		.owBody {
+			padding: 10px;
+		}
+		.owFooter {
+			display: flex;
+			justify-content: flex-end;
+			padding-top: 10px;
+		}
+		.owFooterButton {
+			background-color: transparent;
+			border: 3px solid var(--appColorPrimary);
+			border-radius: 10px;
+			color: var(--appColorPrimary);
+			margin-right: 10px;
+			outline: none;
+			padding: 5px;
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+	.sect4 {
+		bottom: 25px;
+		display: none;
+		position: fixed;
+		right: 25px;
+		&.visible {
+			display: block;
+		}
+		.mobileNewCompMenu {
+			border-radius: 10px;
+			opacity: 0;
+			position: absolute;
+			right: 0px;
+			top: -132px;
+			transition: all 0.2s;
+			visibility: hidden;
+			&.visible {
+				opacity: 1;
+				visibility: visible;
+			}
+			&.group {
+				top: -70px;
+			}
+			.mobileNewCompButton {
+				align-items: center;
+				background-color: var(--appColorPrimary);
+				border: none;
+				border-radius: 50%;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				display: flex;
+				cursor: pointer;
+				height: 50px;
+				justify-content: center;
+				margin: 10px 0px;
+				padding: 0;
+				width: 50px;
+				.plusIcon {
+					color: var(--appBGColor);
+					display: block;
+					font-size: 2rem;
+					font-weight: bold;
+					margin: 0 auto;
+					transition: transform 0.7s;
+					width: fit-content;
+				}
+				img {
+					max-width: 20px;
+					&.newCompIcon {
+						max-width: 25px;
+					}
+				}
+			}
+		}
+		.mobileMenuButton {
+			align-items: center;
+			background-color: var(--appColorPrimary);
+			border: none;
+			border-radius: 50%;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			display: flex;
+			cursor: pointer;
+			height: 50px;
+			justify-content: center;
+			margin: 0;
+			padding: 0;
+			width: 50px;
+			.plusIcon {
+				color: var(--appBGColor);
+				display: block;
+				font-size: 2rem;
+				font-weight: bold;
+				margin: 0 auto;
+				transition: transform 0.7s;
+				width: fit-content;
+			}
 		}
 	}
 	@media only screen and (min-width: 767px) {
 		.sect1 {
-			max-width: 375px;
-			width: 21%;
+			height: 100vh;
+			.searchArea {
+				margin: 0 auto;
+				width: 70%;
+				.searchButton {
+						&:hover {
+						.searchImage {
+							opacity: 0.5;
+						}
+					}
+				}
+				.openFiltersButton {
+					&:hover {
+						.openFiltersImage {
+							opacity: 0.5;
+						}
+					}
+					&.open {
+						.openFiltersImage {
+							opacity: 0.7;
+						}
+					}
+				}
+			}
+			.filterContainer {
+				transform: translate(-47%, 0);
+				width: 70%;
+				.primaryFilters {
+					.filterArea {
+						.filterItems {
+							.rmFilterButton {
+								&:hover {
+									background-color: var(--appDelColor);
+									color: var(--appBGColor);
+									&:before {
+										background-color: var(--appBGColor);
+										color: var(--appDelColor);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			.compListTabs {
+				padding: 20px 30px 0px 30px;
+				.viewGroupsButton {
+					margin-left: 30px;
+				}
+				.sortArea {
+					bottom: 0px;
+					left: auto;
+					right: 20px;
+					top: auto;
+					transform: translate(0%, 0%);
+				}
+			}
+			.compGridArea {
+				margin: 10px 30px;
+				.compGrid {
+					.newCompArea {
+						display: flex;
+						.newCompButton {
+							&:hover {
+								background-color: var(--appColorPriAccent);
+								.plusIcon {
+									transform: rotateZ(180deg);
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 		.sect2 {
-			width: 79%;
-		}
-		.owFooterButton {
-			&:hover {
-				background-color: var(--appColorPrimary);
-				color: white;
+			height: 100vh;
+			width: 100%;
+			.noSelectedComp {
+				color: rgba(100, 100, 100, 0.3);
+				display: block;
+				font-size: 4rem;
+				font-weight: bold;
+				height: 100%;
+				text-transform: uppercase;
+				user-select: none;
+				visibility: visible;
 			}
-		}
-		.owCancel {
-			&:hover {
-				background-color: var(--appColorPriAccent);
+			.compDetails {
+				height: 100%;
+				max-width: 100%;
+				padding: 10px;
+				position: static;
+				overflow-y: auto;
+				visibility: visible;
 			}
-		}
-		.searchArea {
-			border-right: 3px solid var(--appColorPrimary);
-		}
-		.compScroller {
-			border-right: 3px solid var(--appColorPrimary);
-		}
-		.noComps {
-			font-size: 2.5rem;
-		}
-		.newCompOptionsArea {
-			max-width: 375px;
-		}
-		.compDetails {
-			max-width: 100%;
-			padding: 10px;
-			position: static;
-			overflow-y: auto;
-			visibility: visible;
-		}
-		.closeButtonContainer {
-			visibility: hidden;
-			width: 25%;
-		}
-		.titleContainer {
-			width: 50%;
-		}
-		.editContainer {
-			align-items: flex-end;
-			bottom: -286px;
-			.exportButton {
+			.compDetailHead {
+				.closeButtonContainer {
+					.closeDetailButton {
+						&:hover {
+							background: var(--neu-convex-BGColor-bg);
+						}
+					}
+				}
+				.editMenuButton {
+					&:hover {
+						background: var(--neu-convex-BGColor-bg);
+					}
+					&.open {
+						background: var(--neu-concave-BGColor-bg);
+					}
+				}
+				.editContainer {
+					align-items: flex-end;
+					bottom: -286px;
+					.exportButton {
+						display: flex;
+					}
+					.editDelButton {
+						height: fit-content;
+						width: fit-content;
+						padding: 6px;
+						span {
+							display: block;
+						}
+						img {
+							margin-right: 8px;
+							max-width: 15px;
+						}
+					}
+					.deleteButton {
+						img {
+							max-width: 12px;
+						}
+					}
+				}
+			}
+			.viewExploreContainer {
+				.viewExploreButton {
+					&:hover {
+						background: var(--neu-convex-BGColor-wide-bg);
+					}
+				}
+			}
+			.bodyArea1 {
 				display: flex;
 			}
-			.editDelButton {
-				height: fit-content;
-				width: fit-content;
-				padding: 6px;
-				span {
-					display: block;
+			.bodyArea2 {
+				display: flex;
+			}
+			.compDetailBody {
+				.lastUpdate {
+					padding-bottom: 10px;
 				}
-				img {
-					margin-right: 8px;
-					max-width: 15px;
+				.description {
+					border-radius: 10px;
+					box-shadow: var(--neu-med-ni-BGColor-shadow);
+					margin-left: 10px;
+					max-height: 390px;
+					overflow-y: auto;
+					padding: 10px;
+					width: 100%;
+				}
+				.heroDetails {
+					flex-grow: 0;
+					flex-shrink: 0;
+					margin-right: 10px;
+				}
+				.selectHeroSection {
+					margin: 0;
+					padding: 0;
+					width: 340px;
+					.selectedHero {
+						margin: 0;
+						width: 340px;
+					}
+				}
+				.expanderButton {
+					display: none;
+				}
+				.mobileExpander {
+					max-height: 5000px;
+					overflow: visible;
+					padding: 0;
+					&.open {
+						padding: 0;
+					}
+				}
+				.subGroups {
+					width: 100%;
+				}
+				.subDisplay {
+					display: grid;
+					grid-gap: 5px 20px;
+					grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+					grid-template-rows: repeat(auto-fit, minmax(95px, 1fr));
+					justify-content: space-evenly;
+					margin-top: -4px;
+					overflow: hidden;
+					padding: 0;
+					.subGroupTitle {
+						padding-top: 0;
+					}
 				}
 			}
-			.deleteButton {
-				img {
-					max-width: 12px;
+		}
+		.sect3 {
+			.owFooterButton {
+				&:hover {
+					background-color: var(--appColorPrimary);
+					color: white;
+				}
+			}
+			.owCancel {
+				&:hover {
+					background-color: var(--appColorPriAccent);
 				}
 			}
 		}
-		.newCompOptionButton {
-			&:hover {
-				background-color: var(--appColorPriAccent);
-				.plusIcon {
-					transform: rotateZ(180deg);
-				}
-			}
-		}
-		.bodyArea1 {
-			display: flex;
-		}
-		.bodyArea2 {
-			display: flex;
-		}
-		.noSelectedComp {
-			color: rgba(100, 100, 100, 0.3);
-			display: block;
-			font-size: 4rem;
-			font-weight: bold;
-			height: 100%;
-			text-transform: uppercase;
-			user-select: none;
-			visibility: visible;
-		}
-		.closeDetailButton {
-			&:hover {
-				background-color: var(--appColorPrimary);
-				color: white;
-				.arrow {
-					border-color: white;
-				}
-			}
-		}
-		.lastUpdate {
-			padding-bottom: 0px;
-		}
-		.lineExamples {
-			flex-grow: 0;
-			flex-shrink: 0;
-			margin-right: 10px;
-			width: 340px;
-		}
-		.lineSwitcher {
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-start;
-		}
-		.lineSwitchButton {
-			margin-right: 0px;
-		}
-		.lineDisplay {
-			border-radius: 0px 10px 10px 10px;
-			max-height: 375px;
-			min-height: 375px;
-		}
-		.lineImg {
-			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-			&:hover {
-				transform: scale(1.1);
-			}
-		}
-		.description {
-			width: 100%;
-		}
-		.heroDetails {
-			flex-grow: 0;
-			flex-shrink: 0;
-			margin-right: 10px;
-		}
-		.selectHeroSection {
-			margin: 0;
-			padding: 0;
-			width: 340px;
-		}
-		.selectedHero {
-			margin: 0;
-			width: 340px;
-		}
-		.expanderButton {
+		.sect4 {
 			display: none;
-		}
-		.mobileExpander {
-			max-height: 5000px;
-			padding: 0;
-		}
-		.mobileExpander.open {
-			padding: 0;
-		}
-		.mobileExpander.descSection {
-			border: 2px solid var(--appColorPrimary);
-			border-radius: 10px 0px 0px 10px;
-			margin-top: 27px;
-			max-height: 375px;
-			overflow-y: auto;
-			padding: 10px;
-		}
-		.subGroups {
-			width: 100%;
-		}
-		.subDisplay {
-			display: grid;
-			grid-gap: 5px 20px;
-			grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-			grid-template-rows: repeat(auto-fit, minmax(95px, 1fr));
-			justify-content: space-evenly;
-			margin-top: -4px;
-			overflow: hidden;
-			padding: 0;
-		}
-		.subImg {
-			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-			&:hover {
-				transform: scale(1.1);
+			&.visible {
+				display: none;
 			}
-		}
-		.subGroupTitle {
-			padding-top: 0;
 		}
 	}
 </style>

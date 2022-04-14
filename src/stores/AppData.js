@@ -8,6 +8,14 @@ const herodata = get(HeroData); // data from HeroData store
 const maxDescLen = 5000;
 const maxCompTags = 10;
 const maxNoteLen = 280;
+const minCompTitleLen = 0;
+const maxCompTitleLen = 50;
+const minCompAuthorLen = 0;
+const maxCompAuthorLen = 50;
+const minLineTitleLen = 0;
+const maxLineTitleLen = 30;
+const minSubTitleLen = 0;
+const maxSubTitleLen = 50;
 // const testcomps = get(TestComps); // data from TestComps store
 
 // validation function for MH.List
@@ -112,6 +120,11 @@ window.validateComp = async function(data) {
 			return {retCode: 1, message: `Incorrect type for key ${key}, expected ${expectedPropType}`};
 		}
 	}
+
+	// comp name and author length checks
+	if(data.name.length <= minCompTitleLen || data.name.length >= maxCompTitleLen) return {retCode: 1, message: 'Comp name must be be 1-50 characters long'};
+	if(data.author.length <= minCompAuthorLen || data.author.length >= maxCompAuthorLen) return {retCode: 1, message: 'Comp author must be 1-50 characters long'};
+
 	// perform detailed checks on finalized comps
 	if(!data.draft) {
 		if(data.lines.length < 1) return {retCode: 1, message: 'Comps must have at least 1 line'};
@@ -138,6 +151,8 @@ window.validateComp = async function(data) {
 					return {retCode: 1, message: `Incorrect type for key ${key} in line named ${line.name}, expected ${expectedPropType}`};
 				}
 			}
+			// make sure title is the correct length
+			if(line.name.length <= minLineTitleLen || line.name.length >= maxLineTitleLen) return {retCode: 1, message: `Line titles must be ${minLineTitleLen}-${maxLineTitleLen} characters`};
 			// make sure every hero in a line is also in heroes or is unknown
 			for(const hero of line.heroes) {
 				if(!(hero in data.heroes) && hero !== 'unknown') {
@@ -167,6 +182,8 @@ window.validateComp = async function(data) {
 					return {retCode: 1, message: `Incorrect type for key ${key} in sub line named ${sub.name}, expected ${expectedPropType}`};
 				}
 			}
+			// make sure title is the correct length
+			if(sub.name.length <= minSubTitleLen || sub.name.length >= maxSubTitleLen) return {retCode: 1, message: `Substitute line titles must be ${minSubTitleLen}-${maxSubTitleLen} characters`};
 			// make sure every hero in a sub line is also in heroes
 			for(const hero of sub.heroes) {
 				if(!(hero in data.heroes)) {
@@ -250,15 +267,13 @@ function buildAppData(data) {
 		{name: 'selectedComp', default: null},
 		{name: 'selectedUUID', default: null},
 		{name: 'dismissImportWarn', default: false},
-		{name: 'dismissHLSearchInfo', default: false},
-		{name: 'dismissMHSearchInfo', default: false},
 		{name: 'dismissCookieConsent', default: false},
-		{name: 'modalClosed', default: false},
+		{name: 'expandHeader', default: false},
 		{name: 'maxDescLen', default: maxDescLen},
 		{name: 'maxCompTags', default: maxCompTags},
 		{name: 'maxNoteLen', default: maxNoteLen},
-		{name: 'compSearchStr', default: ''},
 		{name: 'compShowHidden', default: false},
+		{name: 'compGroups', default: []},
 		{name: 'compLastUpdate', default: new Date('January 1, 1990 03:00:00')},
 		{name: 'user', default: {}},
 		{name: 'HL', default: {}},
@@ -324,6 +339,12 @@ function buildAppData(data) {
 	const expectedRECProps = [
 		{name: 'openSection', default: 0},
 	];
+	const expectedGroupProps = [
+		{name: 'name', default: 'New Group'},
+		{name: 'uuid', default: ''},
+		{name: 'comps', default: []},
+		{name: 'createdAt', default: new Date()}
+	];
 
 	// make sure that data is an object (and nothing else)
 	if(!isObject(data)) throw new Error('AppData must be a plain Javascript object.');
@@ -378,6 +399,18 @@ function buildAppData(data) {
 	// delete extra REC props
 	for(let prop in data.REC) {
 		if(!expectedRECProps.some(e => e.name === prop)) delete data.REC[prop];
+	}
+
+	// rebuild comp groups
+	for(let group of data.compGroups) {
+		// add group props as required
+		for(const prop of expectedGroupProps) {
+			if(!(prop.name in group)) group[prop.name] = prop.default;
+		}
+		// delete extra group props
+		for(let prop in group) {
+			if(!expectedGroupProps.some(e => e.name === prop)) delete group[prop];
+		}
 	}
 
 	// rebuild Comps
@@ -597,6 +630,9 @@ if(window.localStorage.getItem('appData') !== null) {
 	// JSON doesn't parse date objects correctly, so need to re-initialize them
 	for(let comp of appdata.Comps) {
 		comp.lastUpdate = new Date(comp.lastUpdate);
+	}
+	for(let group of appdata.compGroups) {
+		group.createdAt = new Date(group.createdAt);
 	}
 	appdata.MH.lastUpdate = new Date(appdata.MH.lastUpdate);
 	appdata.compLastUpdate = new Date(appdata.compLastUpdate);

@@ -8,6 +8,7 @@
 	import AscendBox from '../shared/AscendBox.svelte';
 	import SIFurnEngBox from '../shared/SIFurnEngBox.svelte';
 	import StarsInput from '../shared/StarsInput.svelte';
+	import { validateJWT } from '../rest/RESTFunctions.svelte';
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
@@ -118,6 +119,12 @@
 		return buffer;
 	}
 
+	async function postUpdate() {
+		$AppData.MH.lastUpdate = new Date();
+		const valid = await validateJWT($AppData.user.jwt);
+		if(valid) dispatch('routeEvent', {action: 'syncMyHeroes'});
+	}
+
 	function sortByCore(a, b) {
 		if(a.core && !b.core) {
 			return -1;
@@ -139,7 +146,7 @@
 
 		dispatch('routeEvent', {action: 'saveData'})
 		// navigate to comps page and clear all query parameters except the one specified below
-		window.location.assign(`${window.location.origin}/?comp=true#/comps`);
+		window.location.assign(`${window.location.origin}/#/comps?view=compDetail&comp=${compID}`);
 	}
 
 	function handlePortraitClick(heroID) {
@@ -150,7 +157,7 @@
 		});
 	}
 
-	function handleClaimClick(heroID, value, type) {
+	async function handleClaimClick(heroID, value, type) {
 		$AppData.MH.List[heroID].claimed = true;
 		switch(type) {
 			case 'asc':
@@ -178,6 +185,7 @@
 				throw new Error(`Invalid type received ${type} should be 'asc', 'si', or 'furn'.`);
 		}
 		recommendations = buildRecs();
+		await postUpdate();
 		dispatch('routeEvent', {action: 'saveData'})
 	}
 </script>
@@ -187,7 +195,9 @@
 		<ul class="sectionPicker">
 			{#each sections as section, i}
 			<li>
-				<button type="button" class="sectionButton" class:active={$AppData.REC.openSection === i} on:click={() => { $AppData.REC.openSection = i; dispatch('routeEvent', {action: 'saveData'})} }>{section}</button>
+				<button type="button" class="sectionButton" class:active={$AppData.REC.openSection === i} on:click={() => { $AppData.REC.openSection = i; dispatch('routeEvent', {action: 'saveData'})} }>
+					<span>{section}</span>
+				</button>
 			</li>
 			{/each}
 		</ul>
@@ -228,7 +238,9 @@
 							<h5>Used in</h5>
 							<ul>
 							{#each rec.comps as comp}
-								<li><button type="button" class="compButton" on:click={() => handleCompClick(comp.id)}>{comp.name}</button></li>
+								<li>
+									<button type="button" class="compButton" on:click={() => handleCompClick(comp.id)} title={comp.name}>{comp.name}</button>
+								</li>
 							{/each}
 							</ul>
 						</div>
@@ -262,7 +274,9 @@
 							<h5>Used in</h5>
 							<ul>
 							{#each rec.comps as comp}
-								<li><button type="button" class="compButton" on:click={() => handleCompClick(comp.id)}>{comp.name}</button></li>
+								<li>
+									<button type="button" class="compButton" on:click={() => handleCompClick(comp.id)} title={comp.name}>{comp.name}</button>
+								</li>
 							{/each}
 							</ul>
 						</div>
@@ -296,7 +310,9 @@
 							<h5>Used in</h5>
 							<ul>
 							{#each rec.comps as comp}
-								<li><button type="button" class="compButton" on:click={() => handleCompClick(comp.id)}>{comp.name}</button></li>
+								<li>
+									<button type="button" class="compButton" on:click={() => handleCompClick(comp.id)} title={comp.name}>{comp.name}</button>
+								</li>
 							{/each}
 							</ul>
 						</div>
@@ -337,7 +353,9 @@
 							<h5>Used in</h5>
 							<ul>
 							{#each rec.comps as comp}
-								<li><button type="button" class="compButton" on:click={() => handleCompClick(comp.id)}>{comp.name}</button></li>
+								<li>
+									<button type="button" class="compButton" on:click={() => handleCompClick(comp.id)} title={comp.name}>{comp.name}</button>
+								</li>
 							{/each}
 							</ul>
 						</div>
@@ -360,8 +378,8 @@
 		width: 100%;
 	}
 	.sectionPickerSection {
-		margin: 0;
-		width: 100%;
+		margin: 10px;
+		width: 95%;
 	}
 	.sectionPicker {
 		display: flex;
@@ -372,35 +390,39 @@
 		margin: 0;
 		padding: 0;
 		.sectionButton {
-			background-color: transparent;
-			border: 3px solid var(--appColorPrimary);
-			border-bottom: none;
-			border-radius: 10px 10px 0px 0px;
+			align-items: center;
+			border: none;
+			border-radius: 10px;
+			box-shadow: var(--neu-med-i-BGColor-shadow);
 			color: var(--appColorPrimary);
 			cursor: pointer;
-			font-size: 1rem;
-			margin-right: 0px;
+			display: flex;
+			font-size: 1.2rem;
+			justify-content: center;
+			margin: 5px 8px;
 			outline: none;
 			padding: 5px;
-		}
-		.sectionButton.active {
-			background-color: var(--appColorPrimary);
-			color: white;
+			span {
+				opacity: 0.5;
+			}
+			&.active {
+				background: var(--neu-convex-BGLight-bg);
+				span {
+					opacity: 1;
+				}
+			}
 		}
 	}
 	.recSection {
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 10px;
 		padding: 10px;
 		width: 100%;
 	}
 	.recArea {
 		display: grid;
-		grid-gap: 10px 5px;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+		grid-gap: 20px 20px;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 270px));
 		justify-content: space-evenly;
 		margin-bottom: 10px;
-		overflow: hidden;
 	}
 	.noRec {
 		align-items: center;
@@ -418,9 +440,10 @@
 		}
 	}
 	.recCard {
-		background-color: transparent;
-		border: 3px solid var(--appColorPrimary);
+		background-color: var(--appBGColor);
+		border: none;
 		border-radius: 10px;
+		box-shadow: var(--neu-med-i-BGColor-shadow);
 		padding: 10px;
 		position: relative;
 		h4 {
@@ -442,8 +465,9 @@
 		z-index: 1;
 		.claimButton {
 			background-color: transparent;
-			border: 2px solid var(--appColorPrimary);
+			border: none;
 			border-radius: 50%;
+			box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
 			color: var(--appColorPrimary);
 			cursor: pointer;
 			font-size: 0.9rem;
@@ -477,7 +501,7 @@
 			display: none;
 			height: 28px;
 			position: absolute;
-			right: 62px;
+			right: 75px;
 			visibility: hidden;
 			width: 28px;
 		}
@@ -513,26 +537,40 @@
 			padding: 0;
 		}
 		li {
-			padding: 5px;
 			.compButton {
 				background-color: transparent;
-				border: 2px solid var(--appColorPrimary);
+				border: none;
 				border-radius: 5px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
 				color: var(--appColorPrimary);
 				cursor: pointer;
 				font-size: 1rem;
+				margin: 5px 8px;
 				max-width: 100px;
 				overflow: hidden;
+				padding: 3px;
 				text-overflow: ellipsis;
 				white-space: nowrap;
 			}
 		}
 	}
 	@media only screen and (min-width: 767px) {
+		.recContainer {
+			height: 100vh;
+		}
 		.sectionPicker {
 			justify-content: flex-start;
+			li {
+				&:first-child {
+					.sectionButton {
+						margin-left: 0px;
+					}
+				}
+			}
 			.sectionButton {
-				margin-right: 15px;
+				&:hover {
+					background: var(--neu-convex-BGColor-wide-bg);
+				}
 			}
 		}
 		.recSection {
@@ -545,24 +583,16 @@
 		}
 		.claimButton {
 			&:hover {
-				background-color: var(--appColorPrimary);
-				color: white;
+				background: var(--neu-convex-BGColor-bg);
 			}
 		}
 		.compArea {
 			li {
 				.compButton {
 					&:hover {
-						background-color: var(--appColorPrimary);
-						color: white;
+						background: var(--neu-convex-BGColor-bg);
 					}
 				}
-			}
-		}
-		.portrait {
-			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-			&:hover {
-				transform: scale(1.05);
 			}
 		}
 	}

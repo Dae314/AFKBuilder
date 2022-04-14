@@ -30,7 +30,7 @@
 		background-color: var(--appBGColor);
 		bottom: 20px;
 		border-radius: 10px;
-		box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15);
+		box-shadow: var(--neu-large-ni-BGColor-shadow);
 		height: fit-content;
 		left: 5%;
 		padding: 10px;
@@ -43,10 +43,11 @@
 			padding: 10px;
 		}
 		.closeButton {
-			background-color: var(--appColorPrimary);
-			border: 3px solid var(--appColorPrimary);
+			background-color: var(--appBGColor);
+			border: none;
 			border-radius: 10px;
-			color: white;
+			box-shadow: var(--neu-med-i-BGColor-shadow);
+			color: var(--appColorPrimary);
 			cursor: pointer;
 			font-size: 1rem;
 			font-weight: bold;
@@ -68,8 +69,7 @@
 				margin-top: 0;
 				margin-left: auto;
 				&:hover {
-					background-color: transparent;
-					color: var(--appColorPrimary);
+					background: var(--neu-convex-BGColor-wide-bg);
 				}
 			}
 		}

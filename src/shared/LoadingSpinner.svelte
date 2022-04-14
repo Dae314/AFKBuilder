@@ -1,54 +1,56 @@
 <script>
 	// spinners from https://loading.io/css/
+	import {onMount} from 'svelte';
 
 	export let type = '';
 	export let size = 'medium';
 	export let color = 'white';
 
-	const root = document.documentElement;
-	root.style.setProperty('--spinner-color', color);
+	let el;
 
-	switch(size) {
-		case 'small':
-			root.style.setProperty('--spinner-size', "30px");
-			root.style.setProperty('--spinner-border-size', "3px");
-			root.style.setProperty('--spinner-thickness', "8px");
-			root.style.setProperty('--spinner-gap', "12px");
-			break;
-		case 'medium':
-			root.style.setProperty('--spinner-size', "80px");
-			root.style.setProperty('--spinner-border-size', "6px");
-			root.style.setProperty('--spinner-thickness', "16px");
-			root.style.setProperty('--spinner-gap', "24px");
-			
-			break;
-		case 'large':
-			root.style.setProperty('--spinner-size', "130px");
-			root.style.setProperty('--spinner-border-size', "10px");
-			root.style.setProperty('--spinner-thickness', "24px");
-			root.style.setProperty('--spinner-gap', "36px");
-			break;
-		default:
-			throw new Error(`ERROR: Invalid size property sent to LoadingSpinner component: ${size}`);
-	}
-	
+	onMount(async () => {
+		el.style.setProperty('--spinner-color', color);
+		switch(size) {
+			case 'small':
+				el.style.setProperty('--spinner-size', "30px");
+				el.style.setProperty('--spinner-border-size', "3px");
+				el.style.setProperty('--spinner-thickness', "8px");
+				el.style.setProperty('--spinner-gap', "12px");
+				break;
+			case 'medium':
+				el.style.setProperty('--spinner-size', "80px");
+				el.style.setProperty('--spinner-border-size', "6px");
+				el.style.setProperty('--spinner-thickness', "16px");
+				el.style.setProperty('--spinner-gap', "24px");
+				
+				break;
+			case 'large':
+				el.style.setProperty('--spinner-size', "130px");
+				el.style.setProperty('--spinner-border-size', "10px");
+				el.style.setProperty('--spinner-thickness', "24px");
+				el.style.setProperty('--spinner-gap', "36px");
+				break;
+			default:
+				throw new Error(`ERROR: Invalid size property sent to LoadingSpinner component: ${size}`);
+		}
+	});
 </script>
 
 {#if type === 'dual-ring'}
-	<div class="lds-dual-ring"></div>
+	<div bind:this={el} class="lds-dual-ring"></div>
 {:else if type === 'ripple'}
-	<div class="lds-ripple"><div></div><div></div></div>
+	<div bind:this={el} class="lds-ripple"><div></div><div></div></div>
 {:else if type === 'facebook'}
-	<div class="lds-facebook"><div></div><div></div><div></div></div>
+	<div bind:this={el} class="lds-facebook"><div></div><div></div><div></div></div>
 {:else} <!-- show dual ring by default -->
-	<div class="lds-dual-ring"></div>
+	<div bind:this={el} class="lds-dual-ring"></div>
 {/if}
 
 <style lang="scss">
 	.lds-dual-ring {
 		display: inline-block;
-		height: var(--spinner-size);
-		width: var(--spinner-size);
+		// height: var(--spinner-size);
+		// width: var(--spinner-size);
 		&:after {
 			content: '';
 			display: block;

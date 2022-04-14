@@ -27,13 +27,14 @@
 		align-items: center;
 		display: flex;
 		background-color: var(--appDelColor);
-		border: 2px solid var(--appDelColor);
+		border: none;
 		border-radius: 10px;
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		color: var(--appBGColor);
 		cursor: pointer;
 		justify-content: center;
 		outline: none;
-		padding: 5px;
+		padding: 8px;
 		.reportImage {
 			margin-right: 5px;
 			max-width: 15px;

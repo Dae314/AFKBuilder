@@ -65,6 +65,7 @@
 	async function handleFavoriteClick() {
 		const valid = await validateJWT($AppData.user.jwt);
 		if(valid) {
+			dispatch('cardEvent', {action: 'loading'});
 			// user is valid, perform query
 			const response = await toggleSave($AppData.user.jwt, comp.uuid);
 			if(response.status !== 200) {
@@ -79,6 +80,7 @@
 				dispatch('cardEvent', {action: 'saveData'});
 				dispatch('cardEvent', {action: 'syncFavorites'});
 			}
+			dispatch('cardEvent', {action: 'stopLoading'});
 		} else {
 			dispatch('cardEvent', {action: 'logout'});
 		}
@@ -86,6 +88,7 @@
 
 	async function handleLikeClick() {
 		if(!$AppData.user.disliked_comps.some(e => e.uuid === comp.uuid)) {
+			dispatch('cardEvent', {action: 'loading'});
 			const valid = await validateJWT($AppData.user.jwt);
 			if(valid) {
 				// user is valid, perform query
@@ -105,11 +108,13 @@
 			} else {
 				dispatch('cardEvent', {action: 'logout'});
 			}
+			dispatch('cardEvent', {action: 'stopLoading'});
 		}
 	}
 
 	async function handleDislikeClick() {
 		if(!$AppData.user.liked_comps.some(e => e.uuid === comp.uuid)) {
+			dispatch('cardEvent', {action: 'loading'});
 			const valid = await validateJWT($AppData.user.jwt);
 			if(valid) {
 				// user is valid, perform query
@@ -129,6 +134,7 @@
 			} else {
 				dispatch('cardEvent', {action: 'logout'});
 			}
+			dispatch('cardEvent', {action: 'stopLoading'});
 		}
 	}
 
@@ -222,6 +228,9 @@
 		}
 	}
 	.compLibCardContainer {
+		background: var(--neu-convex-BGColor-bg);
+		border-radius: 10px;
+		box-shadow: var(--neu-med-i-BGColor-shadow);
 		display: flex;
 		height: 220px;
 		overflow: hidden;
@@ -243,6 +252,7 @@
 			height: 50%;
 			justify-content: center;
 			outline: none;
+			padding: 0;
 			text-align: center;
 			.voteImage {
 				max-width: 30px;
@@ -259,10 +269,6 @@
 			}
 		}
 		.likeButton {
-			border: 3px solid var(--appColorPrimary);
-			border-bottom: none;
-			border-right: none;
-			border-top-left-radius: 10px;
 			&.active {
 				background-color: var(--appColorPrimary);
 				.voteText {
@@ -271,10 +277,6 @@
 			}
 		}
 		.dislikeButton {
-			border: 3px solid var(--appDelColor);
-			border-right: none;
-			border-top: none;
-			border-bottom-left-radius: 10px;
 			&.active {
 				background-color: var(--appDelColor);
 				.voteText {
@@ -284,10 +286,6 @@
 		}
 	}
 	.compCard {
-		border-top-right-radius: 10px;
-		border-bottom-right-radius: 10px;
-		border: 3px solid var(--appColorPrimary);
-		border-left: none;
 		height: 100%;
 		padding: 10px;
 		width: 100%;
@@ -403,7 +401,7 @@
 							background-color: var(--mythicColor);
 							border-radius: 5px;
 							color: var(--appBGColor);
-							font-size: 0.65rem;
+							font-size: 0.6rem;
 							font-weight: bold;
 							padding: 3px;
 						}

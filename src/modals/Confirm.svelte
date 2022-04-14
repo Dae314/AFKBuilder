@@ -49,39 +49,34 @@
 		width: 100%;
 	}
 	.optionsArea {
-		bottom: 0;
 		display: flex;
 		flex-direction: row;
-		justify-content: right;
-		position: relative;
+		justify-content: flex-end;
 		width: 100%;
-	}
-	.optionButton {
-		background: transparent;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 10px;
-		color: var(--appColorPrimary);
-		font-size: 1rem;
-		&:first-child {
-			margin-left: auto;
-			margin-right: 10px;
-		}
-	}
-	.confirmButton {
-		border: 3px solid var(--appDelColor);
-		color: var(--appDelColor);
-	}
-	@media only screen and (min-width: 767px) {
-		.confirmButton {
-			&:hover {
-				background-color: var(--appDelColor);
-				color: white;
+		.optionButton {
+			background: var(--appBGColor);
+			border: none;
+			border-radius: 10px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			color: var(--appColorBlack);
+			cursor: pointer;
+			font-size: 0.9rem;
+			font-weight: bold;
+			outline: none;
+			padding: 5px;
+			transition: all 0.2s;
+			&.confirmButton {
+				color: var(--appDelColor);
+				margin-right: 15px;
 			}
 		}
-		.cancelButton {
-			&:hover {
-				background-color: var(--appColorPriAccent);
-				color: white;
+	}
+	@media only screen and (min-width: 767px) {
+		.optionsArea {
+			.optionButton {
+				&:hover {
+					background: var(--neu-convex-BGColor-bg);
+				}
 			}
 		}
 	}

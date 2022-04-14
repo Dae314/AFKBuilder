@@ -15,10 +15,19 @@
 	let username = params.username;
 	let user = {};
 	let comps = [];
-	let showPublished = false;
-	let showFavorite = false;
 	let showErrorDisplay = false;
 	let errorDisplayConf = {};
+	let sections = [
+		{ id: 'published',
+			name: 'Published',
+			icon: './img/utility/explore_white.png',
+		},
+		{ id: 'favorites',
+			name: 'Favorites',
+			icon: './img/utility/favorite_filled_white.png',
+		},
+	];
+	let curSection = 0;
 
 	onMount(async () => {
 		$AppData.activeView = 'user';
@@ -40,16 +49,16 @@
 		user = response.data.author;
 	}
 
-	function handleShowClick(type) {
+	function handleSectionClick(type) {
 		switch(type) {
 			case 'published':
-				showPublished = !showPublished;
+				curSection = sections.findIndex(e => e.id === 'published');
 				break;
-			case 'liked':
-				showFavorite = !showFavorite;
+			case 'favorites':
+				curSection = sections.findIndex(e => e.id === 'favorites');
 				break;
 			default:
-				throw new Error(`ERROR: invalid type passed to handleShowClick: ${type}`);
+				throw new Error(`ERROR: invalid type passed to handleSectionClick: ${type}`);
 		}
 	}
 
@@ -115,33 +124,37 @@
 				</div>
 			</section>
 			<section class="bodyArea">
-				<button class="expanderHeadButton" on:click={() => handleShowClick('published')}>
-					<i class="arrow {showPublished ? 'down' : 'right' }"></i>
-					<div class="expandHeadText">Published Comps</div>
-				</button>
-				<div class="expanderBody" class:open={showPublished}>
-					<div class="compContainer">
-						{#each comps as comp}
-						<div class="cardContainer">
-							<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
-						</div>
-						{/each}
-						<div class="showMoreArea">
-							<button type="button" class="showMoreButton" on:click={() => handleShowMoreClick('published')}>Show More</button>
-						</div>
+				<div class="compArea">
+					<h2>Comps</h2>
+					<div class="sectionPicker">
+						<ul class="sectionList">
+							{#each sections as section, i}
+								<li>
+									<button class="sectionButton" class:open={curSection === i} on:click={() => handleSectionClick(section.id)}>
+										<img class="sectionImage" src={section.icon} alt={section.name}>
+										<span>{section.name}</span>
+									</button>
+								</li>
+							{/each}
+						</ul>
 					</div>
-				</div>
-				<button class="expanderHeadButton" on:click={() => handleShowClick('liked')}>
-					<i class="arrow {showFavorite ? 'down' : 'right' }"></i>
-					<div class="expandHeadText">Favorite Comps</div>
-				</button>
-				<div class="expanderBody" class:open={showFavorite}>
 					<div class="compContainer">
-						{#each user.saved_comps as comp}
-						<div class="cardContainer">
-							<CompLibCard bind:comp={comp} on:cardEvent={handleCardEvent} />
-						</div>
-						{/each}
+						{#if curSection === 0}
+							{#each comps as comp}
+								<div class="cardContainer">
+									<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
+								</div>
+							{/each}
+							<div class="showMoreArea">
+								<button type="button" class="showMoreButton" on:click={() => handleShowMoreClick('published')}>Show More</button>
+							</div>
+						{:else if curSection === 1}
+							{#each user.saved_comps as comp}
+								<div class="cardContainer">
+									<CompLibCard comp={comp} on:cardEvent={handleCardEvent} />
+								</div>
+							{/each}
+						{/if}
 					</div>
 				</div>
 			</section>
@@ -155,7 +168,7 @@
 		flex-direction: column;
 		height: calc(100vh - var(--headerHeight));
 		overflow-y: auto;
-		padding-top: 10px;
+		padding: 10px;
 		width: 100%;
 	}
 	.titleArea {
@@ -178,6 +191,7 @@
 			.userHeadline {
 				h3 {
 					margin: 0;
+					text-align: center;
 				}
 				.userSubtitle {
 					font-size: 0.8rem;
@@ -187,61 +201,73 @@
 			}
 		}
 		.reportArea {
-			display: flex;
-			justify-content: center;
-			padding-top: 10px;
-			width: 100%;
+			position: absolute;
+			right: 0px;
+			top: 0px;
 		}
 	}
 	.bodyArea {
-		padding-left: 20px;
-		.expanderHeadButton {
-			align-items: center;
-			background-color: transparent;
-			border: none;
-			cursor: pointer;
-			display: flex;
-			justify-content: flex-start;
-			margin-top: 20px;
-			outline: none;
-			padding: 10px;
-			padding-left: 10px;
-			position: relative;
-			width: 100%;
-		}
-		.arrow {
-			border: solid black;
-			border-width: 0 3px 3px 0;
-			display: inline-block;
-			margin-right: 16px;
-			padding: 3px;
-			transition: transform 0.2s ease-out;
-			&.right {
-				transform: rotate(-45deg);
+		.compArea {
+			h2 {
+				margin: 10px 0px;
 			}
-			&.down {
-				transform: rotate(45deg);
-			}
-		}
-		.expandHeadText {
-			font-size: 1rem;
-		}
-		.expanderBody {
-			max-height: 0px;
-			opacity: 0%;
-			transition: all 0.2s;
-			visibility: hidden;
-			&.open {
-				max-height: 100%;
-				opacity: 100%;
-				visibility: visible;
+			.sectionPicker {
+				.sectionList {
+					display: flex;
+					flex-direction: row;
+					list-style-type: none;
+					margin: 0;
+					padding: 0;
+					.sectionButton {
+						align-items: center;
+						background: var(--appBGColor);
+						border: none;
+						border-radius: 10px;
+						box-shadow: var(--neu-sm-i-BGColor-shadow);
+						cursor: pointer;
+						display: flex;
+						font-size: 1.2rem;
+						height: 40px;
+						justify-content: center;
+						margin: 0px 10px;
+						outline: none;
+						padding: 5px;
+						img {
+							filter: invert(1);
+							max-width: 30px;
+							opacity: 0.3;
+						}
+						span {
+							opacity: 0.3;
+							padding-left: 5px;
+						}
+						&.open {
+							img {
+								opacity: 1;
+							}
+							span {
+								opacity: 1;
+							}
+						}
+					}
+					li {
+						&:first-child {
+							.sectionButton {
+								margin-left: 0px;
+							}
+						}
+					}
+				}
 			}
 			.compContainer {
+				border-radius: 10px;
 				display: grid;
-				grid-gap: 5px 5px;
+				grid-gap: 15px 15px;
 				grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
 				grid-auto-rows: 240px;
 				justify-content: space-evenly;
+				margin-top: 15px;
+				padding-top: 15px;
 			}
 			.showMoreArea {
 				align-items: center;
@@ -250,10 +276,11 @@
 				justify-content: center;
 				width: 100%;
 				.showMoreButton {
-					background-color: var(--appColorPrimary);
-					border: 2px solid var(--appColorPrimary);
-					border-radius: 5px;
-					color: var(--appBGColor);
+					background-color: var(--appBGColor);
+					border: none;
+					border-radius: 10px;
+					box-shadow: var(--neu-med-i-BGColor-shadow);
+					color: var(--appColorPrimary);
 					cursor: pointer;
 					font-weight: bold;
 					font-size: 2rem;
@@ -265,7 +292,8 @@
 	}
 	@media only screen and (min-width: 767px) {
 		.userContainer {
-			padding-left: 30px;
+			height: 100vh;
+			padding: 10px 30px;
 		}
 		.titleArea {
 			&:after {
@@ -276,6 +304,9 @@
 				justify-content: flex-start;
 				.userHeadline {
 					margin-left: 10px;
+					h3 {
+						text-align: left;
+					}
 					.userSubtitle {
 						text-align: left;
 					}
@@ -284,6 +315,17 @@
 			.reportArea {
 				justify-content: flex-start;
 				padding-left: 5px;
+			}
+		}
+		.bodyArea {
+			.compArea {
+				.showMoreArea {
+					.showMoreButton {
+						&:hover {
+							background: var(--neu-convex-BGColor-bg);
+						}
+					}
+				}
 			}
 		}
 	}

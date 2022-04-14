@@ -26,7 +26,7 @@
 			} else {
 				throw new Error(`Login did not complete successfully, please try again.`);
 			}
-			setTimeout(() => window.location.assign(`${window.location.origin}/#/`), 2000);
+			setTimeout(() => window.location.assign(`${window.location.origin}/#/profile`), 2000);
 		}
 	}
 </script>
@@ -51,9 +51,22 @@
 	.postLoginContainer {
 		display: flex;
 		flex-direction: column;
-		height: calc(100vh - var(--headerHeight));
+		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
 		overflow-y: auto;
 		padding: 10px;
 		width: 100%;
+		h2 {
+			margin-top: 100px;
+			text-align: center;
+		}
+	}
+	@media only screen and (min-width: 767px) {
+		.postLoginContainer {
+			height: 100vh;
+			h2 {
+				margin-top: 10px;
+			}
+		}
 	}
 </style>

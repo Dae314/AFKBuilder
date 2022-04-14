@@ -17,15 +17,41 @@ html {
 	--appColorPriOpaque: rgb(107, 141, 242, 0.30);
 	--appBGColor: #F0F0F2;
 	--appBGColorDark: #e2e2e2;
+	--appBGColorLight: #f6f6f6;
 	--appDelColor: #F26B6B;
 	--appDelColorOpaque: rgba(242, 107, 107, 0.90);
 	--appColorSecondary: #8AA7FF;
 	--appColorTertiary: #3854A6;
 	--appColorQuaternary: #94C6F2;
 	--appColorDisabled: #7e7e7e;
+	--appColorBlack: #333;
 	--googleProviderColor: #EA4335;
 	--facebookProviderColor: #1094F4;
 	--discordProviderColor: #5865F2;
+
+	/* https://neumorphism.io/#f0f0f2
+		size: 250px
+		radius: 50px
+		intensity: 0.15
+	*/
+	--neu-convex-BGLight-bg: linear-gradient(145deg, #ffffff, #ebebeb);
+	--neu-convex-BGColor-bg: linear-gradient(145deg, #ffffff, #d8d8da);
+	--neu-convex-BGColor-wide-bg: linear-gradient(160deg, #ffffff, #d8d8da);
+	--neu-concave-BGColor-bg: linear-gradient(145deg, #d8d8da, #ffffff);
+	--neu-large-ni-BGColor-shadow: 8px 8px 20px #ccccce, 8px -8px 20px #ffffff;
+	--neu-med-i-BGLight-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff;
+	--neu-med-i-BGLight-hover-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+	--neu-med-i-BGColor-shadow: 5px 5px 8px #ccccce, -5px -5px 8px #ffffff;
+	--neu-med-i-BGColor-hover-shadow: 8px 8px 16px #ccccce, -8px -8px 16px #ffffff;
+	--neu-med-i-BGColor-pressed-shadow: 3px 3px 5px #ccccce, -3px -3px 5px #ffffff;
+	--neu-med-i-BGColor-inset-shadow: inset 5px 5px 8px #ccccce, inset -5px -5px 8px #ffffff;
+	--neu-sm-i-BGColor-shadow: 5px 5px 5px #ccccce, -5px -5px 5px #ffffff;
+	--neu-sm-i-BGColor-hover-shadow: 8px 8px 10px #ccccce, -8px -8px 10px #ffffff;
+	--neu-sm-i-BGColor-pressed-shadow: 3px 3px 3px #ccccce, -3px -3px 3px #ffffff;
+	--neu-med-ni-BGColor-shadow: 5px 5px 8px #ccccce, -5px -5px 8px #ffffff;
+	--neu-sm-ni-BGColor-shadow: 5px 5px 5px #ccccce, -5px -5px 5px #ffffff;
+	--neu-sm-ni-BGColor-pressed-shadow: 3px 3px 3px #ccccce, -3px -3px 3px #ffffff;
+	--neu-sm-ni-BGColor-inset-shadow: inset 3px 3px 3px #ccccce, inset -3px -3px 3px #ffffff;
 
 	--rareColor: #5EAFFA;
 	--rareColorAccent: #4D8DC8;
@@ -64,8 +90,8 @@ html {
 }
 
 ::-webkit-scrollbar {
-	width: 11px;
-	height: 11px;
+	width: 7px;
+	height: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -73,7 +99,7 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: var(--appColorQuaternary) ;
+	background-color: rgb(95, 95, 95);
 	border-radius: 6px;
-	border: 3px solid var(--scrollbarBG);
+	border: 1px solid var(--scrollbarBG);
 }

@@ -7,6 +7,7 @@
 	import Emoji from 'markdown-it-emoji';
 	import qs from 'qs';
 	import ErrorDisplay from './ErrorDisplay.svelte';
+	import CompLineEditor from './CompLineEditor.svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
@@ -20,6 +21,7 @@
 	import AscendBox from '../shared/AscendBox.svelte';
 	import TutorialBox from '../shared/TutorialBox.svelte';
 	import ReportButton from '../shared/ReportButton.svelte';
+	import HeroButton from '../shared/HeroButton.svelte';
 	import { gql_GET_COMP, gql_DELETE_COMP } from '../gql/queries.svelte';
 	import { getCompAuthor, validateJWT, toggleSave, toggleUpvote, toggleDownvote } from '../rest/RESTFunctions.svelte';
 	import { msToString, votesToString } from '../utilities/Utilities.svelte';
@@ -49,7 +51,8 @@
 	md.use(Emoji);
 	const { open } = getContext('simple-modal');
 	const compQuery = query(gql_GET_COMP, {
-		variables: { uuid: params.uuid }
+		variables: { uuid: params.uuid },
+		fetchPolicy: 'no-cache',
 	});
 	const gqlDeleteComp = mutation(gql_DELETE_COMP);
 	const now = Date.now();
@@ -135,6 +138,7 @@
 	}
 
 	async function handleFavoriteClick() {
+		dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
 		const valid = await validateJWT($AppData.user.jwt);
 		if(valid) {
 			// user is valid, perform query
@@ -155,10 +159,12 @@
 		} else {
 			dispatch('routeEvent', {action: 'logout'});
 		}
+		dispatch('routeEvent', {action: 'clearNotice'});
 	}
 
 	async function handleLikeClick() {
 		if(!$AppData.user.disliked_comps.some(e => e.uuid === comp.uuid)) {
+			dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
 			const valid = await validateJWT($AppData.user.jwt);
 			if(valid) {
 				// user is valid, perform query
@@ -178,11 +184,13 @@
 			} else {
 				dispatch('routeEvent', {action: 'logout'});
 			}
+			dispatch('routeEvent', {action: 'clearNotice'});
 		}
 	}
 
 	async function handleDislikeClick() {
 		if(!$AppData.user.liked_comps.some(e => e.uuid === comp.uuid)) {
+			dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
 			const valid = await validateJWT($AppData.user.jwt);
 			if(valid) {
 				// user is valid, perform query
@@ -202,6 +210,7 @@
 			} else {
 				dispatch('routeEvent', {action: 'logout'});
 			}
+			dispatch('routeEvent', {action: 'clearNotice'});
 		}
 	}
 
@@ -252,25 +261,30 @@
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
-				 styleWindow: { width: 'fit-content', },
-				 styleContent: { width: 'fit-content', },
+				 styleWindow: { width: 'fit-content' },
+				 styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
 				});
 	}
 
 	async function handleUnpublishComp() {
 		try {
+			dispatch('routeEvent', {action: 'showNotice', data: { noticeConf: {type: 'loading'}}});
 			// check user's JWT before making queries
 			const valid = await validateJWT($AppData.user.jwt);
 			if(valid) {
 				const response = await gqlDeleteComp({variables: { id: svrComp.id }});
 				const delUUID = response.data.deleteComp.data.attributes.uuid;
 				$AppData.user.published_comps = $AppData.user.published_comps.filter(e => e.uuid !== delUUID);
+				dispatch('routeEvent', {action: 'populateUserData'});
+				dispatch('routeEvent', {action: 'syncFavorites'});
 				dispatch('routeEvent', {action: 'saveData'});
 				window.location.assign(`${window.location.origin}/#/`);
 			} else {
 				dispatch('routeEvent', {action: 'logout'});;
 			}
+			dispatch('routeEvent', {action: 'clearNotice'});
 		} catch(error) {
+			dispatch('routeEvent', {action: 'clearNotice'});
 			errorDisplayConf = {
 				errorCode: 500,
 				headText: 'Something went wrong',
@@ -296,13 +310,33 @@
 			}
 		);
 	}
+
+	async function handleLineEvent(event) {
+		switch(event.detail.action) {
+			case 'heroClick':
+				await handleHeroClick(event.detail.data);
+				break;
+			default:
+				throw new Error(`Invalid action specified on compLineEvent: ${action}`);
+		}
+	}
+
+	async function handleHeroButtonEvent(event) {
+		switch(event.detail.action) {
+			case 'heroClick':
+				await handleHeroClick(event.detail.data);
+				break;
+			default:
+				throw new Error(`Invalid action specified on heroButtonEvent: ${action}`);
+		}
+	}
 </script>
 
 {#if $compQuery.loading}
 	<LoadingPage />
 {:else if $compQuery.error}
 	<ErrorDisplay
-		errorCode="503"
+		errorCode="500"
 		headText="Something went wrong"
 		detailText="Check the console for details."
 		showHomeButton={false}
@@ -396,124 +430,12 @@
 							<span class="updateAge" title="{comp_update.toLocaleString()}">Updated {msToString(updateAge)}</span>
 						</div>
 						<div class="bodyArea1">
-							<div class="lineExamples">
-								<div class="lineSwitcher">
-									{#each comp.lines as line, i}
-									<button type="button" class="lineSwitchButton" class:active={selectedLine === i} on:click={() => selectedLine = i}>{line.name}</button>
-									{/each}
-								</div>
-								<div class="lineDisplay">
-									{#if comp.lines.length > 0}
-										<div class="lineTitle"><span>{comp.lines[selectedLine].name}</span></div>
-									{/if}
-									<div class="lineMembers">
-										<div class="detailBackline">
-											{#if comp.lines.length > 0}
-												{#each comp.lines[selectedLine].heroes as hero, i}
-													{#if i >= 2}
-														{#if $HeroData.some(e => e.id === hero)}
-															<div class="detailImgContainer">
-																<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
-																<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-																<div class="ascMark">
-																	{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																		{#if comp.heroes[hero].ascendLv >= 6}
-																			<img src="./img/markers/ascended.png" alt="ascended">
-																		{:else if comp.heroes[hero].ascendLv >= 4}
-																			<img src="./img/markers/mythic.png" alt="mythic">
-																		{:else if comp.heroes[hero].ascendLv >= 2}
-																			<img src="./img/markers/legendary.png" alt="legendary">
-																		{:else}
-																			<img src="./img/markers/elite.png" alt="elite">
-																		{/if}
-																	{:else}
-																		{#if comp.heroes[hero].ascendLv >= 4}
-																			<img src="./img/markers/legendary.png" alt="legendary">
-																		{:else if comp.heroes[hero].ascendLv >= 2}
-																			<img src="./img/markers/elite.png" alt="elite">
-																		{:else}
-																			<img src="./img/markers/rare.png" alt="rare">
-																		{/if}
-																	{/if}
-																	{#if comp.heroes[hero].si >= 30}
-																		<img src="./img/markers/si30.png" alt="si30">
-																	{:else if comp.heroes[hero].si >= 20}
-																		<img src="./img/markers/si20.png" alt="si20">
-																	{:else if comp.heroes[hero].si >= 10}
-																		<img src="./img/markers/si10.png" alt="si10">
-																	{:else}
-																		<img src="./img/markers/si0.png" alt="si0">
-																	{/if}
-																	{#if comp.heroes[hero].furn >= 9}
-																		<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																	{:else if comp.heroes[hero].furn >= 3}
-																		<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-																	{/if}
-																</div>
-															</div>
-															<button type="button" class="heroNameButton"><span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span></button>
-														{:else}
-															<i class="emptyLineSlot"></i>
-														{/if}
-													{/if}
-												{/each}
-											{/if}
-										</div>
-										<div class="detailFrontline">
-											{#if comp.lines.length > 0}
-												{#each comp.lines[selectedLine].heroes as hero, i}
-													{#if i < 2}
-														{#if $HeroData.some(e => e.id === hero)}
-															<div class="detailImgContainer">
-																<button type="button" class="heroButton"><img draggable="false" on:click={() => handleHeroClick(hero)} class="lineImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}></button>
-																<span class="coreMark" class:visible={comp.heroes[hero].core}></span>
-																<div class="ascMark">
-																	{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																		{#if comp.heroes[hero].ascendLv >= 6}
-																			<img src="./img/markers/ascended.png" alt="ascended">
-																		{:else if comp.heroes[hero].ascendLv >= 4}
-																			<img src="./img/markers/mythic.png" alt="mythic">
-																		{:else if comp.heroes[hero].ascendLv >= 2}
-																			<img src="./img/markers/legendary.png" alt="legendary">
-																		{:else}
-																			<img src="./img/markers/elite.png" alt="elite">
-																		{/if}
-																	{:else}
-																		{#if comp.heroes[hero].ascendLv >= 4}
-																			<img src="./img/markers/legendary.png" alt="legendary">
-																		{:else if comp.heroes[hero].ascendLv >= 2}
-																			<img src="./img/markers/elite.png" alt="elite">
-																		{:else}
-																			<img src="./img/markers/rare.png" alt="rare">
-																		{/if}
-																	{/if}
-																	{#if comp.heroes[hero].si >= 30}
-																		<img src="./img/markers/si30.png" alt="si30">
-																	{:else if comp.heroes[hero].si >= 20}
-																		<img src="./img/markers/si20.png" alt="si20">
-																	{:else if comp.heroes[hero].si >= 10}
-																		<img src="./img/markers/si10.png" alt="si10">
-																	{:else}
-																		<img src="./img/markers/si0.png" alt="si0">
-																	{/if}
-																	{#if comp.heroes[hero].furn >= 9}
-																		<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																	{:else if comp.heroes[hero].furn >= 3}
-																		<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-																	{/if}
-																</div>
-															</div>
-															<button type="button" class="heroNameButton"><span on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</span></button>
-														{:else}
-															<i class="emptyLineSlot"></i>
-														{/if}
-													{/if}
-												{/each}
-											{/if}
-										</div>
-									</div>
-								</div>
-							</div>
+							<CompLineEditor
+								lines={comp.lines}
+								compHeroes={comp.heroes}
+								bind:selectedLine={selectedLine}
+								on:compLineEvent={handleLineEvent}
+							/>
 							<div class="description">
 								<div class="mobileExpanderTitle">
 									<button type="button" class="expanderButton" on:click={() => openDesc = !openDesc}><i class="expanderArrow {openDesc ? 'down' : 'right' }"></i><span>Description</span></button>
@@ -574,7 +496,6 @@
 												{/if}
 												{#if comp.heroes[selectedHero].artifacts.primary.length > 0 || comp.heroes[selectedHero].artifacts.secondary.length > 0 || comp.heroes[selectedHero].artifacts.situational.length > 0}
 													<div class="artifactsContainer">
-														<h5>Artifacts</h5>
 														<div class="artifactLine priArtifactLine">
 															<h6>Primary</h6>
 															<div class="artifactArea">
@@ -635,48 +556,11 @@
 											<div class="subGroupMembers">
 												{#each subgroup.heroes as hero}
 													<div class="subHeroContainer">
-														<button type="button" class="heroButton">
-															<div class="subImgContainer">
-																<img draggable="false" on:click={() => handleHeroClick(hero)} class="subImg" class:claimed={$AppData.MH.List[hero].claimed} src={$HeroData.find(e => e.id === hero).portrait} alt={$HeroData.find(e => e.id === hero).name}>
-																<span class="coreMark subCoreMark" class:visible={comp.heroes[hero].core}></span>
-																<div class="ascMark subAscMark">
-																	{#if $HeroData.find(e => e.id === hero).tier === 'ascended'}
-																		{#if comp.heroes[hero].ascendLv >= 6}
-																			<img src="./img/markers/ascended.png" alt="ascended">
-																		{:else if comp.heroes[hero].ascendLv >= 4}
-																			<img src="./img/markers/mythic.png" alt="mythic">
-																		{:else if comp.heroes[hero].ascendLv >= 2}
-																			<img src="./img/markers/legendary.png" alt="legendary">
-																		{:else}
-																			<img src="./img/markers/elite.png" alt="elite">
-																		{/if}
-																	{:else}
-																		{#if comp.heroes[hero].ascendLv >= 4}
-																			<img src="./img/markers/legendary.png" alt="legendary">
-																		{:else if comp.heroes[hero].ascendLv >= 2}
-																			<img src="./img/markers/elite.png" alt="elite">
-																		{:else}
-																			<img src="./img/markers/rare.png" alt="rare">
-																		{/if}
-																	{/if}
-																	{#if comp.heroes[hero].si >= 30}
-																		<img src="./img/markers/si30.png" alt="si30">
-																	{:else if comp.heroes[hero].si >= 20}
-																		<img src="./img/markers/si20.png" alt="si20">
-																	{:else if comp.heroes[hero].si >= 10}
-																		<img src="./img/markers/si10.png" alt="si10">
-																	{:else}
-																		<img src="./img/markers/si0.png" alt="si0">
-																	{/if}
-																	{#if comp.heroes[hero].furn >= 9}
-																		<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/9f.png" alt="9f">
-																	{:else if comp.heroes[hero].furn >= 3}
-																		<img class:moveup={comp.heroes[hero].si < 10} src="./img/markers/3f.png" alt="3f">
-																	{/if}
-																</div>
-															</div>
-															<p on:click={() => handleHeroClick(hero)}>{$HeroData.find(e => e.id === hero).name}</p>
-														</button>
+														<HeroButton
+															hero={hero}
+															heroDetails={comp.heroes[hero]}
+															on:heroButtonEvent={handleHeroButtonEvent}
+														/>
 													</div>
 												{/each}
 											</div>
@@ -701,7 +585,9 @@
 
 <style lang="scss">
 	.compLibDetailContainer {
-		min-height: calc(100vh - var(--headerHeight));
+		height: 100%;
+		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
+		overflow-y: auto;
 		width: 100%;
 	}
 	.compLibDetailHead {
@@ -738,13 +624,15 @@
 				}
 				.headButton {
 					align-items: center;
-					background-color: transparent;
-					border: 2px solid black;
+					background-color: var(--appBGColor);
+					border: none;
 					border-radius: 10px;
+					box-shadow: var(--neu-sm-i-BGColor-shadow);
 					cursor: pointer;
 					display: flex;
+					height: 35px;
 					justify-content: center;
-					margin: 0px 5px;
+					margin: 0px 8px;
 					outline: none;
 					padding: 5px;
 					.headImage {
@@ -757,7 +645,6 @@
 					}
 				}
 				.likeButton {
-					border: 2px solid var(--appColorPrimary);
 					p {
 						color: var(--appColorPrimary);
 					}
@@ -769,7 +656,6 @@
 					}
 				}
 				.dislikeButton {
-					border: 2px solid var(--appDelColor);
 					p {
 						color: var(--appDelColor);
 					}
@@ -781,7 +667,6 @@
 					}
 				}
 				.favoriteButton {
-					border: 2px solid var(--mythicColor);
 					p {
 						color: var(--mythicColor);
 					}
@@ -794,7 +679,7 @@
 				}
 				.unpublishButton {
 					background-color: var(--appDelColor);
-					border: 2px solid var(--appDelColor);
+					padding: 0px 8px;
 					p {
 						color: var(--appBGColor);
 						display: none;
@@ -849,20 +734,22 @@
 			margin-bottom: 5px;
 			width: 100%;
 			.tag {
-				background-color: var(--appColorPrimary);
-				border: 1px solid var(--appColorPrimary);
+				background-color: var(--appBGColor);
+				border: none;
+				box-shadow: var(--neu-sm-ni-BGColor-shadow);
 				border-radius: 15px;
 				cursor: pointer;
 				outline: none;
+				padding: 0;
 				position: relative;
-				margin: 0px 5px;
-				margin-bottom: 5px;
+				margin: 0px 8px;
+				margin-bottom: 10px;
 			}
 			.tagText {
 				display: inline-block;
-				color: white;
+				color: var(--appColorPrimary);
 				font-size: 0.8rem;
-				padding: 0px 5px;
+				padding: 3px 8px;
 				text-align: center;
 				user-select: none;
 			}
@@ -878,105 +765,11 @@
 			padding-bottom: 10px;
 			width: 100%;
 		}
-		.lineExamples {
-			padding-bottom: 10px;
-			width: 100%;
-		}
-		.lineSwitcher {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			justify-content: center;
-			.lineSwitchButton {
-				background-color: transparent;
-				border: 2px solid var(--appColorPrimary);
-				border-bottom: none;
-				border-radius: 5px 5px 0px 0px;
-				color: var(--appColorPrimary);
-				cursor: pointer;
-				font-size: 1.0rem;
-				margin-right: 5px;
-				max-width: 100px;
-				min-height: 26px;
-				min-width: 30px;
-				overflow: hidden;
-				padding: 3px;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				&.active {
-					background-color: var(--appColorPrimary);
-					color: white;
-				}
-			}
-		}
-		.lineDisplay {
-			align-items: center;
-			border: 2px solid var(--appColorPrimary);
-			border-radius: 10px;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			padding: 10px;
-			width: 100%;
-			.lineTitle {
-				padding: 10px;
-				font-size: 1.1rem;
-				font-weight: bold;
-				max-width: 300px;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-			}
-			.lineMembers {
-				align-items: center;
-				border-radius: 10px;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				min-height: 295px;
-				width: 100%;
-			}
-			.detailImgContainer {
-				position: relative;
-			}
-			.detailFrontline {
-				align-items: center;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				width: 80px;
-			}
-			.detailBackline {
-				align-items: center;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				width: 80px;
-				margin-right: 10px;
-			}
-			.lineImg {
-				border-radius: 50%;
-				cursor: pointer;
-				margin: 5px;
-				max-width: 70px;
-			}
-			.lineImg.claimed {
-				border: 5px solid var(--appColorPrimary);
-			}
-			.emptyLineSlot {
-				background: transparent;
-				border: 3px solid var(--appColorPriAccent);
-				border-radius: 50%;
-				flex-grow: 0;
-				flex-shrink: 0;
-				height: 70px;
-				margin: 5px;
-				width: 70px;
-			}
-		}
 		.expanderButton {
-			background-color: var(--appColorSecondary);
+			background-color: var(--appBGColor);
 			border: none;
+			border-radius: 10px;
+			box-shadow: var(--neu-med-i-BGColor-shadow);
 			color: black;
 			cursor: pointer;
 			font-size: 1.1rem;
@@ -1006,6 +799,7 @@
 			transition: all 0.2s ease-out;
 			&.open {
 				max-height: 5000px;
+				overflow: visible;
 				padding-top: 10px;
 			}
 		}
@@ -1018,8 +812,9 @@
 		#heroDetailSection {
 			scroll-snap-align: center;
 			.selectedHero {
-				border: 2px solid var(--appColorPrimary);
+				background-color: var(--appBGColor);
 				border-radius: 10px;
+				box-shadow: var(--neu-med-ni-BGColor-shadow);
 				display: flex;
 				flex-direction: column;
 				margin: 0 auto;
@@ -1040,27 +835,27 @@
 					display: flex;
 					flex-direction: column;
 					padding: 0px 10px;
-					.portraitContainer {
-						cursor: pointer;
-						position: relative;
-						.selectHeroPortrait {
-							border-radius: 50%;
+				}
+				.portraitContainer {
+					cursor: pointer;
+					position: relative;
+					+ {
+						p {
+							font-size: 1.1rem;
+							font-weight: bold;
+							margin: 0;
 							margin-bottom: 5px;
-							max-width: 80px;
-							&.claimed {
-								border: 5px solid var(--appColorPrimary);
-							}
+							margin-top: -8px;
+							text-align: center;
 						}
-						+ {
-							p {
-								font-size: 1.1rem;
-								font-weight: bold;
-								margin: 0;
-								margin-bottom: 5px;
-								margin-top: -8px;
-								text-align: center;
-							}
-						}
+					}
+				}
+				.selectHeroPortrait {
+					border-radius: 50%;
+					margin-bottom: 5px;
+					max-width: 80px;
+					&.claimed {
+						border: 5px solid var(--appColorPrimary);
 					}
 				}
 			}
@@ -1069,7 +864,7 @@
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
-				margin-top: 5px;
+				margin-top: 10px;
 				width: 100%;
 				.ascendBoxContainer {
 					margin-bottom: 10px;
@@ -1078,8 +873,8 @@
 					width: 100%;
 					margin: 10px 0px;
 					.heroNotes {
-						background-color: var(--appBGColorDark);
 						border-radius: 10px;
+						box-shadow: var(--neu-sm-ni-BGColor-shadow);
 						padding: 10px;
 					}
 				}
@@ -1088,70 +883,49 @@
 					flex-direction: column;
 					justify-content: center;
 					width: 100%;
-					h5 {
-						font-size: 1rem;
+				}
+				.artifactLine {
+					h6 {
+						font-size: 0.9rem;
 						margin: 0;
-						text-align: center;
+						margin-top: 7px;
+						margin-bottom: 3px;
 					}
-					.artifactLine {
-						h6 {
-							font-size: 0.9rem;
-							margin: 0;
-							margin-top: 7px;
-							margin-bottom: 3px;
-						}
-						.artifactArea {
-							background: var(--appBGColorDark);
-							border-radius: 10px;
-							display: grid;
-							grid-template-columns: repeat(auto-fill, 90px);
-							min-height: 80px;
-							padding: 5px;
-							width: 100%;
-							.artifactImgContainer {
-								align-items: center;
-								background: transparent;
-								border: none;
-								cursor: pointer;
-								display: flex;
-								flex-direction: column;
-								justify-content: center;
-								outline: none;
-								padding: 3px;
-								img {
-									border-radius: 50%;
-									max-width: 60px;
-								}
-								p {
-									margin: 0;
-									max-width: 80px;
-									overflow: hidden;
-									text-align: center;
-									text-overflow: ellipsis;
-									user-select: none;
-									white-space: nowrap;
-								}
-							}
-						}
+				}
+				.artifactArea {
+					border-radius: 10px;
+					box-shadow: var(--neu-sm-ni-BGColor-inset-shadow);
+					display: grid;
+					grid-template-columns: repeat(auto-fill, 90px);
+					min-height: 80px;
+					padding: 5px;
+					width: 100%;
+				}
+				.artifactImgContainer {
+					align-items: center;
+					background: transparent;
+					border: none;
+					cursor: pointer;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					outline: none;
+					padding: 3px;
+					img {
+						border-radius: 50%;
+						max-width: 60px;
+					}
+					p {
+						margin: 0;
+						max-width: 80px;
+						overflow: hidden;
+						text-align: center;
+						text-overflow: ellipsis;
+						user-select: none;
+						white-space: nowrap;
 					}
 				}
 			}
-		}
-		.heroButton {
-			background: transparent;
-			border: none;
-			cursor: pointer;
-			margin: 0;
-			outline: none;
-			padding: 0;
-		}
-		.heroNameButton {
-			background: transparent;
-			border: none;
-			cursor: pointer;
-			margin: 0;
-			outline: none;
-			padding: 0;
 		}
 		.subDisplay {
 			display: flex;
@@ -1185,69 +959,8 @@
 				width: 100%;
 			}
 			.subHeroContainer {
-				margin-right: 8px;
-				margin-bottom: 8px;
-				p {
-					font-size: 0.9rem;
-					font-weight: bold;
-					margin: 0;
-					width: 80px;
-					overflow: hidden;
-					text-align: center;
-					text-overflow: ellipsis;
-					white-space: nowrap;
-				}
+				margin: 5px 8px;
 			}
-			.subImgContainer {
-				position: relative;
-				.subImg {
-					border-radius: 50%;
-					max-width: 70px;
-					&.claimed {
-						border: 5px solid var(--appColorPrimary);
-					}
-				}
-			}
-		}
-		.coreMark {
-			background-color: var(--legendColor);
-			border: 3px solid var(--appBGColor);
-			border-radius: 50%;
-			bottom: 5px;
-			display: none;
-			height: 22px;
-			position: absolute;
-			right: 4px;
-			visibility: hidden;
-			width: 22px;
-			&.visible {
-				display: inline-block;
-				pointer-events: none;
-				visibility: visible;
-			}
-		}
-		.ascMark {
-			left: -6px;
-			position: absolute;
-			top: 3px;
-			img {
-				left: 0;
-				max-width: 35px;
-				pointer-events: none;
-				position: absolute;
-				top: 0;
-			}
-			img.moveup {
-				top: -3.5px;
-			}
-		}
-		.subCoreMark {
-			bottom: 0px;
-			right: -1px;
-		}
-		.subAscMark {
-			top: -4px;
-			left: -10px;
 		}
 		/* description markdown styling */
 		.descText {
@@ -1331,16 +1044,28 @@
 	.reportContainer {
 		display: flex;
 		justify-content: flex-end;
+		padding-bottom: 10px;
 		padding-right: 10px;
 	}
 	@media only screen and (min-width: 767px) {
+		.compLibDetailContainer {
+			height: 100vh;
+		}
 		.compLibDetailHead {
 			.authorButtonsContainer {
 				.buttonsContainer {
 					.unpublishButton {
+						padding: 5px;
 						p {
 							display: block;
 						}
+					}
+				}
+			}
+			.tagDisplay {
+				.tag {
+					&:hover {
+						background: var(--neu-convex-BGColor-wide-bg);
 					}
 				}
 			}
@@ -1352,32 +1077,8 @@
 			.bodyArea2 {
 				display: flex;
 			}
-			.lineExamples {
-				flex-grow: 0;
-				flex-shrink: 0;
-				margin-right: 10px;
-				width: 340px;
-			}
-			.lineSwitcher {
-				display: flex;
-				flex-direction: row;
-				justify-content: flex-start;
-				.lineSwitchButton {
-					margin-right: 0px;
-				}
-			}
-			.lineDisplay {
-				border-radius: 0px 10px 10px 10px;
-				max-height: 375px;
-				min-height: 375px;
-				.lineImg {
-					transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-					&:hover {
-						transform: scale(1.1);
-					}
-				}
-			}
 			.description {
+				padding-right: 10px;
 				width: 100%;
 			}
 			.heroDetails {
@@ -1389,27 +1090,30 @@
 				margin: 0;
 				padding: 0;
 				width: 340px;
-			}
-			.selectedHero {
-				margin: 0;
-				width: 340px;
+				.selectedHero {
+					margin: 0;
+					width: 340px;
+				}
 			}
 			.expanderButton {
 				display: none;
 			}
 			.mobileExpander {
 				max-height: 5000px;
+				overflow: visible;
 				padding: 0;
 				&.open {
 					padding: 0;
 				}
 				&.descSection {
-					border: 2px solid var(--appColorPrimary);
-					border-radius: 10px 0px 0px 10px;
-					margin-top: 27px;
-					max-height: 375px;
+					border-radius: 10px;
+					box-shadow: var(--neu-med-ni-BGColor-shadow);
+					height: 100%;
+					margin-left: 10px;
+					max-height: 390px;
 					overflow-y: auto;
 					padding: 10px;
+					width: 100%;
 				}
 			}
 			.subGroups {
@@ -1424,12 +1128,6 @@
 				margin-top: -4px;
 				overflow: hidden;
 				padding: 0;
-				.subImg {
-					transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 0);
-					&:hover {
-						transform: scale(1.1);
-					}
-				}
 				.subGroupTitle {
 					padding-top: 0;
 				}

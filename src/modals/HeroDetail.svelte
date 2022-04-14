@@ -75,7 +75,7 @@
 	</section>
 	<section class="skillsSection">
 		<div class="mobileExpanderTitle">
-			<button type="button" class="expanderButton" on:click={() => openSkills = !openSkills}><i class="arrow {openSkills ? 'down' : 'right' }"></i>Skills</button>
+			<button type="button" class="expanderButton" on:click={() => openSkills = !openSkills}><i class="expanderArrow {openSkills ? 'down' : 'right' }"></i>Skills</button>
 		</div>
 		<div class="mobileExpander {openSkills ? 'isOpen' : '' }">
 			<div class="skillDisplay">
@@ -123,7 +123,7 @@
 	{#if hero.tier === 'ascended'}
 		<section class="sigItemSection">
 			<div class="mobileExpanderTitle">
-				<button type="button" class="expanderButton" on:click={() => openSI = !openSI}><i class="arrow {openSI ? 'down' : 'right' }"></i>Signature Item</button>
+				<button type="button" class="expanderButton" on:click={() => openSI = !openSI}><i class="expanderArrow {openSI ? 'down' : 'right' }"></i>Signature Item</button>
 			</div>
 			<div class="mobileExpander {openSI ? 'isOpen' : '' }">
 				<div class="siFurnArea">
@@ -144,7 +144,7 @@
 		</section>
 		<section class="furnitureSection">
 			<div class="mobileExpanderTitle">
-				<button type="button" class="expanderButton" on:click={() => openFurn = !openFurn}><i class="arrow {openFurn ? 'down' : 'right' }"></i>Furniture</button>
+				<button type="button" class="expanderButton" on:click={() => openFurn = !openFurn}><i class="expanderArrow {openFurn ? 'down' : 'right' }"></i>Furniture</button>
 			</div>
 			<div class="mobileExpander {openFurn ? 'isOpen' : '' }">
 				<div class="siFurnArea">
@@ -167,10 +167,10 @@
 <style lang="scss">
 	.container {
 		position: relative;
+		padding: 0px 10px;
 	}
 	.heroName {
-		background-color: var(--appColorPrimary);
-		color: white;
+		color: var(--appColorBlack);
 		font-family: 'Roboto' sans-serif;
 		font-size: 2.0rem;
 		font-weight: bold;
@@ -336,8 +336,10 @@
 		}
 	}
 	.expanderButton {
-		background-color: var(--appColorSecondary);
+		background-color: var(--appBGColor);
 		border: none;
+		border-radius: 10px;
+		box-shadow: var(--neu-med-i-BGColor-shadow);
 		color: black;
 		cursor: pointer;
 		font-size: 1.1rem;
@@ -345,20 +347,20 @@
 		padding: 10px;
 		text-align: left;
 		width: 100%;
-	}
-	.arrow {
-		border: solid black;
-		border-width: 0 3px 3px 0;
-		display: inline-block;
-		margin-right: 16px;
-		padding: 3px;
-		transition: transform 0.2s ease-out;
-	}
-	.right {
-		transform: rotate(-45deg);
-	}
-	.down {
-		transform: rotate(45deg);
+		.expanderArrow {
+			border: solid black;
+			border-width: 0 3px 3px 0;
+			display: inline-block;
+			margin-right: 16px;
+			padding: 3px;
+			transition: transform 0.2s ease-out;
+			&.right {
+				transform: rotate(-45deg);
+			}
+			&.down {
+				transform: rotate(45deg);
+			}
+		}
 	}
 	.mobileExpander {
 		margin-bottom: 10px;
