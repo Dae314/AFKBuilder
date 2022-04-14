@@ -11,17 +11,17 @@
 	class:med={ size === 'med' || size === 'medium' }
 	class:large={size === 'lg' || size === 'large' }
 	class:hoverable={hoverable}
-	on:click={e => {clickCallback(); e.stopPropagation();}}>
+	on:click|stopPropagation={clickCallback}>
 </button>
 
 <style lang="scss">
 	.xButton{
 		align-items: center;
-		color: white;
+		color: var(--appDelColor);
 		cursor: pointer;
 		display: flex;
 		justify-content: center;
-		background: var(--appDelColor);
+		background: var(--appBGColor);
 		border-radius: 50%;
 		flex-grow: 0;
 		flex-shrink: 0;
@@ -34,7 +34,8 @@
 		content: "×";
 	}
 	.xButton.large {
-		border: 2px solid var(--appDelColor);
+		border: none;
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		font-size: 1.3rem;
 		height: 25px;
 		line-height: 1.3rem;
@@ -43,7 +44,8 @@
 		width: 25px;
 	}
 	.xButton.med {
-		border: 2px solid var(--appDelColor);
+		border: none;
+		box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
 		font-size: 0.8rem;
 		height: 18px;
 		line-height: 0.8rem;
@@ -51,7 +53,8 @@
 		width: 18px;
 	}
 	.xButton.small {
-		border: 1px solid var(--appDelColor);
+		border: none;
+		box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
 		font-size: 0.4rem;
 		height: 10px;
 		line-height: 0.4rem;
@@ -60,8 +63,8 @@
 	}
 	@media only screen and (min-width: 767px) {
 		.xButton.hoverable:hover {
-			background: transparent;
-			color: var(--appDelColor);
+			background: var(--appDelColor);
+			color: var(--appBGColor);
 		}
 	}
 </style>

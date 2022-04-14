@@ -74,16 +74,16 @@
 <style lang="scss">
 	.box {
 		align-items: center;
-		background-color: var(--appColorPrimary);
-		border: 5px solid var(--appColorPrimary);
+		background-color: var(--appBGColor);
 		border-radius: 10px;
-		color: white;
+		box-shadow: var(--neu-sm-ni-BGColor-shadow);
+		color: var(--appColorBlack);
 		display: flex;
 		font-weight: bold;
 		justify-content: center;
 		margin: 0 auto;
 		max-height: max-content;
-		padding: 2px;
+		padding: 5px;
 	}
 	.num {
 		margin: 0;

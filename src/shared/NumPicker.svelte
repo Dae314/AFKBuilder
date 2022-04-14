@@ -100,8 +100,10 @@
 		}
 	}
 	.numInput {
-		border: 2px solid var(--appColorPrimary);
+		background-color: var(--appBGColor);
+		border: none;
 		border-radius: 5px;
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		height: 25px;
 		outline: none;
 		text-align: center;
@@ -111,6 +113,9 @@
 			display: none;
 			appearance: none;
 			margin: 0;
+		}
+		&:focus {
+			background-color: white;
 		}
 		&:disabled {
 			background-color: var(--appBGColor);

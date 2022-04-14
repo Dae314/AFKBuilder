@@ -62,8 +62,6 @@
 	}
 	.headerSection {
 		h3 {
-			background-color: var(--appColorPrimary);
-			color: white;
 			font-family: 'Roboto' sans-serif;
 			font-size: 2.0rem;
 			font-weight: bold;
@@ -94,40 +92,40 @@
 		width: 100%;
 	}
 	.classContainer {
+		height: 50px;
 		position: relative;
+		width: 50px;
 	}
 	.classImg {
-		margin-right: 10px;
 		max-width: 50px;
 	}
 	.allCircle {
 		align-items: center;
-		background-color: var(--appColorPrimary);
-		border: 2px solid var(--appColorPrimary);
+		background-color: var(--appBGColor);
 		border-radius: 50%;
-		color: white;
+		box-shadow: var(--neu-sm-ni-BGColor-shadow);
 		display: flex;
 		flex-grow: 0;
 		flex-shrink: 0;
 		font-weight: bold;
 		height: 50px;
 		justify-content: center;
-		margin-right: 10px;
 		user-select: none;
 		width: 50px;
 	}
 	.attrContainer {
 		display: flex;
 		flex-direction: row;
+		margin-left: 8px;
 	}
 	.attrBox {
-		background-color: var(--appColorPrimary);
-		border: 2px solid var(--appColorPrimary);
+		background-color: var(--appBGColor);
+		border: none;
 		border-radius: 10px;
-		color: white;
+		box-shadow: var(--neu-sm-ni-BGColor-shadow);
 		font-size: 1rem;
 		font-weight: bold;
-		margin: 5px;
+		margin: 8px;
 		padding: 10px;
 		user-select: none;
 	}
@@ -157,7 +155,7 @@
 	}
 	@media only screen and (min-width: 767px) {
 		.tooltip {
-			bottom: -35px;
+			bottom: -42px;
 			display: flex;
 			justify-content: center;
 			left: -75px;
@@ -168,9 +166,9 @@
 			width: 200px;
 			z-index: 4;
 			.tooltipText {
-				background-color: var(--appColorPrimary);
+				background-color: var(--appBGColor);
 				border-radius: 6px;
-				color: white;
+				box-shadow: var(--neu-sm-ni-BGColor-shadow);
 				padding: 5px;
 				text-align: center;
 				user-select: none;

@@ -38,8 +38,8 @@
 			{ closeButton: false,
 				closeOnEsc: true,
 				closeOnOuterClick: true,
-				styleWindow: { width: 'fit-content', },
-				styleContent: { width: 'fit-content', },
+				styleWindow: { width: 'fit-content' },
+				styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
 			});
 	}
 
@@ -72,14 +72,33 @@
 	<section class="aboutApp">
 		<div class="generalDesc">
 			<p>AFKBuilder is an <a href="https://github.com/Dae314/AFKBuilder" target="_blank" rel="noreferrer noopener">open source</a> tool designed to help players build, share, and use community made team compositions for AFK Arena.</p>
-			<p>AFKBuilder runs entirely on your browser, and your data is stored in its local storage. None of your information is shared outside of the application. <em>Be sure to make a backup of your comps and hero list before clearing your browser data.</em></p>
+			<p>Login to get the most out of AFKBuilder! Until you login, AFKBuilder runs entirely on your browser, and your data is stored in its local storage. If you do not login, you will still be able to explore community comps and make your own, <em>but you will not be able to like, dislike, favorite, or publish comps.</em> Users who login will have full access to all of the features in AFKBuilder, and their Comps and My Heroes saved to their server profile so if you login on multiple devices, you will be able to see the same data.</p>
+			<p>AFKBuilder stores minimal personal information only when you login. We store no information on users who do not login. For more information about the data we store, see our <a href={`${window.location.origin}/#/privacy`} target="_blank" rel="noreferrer noopener">Privacy Policy</a>. Cookies in the form of local storage entries are used to store your configuration.</p>
+			<p>By using AFKBuilder, you agree to our <a href={`${window.location.origin}/#/terms`} target="_blank" rel="noreferrer noopener">Terms of Service</a></p>
 		</div>
 		<div class="areaDesc">
+			<div class="exploreDesc areaDescSect">
+				<h2>Explore</h2>
+				<div class="text">
+					<p>
+						Explore community made comps! Use our deep filtering system to filter for specific authors, heroes, or tags. Vote for the best comps, and favorite the ones that you want to keep and get recommendations for. Click on a comp to see more details for it, and share that comp simply by copying the URL! You can also sort results how you want:
+					</p>
+					<ul>
+						<li>best - comps are sorted based on upvote and downvote ratio</li>
+						<li>top - for those who don't like algorithms and just want to see the comps with the most upvotes</li>
+						<li>new - see the newest comps uploaded to the site</li>
+						<li>updated - see comps that have recently been updated by their authors</li>
+					</ul>
+				</div>
+			</div>
 			<div class="compDesc areaDescSect">
 				<h2>Comps</h2>
 				<div class="text">
 					<p>
-						The Comps area of the app is where you can manage your list of compositions. Importing, editing, creating, and exporting comps for sharing and backup are all done here. Starred comps are ones that you are interested in or are aiming for. Star your favorite comps to get customized recommendations based on their hero compositions. Comps can be filtered by their title or tags using the filter search box. For desktop users, drag and drop is enabled for your comp list as well as in the comp editor for hero lines, heroes within lines, and heroes within substitute lines.
+						Create, edit, import, export, and publish your comps all in one area. Any comps you favorite in <em>Explore</em> will appear here (although you won't be able to edit them). Starring comps in this area automatically sends all of their heroes into your personalized recommendation section. Create or edit comps with our powerful editor, and when you're done, publish your creation so others can find it!
+					</p>
+					<p>
+						Want to get organized? Group comps however you want with the group engine. Of course you can still search, sort, and filter comps in this area just like you can in <em>Explore</em>. Note: only comps you have saved locally will appear in <em>Comps</em>. For community comps, check out the <em>Explore</em> section.
 					</p>
 				</div>
 			</div>
@@ -87,7 +106,7 @@
 				<h2>Recommendations</h2>
 				<div class="text">
 					<p>
-						The Recommendations area of the app is where you can get customized progression recommendations based on the data from My Heroes and your starred comps. Hereos who are core to your starred comps are listed first, and heroes are ordered by their frequency of appearance in the comps. Adding a hero to your My Heroes list either by checkmarking them in the Ascension tab or claiming them from the Hero List will allow you to see their customized Signature Item and Furniture recommendations.
+						Ever wonder what to build next? This section will tell you! First, fill in your heroes into the <em>My Heroes</em> area, then star comps in the <em>Comps</em> section to receive personalized hero investment recommendations. Heroes in a comp you have starred that you do not yet have fully invested will appear here. You can tap on the checkmark for any investment you've completed to automatically update your <em>My Heroes</em>.
 					</p>
 				</div>
 			</div>
@@ -95,7 +114,7 @@
 				<h2>My Heroes</h2>
 				<div class="text">
 					<p>
-						The My Heroes area of the app is where you can customize the heroes you claimed from the Hero List or Recommendations area. This should represent the heroes you own in the AFK Arena app. You can specify each hero's Ascension, Signature Item, and Furniture. Once a hero is added to your My Heroes list, you will be able to see their Signature Item and Furniture recommendations in the Recommendations area.
+						Your hero box away from home. Keep track of all of your hero investments, and if you are new to the game, keep track of the copies you are collecting for the heroes you own. If you don't want personalized <em>Recommendations</em>, then there's no need to complete this section. Of course you would also then be missing out on powerful searching and filtering that's available, but that's your choice.
 					</p>
 				</div>
 			</div>
@@ -103,7 +122,7 @@
 				<h2>Hero List</h2>
 				<div class="text">
 					<p>
-						The Hero List area of the app is a reference list for all of the heroes in the game as well as their recommended Signature Item and Furniture benchmarks. Come here to look up information about a specific hero. You can also claim heroes from this list to add them to the My Heroes area.
+						Say hello to our database of every hero in Esperia. Don't remember what Mortas' 'Greed' skill does? Come here and find out (or just tap on his portrait in a comp). Want to see how many Celestial Rangers are in the game? Use our powerful search and filters to find exactly what you want. Hero SI, Furniture, and Engraving recommendations are gathered from various publically available community guides.
 					</p>
 				</div>
 			</div>
@@ -145,9 +164,6 @@
 		<div class="disclaimer">
 			<span>AFKBuilder has no affiliation with <a href="https://www.lilithgames.com/" target="_blank" rel="noreferrer noopener">Lilith Games</a> or <a href="https://www.afkarena.com/" target="_blank" rel="noreferrer noopener">AFK Arena</a></span> 
 		</div>
-		<div class="disclaimer">
-			<span>View our <a href={`${window.location.origin}/#/terms`} target="_blank" rel="noreferrer noopener">Terms of Service</a> and <a href={`${window.location.origin}/#/privacy`} target="_blank" rel="noreferrer noopener">Privacy Policy</a></span>
-		</div>
 	</section>
 	<section class="config">
 		<button type="button" class="configButton clearButton" on:click={handleClearDataButtonClick}><span>Clear Data</span></button>
@@ -172,10 +188,13 @@
 		justify-content: flex-end;
 	}
 	.versionButton {
-		background: transparent;
+		background-color: var(--appBGColor);
 		border: none;
+		border-radius: 5px;
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		cursor: pointer;
 		outline: none;
+		padding: 5px;
 	}
 	.titleContainer {
 		padding-bottom: 10px;
@@ -186,9 +205,7 @@
 		}
 	}
 	h2 {
-		margin: 0;
-		margin-bottom: 10px;
-		margin-top: 20px;
+		margin: 10px 0px;
 		text-align: center;
 	}
 	.generalDesc {
@@ -211,19 +228,22 @@
 			p {
 				margin-top: 0;
 			}
+			ul {
+				text-align: left;
+			}
 		}
 	}
 	.contributorGrid {
 		display: grid;
-		grid-gap: 10px;
+		grid-gap: 20px;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 330px));
 		justify-content: space-evenly;
 		margin-bottom: 10px;
-		overflow: hidden;
 	}
 	.contributorCard {
-		border: 3px solid var(--appColorPrimary);
+		border: none;
 		border-radius: 10px;
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		display: flex;
 		flex-direction: row;
 		height: 100%;
@@ -294,9 +314,10 @@
 		margin-top: 10px;
 		padding: 15px;
 		.configButton {
-			background-color: transparent;
-			border: 3px solid var(--appColorPrimary);
+			background-color: var(--appBGColor);
+			border: none;
 			border-radius: 10px;
+			box-shadow: var(--neu-med-i-BGColor-shadow);
 			color: var(--appColorPrimary);
 			cursor: pointer;
 			font-size: 1rem;
@@ -316,17 +337,30 @@
 		font-weight: bold;
 	}
 	@media only screen and (min-width: 767px) {
+		.aboutContainer {
+			height: 100vh;
+		}
+		.versionButton {
+			&:hover {
+				background: var(--neu-convex-BGColor-bg);
+			}
+		}
 		.generalDesc {
 			margin: 0 auto;
 			width: 70%;
 		}
 		.areaDesc {
-			display: grid;
-			grid-gap: 20px;
-			grid-template-columns: 1fr 1fr;
-			grid-template-rows: 1fr 1fr;
+			justify-content: center;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
 			.areaDescSect {
-				padding: 0px 20px;
+				background: var(--appBGColor);
+				border-radius: 10px;
+				box-shadow: var(--neu-med-ni-BGColor-shadow);
+				margin: 10px;
+				max-width: 48%;
+				padding: 10px;
 			}
 			h2 {
 				text-align: center;
@@ -344,14 +378,12 @@
 			justify-content: flex-start;
 			.configButton {
 				&:hover {
-					background-color: var(--appColorPrimary);
-					color: white;
+					background: var(--neu-convex-BGColor-wide-bg);
 				}
 			}
 			.clearButton {
 				&:hover {
-					background-color: var(--appDelColor);
-					color: white;
+					background: var(--neu-convex-BGColor-wide-bg);
 				}
 			}
 			form {

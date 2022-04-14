@@ -7,8 +7,14 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 
+// added imports for .env support
+import replace from '@rollup/plugin-replace';
+import dotenv from 'custom-env';
 
 const production = !process.env.ROLLUP_WATCH;
+
+// read from .env.prod in production and .env.dev in development
+production ? dotenv.env('prod') : dotenv.env('dev');
 
 function serve() {
 	let server;
@@ -40,6 +46,12 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		// rollup-plugin-replace to use .env files
+		replace({
+			preventAssignment: true,
+			GQL_URI: JSON.stringify(process.env.GQL_URI),
+			REST_URI: JSON.stringify(process.env.REST_URI),
+		}),
 		svelte({
 			preprocess: preprocess({
 				sourceMap: !production,
