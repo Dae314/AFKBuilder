@@ -514,6 +514,7 @@
 
 	async function clearAppData() {
 		window.localStorage.removeItem('appData');
+		window.localStorage.removeItem('tokenCache');
 		location.reload();
 	}
 
