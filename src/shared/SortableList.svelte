@@ -48,9 +48,9 @@
 	import { createEventDispatcher } from "svelte";
 	const dispatch = createEventDispatcher();
 	const reorder = ({ from, to }) => {
-		let newList = [...list];
-		newList[from] = [newList[to], (newList[to] = newList[from])][0];
-		dispatch("sort", newList);
+		// let newList = [...list];
+		// newList[from] = [newList[to], (newList[to] = newList[from])][0];
+		dispatch("sort", {from, to});
 	};
 	// UTILS
 	const getKey = item => (key ? item[key] : item);

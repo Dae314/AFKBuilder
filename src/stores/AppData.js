@@ -8,6 +8,14 @@ const herodata = get(HeroData); // data from HeroData store
 const maxDescLen = 5000;
 const maxCompTags = 10;
 const maxNoteLen = 280;
+const minCompTitleLen = 0;
+const maxCompTitleLen = 50;
+const minCompAuthorLen = 0;
+const maxCompAuthorLen = 50;
+const minLineTitleLen = 0;
+const maxLineTitleLen = 30;
+const minSubTitleLen = 0;
+const maxSubTitleLen = 50;
 // const testcomps = get(TestComps); // data from TestComps store
 
 // validation function for MH.List
@@ -67,6 +75,8 @@ window.validateComp = async function(data) {
 		{name: 'lines', type: 'array'},
 		{name: 'subs', type: 'array'},
 		{name: 'tags', type: 'array'},
+		{name: 'hidden', type: 'boolean'},
+		{name: 'source', type: 'string'},
 	];
 	const expectedHeroProps = [
 		{name: 'ascendLv', type: 'number'},
@@ -93,6 +103,8 @@ window.validateComp = async function(data) {
 
 	// data must be an object at this point, so make sure it's consistent with the format we expect
 	// make sure all properties are there
+	if(!('hidden' in data)) data.hidden = false; // add hidden attribute - March 2022 API update
+	if(!('source' in data)) data.source = 'local'; // add source attribute - March 2022 API update
 	for(const prop of expectedProps) {
 		if(!(prop.name in data)) {
 			return {retCode: 1, message: `Data is missing property: ${prop.name}`}
@@ -108,6 +120,11 @@ window.validateComp = async function(data) {
 			return {retCode: 1, message: `Incorrect type for key ${key}, expected ${expectedPropType}`};
 		}
 	}
+
+	// comp name and author length checks
+	if(data.name.length <= minCompTitleLen || data.name.length >= maxCompTitleLen) return {retCode: 1, message: 'Comp name must be be 1-50 characters long'};
+	if(data.author.length <= minCompAuthorLen || data.author.length >= maxCompAuthorLen) return {retCode: 1, message: 'Comp author must be 1-50 characters long'};
+
 	// perform detailed checks on finalized comps
 	if(!data.draft) {
 		if(data.lines.length < 1) return {retCode: 1, message: 'Comps must have at least 1 line'};
@@ -134,6 +151,8 @@ window.validateComp = async function(data) {
 					return {retCode: 1, message: `Incorrect type for key ${key} in line named ${line.name}, expected ${expectedPropType}`};
 				}
 			}
+			// make sure title is the correct length
+			if(line.name.length <= minLineTitleLen || line.name.length >= maxLineTitleLen) return {retCode: 1, message: `Line titles must be ${minLineTitleLen}-${maxLineTitleLen} characters`};
 			// make sure every hero in a line is also in heroes or is unknown
 			for(const hero of line.heroes) {
 				if(!(hero in data.heroes) && hero !== 'unknown') {
@@ -163,6 +182,8 @@ window.validateComp = async function(data) {
 					return {retCode: 1, message: `Incorrect type for key ${key} in sub line named ${sub.name}, expected ${expectedPropType}`};
 				}
 			}
+			// make sure title is the correct length
+			if(sub.name.length <= minSubTitleLen || sub.name.length >= maxSubTitleLen) return {retCode: 1, message: `Substitute line titles must be ${minSubTitleLen}-${maxSubTitleLen} characters`};
 			// make sure every hero in a sub line is also in heroes
 			for(const hero of sub.heroes) {
 				if(!(hero in data.heroes)) {
@@ -209,6 +230,19 @@ window.validateComp = async function(data) {
 		if(data.tags.length > maxCompTags) return {retCode: 1, message: `Comps can have a max of ${maxCompTags} tags.`};
 	}
 
+	// tag syntax cleanup added for DB update
+	const tagCheck = new RegExp('^[A-Za-z0-9-_.~]*$');
+	data.tags = data.tags.map(e => {
+		const retVal = e.replace(/ /g, '_') // replace all spaces with _
+										.replace(/\+/g, '-') // replace all + with -
+										.replace(/[^A-Za-z0-9-_.~]/g, '.') // replace all other invalid characters with .
+		if(tagCheck.test(retVal)) {
+			return retVal;
+		} else {
+			return 'invalid-tag';
+		}
+	});
+
 	// everything should be good now, return the clean Comp object
 	return {retCode: 0, message: data};
 }
@@ -233,18 +267,32 @@ function buildAppData(data) {
 		{name: 'selectedComp', default: null},
 		{name: 'selectedUUID', default: null},
 		{name: 'dismissImportWarn', default: false},
-		{name: 'dismissHLSearchInfo', default: false},
-		{name: 'dismissMHSearchInfo', default: false},
-		{name: 'modalClosed', default: false},
+		{name: 'dismissCookieConsent', default: false},
+		{name: 'expandHeader', default: false},
 		{name: 'maxDescLen', default: maxDescLen},
 		{name: 'maxCompTags', default: maxCompTags},
 		{name: 'maxNoteLen', default: maxNoteLen},
-		{name: 'compSearchStr', default: ''},
+		{name: 'compShowHidden', default: false},
+		{name: 'compGroups', default: []},
+		{name: 'compLastUpdate', default: new Date('January 1, 1990 03:00:00')},
+		{name: 'user', default: {}},
 		{name: 'HL', default: {}},
 		{name: 'MH', default: {}},
 		{name: 'REC', default: {}},
 		{name: 'Comps', default: []},
 	];
+	const expectedUserProps = [
+		{name: 'jwt', default: ''},
+		{name: 'username', default: ''},
+		{name: 'id', default: ''},
+		{name: 'avatar', default: ''},
+		{name: 'local_comps', default: {}},
+		{name: 'my_heroes', default: {}},
+		{name: 'liked_comps', default: []},
+		{name: 'disliked_comps', default: []},
+		{name: 'published_comps', default: []},
+		{name: 'saved_comps', default: []},
+	]
 	const expectedHLProps = [
 		{name: 'Sort', default: 'name'},
 		{name: 'Order', default: 'asc'},
@@ -284,11 +332,18 @@ function buildAppData(data) {
 		{name: 'ShowTank', default: true},
 		{name: 'ShowSup', default: true},
 		{name: 'ShowRan', default: true},
+		{name: 'lastUpdate', default: new Date('January 1, 1990 03:00:00')},
 		{name: 'List', default: {}},
 		{name: 'openSection', default: 0},
 	];
 	const expectedRECProps = [
 		{name: 'openSection', default: 0},
+	];
+	const expectedGroupProps = [
+		{name: 'name', default: 'New Group'},
+		{name: 'uuid', default: ''},
+		{name: 'comps', default: []},
+		{name: 'createdAt', default: new Date()}
 	];
 
 	// make sure that data is an object (and nothing else)
@@ -307,6 +362,15 @@ function buildAppData(data) {
 	data.maxDescLen = expectedProps.find(e => e.name === 'maxDescLen').default;
 	data.maxCompTags = expectedProps.find(e => e.name === 'maxCompTags').default;
 	data.maxNoteLen = expectedProps.find(e => e.name === 'maxNoteLen').default;
+
+	// add User props as required
+	for(const prop of expectedUserProps) {
+		if(!(prop.name in data.user)) data.user[prop.name] = prop.default;
+	}
+	// delete extra User props
+	for(let prop in data.user) {
+		if(!expectedUserProps.some(e => e.name === prop)) delete data.user[prop];
+	}
 
 	// add HL props as required
 	for(const prop of expectedHLProps) {
@@ -335,6 +399,18 @@ function buildAppData(data) {
 	// delete extra REC props
 	for(let prop in data.REC) {
 		if(!expectedRECProps.some(e => e.name === prop)) delete data.REC[prop];
+	}
+
+	// rebuild comp groups
+	for(let group of data.compGroups) {
+		// add group props as required
+		for(const prop of expectedGroupProps) {
+			if(!(prop.name in group)) group[prop.name] = prop.default;
+		}
+		// delete extra group props
+		for(let prop in group) {
+			if(!expectedGroupProps.some(e => e.name === prop)) delete group[prop];
+		}
 	}
 
 	// rebuild Comps
@@ -406,6 +482,8 @@ function buildCompsData(data) {
 		{name: 'subs', default: []},
 		{name: 'uuid', default: ''},
 		{name: 'tags', default: []},
+		{name: 'hidden', default: false},
+		{name: 'source', default: 'local'},
 	];
 	const expectedHeroProps = [
 		{name: 'ascendLv', default: 6},
@@ -553,6 +631,11 @@ if(window.localStorage.getItem('appData') !== null) {
 	for(let comp of appdata.Comps) {
 		comp.lastUpdate = new Date(comp.lastUpdate);
 	}
+	for(let group of appdata.compGroups) {
+		group.createdAt = new Date(group.createdAt);
+	}
+	appdata.MH.lastUpdate = new Date(appdata.MH.lastUpdate);
+	appdata.compLastUpdate = new Date(appdata.compLastUpdate);
 	// updateTestComps(appdata);
 } else {
 	// Otherwise initialize a clean AppData

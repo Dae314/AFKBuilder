@@ -4,7 +4,7 @@
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
 	import AppData from '../stores/AppData.js';
-	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
+	import ModalCloseButton from './ModalCloseButton.svelte';
 	import AscensionMenu from '../shared/AscensionMenu.svelte';
 	import SIMenu from '../shared/SIMenu.svelte';
 	import FurnMenu from '../shared/FurnMenu.svelte';
@@ -24,7 +24,7 @@
 	let close = () => {};
 	let section = 1;
 	let selectedHero = {};
-	let openFilters = !isMobile;
+	let showFilters = false;
 	let idx = 0;
 	let pos = 0;
 	let onSuccess = () => {};
@@ -61,10 +61,6 @@
 			unusedArtifacts = makeUnusedArtifactList();
 		}
 		heroes = makeHeroList();
-		if(section === 1) {
-			await tick();
-			if(!isMobile) document.querySelector('#searchBox').focus();
-		}
 	});
 
 	// filter variables
@@ -444,6 +440,10 @@
 		// scroll back to top
 		document.getElementById('hfContainer').scrollTop = 0;
 	}
+
+	function handleSearchButtonClick() {
+		heroes = makeHeroList();
+	}
 </script>
 
 <div class="background">
@@ -453,16 +453,17 @@
 	<div id="hfContainer" class="heroFinderContainer" on:click={(e) => e.stopPropagation()}>
 		{#if section === 1}
 			<div class="section1">
-				<div class="mobileExpanderTitle">
-					<button type="button" class="filtersButton" on:click={() => openFilters = !openFilters}><i class="arrow {openFilters ? 'open' : 'right' }"></i><span>Search and Filters</span></button>
-				</div>
-				<div class="mobileExpander" class:filterOpen={openFilters}>
+				<div class="heroFinderHead">
 					<div class="searchContainer">
-						<div class="search">
-							<input id="searchBox" type="search" placeholder="Search" bind:value={searchStr} on:keyup={() => heroes = makeHeroList()} on:search={() => heroes = makeHeroList()}>
-						</div>
+						<input id="searchBox" type="search" placeholder="Search" bind:value={searchStr} on:keyup={() => heroes = makeHeroList()} on:search={() => heroes = makeHeroList()}>
+						<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
+							<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
+						</button>
+						<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
+							<img class="openFiltersImage" src="./img/utility/filter_white.png" alt="Open Filters">
+						</button>
 					</div>
-					<div class="filters">
+					<div class="filters" class:open={showFilters}>
 						<div class="filterSection">
 							<button type="button" class="filterMasterButton" class:filterMasterDisabled={!allFactionsEnabled} on:click={() => handleFilterMasterButtonClick('faction')}>ALL</button>
 							<button type="button" class="filterButton" on:click={() => {handleFilterButtonClick('LB')}}>
@@ -531,7 +532,9 @@
 		{:else if section === 2}
 			<div class="section2">
 				<div class="heroEditHead">
-					<button type="button" class="backButton" on:click={() => changeSection(1)}><span>&lt; Heroes</span></button>
+					<button type="button" class="backButton" on:click={() => changeSection(1)}>
+						<img class="backImage" draggable="false" src="./img/utility/back_color.png" alt="Back">
+					</button>
 					<button type="button" class="saveButton" on:click={() => saveHero()}><span>Save</span></button>
 				</div>
 				<div class="heroEditor">
@@ -749,346 +752,413 @@
 		position: relative;
 		width: 80%;
 	}
-	.filtersButton {
-		background-color: var(--appColorSecondary);
-		border: none;
-		color: black;
-		cursor: pointer;
-		font-size: 1.1rem;
-		height: 40px;
-		outline: none;
-		padding: 10px;
-		text-align: left;
-		width: 100%;
-	}
-	.arrow {
-		border: solid black;
-		border-width: 0 3px 3px 0;
-		display: inline-block;
-		margin-right: 16px;
-		padding: 3px;
-		transition: transform 0.2s ease-out;
-	}
-	.arrow.right {
-		transform: rotate(-45deg);
-	}
-	.arrow.open {
-		transform: rotate(45deg);
-	}
-	.mobileExpander {
-		background-color: var(--appBGColor);
-		margin-bottom: 10px;
-		max-height: 0;
-		overflow: hidden;
-		transition: max-height 0.2s ease;
-	}
-	.mobileExpander.filterOpen {
-		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
-		max-height: 500px;
-	}
-	.filters {
-		display: flex;
-		flex-direction: row;
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		width: 100%;
-	}
-	.searchContainer {
-		border-bottom: 1px solid black;
-		padding-bottom: 15px;
-		padding-top: 15px;
-		text-align: center;
-	}
-	.search {
-		display: inline-block;
-		width: 100%;
-		input {
-			height: 1.6rem;
-			width: 50%;
+	.section1 {
+		.heroFinderHead {
+			padding: 10px;
+			position: relative;
+			.searchContainer {
+				display: flex;
+				justify-content: center;
+				padding: 5px;
+				padding-bottom: 10px;
+				input {
+					background-color: var(--appBGColorLight);
+					border: none;
+					border-radius: 5px;
+					box-shadow: var(--neu-sm-i-BGColor-shadow);
+					font-size: 1rem;
+					outline: none;
+					padding: 5px;
+					width: 100%;
+					&:focus {
+						background-color: white;
+					}
+				}
+				.headButton {
+					align-items: center;
+					background-color: transparent;
+					border: none;
+					border-radius: 10px;
+					cursor: pointer;
+					display: flex;
+					height: 40px;
+					justify-content: center;
+					outline: none;
+					position: absolute;
+					top: 10px;
+					transition: all 0.2s;
+					width: 40px;
+				}
+				.searchButton {
+					right: 65px;
+					.searchImage {
+						max-width: 20px;
+						opacity: 0.3;
+						filter: invert(1);
+					}
+				}
+				.openFiltersButton {
+					right: 33px;
+					.openFiltersImage {
+						max-width: 20px;
+						opacity: 0.3;
+						filter: invert(1);
+					}
+					&.open {
+						.openFiltersImage {
+							opacity: 0.7;
+						}
+					}
+				}
+			}
+			.filters {
+				display: flex;
+				flex-direction: row;
+				background: var(--appBGColor);
+				border-radius: 10px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				display: flex;
+				flex-direction: column;
+				left: 50%;
+				opacity: 0;
+				position: absolute;
+				top: 60px;
+				transform: translate(-50%, 0);
+				transition: all 0.2s;
+				visibility: hidden;
+				width: 90%;
+				&.open {
+					visibility: visible;
+					opacity: 1;
+				}
+				.filterSection {
+					border-bottom: 1px solid black;
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					justify-content: center;
+					padding-bottom: 7px;
+					padding-left: 10px;
+					width: 100%;
+					&:last-child {
+						border-bottom: none;
+					}
+				}
+				.filterMasterButton {
+					align-items: center;
+					border: 3px solid var(--appColorPrimary);
+					border-radius: 50%;
+					color: var(--appColorPrimary);
+					display: flex;
+					font-size: 0.6rem;
+					height: 33px;
+					justify-content: center;
+					margin-right: 15px;
+					margin-top: 7px;
+					padding: 0;
+					text-decoration: none;
+					transition: all .3s;
+					width: 33px;
+					&:active {
+						background-color: var(--appColorPriDark);
+						border-color: var(--appColorPriDark);
+						color: white;
+					}
+					&.filterMasterDisabled {
+						border-color: #888;
+						color: #888;
+						&:active {
+							background-color: #666;
+							border-color: #666;
+							color: white;
+						}
+					}
+				}
+				.filterButton {
+					background: transparent;
+					border: 0;
+					cursor: pointer;
+					display: block;
+					margin-right: 10px;
+					margin-top: 7px;
+					padding: 0;
+					.filterImg {
+						max-width: 33px;
+						&.filterInactive {
+							filter: grayscale(100%);
+						}
+						&.filterSelected {
+							border-radius: 50%;
+							box-shadow: 0 0 7px 2px var(--appColorPrimary);
+						}
+					}
+				}
+			}
 		}
-	}
-	.filterMasterButton {
-		align-items: center;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 50%;
-		color: var(--appColorPrimary);
-		display: flex;
-		font-size: 0.6rem;
-		height: 33px;
-		justify-content: center;
-		margin-right: 15px;
-		margin-top: 7px;
-		text-decoration: none;
-		transition: all .3s;
-		width: 33px;
-		&:active {
-			background-color: var(--appColorPriDark);
-			border-color: var(--appColorPriDark);
-			color: white;
-		}
-	}
-	.filterMasterDisabled {
-		border-color: #888;
-		color: #888;
-		&:active {
-			background-color: #666;
-			border-color: #666;
-			color: white;
-		}
-	}
-	.filterSection {
-		border-bottom: 1px solid black;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-		padding-bottom: 7px;
-		padding-left: 10px;
-		width: 100%;
-	}
-	.filterButton {
-		background: transparent;
-		border: 0;
-		cursor: pointer;
-		display: block;
-		margin-right: 10px;
-		margin-top: 7px;
-	}
-	.filterImg {
-		max-width: 33px;
-	}
-	.filterInactive {
-		filter: grayscale(100%);
-	}
-	.filterSelected {
-		border-radius: 50%;
-		box-shadow: 0 0 7px 2px var(--appColorPrimary);
-	}
-	.heroGrid {
-		display: grid;
-		grid-gap: 10px 10px;
-		grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-		grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
-		justify-content: space-evenly;
-		overflow: hidden;
-	}
-	.heroPortrait {
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		outline: none;
-		img {
-			border-radius: 50%;
-			max-width: 100px;
-		}
-		p {
-			font-weight: bold;
-			margin: 0;
-		}
-	}
-	.heroPortrait.active {
-		img {
-			border: 5px solid var(--appColorPrimary);
-		}
-	}
-	.heroEditHead {
-		border-bottom: 1px solid black;
-		display: flex;
-		height: 40px;
-		padding: 5px;
-		position: relative;
-		width: 100%;
-	}
-	.heroName {
-		font-size: 1.3rem;
-		font-weight: bold;
-		text-align: center;
-		width: 100%;
-	}
-	.starsInputContainer {
-		margin-top: 5px;
-	}
-	.backButton {
-		background-color: transparent;
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 5px;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		font-size: 1.1rem;
-		left: 5px;
-		outline: none;
-		padding: 2px;
-		position: absolute;
-		&:active {
-			box-shadow: none;
-		}
-	}
-	.saveButton {
-		background-color: var(--appColorPrimary);
-		border: 2px solid var(--appColorPrimary);
-		border-radius: 5px;
-		color: white;
-		cursor: pointer;
-		font-size: 1.1rem;
-		outline: none;
-		padding: 2px;
-		position: absolute;
-		right: 5px;
-		&:active {
-			box-shadow: none;
-		}
-	}
-	.heroEditor {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		padding: 10px;
-		h4 {
-			margin: 10px 0px;
-			text-align: center;
-			width: 100%;
-		}
-	}
-	.portraitArea {
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		max-width: 400px;
-		padding: 5px;
-		width: 100%;
-	}
-	.siFlipButtonArea {
-		align-items: center;
-		display: flex;
-		justify-content: center;
-		width: 33%;
-	}
-	.portraitContainer {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		width: 33%;
-	}
-	.editorPortrait {
-		border-radius: 50%;
-		max-width: 150px;
-	}
-	.engraveInputContainer {
-		margin: 10px 0px;
-	}
-	.furnFlipButtonArea {
-		align-items: center;
-		display: flex;
-		justify-content: center;
-		width: 33%;
-	}
-	.ascFlipButtonArea {
-		display: flex;
-		justify-content: center;
-		padding: 5px;
-		width: 100%;
-	}
-	.coreArea {
-		align-items: center;
-		display: flex;
-		justify-content: center;
-		padding-top: 10px;
-		width: 100%;
-	}
-	.coreButton {
-		background-color: #aaa;
-		border: none;
-		border-radius: 10px;
-		color: white;
-		cursor: pointer;
-		font-size: 1rem;
-		padding: 5px;
-	}
-	.coreButton.on {
-		background-color: var(--legendColor);
-		box-shadow: none;
-	}
-	.notesArea {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		width: 100%;
-		.notesEditor {
-			border: 1px solid var(--appColorPrimary);
-			height: 100px;
-			outline: 0;
-			width: 100%;
-		}
-		.noteLimitArea {
-			font-size: 0.8rem;
-			text-align: right;
-			width: 100%;
-		}
-		.noteLimitArea.maxed {
-			color: var(--appDelColor);
-			font-weight: bold;
-		}
-	}
-	.selectedArtifacts {
-		display: grid;
-		grid-gap: 5px 5px;
-		grid-template-columns: 100%;
-		justify-content: space-evenly;
-		overflow: hidden;
-		width: 100%;
-	}
-	.gridCell {
-		h5 {
-			margin: 0;
-			margin-top: 5px;
-			padding-left: 5px;
-		}
-	}
-	.artifactLine {
-		align-items: center;
-		background-color: var(--appBGColorDark);
-		border-radius: 10px;
-		display: grid;
-		grid-auto-flow: column;
-		grid-gap: 5px;
-		grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
-		margin-top: 5px;
-		min-height: 90px;
-		overflow-x: auto;
-		padding: 5px;
-		padding-left: 10px;
-		width: 100%;
-	}
-	.mobileArtifactPicker {
-		display: grid;
-		grid-gap: 5px;
-		grid-auto-flow: column;
-		grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
-	}
-	.artifactContainer {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		p {
-			font-size: 0.8rem;
-			margin: 0;
-			width: 80px;
+		.heroGrid {
+			display: grid;
+			grid-gap: 10px 10px;
+			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+			grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+			justify-content: space-evenly;
 			overflow: hidden;
-			text-align: center;
-			text-overflow: ellipsis;
-			user-select: none;
-			white-space: nowrap;
+		}
+		.heroPortrait {
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			outline: none;
+			img {
+				border-radius: 50%;
+				max-width: 100px;
+			}
+			p {
+				font-weight: bold;
+				margin: 0;
+			}
+			&.active {
+				img {
+					border: 5px solid var(--appColorPrimary);
+				}
+			}
 		}
 	}
-	.artifactImgContainer {
-		position: relative;
+	.section2 {
+		.heroEditHead {
+			display: flex;
+			height: 50px;
+			padding: 10px;
+			position: relative;
+			width: 100%;
+			.backButton {
+				align-items: center;
+				background-color: var(--appBGColor);
+				border: none;
+				border-radius: 5px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				color: var(--appColorPrimary);
+				cursor: pointer;
+				display: flex;
+				height: 30px;
+				justify-content: center;
+				left: 10px;
+				outline: none;
+				padding: 0;
+				position: absolute;
+				width: 30px;
+				.backImage {
+					max-width: 15px;
+				}
+			}
+			.saveButton {
+				background-color: var(--appBGColor);
+				border: none;
+				border-radius: 5px;
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				color: var(--appColorPrimary);
+				cursor: pointer;
+				font-size: 1.1rem;
+				font-weight: bold;
+				outline: none;
+				padding: 5px;
+				position: absolute;
+				right: 10px;
+			}
+		}
+		.heroName {
+			font-size: 1.3rem;
+			font-weight: bold;
+			text-align: center;
+			width: 100%;
+		}
+		.starsInputContainer {
+			margin-top: 5px;
+		}
+		.heroEditor {
+			align-items: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			padding: 10px;
+			padding-top: 0px;
+			h4 {
+				margin: 10px 0px;
+				text-align: center;
+				width: 100%;
+			}
+			.portraitArea {
+				align-items: center;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				max-width: 400px;
+				padding: 5px;
+				width: 100%;
+			}
+			.siFlipButtonArea {
+				align-items: center;
+				display: flex;
+				justify-content: center;
+				width: 33%;
+			}
+			.portraitContainer {
+				align-items: center;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				width: 33%;
+				.editorPortrait {
+					border-radius: 50%;
+					max-width: 150px;
+				}
+			}
+			.furnFlipButtonArea {
+				align-items: center;
+				display: flex;
+				justify-content: center;
+				width: 33%;
+			}
+			.ascFlipButtonArea {
+				display: flex;
+				justify-content: center;
+				padding: 5px;
+				width: 100%;
+			}
+			.engraveInputContainer {
+				margin: 10px 0px;
+			}
+			.coreArea {
+				align-items: center;
+				display: flex;
+				justify-content: center;
+				padding-top: 10px;
+				width: 100%;
+				.coreButton {
+					background-color: var(--appBGColor);
+					border: none;
+					border-radius: 10px;
+					box-shadow: var(--neu-sm-i-BGColor-shadow);
+					color: var(--appColorBlack);
+					cursor: pointer;
+					font-size: 1rem;
+					padding: 5px;
+					&.on {
+						background-color: var(--legendColor);
+						color: white;
+					}
+				}
+			}
+			.notesArea {
+				align-items: center;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				width: 100%;
+				.notesEditor {
+					background: var(--appBGColor);
+					border: none;
+					border-radius: 10px;
+					box-shadow: var(--neu-sm-i-BGColor-shadow);
+					height: 100px;
+					outline: 0;
+					width: 100%;
+					&:focus {
+						background-color: white;
+					}
+				}
+				.noteLimitArea {
+					font-size: 0.8rem;
+					margin-top: 5px;
+					text-align: right;
+					width: 100%;
+					&.maxed {
+						color: var(--appDelColor);
+						font-weight: bold;
+					}
+				}
+			}
+			.selectedArtifacts {
+				display: grid;
+				grid-gap: 5px 5px;
+				grid-template-columns: 100%;
+				justify-content: space-evenly;
+				overflow: hidden;
+				width: 100%;
+				.gridCell {
+					h5 {
+						margin: 0;
+						margin-top: 5px;
+						padding-left: 5px;
+					}
+					.artifactLine {
+						align-items: end;
+						background-color: var(--appBGColor);
+						border-radius: 10px;
+						box-shadow: var(--neu-sm-ni-BGColor-inset-shadow);
+						display: grid;
+						grid-auto-flow: column;
+						grid-gap: 5px;
+						grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
+						margin-top: 5px;
+						min-height: 105px;
+						overflow-x: auto;
+						padding: 5px;
+						padding-left: 10px;
+						width: 100%;
+					}
+					.mobileArtifactPicker {
+						display: grid;
+						grid-gap: 5px;
+						grid-auto-flow: column;
+						grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
+					}
+					.artifactContainer {
+						align-items: center;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						p {
+							font-size: 0.8rem;
+							margin: 0;
+							width: 80px;
+							overflow: hidden;
+							text-align: center;
+							text-overflow: ellipsis;
+							user-select: none;
+							white-space: nowrap;
+						}
+						.artifactImgContainer {
+							position: relative;
+							.artifactImg {
+								border-radius: 50%;
+								max-width: 60px;
+							}
+							.removeArtifactButtonContainer {
+								position: absolute;
+								right: -10px;
+								top: -10px;
+							}
+						}
+					}
+					.addArtifactButton {
+						background: transparent;
+						border: 3px solid var(--appColorPrimary);
+						border-radius: 50%;
+						color: var(--appColorPrimary);
+						cursor: pointer;
+						flex-grow: 0;
+						flex-shrink: 0;
+						font-size: 1.5rem;
+						height: 60px;
+						margin-bottom: 20px;
+						margin-left: auto;
+						margin-right: auto;
+						padding: 0;
+						width: 60px;
+					}
+				}
+			}
+		}
 	}
 	.artifactButton {
 		align-items: center;
@@ -1099,6 +1169,10 @@
 		flex-direction: column;
 		justify-content: center;
 		outline: none;
+		.artifactImg {
+			border-radius: 50%;
+			max-width: 60px;
+		}
 		p {
 			margin: 0;
 			width: 80px;
@@ -1107,30 +1181,6 @@
 			user-select: none;
 			white-space: nowrap;
 		}
-	}
-	.artifactImg {
-		border-radius: 50%;
-		max-width: 60px;
-	}
-	.removeArtifactButtonContainer {
-		position: absolute;
-		right: -3px;
-		top: 0;
-	}
-	.addArtifactButton {
-		background: transparent;
-		border: 3px solid var(--appColorPrimary);
-		border-radius: 50%;
-		color: var(--appColorPrimary);
-		cursor: pointer;
-		flex-grow: 0;
-		flex-shrink: 0;
-		font-size: 1.5rem;
-		height: 60px;
-		margin-bottom: 20px;
-		margin-left: auto;
-		margin-right: auto;
-		width: 60px;
 	}
 	.desktopArtifactPicker {
 		display: none;
@@ -1142,43 +1192,76 @@
 		.heroFinderContainer {
 			width: 50%;
 		}
-		.filterMasterButton {
-			&:hover {
-				background-color: var(--appColorPrimary);
-				color: rgba(255, 255, 255, 0.9);
+		.section1 {
+			.heroFinderHead {
+				.searchContainer {
+					.headButton {
+						&:hover {
+							.searchImage {
+								opacity: 0.5;
+							}
+							.openFiltersImage {
+								opacity: 0.5;
+							}
+						}
+					}
+					.openFiltersButton {
+						&.open {
+							.openFiltersImage {
+								opacity: 0.7;
+							}
+						}
+					}
+				}
+				.filters {
+					.filterMasterButton {
+						&:hover {
+							background-color: var(--appColorPrimary);
+							color: rgba(255, 255, 255, 0.9);
+						}
+						&.filterMasterDisabled {
+							&:hover {
+								background-color: #888;
+								color: rgba(255, 255, 255, 0.9);
+							}
+						}
+					}
+				}
 			}
 		}
-		.filterMasterDisabled {
-			&:hover {
-				background-color: #888;
-				color: rgba(255, 255, 255, 0.9);
+		.section2 {
+			.heroEditHead {
+				.backButton {
+					&:hover {
+						background: var(--neu-convex-BGColor-wide-bg);
+					}
+				}
+				.saveButton {
+					&:hover {
+						background: var(--neu-convex-BGColor-wide-bg);
+					}
+				}
 			}
-		}
-		.backButton {
-			&:hover {
-				background-color: var(--appColorPrimary);
-				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-				color: white;
+			.heroEditor {
+				.notesArea {
+					.notesEditor {
+						width: 75%;
+					}
+					.noteLimitArea {
+						width: 75%;
+					}
+				}
+				.selectedArtifacts {
+					.gridCell {
+						.mobileArtifactPicker {
+							display: none;
+						}
+						.artifactLine {
+							grid-auto-flow: row;
+						}
+					}
+				}
 			}
-		}
-		.saveButton {
-			&:hover {
-				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-			}
-		}
-		.notesArea {
-			.notesEditor {
-				width: 75%;
-			}
-			.noteLimitArea {
-				width: 75%;
-			}
-		}
-		.mobileArtifactPicker {
-			display: none;
-		}
-		.artifactLine {
-			grid-auto-flow: row;
 		}
 		.desktopArtifactPicker {
 			display: none;
@@ -1189,44 +1272,30 @@
 				width: 100%;
 				z-index: 5;
 			}
-		}
-		.desktopArtifactPicker.open {
-			display: block;
-			height: 100%;
-			position: fixed;
-			left: 0;
-			top: 0;
-			visibility: visible;
-			width: 100%;
-			z-index: 5;
-		}
-		.artifactModalCloseContainer {
-			margin-left: auto;
-			position: relative;
-			right: 37.5%;
-		}
-		.artifactPickerWindow {
-			background-color: var(--appBGColor);
-			border-radius: 10px;
-			display: grid;
-			grid-gap: 5px;
-			grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-			padding: 10px;
-			width: 25%;
-			z-index: 5;
-		}
-		.artifactButton {
-			&:hover {
-				p {
-					overflow: visible;
-					width: fit-content;
-				}
+			&.open {
+				display: block;
+				height: 100%;
+				position: fixed;
+				left: 0;
+				top: 0;
+				visibility: visible;
+				width: 100%;
+				z-index: 5;
 			}
-			p {
-				&:hover {
-					overflow: visible;
-					width: fit-content;
-				}
+			.artifactModalCloseContainer {
+				margin-left: auto;
+				position: relative;
+				right: 37.5%;
+			}
+			.artifactPickerWindow {
+				background-color: var(--appBGColor);
+				border-radius: 10px;
+				display: grid;
+				grid-gap: 5px;
+				grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+				padding: 10px;
+				width: 25%;
+				z-index: 5;
 			}
 		}
 	}

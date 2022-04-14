@@ -1,33 +1,45 @@
 <script>
+	import {createEventDispatcher} from 'svelte';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	
 	export let comp = {};
 	export let idx = {}
 	export let highlightComp = null;
-	export let delCallback = () => {};
-	export let cardClickCallback = () => {};
-	export let exportCallback = () => {};
-	export let starCallback = () => {};
 
-	function handleDeleteButtonClick(index) {
-		delCallback(index);
+	const dispatch = createEventDispatcher();
+
+	let showGroupMenu = false;
+
+	$: published = $AppData.user.jwt ? $AppData.user.published_comps.some(e => e.uuid === comp.uuid) : false;
+
+	function handleDeleteButtonClick(uuid) {
+		dispatch('cardEvent', {action: 'deleteClick', data: uuid});
 	}
 
-	function handleCompCardClick(index) {
-		cardClickCallback(index);
+	function handleCompCardClick(uuid) {
+		dispatch('cardEvent', {action: 'cardClick', data: uuid});
 	}
 
-	function handleExportButtonClick(index) {
-		exportCallback(index);
+	function handleExportButtonClick(uuid) {
+		dispatch('cardEvent', {action: 'exportClick', data: uuid});
 	}
 
-	function handleStarClick(event, comp) {
-		starCallback(event, comp);
+	function handleGroupButtonClick() {
+		showGroupMenu = !showGroupMenu;
+	}
+
+	function handleGroupChange(groupUUID) {
+		showGroupMenu = false;
+		dispatch('cardEvent', {action: 'groupChange', data: {compUUID: comp.uuid, groupUUID}});
+	}
+
+	function handleStarClick(uuid) {
+		dispatch('cardEvent', {action: 'starClick', data: uuid});
 	}
 </script>
 
-<div id="comp{idx}" class="compCard" class:highlight={highlightComp !== null && highlightComp === idx} class:active={idx === $AppData.selectedComp} on:click={() => handleCompCardClick(idx) }>
+<div id="comp{idx}" class="compCard" class:highlight={highlightComp !== null && highlightComp === idx} class:active={comp.uuid === $AppData.selectedComp} on:click={() => handleCompCardClick(comp.uuid) }>
 	<div class="compCardHead">
 		<div class="titleAuthorContainer">
 			<div class="compCardTitleContainer">
@@ -40,14 +52,51 @@
 		<div class="buttonDraftArea">
 			<div class="cardButtonsContainer">
 				<div class="buttonArea">
-					<button type="button" class="cardDeleteButton" on:click={(e) => { handleDeleteButtonClick(idx); e.stopPropagation(); }}><img draggable="false" class="deleteIcon" src="./img/utility/trashcan.png" alt="Delete"></button>
-					<div class="tooltip deleteTooltip"><span class="tooltipText">Delete</span></div>
+					<button
+						type="button"
+						class="cardDeleteButton"
+						on:click|stopPropagation={() => handleDeleteButtonClick(comp.uuid)}>
+						<img
+							draggable="false"
+							class="deleteIcon"
+							src={comp.source === 'local' ? './img/utility/trashcan_white.png' : './img/utility/favorite_unfilled_white.png'}
+							alt="Delete">
+					</button>
+					<div class="tooltip deleteTooltip"><span class="tooltipText">{comp.source === 'local' ? 'Delete' : 'Unfavorite'}</span></div>
 				</div>
 				<div class="buttonArea">
-					<button type="button" class="cardExportButton" on:click={(e) => { handleExportButtonClick(idx); e.stopPropagation(); }}><img draggable="false" class="exportIcon" src="./img/utility/export.png" alt="Export"></button>
-					<div class="tooltip exportTooltip"><span class="tooltipText">Export</span></div>
+					<img class="publishedIcon" class:published={published} src="./img/utility/explore_white.png" alt="{published ? 'Published' : 'Unpublished'}" draggable="false" />
+					<div class="tooltip publishedTooltip"><span class="tooltipText">{published ? 'Published' : 'Unpublished'}</span></div>
 				</div>
-				<i class="star" class:active={comp.starred} on:click={(e) => handleStarClick(e, comp)}></i>
+				<div class="buttonArea groupArea">
+					<button
+						type="button"
+						class="cardGroupButton"
+						on:click|stopPropagation={handleGroupButtonClick}>
+						<img
+							draggable="false"
+							class="groupIcon"
+							src="./img/utility/group_manage_white.png"
+							alt="Edit Groups">
+					</button>
+					<div class="tooltip groupTooltip"><span class="tooltipText">Edit Groups</span></div>
+					<div class="groupListArea" class:open={showGroupMenu} on:click|stopPropagation>
+						<ul class="groupList">
+							{#each $AppData.compGroups as group}
+								<li>
+									<button
+										type="button"
+										class="groupButton"
+										class:claimed={group.comps.includes(comp.uuid)}
+										on:click|stopPropagation={() => handleGroupChange(group.uuid)}>
+										{group.name}
+									</button>
+								</li>
+							{/each}
+						</ul>
+					</div>
+				</div>
+				<i class="star" class:active={comp.starred} on:click|stopPropagation={() => handleStarClick(comp.uuid)}></i>
 			</div>
 			<div class="draftContainer">
 				<div class="draftLabel" class:open={comp.draft}><span>draft</span></div>
@@ -75,9 +124,9 @@
 
 <style lang="scss">
 	.compCard {
-		background-color: var(--appBGColor);
-		border: 3px solid var(--appColorPrimary);
+		background: var(--neu-convex-BGLight-bg);
 		border-radius: 10px;
+		box-shadow: var(--neu-med-i-BGLight-shadow);
 		cursor: pointer;
 		scroll-snap-align: center;
 		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 0);
@@ -96,7 +145,7 @@
 		padding-top: 8px;
 		.titleAuthorContainer {
 			flex-grow: 1;
-			max-width: 80%;
+			max-width: 70%;
 			justify-content: flex-start;
 			padding-right: 5px;
 			.compCardTitleContainer {
@@ -126,12 +175,13 @@
 			flex-direction: column;
 			justify-content: flex-end;
 			min-width: 80px;
-			width: 20%;
+			width: 30%;
 			.cardButtonsContainer {
 				align-items: center;
+				cursor: default;
 				display: grid;
 				grid-gap: 5px;
-				grid-template-columns: 1fr 1fr 1fr;
+				grid-template-columns: 1fr 1fr 1fr 1fr;
 				height: 100%;
 				justify-content: space-evenly;
 				justify-items: center;
@@ -139,36 +189,110 @@
 					align-items: center;
 					display: flex;
 					flex-direction: column;
+					height: 20px;
 					justify-content: center;
+					position: relative;
+					width: 20px;
 				}
 				.cardDeleteButton {
 					background-color: transparent;
 					border: 0;
 					cursor: pointer;
-					display: none;
 					height: fit-content;
 					margin: 0;
 					outline: 0;
 					padding: 0;
 					padding-top: 1px;
+					&:disabled {
+						cursor: not-allowed;
+					}
 					.deleteIcon {
 						filter: invert(1.0);
 						max-width: 15px;
+						&.disabled {
+							filter: invert(0.35);
+						}
 					}
 				}
-				.cardExportButton {
-					background-color: transparent;
-					border: 0;
-					cursor: pointer;
-					display: none;
-					height: fit-content;
-					margin: 0;
-					outline: 0;
-					padding: 0;
-					padding-top: 2px;
-					.exportIcon {
-						filter: invert(1.0);
-						max-width: 18px;
+				.publishedIcon {
+					cursor: default;
+					filter: invert(1.0);
+					max-width: 20px;
+					opacity: 35%;
+					&.published {
+						opacity: 100%;
+					}
+				}
+				.groupArea {
+					.cardGroupButton {
+						background-color: transparent;
+						border: 0;
+						cursor: pointer;
+						height: fit-content;
+						margin: 0;
+						outline: 0;
+						padding: 0;
+						.groupIcon {
+							filter: invert(1.0);
+							max-width: 15px;
+						}
+					}
+					.groupListArea {
+						background-color: var(--appBGColor);
+						border-radius: 5px;
+						box-shadow: var(--neu-sm-ni-BGColor-shadow);
+						opacity: 0;
+						position: absolute;
+						visibility: hidden;
+						top: 23px;
+						transition: all 0.2s;
+						z-index: 2;
+						&:before {
+							border-bottom: 5px solid var(--appBGColorDark);
+							border-left: 5px solid transparent;
+							border-right: 5px solid transparent;
+							content: "";
+							height: 0;
+							left: 50%;
+							position: absolute;
+							top: -5px;
+							transform: translate(-50%, 0%);
+							width: 0;
+						}
+						&.open {
+							opacity: 1;
+							visibility: visible;
+						}
+						.groupList {
+							margin: 0;
+							max-height: 260px;
+							min-height: 37px;
+							max-width: 90px;
+							min-width: 80px;
+							overflow-y: auto;
+							padding: 3px;
+							list-style-type: none;
+							.groupButton {
+								border: none;
+								border-radius: 3px;
+								background-color: var(--appBGColor);
+								box-shadow: var(--neu-sm-ni-BGColor-shadow);
+								cursor: pointer;
+								outline: none;
+								overflow: hidden;
+								padding: 3px;
+								margin: 5px 0px;
+								max-width: 75px;
+								text-overflow: ellipsis;
+								user-select: none;
+								white-space: nowrap;
+								&.claimed {
+									background: var(--appColorPrimary);
+									box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+									color: var(--appBGColor);
+								}
+							}
+						}
 					}
 				}
 				.star {
@@ -277,14 +401,18 @@
 	}
 	@media only screen and (min-width: 767px) {
 		.tooltip {
-			bottom: -2px;
-			display: inline-block;
-			position: relative;
-			right: 22px;
+			align-items: center;
+			bottom: -15px;
+			display: flex;
+			justify-content: center;
+			position: absolute;
+			text-align: center;
+			left: -29px;
+			width: 80px;
 			.tooltipText {
-				background-color: var(--appColorPrimary);
+				background-color: var(--appBGColor);
 				border-radius: 6px;
-				color: white;
+				box-shadow: var(--neu-sm-ni-BGColor-shadow);
 				font-size: 0.8rem;
 				opacity: 0;
 				padding: 4px;
@@ -296,13 +424,9 @@
 				z-index: 1;
 			}
 		}
-		.exportTooltip {
-			right: 22.5px;
-		}
 		.compCard {
 			&:hover {
-				box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
-				transform: scale(1.02);
+				box-shadow: var(--neu-med-i-BGLight-hover-shadow);
 			}
 		}
 		.compCard.active {
@@ -313,9 +437,6 @@
 			.buttonDraftArea {
 				.cardButtonsContainer {
 					.cardDeleteButton {
-						display: block;
-					}
-					.cardExportButton {
 						display: block;
 					}
 				}
@@ -334,7 +455,15 @@
 					}
 				}
 			}
-			.cardExportButton {
+			.publishedIcon {
+				&:hover+.tooltip {
+					.tooltipText {
+						opacity: 1;
+						visibility: visible;
+					}
+				}
+			}
+			.cardGroupButton {
 				&:hover+.tooltip {
 					.tooltipText {
 						opacity: 1;

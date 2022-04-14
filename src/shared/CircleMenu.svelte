@@ -181,6 +181,7 @@
 	.menu-open-button {
 		border: 2px solid #333;
 		border-radius: 10px;
+		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		cursor: pointer;
 		font-size: 1.1rem;
 		font-weight: bold;
@@ -192,7 +193,7 @@
 		transform: scale(1.1, 1.1) translate3d(0, 0, 0);
 		width: fit-content;
 		.lines {
-			background: white;
+			background: var(--appColorBlack);
 			display: block;
 			height: 3px;
 			left: 50%;
@@ -214,6 +215,7 @@
 		}
 		&.menu-open {
 			border-radius: 50%;
+			box-shadow: none;
 			height: 55px;
 			line-height: 55px;
 			transition-duration: 200ms;
