@@ -156,10 +156,11 @@
 				dispatch('routeEvent', {action: 'saveData'});
 				dispatch('routeEvent', {action: 'syncFavorites'});
 			}
+			dispatch('routeEvent', {action: 'clearNotice'});
 		} else {
+			dispatch('routeEvent', {action: 'clearNotice'});
 			dispatch('routeEvent', {action: 'logout'});
 		}
-		dispatch('routeEvent', {action: 'clearNotice'});
 	}
 
 	async function handleLikeClick() {
@@ -181,10 +182,11 @@
 					svrComp.attributes.upvotes = response.data.upvotes;
 					dispatch('routeEvent', {action: 'saveData'});
 				}
+				dispatch('routeEvent', {action: 'clearNotice'});
 			} else {
+				dispatch('routeEvent', {action: 'clearNotice'});
 				dispatch('routeEvent', {action: 'logout'});
 			}
-			dispatch('routeEvent', {action: 'clearNotice'});
 		}
 	}
 
@@ -207,10 +209,11 @@
 					svrComp.attributes.downvotes = response.data.downvotes;
 					dispatch('routeEvent', {action: 'saveData'});
 				}
+				dispatch('routeEvent', {action: 'clearNotice'});
 			} else {
+				dispatch('routeEvent', {action: 'clearNotice'});
 				dispatch('routeEvent', {action: 'logout'});
 			}
-			dispatch('routeEvent', {action: 'clearNotice'});
 		}
 	}
 

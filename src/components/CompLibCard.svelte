@@ -63,9 +63,9 @@
 	}
 
 	async function handleFavoriteClick() {
+		dispatch('cardEvent', {action: 'loading'});
 		const valid = await validateJWT($AppData.user.jwt);
 		if(valid) {
-			dispatch('cardEvent', {action: 'loading'});
 			// user is valid, perform query
 			const response = await toggleSave($AppData.user.jwt, comp.uuid);
 			if(response.status !== 200) {
@@ -82,6 +82,7 @@
 			}
 			dispatch('cardEvent', {action: 'stopLoading'});
 		} else {
+			dispatch('cardEvent', {action: 'stopLoading'});
 			dispatch('cardEvent', {action: 'logout'});
 		}
 	}
@@ -105,10 +106,11 @@
 					comp.upvotes = response.data.upvotes;
 					dispatch('cardEvent', {action: 'saveData'});
 				}
+				dispatch('cardEvent', {action: 'stopLoading'});
 			} else {
+				dispatch('cardEvent', {action: 'stopLoading'});
 				dispatch('cardEvent', {action: 'logout'});
 			}
-			dispatch('cardEvent', {action: 'stopLoading'});
 		}
 	}
 
@@ -131,10 +133,11 @@
 					comp.downvotes = response.data.downvotes;
 					dispatch('cardEvent', {action: 'saveData'});
 				}
+				dispatch('cardEvent', {action: 'stopLoading'});
 			} else {
+				dispatch('cardEvent', {action: 'stopLoading'});
 				dispatch('cardEvent', {action: 'logout'});
 			}
-			dispatch('cardEvent', {action: 'stopLoading'});
 		}
 	}
 

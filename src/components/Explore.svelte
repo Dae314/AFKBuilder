@@ -1,7 +1,7 @@
 <script>
 	import { onMount, getContext, createEventDispatcher } from 'svelte';
 	import { querystring, replace } from 'svelte-spa-router';
-	import { query } from 'svelte-apollo';
+	// import { query } from 'svelte-apollo';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import {debounce} from 'lodash';
 	import qs from 'qs';
@@ -12,7 +12,7 @@
 	import FilterPicker from '../modals/FilterPicker.svelte';
 	import LoadingSpinner from '../shared/LoadingSpinner.svelte';
 	import PageNav from '../shared/PageNav.svelte';
-	import { gql_GET_COMP_LIST } from '../gql/queries.svelte';
+	// import { gql_GET_COMP_LIST } from '../gql/queries.svelte';
 	import { getCompAuthor, getComps } from '../rest/RESTFunctions.svelte';
 
 	const { open } = getContext('simple-modal');
@@ -50,7 +50,7 @@
 	let author_filter = defaultAuthorFilter;
 	let hero_filter = defaultHeroFilter;
 	let timeLimits = [defaultMinTime, defaultMaxTime];
-	let processCompsPromise;
+	// let processCompsPromise;
 	let processedComps = [];
 	let curSort = defaultSort;
 	let compPageLimit = defaultPageLimit;

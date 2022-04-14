@@ -55,6 +55,7 @@
 	let errorDisplayConf = {};
 	let showNotice = false;
 	let noticeConf = {};
+	let noticeTimeout;
 
 	const routes = {
 		'/': wrap({
@@ -554,6 +555,7 @@
 	}
 
 	function clearNotice() {
+		clearTimeout(noticeTimeout);
 		showNotice = false;
 		noticeConf = {};
 	}
@@ -599,9 +601,10 @@
 	}
 
 	async function displayNotice(notice_config) {
+		clearNotice();
 		noticeConf = notice_config;
 		showNotice = true;
-		if(noticeConf.type !== 'loading') setTimeout(() => clearNotice(), 2000);
+		if(noticeConf.type !== 'loading') noticeTimeout = setTimeout(() => clearNotice(), 2000);
 	}
 </script>
 
