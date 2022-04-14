@@ -5,6 +5,21 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v2.0.0 - Lily Valley',
+			changes: [
+				'<em>Explore area now available to view, share, favorite, and vote on community comps!</em>',
+				'<em>Find exactly what you want. Deep searching and filtering available for comps</em>',
+				'<em>Login and profiles now enabled. Sync My Heroes and Comps across devices!</em>',
+				'<em>New look! Comprehensive redesign for SoftUI</em>',
+				'<em>New comp editing options: duplicate comps, import lines from other comps</em>',
+				'<em>New comp organization options: groups and hidden comps</em>',
+				'Added new hero Oku',
+				'Updated Morael benchmark e38',
+				'Fixed typo on LDV +30 description',
+				'Updated Twins\' skill descriptions',
+				'Updated Cecilia\'s ult description',
+			],
+		},
 		{ version: 'v1.13.51',
 			changes: [
 				'Added Terms of Service',
@@ -28,21 +43,6 @@
 			changes: [
 				'Added new hero Ezizh (Awakened)',
 				'Fix Talene (Awakened) signature item skill descriptions',
-			],
-		},
-		{ version: 'v1.13.41',
-			changes: [
-				'Added new hero Fane',
-				'Updated Mishka benchmark to 209',
-				'Updated Astar benchmark to e60',
-				'Updated Lucius skill Divine Strike description',
-				'Updated Gorvo\'s SI description',
-				'Updated Mehira\'s SI description',
-				'Updated Cecilia\'s Furniture description',
-				'Updated Safiya Spectral Disruption skill description',
-				'Updated Tasi Slumber skill description',
-				'Updated Treznor\'s SI description',
-				'Fixed typo on Satrana 3f',
 			],
 		},
 	]
