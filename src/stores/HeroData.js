@@ -1376,7 +1376,7 @@ const HeroData = readable([
 			{ name: 'Judgement Day',
 				type: 'level',
 				image: './img/skills/cecilia1.png',
-				desc: 'Cecilia summons a divine blade down upon the head of the enemy which currently has the most "Symbols of Sin" above their head, dealing <em>300%</em> damage to them and further increasing number of symbols above their head by <em>1</em>. When this ability is used against enemies marked with <em>3</em> or more symbols, the enemies will also be stunned for a period of time. If used against enemies marked with <em>5</em> symbols, the targeted enemy will be dealt <em>300%</em> additional damage.',
+				desc: 'Cecilia summons a divine blade down upon the head of the enemy which currently has the most "Symbols of Sin" above their head, dealing <em>300%</em> damage to them and further increasing number of symbols above their head by <em>1</em>. When this ability is used against enemies marked with <em>3</em> or more symbols, the enemies will also be stunned for a period of time. If used against enemies marked with <em>5</em> symbols, the targeted enemy will be dealt <em>1080%</em> damage.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Damage increased by up to <em>330%</em>.',
