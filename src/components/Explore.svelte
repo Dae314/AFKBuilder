@@ -822,7 +822,7 @@
 		}
 		.compGrid {
 			display: grid;
-			grid-gap: 5px 5px;
+			grid-gap: 10px 20px;
 			grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
 			grid-auto-rows: 240px;
 			justify-content: space-around;
