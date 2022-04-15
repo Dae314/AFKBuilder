@@ -23,9 +23,11 @@
 			if(valid) { // login successful, populate user data
 				$AppData.user.jwt = jwt;
 				dispatch('routeEvent', {action: 'populateUserData'});
-				dispatch('routeEvent', {action: 'syncFavorites'});
-				dispatch('routeEvent', {action: 'syncMyHeroes'});
-				dispatch('routeEvent', {action: 'syncLocalComps'});
+				setTimeout(() => {
+					dispatch('routeEvent', {action: 'syncFavorites'});
+					dispatch('routeEvent', {action: 'syncMyHeroes'});
+					dispatch('routeEvent', {action: 'syncLocalComps'});
+				}, 500);
 			} else {
 				throw new Error(`Login did not complete successfully, please try again.`);
 			}
