@@ -5,6 +5,13 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v2.0.12',
+			changes: [
+				'Changed comp preview cards to show first line',
+				'Left aligned comp preview card titles',
+				'Updated Astar benchmark E41',
+			],
+		},
 		{ version: 'v2.0.9',
 			changes: [
 				'Fixed "Restore to Comps" button styling',
@@ -42,12 +49,6 @@
 		{ version: 'v1.13.46',
 			changes: [
 				'Added new hero Audrae',
-			],
-		},
-		{ version: 'v1.13.45',
-			changes: [
-				'Added new hero Alaro',
-				'Updated Kren benchmark to E44',
 			],
 		},
 	]
