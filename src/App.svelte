@@ -517,14 +517,14 @@
 	async function clearAppData() {
 		window.localStorage.removeItem('appData');
 		window.localStorage.removeItem('tokenCache');
-		location.reload();
+		window.location.reload();
 	}
 
 	async function resetTutorial() {
 		$AppData.dismissImportWarn = false;
 		$AppData.dismissCookieConsent = false;
 		await saveAppData();
-		location.reload();
+		window.location.reload();
 	}
 
 	function handleModalClosed() {
