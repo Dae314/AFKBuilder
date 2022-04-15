@@ -451,6 +451,19 @@
 		const comp = $AppData.Comps.find(e => e.uuid === uuid);
 		const valid = await validateJWT($AppData.user.jwt);
 		if(valid) {
+			if(comp.draft) {
+				dispatch('routeEvent',
+					{ action: 'showNotice',
+						data: {
+							noticeConf: {
+								type: 'warning',
+								message: 'Cannot publish draft comp',
+							}
+						}
+					}
+				);
+				return;
+			}
 			// setup essential variables
 			const comp_string = await jsurl.compress(JSON.stringify(comp));
 
