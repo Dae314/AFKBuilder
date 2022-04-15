@@ -5,7 +5,7 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
-		{ version: 'v2.0.0 - Lily Valley',
+		{ version: 'v2.0.3 - Lily Valley',
 			changes: [
 				'<em>Explore area now available to view, share, favorite, and vote on community comps!</em>',
 				'<em>Find exactly what you want. Deep searching and filtering available for comps</em>',
@@ -18,6 +18,7 @@
 				'Fixed typo on LDV +30 description',
 				'Updated Twins\' skill descriptions',
 				'Updated Cecilia\'s ult description',
+				'Updated Thane\'s ult description',
 			],
 		},
 		{ version: 'v1.13.51',
