@@ -2389,14 +2389,18 @@
 			padding-top: 10px;
 		}
 		.owFooterButton {
-			background-color: transparent;
-			border: 3px solid var(--appColorPrimary);
-			border-radius: 10px;
+			background-color: var(--appBGColor);
+			border: none;
+			border-radius: 5px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
 			color: var(--appColorPrimary);
+			cursor: pointer;
+			font-weight: bold;
 			margin-right: 10px;
 			outline: none;
 			padding: 5px;
 			&:last-child {
+				color: var(--appColorDisabled);
 				margin-right: 0;
 			}
 		}
@@ -2688,8 +2692,7 @@
 		.sect3 {
 			.owFooterButton {
 				&:hover {
-					background-color: var(--appColorPrimary);
-					color: white;
+					background: var(--neu-convex-BGColor-wide-bg);
 				}
 			}
 			.owCancel {
