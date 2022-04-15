@@ -5,6 +5,7 @@
 	import RangeSlider from 'svelte-range-slider-pips';
 	import {debounce} from 'lodash';
 	import qs from 'qs';
+	import JSONURL from 'json-url';
 	import AppData from '../stores/AppData.js';
 	import ErrorDisplay from './ErrorDisplay.svelte';
 	import CompLibCard from './CompLibCard.svelte';
@@ -17,6 +18,7 @@
 
 	const { open } = getContext('simple-modal');
 	const dispatch = createEventDispatcher();
+	const jsurl = JSONURL('lzma'); // json-url compressor
 
 	// configuration defaults
 	const now = Date.now();
@@ -105,6 +107,22 @@
 			procHeroes = comp.attributes.heroes.data.map(e => {
 				return { id: e.id, name: e.attributes.name};
 			});
+			let data;
+			try {
+				const json = await jsurl.decompress(comp.attributes.comp_string);
+				data = JSON.parse(json);
+			} catch(err) {
+				errorDisplayConf = {
+					errorCode: 400,
+					headText: 'Unable to process comps',
+					detailText: 'See console for details',
+					showHomeButton: false,
+				};
+				console.log(err);
+				showErrorDisplay = true;
+				return;
+			}
+			let line_preview = data.lines[0].heroes;
 			processedList.push({
 				id: comp.id,
 				uuid: comp.attributes.uuid,
@@ -115,6 +133,7 @@
 				heroes: procHeroes,
 				author: comp.attributes.author,
 				comp_update: comp.attributes.comp_update,
+				line_preview: line_preview,
 			});
 		}
 		processedComps = processedList;

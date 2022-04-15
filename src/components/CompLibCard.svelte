@@ -17,6 +17,7 @@
 			heroes: [{id: int, name: string}],
 			author: {username: string, avatar: string},
 			comp_update: datetime,
+			line_preview: [heroID, heroID, ...]
 		}
 	*/
 	if(!('id' in comp) ||
@@ -195,9 +196,9 @@
 					<div class="compTitle">{comp.name}</div>
 				</div>
 				<div class="heroesContainer">
-					{#each comp.heroes as hero}
-						{#if $HeroData.some(e => e.id === hero.name)}
-							<img draggable="false" class="heroImage" src={$HeroData.find(e => e.id === hero.name).portrait} alt={$HeroData.find(e => e.id === hero.name).name}>
+					{#each comp.line_preview as heroID}
+						{#if $HeroData.some(e => e.id === heroID)}
+							<img draggable="false" class="heroImage" src={$HeroData.find(e => e.id === heroID).portrait} alt={$HeroData.find(e => e.id === heroID).name}>
 						{:else}
 							<i class="emptyHeroSlot"></i>
 						{/if}
@@ -365,6 +366,7 @@
 				line-clamp: 2;
 				max-width: 300px;
 				overflow: hidden;
+				text-align: left;
 				text-overflow: ellipsis;
 				user-select: none;
 				-webkit-box-orient: vertical;
