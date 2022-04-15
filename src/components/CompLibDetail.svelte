@@ -711,13 +711,14 @@
 			padding-top: 10px;
 			width: 100%;
 			.restoreButton {
-				background-color: var(--appColorPrimary);
-				border: 2px solid var(--appColorPrimary);
+				background-color: var(--appBGColor);
+				border: none;
 				border-radius: 5px;
-				color: var(--appBGColor);
+				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				color: var(--appColorPrimary);
 				cursor: pointer;
 				outline: none;
-				padding: 3px;
+				padding: 5px;
 				text-align: center;
 			}
 		}
@@ -1062,6 +1063,13 @@
 						p {
 							display: block;
 						}
+					}
+				}
+			}
+			.restoreArea {
+				.restoreButton {
+					&:hover {
+						background: var(--neu-convex-BGColor-bg);
 					}
 				}
 			}

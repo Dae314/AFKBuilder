@@ -451,6 +451,19 @@
 		const comp = $AppData.Comps.find(e => e.uuid === uuid);
 		const valid = await validateJWT($AppData.user.jwt);
 		if(valid) {
+			if(comp.draft) {
+				dispatch('routeEvent',
+					{ action: 'showNotice',
+						data: {
+							noticeConf: {
+								type: 'warning',
+								message: 'Cannot publish draft comp',
+							}
+						}
+					}
+				);
+				return;
+			}
 			// setup essential variables
 			const comp_string = await jsurl.compress(JSON.stringify(comp));
 
@@ -1222,6 +1235,11 @@
 							</button>
 						</div>
 					</div>
+					{#if openComp.draft}
+						<div class="draftArea">
+							<span>draft</span>
+						</div>
+					{/if}
 					<div class="iconsArea">
 						<ul class="iconList">
 							{#if $AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
@@ -2013,6 +2031,12 @@
 				}
 			}
 		}
+		.draftArea {
+			color: var(--appDelColor);
+			font-style: italic;
+			font-weight: bold;
+			text-align: center;
+		}
 		.viewExploreContainer {
 			display: flex;
 			justify-content: center;
@@ -2365,14 +2389,18 @@
 			padding-top: 10px;
 		}
 		.owFooterButton {
-			background-color: transparent;
-			border: 3px solid var(--appColorPrimary);
-			border-radius: 10px;
+			background-color: var(--appBGColor);
+			border: none;
+			border-radius: 5px;
+			box-shadow: var(--neu-sm-i-BGColor-shadow);
 			color: var(--appColorPrimary);
+			cursor: pointer;
+			font-weight: bold;
 			margin-right: 10px;
 			outline: none;
 			padding: 5px;
 			&:last-child {
+				color: var(--appColorDisabled);
 				margin-right: 0;
 			}
 		}
@@ -2664,8 +2692,7 @@
 		.sect3 {
 			.owFooterButton {
 				&:hover {
-					background-color: var(--appColorPrimary);
-					color: white;
+					background: var(--neu-convex-BGColor-wide-bg);
 				}
 			}
 			.owCancel {

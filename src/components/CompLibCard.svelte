@@ -359,9 +359,16 @@
 		}
 		.compTitleContainer {
 			.compTitle {
+				display: -webkit-box;
 				font-weight: bold;
 				font-size: 2rem;
+				line-clamp: 2;
+				max-width: 300px;
+				overflow: hidden;
+				text-overflow: ellipsis;
 				user-select: none;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 2;
 			}
 		}
 		.heroesContainer {

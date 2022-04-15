@@ -5,6 +5,16 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v2.0.9',
+			changes: [
+				'Fixed "Restore to Comps" button styling',
+				'Disabled publishing of draft comps',
+				'Added draft indicator in comp details',
+				'Fixed comp name pushing comp line off of library card',
+				'Fixed explore grid spacing',
+				'Updated import confirm window with neumorphic design',
+			],
+		},
 		{ version: 'v2.0.3 - Lily Valley',
 			changes: [
 				'<em>Explore area now available to view, share, favorite, and vote on community comps!</em>',
@@ -38,12 +48,6 @@
 			changes: [
 				'Added new hero Alaro',
 				'Updated Kren benchmark to E44',
-			],
-		},
-		{ version: 'v1.13.43',
-			changes: [
-				'Added new hero Ezizh (Awakened)',
-				'Fix Talene (Awakened) signature item skill descriptions',
 			],
 		},
 	]
