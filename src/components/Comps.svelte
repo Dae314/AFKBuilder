@@ -1235,6 +1235,11 @@
 							</button>
 						</div>
 					</div>
+					{#if openComp.draft}
+						<div class="draftArea">
+							<span>draft</span>
+						</div>
+					{/if}
 					<div class="iconsArea">
 						<ul class="iconList">
 							{#if $AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
@@ -2025,6 +2030,12 @@
 					user-select: none;
 				}
 			}
+		}
+		.draftArea {
+			color: var(--appDelColor);
+			font-style: italic;
+			font-weight: bold;
+			text-align: center;
 		}
 		.viewExploreContainer {
 			display: flex;
