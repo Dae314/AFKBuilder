@@ -95,6 +95,7 @@ window.validateComp = async function(data) {
 	const expectedLineProps = [
 		{name: 'name', type: 'string'},
 		{name: 'heroes', type: 'array'},
+		{name: 'type', type: 'string'},
 	];
 	let expectedPropType = '';
 
@@ -135,6 +136,7 @@ window.validateComp = async function(data) {
 			if(!isObject(line)) {
 				return {retCode: 1, message: `Unexpected line object type detected. All lines should be objects.`};
 			}
+			if(!('type' in line)) line.type = 'player'; // add line type attribute - April 2022 update
 			// make sure all properties are there
 			for(const prop of expectedLineProps) {
 				if(!(prop.name in line)) {
@@ -503,6 +505,7 @@ function buildCompsData(data) {
 	const expectedLineProps = [
 		{name: 'name', default: ''},
 		{name: 'heroes', default: ['unknown','unknown','unknown','unknown','unknown']},
+		{name: 'type', default: 'player'},
 	];
 	const expectedSubProps = [
 		{name: 'name', default: ''},

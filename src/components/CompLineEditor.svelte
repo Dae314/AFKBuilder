@@ -4,11 +4,12 @@
 	import HeroButton from '../shared/HeroButton.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
 	import XButton from '../shared/XButton.svelte';
+	import ToggleSwitch from '../shared/ToggleSwitch.svelte';
 
 	const dispatch = createEventDispatcher();
 
 	/* expext format:
-		[{name: str, heroes: [heroID]}]
+		[{name: str, heroes: [heroID], type: str}]
 	*/
 	export let lines = [];
 	/* expect format:
@@ -111,12 +112,21 @@
 	function handleImportLineClick() {
 		dispatch('compLineEvent', {action: 'importLine', data: {idx: selectedLine}});
 	}
+
+	function handleToggleChange(event) {
+		console.log(event.detail.data.state);
+		if(event.detail.data.state) {
+			lines[selectedLine].type = 'player';
+		} else {
+			lines[selectedLine].type = 'enemy';
+		}
+	}
 </script>
 
 <div class="compLineEditorContainer">
 	<div class="lineDisplay">
 		{#if lines[selectedLine]}
-			<div class="lineTitle" class:edit={editMode}>
+			<div class="lineTitle" class:edit={editMode} class:enemy={lines[selectedLine].type === 'enemy'}>
 				{#if editMode}
 					<input type="text" class="titleInput" bind:value={lines[selectedLine].name} maxlength="30" class:invalid={lines[selectedLine].name.length <= 0 || lines[selectedLine].name.length >= 30}>
 					<div class="deleteLineArea">
@@ -136,11 +146,14 @@
 						</div>
 					</div>
 				{:else}
+					{#if lines[selectedLine].type === 'enemy'}
+						<span class="enemyTitle">Enemy</span>
+					{/if}
 					<span>{lines[selectedLine].name}</span>
 				{/if}
 			</div>
 			{#if editMode}
-				<div class="lineEditMembers">
+				<div class="lineEditMembers" class:enemy={lines[selectedLine].type === 'enemy'}>
 					<SimpleSortableList
 						list={[...lines[selectedLine].heroes].reverse()}
 						groupID="lineDisplay"
@@ -167,7 +180,7 @@
 					</SimpleSortableList>
 				</div>
 			{:else}
-				<div class="lineMembers">
+				<div class="lineMembers" class:enemy={lines[selectedLine].type === 'enemy'}>
 					<div class="detailBackline">
 						{#if lines.length > 0}
 							{#each lines[selectedLine].heroes as hero, i}
@@ -208,6 +221,19 @@
 					</div>
 				</div>
 			{/if}
+			<div class="lineOptions" class:edit={editMode}>
+				<ul>
+					<li>
+						<span class="optionLabel">{lines[selectedLine].type}</span>
+						<ToggleSwitch
+							size="small"
+							state={lines[selectedLine].type === 'player'}
+							offColor={window.getComputedStyle(document.documentElement).getPropertyValue('--appDelColor')}
+							on:toggleEvent={handleToggleChange}
+						/>
+					</li>
+				</ul>
+			</div>
 		{:else}
 			<div class="noLine">
 				<span>Select a line below</span>
@@ -247,8 +273,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		max-height: 390px;
-		min-height: 390px;
+		max-height: 425px;
+		min-height: 425px;
 		padding: 10px;
 		position: relative;
 		width: 100%;
@@ -259,6 +285,7 @@
 			max-width: 300px;
 			overflow: hidden;
 			position: relative;
+			text-align: center;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			&.edit {
@@ -322,6 +349,15 @@
 					}
 				}
 			}
+			.enemyTitle {
+				display: block;
+			}
+			&.enemy {
+				color: var(--appDelColor);
+				.titleInput {
+					color: var(--appDelColor);
+				}
+			}
 		}
 		.tooltip {
 			display: none;
@@ -352,6 +388,9 @@
 			.heroButtonArea {
 				margin: 5px;
 			}
+			&.enemy {
+				direction: rtl;
+			}
 		}
 		.lineMembers {
 			align-items: center;
@@ -361,6 +400,9 @@
 			justify-content: center;
 			min-height: 295px;
 			width: 100%;
+			&.enemy {
+				direction: rtl;
+			}
 		}
 		.detailFrontline {
 			align-items: center;
@@ -421,6 +463,27 @@
 			&:disabled {
 				color: var(--appColorDisabled);
 				cursor: default;
+			}
+		}
+		.lineOptions {
+			display: none;
+			ul {
+				display: flex;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				li {
+					align-items: center;
+					display: flex;
+					justify-content: center;
+					.optionLabel {
+						text-align: center;
+						width: 50px;
+					}
+				}
+			}
+			&.edit {
+				display: block;
 			}
 		}
 		.noLine {

@@ -5,6 +5,13 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v2.0.15',
+			changes: [
+				'Added switch to change line mode from player to enemy',
+				'Modified thicker outline for SI30 icon',
+				'Added autofocus search bar in Hero Finder only on desktop',
+			],
+		},
 		{ version: 'v2.0.12',
 			changes: [
 				'Changed comp preview cards to show first line',
@@ -44,11 +51,6 @@
 				'Added Privacy Policy',
 				'Updated Haelus benchmark E36',
 				'Updated Awakened Ezizh benchmark E60',
-			],
-		},
-		{ version: 'v1.13.46',
-			changes: [
-				'Added new hero Audrae',
 			],
 		},
 	]

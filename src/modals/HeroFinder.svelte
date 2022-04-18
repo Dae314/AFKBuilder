@@ -34,6 +34,7 @@
 	let pickArtifactPri = false;
 	let pickArtifactSec = false;
 	let pickArtifactSit = false;
+	let desktopSearch;
 
 	onMount(async () => {
 		close = config.close;
@@ -61,6 +62,7 @@
 			unusedArtifacts = makeUnusedArtifactList();
 		}
 		heroes = makeHeroList();
+		desktopSearch.focus();
 	});
 
 	// filter variables
@@ -433,10 +435,6 @@
 
 	async function changeSection(sectNum) {
 		section = sectNum;
-		if(section === 1) {
-			await tick();
-			document.querySelector('#searchBox').focus();
-		}
 		// scroll back to top
 		document.getElementById('hfContainer').scrollTop = 0;
 	}
@@ -455,7 +453,8 @@
 			<div class="section1">
 				<div class="heroFinderHead">
 					<div class="searchContainer">
-						<input id="searchBox" type="search" placeholder="Search" bind:value={searchStr} on:keyup={() => heroes = makeHeroList()} on:search={() => heroes = makeHeroList()}>
+						<input type="search" placeholder="Search" class="mobileSearch" bind:value={searchStr} on:keyup={() => heroes = makeHeroList()} on:search={() => heroes = makeHeroList()}>
+						<input type="search" placeholder="Search" class="desktopSearch" bind:this={desktopSearch} bind:value={searchStr} on:keyup={() => heroes = makeHeroList()} on:search={() => heroes = makeHeroList()}>
 						<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
 							<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
 						</button>
@@ -761,6 +760,12 @@
 				justify-content: center;
 				padding: 5px;
 				padding-bottom: 10px;
+				.desktopSearch {
+					display: none;
+				}
+				.mobileSearch {
+					display: block;
+				}
 				input {
 					background-color: var(--appBGColorLight);
 					border: none;
@@ -1195,6 +1200,12 @@
 		.section1 {
 			.heroFinderHead {
 				.searchContainer {
+					.desktopSearch {
+						display: block;
+					}
+					.mobileSearch {
+						display: none;
+					}
 					.headButton {
 						&:hover {
 							.searchImage {
