@@ -153,6 +153,7 @@
 		comp.lines = [...comp.lines, {
 			name: "New Line",
 			heroes: ['unknown', 'unknown', 'unknown', 'unknown', 'unknown'],
+			type: 'player',
 		}];
 		openLine = comp.lines.length - 1;
 	}

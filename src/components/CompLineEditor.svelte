@@ -4,6 +4,7 @@
 	import HeroButton from '../shared/HeroButton.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
 	import XButton from '../shared/XButton.svelte';
+	import ToggleSwitch from '../shared/ToggleSwitch.svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -111,6 +112,15 @@
 	function handleImportLineClick() {
 		dispatch('compLineEvent', {action: 'importLine', data: {idx: selectedLine}});
 	}
+
+	function handleToggleChange(event) {
+		console.log(event.detail.data.state);
+		if(event.detail.data.state) {
+			lines[selectedLine].type = 'player';
+		} else {
+			lines[selectedLine].type = 'enemy';
+		}
+	}
 </script>
 
 <div class="compLineEditorContainer">
@@ -208,6 +218,19 @@
 					</div>
 				</div>
 			{/if}
+			<div class="lineOptions" class:edit={editMode}>
+				<ul>
+					<li>
+						<span class="optionLabel">{lines[selectedLine].type}</span>
+						<ToggleSwitch
+							size="small"
+							state={lines[selectedLine].type === 'player'}
+							offColor={window.getComputedStyle(document.documentElement).getPropertyValue('--appDelColor')}
+							on:toggleEvent={handleToggleChange}
+						/>
+					</li>
+				</ul>
+			</div>
 		{:else}
 			<div class="noLine">
 				<span>Select a line below</span>
@@ -247,8 +270,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		max-height: 390px;
-		min-height: 390px;
+		max-height: 425px;
+		min-height: 425px;
 		padding: 10px;
 		position: relative;
 		width: 100%;
@@ -421,6 +444,27 @@
 			&:disabled {
 				color: var(--appColorDisabled);
 				cursor: default;
+			}
+		}
+		.lineOptions {
+			display: none;
+			ul {
+				display: flex;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				li {
+					align-items: center;
+					display: flex;
+					justify-content: center;
+					.optionLabel {
+						text-align: center;
+						width: 50px;
+					}
+				}
+			}
+			&.edit {
+				display: block;
 			}
 		}
 		.noLine {
