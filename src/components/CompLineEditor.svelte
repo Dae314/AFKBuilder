@@ -9,7 +9,7 @@
 	const dispatch = createEventDispatcher();
 
 	/* expext format:
-		[{name: str, heroes: [heroID]}]
+		[{name: str, heroes: [heroID], type: str}]
 	*/
 	export let lines = [];
 	/* expect format:
