@@ -1,6 +1,7 @@
 <script>
 	import { onMount, createEventDispatcher } from 'svelte';
 	import qs from 'qs';
+	import JSONURL from 'json-url';
 	import AppData from '../stores/AppData.js';
 	import AvatarInput from '../shared/AvatarInput.svelte';
 	import LoadingPage from '../shared/LoadingPage.svelte';
@@ -11,6 +12,7 @@
 	
 	export let params = {};
 	const dispatch = createEventDispatcher();
+	const jsurl = JSONURL('lzma'); // json-url compressor
 
 	let username = params.username;
 	let user = {};
@@ -45,7 +47,43 @@
 			};
 			showErrorDisplay = true;
 		}
+		let data;
+		for(let comp of response.data.comps) {
+			try {
+				const json = await jsurl.decompress(comp.comp_string);
+				data = JSON.parse(json);
+			} catch(err) {
+				errorDisplayConf = {
+					errorCode: 400,
+					headText: 'Unable to process comps',
+					detailText: 'See console for details',
+					showHomeButton: false,
+				};
+				console.log(err);
+				showErrorDisplay = true;
+				return;
+			}
+			comp.line_preview = data.lines[0].heroes;
+		}
 		comps = response.data.comps;
+
+		for(let comp of response.data.author.saved_comps) {
+			try {
+				const json = await jsurl.decompress(comp.comp_string);
+				data = JSON.parse(json);
+			} catch(err) {
+				errorDisplayConf = {
+					errorCode: 400,
+					headText: 'Unable to process comps',
+					detailText: 'See console for details',
+					showHomeButton: false,
+				};
+				console.log(err);
+				showErrorDisplay = true;
+				return;
+			}
+			comp.line_preview = data.lines[0].heroes;
+		}
 		user = response.data.author;
 	}
 

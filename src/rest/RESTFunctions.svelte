@@ -521,7 +521,7 @@
 	/*{
 		status: response status,
 		data: {
-			comps: [{id, uuid, name, upvotes, downvotes, tags, author, comp_update, createdAt}],
+			comps: [{id, uuid, name, upvotes, downvotes, tags, author, comp_update, createdAt, comp_string}],
 			author: { username, id, avatar, saved_comps, upvotes }
 		} OR error object
 	}*/
