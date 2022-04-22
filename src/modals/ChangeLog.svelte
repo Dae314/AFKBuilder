@@ -5,6 +5,14 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v2.0.19',
+			changes: [
+				'Fixed author pages not loading',
+				'Reversed direction of enemy line switch',
+				'Fixed typo on Alaro skill 4',
+				'Adjusted wording on Cecilia ult description',
+			],
+		},
 		{ version: 'v2.0.15',
 			changes: [
 				'Added switch to change line mode from player to enemy',
@@ -43,14 +51,6 @@
 				'Updated Twins\' skill descriptions',
 				'Updated Cecilia\'s ult description',
 				'Updated Thane\'s ult description',
-			],
-		},
-		{ version: 'v1.13.51',
-			changes: [
-				'Added Terms of Service',
-				'Added Privacy Policy',
-				'Updated Haelus benchmark E36',
-				'Updated Awakened Ezizh benchmark E60',
 			],
 		},
 	]
