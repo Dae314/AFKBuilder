@@ -1376,7 +1376,7 @@ const HeroData = readable([
 			{ name: 'Judgement Day',
 				type: 'level',
 				image: './img/skills/cecilia1.png',
-				desc: 'Cecilia summons a divine blade down upon the head of the enemy which currently has the most "Symbols of Sin" above their head, dealing <em>300%</em> damage to them and further increasing number of symbols above their head by <em>1</em>. When this ability is used against enemies marked with <em>3</em> or more symbols, the enemies will also be stunned for a period of time. If used against enemies marked with <em>5</em> symbols, the targeted enemy will be dealt <em>1080%</em> damage.',
+				desc: 'Cecilia summons a divine blade down upon the head of the enemy which currently has the most "Symbols of Sin" above their head, dealing <em>300%</em> damage to them and further increasing number of symbols above their head by <em>1</em>. When this ability is used against enemies marked with <em>3</em> or more symbols, the enemies will also be stunned for a period of time. If used against enemies marked with <em>5</em> symbols, the targeted enemy will be dealt triple the normal damage.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Damage increased by up to <em>330%</em>.',
@@ -4408,7 +4408,7 @@ const HeroData = readable([
 			{ name: 'Snooping Ambush',
 				type: 'level',
 				image: './img/skills/alaro4.webp',
-				desc: 'Alaro makes a record of the enmy with the highest Attack Rating, and then uses his blowgun to deal damage equal to <em>270%</em> of his Attack Rating to the enemy, simultaneously removing the majority of the enemy\'s buffs.<br/><br/>In the following <em>7</em> seconds, Alaro slows the enemy target and makes another record of the enemy\'s Attack Rating, and then compares the difference between both records. Based on the Attack Rating difference, the enemy will lose more Haste the greater the difference is. The quantity of Haste lost by the enemy will be increased by a minimum of <em>10</em> points, and a maximum of <em>30</em> points.',
+				desc: 'Alaro makes a record of the enemy with the highest Attack Rating, and then uses his blowgun to deal damage equal to <em>270%</em> of his Attack Rating to the enemy, simultaneously removing the majority of the enemy\'s buffs.<br/><br/>In the following <em>7</em> seconds, Alaro slows the enemy target and makes another record of the enemy\'s Attack Rating, and then compares the difference between both records. Based on the Attack Rating difference, the enemy will lose more Haste the greater the difference is. The quantity of Haste lost by the enemy will be increased by a minimum of <em>10</em> points, and a maximum of <em>30</em> points.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Damage is increased to <em>320%</em>.',
