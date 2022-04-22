@@ -114,11 +114,10 @@
 	}
 
 	function handleToggleChange(event) {
-		console.log(event.detail.data.state);
 		if(event.detail.data.state) {
-			lines[selectedLine].type = 'player';
-		} else {
 			lines[selectedLine].type = 'enemy';
+		} else {
+			lines[selectedLine].type = 'player';
 		}
 	}
 </script>
@@ -227,8 +226,9 @@
 						<span class="optionLabel">{lines[selectedLine].type}</span>
 						<ToggleSwitch
 							size="small"
-							state={lines[selectedLine].type === 'player'}
-							offColor={window.getComputedStyle(document.documentElement).getPropertyValue('--appDelColor')}
+							state={lines[selectedLine].type === 'enemy'}
+							onColor={window.getComputedStyle(document.documentElement).getPropertyValue('--appDelColor')}
+							offColor={window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary')}
 							on:toggleEvent={handleToggleChange}
 						/>
 					</li>
