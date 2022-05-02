@@ -3396,7 +3396,7 @@ const HeroData = readable([
 			{ name: 'Battle Howl',
 				type: 'level',
 				image: './img/skills/tidus3.png',
-				desc: 'Tidus lets out a ferocious howl that terrifies his enemies, causing them to flee his from his vicinity for <em>5</em> seconds. After howling, Tidus\' movement speed is increased by <em>35%</em> and his Attack Rating is increased by <em>20%</em> for <em>10</em> seconds.',
+				desc: 'Tidus lets out a ferocious howl that terrifies his enemies, causing them to flee from his vicinity for <em>5</em> seconds. After howling, Tidus\' movement speed is increased by <em>35%</em> and his Attack Rating is increased by <em>20%</em> for <em>10</em> seconds.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'Attack Rating is increased up to <em>30%</em>.',
@@ -11719,7 +11719,7 @@ const HeroData = readable([
 			{ name: 'Mind Flay',
 				type: 'level',
 				image: './img/skills/ezizh_aw3.webp',
-				desc: 'Ezizh uses an abyssal tentacle to deal AoE damage to enemeis that equals <em>260%</em> of his Attack Rating and also drains their sanity, forcing them into a state of insanity for <em>8</em> seconds. All enemies that are insane lose <em>12</em> Tenacity points, and all allied heroes gain <em>6</em> Tenacity points.',
+				desc: 'Ezizh uses an abyssal tentacle to deal AoE damage to enemies that equals <em>260%</em> of his Attack Rating and also drains their sanity, forcing them into a state of insanity for <em>8</em> seconds. All enemies that are insane lose <em>12</em> Tenacity points, and all allied heroes gain <em>6</em> Tenacity points.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'Enemies that are currently in a state of insanity are additionally terified for <em>2.5</em> seconds if their sanity is drained again.',
