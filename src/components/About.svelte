@@ -47,6 +47,11 @@
 		dispatch('routeEvent', {action: 'resetTutorial'});
 	}
 
+	function handleColorButtonClick() {
+		const newMode = $AppData.colorProfile === 'light' ? 'dark' : 'light';
+		dispatch('routeEvent', {action: 'changeColorProfile', data: {newMode}});
+	}
+
 	function clearData() {
 		dispatch('routeEvent', {action: 'clearData'});
 	}
@@ -168,6 +173,7 @@
 	<section class="config">
 		<button type="button" class="configButton clearButton" on:click={handleClearDataButtonClick}><span>Clear Data</span></button>
 		<button type="button" class="configButton tutorialButton" on:click={handleTutorialButtonClick}><span>Reset Tutorial</span></button>
+		<button type="button" class="configButton colorButton" on:click={handleColorButtonClick}><span>{$AppData.colorProfile === 'light' ? 'Dark Mode' : 'Light Mode'}</span></button>
 		<form action="https://forms.gle/oKDQj2Jjqmf5DoTCA" target="_blank" rel="noreferrer noopener">
 			<input class="configButton feedbackButton" type="submit" value="Send Feedback" />
 		</form>

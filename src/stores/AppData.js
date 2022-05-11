@@ -270,6 +270,7 @@ function buildAppData(data) {
 		{name: 'selectedUUID', default: null},
 		{name: 'dismissImportWarn', default: false},
 		{name: 'dismissCookieConsent', default: false},
+		{name: 'colorProfile', default: 'light'},
 		{name: 'expandHeader', default: false},
 		{name: 'maxDescLen', default: maxDescLen},
 		{name: 'maxCompTags', default: maxCompTags},

@@ -153,6 +153,7 @@
 			await syncFavoriteComps();
 			await syncMyHeroes();
 			await syncLocalComps();
+			await changeColorProfile($AppData.colorProfile);
 		} else {
 			await handleLogout(false);
 		}
@@ -560,6 +561,22 @@
 		noticeConf = {};
 	}
 
+	async function changeColorProfile(profile) {
+		switch(profile) {
+			case 'light':
+				console.log(profile);
+				$AppData.colorProfile = profile;
+				break;
+			case 'dark':
+				console.log(profile);
+				$AppData.colorProfile = profile;
+				break;
+			default:
+				throw new Error(`ERROR invalid color profile specified: ${profile}`);
+		}
+		await saveAppData();
+	}
+
 	async function handleRouteEvent(event) {
 		switch(event.detail.action) {
 			case 'saveData':
@@ -594,6 +611,9 @@
 				break;
 			case 'clearNotice':
 				clearNotice();
+				break;
+			case 'changeColorProfile':
+				await changeColorProfile(event.detail.data.newMode);
 				break;
 			default:
 				throw new Error(`Invalid action specified for route event: ${event.detail.action}`);
