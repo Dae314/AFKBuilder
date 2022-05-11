@@ -143,24 +143,26 @@
 	}
 
 	function handleLogoutClick() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(Confirm,
 			{onConfirm: handleLogout, message: "Are you sure you want to logout?"},
 			{ closeButton: false,
 				closeOnEsc: true,
 				closeOnOuterClick: true,
 				styleWindow: { width: 'fit-content' },
-				styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
+				styleContent: { width: 'fit-content', background: bgColor, borderRadius: '10px' },
 			});
 	}
 
 	function handleDeleteUserClick() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(Confirm,
 			{onConfirm: handleDeleteUser, message: "Are you sure you want to permanently delete your account?<br/><br/>This action cannot be undone. Your published comps will remain published but will be owned by an anonymous user, and you will no longer be able to update them.<br/><br/>If you do not want your comps to be available, please unpublish your comps before you delete your account."},
 			{ closeButton: false,
 				closeOnEsc: true,
 				closeOnOuterClick: true,
 				styleWindow: { width: 'fit-content' },
-				styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
+				styleContent: { width: 'fit-content', background: bgColor, borderRadius: '10px' },
 			});
 	}
 

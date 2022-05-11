@@ -121,10 +121,11 @@
 	}
 
 	function handleHeroClick(heroID) {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
 		});
 	}
 

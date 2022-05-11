@@ -9,10 +9,11 @@
 	const { open } = getContext('simple-modal');
 
 	function handleReportClick() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(Report, 
 		{ target: {type: reportType, data: reportData}, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px'},
 		});
 	}
 </script>

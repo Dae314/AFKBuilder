@@ -397,13 +397,14 @@
 	}
 	
 	function handleImportData() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(ImportData, 
 		{ dataHandler: handleMyHeroesInput,
 			saveAppData: () => dispatch('routeEvent', {action: 'saveData'}),
 			title: 'Paste My Hero Data:',
 		},
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
 		});
 	}
 
@@ -424,10 +425,11 @@
 	}
 
 	function handleHeroDetailClick(heroID) {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
 		});
 	}
 </script>

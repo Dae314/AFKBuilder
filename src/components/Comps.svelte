@@ -221,27 +221,29 @@
 	}
 
 	function handleEditButtonClick(uuid) {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(CompEditor,
 				{compID: uuid,
 				 onSuccess: (uuid) => handleCompChangeSuccess(uuid, 'edit'),
 				 isMobile: isMobile,
 				},
 				{ closeButton: ModalCloseButton,
-					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+					styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 					styleWindow: {width: editorWidth, maxWidth: '1200px',},
 					closeOnOuterClick: false,
 				});
 	}
 	
 	function handlePublishButtonClick(uuid) {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		const comp = $AppData.Comps.find(e => e.uuid === uuid);
 		open(Confirm,
 				{onConfirm: handlePublishComp, confirmData: uuid, message: `Publish comp named ${comp.name}?`},
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
-				 styleWindow: { width: 'fit-content', background: '#F0F0F2' },
-				 styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
+				 styleWindow: { width: 'fit-content', background: bgColor },
+				 styleContent: { width: 'fit-content', background: bgColor, borderRadius: '10px' },
 				});
 	}
 
@@ -254,22 +256,24 @@
 	}
 
 	function handleNewButtonClick() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(CompEditor,
 				{onSuccess: (uuid) => { searchStr = ''; handleCompChangeSuccess(uuid, 'new') },
 				 isMobile: isMobile,
 				},
 				{ closeButton: ModalCloseButton,
 					closeOnOuterClick: false,
-					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+					styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 					styleWindow: {width: editorWidth, maxWidth: '1200px',},
 				});
 	}
 
 	function handleAddToGroupClick() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(AddToGroup,
 				{groupUUID: curGroup, onSuccess: handleGroupChange},
 				{ closeButton: ModalCloseButton,
-					styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+					styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 				});
 	}
 
@@ -335,24 +339,26 @@
 				message = `Unfavorite comp named ${comp.name}?`
 			}
 		}
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(Confirm,
 				{onConfirm: handleDelComp, confirmData: uuid, message: message},
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
 				 styleWindow: { width: 'fit-content', },
-				 styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
+				 styleContent: { width: 'fit-content', background: bgColor, borderRadius: '10px' },
 				});
 	}
 
 	function handleImportButtonClick() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(ImportData, 
 		{ dataHandler: handleCompImport,
 			saveAppData: () => dispatch('routeEvent', {action: 'saveData'}),
 			title: 'Paste Composition:',
 		},
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 			closeOnOuterClick: false,
 		});
 	}
@@ -752,18 +758,20 @@
 	}
 
 	function handleHeroDetailClick(heroID) {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 		});
 	}
 
 	function openArtifactDetail(artifactID) {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(ArtifactDetail, 
 		{ artifactID: artifactID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 		});
 	}
 
@@ -858,6 +866,7 @@
 
 	async function handleAddFilterButtonClick(category) {
 		let curFilter;
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		switch(category) {
 			case 'tag':
 				curFilter = tag_filter;
@@ -878,7 +887,7 @@
 				onSuccess: (filterList) => handleFilterChangeSuccess({filterList, category}),
 			},
 			{ closeButton: ModalCloseButton,
-				styleContent: {background: '#F0F0F2', borderRadius: '10px'},
+				styleContent: {background: bgColor, borderRadius: '10px'},
 			}
 		);
 	}

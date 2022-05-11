@@ -338,13 +338,14 @@
 			default:
 				throw new Error(`ERROR invalid category passed to handleAddFilterButtonClick: ${category}`);
 		}
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(FilterPicker,
 			{ category,
 				curFilter,
 				onSuccess: (filterList) => handleFilterChangeSuccess({filterList, category}),
 			},
 			{ closeButton: ModalCloseButton,
-				styleContent: {background: '#F0F0F2', borderRadius: '10px'},
+				styleContent: {background: bgColor, borderRadius: '10px'},
 			}
 		);
 	}

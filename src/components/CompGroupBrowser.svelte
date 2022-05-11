@@ -63,13 +63,14 @@
 
 	function handleDelClick(group) {
 		const message = `Delete group named ${group.name}?`;
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(Confirm,
 				{onConfirm: handleDeleteGroup, confirmData: group, message: message},
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
 				 styleWindow: { width: 'fit-content', },
-				 styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
+				 styleContent: { width: 'fit-content', background: bgColor, borderRadius: '10px' },
 				});
 	}
 

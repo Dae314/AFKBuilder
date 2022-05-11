@@ -243,29 +243,32 @@
 	}
 
 	function openArtifactDetail(artifactID) {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(ArtifactDetail, 
 		{ artifactID: artifactID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 		});
 	}
 
 	function handleHeroDetailClick(heroID) {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight },
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight },
 		});
 	}
 
 	async function handleUnpublishClick() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(Confirm,
 				{onConfirm: handleUnpublishComp, message: `Unpublish comp named ${comp.name}?<br/><br/>The comp will still be available in "Comps" but it will no longer be shared in the "Explore" area.`},
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
 				 styleWindow: { width: 'fit-content' },
-				 styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
+				 styleContent: { width: 'fit-content', background: bgColor, borderRadius: '10px' },
 				});
 	}
 

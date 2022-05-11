@@ -19,11 +19,12 @@
 	}
 
 	function openAvatarPicker() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		if(editable) {
 			open(AvatarPicker,
 			{ onChange: handleAvatarChange, },
 			{ closeButton: ModalCloseButton,
-				styleContent: {background: '#F0F0F2', borderRadius: '10px'},}
+				styleContent: {background: bgColor, borderRadius: '10px'},}
 			);
 		}
 	}
