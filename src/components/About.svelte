@@ -173,7 +173,7 @@
 	<section class="config">
 		<button type="button" class="configButton clearButton" on:click={handleClearDataButtonClick}><span>Clear Data</span></button>
 		<button type="button" class="configButton tutorialButton" on:click={handleTutorialButtonClick}><span>Reset Tutorial</span></button>
-		<button type="button" class="configButton colorButton" on:click={handleColorButtonClick}><span>{$AppData.colorProfile === 'light' ? 'Dark Mode' : 'Light Mode'}</span></button>
+		<button type="button" class="configButton colorButton" class:darkButton={$AppData.colorProfile === 'light'} on:click={handleColorButtonClick}><span>{$AppData.colorProfile === 'light' ? 'Dark Mode' : 'Light Mode'}</span></button>
 		<form action="https://forms.gle/oKDQj2Jjqmf5DoTCA" target="_blank" rel="noreferrer noopener">
 			<input class="configButton feedbackButton" type="submit" value="Send Feedback" />
 		</form>
@@ -331,6 +331,10 @@
 			outline: none;
 			padding: 10px;
 			transition: all 0.2s;
+			&.darkButton {
+				background-color: #1A1040;
+				color: #F0F0F2;
+			}
 		}
 		.clearButton {
 			border-color: var(--appDelColor);
@@ -385,6 +389,11 @@
 			.configButton {
 				&:hover {
 					background: var(--neu-convex-BGColor-wide-bg);
+				}
+				&.darkButton {
+					&:hover {
+						background: #1A1040;
+					}
 				}
 			}
 			.clearButton {
