@@ -143,6 +143,7 @@
 
 	onMount(async () => {
 		handleWindowResize();
+		await changeColorProfile($AppData.colorProfile);
 
 		// check user's JWT on app start
 		const valid = await validateJWT($AppData.user.jwt);
@@ -153,7 +154,6 @@
 			await syncFavoriteComps();
 			await syncMyHeroes();
 			await syncLocalComps();
-			await changeColorProfile($AppData.colorProfile);
 		} else {
 			await handleLogout(false);
 		}
@@ -562,13 +562,78 @@
 	}
 
 	async function changeColorProfile(profile) {
+		const root = document.documentElement;
 		switch(profile) {
 			case 'light':
-				console.log(profile);
+				root.style.setProperty('--scrollbarBG', '#DFE7EE');
+				root.style.setProperty('--appColorPrimary', '#6B8DF2');
+				root.style.setProperty('--appColorPriAccent', '#A1B5F1');
+				root.style.setProperty('--appColorPriDark', '#3B62D6');
+				root.style.setProperty('--appColorPriOpaque', 'rgb(107, 141, 242, 0.30)');
+				root.style.setProperty('--appBGColor', '#F0F0F2');
+				root.style.setProperty('--appBGColorDark', '#e2e2e2');
+				root.style.setProperty('--appBGColorLight', '#f6f6f6');
+				root.style.setProperty('--appDelColor', '#F26B6B');
+				root.style.setProperty('--appDelColorOpaque', 'rgba(242, 107, 107, 0.90)');
+				root.style.setProperty('--appColorSecondary', '#8AA7FF');
+				root.style.setProperty('--appColorTertiary', '#3854A6');
+				root.style.setProperty('--appColorQuaternary', '#94C6F2');
+				root.style.setProperty('--appColorDisabled', '#7e7e7e');
+				root.style.setProperty('--appColorBlack', '#333');
+				root.style.setProperty('--neu-convex-BGLight-bg', 'linear-gradient(145deg, #ffffff, #ebebeb)');
+				root.style.setProperty('--neu-convex-BGColor-bg', 'linear-gradient(145deg, #ffffff, #d8d8da)');
+				root.style.setProperty('--neu-convex-BGColor-wide-bg', 'linear-gradient(160deg, #ffffff, #d8d8da)');
+				root.style.setProperty('--neu-concave-BGColor-bg', 'linear-gradient(145deg, #d8d8da, #ffffff)');
+				root.style.setProperty('--neu-large-ni-BGColor-shadow', '8px 8px 20px #ccccce, 8px -8px 20px #ffffff');
+				root.style.setProperty('--neu-med-i-BGLight-shadow', '5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff');
+				root.style.setProperty('--neu-med-i-BGLight-hover-shadow', '8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff');
+				root.style.setProperty('--neu-med-i-BGColor-shadow', '5px 5px 8px #ccccce, -5px -5px 8px #ffffff');
+				root.style.setProperty('--neu-med-i-BGColor-hover-shadow', '8px 8px 16px #ccccce, -8px -8px 16px #ffffff');
+				root.style.setProperty('--neu-med-i-BGColor-pressed-shadow', '3px 3px 5px #ccccce, -3px -3px 5px #ffffff');
+				root.style.setProperty('--neu-med-i-BGColor-inset-shadow', 'inset 5px 5px 8px #ccccce, inset -5px -5px 8px #ffffff');
+				root.style.setProperty('--neu-sm-i-BGColor-shadow', '5px 5px 5px #ccccce, -5px -5px 5px #ffffff');
+				root.style.setProperty('--neu-sm-i-BGColor-hover-shadow', '8px 8px 10px #ccccce, -8px -8px 10px #ffffff');
+				root.style.setProperty('--neu-sm-i-BGColor-pressed-shadow', '3px 3px 3px #ccccce, -3px -3px 3px #ffffff');
+				root.style.setProperty('--neu-med-ni-BGColor-shadow', '5px 5px 8px #ccccce, -5px -5px 8px #ffffff');
+				root.style.setProperty('--neu-sm-ni-BGColor-shadow', '5px 5px 5px #ccccce, -5px -5px 5px #ffffff');
+				root.style.setProperty('--neu-sm-ni-BGColor-pressed-shadow', '3px 3px 3px #ccccce, -3px -3px 3px #ffffff');
+				root.style.setProperty('--neu-sm-ni-BGColor-inset-shadow', 'inset 3px 3px 3px #ccccce, inset -3px -3px 3px #ffffff');
 				$AppData.colorProfile = profile;
 				break;
 			case 'dark':
-				console.log(profile);
+				root.style.setProperty('--scrollbarBG', '#DFE7EE');
+				root.style.setProperty('--appColorPrimary', '#6B8DF2');
+				root.style.setProperty('--appColorPriAccent', '#A1B5F1');
+				root.style.setProperty('--appColorPriDark', '#3B62D6');
+				root.style.setProperty('--appColorPriOpaque', 'rgb(107, 141, 242, 0.30)');
+				root.style.setProperty('--appBGColor', '#1A1040');
+				root.style.setProperty('--appBGColorDark', '#e2e2e2');
+				root.style.setProperty('--appBGColorLight', '#f6f6f6');
+				root.style.setProperty('--appDelColor', '#F26B6B');
+				root.style.setProperty('--appDelColorOpaque', 'rgba(242, 107, 107, 0.90)');
+				root.style.setProperty('--appColorSecondary', '#8AA7FF');
+				root.style.setProperty('--appColorTertiary', '#3854A6');
+				root.style.setProperty('--appColorQuaternary', '#94C6F2');
+				root.style.setProperty('--appColorDisabled', '#7e7e7e');
+				root.style.setProperty('--appColorBlack', '#F0F0F2');
+				root.style.setProperty('--neu-convex-BGLight-bg', 'linear-gradient(145deg, #ffffff, #ebebeb)');
+				root.style.setProperty('--neu-convex-BGColor-bg', 'linear-gradient(145deg, #ffffff, #d8d8da)');
+				root.style.setProperty('--neu-convex-BGColor-wide-bg', 'linear-gradient(160deg, #ffffff, #d8d8da)');
+				root.style.setProperty('--neu-concave-BGColor-bg', 'linear-gradient(145deg, #d8d8da, #ffffff)');
+				root.style.setProperty('--neu-large-ni-BGColor-shadow', '8px 8px 20px #ccccce, 8px -8px 20px #ffffff');
+				root.style.setProperty('--neu-med-i-BGLight-shadow', '5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff');
+				root.style.setProperty('--neu-med-i-BGLight-hover-shadow', '8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff');
+				root.style.setProperty('--neu-med-i-BGColor-shadow', '5px 5px 8px #ccccce, -5px -5px 8px #ffffff');
+				root.style.setProperty('--neu-med-i-BGColor-hover-shadow', '8px 8px 16px #ccccce, -8px -8px 16px #ffffff');
+				root.style.setProperty('--neu-med-i-BGColor-pressed-shadow', '3px 3px 5px #ccccce, -3px -3px 5px #ffffff');
+				root.style.setProperty('--neu-med-i-BGColor-inset-shadow', 'inset 5px 5px 8px #ccccce, inset -5px -5px 8px #ffffff');
+				root.style.setProperty('--neu-sm-i-BGColor-shadow', '5px 5px 5px #ccccce, -5px -5px 5px #ffffff');
+				root.style.setProperty('--neu-sm-i-BGColor-hover-shadow', '8px 8px 10px #ccccce, -8px -8px 10px #ffffff');
+				root.style.setProperty('--neu-sm-i-BGColor-pressed-shadow', '3px 3px 3px #ccccce, -3px -3px 3px #ffffff');
+				root.style.setProperty('--neu-med-ni-BGColor-shadow', '5px 5px 8px #ccccce, -5px -5px 8px #ffffff');
+				root.style.setProperty('--neu-sm-ni-BGColor-shadow', '5px 5px 5px #ccccce, -5px -5px 5px #ffffff');
+				root.style.setProperty('--neu-sm-ni-BGColor-pressed-shadow', '3px 3px 3px #ccccce, -3px -3px 3px #ffffff');
+				root.style.setProperty('--neu-sm-ni-BGColor-inset-shadow', 'inset 3px 3px 3px #ccccce, inset -3px -3px 3px #ffffff');
 				$AppData.colorProfile = profile;
 				break;
 			default:

@@ -73,7 +73,7 @@ html {
 }
 
 body {
-	color: #333;
+	color: var(--appColorBlack);
 	margin: 0px;
 	padding: 0px;
 	box-sizing: border-box;
