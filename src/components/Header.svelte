@@ -69,7 +69,7 @@
 		<button class="expandButton" on:click={handleExpandButtonClick}>
 			<img class="expandImage" src={$AppData.expandHeader ? './img/utility/collapse_white.png' : './img/utility/expand_white.png'} alt={$AppData.expandHeader ? 'collapse' : 'expand'}>
 		</button>
-		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
+		<ul class="navbar-list" class:mobile={showMobileMenu} class:dark={$AppData.colorProfile === 'dark'}>
 			<li class="logoContainer" on:click={() => handleMenuChange(menu[1].name.toLowerCase().replace(/\s/g, ''))}>
 				<button type="button" class="logo"><img src="./img/app/afkbuilder_logo.png" alt="AFKBuilder"></button>
 			</li>
@@ -428,7 +428,7 @@
 			}
 			button {
 				border-radius: 10px 0px 0px 10px;
-				box-shadow:   18px 18px 39px #2b4180, -18px -18px 39px #4567cc;
+				box-shadow: 18px 18px 39px #2b4180, -18px -18px 39px #4567cc;
 				color: rgba(240, 240, 242, 0.8);
 				margin: 10px 0px;
 				padding: 10px 0px 10px 15px;
@@ -454,6 +454,11 @@
 					.discordButton {
 						color: var(--appBGColor);
 					}
+				}
+			}
+			&.dark {
+				button {
+					box-shadow: 18px 18px 39px #4b678a, -18px -18px 39px #719bce;
 				}
 			}
 		}
