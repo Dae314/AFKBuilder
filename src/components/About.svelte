@@ -332,8 +332,8 @@
 			padding: 10px;
 			transition: all 0.2s;
 			&.darkButton {
-				background-color: #1A1040;
-				color: #F0F0F2;
+				background-color: #2E3440;
+				color: #ECEFF4;
 			}
 		}
 		.clearButton {
@@ -392,7 +392,7 @@
 				}
 				&.darkButton {
 					&:hover {
-						background: #1A1040;
+						background: #2E3440;
 					}
 				}
 			}
