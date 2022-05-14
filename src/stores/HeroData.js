@@ -11732,13 +11732,7 @@ const HeroData = readable([
 			{ name: 'Flaming Feast',
 				type: 'level',
 				image: './img/skills/framton4.png',
-				desc: `Passive. Framton accumulates Blaze Points every time one of his abilities deals damage:
-
-				Blazing Meteor: <em>12</em> Blaze Points
-				Burning Vengeancce: <em>2/2/2/4/4/7</em> Blaze Points
-				Fists of Fire: <em>15</em> Blaze Points
-				
-				Once Framton has accumulated <em>100</em> Blaze Points, he triggers his ability: Framton is temporarily immune to all damage and control effects, and deals <em>430%</em> damage to all nearby enemies once, causing them to be unable to recover health for the following <em>5</em> seconds.`,
+				desc: 'Passive. Framton accumulates Blaze Points every time one of his abilities deals damage:<br/><br/>Blazing Meteor: <em>12</em> Blaze Points<br/>Burning Vengeancce: <em>2/2/2/4/4/7</em> Blaze Points<br/>Fists of Fire: <em>15</em> Blaze Points<br/><br/>Once Framton has accumulated <em>100</em> Blaze Points, he triggers his ability: Framton is temporarily immune to all damage and control effects, and deals <em>430%</em> damage to all nearby enemies once, causing them to be unable to recover health for the following <em>5</em> seconds.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Damage is increased to <em>480%</em>.',
