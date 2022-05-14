@@ -25,6 +25,8 @@ html {
 	--appColorQuaternary: #94C6F2;
 	--appColorDisabled: #7e7e7e;
 	--appColorBlack: #333;
+	--appColorWhite: #F0F0F2;
+	--appHeaderHighlight: #4567CC;
 	--googleProviderColor: #EA4335;
 	--facebookProviderColor: #1094F4;
 	--discordProviderColor: #5865F2;

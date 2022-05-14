@@ -419,7 +419,7 @@
 				&:hover {
 					button {
 						background-color: var(--appColorTertiary);
-						color: var(--appBGColor);
+						color: var(--appColorWhite);
 					}
 				}
 				&:before {
@@ -436,7 +436,7 @@
 			}
 			button.selected {
 				background-color: var(--appColorTertiary);
-				color: var(--appBGColor);
+				color: var(--appColorWhite);
 			}
 			.mobileUserItem {
 				display: none;
@@ -452,7 +452,7 @@
 				}
 				&:hover {
 					.discordButton {
-						color: var(--appBGColor);
+						color: var(--appColorWhite);
 					}
 				}
 			}
@@ -487,7 +487,7 @@
 					width: 40px;
 				}
 				&:hover {
-					background-color: #4567cc;
+					background-color: var(--appHeaderHighlight);
 				}
 			}
 		}
