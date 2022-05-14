@@ -71,6 +71,7 @@
 
 <style lang="scss">
 	.container {
+		color: var(--appColorBlack);
 		padding: 10px;
 		padding-top: 0px;
 	}
