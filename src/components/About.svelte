@@ -200,6 +200,7 @@
 		border: none;
 		border-radius: 5px;
 		box-shadow: var(--neu-sm-i-BGColor-shadow);
+		color: var(--appColorBlack);
 		cursor: pointer;
 		outline: none;
 		padding: 5px;
