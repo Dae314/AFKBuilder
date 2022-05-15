@@ -56,6 +56,7 @@
 
 <style lang="scss">
 	.container {
+		color: var(--appColorBlack);
 		height: 100%;
 		position: relative;
 		width: 100%;
