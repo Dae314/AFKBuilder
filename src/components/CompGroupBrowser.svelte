@@ -69,7 +69,7 @@
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
-				 styleWindow: { width: 'fit-content', },
+				 styleWindow: { width: 'fit-content', background: bgColor },
 				 styleContent: { width: 'fit-content', background: bgColor, borderRadius: '10px' },
 				});
 	}

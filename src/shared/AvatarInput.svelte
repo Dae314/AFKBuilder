@@ -24,6 +24,7 @@
 			open(AvatarPicker,
 			{ onChange: handleAvatarChange, },
 			{ closeButton: ModalCloseButton,
+				styleWindow: { background: bgColor },
 				styleContent: {background: bgColor, borderRadius: '10px'},}
 			);
 		}

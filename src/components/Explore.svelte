@@ -345,6 +345,7 @@
 				onSuccess: (filterList) => handleFilterChangeSuccess({filterList, category}),
 			},
 			{ closeButton: ModalCloseButton,
+				styleWindow: { background: bgColor },
 				styleContent: {background: bgColor, borderRadius: '10px'},
 			}
 		);

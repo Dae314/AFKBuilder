@@ -125,6 +125,7 @@
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
+			styleWindow: { background: bgColor },
 			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
 		});
 	}

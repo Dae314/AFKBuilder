@@ -229,7 +229,7 @@
 				},
 				{ closeButton: ModalCloseButton,
 					styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
-					styleWindow: {width: editorWidth, maxWidth: '1200px',},
+					styleWindow: {width: editorWidth, maxWidth: '1200px', background: bgColor},
 					closeOnOuterClick: false,
 				});
 	}
@@ -264,7 +264,7 @@
 				{ closeButton: ModalCloseButton,
 					closeOnOuterClick: false,
 					styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
-					styleWindow: {width: editorWidth, maxWidth: '1200px',},
+					styleWindow: {width: editorWidth, maxWidth: '1200px', background: bgColor},
 				});
 	}
 
@@ -273,6 +273,7 @@
 		open(AddToGroup,
 				{groupUUID: curGroup, onSuccess: handleGroupChange},
 				{ closeButton: ModalCloseButton,
+					styleWindow: { background: bgColor },
 					styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 				});
 	}
@@ -345,7 +346,7 @@
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
-				 styleWindow: { width: 'fit-content', },
+				 styleWindow: { width: 'fit-content', background: bgColor },
 				 styleContent: { width: 'fit-content', background: bgColor, borderRadius: '10px' },
 				});
 	}
@@ -358,6 +359,7 @@
 			title: 'Paste Composition:',
 		},
 		{ closeButton: ModalCloseButton,
+			styleWindow: { background: bgColor },
 			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 			closeOnOuterClick: false,
 		});
@@ -762,6 +764,7 @@
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
+			styleWindow: { background: bgColor },
 			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 		});
 	}
@@ -771,6 +774,7 @@
 		open(ArtifactDetail, 
 		{ artifactID: artifactID, },
 		{ closeButton: ModalCloseButton,
+			styleWindow: { background: bgColor },
 			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 		});
 	}
@@ -887,6 +891,7 @@
 				onSuccess: (filterList) => handleFilterChangeSuccess({filterList, category}),
 			},
 			{ closeButton: ModalCloseButton,
+				styleWindow: { background: bgColor },
 				styleContent: {background: bgColor, borderRadius: '10px'},
 			}
 		);

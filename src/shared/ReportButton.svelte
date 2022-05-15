@@ -13,6 +13,7 @@
 		open(Report, 
 		{ target: {type: reportType, data: reportData}, },
 		{ closeButton: ModalCloseButton,
+			styleWindow: { background: bgColor },
 			styleContent: {background: bgColor, padding: 0, borderRadius: '10px'},
 		});
 	}

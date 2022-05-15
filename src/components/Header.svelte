@@ -55,7 +55,12 @@
 	}
 
 	function handleLoginClick() {
-		open(ChooseLogin, {}, { closeButton: ModalCloseButton, });
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
+		open(ChooseLogin, {}, {
+			closeButton: ModalCloseButton,
+			styleWindow: { background: bgColor },
+			styleContent: {background: bgColor, borderRadius: '10px'},
+		});
 	}
 </script>
 
