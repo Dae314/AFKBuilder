@@ -139,7 +139,7 @@
 		{#each groupList as group}
 			<button type="button" class="groupButton" on:click={() => handleGroupClick(group)}>
 				<div class="delArea">
-					<XButton size="medium" clickCallback={() => handleDelClick(group)} />
+					<XButton colorProfile="light" size="medium" clickCallback={() => handleDelClick(group)} />
 				</div>
 				<div class="groupBody">
 					<input
@@ -177,8 +177,10 @@
 				font-size: 0.9rem;
 			}
 			.groupSelect {
-				border: 1px solid black;
+				background: var(--appBGColor);
+				border: 1px solid var(--appColorBlack);
 				border-radius: 5px;
+				color: var(--appColorBlack);
 				outline: none;
 				padding: 3px;
 			}
@@ -205,7 +207,7 @@
 			background-color: var(--appBGColor);
 			border: none;
 			border-radius: 10px;
-			color: black;
+			color: var(--appColorBlack);
 			cursor: pointer;
 			height: 100%;
 			outline: none;
@@ -225,7 +227,7 @@
 			border: none;
 			border-radius: 10px;
 			box-shadow: var(--neu-med-i-BGLight-shadow);
-			color: black;
+			color: var(--appColorBlack);
 			display: flex;
 			cursor: pointer;
 			flex-direction: column;
@@ -248,6 +250,7 @@
 					background-color: var(--appBGColorLight);
 					border: none;
 					border-bottom: 1px solid var(--appBGColorDark);
+					color: var(--appColorBlack);
 					font-size: 1rem;
 					outline: none;
 					text-align: center;

@@ -134,6 +134,7 @@
 		.heroNameButton {
 			background: transparent;
 			border: none;
+			color: var(--appColorBlack);
 			cursor: pointer;
 			margin: 0 auto;
 			max-width: 70px;

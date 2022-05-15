@@ -1051,10 +1051,10 @@
 				<div class="mobileSearchArea">
 					<input id="compSearch" value={searchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="Search titles or tags" />
 					<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
-						<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
+						<img class="searchImage" class:light={$AppData.colorProfile === 'light'} src="./img/utility/search_white.png" alt="search" />
 					</button>
 					<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
-						<img class="openFiltersImage" src="./img/utility/filter_white.png" alt="Open Filters">
+						<img class="openFiltersImage" class:light={$AppData.colorProfile === 'light'} src="./img/utility/filter_white.png" alt="Open Filters">
 					</button>
 				</div>
 				<div class="groupTitle">
@@ -1122,11 +1122,11 @@
 			</div>
 			<div class="compListTabs">
 				<button type="button" class="tabButton viewCompsButton" on:click={handleViewCompsClick} class:open={curView === 'compList'}>
-					<img class="viewCompsImage" src="./img/utility/comps_white.png" alt="Comps">
+					<img class="viewCompsImage" class:light={$AppData.colorProfile === 'light'} src="./img/utility/comps_white.png" alt="Comps">
 					<span>Comps</span>
 				</button>
 				<button type="button" class="tabButton viewGroupsButton" on:click={handleGroupButtonClick} class:open={curView === 'groups'}>
-					<img class="viewGroupsImage" src="./img/utility/groups_white.png" alt="Groups">
+					<img class="viewGroupsImage" class:light={$AppData.colorProfile === 'light'} src="./img/utility/groups_white.png" alt="Groups">
 					<span>Groups</span>
 				</button>
 				<div class="sortArea" class:hidden={curView === 'groups'}>
@@ -1154,7 +1154,7 @@
 								</button>
 								<button type="button" class="newCompButton import" on:click={handleImportButtonClick}>
 									<div class="imgContainer">
-										<img draggable="false" class="importButtonIcon" src="./img/utility/import_white.png" alt="Import">
+										<img draggable="false" class="importButtonIcon" class:light={$AppData.colorProfile === 'light'} src="./img/utility/import_white.png" alt="Import">
 									</div>
 									<span>Import</span>
 								</button>
@@ -1258,17 +1258,17 @@
 						<ul class="iconList">
 							{#if $AppData.user.published_comps.some(e => e.uuid === openComp.uuid)}
 							<li>
-								<img class="iconAreaImage" src="./img/utility/explore_white.png" alt="Published">
+								<img class="iconAreaImage" class:light={$AppData.colorProfile === 'light'} src="./img/utility/explore_white.png" alt="Published">
 							</li>
 							{/if}
 							{#if openComp.hidden}
 							<li>
-								<img class="iconAreaImage" src="./img/utility/hidden_white.png" alt="Hidden">
+								<img class="iconAreaImage" class:light={$AppData.colorProfile === 'light'} src="./img/utility/hidden_white.png" alt="Hidden">
 							</li>
 							{/if}
 							{#if openComp.source === 'favorite'}
 							<li>
-								<img class="iconAreaImage" src="./img/utility/favorite_filled_white.png" alt="Favorite">
+								<img class="iconAreaImage" class:light={$AppData.colorProfile === 'light'} src="./img/utility/favorite_filled_white.png" alt="Favorite">
 							</li>
 							{/if}
 						</ul>
@@ -1541,12 +1541,17 @@
 					border: none;
 					border-radius: 5px;
 					box-shadow: var(--neu-med-i-BGColor-shadow);
+					color: var(--appColorBlack);
 					font-size: 1.2rem;
 					outline: none;
 					padding: 8px;
 					width: 100%;
 					&:focus {
-						background-color: white;
+						background-color: var(--appTextInputFocusBG);
+					}
+					&::placeholder {
+						color: var(--appColorBlack);
+						opacity: 0.5;
 					}
 				}
 			}
@@ -1555,7 +1560,9 @@
 				.searchImage {
 					max-width: 25px;
 					opacity: 0.3;
-					filter: invert(1);
+					&.light {
+						filter: invert(1);
+					}
 				}
 			}
 			.openFiltersButton {
@@ -1563,7 +1570,9 @@
 				.openFiltersImage {
 					max-width: 25px;
 					opacity: 0.3;
-					filter: invert(1);
+					&.light {
+						filter: invert(1);
+					}
 				}
 				&.open {
 					.openFiltersImage {
@@ -1605,7 +1614,7 @@
 				display: flex;
 				.filterArea {
 					align-items: center;
-					border-right: 1px solid black;
+					border-right: 1px solid var(--appColorBlack);
 					display: flex;
 					flex-direction: column;
 					width: 33.33%;
@@ -1617,7 +1626,7 @@
 						border: none;
 						border-radius: 10px;
 						box-shadow: var(--neu-sm-i-BGColor-shadow);
-						color: black;
+						color: var(--appColorBlack);
 						cursor: pointer;
 						padding: 5px;
 						font-size: 1rem;
@@ -1634,7 +1643,7 @@
 							border: none;
 							border-radius: 30px;
 							box-shadow: var(--neu-sm-i-BGColor-shadow);
-							color: black;
+							color: var(--appColorBlack);
 							cursor: pointer;
 							font-size: 0.7rem;
 							flex-grow: 0;
@@ -1677,11 +1686,19 @@
 			}
 			:global(#timeSlider) {
 				:global(.rangeBar) {
-					background-color: var(--appColorPriDark);
+					background-color: var(--appColorTertiary);
 				}
 				:global(.rangeHandle) {
 					:global(.rangeNub) {
 						background-color: var(--appColorBlack);
+					}
+				}
+				:global(.rangePips) {
+					:global(.pip) {
+						background-color: var(--appColorBlack);
+						:global(.pipVal) {
+							color: var(--appColorBlack);
+						}
 					}
 				}
 			}
@@ -1691,8 +1708,10 @@
 			margin-left: auto;
 			padding-right: 10px;
 			.compsSelect {
-				border: 1px solid black;
+				background: var(--appBGColor);
+				border: 1px solid var(--appColorBlack);
 				border-radius: 5px;
+				color: var(--appColorBlack);
 				outline: none;
 				padding: 3px;
 			}
@@ -1707,9 +1726,11 @@
 			width: 100%;
 			.tabButton {
 				align-items: center;
+				background: var(--appBGColor);
 				border: none;
 				border-radius: 10px;
 				box-shadow: var(--neu-med-i-BGColor-shadow);
+				color: var(--appColorBlack);
 				cursor: pointer;
 				display: flex;
 				font-size: 1.2rem;
@@ -1717,16 +1738,18 @@
 				outline: none;
 				padding: 5px;
 				img {
-					filter: invert(1);
 					max-width: 30px;
 					opacity: 0.3;
+					&.light {
+						filter: invert(1);
+					}
 				}
 				span {
 					opacity: 0.3;
 					padding-left: 5px;
 				}
 				&.open {
-					background: var(--neu-convex-BGLight-bg);
+					background: var(--neu-convex-BGColor-bg);
 					img {
 						opacity: 1;
 					}
@@ -1767,7 +1790,7 @@
 					.newCompButton {
 						border: none;
 						background-color: var(--appBGColor);
-						color: black;
+						color: var(--appColorBlack);
 						cursor: pointer;
 						font-size: 1.1rem;
 						width: 100%;
@@ -1779,7 +1802,9 @@
 						}
 						img {
 							max-width: 20px;
-							filter: invert(1);
+							&.light {
+								filter: invert(1);
+							}
 						}
 						span {
 							display: block;
@@ -1888,6 +1913,7 @@
 			}
 			.editMenuButton {
 				align-items: center;
+				background: var(--appBGColor);
 				border: none;
 				border-radius: 10px;
 				box-shadow: var(--neu-sm-i-BGColor-shadow);
@@ -2010,7 +2036,9 @@
 				}
 				img {
 					max-width: 20px;
-					filter: invert(1.0);
+					&.light {
+						filter: invert(1.0);
+					}
 				}
 			}
 		}
@@ -2531,7 +2559,7 @@
 							.rmFilterButton {
 								&:hover {
 									background-color: var(--appDelColor);
-									color: var(--appBGColor);
+									color: var(--appColorWhite);
 									&:before {
 										background-color: var(--appBGColor);
 										color: var(--appDelColor);

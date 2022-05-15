@@ -583,6 +583,8 @@
 				root.style.setProperty('--appColorWhite', '#F0F0F2');
 				root.style.setProperty('--appHeaderHighlight', '#4567CC');
 				root.style.setProperty('--appTextInputFocusBG', '#FFF');
+				root.style.setProperty('--appFilterColorPrimary', '#d6d6d6');
+				root.style.setProperty('--appFilterColorSecondary', '#999');
 				root.style.setProperty('--neu-convex-BGLight-bg', 'linear-gradient(145deg, #ffffff, #ebebeb)');
 				root.style.setProperty('--neu-convex-BGColor-bg', 'linear-gradient(145deg, #ffffff, #d8d8da)');
 				root.style.setProperty('--neu-convex-BGColor-wide-bg', 'linear-gradient(160deg, #ffffff, #d8d8da)');
@@ -595,8 +597,10 @@
 				root.style.setProperty('--neu-med-i-BGColor-pressed-shadow', '3px 3px 5px #ccccce, -3px -3px 5px #ffffff');
 				root.style.setProperty('--neu-med-i-BGColor-inset-shadow', 'inset 5px 5px 8px #ccccce, inset -5px -5px 8px #ffffff');
 				root.style.setProperty('--neu-sm-i-BGColor-shadow', '5px 5px 5px #ccccce, -5px -5px 5px #ffffff');
+				root.style.setProperty('--neu-sm-i-BGLight-shadow', '5px 5px 5px #d1d1d1, -5px -5px 5px #ffffff');
 				root.style.setProperty('--neu-sm-i-BGColor-hover-shadow', '8px 8px 10px #ccccce, -8px -8px 10px #ffffff');
 				root.style.setProperty('--neu-sm-i-BGColor-pressed-shadow', '3px 3px 3px #ccccce, -3px -3px 3px #ffffff');
+				root.style.setProperty('--neu-sm-i-BGLight-pressed-shadow', '3px 3px 3px #d1d1d1, -3px -3px 3px #ffffff');
 				root.style.setProperty('--neu-med-ni-BGColor-shadow', '5px 5px 8px #ccccce, -5px -5px 8px #ffffff');
 				root.style.setProperty('--neu-sm-ni-BGColor-shadow', '5px 5px 5px #ccccce, -5px -5px 5px #ffffff');
 				root.style.setProperty('--neu-sm-ni-BGColor-pressed-shadow', '3px 3px 3px #ccccce, -3px -3px 3px #ffffff');
@@ -624,6 +628,8 @@
 				root.style.setProperty('--appColorWhite', '#F0F0F2');
 				root.style.setProperty('--appHeaderHighlight', '#81A1C1');
 				root.style.setProperty('--appTextInputFocusBG', '#4C566A');
+				root.style.setProperty('--appFilterColorPrimary', '#4C566A');
+				root.style.setProperty('--appFilterColorSecondary', '#3B4252');
 				root.style.setProperty('--neu-convex-BGLight-bg', 'linear-gradient(145deg, #485165, #3c4455)');
 				root.style.setProperty('--neu-convex-BGColor-bg', 'linear-gradient(145deg, #313844, #292f3a)');
 				root.style.setProperty('--neu-convex-BGColor-wide-bg', 'linear-gradient(160deg, #313844, #292f3a)');
@@ -636,8 +642,10 @@
 				root.style.setProperty('--neu-med-i-BGColor-pressed-shadow', '3px 3px 5px #272c36, -3px -3px 5px #353c4a');
 				root.style.setProperty('--neu-med-i-BGColor-inset-shadow', 'inset 5px 5px 8px #272c36, inset -5px -5px 8px #353c4a');
 				root.style.setProperty('--neu-sm-i-BGColor-shadow', '5px 5px 5px #272c36, -5px -5px 5px #353c4a');
+				root.style.setProperty('--neu-sm-i-BGLight-shadow', '5px 5px 5px #394150, -5px -5px 5px #4d576c');
 				root.style.setProperty('--neu-sm-i-BGColor-hover-shadow', '8px 8px 10px #272c36, -8px -8px 10px #353c4a');
 				root.style.setProperty('--neu-sm-i-BGColor-pressed-shadow', '3px 3px 3px #272c36, -3px -3px 3px #353c4a');
+				root.style.setProperty('--neu-sm-i-BGLight-pressed-shadow', '3px 3px 3px #394150, -3px -3px 3px #4d576c');
 				root.style.setProperty('--neu-med-ni-BGColor-shadow', '5px 5px 8px #272c36, -5px -5px 8px #353c4a');
 				root.style.setProperty('--neu-sm-ni-BGColor-shadow', '5px 5px 5px #272c36, -5px -5px 5px #353c4a');
 				root.style.setProperty('--neu-sm-ni-BGColor-pressed-shadow', '3px 3px 3px #272c36, -3px -3px 3px #353c4a');

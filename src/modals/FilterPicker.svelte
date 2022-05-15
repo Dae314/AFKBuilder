@@ -274,12 +274,17 @@
 			border: none;
 			border-radius: 5px;
 			box-shadow: var(--neu-med-i-BGColor-shadow);
+			color: var(--appColorBlack);
 			font-size: 1rem;
 			outline: none;
 			padding: 8px;
 			width: 100%;
 			&:focus {
-				background-color: white;
+				background-color: var(--appTextInputFocusBG);
+			}
+			&::placeholder {
+				color: var(--appColorBlack);
+				opacity: 0.5;
 			}
 		}
 		.modeArea {
@@ -300,6 +305,7 @@
 		justify-content: center;
 		padding-top: 10px;
 		h5 {
+			color: var(--appColorBlack);
 			margin: 0;
 			margin-bottom: 5px;
 		}
@@ -357,8 +363,8 @@
 					height: 25px;
 					justify-content: center;
 					span {
-						background-color: #d6d6d6;
-						border: 2px solid #d6d6d6;
+						background-color: var(--appFilterColorPrimary);
+						border: 2px solid var(--appFilterColorPrimary);
 						border-radius: 7px;
 						color: var(--appColorBlack);
 						padding: 1px 5px;
@@ -373,22 +379,23 @@
 							white-space: nowrap;
 						}
 						&.entityCount {
-							background-color: #999;
-							border-color: #999;
+							background-color: var(--appFilterColorSecondary);
+							border-color: var(--appFilterColorSecondary);
 							border-bottom-left-radius: 0px;
 							border-left: none;
 							border-top-left-radius: 0px;
-							color: var(--appBGColor);
+							color: var(--appColorBlack);
 						}
 					}
 					&.include {
 						span {
 							background-color: var(--appColorPrimary);
 							border-color: var(--appColorPrimary);
-							color: var(--appBGColor);
+							color: var(--appColorWhite);
 							&.entityCount {
 								background-color: var(--appColorPriDark);
 								border-color: var(--appColorPriDark);
+								color: var(--appColorWhite);
 							}
 						}
 					}
@@ -396,10 +403,11 @@
 						span {
 							background-color: var(--appDelColor);
 							border-color: var(--appDelColor);
-							color: var(--appBGColor);
+							color: var(--appColorWhite);
 							&.entityCount {
 								background-color: #b13f3f;
 								border-color: #b13f3f;
+								color: var(--appColorWhite);
 							}
 						}
 					}

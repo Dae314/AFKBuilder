@@ -443,6 +443,7 @@
 			align-items: center;
 			background-color: transparent;
 			border: none;
+			color: var(--appColorBlack);
 			cursor: pointer;
 			display: flex;
 			font-size: 2rem;
