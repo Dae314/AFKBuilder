@@ -393,6 +393,7 @@
 		padding: 0;
 		.sectionButton {
 			align-items: center;
+			background: var(--appBGColor);
 			border: none;
 			border-radius: 10px;
 			box-shadow: var(--neu-med-i-BGColor-shadow);
@@ -408,7 +409,7 @@
 				opacity: 0.5;
 			}
 			&.active {
-				background: var(--neu-convex-BGLight-bg);
+				background: var(--neu-convex-BGColor-bg);
 				span {
 					opacity: 1;
 				}
