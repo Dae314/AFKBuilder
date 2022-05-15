@@ -571,7 +571,7 @@
 				root.style.setProperty('--appColorPriDark', '#3B62D6');
 				root.style.setProperty('--appColorPriOpaque', 'rgb(107, 141, 242, 0.30)');
 				root.style.setProperty('--appBGColor', '#F0F0F2');
-				root.style.setProperty('--appBGColorDark', '#e2e2e2');
+				root.style.setProperty('--appBGColorDark', '#c2c2c2');
 				root.style.setProperty('--appBGColorLight', '#f6f6f6');
 				root.style.setProperty('--appDelColor', '#F26B6B');
 				root.style.setProperty('--appDelColorOpaque', 'rgba(242, 107, 107, 0.90)');

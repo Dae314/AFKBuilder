@@ -56,7 +56,7 @@
 		}
 	}
 	.star {
-		border-bottom: .7em solid lightgray;
+		border-bottom: .7em solid var(--appBGColorDark);
 		border-left: .3em solid transparent;
 		border-right: .3em solid transparent;
 		display: inline-block;
@@ -68,7 +68,7 @@
 		position: relative;
 		width: 0;
 		&:before {
-			border-bottom: .7em solid lightgray;
+			border-bottom: .7em solid var(--appBGColorDark);
 			border-left: 1em solid transparent;
 			border-right: 1em solid transparent;
 			content: '';
@@ -81,7 +81,7 @@
 			width: 0;
 		}
 		&:after {
-			border-bottom: .7em solid lightgray;
+			border-bottom: .7em solid var(--appBGColorDark);
 			border-left: 1em solid transparent;
 			border-right: 1em solid transparent;
 			content: '';
