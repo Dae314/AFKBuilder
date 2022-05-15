@@ -608,7 +608,7 @@
 				// https://www.nordtheme.com/docs/colors-and-palettes
 				root.style.setProperty('--scrollbarBG', '#DFE7EE');
 				root.style.setProperty('--appColorPrimary', '#6B8DF2');
-				root.style.setProperty('--appColorPriAccent', '#A1B5F1');
+				root.style.setProperty('--appColorPriAccent', '#5E81AC');
 				root.style.setProperty('--appColorPriDark', '#3B62D6');
 				root.style.setProperty('--appColorPriOpaque', 'rgb(107, 141, 242, 0.30)');
 				root.style.setProperty('--appBGColor', '#2E3440');
@@ -619,18 +619,18 @@
 				root.style.setProperty('--appColorSecondary', '#8AA7FF');
 				root.style.setProperty('--appColorTertiary', '#5E81AC');
 				root.style.setProperty('--appColorQuaternary', '#94C6F2');
-				root.style.setProperty('--appColorDisabled', '#7e7e7e');
+				root.style.setProperty('--appColorDisabled', '#595959');
 				root.style.setProperty('--appColorBlack', '#ECEFF4');
 				root.style.setProperty('--appColorWhite', '#F0F0F2');
 				root.style.setProperty('--appHeaderHighlight', '#81A1C1');
 				root.style.setProperty('--appTextInputFocusBG', '#4C566A');
-				root.style.setProperty('--neu-convex-BGLight-bg', 'linear-gradient(145deg, #150535, #ebebeb)');
+				root.style.setProperty('--neu-convex-BGLight-bg', 'linear-gradient(145deg, #485165, #3c4455)');
 				root.style.setProperty('--neu-convex-BGColor-bg', 'linear-gradient(145deg, #313844, #292f3a)');
 				root.style.setProperty('--neu-convex-BGColor-wide-bg', 'linear-gradient(160deg, #313844, #292f3a)');
 				root.style.setProperty('--neu-concave-BGColor-bg', 'linear-gradient(145deg, #292f3a, #313844)');
 				root.style.setProperty('--neu-large-ni-BGColor-shadow', '8px 8px 20px #272c36, 8px -8px 20px #353c4a');
-				root.style.setProperty('--neu-med-i-BGLight-shadow', '5px 5px 10px #d1d1d1, -5px -5px 10px #353c4a');
-				root.style.setProperty('--neu-med-i-BGLight-hover-shadow', '8px 8px 16px #d1d1d1, -8px -8px 16px #353c4a');
+				root.style.setProperty('--neu-med-i-BGLight-shadow', '5px 5px 10px #394150, -5px -5px 10px #4d576c');
+				root.style.setProperty('--neu-med-i-BGLight-hover-shadow', '8px 8px 16px #394150, -8px -8px 16px #4d576c');
 				root.style.setProperty('--neu-med-i-BGColor-shadow', '5px 5px 8px #272c36, -5px -5px 8px #353c4a');
 				root.style.setProperty('--neu-med-i-BGColor-hover-shadow', '8px 8px 16px #272c36, -8px -8px 16px #353c4a');
 				root.style.setProperty('--neu-med-i-BGColor-pressed-shadow', '3px 3px 5px #272c36, -3px -3px 5px #353c4a');

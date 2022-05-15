@@ -18,12 +18,13 @@
 
 <style lang="scss">
 	.title {
+		color: var(--appColorBlack);
 		font-weight: bold;
 		margin-bottom: 3px;
 		text-align: center;
 		user-select: none;
 		&.disabled {
-			color: rgba(0, 0, 0, 0.5);
+			color: var(--appColorDisabled);
 		}
 	}
 </style>

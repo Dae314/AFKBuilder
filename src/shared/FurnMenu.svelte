@@ -7,17 +7,20 @@
 	export let centerMenu = false;
 	export let active = true;
 
+	const appBGColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
+	const appColorPrimary = window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary');
+
 	let menuItems = ['0F', '3F', '9F'];
 	let fullItems = ['0 Furn', '3 Furn', '9 Furn'];
 	let menuItemsStyle = [
-		'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-		'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-		'background-color: #F0F0F2; color: #6B8DF2; border: none;',
+		`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+		`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+		`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
 	];
 	let fullItemsStyle = [
-		'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-		'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-		'background-color: #F0F0F2; color: #6B8DF2; border: none;',
+		`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+		`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+		`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
 	];
 
 	function handleMenuItemClick(index) {
