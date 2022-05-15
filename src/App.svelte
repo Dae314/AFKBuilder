@@ -582,6 +582,7 @@
 				root.style.setProperty('--appColorBlack', '#333');
 				root.style.setProperty('--appColorWhite', '#F0F0F2');
 				root.style.setProperty('--appHeaderHighlight', '#4567CC');
+				root.style.setProperty('--appTextInputFocusBG', '#FFF');
 				root.style.setProperty('--neu-convex-BGLight-bg', 'linear-gradient(145deg, #ffffff, #ebebeb)');
 				root.style.setProperty('--neu-convex-BGColor-bg', 'linear-gradient(145deg, #ffffff, #d8d8da)');
 				root.style.setProperty('--neu-convex-BGColor-wide-bg', 'linear-gradient(160deg, #ffffff, #d8d8da)');
@@ -611,8 +612,8 @@
 				root.style.setProperty('--appColorPriDark', '#3B62D6');
 				root.style.setProperty('--appColorPriOpaque', 'rgb(107, 141, 242, 0.30)');
 				root.style.setProperty('--appBGColor', '#2E3440');
-				root.style.setProperty('--appBGColorDark', '#e2e2e2');
-				root.style.setProperty('--appBGColorLight', '#f6f6f6');
+				root.style.setProperty('--appBGColorDark', '#202124');
+				root.style.setProperty('--appBGColorLight', '#434C5E');
 				root.style.setProperty('--appDelColor', '#F26B6B');
 				root.style.setProperty('--appDelColorOpaque', 'rgba(242, 107, 107, 0.90)');
 				root.style.setProperty('--appColorSecondary', '#8AA7FF');
@@ -622,6 +623,7 @@
 				root.style.setProperty('--appColorBlack', '#ECEFF4');
 				root.style.setProperty('--appColorWhite', '#F0F0F2');
 				root.style.setProperty('--appHeaderHighlight', '#81A1C1');
+				root.style.setProperty('--appTextInputFocusBG', '#4C566A');
 				root.style.setProperty('--neu-convex-BGLight-bg', 'linear-gradient(145deg, #150535, #ebebeb)');
 				root.style.setProperty('--neu-convex-BGColor-bg', 'linear-gradient(145deg, #313844, #292f3a)');
 				root.style.setProperty('--neu-convex-BGColor-wide-bg', 'linear-gradient(160deg, #313844, #292f3a)');
