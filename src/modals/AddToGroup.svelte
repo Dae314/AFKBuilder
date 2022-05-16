@@ -160,7 +160,7 @@
 			margin: 0px 8px;
 			padding: 5px;
 			&.cancel {
-				color: black;
+				color: var(--appColorBlack);
 				margin-right: 0;
 			}
 		}

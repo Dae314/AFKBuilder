@@ -432,7 +432,7 @@
 			margin: 0px 8px;
 			padding: 5px;
 			&.cancel {
-				color: var(--appColorDisabled);
+				color: var(--appColorBlack);
 				margin-right: 0;
 			}
 		}
