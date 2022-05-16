@@ -3,6 +3,7 @@
 	import { v4 as uuidv4 } from 'uuid';
 	import Editor from '@toast-ui/editor';
 	import '@toast-ui/editor/dist/toastui-editor.css';
+	import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from './HeroFinder.svelte';
@@ -74,26 +75,50 @@
 			if(comp.draft) saveDraft();
 		}, 30000);
 		await tick();
-		editor = new Editor({
-			el: document.querySelector('#tuieditor'),
-			events: {
-				change: handleContentChange,
-			},
-			height: '346.5px',
-			initialValue: comp.desc,
-			initialEditType: 'wysiwyg',
-			language: 'en_US',
-			placeholder: 'Description',
-			toolbarItems: [
-				['heading', 'bold', 'italic', 'strike'],
-				['hr', 'quote'],
-				['ul', 'ol'],
-				['table', 'image', 'link'],
-				['code', 'codeblock'],
-			],
-			usageStatistics: false,
-			useDefaultHTMLSanitizer: true,
-		});
+		if($AppData.colorProfile === 'light') {
+			editor = new Editor({
+				el: document.querySelector('#tuieditor'),
+				events: {
+					change: handleContentChange,
+				},
+				height: '346.5px',
+				initialValue: comp.desc,
+				initialEditType: 'wysiwyg',
+				language: 'en_US',
+				placeholder: 'Description',
+				toolbarItems: [
+					['heading', 'bold', 'italic', 'strike'],
+					['hr', 'quote'],
+					['ul', 'ol'],
+					['table', 'image', 'link'],
+					['code', 'codeblock'],
+				],
+				usageStatistics: false,
+				useDefaultHTMLSanitizer: true,
+			});
+		} else {
+			editor = new Editor({
+				el: document.querySelector('#tuieditor'),
+				theme: 'dark',
+				events: {
+					change: handleContentChange,
+				},
+				height: '346.5px',
+				initialValue: comp.desc,
+				initialEditType: 'wysiwyg',
+				language: 'en_US',
+				placeholder: 'Description',
+				toolbarItems: [
+					['heading', 'bold', 'italic', 'strike'],
+					['hr', 'quote'],
+					['ul', 'ol'],
+					['table', 'image', 'link'],
+					['code', 'codeblock'],
+				],
+				usageStatistics: false,
+				useDefaultHTMLSanitizer: true,
+			});
+		}
 		setTimeout(() => editor.blur(), 5);
 	});
 
@@ -614,6 +639,7 @@
 
 <style lang="scss">
 	.editorContainer {
+		color: var(--appColorBlack);
 		padding: 10px;
 	}
 	.sect2 {
@@ -693,13 +719,14 @@
 			border: none;
 			border-radius: 5px;
 			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			color: var(--appColorBlack);
 			font-size: 1.5rem;
 			margin-bottom: 15px;
 			outline: none;
 			text-align: center;
 			width: 80%;
 			&:focus {
-				background-color: white;
+				background-color: var(--appTextInputFocusBG);
 				box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
 			}
 			&.invalid {
@@ -711,11 +738,12 @@
 			border: none;
 			border-radius: 5px;
 			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			color: var(--appColorBlack);
 			margin-bottom: 10px;
 			outline: none;
 			text-align: center;
 			&:focus {
-				background-color: white;
+				background-color: var(--appTextInputFocusBG);
 				box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
 			}
 			&.invalid {
@@ -747,6 +775,7 @@
 					border: none;
 					border-radius: 15px;
 					box-shadow: var(--neu-sm-ni-BGColor-shadow);
+					color: var(--appColorBlack);
 					cursor: pointer;
 					display: inline-block;
 					font-size: 0.8rem;
@@ -806,12 +835,13 @@
 						border: none;
 						border-radius: 5px;
 						box-shadow: var(--neu-sm-i-BGColor-shadow);
+						color: var(--appColorBlack);
 						margin-left: 10px;
 						margin-bottom: 7px;
 						outline: none;
 						text-align: center;
 						&:focus {
-							background-color: white;
+							background-color: var(--appTextInputFocusBG);
 							box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
 						}
 						&.invalid {
@@ -825,13 +855,13 @@
 						background-color: var(--appBGColor);
 						border: none;
 						border-radius: 0px 0px 10px 10px;
-						box-shadow: 5px 5px 8px #ccccce;
+						box-shadow: var(--neu-sm-i-BGColor-shadow);
 						display: flex;
 						flex-direction: column;
 						left: 22.5px;
 						opacity: 0;
 						position: absolute;
-						top: 22px;
+						top: 26px;
 						transition: all 0.2s;
 						visibility: hidden;
 						width: 80%;
@@ -894,12 +924,13 @@
 			border: none;
 			border-radius: 5px;
 			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			color: var(--appColorBlack);
 			font-weight: bold;
 			outline: none;
 			padding: 3px;
 			text-align: center;
 			&:focus {
-				background-color: white;
+				background-color: var(--appTextInputFocusBG);
 				box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
 			}
 			&.invalid {
@@ -988,7 +1019,7 @@
 	}
 	.cancelButton {
 		margin-right: 0;
-		color: var(--appColorDisabled);
+		color: var(--appColorBlack);
 	}
 	@media only screen and (min-width: 767px) {
 		.editorHead {
