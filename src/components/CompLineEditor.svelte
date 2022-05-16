@@ -306,6 +306,10 @@
 					background-color: var(--appTextInputFocusBG);
 					box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
 				}
+				&::placeholder {
+					color: var(--appColorBlack);
+					opacity: 0.5;
+				}
 				&.invalid {
 					outline: 2px solid var(--appDelColor);
 				}
