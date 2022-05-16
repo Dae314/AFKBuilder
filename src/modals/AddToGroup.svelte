@@ -83,6 +83,7 @@
 
 <style lang="scss">
 	.addToGroupContainer {
+		color: var(--appColorBlack);
 		padding: 10px;
 		padding-top: 0px;
 		overflow-y: auto;
@@ -111,6 +112,7 @@
 		border: none;
 		border-radius: 10px;
 		box-shadow: var(--neu-med-i-BGColor-shadow);
+		color: var(--appColorBlack);
 		cursor: pointer;
 		flex-direction: column;
 		outline: none;
@@ -138,7 +140,7 @@
 			}
 		}
 		&.claimed {
-			background-color: var(--appColorPrimary);
+			background-color: var(--appColorQuaternary);
 			box-shadow: var(--neu-med-i-BGColor-pressed-shadow);
 			color: var(--appBGColor);
 		}
