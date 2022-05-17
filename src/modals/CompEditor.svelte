@@ -1119,6 +1119,7 @@
 			list-style-type: square !important;
 		}
 		:global(ul > li::marker) {
+			color: var(--appColorBlack) !important;
 			font-size: 1.0rem !important;
 		}
 		:global(ul > li::before) {
@@ -1128,7 +1129,7 @@
 			margin: 10px 0px !important;
 		}
 		:global(ol > li::before) {
-			color: black !important;
+			color: var(--appColorBlack) !important;
 		}
 		:global(h1), :global(h2), :global(h3) {
 			margin: 10px 0px !important;
@@ -1145,6 +1146,7 @@
 		}
 		:global(blockquote) {
 			border-left: 5px solid var(--appColorPriOpaque) !important;
+			color: var(--appColorBlack) !important;
 			margin-left: 20px !important;
 			padding-left: 5px !important;
 		}
@@ -1164,13 +1166,13 @@
 			padding-right: 20px !important;
 			text-align: left !important;
 			:global(p) {
-				color: black !important;
+				color: var(--appColorBlack) !important;
 				padding: 0 !important;
 			}
 		}
 		:global(td) {
 			border: 0 !important;
-			border-bottom: 1px solid black !important;
+			border-bottom: 1px solid var(--appColorBlack) !important;
 			padding: 0 !important;
 		}
 		:global(tr) {
