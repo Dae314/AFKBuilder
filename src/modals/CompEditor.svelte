@@ -1146,12 +1146,18 @@
 		}
 		:global(blockquote) {
 			border-left: 5px solid var(--appColorPriOpaque) !important;
-			color: var(--appColorBlack) !important;
 			margin-left: 20px !important;
 			padding-left: 5px !important;
+			:global(p) {
+				color: var(--appColorBlack) !important;
+			}
 		}
 		:global(pre) {
 			background-color: var(--appBGColorDark) !important;
+		}
+		:global(code) {
+			background-color: var(--appBGColorDark) !important;
+			color: var(--appColorBlack) !important;
 		}
 		:global(table) {
 			border: 0 !important;
