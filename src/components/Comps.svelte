@@ -2351,16 +2351,18 @@
 				}
 				:global(blockquote) {
 					border-left: 5px solid var(--appColorPriOpaque);
-					color: #999;
+					color: var(--appColorBlack);
 					margin-left: 20px;
 					padding-left: 5px;
 				}
-				:global(pre) {
+				:global(pre), :global(code) {
 					background-color: var(--appBGColorDark);
-					color: black;
+					border-radius: 5px;
+					color: var(--appColorBlack);
 					font-family: 'Courier New', Courier, monospace;
 					font-size: 1.0rem;
-					padding: 10px;
+					margin: 5px 0px;
+					padding: 5px;
 					white-space: break-spaces;
 				}
 				:global(table) {
@@ -2374,7 +2376,7 @@
 					text-align: left;
 				}
 				:global(td) {
-					border-bottom: 1px solid black;
+					border-bottom: 1px solid var(--appColorBlack);
 					padding-top: 7px;
 					padding-bottom: 7px;
 				}
