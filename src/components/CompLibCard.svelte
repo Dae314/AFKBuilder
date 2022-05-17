@@ -304,6 +304,7 @@
 					align-items: center;
 					background-color: transparent;
 					border: none;
+					color: var(--appColorBlack);
 					cursor: pointer;
 					display: flex;
 					margin: 0;
@@ -360,6 +361,7 @@
 		}
 		.compTitleContainer {
 			.compTitle {
+				color: var(--appColorBlack);
 				display: -webkit-box;
 				font-weight: bold;
 				font-size: 2rem;
