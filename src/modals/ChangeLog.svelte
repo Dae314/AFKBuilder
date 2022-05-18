@@ -5,6 +5,14 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v2.1.0',
+			changes: [
+				'Added dark theme',
+				'Added new hero Vyloris',
+				'Updated Hodgekin benchmark to e33',
+				'Fixed formatting on Framton skill 4',
+			],
+		},
 		{ version: 'v2.0.23',
 			changes: [
 				'Added new hero Aw!Thane',
@@ -33,16 +41,6 @@
 				'Changed comp preview cards to show first line',
 				'Left aligned comp preview card titles',
 				'Updated Astar benchmark E41',
-			],
-		},
-		{ version: 'v2.0.9',
-			changes: [
-				'Fixed "Restore to Comps" button styling',
-				'Disabled publishing of draft comps',
-				'Added draft indicator in comp details',
-				'Fixed comp name pushing comp line off of library card',
-				'Fixed explore grid spacing',
-				'Updated import confirm window with neumorphic design',
 			],
 		},
 	]
