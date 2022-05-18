@@ -276,7 +276,7 @@
 			&.active {
 				background-color: var(--appColorPrimary);
 				.voteText {
-					color: var(--appBGColor);
+					color: var(--appColorWhite);
 				}
 			}
 		}
@@ -284,7 +284,7 @@
 			&.active {
 				background-color: var(--appDelColor);
 				.voteText {
-					color: var(--appBGColor);
+					color: var(--appColorWhite);
 				}
 			}
 		}
@@ -414,7 +414,7 @@
 						.tooltipText {
 							background-color: var(--mythicColor);
 							border-radius: 5px;
-							color: var(--appBGColor);
+							color: var(--appColorWhite);
 							font-size: 0.6rem;
 							font-weight: bold;
 							padding: 3px;
