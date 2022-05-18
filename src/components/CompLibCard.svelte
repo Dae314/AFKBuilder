@@ -276,7 +276,7 @@
 			&.active {
 				background-color: var(--appColorPrimary);
 				.voteText {
-					color: var(--appBGColor);
+					color: var(--appColorWhite);
 				}
 			}
 		}
@@ -284,7 +284,7 @@
 			&.active {
 				background-color: var(--appDelColor);
 				.voteText {
-					color: var(--appBGColor);
+					color: var(--appColorWhite);
 				}
 			}
 		}
@@ -304,6 +304,7 @@
 					align-items: center;
 					background-color: transparent;
 					border: none;
+					color: var(--appColorBlack);
 					cursor: pointer;
 					display: flex;
 					margin: 0;
@@ -360,6 +361,7 @@
 		}
 		.compTitleContainer {
 			.compTitle {
+				color: var(--appColorBlack);
 				display: -webkit-box;
 				font-weight: bold;
 				font-size: 2rem;
@@ -412,7 +414,7 @@
 						.tooltipText {
 							background-color: var(--mythicColor);
 							border-radius: 5px;
-							color: var(--appBGColor);
+							color: var(--appColorWhite);
 							font-size: 0.6rem;
 							font-weight: bold;
 							padding: 3px;

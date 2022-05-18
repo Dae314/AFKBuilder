@@ -150,10 +150,12 @@
 	}
 
 	function handlePortraitClick(heroID) {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
+			styleWindow: { background: bgColor },
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
 		});
 	}
 
@@ -391,6 +393,7 @@
 		padding: 0;
 		.sectionButton {
 			align-items: center;
+			background: var(--appBGColor);
 			border: none;
 			border-radius: 10px;
 			box-shadow: var(--neu-med-i-BGColor-shadow);
@@ -406,7 +409,7 @@
 				opacity: 0.5;
 			}
 			&.active {
-				background: var(--neu-convex-BGLight-bg);
+				background: var(--neu-convex-BGColor-bg);
 				span {
 					opacity: 1;
 				}

@@ -338,13 +338,15 @@
 			default:
 				throw new Error(`ERROR invalid category passed to handleAddFilterButtonClick: ${category}`);
 		}
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(FilterPicker,
 			{ category,
 				curFilter,
 				onSuccess: (filterList) => handleFilterChangeSuccess({filterList, category}),
 			},
 			{ closeButton: ModalCloseButton,
-				styleContent: {background: '#F0F0F2', borderRadius: '10px'},
+				styleWindow: { background: bgColor },
+				styleContent: {background: bgColor, borderRadius: '10px'},
 			}
 		);
 	}
@@ -495,10 +497,10 @@
 		<div class="mobileSearchArea">
 			<input id="compSearch" value={searchStr} on:search={handleSearchStrChange} class="filterInput" type="search" placeholder="Search titles or tags" />
 			<button type="button" class="headButton searchButton" on:click|stopPropagation={handleSearchButtonClick}>
-				<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
+				<img class="searchImage" class:light={$AppData.colorProfile === 'light'} src="./img/utility/search_white.png" alt="search" />
 			</button>
 			<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click|stopPropagation={() => showFilters = !showFilters}>
-				<img class="openFiltersImage" src='./img/utility/filter_white.png' alt="Open Filters">
+				<img class="openFiltersImage" class:light={$AppData.colorProfile === 'light'} src='./img/utility/filter_white.png' alt="Open Filters">
 			</button>
 		</div>
 	</div>
@@ -663,12 +665,17 @@
 				border: none;
 				border-radius: 5px;
 				box-shadow: var(--neu-med-i-BGColor-shadow);
+				color: var(--appColorBlack);
 				font-size: 1.2rem;
 				outline: none;
 				padding: 8px;
 				width: 100%;
 				&:focus {
-					background-color: white;
+					background-color: var(--appTextInputFocusBG);
+				}
+				&::placeholder {
+					color: var(--appColorBlack);
+					opacity: 0.5;
 				}
 			}
 			.searchButton {
@@ -676,7 +683,9 @@
 				.searchImage {
 					max-width: 25px;
 					opacity: 0.3;
-					filter: invert(1);
+					&.light {
+						filter: invert(1);
+					}
 				}
 			}
 			.openFiltersButton {
@@ -684,7 +693,9 @@
 				.openFiltersImage {
 					max-width: 25px;
 					opacity: 0.3;
-					filter: invert(1);
+					&.light {
+						filter: invert(1);
+					}
 				}
 				&.open {
 					.openFiltersImage {
@@ -717,7 +728,7 @@
 			display: flex;
 			.filterArea {
 				align-items: center;
-				border-right: 1px solid black;
+				border-right: 1px solid var(--appColorBlack);
 				display: flex;
 				flex-direction: column;
 				width: 33.33%;
@@ -729,7 +740,7 @@
 					border: none;
 					border-radius: 10px;
 					box-shadow: var(--neu-sm-i-BGColor-shadow);
-					color: black;
+					color: var(--appColorBlack);
 					cursor: pointer;
 					padding: 5px;
 					font-size: 1rem;
@@ -746,7 +757,7 @@
 						border: none;
 						border-radius: 30px;
 						box-shadow: var(--neu-sm-i-BGColor-shadow);
-						color: black;
+						color: var(--appColorBlack);
 						cursor: pointer;
 						font-size: 0.7rem;
 						flex-grow: 0;
@@ -789,11 +800,19 @@
 		}
 		:global(#timeSlider) {
 			:global(.rangeBar) {
-				background-color: var(--appColorPriDark);
+				background-color: var(--appColorTertiary);
 			}
 			:global(.rangeHandle) {
 				:global(.rangeNub) {
 					background-color: var(--appColorBlack);
+				}
+			}
+			:global(.rangePips) {
+				:global(.pip) {
+					background-color: var(--appColorBlack);
+					:global(.pipVal) {
+						color: var(--appColorBlack);
+					}
 				}
 			}
 		}
@@ -805,8 +824,10 @@
 			font-size: 0.9rem;
 			margin-left: auto;
 			.exploreSelect {
-				border: 1px solid black;
+				background: var(--appBGColor);
+				border: 1px solid var(--appColorBlack);
 				border-radius: 5px;
+				color: var(--appColorBlack);
 				outline: none;
 				padding: 3px;
 			}
@@ -858,8 +879,10 @@
 				font-size: 0.9rem;
 			}
 			.exploreSelect {
-				border: 1px solid black;
+				background: var(--appBGColor);
+				border: 1px solid var(--appColorBlack);
 				border-radius: 5px;
+				color: var(--appColorBlack);
 				outline: none;
 				padding: 3px;
 			}
@@ -896,6 +919,22 @@
 		}
 		.filterContainer {
 			width: 75%;
+			.primaryFilters {
+				.filterArea {
+					.filterItems {
+						.rmFilterButton {
+							&:hover {
+								background-color: var(--appDelColor);
+								color: var(--appColorWhite);
+								&:before {
+									background-color: var(--appBGColor);
+									color: var(--appDelColor);
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 		.pageSortArea {
 			padding-left: 12.5%;

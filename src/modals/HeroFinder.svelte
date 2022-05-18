@@ -456,10 +456,10 @@
 						<input type="search" placeholder="Search" class="mobileSearch" bind:value={searchStr} on:keyup={() => heroes = makeHeroList()} on:search={() => heroes = makeHeroList()}>
 						<input type="search" placeholder="Search" class="desktopSearch" bind:this={desktopSearch} bind:value={searchStr} on:keyup={() => heroes = makeHeroList()} on:search={() => heroes = makeHeroList()}>
 						<button type="button" class="headButton searchButton" on:click={handleSearchButtonClick}>
-							<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
+							<img class="searchImage" class:light={$AppData.colorProfile === 'light'} src="./img/utility/search_white.png" alt="search" />
 						</button>
 						<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
-							<img class="openFiltersImage" src="./img/utility/filter_white.png" alt="Open Filters">
+							<img class="openFiltersImage" class:light={$AppData.colorProfile === 'light'} src="./img/utility/filter_white.png" alt="Open Filters">
 						</button>
 					</div>
 					<div class="filters" class:open={showFilters}>
@@ -771,12 +771,17 @@
 					border: none;
 					border-radius: 5px;
 					box-shadow: var(--neu-sm-i-BGColor-shadow);
+					color: var(--appColorBlack);
 					font-size: 1rem;
 					outline: none;
 					padding: 5px;
 					width: 100%;
 					&:focus {
-						background-color: white;
+						background-color: var(--appTextInputFocusBG);
+					}
+					&::placeholder {
+						color: var(--appColorBlack);
+						opacity: 0.5;
 					}
 				}
 				.headButton {
@@ -799,7 +804,9 @@
 					.searchImage {
 						max-width: 20px;
 						opacity: 0.3;
-						filter: invert(1);
+						&.light {
+							filter: invert(1);
+						}
 					}
 				}
 				.openFiltersButton {
@@ -807,7 +814,9 @@
 					.openFiltersImage {
 						max-width: 20px;
 						opacity: 0.3;
-						filter: invert(1);
+						&.light {
+							filter: invert(1);
+						}
 					}
 					&.open {
 						.openFiltersImage {
@@ -851,9 +860,11 @@
 				}
 				.filterMasterButton {
 					align-items: center;
+					background: var(--appBGColor);
 					border: 3px solid var(--appColorPrimary);
 					border-radius: 50%;
 					color: var(--appColorPrimary);
+					cursor: pointer;
 					display: flex;
 					font-size: 0.6rem;
 					height: 33px;
@@ -918,6 +929,7 @@
 				max-width: 100px;
 			}
 			p {
+				color: var(--appColorBlack);
 				font-weight: bold;
 				margin: 0;
 			}
@@ -1064,11 +1076,17 @@
 					border: none;
 					border-radius: 10px;
 					box-shadow: var(--neu-sm-i-BGColor-shadow);
+					color: var(--appColorBlack);
 					height: 100px;
 					outline: 0;
+					padding: 5px;
 					width: 100%;
 					&:focus {
-						background-color: white;
+					background-color: var(--appTextInputFocusBG);
+					}
+					&::placeholder {
+						color: var(--appColorBlack);
+						opacity: 0.5;
 					}
 				}
 				.noteLimitArea {
@@ -1123,6 +1141,7 @@
 						flex-direction: column;
 						justify-content: center;
 						p {
+							color: var(--appColorBlack);
 							font-size: 0.8rem;
 							margin: 0;
 							width: 80px;
@@ -1179,6 +1198,7 @@
 			max-width: 60px;
 		}
 		p {
+			color: var(--appColorBlack);
 			margin: 0;
 			width: 80px;
 			overflow: hidden;

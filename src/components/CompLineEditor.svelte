@@ -296,14 +296,19 @@
 				border: none;
 				border-radius: 5px;
 				box-shadow: var(--neu-sm-i-BGColor-shadow);
+				color: var(--appColorBlack);
 				font-weight: bold;
 				outline: none;
 				padding: 3px;
 				text-align: center;
 				width: 100px;
 				&:focus {
-					background-color: white;
+					background-color: var(--appTextInputFocusBG);
 					box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
+				}
+				&::placeholder {
+					color: var(--appColorBlack);
+					opacity: 0.5;
 				}
 				&.invalid {
 					outline: 2px solid var(--appDelColor);
@@ -443,6 +448,7 @@
 			align-items: center;
 			background-color: transparent;
 			border: none;
+			color: var(--appColorBlack);
 			cursor: pointer;
 			display: flex;
 			font-size: 2rem;
@@ -489,7 +495,7 @@
 		.noLine {
 			align-items: center;
 			height: 100%;
-			color: var(--appColorDisabled);
+			color: var(--appColorBlack);
 			font-size: 1.5rem;
 			font-weight: bold;
 			justify-content: center;

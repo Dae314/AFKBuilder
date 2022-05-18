@@ -95,8 +95,8 @@
 		user-select: none;
 		width: 25px;
 		&:disabled {
-			color: var(--appColorPriAccent);
-			border-color: var(--appColorPriAccent);
+			color: var(--appColorDisabled);
+			cursor: default;
 		}
 	}
 	.numInput {
@@ -104,6 +104,7 @@
 		border: none;
 		border-radius: 5px;
 		box-shadow: var(--neu-sm-i-BGColor-shadow);
+		color: var(--appColorBlack);
 		height: 25px;
 		outline: none;
 		text-align: center;
@@ -115,11 +116,11 @@
 			margin: 0;
 		}
 		&:focus {
-			background-color: white;
+			background-color: var(--appTextInputFocusBG);
 		}
 		&:disabled {
 			background-color: var(--appBGColor);
-			color: rgba(0, 0, 0, 0.5);
+			color: var(--appColorDisabled);
 			border-color: var(--appColorPriAccent);
 		}
 	}

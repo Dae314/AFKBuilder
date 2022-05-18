@@ -24,7 +24,7 @@
 		text-align: center;
 		width: inherit;
 		&:before {
-			background-color: var(--appBGColor);
+			background-color: var(--appColorWhite);
 			content: '';
 			height: 2px;
 			left: 0;
@@ -35,7 +35,7 @@
 			transform: rotate(45deg);
 		}
 		&:after {
-			background-color: var(--appBGColor);
+			background-color: var(--appColorWhite);
 			content: '';
 			height: 2px;
 			left: 0;
@@ -48,7 +48,7 @@
 	}
 	.label {
 		bottom: 20px;
-		color: var(--appBGColor);
+		color: var(--appColorWhite);
 		cursor: pointer;
 		font-size: 0.6rem;
 		height: inherit;

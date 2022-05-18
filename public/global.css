@@ -16,7 +16,7 @@ html {
 	--appColorPriDark: #3B62D6;
 	--appColorPriOpaque: rgb(107, 141, 242, 0.30);
 	--appBGColor: #F0F0F2;
-	--appBGColorDark: #e2e2e2;
+	--appBGColorDark: #c2c2c2;
 	--appBGColorLight: #f6f6f6;
 	--appDelColor: #F26B6B;
 	--appDelColorOpaque: rgba(242, 107, 107, 0.90);
@@ -25,6 +25,11 @@ html {
 	--appColorQuaternary: #94C6F2;
 	--appColorDisabled: #7e7e7e;
 	--appColorBlack: #333;
+	--appColorWhite: #F0F0F2;
+	--appHeaderHighlight: #4567CC;
+	--appTextInputFocusBG: #FFF;
+	--appFilterColorPrimary: #d6d6d6;
+	--appFilterColorSecondary: #999;
 	--googleProviderColor: #EA4335;
 	--facebookProviderColor: #1094F4;
 	--discordProviderColor: #5865F2;
@@ -46,8 +51,10 @@ html {
 	--neu-med-i-BGColor-pressed-shadow: 3px 3px 5px #ccccce, -3px -3px 5px #ffffff;
 	--neu-med-i-BGColor-inset-shadow: inset 5px 5px 8px #ccccce, inset -5px -5px 8px #ffffff;
 	--neu-sm-i-BGColor-shadow: 5px 5px 5px #ccccce, -5px -5px 5px #ffffff;
+	--neu-sm-i-BGLight-shadow: 5px 5px 5px #d1d1d1, -5px -5px 5px #ffffff;
 	--neu-sm-i-BGColor-hover-shadow: 8px 8px 10px #ccccce, -8px -8px 10px #ffffff;
 	--neu-sm-i-BGColor-pressed-shadow: 3px 3px 3px #ccccce, -3px -3px 3px #ffffff;
+	--neu-sm-i-BGLight-pressed-shadow: 3px 3px 3px #d1d1d1, -3px -3px 3px #ffffff;
 	--neu-med-ni-BGColor-shadow: 5px 5px 8px #ccccce, -5px -5px 8px #ffffff;
 	--neu-sm-ni-BGColor-shadow: 5px 5px 5px #ccccce, -5px -5px 5px #ffffff;
 	--neu-sm-ni-BGColor-pressed-shadow: 3px 3px 3px #ccccce, -3px -3px 3px #ffffff;
@@ -73,7 +80,7 @@ html {
 }
 
 body {
-	color: #333;
+	color: var(--appColorBlack);
 	margin: 0px;
 	padding: 0px;
 	box-sizing: border-box;

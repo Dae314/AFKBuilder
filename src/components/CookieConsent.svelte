@@ -31,6 +31,7 @@
 		bottom: 20px;
 		border-radius: 10px;
 		box-shadow: var(--neu-large-ni-BGColor-shadow);
+		color: var(--appColorBlack);
 		height: fit-content;
 		left: 5%;
 		padding: 10px;
@@ -39,7 +40,6 @@
 		width: 90%;
 		z-index: 5;
 		.cookieConsentText {
-			color: rgba(0, 0, 0, 0.88);
 			padding: 10px;
 		}
 		.closeButton {

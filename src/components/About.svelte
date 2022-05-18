@@ -33,13 +33,14 @@
 	});
 
 	function handleClearDataButtonClick() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(Confirm,
 			{onConfirm: clearData, message: "Are you sure you want to CLEAR ALL DATA?"},
 			{ closeButton: false,
 				closeOnEsc: true,
 				closeOnOuterClick: true,
-				styleWindow: { width: 'fit-content' },
-				styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
+				styleWindow: { width: 'fit-content', background: bgColor },
+				styleContent: { width: 'fit-content', background: bgColor, borderRadius: '10px' },
 			});
 	}
 
@@ -47,15 +48,22 @@
 		dispatch('routeEvent', {action: 'resetTutorial'});
 	}
 
+	function handleColorButtonClick() {
+		const newMode = $AppData.colorProfile === 'light' ? 'dark' : 'light';
+		dispatch('routeEvent', {action: 'changeColorProfile', data: {newMode}});
+	}
+
 	function clearData() {
 		dispatch('routeEvent', {action: 'clearData'});
 	}
 
 	function openChangeLog() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(ChangeLog,
 		{},
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
+			styleWindow: { background: bgColor },
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
 		});
 	}
 </script>
@@ -168,6 +176,7 @@
 	<section class="config">
 		<button type="button" class="configButton clearButton" on:click={handleClearDataButtonClick}><span>Clear Data</span></button>
 		<button type="button" class="configButton tutorialButton" on:click={handleTutorialButtonClick}><span>Reset Tutorial</span></button>
+		<button type="button" class="configButton colorButton" class:darkButton={$AppData.colorProfile === 'light'} on:click={handleColorButtonClick}><span>{$AppData.colorProfile === 'light' ? 'Dark Mode' : 'Light Mode'}</span></button>
 		<form action="https://forms.gle/oKDQj2Jjqmf5DoTCA" target="_blank" rel="noreferrer noopener">
 			<input class="configButton feedbackButton" type="submit" value="Send Feedback" />
 		</form>
@@ -192,6 +201,7 @@
 		border: none;
 		border-radius: 5px;
 		box-shadow: var(--neu-sm-i-BGColor-shadow);
+		color: var(--appColorBlack);
 		cursor: pointer;
 		outline: none;
 		padding: 5px;
@@ -325,6 +335,10 @@
 			outline: none;
 			padding: 10px;
 			transition: all 0.2s;
+			&.darkButton {
+				background-color: #2E3440;
+				color: #ECEFF4;
+			}
 		}
 		.clearButton {
 			border-color: var(--appDelColor);
@@ -379,6 +393,11 @@
 			.configButton {
 				&:hover {
 					background: var(--neu-convex-BGColor-wide-bg);
+				}
+				&.darkButton {
+					&:hover {
+						background: #2E3440;
+					}
 				}
 			}
 			.clearButton {

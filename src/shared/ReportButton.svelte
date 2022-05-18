@@ -9,10 +9,12 @@
 	const { open } = getContext('simple-modal');
 
 	function handleReportClick() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(Report, 
 		{ target: {type: reportType, data: reportData}, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px'},
+			styleWindow: { background: bgColor },
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px'},
 		});
 	}
 </script>
@@ -30,7 +32,7 @@
 		border: none;
 		border-radius: 10px;
 		box-shadow: var(--neu-sm-i-BGColor-shadow);
-		color: var(--appBGColor);
+		color: var(--appColorWhite);
 		cursor: pointer;
 		justify-content: center;
 		outline: none;

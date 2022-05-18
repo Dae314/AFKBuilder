@@ -111,6 +111,7 @@
 
 <style lang="scss">
 	.reportContainer {
+		color: var(--appColorBlack);
 		padding: 10px;
 	}
 	.loadingDiv {
@@ -135,24 +136,31 @@
 			padding-bottom: 3px;
 		}
 		select {
-			border: 1px solid black;
+			background: var(--appBGColor);
+			border: 1px solid var(--appColorBlack);
 			border-radius: 5px;
+			color: var(--appColorBlack);
 			outline: none;
 			padding: 3px;
 			width: fit-content;
 		}
 		textarea {
-			background: var(--appBGColor);
+			background-color: var(--appBGColorLight);
 			border: none;
 			border-radius: 10px;
 			box-shadow: var(--neu-sm-i-BGColor-shadow);
+			color: var(--appColorBlack);
 			height: 100px;
 			margin-top: 5px;
 			outline: 0;
 			padding: 5px;
 			width: 100%;
 			&:focus {
-				background-color: white;
+				background-color: var(--appTextInputFocusBG);
+			}
+			&::placeholder {
+				color: var(--appColorBlack);
+				opacity: 0.5;
 			}
 		}
 		.submitArea {

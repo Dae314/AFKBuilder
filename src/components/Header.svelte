@@ -55,7 +55,12 @@
 	}
 
 	function handleLoginClick() {
-		open(ChooseLogin, {}, { closeButton: ModalCloseButton, });
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
+		open(ChooseLogin, {}, {
+			closeButton: ModalCloseButton,
+			styleWindow: { background: bgColor },
+			styleContent: {background: bgColor, borderRadius: '10px'},
+		});
 	}
 </script>
 
@@ -69,7 +74,7 @@
 		<button class="expandButton" on:click={handleExpandButtonClick}>
 			<img class="expandImage" src={$AppData.expandHeader ? './img/utility/collapse_white.png' : './img/utility/expand_white.png'} alt={$AppData.expandHeader ? 'collapse' : 'expand'}>
 		</button>
-		<ul class="navbar-list {showMobileMenu ? 'mobile' : ''}">
+		<ul class="navbar-list" class:mobile={showMobileMenu} class:dark={$AppData.colorProfile === 'dark'}>
 			<li class="logoContainer" on:click={() => handleMenuChange(menu[1].name.toLowerCase().replace(/\s/g, ''))}>
 				<button type="button" class="logo"><img src="./img/app/afkbuilder_logo.png" alt="AFKBuilder"></button>
 			</li>
@@ -150,7 +155,7 @@
 			position: relative;
 			width: 35px;
 			&:after {
-				background-color: var(--appBGColor);
+				background-color: var(--appColorWhite);
 				content: "";
 				height: 3px;
 				left: 0px;
@@ -162,7 +167,7 @@
 				width: 33%;
 			}
 			&:before {
-				background-color: var(--appBGColor);
+				background-color: var(--appColorWhite);
 				content: "";
 				height: 3px;
 				left: 0px;
@@ -182,7 +187,7 @@
 				}
 			}
 			.middle-line {
-				background-color: var(--appBGColor);
+				background-color: var(--appColorWhite);
 				content: "";
 				height: 3px;
 				position: absolute;
@@ -419,7 +424,7 @@
 				&:hover {
 					button {
 						background-color: var(--appColorTertiary);
-						color: var(--appBGColor);
+						color: var(--appColorWhite);
 					}
 				}
 				&:before {
@@ -428,7 +433,7 @@
 			}
 			button {
 				border-radius: 10px 0px 0px 10px;
-				box-shadow:   18px 18px 39px #2b4180, -18px -18px 39px #4567cc;
+				box-shadow: 18px 18px 39px #2b4180, -18px -18px 39px #4567cc;
 				color: rgba(240, 240, 242, 0.8);
 				margin: 10px 0px;
 				padding: 10px 0px 10px 15px;
@@ -436,7 +441,7 @@
 			}
 			button.selected {
 				background-color: var(--appColorTertiary);
-				color: var(--appBGColor);
+				color: var(--appColorWhite);
 			}
 			.mobileUserItem {
 				display: none;
@@ -452,8 +457,13 @@
 				}
 				&:hover {
 					.discordButton {
-						color: var(--appBGColor);
+						color: var(--appColorWhite);
 					}
+				}
+			}
+			&.dark {
+				button {
+					box-shadow: 18px 18px 39px #4b678a, -18px -18px 39px #719bce;
 				}
 			}
 		}
@@ -482,7 +492,7 @@
 					width: 40px;
 				}
 				&:hover {
-					background-color: #4567cc;
+					background-color: var(--appHeaderHighlight);
 				}
 			}
 		}

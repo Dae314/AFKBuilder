@@ -166,6 +166,7 @@
 
 <style lang="scss">
 	.container {
+		color: var(--appColorBlack);
 		position: relative;
 		padding: 0px 10px;
 	}
@@ -340,7 +341,7 @@
 		border: none;
 		border-radius: 10px;
 		box-shadow: var(--neu-med-i-BGColor-shadow);
-		color: black;
+		color: var(--appColorBlack);
 		cursor: pointer;
 		font-size: 1.1rem;
 		outline: none;
@@ -348,7 +349,7 @@
 		text-align: left;
 		width: 100%;
 		.expanderArrow {
-			border: solid black;
+			border: solid var(--appColorBlack);
 			border-width: 0 3px 3px 0;
 			display: inline-block;
 			margin-right: 16px;

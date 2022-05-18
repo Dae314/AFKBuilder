@@ -123,6 +123,7 @@
 	.importLineContainer {
 		background: var(--appBGColor);
 		border-radius: 10px;
+		color: var(--appColorBlack);
 		height: 70%;
 		overflow-x: hidden;
 		overflow-y: auto;
@@ -203,6 +204,7 @@
 		border: none;
 		border-radius: 10px;
 		box-shadow: var(--neu-med-i-BGColor-shadow);
+		color: var(--appColorBlack);
 		cursor: pointer;
 		flex-direction: column;
 		outline: none;
