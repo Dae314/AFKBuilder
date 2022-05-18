@@ -155,7 +155,7 @@
 			position: relative;
 			width: 35px;
 			&:after {
-				background-color: var(--appBGColor);
+				background-color: var(--appColorWhite);
 				content: "";
 				height: 3px;
 				left: 0px;
@@ -167,7 +167,7 @@
 				width: 33%;
 			}
 			&:before {
-				background-color: var(--appBGColor);
+				background-color: var(--appColorWhite);
 				content: "";
 				height: 3px;
 				left: 0px;
@@ -187,7 +187,7 @@
 				}
 			}
 			.middle-line {
-				background-color: var(--appBGColor);
+				background-color: var(--appColorWhite);
 				content: "";
 				height: 3px;
 				position: absolute;
