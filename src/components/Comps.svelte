@@ -1072,6 +1072,7 @@
 					<span>Show Hidden</span>
 					<ToggleSwitch
 						size="small"
+						offColor={window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColorLight')}
 						bind:state={$AppData.compShowHidden}
 						on:toggleEvent={handleShowHiddenChange}
 					/>
