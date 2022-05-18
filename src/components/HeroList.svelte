@@ -121,10 +121,12 @@
 	}
 
 	function handleHeroClick(heroID) {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
+			styleWindow: { background: bgColor },
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: modalHeight,},
 		});
 	}
 
@@ -201,10 +203,10 @@
 		<div class="searchArea">
 			<input id="searchBox" type="search" placeholder="Search" bind:value={$AppData.HL.SearchStr} on:keyup={updateSearch} on:search={updateSearch}>
 			<button type="button" class="headButton searchButton" on:click={updateSearch}>
-				<img class="searchImage" src="./img/utility/search_white.png" alt="search" />
+				<img class="searchImage" class:light={$AppData.colorProfile === 'light'} src="./img/utility/search_white.png" alt="search" />
 			</button>
 			<button type="button" class="headButton openFiltersButton" class:open={showFilters} on:click={() => showFilters = !showFilters}>
-				<img class="openFiltersImage" src="./img/utility/filter_white.png" alt="Open Filters">
+				<img class="openFiltersImage" class:light={$AppData.colorProfile === 'light'} src="./img/utility/filter_white.png" alt="Open Filters">
 			</button>
 		</div>
 		<div class="filterArea" class:open={showFilters}>
@@ -342,12 +344,17 @@
 				border: none;
 				border-radius: 5px;
 				box-shadow: var(--neu-med-i-BGColor-shadow);
+				color: var(--appColorBlack);
 				font-size: 1.2rem;
 				outline: none;
 				padding: 8px;
 				width: 100%;
 				&:focus {
-					background-color: white;
+					background-color: var(--appTextInputFocusBG);
+				}
+				&::placeholder {
+					color: var(--appColorBlack);
+					opacity: 0.5;
 				}
 			}
 			.headButton {
@@ -369,7 +376,9 @@
 				.searchImage {
 					max-width: 25px;
 					opacity: 0.3;
-					filter: invert(1);
+					&.light {
+						filter: invert(1);
+					}
 				}
 			}
 			.openFiltersButton {
@@ -377,7 +386,9 @@
 				.openFiltersImage {
 					max-width: 25px;
 					opacity: 0.3;
-					filter: invert(1);
+					&.light {
+						filter: invert(1);
+					}
 				}
 				&.open {
 					.openFiltersImage {
@@ -418,6 +429,7 @@
 			}
 			.filterMasterButton {
 				align-items: center;
+				background: var(--appBGColor);
 				border: 3px solid var(--appColorPrimary);
 				border-radius: 50%;
 				color: var(--appColorPrimary);

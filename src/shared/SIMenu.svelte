@@ -12,55 +12,59 @@
 	let fullItems = [];
 	let menuItemsStyle = [];
 	let fullItemsStyle = [];
+
+	const appBGColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
+	const appColorPrimary = window.getComputedStyle(document.documentElement).getPropertyValue('--appColorPrimary');
+
 	if(si40) {
 		menuItems = ['OFF', '+0', '+5', '+10', '+15', '+20', '+25', '+30', '+35', '+40'];
 		fullItems = ['SI OFF', 'SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30', 'SI +35', 'SI +40'];
 		menuItemsStyle = [
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
 		];
 		fullItemsStyle = [
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
 		];
 	} else {
 		menuItems = ['OFF', '+0', '+5', '+10', '+15', '+20', '+25', '+30'];
 		fullItems = ['SI OFF', 'SI +0', 'SI +5', 'SI +10', 'SI +15', 'SI +20', 'SI +25', 'SI +30'];
 		menuItemsStyle = [
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
 		];
 		fullItemsStyle = [
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
-			'background-color: #F0F0F2; color: #6B8DF2; border: none;',
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
+			`background-color: ${appBGColor}; color: ${appColorPrimary}; border: none;`,
 		];
 	}
 

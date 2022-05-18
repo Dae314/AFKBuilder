@@ -153,15 +153,15 @@
 			transform: translate(-50%, -50%);
 		}
 		&.inactive {
-			background-color: gray;
+			background-color: var(--appColorDisabled);
 			color: white;
 		}
 	}
 	.menu-item {
 		align-items: center;
-		border: 2px solid #333;
+		border: 2px solid var(--appColorBlack);
 		border-radius: 50%;
-		color: #333;
+		color: var(--appColorBlack);
 		cursor: pointer;
 		display: flex;
 		font-size: 1.05rem;
@@ -179,7 +179,7 @@
 		width: 55px;
 	}
 	.menu-open-button {
-		border: 2px solid #333;
+		border: 2px solid var(--appColorBlack);
 		border-radius: 10px;
 		box-shadow: var(--neu-sm-i-BGColor-shadow);
 		cursor: pointer;

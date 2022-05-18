@@ -40,6 +40,7 @@
 
 <style lang="scss">
 	.text {
+		color: var(--appColorBlack);
 		display: flex;
 		font-size: 1.2rem;
 		justify-content: center;

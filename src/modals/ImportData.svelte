@@ -76,6 +76,7 @@
 		width: 100%;
 	}
 	.titleContainer {
+		color: var(--appColorBlack);
 		display: flex;
 		justify-content: left;
 		padding-bottom: 10px;
@@ -87,6 +88,7 @@
 		user-select: none;
 	}
 	.dataInput {
+		color: var(--appColorBlack);
 		background-color: var(--appBGColor);
 		border: none;
 		border-radius: 10px;
@@ -97,7 +99,7 @@
 		padding: 5px;
 		width: 95%;
 		&:focus {
-			background-color: white;
+			background-color: var(--appTextInputFocusBG);
 		}
 	}
 	.footer {
@@ -115,7 +117,7 @@
 		border: none;
 		border-radius: 5px;
 		box-shadow: var(--neu-sm-ni-BGColor-shadow);
-		color: var(--appColorBlack);
+		color: #333;
 		padding: 3px 10px;
 		visibility: hidden;
 		width: fit-content;
@@ -124,7 +126,7 @@
 		}
 		&.error {
 			background-color: var(--appDelColor);
-			color: var(--appBGColor);
+			color: var(--appColorBlack);
 		}
 	}
 	.submitArea {

@@ -143,24 +143,26 @@
 	}
 
 	function handleLogoutClick() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(Confirm,
 			{onConfirm: handleLogout, message: "Are you sure you want to logout?"},
 			{ closeButton: false,
 				closeOnEsc: true,
 				closeOnOuterClick: true,
-				styleWindow: { width: 'fit-content' },
-				styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
+				styleWindow: { width: 'fit-content', background: bgColor },
+				styleContent: { width: 'fit-content', background: bgColor, borderRadius: '10px' },
 			});
 	}
 
 	function handleDeleteUserClick() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(Confirm,
 			{onConfirm: handleDeleteUser, message: "Are you sure you want to permanently delete your account?<br/><br/>This action cannot be undone. Your published comps will remain published but will be owned by an anonymous user, and you will no longer be able to update them.<br/><br/>If you do not want your comps to be available, please unpublish your comps before you delete your account."},
 			{ closeButton: false,
 				closeOnEsc: true,
 				closeOnOuterClick: true,
-				styleWindow: { width: 'fit-content' },
-				styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
+				styleWindow: { width: 'fit-content', background: bgColor },
+				styleContent: { width: 'fit-content', background: bgColor, borderRadius: '10px' },
 			});
 	}
 
@@ -225,7 +227,7 @@
 							on:keyup={handleUsernameKeyup} />
 						<span class="usernameEdit">
 							<button class="usernameEditButton" on:click={handleUsernameEditClick}>
-								<img src="./img/utility/pencil_white.png" alt="edit username">
+								<img class:light={$AppData.colorProfile === 'light'} src="./img/utility/pencil_white.png" alt="edit username">
 							</button>
 						</span>
 						<div class="usernameErrorText" class:visible={usernameError.state}><span>{usernameError.text}</span></div>
@@ -275,7 +277,7 @@
 		text-align: center;
 		width: 100%;
 		.noLogin {
-			color: rgba(0, 0, 0, 0.6);
+			color: var(--appColorBlack);
 			font-size: 2.5rem;
 		}
 	}
@@ -333,12 +335,15 @@
 				outline: none;
 				img {
 					max-width: 29px;
-					filter: invert(1);
 					opacity: 0.7;
+					&.light {
+						filter: invert(1);
+					}
 				}
 			}
 		}
 		#usernameInput {
+			color: var(--appColorBlack);
 			font-size: 1.5rem;
 			font-weight: bold;
 			height: fit-content;

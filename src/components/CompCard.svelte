@@ -59,13 +59,14 @@
 						<img
 							draggable="false"
 							class="deleteIcon"
+							class:light={$AppData.colorProfile === 'light'}
 							src={comp.source === 'local' ? './img/utility/trashcan_white.png' : './img/utility/favorite_unfilled_white.png'}
 							alt="Delete">
 					</button>
 					<div class="tooltip deleteTooltip"><span class="tooltipText">{comp.source === 'local' ? 'Delete' : 'Unfavorite'}</span></div>
 				</div>
 				<div class="buttonArea">
-					<img class="publishedIcon" class:published={published} src="./img/utility/explore_white.png" alt="{published ? 'Published' : 'Unpublished'}" draggable="false" />
+					<img class="publishedIcon" class:published={published} class:light={$AppData.colorProfile === 'light'} src="./img/utility/explore_white.png" alt="{published ? 'Published' : 'Unpublished'}" draggable="false" />
 					<div class="tooltip publishedTooltip"><span class="tooltipText">{published ? 'Published' : 'Unpublished'}</span></div>
 				</div>
 				<div class="buttonArea groupArea">
@@ -76,6 +77,7 @@
 						<img
 							draggable="false"
 							class="groupIcon"
+							class:light={$AppData.colorProfile === 'light'}
 							src="./img/utility/group_manage_white.png"
 							alt="Edit Groups">
 					</button>
@@ -207,8 +209,10 @@
 						cursor: not-allowed;
 					}
 					.deleteIcon {
-						filter: invert(1.0);
 						max-width: 15px;
+						&.light {
+							filter: invert(1.0);
+						}
 						&.disabled {
 							filter: invert(0.35);
 						}
@@ -216,9 +220,11 @@
 				}
 				.publishedIcon {
 					cursor: default;
-					filter: invert(1.0);
 					max-width: 20px;
 					opacity: 35%;
+					&.light {
+						filter: invert(1.0);
+					}
 					&.published {
 						opacity: 100%;
 					}
@@ -233,8 +239,10 @@
 						outline: 0;
 						padding: 0;
 						.groupIcon {
-							filter: invert(1.0);
 							max-width: 15px;
+							&.light {
+								filter: invert(1.0);
+							}
 						}
 					}
 					.groupListArea {
@@ -277,6 +285,7 @@
 								border-radius: 3px;
 								background-color: var(--appBGColor);
 								box-shadow: var(--neu-sm-ni-BGColor-shadow);
+								color: var(--appColorBlack);
 								cursor: pointer;
 								outline: none;
 								overflow: hidden;
@@ -289,7 +298,7 @@
 								&.claimed {
 									background: var(--appColorPrimary);
 									box-shadow: var(--neu-sm-i-BGColor-pressed-shadow);
-									color: var(--appBGColor);
+									color: var(--appColorWhite);
 								}
 							}
 						}

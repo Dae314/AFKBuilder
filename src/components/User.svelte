@@ -169,7 +169,7 @@
 							{#each sections as section, i}
 								<li>
 									<button class="sectionButton" class:open={curSection === i} on:click={() => handleSectionClick(section.id)}>
-										<img class="sectionImage" src={section.icon} alt={section.name}>
+										<img class="sectionImage" class:light={$AppData.colorProfile === 'light'} src={section.icon} alt={section.name}>
 										<span>{section.name}</span>
 									</button>
 								</li>
@@ -219,7 +219,7 @@
 			bottom: 0;
 			width: 80%; // controls length
 			left: 10%; // controls centering, use % to center
-			border-bottom: 2px solid black;
+			border-bottom: 2px solid var(--appColorBlack);
 		}
 		.userArea {
 			align-items: center;
@@ -262,6 +262,7 @@
 						border: none;
 						border-radius: 10px;
 						box-shadow: var(--neu-sm-i-BGColor-shadow);
+						color: var(--appColorBlack);
 						cursor: pointer;
 						display: flex;
 						font-size: 1.2rem;
@@ -271,9 +272,11 @@
 						outline: none;
 						padding: 5px;
 						img {
-							filter: invert(1);
 							max-width: 30px;
 							opacity: 0.3;
+							&.light {
+								filter: invert(1);
+							}
 						}
 						span {
 							opacity: 0.3;

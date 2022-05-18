@@ -57,6 +57,7 @@
 
 <style lang="scss">
 	.chooseLoginContainer {
+		color: var(--appColorBlack);
 		width: fit-content;
 	}
 	.loadingSpinnerContainer {
@@ -67,6 +68,7 @@
 		width: 100%;
 	}
 	h4 {
+		color: var(--appColorBlack);
 		font-size: 1.2rem;
 		margin: 0;
 		padding-top: 10px;

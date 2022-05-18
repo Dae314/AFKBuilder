@@ -243,29 +243,34 @@
 	}
 
 	function openArtifactDetail(artifactID) {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(ArtifactDetail, 
 		{ artifactID: artifactID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+			styleWindow: { background: bgColor },
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
 		});
 	}
 
 	function handleHeroDetailClick(heroID) {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(HeroDetail, 
 		{ heroID: heroID, },
 		{ closeButton: ModalCloseButton,
-			styleContent: {background: '#F0F0F2', padding: 0, borderRadius: '10px', maxHeight: editorHeight },
+			styleWindow: { background: bgColor },
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight },
 		});
 	}
 
 	async function handleUnpublishClick() {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(Confirm,
 				{onConfirm: handleUnpublishComp, message: `Unpublish comp named ${comp.name}?<br/><br/>The comp will still be available in "Comps" but it will no longer be shared in the "Explore" area.`},
 				{closeButton: false,
 				 closeOnEsc: true,
 				 closeOnOuterClick: true,
-				 styleWindow: { width: 'fit-content' },
-				 styleContent: { width: 'fit-content', background: '#F0F0F2', borderRadius: '10px' },
+				 styleWindow: { width: 'fit-content', background: bgColor },
+				 styleContent: { width: 'fit-content', background: bgColor, borderRadius: '10px' },
 				});
 	}
 
@@ -604,6 +609,7 @@
 				align-items: center;
 				background: transparent;
 				border: none;
+				color: var(--appColorBlack);
 				cursor: pointer;
 				display: flex;
 				outline: none;
@@ -642,6 +648,7 @@
 						max-width: 20px;
 					}
 					p {
+						color: var(--appColorBlack);
 						margin: 0;
 						margin-left: 3px;
 						padding: 3px;
@@ -654,7 +661,7 @@
 					&.liked {
 						background-color: var(--appColorPrimary);
 						p {
-							color: var(--appBGColor);
+							color: var(--appColorWhite);
 						}
 					}
 				}
@@ -665,7 +672,7 @@
 					&.disliked {
 						background-color: var(--appDelColor);
 						p {
-							color: var(--appBGColor);
+							color: var(--appColorWhite);
 						}
 					}
 				}
@@ -676,7 +683,7 @@
 					&.favorited {
 						background-color: var(--mythicColor);
 						p {
-							color: var(--appBGColor);
+							color: var(--appColorWhite);
 						}
 					}
 				}
@@ -684,7 +691,7 @@
 					background-color: var(--appDelColor);
 					padding: 0px 8px;
 					p {
-						color: var(--appBGColor);
+						color: var(--appColorWhite);
 						display: none;
 					}
 				}
@@ -774,7 +781,7 @@
 			border: none;
 			border-radius: 10px;
 			box-shadow: var(--neu-med-i-BGColor-shadow);
-			color: black;
+			color: var(--appColorBlack);
 			cursor: pointer;
 			font-size: 1.1rem;
 			outline: none;
@@ -782,7 +789,7 @@
 			text-align: left;
 			width: 100%;
 			.expanderArrow {
-				border: solid black;
+				border: solid var(--appColorBlack);
 				border-width: 0 3px 3px 0;
 				display: inline-block;
 				margin-right: 16px;
@@ -920,6 +927,7 @@
 						max-width: 60px;
 					}
 					p {
+						color: var(--appColorBlack);
 						margin: 0;
 						max-width: 80px;
 						overflow: hidden;
@@ -1008,16 +1016,18 @@
 			}
 			:global(blockquote) {
 				border-left: 5px solid var(--appColorPriOpaque);
-				color: #999;
+				color: var(--appColorBlack);
 				margin-left: 20px;
 				padding-left: 5px;
 			}
-			:global(pre) {
+			:global(pre), :global(code) {
 				background-color: var(--appBGColorDark);
-				color: black;
+				border-radius: 5px;
+				color: var(--appColorBlack);
 				font-family: 'Courier New', Courier, monospace;
 				font-size: 1.0rem;
-				padding: 10px;
+				margin: 5px 0px;
+				padding: 5px;
 				white-space: break-spaces;
 			}
 			:global(table) {
@@ -1031,7 +1041,7 @@
 				text-align: left;
 			}
 			:global(td) {
-				border-bottom: 1px solid black;
+				border-bottom: 1px solid var(--appColorBlack);
 				padding-top: 7px;
 				padding-bottom: 7px;
 			}
