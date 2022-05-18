@@ -32,7 +32,7 @@
 		border: none;
 		border-radius: 10px;
 		box-shadow: var(--neu-sm-i-BGColor-shadow);
-		color: var(--appBGColor);
+		color: var(--appColorWhite);
 		cursor: pointer;
 		justify-content: center;
 		outline: none;

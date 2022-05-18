@@ -609,6 +609,7 @@
 				align-items: center;
 				background: transparent;
 				border: none;
+				color: var(--appColorBlack);
 				cursor: pointer;
 				display: flex;
 				outline: none;
@@ -647,6 +648,7 @@
 						max-width: 20px;
 					}
 					p {
+						color: var(--appColorBlack);
 						margin: 0;
 						margin-left: 3px;
 						padding: 3px;
@@ -659,7 +661,7 @@
 					&.liked {
 						background-color: var(--appColorPrimary);
 						p {
-							color: var(--appBGColor);
+							color: var(--appColorWhite);
 						}
 					}
 				}
@@ -670,7 +672,7 @@
 					&.disliked {
 						background-color: var(--appDelColor);
 						p {
-							color: var(--appBGColor);
+							color: var(--appColorWhite);
 						}
 					}
 				}
@@ -681,7 +683,7 @@
 					&.favorited {
 						background-color: var(--mythicColor);
 						p {
-							color: var(--appBGColor);
+							color: var(--appColorWhite);
 						}
 					}
 				}
@@ -689,7 +691,7 @@
 					background-color: var(--appDelColor);
 					padding: 0px 8px;
 					p {
-						color: var(--appBGColor);
+						color: var(--appColorWhite);
 						display: none;
 					}
 				}
@@ -925,6 +927,7 @@
 						max-width: 60px;
 					}
 					p {
+						color: var(--appColorBlack);
 						margin: 0;
 						max-width: 80px;
 						overflow: hidden;
@@ -1013,16 +1016,18 @@
 			}
 			:global(blockquote) {
 				border-left: 5px solid var(--appColorPriOpaque);
-				color: #999;
+				color: var(--appColorBlack);
 				margin-left: 20px;
 				padding-left: 5px;
 			}
-			:global(pre) {
+			:global(pre), :global(code) {
 				background-color: var(--appBGColorDark);
-				color: black;
+				border-radius: 5px;
+				color: var(--appColorBlack);
 				font-family: 'Courier New', Courier, monospace;
 				font-size: 1.0rem;
-				padding: 10px;
+				margin: 5px 0px;
+				padding: 5px;
 				white-space: break-spaces;
 			}
 			:global(table) {
@@ -1036,7 +1041,7 @@
 				text-align: left;
 			}
 			:global(td) {
-				border-bottom: 1px solid black;
+				border-bottom: 1px solid var(--appColorBlack);
 				padding-top: 7px;
 				padding-bottom: 7px;
 			}
