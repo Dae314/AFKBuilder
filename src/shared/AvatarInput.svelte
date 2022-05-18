@@ -1,5 +1,6 @@
 <script>
 	import { createEventDispatcher, getContext } from 'svelte';
+	import AppData from '../stores/AppData';
 	import HeroData from '../stores/HeroData.js';
 	import AvatarPicker from '../modals/AvatarPicker.svelte';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
@@ -43,7 +44,7 @@
 	</button>
 	<span class="avatarEdit" class:editLock={!editable}>
 		<button type="button" class="pencilButton" on:click={openAvatarPicker} disabled={!editable}>
-			<img src="./img/utility/pencil_white.png" alt="edit avatar">
+			<img class:light={$AppData.colorProfile === 'light'} src="./img/utility/pencil_white.png" alt="edit avatar">
 		</button>
 	</span>
 </div>
@@ -80,8 +81,10 @@
 			outline: none;
 			img {
 				max-width: 20px;
-				filter: invert(1);
 				opacity: 0.7;
+				&.light {
+					filter: invert(1);
+				}
 			}
 		}
 		&.editLock {

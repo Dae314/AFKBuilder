@@ -227,7 +227,7 @@
 							on:keyup={handleUsernameKeyup} />
 						<span class="usernameEdit">
 							<button class="usernameEditButton" on:click={handleUsernameEditClick}>
-								<img src="./img/utility/pencil_white.png" alt="edit username">
+								<img class:light={$AppData.colorProfile === 'light'} src="./img/utility/pencil_white.png" alt="edit username">
 							</button>
 						</span>
 						<div class="usernameErrorText" class:visible={usernameError.state}><span>{usernameError.text}</span></div>
@@ -277,7 +277,7 @@
 		text-align: center;
 		width: 100%;
 		.noLogin {
-			color: rgba(0, 0, 0, 0.6);
+			color: var(--appColorBlack);
 			font-size: 2.5rem;
 		}
 	}
@@ -335,12 +335,15 @@
 				outline: none;
 				img {
 					max-width: 29px;
-					filter: invert(1);
 					opacity: 0.7;
+					&.light {
+						filter: invert(1);
+					}
 				}
 			}
 		}
 		#usernameInput {
+			color: var(--appColorBlack);
 			font-size: 1.5rem;
 			font-weight: bold;
 			height: fit-content;
