@@ -859,7 +859,7 @@ const HeroData = readable([
 			name: 'Soul Cleanser',
 			image: './img/furniture/fawkes.png',
 			upgrades: [
-				{ desc: 'If Fawkes of any of his allies have a Factional Advantage over any of their enemies, their Factional Advantage damage bonus will be increased by <em>8%</em>.',
+				{ desc: 'If Fawkes or any of his allies have a Factional Advantage over any of their enemies, their Factional Advantage damage bonus will be increased by <em>8%</em>.',
 					unlock: 3,
 				},
 				{ desc: 'The majority of the enemy\'s buff effects are removed when successfully struck by Fawkes\' Normal Attacks.',
