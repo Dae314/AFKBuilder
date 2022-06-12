@@ -8158,7 +8158,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 20,
 		sig_item: {
 			name: 'Baneful Focus',
 			image: './img/si/torne.png',
@@ -8175,7 +8175,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 3,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Death Shield',
 			image: './img/furniture/torne.png',
