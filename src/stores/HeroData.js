@@ -13124,7 +13124,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 0,
+		si_benchmark: 20,
 		sig_item: {
 			name: 'Edge of Death',
 			image: './img/si/queen.png',
@@ -13141,7 +13141,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 3,
+		furn_benchmark: 9,
 		furniture: {
 			name: 'High Morale',
 			image: './img/furniture/queen.png',
@@ -13154,7 +13154,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 0,
+		engraving_benchmark: 33,
 	},
 	{ id: 'prince',
 		name: 'Prince of Persia',
