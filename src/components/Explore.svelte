@@ -21,15 +21,14 @@
 	const jsurl = JSONURL('lzma'); // json-url compressor
 
 	// configuration defaults
-	const now = Date.now();
 	const timeValues = [
-		{ name: 'forever', value: new Date(now - 3.156e+11) }, // 10 years
-		{ name: '1yr', value: new Date(now - 3.156e10) },
-		{ name: '6mo', value: new Date(now - 1.577e10) },
-		{ name: '1mo', value: new Date(now - 2.628e9) },
-		{ name: '1w', value: new Date(now - 6.048e8) },
-		{ name: '1d', value: new Date(now - 8.64e7) },
-		{ name: 'now', value: new Date(now - 0) },
+		{ name: 'forever', value: offset(-3.156e+11) }, // 10 years
+		{ name: '1yr', value: offset(-3.156e10) },
+		{ name: '6mo', value: offset(-1.577e10) },
+		{ name: '1mo', value: offset(-2.628e9) },
+		{ name: '1w', value: offset(-6.048e8) },
+		{ name: '1d', value: offset(-8.64e7) },
+		{ name: 'now', value: offset(0) },
 	];
 	const pageViewLimit = 2;
 	const sortOptions = ['best', 'top', 'new', 'updated'];
@@ -75,6 +74,11 @@
 	onMount(async () => {
 		$AppData.activeView = 'explore';
 	});
+
+	// return a function that calculates a time offset
+	function offset(time) {
+		return () => new Date(Date.now() + time);
+	}
 
 	function processQS(queryString) {
 		const urlqs = new URLSearchParams(queryString);
@@ -144,8 +148,8 @@
 		let andArr = [];
 		let orArr = [];
 
-		const minDate = timeValues[timeLimits[0]].value.toISOString();
-		const maxDate = timeValues[timeLimits[1]].value.toISOString();
+		const minDate = timeValues[timeLimits[0]].value().toISOString();
+		const maxDate = timeValues[timeLimits[1]].value().toISOString();
 
 		// create filter array
 		if(searchStr) andArr.push({
@@ -191,8 +195,8 @@
 		let andArr = [];
 		let orArr = [];
 
-		const minDate = timeValues[timeLimits[0]].value.toISOString();
-		const maxDate = timeValues[timeLimits[1]].value.toISOString();
+		const minDate = timeValues[timeLimits[0]].value().toISOString();
+		const maxDate = timeValues[timeLimits[1]].value().toISOString();
 
 		// create filter array
 		if(searchStr) andArr.push({
