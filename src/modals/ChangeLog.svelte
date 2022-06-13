@@ -5,6 +5,17 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v2.1.7',
+			changes: [
+				'Added new hero Sonja',
+				'Added new hero Anasta',
+				'Fixed date filtering for new comps in explore',
+				'Updated Queen benchmark to 209e33',
+				'Updated Torne benchmark to 200e0',
+				'Fixed typo on Skreg e30 and ult lv3',
+				'Fixed typo on Fawkes 3f',
+			],
+		},
 		{ version: 'v2.1.0',
 			changes: [
 				'Added dark theme',
@@ -34,13 +45,6 @@
 				'Added switch to change line mode from player to enemy',
 				'Modified thicker outline for SI30 icon',
 				'Added autofocus search bar in Hero Finder only on desktop',
-			],
-		},
-		{ version: 'v2.0.12',
-			changes: [
-				'Changed comp preview cards to show first line',
-				'Left aligned comp preview card titles',
-				'Updated Astar benchmark E41',
 			],
 		},
 	]
