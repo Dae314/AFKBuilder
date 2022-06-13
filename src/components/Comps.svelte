@@ -37,7 +37,6 @@
 
 	export let isMobile = false;
 
-	const now = Date.now();
 	const jsurl = JSONURL('lzma'); // json-url compressor
 	const dispatch = createEventDispatcher();
 	const { open } = getContext('simple-modal');
@@ -51,13 +50,13 @@
 	});
 	md.use(Emoji);
 	const timeValues = [
-		{ name: 'forever', value: new Date(now - 3.156e+11) }, // 10 years
-		{ name: '1yr', value: new Date(now - 3.156e10) },
-		{ name: '6mo', value: new Date(now - 1.577e10) },
-		{ name: '1mo', value: new Date(now - 2.628e9) },
-		{ name: '1w', value: new Date(now - 6.048e8) },
-		{ name: '1d', value: new Date(now - 8.64e7) },
-		{ name: 'now', value: new Date(now - 0) },
+		{ name: 'forever', value: offset(-3.156e+11) }, // 10 years
+		{ name: '1yr', value: offset(-3.156e10) },
+		{ name: '6mo', value: offset(-1.577e10) },
+		{ name: '1mo', value: offset(-2.628e9) },
+		{ name: '1w', value: offset(-6.048e8) },
+		{ name: '1d', value: offset(-8.64e7) },
+		{ name: 'now', value: offset(0) },
 	];
 	const sortOptions = ['title', 'new'];
 	const defaultSort = 'title';
@@ -105,6 +104,11 @@
 		$AppData.activeView = 'comps';
 		dispatch('routeEvent', {action: 'saveData'});
 	});
+
+	// return a function that calculates a time offset
+	function offset(time) {
+		return () => new Date(Date.now() + time);
+	}
 
 	function processQS(queryString) {
 		const urlqs = new URLSearchParams(queryString);
@@ -167,11 +171,11 @@
 		// apply time limit filters
 		if(filters.timeLimits[0] !== defaultMinTime) {
 			// filter for max time only if the setting is non-default
-			compList = compList.filter(comp => timeValues[filters.timeLimits[0]].value <= comp.lastUpdate);
+			compList = compList.filter(comp => timeValues[filters.timeLimits[0]].value() <= comp.lastUpdate);
 		}
 		if(filters.timeLimits[1] !== defaultMaxTime) {
 			// filter for min time only if the setting is non-default
-			compList = compList.filter(comp => timeValues[filters.timeLimits[1]].value >= comp.lastUpdate);
+			compList = compList.filter(comp => timeValues[filters.timeLimits[1]].value() >= comp.lastUpdate);
 		}
 
 		switch(sort) {
@@ -1294,7 +1298,7 @@
 					</div>
 					<div class="compDetailBody">
 						<div class="lastUpdate">
-							<span title="{openComp.lastUpdate.toLocaleString()}">Updated {msToString(now - openComp.lastUpdate.getTime())}</span>
+							<span title="{openComp.lastUpdate.toLocaleString()}">Updated {msToString(Date.now() - openComp.lastUpdate.getTime())}</span>
 						</div>
 						<div class="bodyArea1">
 							<CompLineEditor
