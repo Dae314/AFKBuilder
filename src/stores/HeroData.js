@@ -10785,7 +10785,7 @@ const HeroData = readable([
 		furn_benchmark: 9,
 		furniture: {
 			name: 'Astral Force',
-			image: './img/furniture/Audrae.webp',
+			image: './img/furniture/audrae.webp',
 			upgrades: [
 				{ desc: 'While focusing the energy of her Normal Attacks when using "Focus Fire," excluding the target Audrae has locked onto, all the damage she receives from other enemies is reduced by <em>50%</em>.',
 					unlock: 3,
