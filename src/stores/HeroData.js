@@ -3444,7 +3444,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 20,
 		sig_item: {
 			name: 'Mark of the Fox',
 			image: './img/si/satrana.png',
@@ -3461,7 +3461,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Firedance',
 			image: './img/furniture/satrana.png',
