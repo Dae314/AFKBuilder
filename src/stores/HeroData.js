@@ -12211,7 +12211,7 @@ const HeroData = readable([
 			{ name: 'Fatal Embrace',
 				type: 'level',
 				image: './img/skills/vyloris3.png',
-				desc: 'Vyloris uses <em>10%</em> of her curent health to manifest a shield of equal value, which cannot be lower than <em>8%</em> of her max health and that exists for <em>5</em> seconds. Vyloris then deals <em>9%</em> max health damage to enemies that have a "Cursed Aura," but the damage cannot exceed <em>530%</em> of her Attack Rating. Damage dealt causes enemies to deal <em>30%</em> less damage for the following <em>7</em> seconds. This effect cannot be stacked.',
+				desc: 'Vyloris uses <em>10%</em> of her current health to manifest a shield of equal value, which cannot be lower than <em>8%</em> of her max health and that exists for <em>5</em> seconds. Vyloris then deals <em>9%</em> max health damage to enemies that have a "Cursed Aura," but the damage cannot exceed <em>530%</em> of her Attack Rating. Damage dealt causes enemies to deal <em>30%</em> less damage for the following <em>7</em> seconds. This effect cannot be stacked.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'Shield duration is extended to <em>7</em> seconds.',
