@@ -3376,7 +3376,7 @@ const HeroData = readable([
 					},
 				],
 			},
-			{ name: 'Fluter Flame',
+			{ name: 'Flutter Flame',
 				type: 'level',
 				image: './img/skills/satrana2.png',
 				desc: 'Satrana\'s Normal Attacks change, allowing her to pounce forward a small distance and deal <em>120%</em> damage <em>2</em> times to the enemy target. Damage received by Satrana is reduced by <em>25%</em> while this attack\'s animation is in motion.',
