@@ -3218,7 +3218,7 @@ const HeroData = readable([
 			name: 'Vanguards of Pain',
 			image: './img/furniture/skreg.png',
 			upgrades: [
-				{ desc: 'All allied heroes with the enemy half of the battlefield have their Attack Ratings increased by <em>20%</em> and also receive <em>25%</em> less damage from enemy attacks.',
+				{ desc: 'All allied heroes within the enemy half of the battlefield have their Attack Ratings increased by <em>20%</em> and also receive <em>25%</em> less damage from enemy attacks.',
 					unlock: 3,
 				},
 				{ desc: 'Allied heroes recover <em>100</em> Energy points after every <em>3</em> seconds in the enemy\'s half of the battlefield.',
