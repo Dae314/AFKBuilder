@@ -772,7 +772,7 @@ const HeroData = readable([
 			{ name: 'Abate',
 				type: 'level',
 				image: './img/skills/fawkes2.png',
-				desc: 'Fawkes steals an enemy\'s attack speed by <em>35%</em> for <em>6</em> seconds.',
+				desc: 'Fawkes reduces an enemy\'s attack speed by <em>35%</em> for <em>6</em> seconds.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Enemy\'s attack speed reduced by <em>45%</em>.',
@@ -783,7 +783,7 @@ const HeroData = readable([
 						unlock: 101,
 						type: 'level',
 					},
-					{ desc: 'Effects are increased to <em>7.5</em> seconds.',
+					{ desc: 'Effect duration increased to <em>7.5</em> seconds.',
 						unlock: 181,
 						type: 'level',
 					},
