@@ -5,6 +5,20 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v2.1.17',
+			changes: [
+				'Added new hero Kalene',
+				'Updated Gwyneth skills 2 and 3 descriptions',
+				'Updated Grez skill 3 description',
+				'Updated Fawkes skill 2 description',
+				'Updated Titus, Leofric, and Mehira engraving effects',
+				'Updated Satrana benchmark to 200',
+				'Fixed Audrae furniture image',
+				'Fixed typo on Vyloris skill 3',
+				'Fixed typo on Satrana skill 2',
+				'Fixed typo on Skreg 3f typo',
+			],
+		},
 		{ version: 'v2.1.7',
 			changes: [
 				'Added new hero Sonja',
@@ -38,13 +52,6 @@
 				'Reversed direction of enemy line switch',
 				'Fixed typo on Alaro skill 4',
 				'Adjusted wording on Cecilia ult description',
-			],
-		},
-		{ version: 'v2.0.15',
-			changes: [
-				'Added switch to change line mode from player to enemy',
-				'Modified thicker outline for SI30 icon',
-				'Added autofocus search bar in Hero Finder only on desktop',
 			],
 		},
 	]
