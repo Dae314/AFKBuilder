@@ -1144,7 +1144,7 @@ const HeroData = readable([
 			{ name: 'Flaming Arrows',
 				type: 'level',
 				image: './img/skills/gwyneth2.png',
-				desc: 'Gwyneth\'s Normal Attacks will prioritize the enemy directly opposite her current position. Her Normal Attacks deal high damage and have a low attack frequency. Gwyneth\'s Normal Attacks have a <em>60%</em> chance to become flaming arrows that burn the enemy for <em>40%</em> damage per second over <em>5</em> seconds.',
+				desc: 'Gwyneth\'s Normal Attacks will prioritize the enemy directly opposite her current position. Her Normal Attacks deal high damage but have a low attack frequency. Gwyneth\'s Normal Attacks have a <em>60%</em> chance to become flaming arrows. Gwyneth\'s flaming arrows deal <em>220%</em> damage to enemies on impact and cause them to burn for <em>5</em> seconds, dealing <em>40%</em> damage per second.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Enemy\'s health recovery is reduced by <em>30%</em> while burning.',
@@ -1164,10 +1164,10 @@ const HeroData = readable([
 			{ name: 'Lightning Arrows',
 				type: 'level',
 				image: './img/skills/gwyneth3.png',
-				desc: 'Normal Attacks have a <em>60%</em> chance to become lightning arrows that can damage multiple nearby enemies for <em>240%</em> damage with chain lightning. Lightning arrows can also be combined with flaming arrows, allowing for the burning effect of the "Flaming Arrow" ability to also affect multiple nearby enemies.',
+				desc: 'Normal Attacks have a <em>60%</em> chance to become lightning arrows that can damage multiple nearby enemies for <em>220%</em> damage with chain lightning. Lightning arrows can also be combined with flaming arrows, allowing for the burning effect of the "Flaming Arrow" skill to also affect multiple nearby enemies.',
 				unlock: 41,
 				upgrades: [
-					{ desc: 'Normal Attacks have a <em>70%</em> to become lightning arrows.',
+					{ desc: 'Chance of Normal Attacks becoming lightning arrows is increased to <em>70%</em>.',
 						unlock: 121,
 						type: 'level',
 					},
