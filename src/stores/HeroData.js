@@ -2322,7 +2322,7 @@ const HeroData = readable([
 			},
 			{ name: 'Endeavor',
 				type: 'engraving',
-				image: './img/engraving/hypogean_endeavor.png',
+				image: './img/engraving/lightbearer_endeavor.png',
 				desc: 'Arena of Heroes, Legends\' Challenger Tournament, Legends\' Championship, Heroes of Esperia: <em>DODGE +33.33</em>, <em>ATK +10%</em>.',
 				unlock: 80,
 				upgrades: [],
