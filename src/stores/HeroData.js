@@ -7392,7 +7392,7 @@ const HeroData = readable([
 			{ name: 'Eye of Evil',
 				type: 'level',
 				image: './img/skills/oden4.png',
-				desc: 'When Oden recovers 300/1000/2000 Energy points respectively, one of his eyes will open until all three of his eyes are open. After Oden\'s first eye has been opened, the AoE damage effect caused by the Ability "Eviction" will now include a stun effect, which stuns the affected enemies for <em>3</em> seconds. After Oden\'s second eye has been opened the ability "Void Lightning" will additionally target the enemy that is currently standing farthest away from Oden. After Oden\'s third and final eye has been opened, Oden\'s Normal Attacks will cause his enemies to lose an additional <em>60</em> Energy points per attack.',
+				desc: 'Oden accumulates one Fiend Point for every point of Energy he gains. When Oden reaches <em>300</em>/<em>1000</em>/<em>2000</em> Fiend Points respectively, one of his eyes will open until all three eyes are open.<br/><br/>After Oden\'s first eye has been opened, the AoE damage effect caused by the skill "Eviction" will now include a stun effect, which stuns the affected enemies for <em>3</em> seconds.<br/><br/>After Oden\'s second eye has been opened, the skill "Void Lightning" will additionally target the enemy that is currently standing farthest away from Oden.<br/><br/>After Oden\'s third eye has been opened, Oden\'s normal attacks will cause his enemies to lose an additional <em>60</em> energy points per attack.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Oden\'s Attack Rating is increased by <em>10%</em> and his Haste is increased by <em>10</em> points each time he opens an eye.',
