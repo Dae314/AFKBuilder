@@ -4535,10 +4535,10 @@ const HeroData = readable([
 			{ name: 'Cursed Flame',
 				type: 'level',
 				image: './img/skills/thesku4.png',
-				desc: 'Thesku commands his snakes, Zilsu and Szetzu to breathe fire upon any enemies within range, dealing <em>160%</em> damage three times to the targets. Enemies struck by the third attack shall have their Accuracy reduced by <em>50</em> points, Crit Rating reduced by <em>30</em> points, and Crit Amplification reduced by <em>30</em> points for <em>6</em> seconds. Effect cannot be stacked.',
+				desc: 'Thesku commands his snakes, Zilsu and Szetzu to breathe fire upon any enemies within range, dealing <em>160%</em> damage <em>3</em> times to the targets. Enemies struck by the third attack shall have their Accuracy reduced by <em>50</em> points, Crit Rating reduced by <em>30</em> points, and Crit Damage Amplification reduced by <em>30</em> points for <em>6</em> seconds. Effect cannot be stacked.',
 				unlock: 61,
 				upgrades: [
-					{ desc: 'Enemies struck by the third attack lose <em>70</em> Accuracy points, <em>40</em> Crit Rating points, and <em>40</em> Crit Amplification points.',
+					{ desc: 'Enemies struck by the third attack lose <em>70</em> Accuracy points, <em>40</em> Crit Rating points, and <em>40</em> Crit Damage Amplification points.',
 						unlock: 141,
 						type: 'level',
 					},
@@ -4566,7 +4566,7 @@ const HeroData = readable([
 			image: './img/si/thesku.png',
 			desc: 'Each time Thesku has cumulatively lost <em>20%</em> of his max health, once his current ability ends, his snake, Ilshu grants him a shield that has a value equal to <em>15%</em> of Thesku\'s max health, which exists for <em>8</em> seconds.',
 			upgrades: [
-				{ desc: 'Enemies that deal damage to the shield have their Accuracy reduced by <em>70</em> points, Crit Rating reduced by <em>40</em> points, and Crit Amplification reduced by <em>40</em> points for <em>6</em> seconds. Effect cannot be stacked.',
+				{ desc: 'Enemies that deal damage to the shield have their Accuracy reduced by <em>70</em> points, Crit Rating reduced by <em>40</em> points, and Crit Damage Amplification reduced by <em>40</em> points for <em>6</em> seconds. Effect cannot be stacked.',
 					unlock: 10,
 				},
 				{ desc: 'Value of shield is raised to <em>25%</em> of Thesku\'s max health.',
