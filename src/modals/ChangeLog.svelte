@@ -5,6 +5,21 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v2.1.28',
+			changes: [
+				'Added Awakened Brutus',
+				'Added Joan of Arc',
+				'Updated Oden skill 4',
+				'Updated Talene benchmark e38',
+				'Updated Thesku skill 4 and SI +10',
+				'Fixed AwThane endeavor icon',
+				'Fixed Albedo 3f typo',
+				'Fixed Raine skill 3 typo',
+				'Fixed Joker e30 typo',
+				'Fixed Orthros s4 typo',
+				'Fixed Framton e30 typo',
+			],
+		},
 		{ version: 'v2.1.17',
 			changes: [
 				'Added new hero Kalene',
@@ -44,14 +59,6 @@
 				'Updated contributor profile image',
 				'Fixed Tidus skill 3 typo',
 				'Fixed Aw!Ezizh Mind Flay typo',
-			],
-		},
-		{ version: 'v2.0.19',
-			changes: [
-				'Fixed author pages not loading',
-				'Reversed direction of enemy line switch',
-				'Fixed typo on Alaro skill 4',
-				'Adjusted wording on Cecilia ult description',
 			],
 		},
 	]
