@@ -2472,7 +2472,7 @@ const HeroData = readable([
 		furn_benchmark: 9,
 		furniture: {
 			name: 'Thorned Furor',
-			image: './img/furniture/unavailable.png',
+			image: './img/furniture/sonja.png',
 			upgrades: [
 				{ desc: 'Every time an ally who possesses a Gold Rose suffers from an enemy Control Effect, the effects of the Gold Rose are extended <em>1</em> time. This effect can only be triggered by each ally once every <em>5</em> seconds.',
 					unlock: 3,
@@ -4828,7 +4828,7 @@ const HeroData = readable([
 		furn_benchmark: 9,
 		furniture: {
 			name: 'The Austere Resolve',
-			image: './img/furniture/unavailable.png',
+			image: './img/furniture/anasta.png',
 			upgrades: [
 				{ desc: 'When Anasta deals damage to the enemy target she is currently in a confrontation with, she receives <em>1</em> stack of Brawler\'s Protection. This effect can be triggered once every <em>5</em> seconds.',
 					unlock: 3,
@@ -4955,7 +4955,7 @@ const HeroData = readable([
 		furn_benchmark: 9,
 		furniture: {
 			name: 'Strengthen Fury Blow',
-			image: './img/furniture/unavailable.png',
+			image: './img/furniture/brutus_aw.png',
 			upgrades: [
 				{ desc: 'The distance enemies are sent flying is increased to <em>250%</em> of the original distance. Lands a Critical Hit on immovable enemies.',
 					unlock: 3,
@@ -9545,7 +9545,7 @@ const HeroData = readable([
 		furn_benchmark: 9,
 		furniture: {
 			name: 'Soul Torture',
-			image: './img/furniture/unavailable.png',
+			image: './img/furniture/kalene.png',
 			upgrades: [
 				{ desc: 'While Kalene\'s Ultimate skill is in effect, enemies within the Altar are dealt <em>240%</em> of Kalene\'s Attack Rating as damage per second.',
 					unlock: 3,
@@ -14387,7 +14387,7 @@ const HeroData = readable([
 		furn_benchmark: 9,
 		furniture: {
 			name: 'Graceful Blessing',
-			image: './img/furniture/unavailable.png',
+			image: './img/furniture/joa.png',
 			upgrades: [
 				{ desc: 'When Joan of Arc reaches the enemy\'s backline, she is able to cast her Ultimate without using energy.',
 					unlock: 3,
