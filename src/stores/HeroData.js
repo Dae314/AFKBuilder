@@ -2205,7 +2205,7 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Lingering Power',
 			image: './img/si/scarlet.png',
-			desc: 'Residual dark energy surrounds enemies who are struck by Scarlet\'s Ultimate skill, which randomly explodes within a span of <em>8</em> secnods. Enemies within range of the explosion are dealt damage equal to <em>150%</em> of Scarlet\'s Attack Rating.',
+			desc: 'Residual dark energy surrounds enemies who are struck by Scarlet\'s Ultimate skill, which randomly explodes within a span of <em>8</em> seconds. Enemies within range of the explosion are dealt damage equal to <em>150%</em> of Scarlet\'s Attack Rating.',
 			upgrades: [
 				{ desc: 'Damage is increased to <em>180%</em>.',
 					unlock: 10,
