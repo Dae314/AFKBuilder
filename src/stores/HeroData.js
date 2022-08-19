@@ -14247,9 +14247,9 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Soul Taker',
 			image: './img/si/melusina.png',
-			desc: 'When the skill "Soul Pilfer" is continusouly stealing attributes from an enemy, it shall also steal <em>30</em> Energy points from them each time.',
+			desc: 'When the skill "Soul Pilfer" is continuously stealing attributes from an enemy, it shall also steal <em>30</em> Energy points from them each time.',
 			upgrades: [
-				{ desc: 'When the skill "Soul Pilfer" is continusouly stealing attributes from an enemy, it shall also steal <em>40</em> Energy points from them each time.',
+				{ desc: 'When the skill "Soul Pilfer" is continuously stealing attributes from an enemy, it shall also steal <em>40</em> Energy points from them each time.',
 					unlock: 10,
 				},
 				{ desc: 'When the skill "Soul Pilfer" immediately steals attributes from an enemy, it shall also immediately steal <em>80</em> Energy points from them.',
