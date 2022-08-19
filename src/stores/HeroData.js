@@ -983,10 +983,10 @@ const HeroData = readable([
 			name: 'Defensive Stance',
 			image: './img/furniture/hendrik.png',
 			upgrades: [
-				{ desc: 'Increases the Defense Rating an allied hero that is positioned above Hendrik in the formation by <em>25%</em> of Hendrik\'s own Defense Rating value.',
+				{ desc: 'Increases the Defense Rating of an allied hero that is positioned above Hendrik in the formation by <em>25%</em> of Hendrik\'s own Defense Rating value.',
 					unlock: 3,
 				},
-				{ desc: 'Increases the Defense Rating an allied hero that is positioned above Hendrik in the formation by <em>60%</em> of Hendrik\'s own Defense Rating value.',
+				{ desc: 'Increases the Defense Rating of an allied hero that is positioned above Hendrik in the formation by <em>60%</em> of Hendrik\'s own Defense Rating value.',
 					unlock: 9,
 				},
 			],
