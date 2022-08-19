@@ -2244,7 +2244,7 @@ const HeroData = readable([
 			{ name: 'Wind\'s Edge',
 				type: 'ascension',
 				image: './img/skills/thane_aw1.png',
-				desc: 'Thane uses his blade to evicerate his target, stunning them temporarily and slashing them <em>4</em> times, with each slash dealing <em>350%</em> of his Attack Rating as damage. If the target dies or cannot be targeted by Thane\'s slashes, the following slashes deal damage to all enemies. "Wind\'s Edge" targets enemy heroes first.',
+				desc: 'Thane uses his blade to eviscerate his target, stunning them temporarily and slashing them <em>4</em> times, with each slash dealing <em>350%</em> of his Attack Rating as damage. If the target dies or cannot be targeted by Thane\'s slashes, the following slashes deal damage to all enemies. "Wind\'s Edge" targets enemy heroes first.',
 				unlock: 'Legendary',
 				upgrades: [
 					{ desc: 'If the enemy target\'s remaining shield value is lower than <em>2000%</em> of Thane\'s Attack Rating after they suffer from "Wind\'s Edge" slashes, the target\'s shield is removed.',
