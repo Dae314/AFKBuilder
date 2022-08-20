@@ -5,6 +5,22 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v2.1.40',
+			changes: [
+				'Added new hero Eorin',
+				'Added new hero Tarnos',
+				'Added missing furniture skill icons',
+				'Added Treasure Scramble into Endeavor list',
+				'Optimized skill descriptions (thanks Bob49!)',
+				'Updated Hero Benchmarks (thanks Bob49!)',
+				'Updated Hendrik\'s furniture description',
+				'Updated Anasta SI description',
+				'Fixed AwThane ult typo',
+				'Fixed Melusina SI typos',
+				'Fixed Alaro skill 2 typo',
+				'Fixed scarlet SI typo',
+			],
+		},
 		{ version: 'v2.1.28',
 			changes: [
 				'Added Awakened Brutus',
@@ -51,14 +67,6 @@
 				'Added new hero Vyloris',
 				'Updated Hodgekin benchmark to e33',
 				'Fixed formatting on Framton skill 4',
-			],
-		},
-		{ version: 'v2.0.23',
-			changes: [
-				'Added new hero Aw!Thane',
-				'Updated contributor profile image',
-				'Fixed Tidus skill 3 typo',
-				'Fixed Aw!Ezizh Mind Flay typo',
 			],
 		},
 	]
