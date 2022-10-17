@@ -11411,7 +11411,7 @@ const HeroData = readable([
 		furn_benchmark: 9,
 		furniture: {
 			name: 'Echoing Atonement',
-			image: './img/furniture/unavailable.png',
+			image: './img/furniture/tarnos.png',
 			upgrades: [
 				{ desc: 'Each Pillar of Sin on the field increases Tarnos\' Attack Speed by <em>8</em> points and Life Leech by <em>8</em> points.',
 					unlock: 3,
