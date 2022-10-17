@@ -2099,10 +2099,10 @@ const HeroData = readable([
 			name: 'Devilish Pact',
 			image: './img/furniture/morrow.png',
 			upgrades: [
-				{ desc: 'When all non-summoned allies have lost a combined <em>10%</em> of their health, the duration of debuff effects dealt by Morrow will be extended by <em>5%</em>, and may be extended up to a maximum of <em>100%</em>.',
+				{ desc: 'Every time the non-summoned allies have lost a combined <em>10%</em> of their health, Morrow gains <em>5</em> Proficiency points, up to <em>100</em> points.',
 					unlock: 3,
 				},
-				{ desc: 'Each time an enemy uses a negative effect on an allied hero, the damaging effects of "Abyssal Retribution" shall be dealt to them. Ability may only be triggered once every <em>4</em> seconds.',
+				{ desc: 'Each time an enemy uses a negative effect on an allied hero, the damaging effects of "Abyssal Retribution" shall be dealt to them. Skill may only be triggered once every <em>4</em> seconds.',
 					unlock: 9,
 				},
 			],
@@ -4812,12 +4812,12 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Inextinguishable Might',
 			image: './img/si/anasta.png',
-			desc: 'Throughout the confrontation period, Anasta gains <em>15</em> Tenacity points, and the duration of most debuffs she may be suffering from is shortened by <em>15%</em>.',
+			desc: 'Throughout the confrontation period, Anasta gains <em>15</em> Tenacity points and <em>15</em> Dissolve points.',
 			upgrades: [
 				{ desc: 'If the number of enemies within Anasta\'s Attack range is <em>2</em> or fewer, Anasta\'s attacks will increase the damage they take by <em>20%</em> for <em>7</em> seconds.',
 					unlock: 10,
 				},
-				{ desc: 'Throughout the confrontation period, Anasta gains <em>30</em> Tenacity points, and the duration of most debuffs she may be suffering from is shortened by <em>30%</em>.',
+				{ desc: 'Throughout the confrontation period, Anasta gains <em>30</em> Tenacity points and <em>30</em> Dissolve points.',
 					unlock: 20,
 				},
 				{ desc: 'If the number of enemies within Anasta\'s attack range is <em>2</em> or fewer, Anasta\'s attacks will increase the damage they take by <em>35%</em> for <em>7</em> seconds.',
@@ -7395,7 +7395,7 @@ const HeroData = readable([
 			{ name: 'Deathly Protection',
 				type: 'level',
 				image: './img/skills/grezhul4.png',
-				desc: 'During battles, damage dealt to all allied heroes from Intelligence-based enemies is reduced by <em>15%</em>.',
+				desc: 'Passive. During battles, damage dealt to all allied heroes from Intelligence-based enemies is reduced by <em>15%</em>.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'During battles, damage dealt to allied Graveborn heroes from Intelligence-based enemies is reduced by an additional <em>15%</em>.',
@@ -7406,7 +7406,7 @@ const HeroData = readable([
 						unlock: 221,
 						type: 'level',
 					},
-					{ desc: 'During battles, the time of all debuffs dealt to allies by intelligence-based enemies is reduced by <em>20%</em>.',
+					{ desc: 'For the duration of most debuffs inflicted by Intelligence-based enemies during battle, inflicted allies will be deemed as having gained <em>20</em> additional Dissolve points.',
 						unlock: 60,
 						type: 'engraving',
 					},
@@ -11891,7 +11891,7 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Frozen Curse',
 			image: './img/si/khazard.png',
-			desc: 'Increases the duration of most negative debuff effects which are currently affecting all enemies on the battlefield by <em>30%</em>.',
+			desc: 'Passive. Reduces all enemies\' Dissolve by <em>30</em> points.',
 			upgrades: [
 				{ desc: 'Normal Attacks that deal critical damage now have a freezing effect that lasts for <em>1</em> seconds.',
 					unlock: 10,
@@ -11899,7 +11899,7 @@ const HeroData = readable([
 				{ desc: 'Normal Attacks that deal critical damage now have a freezing effect that lasts for <em>3</em> seconds.',
 					unlock: 20,
 				},
-				{ desc: 'Increases the duration of most negative debuff effects which are currently affecting all enemies on the battlefield by <em>60%</em>.',
+				{ desc: 'Reduces all enemies\' Dissolve by <em>60</em> points.',
 					unlock: 30,
 				},
 			],
@@ -11930,7 +11930,7 @@ const HeroData = readable([
 			{ name: 'Devour',
 				type: 'level',
 				image: './img/skills/mezoth1.png',
-				desc: 'Passive: Mezoth cannot be controlled whenever his health is higher than <em>50%</em>, and the duration for the majority of debuffs affecting him is reduced by <em>50%</em>. When actively using his Ultimate ability, Mezoth imprisons an enemy up until his Energy is completely exhausted. During the imprisonment period, Mezoth loses <em>70</em> Energy per second and the imprisoned enemy lose health equal to <em>70%</em> of Mezoth\'s Attack Rating every second and cannot attack or use any abilities (enemies cannot die as a result of this damage). If affected by an enemy control ability, Mezoth will lose an additional <em>70</em> Energy per <em>0.5</em> seconds. If the enemy target is immune to control abilities, they will not be imprisoned and shall be immediately dealt <em>480%</em> damage instead. Allied heroes shall prioritize their attacks against enemies that are not imprisoned.',
+				desc: 'Passive: Whenever Mezoth\'s health is higher than <em>50%</em>, he is immune to control effects and receives <em>50</em> Dissolve points.<br/><br/>When actively using his Ultimate ability, Mezoth imprisons an enemy up until his Energy is completely exhausted. During the imprisonment period, Mezoth loses <em>70</em> Energy per second while the imprisoned enemy loses health equal to <em>70%</em> of Mezoth\'s Attack Rating every second and cannot attack or use any skills (enemies cannot die as a result of this damage). While under a control effect, Mezoth loses an additional <em>70</em> Energy per <em>0.5</em> seconds. If the enemy target is immune to control abilities, they will not be imprisoned and will be dealt damage of <em>480%</em> Attack Rating instead. Allied heroes will prioritize their attacks on non-imprisoned enemies.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Imprisoned enemies lose health equal to <em>80%</em> of Mezoth\'s Attack Rating per second.',
