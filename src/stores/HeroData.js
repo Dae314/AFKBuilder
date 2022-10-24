@@ -12090,7 +12090,7 @@ const HeroData = readable([
 			{ name: 'Deathwish',
 				type: 'level',
 				image: './img/skills/lucretia3.png',
-				desc: 'Lucretia marks the enemy that has dealt the highest total amount of damage and hunts them until their death. While Lucretia is hunting down the enemy target, the target\'s damage is reduced by <em>30%</em>. If the enemy formation includes Zaphrael, Lucretia shall prioritize her attacks against Zaphrael above all other enemies.',
+				desc: 'Lucretia marks the enemy with the highest Attack Rating and hunts them until their death. While Lucretia is hunting down the enemy target, the target\'s damage is reduced by <em>30%</em>. If the enemy formation includes Zaphrael, Lucretia shall prioritize her attacks against Zaphrael above all other enemies.',
 				unlock: 41,
 				upgrades: [
 					{ desc: 'Damage to hunted enemy is increased by <em>40%</em> during the hunting phase.',
