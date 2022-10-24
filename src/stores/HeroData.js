@@ -12569,7 +12569,7 @@ const HeroData = readable([
 				desc: 'Framton\'s Normal Attack turns into a quick flurry of successive strikes, dealing <em>130%</em> damage per strike to enemies in front of him, with the final strike knocking enemies into the air, dealing <em>290%</em> damage to them in the process. Passive: When this ability fails to deal any damage, damage is increased by <em>25%</em> the following time it is used. Damage can be stacked up to <em>200%</em>, but when an enemy is kicked, the stacked damage bonus is lost.',
 				unlock: 11,
 				upgrades: [
-					{ desc: 'Framton deals <em>140%</em> damage to enemeis in front of him each time.',
+					{ desc: 'Framton deals <em>140%</em> damage to enemies in front of him each time.',
 						unlock: 21,
 						type: 'level',
 					},
