@@ -5,6 +5,30 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v2.1.60',
+			changes: [
+				'Added Awakened Solise',
+				'Added Yennifer and Geralt',
+				'Added Canisa & Ruke',
+				'Added Tarnos furniture icon',
+				'Updated Cecilia skill 4',
+				'Updated Anoki SI skill description',
+				'Updated Skriath skill 2 and 4',
+				'Updated Mezoth ultimate skill',
+				'Updated Khazard SI',
+				'Updated Grez skill 4',
+				'Updated Morrow furniture',
+				'Updated Anasta SI',
+				'Updated Estrilda skill 3',
+				'Updated Tasi skill 3',
+				'Updated Lucretia skill 3',
+				'Updated Anasta benchmark e44',
+				'Updated Morael benchmark e36',
+				'Updated node packages',
+				'Fixed Framton skill 2 typo',
+				'Fixed Skreg skill 2 typo',
+			],
+		},
 		{ version: 'v2.1.40',
 			changes: [
 				'Added new hero Eorin',
@@ -59,14 +83,6 @@
 				'Updated Torne benchmark to 200e0',
 				'Fixed typo on Skreg e30 and ult lv3',
 				'Fixed typo on Fawkes 3f',
-			],
-		},
-		{ version: 'v2.1.0',
-			changes: [
-				'Added dark theme',
-				'Added new hero Vyloris',
-				'Updated Hodgekin benchmark to e33',
-				'Fixed formatting on Framton skill 4',
 			],
 		},
 	]

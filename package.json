@@ -1,6 +1,6 @@
 {
 	"name": "afk-builder",
-	"version": "2.1.40",
+	"version": "2.1.60",
 	"private": true,
 	"scripts": {
 		"build": "rollup -c",
