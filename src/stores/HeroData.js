@@ -7440,7 +7440,7 @@ const HeroData = readable([
 		furn_benchmark: 9,
 		furniture: {
 			name: 'Forest Creepers',
-			image: './img/furniture/unavailable.png',
+			image: './img/furniture/nevanthi.png',
 			upgrades: [
 				{ desc: 'After the restrictions imposed by the "Mark of Nature" effect on the enemies are stacked up to the maximum, the enemies will suffer damage equal to <em>10%</em> of their max health, without exceeding <em>600%</em> of Nevanthi\'s Attack Rating.',
 					unlock: 3,
@@ -9923,7 +9923,7 @@ const HeroData = readable([
 		furn_benchmark: 9,
 		furniture: {
 			name: 'Strengthen Vine Lash',
-			image: './img/furniture/unavailable.png',
+			image: './img/furniture/baden_aw.png',
 			upgrades: [
 				{ desc: 'When an enemy is imprisoned with the skill "Vine Lash", the healing they receive is converted into damage of an equal value. This effect cannot be triggered by healing over time.',
 					unlock: 3,
@@ -13166,7 +13166,7 @@ const HeroData = readable([
 		engraving_benchmark: 0,
 	},
 	{ id: 'canisa_ruke',
-		name: 'Canisa and Ruke',
+		name: 'Canisa & Ruke',
 		portrait: './img/portraits/canisa_ruke.jpg',
 		class: 'Tank',
 		faction: 'Hypogean',
@@ -13277,7 +13277,7 @@ const HeroData = readable([
 		furn_benchmark: 3,
 		furniture: {
 			name: 'Pain Link',
-			image: './img/furniture/unavailable.png',
+			image: './img/furniture/canisa_ruke.png',
 			upgrades: [
 				{ desc: 'Ruke heals himself with <em>35%</em> of the attack damage he causes, but not exceeding <em>300%</em> of his Attack Rating.',
 					unlock: 3,
@@ -15137,7 +15137,7 @@ const HeroData = readable([
 		furn_benchmark: 9,
 		furniture: {
 			name: 'Sign Study',
-			image: './img/furniture/unavailable.png',
+			image: './img/furniture/geralt.png',
 			upgrades: [
 				{ desc: 'When successfully blocking damage with Quen, nearby enemies take <em>80%</em> of the blocked damage. Damage cannot exceed <em>350%</em> of Geralt\'s Attack Rating.',
 					unlock: 3,
