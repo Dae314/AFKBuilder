@@ -96,6 +96,7 @@ window.validateComp = async function(data) {
 		{name: 'name', type: 'string'},
 		{name: 'heroes', type: 'array'},
 		{name: 'type', type: 'string'},
+		{name: 'beasts', type: 'object'},
 	];
 	let expectedPropType = '';
 
@@ -137,6 +138,7 @@ window.validateComp = async function(data) {
 				return {retCode: 1, message: `Unexpected line object type detected. All lines should be objects.`};
 			}
 			if(!('type' in line)) line.type = 'player'; // add line type attribute - April 2022 update
+			if(!('beasts' in line)) line.beasts = {primary: [], secondary: [], situational: []}; // add line beasts attribute - November 2022 update
 			// make sure all properties are there
 			for(const prop of expectedLineProps) {
 				if(!(prop.name in line)) {
@@ -507,11 +509,17 @@ function buildCompsData(data) {
 		{name: 'name', default: ''},
 		{name: 'heroes', default: ['unknown','unknown','unknown','unknown','unknown']},
 		{name: 'type', default: 'player'},
+		{name: 'beasts', default: {}},
+	];
+	const expectedBeastProps = [
+		{name: 'primary', default: []},
+		{name: 'secondary', default: []},
+		{name: 'situational', default: []},
 	];
 	const expectedSubProps = [
 		{name: 'name', default: ''},
 		{name: 'heroes', default: []},
-	]
+	];
 
 	// make sure that data is an array
 	if(!Array.isArray(data)) throw new Error('Comps must be an array.');
@@ -548,6 +556,12 @@ function buildCompsData(data) {
 			}
 			for(let prop in line) {
 				if(!expectedLineProps.some(e => e.name === prop)) delete line[prop];
+			}
+			for(const prop of expectedBeastProps) {
+				if(!(prop.name in line.beasts)) line.beasts[prop.name] = prop.default;
+			}
+			for(let prop in line.beasts) {
+				if(!expectedBeastProps.some(e => e.name === prop)) delete line.beasts[prop];
 			}
 		}
 		// clean up sub props
