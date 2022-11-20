@@ -114,8 +114,8 @@
 		dispatch('compLineEvent', {action: 'importLine', data: {idx: selectedLine}});
 	}
 
-	function handleBeastClick() {
-		dispatch('compLineEvent', {action: 'beastDetail', data: {idx: selectedLine}});
+	function handleBeastClick(config) {
+		dispatch('compLineEvent', {action: 'beastDetail', data: config});
 	}
 
 	function handleToggleChange(event) {
@@ -236,7 +236,7 @@
 					</li>
 				</ul>
 				<div class="beastArea" class:edit={editMode}>
-					<button type="button" class="beastButton" on:click={handleBeastClick}>
+					<button type="button" class="beastButton" on:click={() => handleBeastClick({lineIdx: selectedLine})}>
 						{#if !lines[selectedLine].beasts.primary[0]}
 							<img class="beastPortrait nobeast" src="./img/utility/beasts.png" alt="Beasts" />
 						{:else}

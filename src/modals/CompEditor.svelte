@@ -8,6 +8,7 @@
 	import HeroData from '../stores/HeroData.js';
 	import HeroFinder from './HeroFinder.svelte';
 	import ImportLine from './ImportLine.svelte';
+	import BeastEditor from './BeastEditor.svelte';
 	import CompLineEditor from '../components/CompLineEditor.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
 	import XButton from '../shared/XButton.svelte';
@@ -42,8 +43,10 @@
 	let statusError = false;
 	let heroFinderOpen = false;
 	let importLineOpen = false;
+	let beastEditorOpen = false;
 	let hfConfig = {};
 	let ilConfig = {};
+	let beastConfig = {};
 	let newTagText = '';
 	let addTagOpen = false;
 	let openSuggestions = false;
@@ -321,6 +324,23 @@
 		ilConfig = {};
 	}
 
+	function handleBeastDetailClick(config) {
+		beastConfig = config;
+		clearTimeout(autosave); // turn off autosaving while ImportLine is open
+		beastEditorOpen = true;
+	}
+
+	function handleBeastChange({lineIdx, beasts}) {
+		console.log(`line: ${lineIdx}, beasts: ${beasts}`);
+	}
+
+	function closeBeastEditor() {
+		beastEditorOpen = false;
+		// save and resume autosaving now that HeroFinder is closed
+		if(comp.draft) saveDraft();
+		beastConfig = {};
+	}
+
 	function updateLineHero(idx, pos, hero, oldHeroID) {
 		// need to reverse the list to update the right hero due to how the list is displayed
 		let rHeroes = [...comp.lines[idx].heroes].reverse();
@@ -486,6 +506,12 @@
 				config.close = closeImportLine;
 				handleImportLineClick(config);
 				break;
+			case 'beastDetail':
+				config = event.detail.data;
+				config.onSuccess = handleBeastChange;
+				config.close = closeBeastEditor;
+				handleBeastDetailClick(config);
+				break;
 			default:
 				throw new Error(`Invalid action specified on compLineEvent: ${action}`);
 		}
@@ -632,7 +658,12 @@
 			<ImportLine config={ilConfig} />
 		{/if}
 	</section>
-	<section class="sect4">
+	<section class="sect4" class:visible={beastEditorOpen}>
+		{#if beastEditorOpen}
+			<BeastEditor config={beastConfig} />
+		{/if}
+	</section>
+	<section class="sect5">
 		<div class="statusMessage" class:visible={showStatusMessage} class:error={statusError}>{statusMessage}</div>
 	</section>
 </div>
@@ -671,6 +702,20 @@
 		}
 	}
 	.sect4 {
+		display: none;
+		visibility: hidden;
+		&.visible {
+			display: block;
+			height: 100%;
+			left: 0;
+			position: fixed;
+			top: 0;
+			visibility: visible;
+			width: 100%;
+			z-index: 4;
+		}
+	}
+	.sect5 {
 		left: 50%;
 		position: fixed;
 		top: 80px;
