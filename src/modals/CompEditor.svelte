@@ -182,6 +182,7 @@
 			name: "New Line",
 			heroes: ['unknown', 'unknown', 'unknown', 'unknown', 'unknown'],
 			type: 'player',
+			beasts: { primary: [], secondary: [], situational: [] },
 		}];
 		openLine = comp.lines.length - 1;
 	}
@@ -331,7 +332,9 @@
 	}
 
 	function handleBeastChange({lineIdx, beasts}) {
-		console.log(`line: ${lineIdx}, beasts: ${beasts}`);
+		// start here
+		// comp.lines[lineIdx].beasts = beasts;
+		closeBeastEditor();
 	}
 
 	function closeBeastEditor() {
@@ -510,6 +513,7 @@
 				config = event.detail.data;
 				config.onSuccess = handleBeastChange;
 				config.close = closeBeastEditor;
+				config.line = comp.lines[event.detail.data.lineIdx];
 				handleBeastDetailClick(config);
 				break;
 			default:
