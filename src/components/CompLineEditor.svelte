@@ -524,20 +524,20 @@
 					overflow: hidden;
 					transition: all 0.2s;
 					width: 100px;
+					.nobeast {
+						max-height: 23px;
+					}
+					.beastMask {
+						height: 30px;
+						width: 30px;
+						overflow: hidden;
+						.beastPortrait {
+							max-width: 30px;
+						}
+					}
 				}
 				&.edit {
 					top: -19%;
-				}
-				.noBeast {
-					max-height: 23px;
-				}
-				.beastMask {
-					height: 30px;
-					width: 30px;
-					overflow: hidden;
-					.beastPortrait {
-						max-width: 30px;
-					}
 				}
 			}
 		}
