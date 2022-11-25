@@ -263,6 +263,10 @@
 		});
 	}
 
+	function handleBeastDetailClick(beastID) {
+		console.log(beastID);
+	}
+
 	async function handleUnpublishClick() {
 		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(Confirm,
@@ -473,10 +477,12 @@
 															<ul>
 																{#each comp.lines[selectedLine].beasts[category] as beastID}
 																	<li>
-																		<div class="mask">
-																			<img class="beastPortrait" src="{$Beasts.find(e => e.id === beastID).portrait}" alt="{$Beasts.find(e => e.id === beastID).name}">
-																		</div>
-																		<p class="beastName">{$Beasts.find(e => e.id === beastID).name}</p>
+																		<button type="button" class="beastButton" on:click={() => handleBeastDetailClick(beastID)}>
+																			<div class="mask">
+																				<img class="beastPortrait" src="{$Beasts.find(e => e.id === beastID).portrait}" alt="{$Beasts.find(e => e.id === beastID).name}">
+																			</div>
+																			<p class="beastName">{$Beasts.find(e => e.id === beastID).name}</p>
+																		</button>
 																	</li>
 																{/each}
 															</ul>
@@ -869,22 +875,31 @@
 						li {
 							margin: 0px 10px;
 							padding: 0;
-							.mask {
-								height: 60px;
-								border-radius: 50%;
-								overflow: hidden;
-								width: 60px;
-								.beastPortrait {
-									max-width: 60px;
-								}
-							}
-							.beastName {
+							.beastButton {
+								background-color: transparent;
+								border: none;
+								color: var(--appColorBlack);
+								cursor: pointer;
 								margin: 0;
-								margin-top: 10px;
-								max-width: 70px;
-								overflow: hidden;
-								text-overflow: ellipsis;
-								white-space: nowrap;
+								outline: none;
+								padding: 0;
+								.mask {
+									height: 60px;
+									border-radius: 50%;
+									overflow: hidden;
+									width: 60px;
+									.beastPortrait {
+										max-width: 60px;
+									}
+								}
+								.beastName {
+									margin: 0;
+									margin-top: 10px;
+									max-width: 70px;
+									overflow: hidden;
+									text-overflow: ellipsis;
+									white-space: nowrap;
+								}
 							}
 						}
 					}
