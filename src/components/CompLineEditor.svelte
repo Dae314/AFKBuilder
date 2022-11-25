@@ -238,9 +238,11 @@
 				<div class="beastArea" class:edit={editMode}>
 					<button type="button" class="beastButton" on:click={() => handleBeastClick({lineIdx: selectedLine})}>
 						{#if !lines[selectedLine].beasts.primary[0]}
-							<img class="beastPortrait nobeast" src="./img/utility/beasts.png" alt="Beasts" />
+							<img class="nobeast" src="./img/utility/beasts.png" alt="Beasts" />
 						{:else}
-							<img class="beastPortrait" src="{$Beasts.find(e => e.id === lines[selectedLine].beasts.primary[0]).portrait}" alt="{$Beasts.find(e => e.id === lines[selectedLine].beasts.primary[0]).name}" />
+							<div class="beastMask">
+								<img class="beastPortrait" src="{$Beasts.find(e => e.id === lines[selectedLine].beasts.primary[0]).portrait}" alt="{$Beasts.find(e => e.id === lines[selectedLine].beasts.primary[0]).name}" />
+							</div>
 						{/if}
 					</button>
 				</div>
@@ -526,8 +528,16 @@
 				&.edit {
 					top: -19%;
 				}
-				.beastPortrait {
+				.noBeast {
 					max-height: 23px;
+				}
+				.beastMask {
+					height: 30px;
+					width: 30px;
+					overflow: hidden;
+					.beastPortrait {
+						max-width: 30px;
+					}
 				}
 			}
 		}
