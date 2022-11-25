@@ -21,6 +21,7 @@
 	import Confirm from '../modals/Confirm.svelte';
 	import ImportData from '../modals/ImportData.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
+	import BeastDetail from '../modals/BeastDetail.svelte';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import CompEditor from '../modals/CompEditor.svelte';
 	import ArtifactDetail from '../modals/ArtifactDetail.svelte';
@@ -775,7 +776,13 @@
 	}
 
 	function handleBeastDetailClick(beastID) {
-		console.log(beastID);
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
+		open(BeastDetail, 
+		{ beastID: beastID, },
+		{ closeButton: ModalCloseButton,
+			styleWindow: { background: bgColor },
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+		});
 	}
 
 	function openArtifactDetail(artifactID) {
