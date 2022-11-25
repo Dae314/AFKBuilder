@@ -332,8 +332,7 @@
 	}
 
 	function handleBeastChange({lineIdx, beasts}) {
-		// start here
-		// comp.lines[lineIdx].beasts = beasts;
+		comp.lines[lineIdx].beasts = beasts;
 		closeBeastEditor();
 	}
 

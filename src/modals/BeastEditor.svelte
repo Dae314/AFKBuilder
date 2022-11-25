@@ -16,7 +16,7 @@
 
 	onMount(async () => {
 		close = config.close;
-		lineIdx = config.idx;
+		lineIdx = config.lineIdx;
 		line = config.line;
 		onSuccess = config.onSuccess;
 	});
