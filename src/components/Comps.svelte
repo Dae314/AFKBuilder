@@ -17,6 +17,7 @@
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
+	import Beasts from '../stores/Beasts.js';
 	import Confirm from '../modals/Confirm.svelte';
 	import ImportData from '../modals/ImportData.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
@@ -1014,6 +1015,9 @@
 			case 'heroClick':
 				await handleHeroClick(event.detail.data);
 				break;
+			case 'beastDetail':
+				await handleHeroClick('beasts');
+				break;
 			default:
 				throw new Error(`Invalid action specified on compLineEvent: ${action}`);
 		}
@@ -1324,65 +1328,72 @@
 								<div class="mobileExpander selectHeroSection" class:open={openHero}>
 									{#if selectedHero !== ''}
 										<div class="selectedHero" in:fade="{{duration: 200}}">
-											<div class="upperSelectCard">
-												<div class="siFurnBoxContainer">
-													<SIFurnEngBox type='si' num={openComp.heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
-												</div>
-												<div class="selectPortraitArea">
-													<div class="portraitContainer" on:click={() => handleHeroDetailClick(selectedHero)}>
-														<img draggable="false" class="selectHeroPortrait" class:claimed={$AppData.MH.List[selectedHero].claimed} src="{$HeroData.find(e => e.id === selectedHero).portrait}" alt="{selectedHero}">
-														<span class="coreMark" class:visible={openComp.heroes[selectedHero].core}></span>
-													</div>
-													<p>{$HeroData.find(e => e.id === selectedHero).name}</p>
-													<div>
-														<StarsInput
-															value={openComp.heroes[selectedHero].stars}
-															enabled={openComp.heroes[selectedHero].ascendLv === 6}
-															engraving={openComp.heroes[selectedHero].engraving}
-															displayOnly={true} />
-													</div>
-												</div>
-												<div class="siFurnBoxContainer">
-													<SIFurnEngBox type='furn' num={openComp.heroes[selectedHero].furn} maxWidth='50px' fontSize='1.2rem' />
-												</div>
-											</div>
-											<div class="lowerSelectCard">
-												<div class="ascendBoxContainer">
-													<AscendBox
-														ascendLv="{openComp.heroes[selectedHero].ascendLv}"
-														tier={$HeroData.find(e => e.id === selectedHero).tier}
-													/>
-												</div>
-												{#if openComp.heroes[selectedHero].stars > 0}
-													<div class="engraveBoxContainer">
-														<SIFurnEngBox type='engraving' num={openComp.heroes[selectedHero].engraving} maxWidth='50px' fontSize='1.2rem' />
-													</div>
-												{/if}
-												{#if openComp.heroes[selectedHero].notes.length > 0}
-													<div class="heroNotesArea">
-														<div class="heroNotes">
-															<span>{openComp.heroes[selectedHero].notes}</span>
-														</div>
-													</div>
-												{/if}
-												{#if openComp.heroes[selectedHero].artifacts.primary.length > 0 || openComp.heroes[selectedHero].artifacts.secondary.length > 0 || openComp.heroes[selectedHero].artifacts.situational.length > 0}
-													<div class="artifactsContainer">
-														<div class="artifactLine priArtifactLine">
-															<h6>Primary</h6>
-															<div class="artifactArea">
-																{#each openComp.heroes[selectedHero].artifacts.primary as artifact}
-																	<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
-																		<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-																		<p>{$Artifacts[artifact].name}</p>
-																	</button>
+											{#if selectedHero === 'beasts'}
+												<div class="beastDetail">
+													{#each Object.keys(openComp.lines[selectedLine].beasts) as category}
+														<h5>{category}</h5>
+														<div class="beastView {category}">
+															<ul>
+																{#each openComp.lines[selectedLine].beasts[category] as beastID}
+																	<li>
+																		<div class="mask">
+																			<img class="beastPortrait" src="{$Beasts.find(e => e.id === beastID).portrait}" alt="{$Beasts.find(e => e.id === beastID).name}">
+																		</div>
+																		<p class="beastName">{$Beasts.find(e => e.id === beastID).name}</p>
+																	</li>
 																{/each}
+															</ul>
+														</div>
+													{/each}
+												</div>
+											{:else}
+												<div class="upperSelectCard">
+													<div class="siFurnBoxContainer">
+														<SIFurnEngBox type='si' num={openComp.heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
+													</div>
+													<div class="selectPortraitArea">
+														<div class="portraitContainer" on:click={() => handleHeroDetailClick(selectedHero)}>
+															<img draggable="false" class="selectHeroPortrait" class:claimed={$AppData.MH.List[selectedHero].claimed} src="{$HeroData.find(e => e.id === selectedHero).portrait}" alt="{selectedHero}">
+															<span class="coreMark" class:visible={openComp.heroes[selectedHero].core}></span>
+														</div>
+														<p>{$HeroData.find(e => e.id === selectedHero).name}</p>
+														<div>
+															<StarsInput
+																value={openComp.heroes[selectedHero].stars}
+																enabled={openComp.heroes[selectedHero].ascendLv === 6}
+																engraving={openComp.heroes[selectedHero].engraving}
+																displayOnly={true} />
+														</div>
+													</div>
+													<div class="siFurnBoxContainer">
+														<SIFurnEngBox type='furn' num={openComp.heroes[selectedHero].furn} maxWidth='50px' fontSize='1.2rem' />
+													</div>
+												</div>
+												<div class="lowerSelectCard">
+													<div class="ascendBoxContainer">
+														<AscendBox
+															ascendLv="{openComp.heroes[selectedHero].ascendLv}"
+															tier={$HeroData.find(e => e.id === selectedHero).tier}
+														/>
+													</div>
+													{#if openComp.heroes[selectedHero].stars > 0}
+														<div class="engraveBoxContainer">
+															<SIFurnEngBox type='engraving' num={openComp.heroes[selectedHero].engraving} maxWidth='50px' fontSize='1.2rem' />
+														</div>
+													{/if}
+													{#if openComp.heroes[selectedHero].notes.length > 0}
+														<div class="heroNotesArea">
+															<div class="heroNotes">
+																<span>{openComp.heroes[selectedHero].notes}</span>
 															</div>
 														</div>
-														{#if openComp.heroes[selectedHero].artifacts.secondary.length > 0}
-															<div class="artifactLine secArtifactLine">
-																<h6>Secondary</h6>
+													{/if}
+													{#if openComp.heroes[selectedHero].artifacts.primary.length > 0 || openComp.heroes[selectedHero].artifacts.secondary.length > 0 || openComp.heroes[selectedHero].artifacts.situational.length > 0}
+														<div class="artifactsContainer">
+															<div class="artifactLine priArtifactLine">
+																<h6>Primary</h6>
 																<div class="artifactArea">
-																	{#each openComp.heroes[selectedHero].artifacts.secondary as artifact}
+																	{#each openComp.heroes[selectedHero].artifacts.primary as artifact}
 																		<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
 																			<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 																			<p>{$Artifacts[artifact].name}</p>
@@ -1390,23 +1401,36 @@
 																	{/each}
 																</div>
 															</div>
-														{/if}
-														{#if openComp.heroes[selectedHero].artifacts.situational.length > 0}
-															<div class="artifactLine sitArtifactLine">
-																<h6>Situational</h6>
-																<div class="artifactArea">
-																	{#each openComp.heroes[selectedHero].artifacts.situational as artifact}
-																		<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
-																			<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-																			<p>{$Artifacts[artifact].name}</p>
-																		</button>
-																	{/each}
+															{#if openComp.heroes[selectedHero].artifacts.secondary.length > 0}
+																<div class="artifactLine secArtifactLine">
+																	<h6>Secondary</h6>
+																	<div class="artifactArea">
+																		{#each openComp.heroes[selectedHero].artifacts.secondary as artifact}
+																			<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																				<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																				<p>{$Artifacts[artifact].name}</p>
+																			</button>
+																		{/each}
+																	</div>
 																</div>
-															</div>
-														{/if}
-													</div>
-												{/if}
-											</div>
+															{/if}
+															{#if openComp.heroes[selectedHero].artifacts.situational.length > 0}
+																<div class="artifactLine sitArtifactLine">
+																	<h6>Situational</h6>
+																	<div class="artifactArea">
+																		{#each openComp.heroes[selectedHero].artifacts.situational as artifact}
+																			<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																				<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																				<p>{$Artifacts[artifact].name}</p>
+																			</button>
+																		{/each}
+																	</div>
+																</div>
+															{/if}
+														</div>
+													{/if}
+												</div>
+											{/if}
 										</div>
 									{:else}
 										<TutorialBox noMargin>
@@ -2144,9 +2168,53 @@
 				}
 			}
 			.selectHeroSection {
-				width: 100%;
+				width: 93vw;
 				#heroDetailSection {
 					scroll-snap-align: center;
+				}
+				.beastDetail {
+					h5 {
+						margin: 10px 0px;
+						&::first-letter {
+							text-transform:capitalize;
+						}
+					}
+					.beastView {
+						background-color: var(--appBGColor);
+						border-radius: 10px;
+						box-shadow: var(--neu-sm-ni-BGColor-inset-shadow);
+						margin-top: 5px;
+						min-height: 105px;
+						overflow-x: auto;
+						padding: 10px 5px;
+						ul {
+							display: flex;
+							margin: 0;
+							padding: 0;
+							list-style-type: none;
+							li {
+								margin: 0px 10px;
+								padding: 0;
+								.mask {
+									height: 60px;
+									border-radius: 50%;
+									overflow: hidden;
+									width: 60px;
+									.beastPortrait {
+										max-width: 60px;
+									}
+								}
+								.beastName {
+									margin: 0;
+									margin-top: 10px;
+									max-width: 70px;
+									overflow: hidden;
+									text-overflow: ellipsis;
+									white-space: nowrap;
+								}
+							}
+						}
+					}
 				}
 				.selectedHero {
 					background-color: var(--appBGColor);
