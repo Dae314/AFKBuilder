@@ -5309,7 +5309,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Elude',
 			image: './img/si/kaz.png',
@@ -5326,7 +5326,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Poison\'s Kiss',
 			image: './img/furniture/kaz.png',
@@ -6673,7 +6673,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Kindred Spirits',
 			image: './img/si/respen.png',
@@ -6690,7 +6690,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Wishful Winds',
 			image: './img/furniture/respen.png',
@@ -9156,7 +9156,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Sorrowful Affliction',
 			image: './img/si/theowyn.png',
@@ -9173,7 +9173,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Entangled Souls',
 			image: './img/furniture/theowyn.png',
@@ -9186,7 +9186,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 60,
+		engraving_benchmark: 0,
 	},
 	{ id: 'silas',
 		name: 'Silas',
@@ -9900,7 +9900,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Blood Feast',
 			image: './img/si/kalene.png',
@@ -9917,7 +9917,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Soul Torture',
 			image: './img/furniture/kalene.png',
@@ -13629,7 +13629,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Heavy Slash',
 			image: './img/si/nakoruru.png',
@@ -13646,7 +13646,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 3,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Nature\'s Hand',
 			image: './img/furniture/nakoruru.png',
@@ -14869,7 +14869,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Soul Taker',
 			image: './img/si/melusina.png',
@@ -14886,7 +14886,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 3,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Safe & Sound',
 			image: './img/furniture/melusina.png',
@@ -14899,7 +14899,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 60,
+		engraving_benchmark: 0,
 	},
 	{ id: 'joa',
 		name: 'Joan of Arc',
