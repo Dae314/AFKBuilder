@@ -11894,12 +11894,12 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Immolate',
 			image: './img/si/ezizh.png',
-			desc: 'Enemies with less than <em>30%</em> health will be stunned for a short period of time.',
+			desc: 'Enemies with less than <em>30%</em> health will be stunned for a short period of time when taking damage dealt by the Ultimate skill, Fissure.',
 			upgrades: [
-				{ desc: 'For every <em>1</em> second that the fire from "Burning Ground" is active, the damage increases by <em>15%</em>.',
+				{ desc: 'Ezizh\'s fire increases damage by <em>15%</em> every <em>1</em> seconds.',
 					unlock: 10,
 				},
-				{ desc: 'For every <em>1</em> second that the fire from "Burning Ground" is active, the damage increases by <em>20%</em>.',
+				{ desc: 'Ezizh\'s fire increases damage by <em>20%</em> every <em>1</em> seconds.',
 					unlock: 20,
 				},
 				{ desc: 'Increases the duration that the fire from "Burning Ground" is active for by <em>100%</em>. However only <em>1</em> location can be burned at a time.',
