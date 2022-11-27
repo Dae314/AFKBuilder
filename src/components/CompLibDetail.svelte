@@ -11,8 +11,10 @@
 	import AppData from '../stores/AppData.js';
 	import HeroData from '../stores/HeroData.js';
 	import Artifacts from '../stores/Artifacts.js';
+	import Beasts from '../stores/Beasts.js';
 	import ModalCloseButton from '../modals/ModalCloseButton.svelte';
 	import HeroDetail from '../modals/HeroDetail.svelte';
+	import BeastDetail from '../modals/BeastDetail.svelte';
 	import ArtifactDetail from '../modals/ArtifactDetail.svelte';
 	import Confirm from '../modals/Confirm.svelte';
 	import LoadingPage from '../shared/LoadingPage.svelte';
@@ -262,6 +264,16 @@
 		});
 	}
 
+	function handleBeastDetailClick(beastID) {
+		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
+		open(BeastDetail, 
+		{ beastID: beastID, },
+		{ closeButton: ModalCloseButton,
+			styleWindow: { background: bgColor },
+			styleContent: {background: bgColor, padding: 0, borderRadius: '10px', maxHeight: editorHeight,},
+		});
+	}
+
 	async function handleUnpublishClick() {
 		const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--appBGColor');
 		open(Confirm,
@@ -323,6 +335,9 @@
 		switch(event.detail.action) {
 			case 'heroClick':
 				await handleHeroClick(event.detail.data);
+				break;
+			case 'beastDetail':
+				await handleHeroClick('beasts');
 				break;
 			default:
 				throw new Error(`Invalid action specified on compLineEvent: ${action}`);
@@ -461,65 +476,74 @@
 								<div class="mobileExpander selectHeroSection" class:open={openHero}>
 									{#if selectedHero !== ''}
 										<div class="selectedHero" in:fade="{{duration: 200}}">
-											<div class="upperSelectCard">
-												<div class="siFurnBoxContainer">
-													<SIFurnEngBox type='si' num={comp.heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
-												</div>
-												<div class="selectPortraitArea">
-													<div class="portraitContainer" on:click={() => handleHeroDetailClick(selectedHero)}>
-														<img draggable="false" class="selectHeroPortrait" class:claimed={$AppData.MH.List[selectedHero].claimed} src="{$HeroData.find(e => e.id === selectedHero).portrait}" alt="{selectedHero}">
-														<span class="coreMark" class:visible={comp.heroes[selectedHero].core}></span>
-													</div>
-													<p>{$HeroData.find(e => e.id === selectedHero).name}</p>
-													<div>
-														<StarsInput
-															value={comp.heroes[selectedHero].stars}
-															enabled={comp.heroes[selectedHero].ascendLv === 6}
-															engraving={comp.heroes[selectedHero].engraving}
-															displayOnly={true} />
-													</div>
-												</div>
-												<div class="siFurnBoxContainer">
-													<SIFurnEngBox type='furn' num={comp.heroes[selectedHero].furn} maxWidth='50px' fontSize='1.2rem' />
-												</div>
-											</div>
-											<div class="lowerSelectCard">
-												<div class="ascendBoxContainer">
-													<AscendBox
-														ascendLv="{comp.heroes[selectedHero].ascendLv}"
-														tier={$HeroData.find(e => e.id === selectedHero).tier}
-													/>
-												</div>
-												{#if comp.heroes[selectedHero].stars > 0}
-													<div class="engraveBoxContainer">
-														<SIFurnEngBox type='engraving' num={comp.heroes[selectedHero].engraving} maxWidth='50px' fontSize='1.2rem' />
-													</div>
-												{/if}
-												{#if comp.heroes[selectedHero].notes.length > 0}
-													<div class="heroNotesArea">
-														<div class="heroNotes">
-															<span>{comp.heroes[selectedHero].notes}</span>
-														</div>
-													</div>
-												{/if}
-												{#if comp.heroes[selectedHero].artifacts.primary.length > 0 || comp.heroes[selectedHero].artifacts.secondary.length > 0 || comp.heroes[selectedHero].artifacts.situational.length > 0}
-													<div class="artifactsContainer">
-														<div class="artifactLine priArtifactLine">
-															<h6>Primary</h6>
-															<div class="artifactArea">
-																{#each comp.heroes[selectedHero].artifacts.primary as artifact}
-																	<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
-																		<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-																		<p>{$Artifacts[artifact].name}</p>
-																	</button>
+											{#if selectedHero === 'beasts'}
+												<div class="beastDetail">
+													{#each Object.keys(comp.lines[selectedLine].beasts) as category}
+														<h5>{category}</h5>
+														<div class="beastView {category}">
+															<ul>
+																{#each comp.lines[selectedLine].beasts[category] as beastID}
+																	<li>
+																		<button type="button" class="beastButton" on:click={() => handleBeastDetailClick(beastID)}>
+																			<div class="mask">
+																				<img class="beastPortrait" src="{$Beasts.find(e => e.id === beastID).portrait}" alt="{$Beasts.find(e => e.id === beastID).name}">
+																			</div>
+																			<p class="beastName">{$Beasts.find(e => e.id === beastID).name}</p>
+																		</button>
+																	</li>
 																{/each}
+															</ul>
+														</div>
+													{/each}
+												</div>
+											{:else}
+												<div class="upperSelectCard">
+													<div class="siFurnBoxContainer">
+														<SIFurnEngBox type='si' num={comp.heroes[selectedHero].si} maxWidth='50px' fontSize='1.2rem' />
+													</div>
+													<div class="selectPortraitArea">
+														<div class="portraitContainer" on:click={() => handleHeroDetailClick(selectedHero)}>
+															<img draggable="false" class="selectHeroPortrait" class:claimed={$AppData.MH.List[selectedHero].claimed} src="{$HeroData.find(e => e.id === selectedHero).portrait}" alt="{selectedHero}">
+															<span class="coreMark" class:visible={comp.heroes[selectedHero].core}></span>
+														</div>
+														<p>{$HeroData.find(e => e.id === selectedHero).name}</p>
+														<div>
+															<StarsInput
+																value={comp.heroes[selectedHero].stars}
+																enabled={comp.heroes[selectedHero].ascendLv === 6}
+																engraving={comp.heroes[selectedHero].engraving}
+																displayOnly={true} />
+														</div>
+													</div>
+													<div class="siFurnBoxContainer">
+														<SIFurnEngBox type='furn' num={comp.heroes[selectedHero].furn} maxWidth='50px' fontSize='1.2rem' />
+													</div>
+												</div>
+												<div class="lowerSelectCard">
+													<div class="ascendBoxContainer">
+														<AscendBox
+															ascendLv="{comp.heroes[selectedHero].ascendLv}"
+															tier={$HeroData.find(e => e.id === selectedHero).tier}
+														/>
+													</div>
+													{#if comp.heroes[selectedHero].stars > 0}
+														<div class="engraveBoxContainer">
+															<SIFurnEngBox type='engraving' num={comp.heroes[selectedHero].engraving} maxWidth='50px' fontSize='1.2rem' />
+														</div>
+													{/if}
+													{#if comp.heroes[selectedHero].notes.length > 0}
+														<div class="heroNotesArea">
+															<div class="heroNotes">
+																<span>{comp.heroes[selectedHero].notes}</span>
 															</div>
 														</div>
-														{#if comp.heroes[selectedHero].artifacts.secondary.length > 0}
-															<div class="artifactLine secArtifactLine">
-																<h6>Secondary</h6>
+													{/if}
+													{#if comp.heroes[selectedHero].artifacts.primary.length > 0 || comp.heroes[selectedHero].artifacts.secondary.length > 0 || comp.heroes[selectedHero].artifacts.situational.length > 0}
+														<div class="artifactsContainer">
+															<div class="artifactLine priArtifactLine">
+																<h6>Primary</h6>
 																<div class="artifactArea">
-																	{#each comp.heroes[selectedHero].artifacts.secondary as artifact}
+																	{#each comp.heroes[selectedHero].artifacts.primary as artifact}
 																		<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
 																			<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
 																			<p>{$Artifacts[artifact].name}</p>
@@ -527,23 +551,36 @@
 																	{/each}
 																</div>
 															</div>
-														{/if}
-														{#if comp.heroes[selectedHero].artifacts.situational.length > 0}
-															<div class="artifactLine sitArtifactLine">
-																<h6>Situational</h6>
-																<div class="artifactArea">
-																	{#each comp.heroes[selectedHero].artifacts.situational as artifact}
-																		<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
-																			<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
-																			<p>{$Artifacts[artifact].name}</p>
-																		</button>
-																	{/each}
+															{#if comp.heroes[selectedHero].artifacts.secondary.length > 0}
+																<div class="artifactLine secArtifactLine">
+																	<h6>Secondary</h6>
+																	<div class="artifactArea">
+																		{#each comp.heroes[selectedHero].artifacts.secondary as artifact}
+																			<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																				<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																				<p>{$Artifacts[artifact].name}</p>
+																			</button>
+																		{/each}
+																	</div>
 																</div>
-															</div>
-														{/if}
-													</div>
-												{/if}
-											</div>
+															{/if}
+															{#if comp.heroes[selectedHero].artifacts.situational.length > 0}
+																<div class="artifactLine sitArtifactLine">
+																	<h6>Situational</h6>
+																	<div class="artifactArea">
+																		{#each comp.heroes[selectedHero].artifacts.situational as artifact}
+																			<button type="button" on:click={() => openArtifactDetail(artifact)} class="artifactImgContainer">
+																				<img draggable="false" src="{$Artifacts[artifact].image}" alt="{$Artifacts[artifact].name}">
+																				<p>{$Artifacts[artifact].name}</p>
+																			</button>
+																		{/each}
+																	</div>
+																</div>
+															{/if}
+														</div>
+													{/if}
+												</div>
+											{/if}
 										</div>
 									{:else}
 										<TutorialBox noMargin={true}>
@@ -818,10 +855,63 @@
 			padding-left: 5px;
 		}
 		.selectHeroSection {
-			width: 100%;
+			width: 93vw;
 		}
 		#heroDetailSection {
 			scroll-snap-align: center;
+			.beastDetail {
+				h5 {
+					margin: 10px 0px;
+					&::first-letter {
+						text-transform:capitalize;
+					}
+				}
+				.beastView {
+					background-color: var(--appBGColor);
+					border-radius: 10px;
+					box-shadow: var(--neu-sm-ni-BGColor-inset-shadow);
+					margin-top: 5px;
+					min-height: 105px;
+					overflow-x: auto;
+					padding: 10px 5px;
+					ul {
+						display: flex;
+						margin: 0;
+						padding: 0;
+						list-style-type: none;
+						li {
+							margin: 0px 10px;
+							padding: 0;
+							.beastButton {
+								background-color: transparent;
+								border: none;
+								color: var(--appColorBlack);
+								cursor: pointer;
+								margin: 0;
+								outline: none;
+								padding: 0;
+								.mask {
+									height: 60px;
+									border-radius: 50%;
+									overflow: hidden;
+									width: 60px;
+									.beastPortrait {
+										max-width: 60px;
+									}
+								}
+								.beastName {
+									margin: 0;
+									margin-top: 10px;
+									max-width: 70px;
+									overflow: hidden;
+									text-overflow: ellipsis;
+									white-space: nowrap;
+								}
+							}
+						}
+					}
+				}
+			}
 			.selectedHero {
 				background-color: var(--appBGColor);
 				border-radius: 10px;

@@ -35,6 +35,7 @@
 	let pickArtifactSec = false;
 	let pickArtifactSit = false;
 	let desktopSearch;
+	let awRegex = new RegExp('.*_aw$');
 
 	onMount(async () => {
 		close = config.close;
@@ -544,7 +545,7 @@
 								activeItem={selectedHero.si === -1 ? 0 : Math.floor(selectedHero.si/5) + 1}
 								centerMenu={true}
 								zIndexBase=4
-								si40={$HeroData.find(e => e.id === selectedHero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Celestial' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Hypogean'}
+								si40={$HeroData.find(e => e.id === selectedHero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Celestial' || $HeroData.find(e => e.id === selectedHero.id).faction === 'Hypogean' || awRegex.test(selectedHero.id)}
 								active={$HeroData.find(e => e.id === selectedHero.id).tier === 'ascended' && selectedHero.ascendLv >= 4}
 							/>
 						</div>

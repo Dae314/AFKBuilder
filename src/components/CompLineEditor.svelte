@@ -1,6 +1,7 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
 	import HeroData from '../stores/HeroData.js';
+	import Beasts from '../stores/Beasts.js';
 	import HeroButton from '../shared/HeroButton.svelte';
 	import SimpleSortableList from '../shared/SimpleSortableList.svelte';
 	import XButton from '../shared/XButton.svelte';
@@ -113,6 +114,10 @@
 		dispatch('compLineEvent', {action: 'importLine', data: {idx: selectedLine}});
 	}
 
+	function handleBeastClick(config) {
+		dispatch('compLineEvent', {action: 'beastDetail', data: config});
+	}
+
 	function handleToggleChange(event) {
 		if(event.detail.data.state) {
 			lines[selectedLine].type = 'enemy';
@@ -145,9 +150,6 @@
 						</div>
 					</div>
 				{:else}
-					{#if lines[selectedLine].type === 'enemy'}
-						<span class="enemyTitle">Enemy</span>
-					{/if}
 					<span>{lines[selectedLine].name}</span>
 				{/if}
 			</div>
@@ -220,8 +222,8 @@
 					</div>
 				</div>
 			{/if}
-			<div class="lineOptions" class:edit={editMode}>
-				<ul>
+			<div class="lineOptions">
+				<ul class:edit={editMode}>
 					<li>
 						<span class="optionLabel">{lines[selectedLine].type}</span>
 						<ToggleSwitch
@@ -233,6 +235,17 @@
 						/>
 					</li>
 				</ul>
+				<div class="beastArea" class:edit={editMode}>
+					<button type="button" class="beastButton" on:click={() => handleBeastClick({lineIdx: selectedLine})}>
+						{#if !lines[selectedLine].beasts.primary[0]}
+							<img class="nobeast" src="./img/utility/beasts.png" alt="Beasts" />
+						{:else}
+							<div class="beastMask">
+								<img class="beastPortrait" src="{$Beasts.find(e => e.id === lines[selectedLine].beasts.primary[0]).portrait}" alt="{$Beasts.find(e => e.id === lines[selectedLine].beasts.primary[0]).name}" />
+							</div>
+						{/if}
+					</button>
+				</div>
 			</div>
 		{:else}
 			<div class="noLine">
@@ -354,9 +367,6 @@
 					}
 				}
 			}
-			.enemyTitle {
-				display: block;
-			}
 			&.enemy {
 				color: var(--appDelColor);
 				.titleInput {
@@ -472,11 +482,13 @@
 			}
 		}
 		.lineOptions {
-			display: none;
+			position: relative;
+			width: 100%;
 			ul {
-				display: flex;
+				display: none;
 				list-style-type: none;
 				margin: 0;
+				margin-right: auto;
 				padding: 0;
 				li {
 					align-items: center;
@@ -487,9 +499,46 @@
 						width: 50px;
 					}
 				}
+				&.edit {
+					display: flex;
+				}
 			}
-			&.edit {
-				display: block;
+			.beastArea {
+				left: 50%;
+				position: absolute;
+				transform: translate(-50%, 20%);
+				.beastButton {
+					align-items: center;
+					background-color: var(--appBGColor);
+					border: 0;
+					border-left: 3px solid var(--appColorPrimary);
+					border-right: 3px solid var(--appColorPrimary);
+					border-top: 3px solid var(--appColorPrimary);
+					border-top-left-radius: 10px;
+					border-top-right-radius: 10px;
+					cursor: pointer;
+					display: flex;
+					justify-content: center;
+					height: 35px;
+					outline: none;
+					overflow: hidden;
+					transition: all 0.2s;
+					width: 100px;
+					.nobeast {
+						max-height: 23px;
+					}
+					.beastMask {
+						height: 30px;
+						width: 30px;
+						overflow: hidden;
+						.beastPortrait {
+							max-width: 30px;
+						}
+					}
+				}
+				&.edit {
+					top: -19%;
+				}
 			}
 		}
 		.noLine {
@@ -588,6 +637,15 @@
 				&:disabled {
 					&:hover {
 						background-color: transparent;
+					}
+				}
+			}
+			.lineOptions {
+				.beastArea {
+					.beastButton {
+						&:hover {
+							background-color: var(--appBGColorDark);
+						}
 					}
 				}
 			}

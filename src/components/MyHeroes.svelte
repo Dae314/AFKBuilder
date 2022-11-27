@@ -36,6 +36,7 @@
 	let showFilters = false;
 	let sections = ['Owned', 'Unowned'];
 	let sortOptions = ['Name', 'Asc.', 'Copies', 'Eng.'];
+	let awRegex = new RegExp('.*_aw$');
 
 	onMount(async () => {
 		$AppData.activeView = 'myheroes';
@@ -588,7 +589,7 @@
 											menuItemChangeCallback={(index) => handleSIChange(hero.id, index)}
 											activeItem={$AppData.MH.List[hero.id].si === -1 ? 0 : Math.floor($AppData.MH.List[hero.id].si/5) + 1}
 											zIndexBase=2
-											si40={$HeroData.find(e => e.id === hero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === hero.id).faction === 'Celestial' || $HeroData.find(e => e.id === hero.id).faction === 'Hypogean'}
+											si40={$HeroData.find(e => e.id === hero.id).faction === 'Dimensional' || $HeroData.find(e => e.id === hero.id).faction === 'Celestial' || $HeroData.find(e => e.id === hero.id).faction === 'Hypogean' || awRegex.test(hero.id)}
 											active={$HeroData.find(e => e.id === hero.id).tier === 'ascended' && $AppData.MH.List[hero.id].ascendLv >= 4}
 										/>
 									</div>
