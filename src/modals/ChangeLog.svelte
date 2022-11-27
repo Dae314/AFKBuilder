@@ -5,6 +5,19 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v2.2.0',
+			changes: [
+				'Added Beast support in Comps',
+				'Added Nevanthi',
+				'Added Salaki',
+				'Added Awakened Baden',
+				'Added missing furniture skill images',
+				'Updated Kaz, Respen, Theowyn, Kalene, Nako, and Melu benchmarks to 000e0',
+				'Updated Ezizh SI',
+				'Fixed Awakened heroes can now have SI 40',
+				'Fixed typos on Anasta skills',
+			],
+		},
 		{ version: 'v2.1.60',
 			changes: [
 				'Added Awakened Solise',
@@ -72,17 +85,6 @@
 				'Fixed typo on Vyloris skill 3',
 				'Fixed typo on Satrana skill 2',
 				'Fixed typo on Skreg 3f typo',
-			],
-		},
-		{ version: 'v2.1.7',
-			changes: [
-				'Added new hero Sonja',
-				'Added new hero Anasta',
-				'Fixed date filtering for new comps in explore',
-				'Updated Queen benchmark to 209e33',
-				'Updated Torne benchmark to 200e0',
-				'Fixed typo on Skreg e30 and ult lv3',
-				'Fixed typo on Fawkes 3f',
 			],
 		},
 	]
