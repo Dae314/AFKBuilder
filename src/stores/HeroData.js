@@ -8793,7 +8793,7 @@ const HeroData = readable([
 				{ desc: 'All of Baden\'s phantoms have their health increased by <em>15%</em>.',
 					unlock: 10,
 				},
-				{ desc: 'All of Baden\'s phantoms have their health inccreased by <em>30%</em>.',
+				{ desc: 'All of Baden\'s phantoms have their health increased by <em>30%</em>.',
 					unlock: 20,
 				},
 				{ desc: 'Each time a total of <em>3</em> phantom Badens disappear from the battlefield, Baden will initiate the effects of his "Phantom Strike" ability.',
