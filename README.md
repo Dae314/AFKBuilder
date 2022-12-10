@@ -1,5 +1,5 @@
 # AFKBuilder
-<sup>version: 2.2.0</sup>
+<sup>version: 2.2.4</sup>
 
 AFKBuilder is a tool designed to help players build, share, and use community made team compositions for AFK Arena.
 
