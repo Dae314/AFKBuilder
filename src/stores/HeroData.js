@@ -13457,7 +13457,7 @@ const HeroData = readable([
 					},
 				],
 			},
-			{ name: 'Wond Reversal',
+			{ name: 'Wound Reversal',
 				type: 'level',
 				image: './img/skills/canisa_ruke3.png',
 				desc: 'Passive. At the beginning of  battle, Canisa & Ruke\'s Max Health drops by <em>30%</em>. On receiving their first fatal damage, they will be immune to all damage and control effects for <em>2.5</em> seconds and restore their Max Health by <em>30%</em>.<br/><br/>They will also buff up their Physical Resist by <em>10</em> points or Magic Resist by <em>20</em> points according to the proportions of the types of damge previously suffered until the end of the battle.',
