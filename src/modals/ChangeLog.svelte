@@ -5,6 +5,14 @@
 	const { close } = getContext('simple-modal');
 
 	const changelog = [
+		{ version: 'v2.2.4',
+			changes: [
+				'Added Palmer',
+				'Added Flutterplume Owl',
+				'Fixed typo on Baden +20',
+				'Fixed typo on Canisa & Ruke skill 3',
+			],
+		},
 		{ version: 'v2.2.0',
 			changes: [
 				'Added Beast support in Comps',
@@ -71,20 +79,6 @@
 				'Fixed Joker e30 typo',
 				'Fixed Orthros s4 typo',
 				'Fixed Framton e30 typo',
-			],
-		},
-		{ version: 'v2.1.17',
-			changes: [
-				'Added new hero Kalene',
-				'Updated Gwyneth skills 2 and 3 descriptions',
-				'Updated Grez skill 3 description',
-				'Updated Fawkes skill 2 description',
-				'Updated Titus, Leofric, and Mehira engraving effects',
-				'Updated Satrana benchmark to 200',
-				'Fixed Audrae furniture image',
-				'Fixed typo on Vyloris skill 3',
-				'Fixed typo on Satrana skill 2',
-				'Fixed typo on Skreg 3f typo',
 			],
 		},
 	]
