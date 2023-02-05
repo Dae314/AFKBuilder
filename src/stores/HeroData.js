@@ -2576,7 +2576,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 20,
 		sig_item: {
 			name: 'Exault the Light',
 			image: './img/si/palmer.png',
@@ -2606,7 +2606,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 60,
+		engraving_benchmark: 44,
 	},
 	{ id: 'belinda_aw',
 		name: 'Belinda (Awakened)',
