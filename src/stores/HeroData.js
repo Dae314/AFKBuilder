@@ -9176,7 +9176,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 0,
+		furn_benchmark: 3,
 		furniture: {
 			name: 'Death Shield',
 			image: './img/furniture/torne.png',
