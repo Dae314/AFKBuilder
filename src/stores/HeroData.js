@@ -8579,7 +8579,7 @@ const HeroData = readable([
 		type: 'Agility',
 		tier: 'ascended',
 		skills: [
-			{ name: 'Blades of Fury',
+			{ name: 'Spectral Riposte',
 				type: 'level',
 				image: './img/skills/kelthur1.png',
 				desc: 'Kelthur targets the enemy that is farthest away from himself with his shuriken which deals <em>65%</em> damage to all enemies standing in its path. Once the shuriken reaches its final target, Kelthur catches it and proceeds to attack the enemy target for <em>180%</em> damage.',
