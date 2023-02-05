@@ -13756,7 +13756,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 0,
+		si_benchmark: 30,
 		sig_item: {
 			name: 'Chain Reach',
 			image: './img/si/canisa_ruke.png',
@@ -13773,7 +13773,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 3,
+		furn_benchmark: 9,
 		furniture: {
 			name: 'Pain Link',
 			image: './img/furniture/canisa_ruke.png',
@@ -13786,7 +13786,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 0,
+		engraving_benchmark: 30,
 	},
 	{ id: 'arthur',
 		name: 'Arthur',
