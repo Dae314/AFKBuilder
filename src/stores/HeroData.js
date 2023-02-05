@@ -713,7 +713,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Finesse',
 			image: './img/si/thane.png',
@@ -730,7 +730,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Swift Death',
 			image: './img/furniture/thane.png',
@@ -743,7 +743,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 60,
+		engraving_benchmark: 0,
 	},
 	{ id: 'fawkes',
 		name: 'Fawkes',
@@ -4563,7 +4563,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 20,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Fiery Focus',
 			image: './img/si/thali.png',
@@ -4580,7 +4580,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Heart of Fire',
 			image: './img/furniture/thali.png',
@@ -12761,7 +12761,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Virclent Greed',
 			image: './img/si/mezoth.png',
@@ -12778,7 +12778,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Fiendish Negation',
 			image: './img/furniture/mezoth.png',
@@ -13133,7 +13133,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 20,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Heart of Malice',
 			image: './img/si/leofric.png',
@@ -13257,7 +13257,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 20,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Bewilderment',
 			image: './img/si/zikis.png',
@@ -13274,7 +13274,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Inertial Plague',
 			image: './img/furniture/zikis.png',
@@ -13287,7 +13287,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 41,
+		engraving_benchmark: 0,
 	},
 	{ id: 'framton',
 		name: 'Framton',
