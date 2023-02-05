@@ -1209,7 +1209,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 25,
+		si_benchmark: 20,
 		sig_item: {
 			name: 'Focus Fire',
 			image: './img/si/gwyneth.png',
@@ -1226,7 +1226,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 3,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Arrows of Swiftness',
 			image: './img/furniture/gwyneth.png',
