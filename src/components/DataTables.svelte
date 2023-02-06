@@ -14,8 +14,11 @@
 		dispatch('routeEvent', {action: 'saveData'});
 	});
 
-	let curView = 0;
-	let viewOptions = ['Heroes', 'Beasts', 'Artifacts'];
+	let sectOptions = ['Heroes', 'Beasts', 'Artifacts'];
+
+	function handleViewChange() {
+		dispatch('routeEvent', {action: 'saveData'});
+	}
 </script>
 
 <div class="DTContainer">
@@ -23,19 +26,20 @@
 		<div class="pickerArea">
 			<div class="sortContainer">
 				<HRadioPicker
-					options={viewOptions}
-					bind:curOption={curView}
+					options={sectOptions}
+					bind:curOption={$AppData.HL.CurSect}
+					on:change={handleViewChange}
 				/>
 			</div>
 		</div>
 	</section>
 	<section class="sect2">
 		<div class='tableContainer'>
-			{#if curView === 0}
+			{#if $AppData.HL.CurSect === 0}
 				<HeroList {isMobile} on:routeEvent />
-			{:else if curView === 1}
+			{:else if $AppData.HL.CurSect === 1}
 				<BeastList {isMobile} on:routeEvent />
-			{:else if curView === 2}
+			{:else if $AppData.HL.CurSect === 2}
 				<ArtifactList {isMobile} on:routeEvent />
 			{/if}
 		</div>

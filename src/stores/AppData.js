@@ -300,6 +300,7 @@ function buildAppData(data) {
 		{name: 'saved_comps', default: [], reset: false},
 	]
 	const expectedHLProps = [
+		{name: 'CurSect', default: 0, reset: true},
 		{name: 'Sort', default: 'name', reset: true},
 		{name: 'Order', default: 'asc', reset: true},
 		{name: 'SearchStr', default: '', reset: true},
