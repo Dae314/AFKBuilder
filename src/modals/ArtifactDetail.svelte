@@ -29,8 +29,8 @@
 	<section class="attributes">
 		<div class="classContainer">
 			{#if artifact.class === 'Any'}
-				<div class="allCircle classImg"><span>All</span></div>
-				<div class="tooltip classTooltip"><span class="tooltipText">All Classes</span></div>
+				<div class="allCircle classImg"><span>ANY</span></div>
+				<div class="tooltip classTooltip"><span class="tooltipText">Any Class</span></div>
 			{:else}
 				<img draggable="false" class="classImg" src="./img/classes/{artifact.class.toLowerCase()}.png" alt={artifact.class}>
 				<div class="tooltip"><span class="tooltipText">{artifact.class}</span></div>

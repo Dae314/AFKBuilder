@@ -181,7 +181,7 @@
 					<div class="artiCard">
 						<div class="classArea">
 							{#if arti.class === 'Any'}
-								<div class="allClasses">ALL</div>
+								<div class="allClasses">ANY</div>
 							{:else}
 								<img draggable="false" class="classImage" src="./img/classes/{arti.class.toLowerCase()}.png" alt={arti.class}>
 							{/if}
@@ -430,6 +430,7 @@
 					color: var(--appColorPrimary);
 					display: flex;
 					font-size: 0.6rem;
+					font-weight: bold;
 					height: 33px;
 					justify-content: center;
 					padding: 0;
