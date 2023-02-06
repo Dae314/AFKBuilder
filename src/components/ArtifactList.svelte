@@ -36,7 +36,7 @@
 			if(!$AppData.HL.ArtiShowSup && arti.class.toLowerCase() === 'support') continue;
 			if(!$AppData.HL.ArtiShowRan && arti.class.toLowerCase() === 'ranger') continue;
 			if($AppData.HL.ArtiSearch !== '' &&
-				 !artifact.name.toLowerCase().includes($AppData.HL.ArtiSearch.toLowerCase())
+				 !arti.name.toLowerCase().includes($AppData.HL.ArtiSearch.toLowerCase())
 				) continue;
 			retVal.push({
 				id: artiIDs[i],
@@ -134,7 +134,7 @@
 <div class="ArtiContainer">
 	<section class="sect1">
 		<div class="searchArea">
-			<input id="searchBox" type="search" placeholder="Search" bind:value={$AppData.HL.BeastSearch} on:keyup={updateSearch} on:search={updateSearch}>
+			<input id="searchBox" type="search" placeholder="Search" bind:value={$AppData.HL.ArtiSearch} on:keyup={updateSearch} on:search={updateSearch}>
 			<button type="button" class="headButton searchButton" on:click={updateSearch}>
 				<img class="searchImage" class:light={$AppData.colorProfile === 'light'} src="./img/utility/search_white.png" alt="search" />
 			</button>
