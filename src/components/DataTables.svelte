@@ -14,7 +14,7 @@
 		dispatch('routeEvent', {action: 'saveData'});
 	});
 
-	let curView = 2;
+	let curView = 0;
 	let viewOptions = ['Heroes', 'Beasts', 'Artifacts'];
 </script>
 
