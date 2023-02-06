@@ -109,6 +109,7 @@
 		outline: none;
 		text-align: center;
 		width: 40px;
+		-moz-appearance:textfield;
 		&::-webkit-outer-spin-button,
 		&::-webkit-inner-spin-button {
 			display: none;
