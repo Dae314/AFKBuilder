@@ -437,13 +437,13 @@ function buildAppData(data) {
 // function to build or add in new heroes from HeroData into MH.List
 function buildMyHeroData(data) {
 	const expectedProps = [
-		{name: 'claimed', default: false},
-		{name: 'ascendLv', default: 0},
-		{name: 'furn', default: 0},
-		{name: 'si', default: 0},
-		{name: 'copies', default: 0},
-		{name: 'stars', default: 0},
-		{name: 'engraving', default: 0},
+		{name: 'claimed', default: false, reset: false},
+		{name: 'ascendLv', default: 0, reset: false},
+		{name: 'furn', default: 0, reset: false},
+		{name: 'si', default: 0, reset: false},
+		{name: 'copies', default: 0, reset: false},
+		{name: 'stars', default: 0, reset: false},
+		{name: 'engraving', default: 0, reset: false},
 	];
 
 	// make sure that data is an object (and nothing else)
@@ -457,7 +457,7 @@ function buildMyHeroData(data) {
 		} else {
 			// add properties to heroes if they're missing
 			for(const prop of expectedProps) {
-				if(!(prop.name in data[herodata[i].id])) {
+				if(prop.reset || !(prop.name in data[herodata[i].id])) {
 					data[herodata[i].id][prop.name] = prop.default;
 				}
 			}
@@ -485,49 +485,49 @@ function buildMyHeroData(data) {
 // function to build or add new props to objects in the Comp array
 function buildCompsData(data) {
 	const expectedProps = [
-		{name: 'author', default: ''},
-		{name: 'desc', default: ''},
-		{name: 'draft', default: false},
-		{name: 'heroes', default: {}},
-		{name: 'lastUpdate', default: new Date()},
-		{name: 'lines', default: []},
-		{name: 'name', default: ''},
-		{name: 'starred', default: false},
-		{name: 'subs', default: []},
-		{name: 'uuid', default: ''},
-		{name: 'tags', default: []},
-		{name: 'hidden', default: false},
-		{name: 'source', default: 'local'},
+		{name: 'author', default: '', reset: false},
+		{name: 'desc', default: '', reset: false},
+		{name: 'draft', default: false, reset: false},
+		{name: 'heroes', default: {}, reset: false},
+		{name: 'lastUpdate', default: new Date(), reset: false},
+		{name: 'lines', default: [], reset: false},
+		{name: 'name', default: '', reset: false},
+		{name: 'starred', default: false, reset: false},
+		{name: 'subs', default: [], reset: false},
+		{name: 'uuid', default: '', reset: false},
+		{name: 'tags', default: [], reset: false},
+		{name: 'hidden', default: false, reset: false},
+		{name: 'source', default: 'local', reset: false},
 	];
 	const expectedHeroProps = [
-		{name: 'ascendLv', default: 6},
-		{name: 'si', default: 20},
-		{name: 'furn', default: 3},
-		{name: 'stars', default: 0},
-		{name: 'engraving', default: 0},
-		{name: 'artifacts', default: {}},
-		{name: 'core', default: false},
-		{name: 'notes', default: ''},
+		{name: 'ascendLv', default: 6, reset: false},
+		{name: 'si', default: 20, reset: false},
+		{name: 'furn', default: 3, reset: false},
+		{name: 'stars', default: 0, reset: false},
+		{name: 'engraving', default: 0, reset: false},
+		{name: 'artifacts', default: {}, reset: false},
+		{name: 'core', default: false, reset: false},
+		{name: 'notes', default: '', reset: false},
 	];
 	const expectedArtifactsProps = [
-		{name: 'primary', default: []},
-		{name: 'secondary', default: []},
-		{name: 'situational', default: []},
+		{name: 'primary', default: [], reset: false},
+		{name: 'secondary', default: [], reset: false},
+		{name: 'situational', default: [], reset: false},
 	]
 	const expectedLineProps = [
-		{name: 'name', default: ''},
-		{name: 'heroes', default: ['unknown','unknown','unknown','unknown','unknown']},
-		{name: 'type', default: 'player'},
-		{name: 'beasts', default: {}},
+		{name: 'name', default: '', reset: false},
+		{name: 'heroes', default: ['unknown','unknown','unknown','unknown','unknown'], reset: false},
+		{name: 'type', default: 'player', reset: false},
+		{name: 'beasts', default: {}, reset: false},
 	];
 	const expectedBeastProps = [
-		{name: 'primary', default: []},
-		{name: 'secondary', default: []},
-		{name: 'situational', default: []},
+		{name: 'primary', default: [], reset: false},
+		{name: 'secondary', default: [], reset: false},
+		{name: 'situational', default: [], reset: false},
 	];
 	const expectedSubProps = [
-		{name: 'name', default: ''},
-		{name: 'heroes', default: []},
+		{name: 'name', default: '', reset: false},
+		{name: 'heroes', default: [], reset: false},
 	];
 
 	// make sure that data is an array
@@ -537,7 +537,7 @@ function buildCompsData(data) {
 	for(let comp of data) {
 		// add top-level props as required
 		for(const prop of expectedProps) {
-			if(!(prop.name in comp)) comp[prop.name] = prop.default;
+			if(prop.reset || !(prop.name in comp)) comp[prop.name] = prop.default;
 		}
 		// delete extra top-level props
 		for(let prop in comp) {
@@ -546,13 +546,13 @@ function buildCompsData(data) {
 		// clean up hero and artifacts props
 		for(const hero in comp.heroes) {
 			for(const prop of expectedHeroProps) {
-				if(!(prop.name in comp.heroes[hero])) comp.heroes[hero][prop.name] = prop.default;
+				if(prop.reset || !(prop.name in comp.heroes[hero])) comp.heroes[hero][prop.name] = prop.default;
 			}
 			for(let prop in comp.heroes[hero]) {
 				if(!expectedHeroProps.some(e => e.name === prop)) delete comp.heroes[hero][prop];
 			}
 			for(const prop of expectedArtifactsProps) {
-				if(!(prop.name in comp.heroes[hero].artifacts)) comp.heroes[hero].artifacts[prop.name] = prop.default;
+				if(prop.reset || !(prop.name in comp.heroes[hero].artifacts)) comp.heroes[hero].artifacts[prop.name] = prop.default;
 			}
 			for(let prop in comp.heroes[hero].artifacts) {
 				if(!expectedArtifactsProps.some(e => e.name === prop)) delete comp.heroes[hero].artifacts[prop];
@@ -561,13 +561,13 @@ function buildCompsData(data) {
 		// clean up line props
 		for(let line of comp.lines) {
 			for(const prop of expectedLineProps) {
-				if(!(prop.name in line)) line[prop.name] = prop.default;
+				if(prop.reset || !(prop.name in line)) line[prop.name] = prop.default;
 			}
 			for(let prop in line) {
 				if(!expectedLineProps.some(e => e.name === prop)) delete line[prop];
 			}
 			for(const prop of expectedBeastProps) {
-				if(!(prop.name in line.beasts)) line.beasts[prop.name] = prop.default;
+				if(prop.reset || !(prop.name in line.beasts)) line.beasts[prop.name] = prop.default;
 			}
 			for(let prop in line.beasts) {
 				if(!expectedBeastProps.some(e => e.name === prop)) delete line.beasts[prop];
@@ -576,7 +576,7 @@ function buildCompsData(data) {
 		// clean up sub props
 		for(let sub of comp.subs) {
 			for(const prop of expectedSubProps) {
-				if(!(prop.name in sub)) sub[prop.name] = prop.default;
+				if(prop.reset || !(prop.name in sub)) sub[prop.name] = prop.default;
 			}
 			for(let prop in sub) {
 				if(!expectedSubProps.some(e => e.name === prop)) delete sub[prop];
