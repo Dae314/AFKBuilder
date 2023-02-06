@@ -1,5 +1,5 @@
 # AFKBuilder
-<sup>version: 2.2.4</sup>
+<sup>version: 2.3.0</sup>
 
 AFKBuilder is a tool designed to help players build, share, and use community made team compositions for AFK Arena.
 
@@ -9,7 +9,7 @@ This project uses Svelte as the main front end library. All game logic runs in J
 
 ### Prerequisites
 
-To compile, you must have NodeJS >=14.16.1 installed.
+To compile, you must have NodeJS >=18.12.1 installed.
 
 ### Installing
 
