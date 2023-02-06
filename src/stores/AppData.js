@@ -266,140 +266,137 @@ window.validateComp = async function(data) {
 
 // function to build or add in new app data top level structures
 function buildAppData(data) {
+	// reset option causes the associated prop to be reset to default every time the app loads
 	const expectedProps = [
-		{name: 'activeView', default: 'comps'},
-		{name: 'selectedComp', default: null},
-		{name: 'selectedUUID', default: null},
-		{name: 'dismissImportWarn', default: false},
-		{name: 'dismissCookieConsent', default: false},
-		{name: 'colorProfile', default: 'dark'},
-		{name: 'expandHeader', default: false},
-		{name: 'maxDescLen', default: maxDescLen},
-		{name: 'maxCompTags', default: maxCompTags},
-		{name: 'maxNoteLen', default: maxNoteLen},
-		{name: 'compShowHidden', default: false},
-		{name: 'compGroups', default: []},
-		{name: 'compLastUpdate', default: new Date('January 1, 1990 03:00:00')},
-		{name: 'user', default: {}},
-		{name: 'HL', default: {}},
-		{name: 'MH', default: {}},
-		{name: 'REC', default: {}},
-		{name: 'Comps', default: []},
+		{name: 'activeView', default: 'comps', reset: false},
+		{name: 'selectedComp', default: null, reset: true},
+		{name: 'selectedUUID', default: null, reset: true},
+		{name: 'dismissImportWarn', default: false, reset: false},
+		{name: 'dismissCookieConsent', default: false, reset: false},
+		{name: 'colorProfile', default: 'dark', reset: false},
+		{name: 'expandHeader', default: false, reset: false},
+		{name: 'maxDescLen', default: maxDescLen, reset: true},
+		{name: 'maxCompTags', default: maxCompTags, reset: true},
+		{name: 'maxNoteLen', default: maxNoteLen, reset: true},
+		{name: 'compShowHidden', default: false, reset: false},
+		{name: 'compGroups', default: [], reset: false},
+		{name: 'compLastUpdate', default: new Date('January 1, 1990 03:00:00'), reset: false},
+		{name: 'user', default: {}, reset: false},
+		{name: 'HL', default: {}, reset: false},
+		{name: 'MH', default: {}, reset: false},
+		{name: 'REC', default: {}, reset: false},
+		{name: 'Comps', default: [], reset: false},
 	];
 	const expectedUserProps = [
-		{name: 'jwt', default: ''},
-		{name: 'username', default: ''},
-		{name: 'id', default: ''},
-		{name: 'avatar', default: ''},
-		{name: 'local_comps', default: {}},
-		{name: 'my_heroes', default: {}},
-		{name: 'liked_comps', default: []},
-		{name: 'disliked_comps', default: []},
-		{name: 'published_comps', default: []},
-		{name: 'saved_comps', default: []},
+		{name: 'jwt', default: '', reset: false},
+		{name: 'username', default: '', reset: false},
+		{name: 'id', default: '', reset: false},
+		{name: 'avatar', default: '', reset: false},
+		{name: 'local_comps', default: {}, reset: false},
+		{name: 'my_heroes', default: {}, reset: false},
+		{name: 'liked_comps', default: [], reset: false},
+		{name: 'disliked_comps', default: [], reset: false},
+		{name: 'published_comps', default: [], reset: false},
+		{name: 'saved_comps', default: [], reset: false},
 	]
 	const expectedHLProps = [
-		{name: 'Sort', default: 'name'},
-		{name: 'Order', default: 'asc'},
-		{name: 'SearchStr', default: ''},
-		{name: 'ShowLB', default: true},
-		{name: 'ShowM', default: true},
-		{name: 'ShowW', default: true},
-		{name: 'ShowGB', default: true},
-		{name: 'ShowC', default: true},
-		{name: 'ShowH', default: true},
-		{name: 'ShowD', default: true},
-		{name: 'ShowInt', default: true},
-		{name: 'ShowAgi', default: true},
-		{name: 'ShowStr', default: true},
-		{name: 'ShowMage', default: true},
-		{name: 'ShowWar', default: true},
-		{name: 'ShowTank', default: true},
-		{name: 'ShowSup', default: true},
-		{name: 'ShowRan', default: true},
-		{name: 'BeastSort', default: 'name'},
-		{name: 'BeastOrder', default: 'asc'},
-		{name: 'BeastSearch', default: ''},
-		{name: 'ArtiShowMage', default: true},
-		{name: 'ArtiShowWar', default: true},
-		{name: 'ArtiShowTank', default: true},
-		{name: 'ArtiShowSup', default: true},
-		{name: 'ArtiShowRan', default: true},
-		{name: 'ArtiSort', default: 'name'},
-		{name: 'ArtiOrder', default: 'asc'},
-		{name: 'ArtiSearch', default: ''},
+		{name: 'Sort', default: 'name', reset: true},
+		{name: 'Order', default: 'asc', reset: true},
+		{name: 'SearchStr', default: '', reset: true},
+		{name: 'ShowLB', default: true, reset: true},
+		{name: 'ShowM', default: true, reset: true},
+		{name: 'ShowW', default: true, reset: true},
+		{name: 'ShowGB', default: true, reset: true},
+		{name: 'ShowC', default: true, reset: true},
+		{name: 'ShowH', default: true, reset: true},
+		{name: 'ShowD', default: true, reset: true},
+		{name: 'ShowInt', default: true, reset: true},
+		{name: 'ShowAgi', default: true, reset: true},
+		{name: 'ShowStr', default: true, reset: true},
+		{name: 'ShowMage', default: true, reset: true},
+		{name: 'ShowWar', default: true, reset: true},
+		{name: 'ShowTank', default: true, reset: true},
+		{name: 'ShowSup', default: true, reset: true},
+		{name: 'ShowRan', default: true, reset: true},
+		{name: 'BeastSort', default: 'name', reset: true},
+		{name: 'BeastOrder', default: 'asc', reset: true},
+		{name: 'BeastSearch', default: '', reset: true},
+		{name: 'ArtiShowMage', default: true, reset: true},
+		{name: 'ArtiShowWar', default: true, reset: true},
+		{name: 'ArtiShowTank', default: true, reset: true},
+		{name: 'ArtiShowSup', default: true, reset: true},
+		{name: 'ArtiShowRan', default: true, reset: true},
+		{name: 'ArtiSort', default: 'name', reset: true},
+		{name: 'ArtiOrder', default: 'asc', reset: true},
+		{name: 'ArtiSearch', default: '', reset: true},
 	];
 	const expectedMHProps = [
-		{name: 'Sort', default: 'name'},
-		{name: 'Order', default: 'asc'},
-		{name: 'SearchStr', default: ''},
-		{name: 'ShowLB', default: true},
-		{name: 'ShowM', default: true},
-		{name: 'ShowW', default: true},
-		{name: 'ShowGB', default: true},
-		{name: 'ShowC', default: true},
-		{name: 'ShowH', default: true},
-		{name: 'ShowD', default: true},
-		{name: 'ShowInt', default: true},
-		{name: 'ShowAgi', default: true},
-		{name: 'ShowStr', default: true},
-		{name: 'ShowMage', default: true},
-		{name: 'ShowWar', default: true},
-		{name: 'ShowTank', default: true},
-		{name: 'ShowSup', default: true},
-		{name: 'ShowRan', default: true},
-		{name: 'lastUpdate', default: new Date('January 1, 1990 03:00:00')},
-		{name: 'List', default: {}},
-		{name: 'openSection', default: 0},
+		{name: 'Sort', default: 'name', reset: true},
+		{name: 'Order', default: 'asc', reset: true},
+		{name: 'SearchStr', default: '', reset: true},
+		{name: 'ShowLB', default: true, reset: true},
+		{name: 'ShowM', default: true, reset: true},
+		{name: 'ShowW', default: true, reset: true},
+		{name: 'ShowGB', default: true, reset: true},
+		{name: 'ShowC', default: true, reset: true},
+		{name: 'ShowH', default: true, reset: true},
+		{name: 'ShowD', default: true, reset: true},
+		{name: 'ShowInt', default: true, reset: true},
+		{name: 'ShowAgi', default: true, reset: true},
+		{name: 'ShowStr', default: true, reset: true},
+		{name: 'ShowMage', default: true, reset: true},
+		{name: 'ShowWar', default: true, reset: true},
+		{name: 'ShowTank', default: true, reset: true},
+		{name: 'ShowSup', default: true, reset: true},
+		{name: 'ShowRan', default: true, reset: true},
+		{name: 'lastUpdate', default: new Date('January 1, 1990 03:00:00'), reset: false},
+		{name: 'List', default: {}, reset: false},
+		{name: 'openSection', default: 0, reset: true},
 	];
 	const expectedRECProps = [
-		{name: 'openSection', default: 0},
+		{name: 'openSection', default: 0, reset: true},
 	];
 	const expectedGroupProps = [
-		{name: 'name', default: 'New Group'},
-		{name: 'uuid', default: ''},
-		{name: 'comps', default: []},
-		{name: 'createdAt', default: new Date()}
+		{name: 'name', default: 'New Group', reset: false},
+		{name: 'uuid', default: '', reset: false},
+		{name: 'comps', default: [], reset: false},
+		{name: 'createdAt', default: new Date(), reset: false}
 	];
 
 	// make sure that data is an object (and nothing else)
 	if(!isObject(data)) throw new Error('AppData must be a plain Javascript object.');
 
 	// data must be an object at this point, so make sure it's consistent with the format we expect
-	// add top-level props as required
+	// add top-level props as required, and reset props that should be reset
 	for(const prop of expectedProps) {
-		if(!(prop.name in data)) data[prop.name] = prop.default;
+		if(prop.reset || !(prop.name in data)) data[prop.name] = prop.default;
 	}
 	// delete extra top-level props
 	for(let prop in data) {
 		if(!expectedProps.some(e => e.name === prop)) delete data[prop];
 	}
-	// limits are special and should always be updated
-	data.maxDescLen = expectedProps.find(e => e.name === 'maxDescLen').default;
-	data.maxCompTags = expectedProps.find(e => e.name === 'maxCompTags').default;
-	data.maxNoteLen = expectedProps.find(e => e.name === 'maxNoteLen').default;
 
-	// add User props as required
+	// add User props as required, and reset props that should be reset
 	for(const prop of expectedUserProps) {
-		if(!(prop.name in data.user)) data.user[prop.name] = prop.default;
+		if(prop.reset || !(prop.name in data.user)) data.user[prop.name] = prop.default;
 	}
 	// delete extra User props
 	for(let prop in data.user) {
 		if(!expectedUserProps.some(e => e.name === prop)) delete data.user[prop];
 	}
 
-	// add HL props as required
+	// add HL props as required, and reset props that should be reset
 	for(const prop of expectedHLProps) {
-		if(!(prop.name in data.HL)) data.HL[prop.name] = prop.default;
+		if(prop.reset || !(prop.name in data.HL)) data.HL[prop.name] = prop.default;
 	}
 	// delete extra HL props
 	for(let prop in data.HL) {
 		if(!expectedHLProps.some(e => e.name === prop)) delete data.HL[prop];
 	}
 
-	// add MH props as required
+	// add MH props as required, and reset props that should be reset
 	for(const prop of expectedMHProps) {
-		if(!(prop.name in data.MH)) data.MH[prop.name] = prop.default;
+		if(prop.reset || !(prop.name in data.MH)) data.MH[prop.name] = prop.default;
 	}
 	// delete extra MH props
 	for(let prop in data.MH) {
@@ -408,9 +405,9 @@ function buildAppData(data) {
 	// rebuild MH.List
 	data.MH.List = buildMyHeroData(data.MH.List);
 
-	// add REC props as required
+	// add REC props as required, and reset props that should be reset
 	for(const prop of expectedRECProps) {
-		if(!(prop.name in data.REC)) data.REC[prop.name] = prop.default;
+		if(prop.reset || !(prop.name in data.REC)) data.REC[prop.name] = prop.default;
 	}
 	// delete extra REC props
 	for(let prop in data.REC) {
@@ -419,9 +416,9 @@ function buildAppData(data) {
 
 	// rebuild comp groups
 	for(let group of data.compGroups) {
-		// add group props as required
+		// add group props as required, and reset props that should be reset
 		for(const prop of expectedGroupProps) {
-			if(!(prop.name in group)) group[prop.name] = prop.default;
+			if(prop.reset || !(prop.name in group)) group[prop.name] = prop.default;
 		}
 		// delete extra group props
 		for(let prop in group) {
@@ -651,11 +648,7 @@ async function performCompsValidation() {
 
 if(window.localStorage.getItem('appData') !== null) {
 	// Load AppData from localstorage if it exists
-	appdata = JSON.parse(window.localStorage.getItem('appData'))
-	appdata.HL.SearchStr = '';
-	appdata.HL.BeastSearch = '';
-	appdata.HL.ArtiSearch = '';
-	appdata.MH.SearchStr = '';
+	appdata = JSON.parse(window.localStorage.getItem('appData'));
 	// rebuild app data structure (adds any new attributes and also rebuilds MH.List)
 	appdata = buildAppData(appdata);
 	// JSON doesn't parse date objects correctly, so need to re-initialize them
