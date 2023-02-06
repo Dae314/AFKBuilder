@@ -317,6 +317,17 @@ function buildAppData(data) {
 		{name: 'ShowTank', default: true},
 		{name: 'ShowSup', default: true},
 		{name: 'ShowRan', default: true},
+		{name: 'BeastSort', default: 'name'},
+		{name: 'BeastOrder', default: 'asc'},
+		{name: 'BeastSearch', default: ''},
+		{name: 'ArtiShowMage', default: true},
+		{name: 'ArtiShowWar', default: true},
+		{name: 'ArtiShowTank', default: true},
+		{name: 'ArtiShowSup', default: true},
+		{name: 'ArtiShowRan', default: true},
+		{name: 'ArtiSort', default: 'name'},
+		{name: 'ArtiOrder', default: 'asc'},
+		{name: 'ArtiSearch', default: ''},
 	];
 	const expectedMHProps = [
 		{name: 'Sort', default: 'name'},
@@ -642,6 +653,8 @@ if(window.localStorage.getItem('appData') !== null) {
 	// Load AppData from localstorage if it exists
 	appdata = JSON.parse(window.localStorage.getItem('appData'))
 	appdata.HL.SearchStr = '';
+	appdata.HL.BeastSearch = '';
+	appdata.HL.ArtiSearch = '';
 	appdata.MH.SearchStr = '';
 	// rebuild app data structure (adds any new attributes and also rebuilds MH.List)
 	appdata = buildAppData(appdata);

@@ -9,7 +9,7 @@
 	
 	function changeHandler(event) {
 		if(!disabled) {
-			curOption = event.target.value;
+			curOption = parseInt(event.target.value);
 			dispatch('change', { value: curOption });
 		}
 	}

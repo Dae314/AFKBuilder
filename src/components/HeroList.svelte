@@ -19,12 +19,9 @@
 	$: allClassEnabled = $AppData.HL.ShowMage && $AppData.HL.ShowWar && $AppData.HL.ShowTank && $AppData.HL.ShowSup && $AppData.HL.ShowRan;
 
 	let displayList = [];
-	let openFilters = false;
 
 	onMount(async () => {
 		displayList = sortDisplayList($AppData.HL.Sort, $AppData.HL.Order, makeDisplayList());
-		$AppData.activeView = 'herolist';
-		dispatch('routeEvent', {action: 'saveData'});
 	});
 
 	function makeDisplayList() {
@@ -325,8 +322,6 @@
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-		height: calc(var(--vh, 1vh) * 100 - var(--headerHeight)); /* gymnastics to set height for mobile browsers */
-		overflow-y: auto;
 		width: 100%;
 	}
 	.sect1 {
@@ -408,7 +403,7 @@
 			left: 50%;
 			opacity: 0;
 			position: absolute;
-			top: 115px;
+			top: 140px;
 			transform: translate(-50%, 0);
 			transition: all 0.2s;
 			visibility: hidden;
@@ -595,7 +590,7 @@
 				}
 			}
 			.filterArea {
-				top: 75px;
+				top: 100px;
 				width: 700px;
 				.filterMasterButton {
 					&:hover {

@@ -25,7 +25,7 @@
 	import Header from './components/Header.svelte';
 	import Explore from './components/Explore.svelte';
 	import Comps from './components/Comps.svelte';
-	import HeroList from './components/HeroList.svelte';
+	import DataTables from './components/DataTables.svelte';
 	import MyHeroes from './components/MyHeroes.svelte';
 	import Recommendations from './components/Recommendations.svelte';
 	import About from './components/About.svelte';
@@ -75,7 +75,7 @@
 			props: { isMobile: isMobile },
 		}),
 		'/herolist': wrap({
-			component: HeroList,
+			component: DataTables,
 			props: { isMobile: isMobile },
 		}),
 		'/about': wrap({
