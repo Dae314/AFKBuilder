@@ -146,10 +146,10 @@
 			<div class="filterSection">
 				<h5>Sort:</h5>
 				<div class="sortArea">
-					<button type="button" class="sortButton" class:selected={$AppData.HL.BeastOrder === 'asc'} on:click={() => updateSort('asc')}>
+					<button type="button" class="sortButton" class:selected={$AppData.HL.ArtiOrder === 'asc'} on:click={() => updateSort('asc')}>
 						<p>A-Z</p>
 					</button>
-					<button type="button" class="sortButton" class:selected={$AppData.HL.BeastOrder === 'desc'} on:click={() => updateSort('desc')}>
+					<button type="button" class="sortButton" class:selected={$AppData.HL.ArtiOrder === 'desc'} on:click={() => updateSort('desc')}>
 						<p>Z-A</p>
 					</button>
 				</div>
