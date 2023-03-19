@@ -13756,7 +13756,7 @@ const HeroData = readable([
 				upgrades: [],
 			},
 		],
-		si_benchmark: 30,
+		si_benchmark: 0,
 		sig_item: {
 			name: 'Strengthen Depths of Darkness',
 			image: './img/si/ezizh_aw.webp',
@@ -13773,7 +13773,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		furn_benchmark: 9,
+		furn_benchmark: 0,
 		furniture: {
 			name: 'Strengthen Mind Flay',
 			image: './img/furniture/ezizh_aw.webp',
@@ -13786,7 +13786,7 @@ const HeroData = readable([
 				},
 			],
 		},
-		engraving_benchmark: 60,
+		engraving_benchmark: 0,
 	},
 	{ id: 'vyloris',
 		name: 'Vyloris',
