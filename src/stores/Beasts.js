@@ -176,7 +176,7 @@ const Beasts = readable([
 				desc: 'Blaze Ridge dashes toward and swipes its claws at the target, dealing beast damage of <em>380%</em> Attack Rating to <em>1</em> enemies, with the priority being enemy heroes that have received the most overall damage. When the surviving allied hero with the highest initial Attack Rating deals high damage after their Ultiamte is used, Blade Ridge recovers additional Beast Energy.',
 				unlock: 0,
 				upgrades: [
-					{ desc: 'Reduces the cooldown of Radiing Chariot by <em>2</em> seconds. If damage is dealt to a target, Blaze Ridge will receive additional Beast Energy.',
+					{ desc: 'Reduces the cooldown of Raiding Chariot by <em>2</em> seconds. If damage is dealt to a target, Blaze Ridge will receive additional Beast Energy.',
 						unlock: 6,
 						type: 'level',
 					},
@@ -348,7 +348,7 @@ const Beasts = readable([
 						unlock: 12,
 						type: 'level',
 					},
-					{ desc: 'If an enemy has a shield within the Guarding Shield, their shield value will be weakened by <em>10%</em> of their max health per second, with the lost shielf value per second not exceeding <em>10%</em> of Rock Crown Lizard\'s max health. Any shield value lost increases the Guarding Shield\'s maximum borne damage by an equal amount.',
+					{ desc: 'If an enemy has a shield within the Guarding Shield, their shield value will be weakened by <em>10%</em> of their max health per second, with the lost shield value per second not exceeding <em>10%</em> of Rock Crown Lizard\'s max health. Any shield value lost increases the Guarding Shield\'s maximum borne damage by an equal amount.',
 						unlock: 18,
 						type: 'level',
 					},
@@ -373,7 +373,7 @@ const Beasts = readable([
 			{ name: 'Advanced Training',
 				type: 'level',
 				image: './img/beasts/skills/rock_crown_lizard4.png',
-				desc: 'When a shield ends, most of the buffs of the enemies and most of the debuffs of the aliles within the shield are removed.',
+				desc: 'When a shield ends, most of the buffs of the enemies and most of the debuffs of the allies within the shield are removed.',
 				unlock: 15,
 				upgrades: [
 				],
