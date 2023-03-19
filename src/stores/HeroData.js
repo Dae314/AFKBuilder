@@ -5165,7 +5165,7 @@ const HeroData = readable([
 						unlock: 30,
 						type: 'engraving',
 					},
-					{ desc: 'Times "Unyielding Spirit" can be triggeres is increased to <em>2</em> times.',
+					{ desc: 'Times "Unyielding Spirit" can be triggered is increased to <em>2</em> times.',
 						unlock: 60,
 						type: 'engraving',
 					},
@@ -8830,7 +8830,7 @@ const HeroData = readable([
 			{ name: 'Butchery',
 				type: 'level',
 				image: './img/skills/nara1.png',
-				desc: 'Nara deals <em>110%</em> damage to the enemy target. Damage ignores the target\'s defense and invincibility effects. If the target\'s health is below <em>40%</em>, then the ability\'s damage is multiplied <em>6</em> times. However, if the auto battle feature is being used, this ability will not deal damage to any enemy targets with health above a <em>40%</em>.',
+				desc: 'Nara deals <em>110%</em> damage to the enemy target. Damage ignores the target\'s defense and invincibility effects. If the target\'s health is below <em>40%</em>, then the ability\'s damage is multiplied <em>6</em> times. However, if the auto battle feature is being used, this ability will not deal damage to any enemy targets with health above <em>40%</em>.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'Restores an additional <em>250</em> Energy if enemy target is slain. If a summoned entity is slain, the amount of additional Energy points that are recovered is increased to <em>700</em> points.',
@@ -9659,7 +9659,7 @@ const HeroData = readable([
 		sig_item: {
 			name: 'Adrenaline Shot',
 			image: './img/si/silas.png',
-			desc: 'Each time an enemy loses <em>1%</em> of their max health, their Health Recovery Rate decreases by <em>0.6%</em>, which may be further decreased up until it reaches a total value of <em>38%</em>. Each time an ally loses <em>1%</em> of their max health, their Health Recovery Rate increases by <em>0.8%</em>, which may be increased up until it reaches a total value of <em>48%</em>.',
+			desc: 'Each time an enemy loses <em>1%</em> of their max health, their Health Recovery Rate decreases by <em>0.6%</em>, which may be further decreased up until it reaches a total value of <em>36%</em>. Each time an ally loses <em>1%</em> of their max health, their Health Recovery Rate increases by <em>0.8%</em>, which may be increased up until it reaches a total value of <em>48%</em>.',
 			upgrades: [
 				{ desc: 'Health Recovery Rate of enemies is decreased by <em>0.8%</em> until it reaches <em>48%</em>.',
 					unlock: 10,
@@ -15786,7 +15786,7 @@ const HeroData = readable([
 			{ name: 'Stand Firm',
 				type: 'level',
 				image: './img/skills/joa1.png',
-				desc: 'Passive. Joan of Arc\'s standard protects her, reduccing her damage taken by <em>30%</em> and grants her immunity from knockbacks. The reduced damage is converted into Joan of Arc\'s Protection Value, up to <em>100%</em> of her max health.<br/><br/>When actively used, Joan of Arc repels most debuffs from all allied heroes and restores their health equal to <em>100%</em> of her current Protection Value. The health healed is no less than <em>250%</em> of her Attack Rating. When Joan of Arc casts her Ultimate, allied heroes except herself gain <em>12%</em> Attack Rating for <em>8</em> seconds (this effect cannot stack).<br/><br/>Protection Value will be cleared each time Joan of Arc casts her Ultimate.',
+				desc: 'Passive. Joan of Arc\'s standard protects her, reducing her damage taken by <em>30%</em> and grants her immunity from knockbacks. The reduced damage is converted into Joan of Arc\'s Protection Value, up to <em>100%</em> of her max health.<br/><br/>When actively used, Joan of Arc repels most debuffs from all allied heroes and restores their health equal to <em>100%</em> of her current Protection Value. The health healed is no less than <em>250%</em> of her Attack Rating. When Joan of Arc casts her Ultimate, allied heroes except herself gain <em>12%</em> Attack Rating for <em>8</em> seconds (this effect cannot stack).<br/><br/>Protection Value will be cleared each time Joan of Arc casts her Ultimate.',
 				unlock: 1,
 				upgrades: [
 					{ desc: 'When Joan of Arc casts her Ultimate, she recovers <em>5%</em> of her max health per second for <em>8</em> seconds.',
