@@ -12363,7 +12363,7 @@ const HeroData = readable([
 			},
 			{ name: 'Head Held High',
 				type: 'level',
-				image: './img/skills/Veithael4.png',
+				image: './img/skills/veithael4.png',
 				desc: 'Active: Head Held High is considered a Normal Attack for Veithael. When used, it damages enemies in front of him <em>2</em> times for <em>140%</em> of his Attack Rating. If this skill triggers an Energy Burst, the Energy Burst deals additional damage equal to <em>10%</em> of Veithael\'s max health.<br/><br/>Passive: Each time Veithael deals damage, he gains <em>1%</em> Attack Rating (stacks up to <em>20</em> times). At max stacks, Veithael gains <em>25</em> Physical Pierce. If Veithael is being controlled, he will lose his Attack Rating and Physical Pierce buffs.',
 				unlock: 61,
 				upgrades: [
