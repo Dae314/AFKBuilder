@@ -746,7 +746,7 @@ const Beasts = readable([
 		skills: [
 			{ name: 'Gossamer Wings',
 				type: 'level',
-				image: './img/beasts/skills/phantasmoth2.png',
+				image: './img/beasts/skills/phantasmoth1.png',
 				desc: 'Phantasmoth bonds with the allied hero that has dealt the highest total damage. When the bonded hero deals damage with their normal attack, they will also inflict the Dreamtorn debuff on the enemy for <em>4</em> seconds. This effect can stack up to <em>1</em> times. Each stack of Dreamtorn reduces the target\'s Tenacity by <em>8</em> points.<br/><br/>The bond consumes <em>125</em> points of Beast Energy per second and lasts until there is insufficient Beast Energy, or if the bonded hero becomes untargetable. The bond can last up to <em>15</em> seconds. When allied heroes use their normal attacks, Phantasmoth gains additional Beast Energy.',
 				unlock: 0,
 				upgrades: [
