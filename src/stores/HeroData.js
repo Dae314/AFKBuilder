@@ -10762,7 +10762,7 @@ const HeroData = readable([
 			{ name: 'Withering Fall',
 				type: 'level',
 				image: './img/skills/baden_aw5.png',
-				desc: 'When an enemy is subject to control effects, for every cumulative damage amounting to <em>10%</em> of Baden\'s max health, his wooden double inflicts AoE damage equal to such value on its surrounding enemies. When the wooden double perishes, it deals the same type of damage at <em>1.5</em> times the value.',
+				desc: 'When an enemy is being controlled, every time the total damage they\'ve taken reaches <em>10%</em> of Baden\'s max health, his wooden double deals an equal amount of AoE damage to nearby enemies. When the wooden double dies, it deals <em>1.5</em> times this damage.',
 				unlock: 81,
 				upgrades: [],
 			},
