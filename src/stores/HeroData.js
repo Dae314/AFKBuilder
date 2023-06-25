@@ -9590,7 +9590,7 @@ const HeroData = readable([
 			{ name: 'Bone Prison',
 				type: 'level',
 				image: './img/skills/torne2.png',
-				desc: 'Torne traps an enemy within a prison of bones and then proceeds to smash into the enemy target, dealing <em>260%</em> damage to them, also causing them to be knocked backwards. After being knocked backwards, the enemy loses <em>8</em> Haste points for a duration of <em>100</em> seconds.',
+				desc: 'Torne traps an enemy within a prison of bones and then proceeds to smash into the enemy target, dealing <em>260%</em> damage to them, also causing them to be knocked backwards. After being knocked backwards, the enemy loses <em>100</em> Haste points for a duration of <em>8</em> seconds.',
 				unlock: 11,
 				upgrades: [
 					{ desc: 'Damage is increased to <em>290%</em>.',
