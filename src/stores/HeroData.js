@@ -14726,7 +14726,7 @@ const HeroData = readable([
 			{ name: 'Cataclysmic Roar',
 				type: 'level',
 				image: './img/skills/olgath4.png',
-				desc: 'Passive. Whenever Olgath receives melee damage exceeding <em>10%</em> of his current health, Dealth Knell will roar <em>3</em> times. Each roar will stun nearby enemies for a short time and knock them back. This effect can only trigger once every <em>15</em> seconds.',
+				desc: 'Passive. Whenever Olgath receives melee damage exceeding <em>10%</em> of his current health, Death Knell will roar <em>3</em> times. Each roar will stun nearby enemies for a short time and knock them back. This effect can only trigger once every <em>15</em> seconds.',
 				unlock: 61,
 				upgrades: [
 					{ desc: 'Each roar damages nearby enemies for <em>260%</em> of Olgath\'s Attack Rating.',
