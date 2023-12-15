@@ -30,6 +30,7 @@
 	import Recommendations from './components/Recommendations.svelte';
 	import About from './components/About.svelte';
 	import CookieConsent from './components/CookieConsent.svelte';
+	import Retirement from './components/Retirement.svelte';
 	import Profile from './components/Profile.svelte';
 	import PostLogin from './components/PostLogin.svelte';
 	import User from './components/User.svelte';
@@ -736,6 +737,7 @@
 				</div>
 			</main>
 			<CookieConsent on:routeEvent={handleRouteEvent} />
+			<Retirement on:routeEvent={handleRouteEvent} />
 		{/if}
 	</div>
 	<div class="noticeContainer"
